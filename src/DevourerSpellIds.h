@@ -70,6 +70,26 @@ namespace Devourer
     constexpr uint32_t SpellBabyVoidFrenzyHit       = 9100407;
     constexpr uint32_t SpellBabyTeething            = 9100408;
     constexpr uint32_t SpellBabyChewed              = 9100409;
+    constexpr uint32_t SpellTalentIronStomach1      = 9100050;
+    constexpr uint32_t SpellTalentIronStomach2      = 9100051;
+    constexpr uint32_t SpellTalentIronStomach3      = 9100052;
+    constexpr uint32_t SpellTalentIronStomach4      = 9100053;
+    constexpr uint32_t SpellTalentIronStomach5      = 9100054;
+    constexpr uint32_t SpellTalentDeepHunger1       = 9100055;
+    constexpr uint32_t SpellTalentDeepHunger2       = 9100056;
+    constexpr uint32_t SpellTalentDeepHunger3       = 9100057;
+    constexpr uint32_t SpellTalentDeepHunger4       = 9100058;
+    constexpr uint32_t SpellTalentDeepHunger5       = 9100059;
+    constexpr uint32_t SpellTalentFluidFlesh1       = 9100060;
+    constexpr uint32_t SpellTalentFluidFlesh2       = 9100061;
+    constexpr uint32_t SpellTalentFluidFlesh3       = 9100062;
+    constexpr uint32_t SpellTalentFluidFlesh4       = 9100063;
+    constexpr uint32_t SpellTalentFluidFlesh5       = 9100064;
+    constexpr uint32_t SpellTalentSwellingBrood1    = 9100065;
+    constexpr uint32_t SpellTalentSwellingBrood2    = 9100066;
+    constexpr uint32_t SpellTalentSwellingBrood3    = 9100067;
+    constexpr uint32_t SpellTalentSwellingBrood4    = 9100068;
+    constexpr uint32_t SpellTalentSwellingBrood5    = 9100069;
 }
 
 #endif

@@ -1,6 +1,6 @@
 # 003 — SQL: install and uninstall the class
 
-Status: open (after 001/002 are drafted)
+Status: done in cloud (PR), waiting for local test
 
 ## Goal
 All server-side data for class 10 and the Devourer content, as SQL that installs cleanly on a stock

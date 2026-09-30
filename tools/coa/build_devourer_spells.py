@@ -3,11 +3,14 @@
 
     python build_devourer_spells.py --spell-dbc <Spell.dbc to start from> --out <folder>
 
-Starts from a client Spell.dbc (CoA's, or the package's), removes every row in the Devourer's range
-(9100000-9100899) and adds the spells defined below. Writes:
-    <out>/DBFilesClient/Spell.dbc          for the client patch (patch-T)
+Starts from a client Spell.dbc (the stock 3.3.5a one works: it only lends template rows), removes every row in
+the Devourer's range (9100000-9100899) and adds the spells defined below. Writes:
+    <out>/DBFilesClient/Spell.dbc          not needed any more: tools/client/build_client_patch.py builds the
+                                           client's Spell.dbc from the committed SQL
     <out>/devourer_spells.sql              the same rows for the server's `spell_dbc`, plus script bindings,
                                            proc rules, custom attributes, the shape table and the unlock item
+                                           (committed as data/sql/db-world/2026_09_30_02_devourer_spells.sql,
+                                           with a short header on top)
     <out>/DevourerSpellIds.h               the ids for the C++ module
 
 Each spell is cloned from a stock spell (sane flags, visuals, icons) and overridden field by field.
@@ -101,6 +104,11 @@ IDS = {
     "SpellBabyVoidFrenzyHit": 9100407,
     "SpellBabyTeething": 9100408,
     "SpellBabyChewed": 9100409,
+    # --- class 10: placeholder talents (5 ranks each) so every tree can be opened tier by tier ------------------
+    **{f"SpellTalentIronStomach{r}": 9100049 + r for r in range(1, 6)},
+    **{f"SpellTalentDeepHunger{r}": 9100054 + r for r in range(1, 6)},
+    **{f"SpellTalentFluidFlesh{r}": 9100059 + r for r in range(1, 6)},
+    **{f"SpellTalentSwellingBrood{r}": 9100064 + r for r in range(1, 6)},
 }
 I = IDS
 SHAPE_SETHRAK = 1
@@ -138,6 +146,8 @@ DUR_10S, DUR_20S, DUR_5MIN, DUR_10MIN = 1, 18, 5, 6
 DUR_4S = 35
 DUR_1S, DUR_8S, DUR_9S, DUR_30S = 36, 31, 105, 9          # ChaosCore0.3
 SHAPE_BABY = 4
+CLASS_ID = 10                    # CLASS_DEVOURER (core-patch/)
+CLASS_MASK = 1 << (CLASS_ID - 1)
 BABY_DISPLAY = 991063            # creature\\babyberserker, orange; colourings 991062/991064/991065 in devourer_skin
 A_MOD_FEAR, A_PERIODIC_ENERGIZE, A_MOD_RESISTANCE, A_MOD_DISARM, A_SCHOOL_ABSORB, A_MOD_THREAT = 7, 24, 22, 67, 69, 10
 MECHANIC_STUN, MECHANIC_FEAR, MECHANIC_BLEED, MECHANIC_DISARM = 12, 5, 15, 3
@@ -676,6 +686,20 @@ def definitions():
                   aura(A_HEALING_DONE_PCT, -50, target=T_ENEMY)),
     }, ("Plague", "", "Healing done reduced by 50%. $s1 Nature damage every 3 sec.")))
     d += chaoscore03_baby()
+    d += talent_placeholders()
+    return d
+
+
+def talent_placeholders():
+    """Class 10: every talent tier needs 5 points in its tree, so each tree has 5-rank talents that do nothing yet
+    (Glutton: Iron Stomach in tier 0 and Deep Hunger in tier 1; Skinchanger and Brood: one each). The talent rows
+    are in data/sql/db-world/2026_09_30_01_devourer_class.sql."""
+    d = []
+    for key, icon, name in (("SpellTalentIronStomach", 166, "Iron Stomach"), ("SpellTalentDeepHunger", 166, "Deep Hunger"),
+                            ("SpellTalentFluidFlesh", 3058, "Fluid Flesh"),
+                            ("SpellTalentSwellingBrood", 689, "Swelling Brood")):
+        for rank in range(1, 6):
+            d.append(talent_passive(f"{key}{rank}", icon, name, "Placeholder talent: it has no effect yet."))
     return d
 
 
@@ -750,19 +774,17 @@ def shape_sql() -> list[str]:
         f" {I['SpellBabyOverrun']}, {I['SpellBabyGnaw']}, {I['SpellBabyPitifulWail']},"
         f" {I['SpellBabyVoidFrenzy']}, {I['SpellBabyTeething']}, {BABY_DISPLAY});",
         "",
-        "-- Until Sethrak can be devoured in the world, an idol teaches the shape. New Devourers start with one.",
+        "-- Until Sethrak can be devoured in the world, an idol teaches the shape. The module gives one to every",
+        "-- Devourer that has no shape yet.",
         f"DELETE FROM `item_template` WHERE `entry` IN ({ITEM_SETHRAK_IDOL}, {ITEM_BERSERKER_IDOL});",
         "INSERT INTO `item_template` (`entry`, `class`, `subclass`, `name`, `displayid`, `Quality`, `Flags`,"
         " `BuyCount`, `AllowableClass`, `AllowableRace`, `ItemLevel`, `RequiredLevel`, `stackable`, `bonding`,"
         " `spellid_1`, `spelltrigger_1`, `spellcharges_1`, `spellcooldown_1`, `spellcategorycooldown_1`, `description`)"
         " VALUES",
-        f"    ({ITEM_SETHRAK_IDOL}, 15, 0, 'Idol of the Sethrak', 34955, 3, 0, 1, 524288, -1, 1, 1, 1, 1,"
+        f"    ({ITEM_SETHRAK_IDOL}, 15, 0, 'Idol of the Sethrak', 34955, 3, 0, 1, {CLASS_MASK}, -1, 1, 1, 1, 1,"
         f" {I['SpellUnlockSethrak']}, 0, -1, -1, -1, 'A serpent idol from the dunes. A Devourer can taste what it remembers.'),",
-        f"    ({ITEM_BERSERKER_IDOL}, 15, 0, 'Idol of the Berserker', 34955, 3, 0, 1, 524288, -1, 1, 1, 1, 1,"
+        f"    ({ITEM_BERSERKER_IDOL}, 15, 0, 'Idol of the Berserker', 34955, 3, 0, 1, {CLASS_MASK}, -1, 1, 1, 1, 1,"
         f" {I['SpellUnlockBerserker']}, 0, -1, -1, -1, 'A void-scarred fang. A Devourer can taste what it remembers.');",
-        "DELETE FROM `playercreateinfo_item` WHERE `race` = 0 AND `class` = 20 AND `itemid` = 9100100;",
-        "INSERT INTO `playercreateinfo_item` (`race`, `class`, `itemid`, `amount`, `Note`) VALUES"
-        " (0, 20, 9100100, 1, 'Devourer: Idol of the Sethrak');",
     ]
 
 
