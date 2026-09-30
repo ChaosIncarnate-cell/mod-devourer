@@ -248,6 +248,9 @@ class Builder:
         self.baked: list[str] = []                     # baked NPC textures of dressed looks copied from CoA
         self.committed = sorted(p for p in SQL_DIR.glob("2026_09_30_0*.sql") if ".generated." not in p.name)
         self.class_sql: list[str] = []
+        self.overwrite_reserved = False                # --overwrite-reserved
+        self.own_client = client                       # the client without --foreign patches: a model the patch
+                                                       # needs is carried unless this has it
         self.looks_sql: list[str] = []
 
     # DBCs ------------------------------------------------------------------------------------------------
@@ -275,8 +278,13 @@ class Builder:
         r = self.report
         r.info("DBCs (client copies):")
         taken = rules.taken_ids(self.load_rules)
+        if taken and not self.overwrite_reserved:
+            raise BuildError("ids the Devourer uses are already taken in the client's DBCs:\n  " + "\n  ".join(taken)
+                             + "\n  (copies of an earlier Devourer patch inside another patch? then run again with "
+                               "--overwrite-reserved)")
         if taken:
-            raise BuildError("ids the Devourer uses are already taken in the client's DBCs:\n  " + "\n  ".join(taken))
+            r.warn("ids in the Devourer's ranges found in the client's DBCs (--overwrite-reserved: the Devourer's "
+                   "rows replace them):\n    " + "\n    ".join(taken))
 
         # rows of the committed SQL, the same values the server gets
         for dbc_name, spec in sorted(LAYOUTS.items()):
@@ -289,7 +297,7 @@ class Builder:
                 unknown = set(row) - set(cols)
                 if unknown:
                     raise BuildError(f"{spec['table']} {rid}: unknown columns {sorted(unknown)}")
-                if d.find(rid) is not None:
+                if d.find(rid) is not None and not (self.overwrite_reserved and self.reserved(dbc_name, rid)):
                     raise BuildError(f"{dbc_name}.dbc already has id {rid}")
                 self.add(d, d.encode(client_strings([row.get(c) for c in cols], cols)))
             r.info(f"    {dbc_name}: {len(rows)} rows from the module's SQL")
@@ -310,6 +318,12 @@ class Builder:
 
         self.build_gt()
         self.build_char_base_info()
+
+    @staticmethod
+    def reserved(dbc_name: str, rid: int) -> bool:
+        """Is this id inside the Devourer's reserved range of that DBC (tools/build_class_dbc_sql.py RESERVED)?"""
+        return any(name == dbc_name + ".dbc" and any(lo <= rid <= hi for lo, hi in ranges)
+                   for name, ranges in rules.RESERVED)
 
     def add(self, d: Dbc, rec: bytes):
         d.put(rec)
@@ -352,11 +366,23 @@ class Builder:
             want |= sqlrows.column_values(self.committed, table, column)
         return {d for d in want if d}
 
+    def own_dbc(self, name: str, layout: str) -> Dbc:
+        """A DBC as the client has it without --foreign patches: what the patch must bring itself."""
+        if self.own_client is self.client:
+            return self.dbc(name, layout)
+        data = self.own_client.read("DBFilesClient\\" + name)
+        if data is None:
+            raise BuildError(f"DBFilesClient\\{name} not found in the client's archives")
+        return Dbc(data, name).use_layout(layout)
+
     def build_looks(self):
         r = self.report
-        cdi = self.dbc("CreatureDisplayInfo.dbc", "CreatureDisplayInfo")
-        cmd = self.dbc("CreatureModelData.dbc", "CreatureModelData")
-        need = sorted(d for d in self.wanted_displays() if cdi.find(d) is None)
+        self.dbc("CreatureDisplayInfo.dbc", "CreatureDisplayInfo")          # the tables the patch extends
+        self.dbc("CreatureModelData.dbc", "CreatureModelData")
+        cdi = self.own_dbc("CreatureDisplayInfo.dbc", "CreatureDisplayInfo")
+        cmd = self.own_dbc("CreatureModelData.dbc", "CreatureModelData")
+        from_sql = set(sqlrows.table_rows(self.committed, "creaturedisplayinfo_dbc"))   # the module's own looks
+        need = sorted(d for d in self.wanted_displays() if d not in from_sql and cdi.find(d) is None)
         coa_rows: dict[str, list[list]] = {"CreatureDisplayInfo": [], "CreatureModelData": [],
                                            "CreatureDisplayInfoExtra": []}
         if need:
@@ -375,7 +401,7 @@ class Builder:
                     values = coa_cdi.decode(rec)
                     coa_rows["CreatureDisplayInfo"].append(values)
                     extra = values[3]
-                    if extra and self.dbc("CreatureDisplayInfoExtra.dbc", "CreatureDisplayInfoExtra").find(extra) is None:
+                    if extra and self.own_dbc("CreatureDisplayInfoExtra.dbc", "CreatureDisplayInfoExtra").find(extra) is None:
                         coa_extra = coa_extra or self.coa_dbc("CreatureDisplayInfoExtra")
                         erec = coa_extra.find(extra) if coa_extra else None
                         if erec is None:
@@ -463,7 +489,7 @@ class Builder:
         known = next((k for k in self.files if k.lower() == path.lower()), None)
         if known:
             return self.files[known]
-        if skip_if_in_client and self.client.has(path):
+        if skip_if_in_client and self.own_client.has(path):
             return None
         data = self.coa.read(path) if self.coa else None
         if data is None:
@@ -577,6 +603,12 @@ def main(argv=None) -> int:
     ap.add_argument("--out", type=Path, default=HERE / "out", help="output folder (default tools/client/out)")
     ap.add_argument("--sql-dir", type=Path, default=SQL_DIR, help="where the generated SQL goes")
     ap.add_argument("--no-sql", action="store_true", help="do not write the generated SQL files")
+    ap.add_argument("--foreign", action="append", default=[], metavar="PATCH",
+                    help="another project's patch in Data (e.g. patch-Y.MPQ): its DBC rows are kept, but its models "
+                         "and textures do not count as the client's, so this patch stays complete without it")
+    ap.add_argument("--overwrite-reserved", action="store_true",
+                    help="ids in the Devourer's ranges already in the client (e.g. another patch built on top of an "
+                         "earlier Devourer patch copied them): replace them instead of stopping")
     ap.add_argument("--install", action="store_true", help="copy the patch into the client's Data folder")
     a = ap.parse_args(argv)
 
@@ -617,6 +649,12 @@ def build(a, report: Report) -> int:
         report.info("CoA sources: " + ", ".join(s.label for s in coa.sources))
 
     b = Builder(client, coa, report)
+    b.overwrite_reserved = a.overwrite_reserved
+    foreign = {f.lower() for f in a.foreign}
+    if foreign:
+        b.own_client = Layers([src for src in client.sources if src.label.lower() not in foreign])
+        report.info("  foreign patches (tables kept, files not counted as the client's): "
+                    + ", ".join(sorted(src.label for src in client.sources if src.label.lower() in foreign)))
     b.build_dbcs()
     b.build_looks()
     b.finish_dbcs()

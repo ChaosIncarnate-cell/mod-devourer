@@ -12,12 +12,14 @@
 #include "DBCStores.h"
 #include "DatabaseEnv.h"
 #include "Log.h"
+#include "MapMgr.h"
 #include "ObjectMgr.h"
 #include "Player.h"
 #include "SpellAuras.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
 #include "WorldPacket.h"
+#include "World.h"
 #include "WorldSession.h"
 #include <algorithm>
 #include <cctype>
@@ -101,6 +103,7 @@ namespace Devourer
         }
 
         LoadGrowthData();
+        BuildHints();
         LOG_INFO("module", "mod-devourer: {} shapes, {} colourings, {} creatures that grant them, {} evolutions",
             _shapes.size(), _skins.size(), _sources.size(), _evolutions.size());
     }
@@ -190,6 +193,15 @@ namespace Devourer
             state.Loaded = true;
         }
         return state;
+    }
+
+    void Mgr::BeforeLogout(Player* player)
+    {
+        auto itr = _states.find(player->GetGUID().GetCounter());
+        if (itr == _states.end() || !itr->second.KitShape)
+            return;
+        RememberBar(player, itr->second, true);          // remembers where they are, then takes them off
+        itr->second.KitShape = 0;                        // Forget must not remember the now empty slots
     }
 
     void Mgr::Forget(Player* player)
@@ -340,7 +352,7 @@ namespace Devourer
         Tell(player, newShape ? how + " Its shape is yours: " + shape->Name + "." : how);
     }
 
-    bool Mgr::Unlock(Player* player, uint32 shapeId, uint32 display, bool shiftNow)
+    bool Mgr::Unlock(Player* player, uint32 shapeId, uint32 display, bool shiftNow, bool quiet)
     {
         Shape const* shape = FindShape(shapeId);
         if (!shape || !IsDevourer(player))
@@ -354,14 +366,15 @@ namespace Devourer
         if (display && display != shape->Display && owned.Skins.insert(display).second)
         {
             SaveSkin(player, shapeId, display);
-            if (!isNew)
+            if (!isNew && !quiet)
                 Tell(player, "A new colouring for your " + shape->Name + " shape: " + SkinName(display) +
                     ". Wear it with /devour skin " + SkinName(display) + ".");
         }
 
         if (!player->HasSpell(shape->FormSpell))
             player->learnSpell(shape->FormSpell);
-        SendMenu(player);
+        if (!quiet)
+            SendMenu(player);
 
         // The first time, the body forces itself on its eater.
         if (shiftNow)
@@ -492,12 +505,26 @@ namespace Devourer
                 uint32 const spellId = shape.Kit[i];
                 if (!spellId || !player->HasSpell(spellId))
                     continue;
-                uint32 slot = uint32(_shapeBarSlot) + i;
+                uint32 slot = MAX_ACTION_BUTTONS;
+                bool remembered = false;
                 if (saved != state.Bar.end())
                 {
                     auto own = saved->second.find(spellId);
                     if (own != saved->second.end())
+                    {
                         slot = own->second;
+                        remembered = true;
+                    }
+                }
+                // Never placed before: the first free slot of the main bar (the bar every UI shows), else the
+                // bar at Devourer.ShapeBarSlot.
+                if (!remembered)
+                {
+                    for (uint8 s = 0; s < 12 && slot == MAX_ACTION_BUTTONS; ++s)
+                        if (!player->GetActionButton(s))
+                            slot = s;
+                    if (slot == MAX_ACTION_BUTTONS)
+                        slot = uint32(_shapeBarSlot) + i;
                 }
                 if (slot >= MAX_ACTION_BUTTONS)
                     continue;                                    // NotOnBar, or out of range
@@ -520,7 +547,8 @@ namespace Devourer
         uint32 const guid = player->GetGUID().GetCounter();
         for (uint32 spellId : shape->Kit)
         {
-            if (!spellId)
+            // A spell not learned yet (it opens at a later level) cannot have been taken off the bars.
+            if (!spellId || !player->HasSpell(spellId))
                 continue;
             uint8 found = NotOnBar;
             for (uint8 slot = 0; slot < MAX_ACTION_BUTTONS; ++slot)
@@ -697,12 +725,97 @@ namespace Devourer
         }
     }
 
-    // The shape menu (tools/client/lua/DevourerMenu.lua) is fed by addon messages, one per line, prefix "DVR":
-    //   B                                                  a new list begins
+    // GM: every shape and every colouring, without the one-by-one messages.
+    void Mgr::UnlockAll(Player* player)
+    {
+        if (!IsDevourer(player))
+            return;
+        for (auto const& [id, shape] : _shapes)
+            Unlock(player, id, 0, false, true);
+        for (auto const& [display, skin] : _skins)
+            Unlock(player, skin.ShapeId, display, false, true);
+        Tell(player, "Every shape and colouring is yours.");
+        SendMenu(player, true);
+    }
+
+    // The gallery's "how to get it", built from the world data at startup: which creatures give the shape (and
+    // which colouring), the zone of their first spawn, and the evolution that grows it with its tasks.
+    void Mgr::BuildHints()
+    {
+        _hints.clear();
+        if (QueryResult result = WorldDatabase.Query(
+                "SELECT s.shape_id, s.display_id, ct.name, c.map, c.position_x, c.position_y, c.position_z "
+                "FROM devourer_shape_source s JOIN creature_template ct ON ct.entry = s.creature_entry "
+                "LEFT JOIN creature c ON c.guid = (SELECT MIN(c2.guid) FROM creature c2 WHERE c2.id = s.creature_entry) "
+                "ORDER BY s.shape_id, s.display_id, s.creature_entry"))
+        {
+            do
+            {
+                Field* f = result->Fetch();
+                uint32 const shapeId = f[0].Get<uint32>();
+                uint32 const display = f[1].Get<uint32>();
+                Shape const* shape = FindShape(shapeId);
+                if (!shape)
+                    continue;
+                std::string where = "not placed in the world";
+                if (!f[3].IsNull())
+                {
+                    uint32 const zone = sMapMgr->GetZoneId(PHASEMASK_NORMAL, f[3].Get<uint32>(), f[4].Get<float>(),
+                        f[5].Get<float>(), f[6].Get<float>());
+                    if (AreaTableEntry const* area = sAreaTableStore.LookupEntry(zone))
+                        where = area->area_name[sWorld->GetDefaultDbcLocale()];
+                    else
+                        where = "unknown place";
+                }
+                std::string line = "Devour " + f[2].Get<std::string>() + " - " + where;
+                if (display && display != shape->Display)
+                    line = "Colouring " + SkinName(display) + ": " + line;
+                _hints[shapeId].push_back(line);
+            } while (result->NextRow());
+        }
+        for (Evolution const& evo : _evolutions)
+        {
+            Shape const* from = FindShape(evo.From);
+            std::vector<std::string>& lines = _hints[evo.To];
+            lines.push_back("Grows out of the " + (from ? from->Name : std::string("?")) + " shape: " +
+                std::to_string(evo.Bp) + " Bio Points, level " + std::to_string(evo.MinLevel));
+            for (EvolutionTask const& task : evo.Tasks)
+                lines.push_back("Task: " + task.Text);
+        }
+    }
+
+    static char const* CreatureTypeName(uint32 type)
+    {
+        switch (type)
+        {
+            case CREATURE_TYPE_BEAST:         return "Beast";
+            case CREATURE_TYPE_DRAGONKIN:     return "Dragonkin";
+            case CREATURE_TYPE_DEMON:         return "Demon";
+            case CREATURE_TYPE_ELEMENTAL:     return "Elemental";
+            case CREATURE_TYPE_GIANT:         return "Giant";
+            case CREATURE_TYPE_UNDEAD:        return "Undead";
+            case CREATURE_TYPE_HUMANOID:      return "Humanoid";
+            case CREATURE_TYPE_CRITTER:       return "Critter";
+            case CREATURE_TYPE_MECHANICAL:    return "Mechanical";
+            case CREATURE_TYPE_NOT_SPECIFIED: return "Not specified";
+            case CREATURE_TYPE_TOTEM:         return "Totem";
+            case CREATURE_TYPE_NON_COMBAT_PET: return "Non-combat pet";
+            case CREATURE_TYPE_GAS_CLOUD:     return "Gas cloud";
+            default:                          return "";
+        }
+    }
+
+    // The shape menu (tools/client/lua/DevourerMenu.lua) is fed by addon messages, one per line, prefix "DVR".
+    // With catalog (".devour menu", and after a GM unlock), the gallery comes first:
+    //   C                                                  a new catalog begins
+    //   A:<1 = may unlock all (GM)>
+    //   G:<shape>:<form spell>:<favourite food>:<ability>,<ability>,...:<passive>   every shape there is
+    //   H:<shape>:<text>                                   how to get it, one line each
+    // Then, always (also whenever a shape is gained, worn, left or recoloured):
+    //   B                                                  the owned list begins
     //   S:<shape>:<form spell>:<worn 0/1>:<colouring worn>:<colouring>,<colouring>,...   one owned shape
-    //   E:<Anima per shift>                                the list is complete
-    // Sent on ".devour menu" (the menu asks at login) and whenever a shape is gained, worn, left or recoloured.
-    void Mgr::SendMenu(Player* player)
+    //   E:<Anima per shift>                                done
+    void Mgr::SendMenu(Player* player, bool catalog)
     {
         if (!IsDevourer(player) || !player->GetSession() || !player->IsInWorld())
             return;
@@ -710,9 +823,33 @@ namespace Devourer
         {
             WorldPacket data;
             ChatHandler::BuildChatPacket(data, CHAT_MSG_WHISPER, LANG_ADDON, player, player,
-                std::string(MenuPrefix) + "	" + line);
+                std::string(MenuPrefix) + "\t" + line.substr(0, 250));   // 255 bytes with the prefix
             player->SendDirectMessage(&data);
         };
+        if (catalog)
+        {
+            send("C");
+            send(std::string("A:") + (player->GetSession()->GetSecurity() >= SEC_GAMEMASTER ? "1" : "0"));
+            for (auto const& [id, shape] : _shapes)
+            {
+                std::ostringstream line;
+                line << "G:" << id << ':' << shape.FormSpell << ':' << CreatureTypeName(FavouriteFood(id)) << ':';
+                bool first = true;
+                for (uint32 spellId : shape.Kit)
+                    if (spellId)
+                    {
+                        line << (first ? "" : ",") << spellId;
+                        first = false;
+                    }
+                line << ':' << shape.Passive;
+                send(line.str());
+                auto hints = _hints.find(id);
+                if (hints != _hints.end())
+                    for (std::string const& hint : hints->second)
+                        send("H:" + std::to_string(id) + ":" + hint);
+            }
+        }
+
         State& state = Get(player);
         send("B");
         for (auto const& [id, owned] : state.Shapes)
@@ -725,7 +862,7 @@ namespace Devourer
                  << SkinName(ShownDisplay(player, *shape)) << ':' << SkinName(shape->Display);
             for (uint32 skin : owned.Skins)
                 line << ',' << SkinName(skin);
-            send(line.str().substr(0, 250));             // an addon message holds 255 bytes with its prefix
+            send(line.str());
         }
         send("E:" + std::to_string(_animaPerShift));
     }

@@ -685,6 +685,13 @@ public:
         sDevourer.Restore(player);
     }
 
+    // The character is saved between these two: the worn shape's buttons come off first, so the core does not
+    // find (and delete) buttons of spells it does not know at the next login.
+    void OnPlayerBeforeLogout(Player* player) override
+    {
+        sDevourer.BeforeLogout(player);
+    }
+
     void OnPlayerLogout(Player* player) override
     {
         sDevourer.Forget(player);
@@ -794,6 +801,7 @@ public:
             { "skin",   HandleSkin,   SEC_PLAYER,        Console::No },
             { "menu",   HandleMenu,   SEC_PLAYER,        Console::No },
             { "unlock", HandleUnlock, SEC_GAMEMASTER,    Console::No },
+            { "unlockall", HandleUnlockAll, SEC_GAMEMASTER, Console::No },
             { "reload", HandleReload, SEC_ADMINISTRATOR, Console::Yes },
         };
         static ChatCommandTable commandTable = { { "devour", devourTable } };
@@ -823,7 +831,7 @@ public:
     // The shape menu asks for its data (addon messages, see Mgr::SendMenu).
     static bool HandleMenu(ChatHandler* handler)
     {
-        sDevourer.SendMenu(handler->GetSession()->GetPlayer());
+        sDevourer.SendMenu(handler->GetSession()->GetPlayer(), true);
         return true;
     }
 
@@ -837,6 +845,19 @@ public:
         }
         if (!sDevourer.Unlock(target, shapeId, 0, true))
             handler->PSendSysMessage("No shape {}.", shapeId);
+        return true;
+    }
+
+    // The menu's GM button: every shape and colouring for the selected Devourer (or yourself).
+    static bool HandleUnlockAll(ChatHandler* handler)
+    {
+        Player* target = handler->getSelectedPlayerOrSelf();
+        if (!target || !sDevourer.IsDevourer(target))
+        {
+            handler->SendSysMessage("Select a Devourer.");
+            return true;
+        }
+        sDevourer.UnlockAll(target);
         return true;
     }
 

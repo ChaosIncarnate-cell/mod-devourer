@@ -167,6 +167,7 @@ namespace Devourer
         [[nodiscard]] uint32 SpecOf(Player const* player) const;
         State& Get(Player* player);
         void Forget(Player* player);
+        void BeforeLogout(Player* player);       // takes the worn shape's buttons off before the character is saved
 
         [[nodiscard]] Shape const* FindShape(uint32 shapeId) const;
         [[nodiscard]] Shape const* ShapeByFormSpell(uint32 spellId) const;
@@ -176,7 +177,8 @@ namespace Devourer
         // --- devouring ---------------------------------------------------------------------------------
         bool CanDevour(Player* player, Creature* corpse, std::string& why) const;
         void Devour(Player* player, Creature* corpse);
-        bool Unlock(Player* player, uint32 shapeId, uint32 display, bool shiftNow);
+        bool Unlock(Player* player, uint32 shapeId, uint32 display, bool shiftNow, bool quiet = false);
+        void UnlockAll(Player* player);          // GM: every shape and every colouring
 
         // --- specs -------------------------------------------------------------------------------------
         void OnUpdate(Player* player, uint32 diff);
@@ -233,7 +235,8 @@ namespace Devourer
         // --- chat --------------------------------------------------------------------------------------
         void Tell(Player* player, std::string const& text) const;
         void ListShapes(Player* player);
-        void SendMenu(Player* player);           // the shape menu's data, as addon messages (".devour menu")
+        void SendMenu(Player* player, bool catalog = false);   // the menu's data as addon messages; catalog: the
+                                                                  // gallery too (".devour menu")
 
         // --- Anima ---------------------------------------------------------------------------------------
         [[nodiscard]] uint32 AnimaPerShift() const { return _animaPerShift; }
@@ -256,6 +259,8 @@ namespace Devourer
         std::map<uint32, Skin> _skins;           // display id -> named colouring
         std::map<uint32, std::map<uint32, uint32>> _diet;   // shape -> creature type (0 = anything else) -> BP
         std::vector<Evolution> _evolutions;
+        std::map<uint32, std::vector<std::string>> _hints;   // shape -> how to get it (gallery), from the world data
+        void BuildHints();
 
         bool _enabled = true;
         uint8 _classId = 10;
