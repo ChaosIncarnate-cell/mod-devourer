@@ -1,4 +1,4 @@
-﻿# 005 â€” Placeholders: full talent trees and spec abilities
+﻿# 005 — Placeholders: full talent trees and spec abilities
 
 Status: open
 Base: branch `integration` (001-004 merged and built locally, Ulatek snake removed). Branch: `task/005-placeholder-talents-and-specs`.
