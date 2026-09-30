@@ -3,6 +3,13 @@
 Decided with the owner on 2026-09-30: the Devourer is a **real class chosen at character creation**, added
 **next to** the existing classes (none replaced), built so it can be **removed without rebuilding** the server.
 
+## Status of the CoA version
+The CoA version is **unfinished** (the owner's words: "very unfinished, I want to work more on it"). The port
+brings over its current state as a **base**, not as a finished spec: do not "fix" missing or rough features
+during the port unless a task says so, and do not treat its README as a promise that everything works.
+**Further development happens here, on Chromaticaw**, as new tasks after the port (001-004) is done. CoA is no
+longer developed.
+
 ## Why class 10 and not a module on a base class
 The owner wants it in the class menu. 3.3.5a leaves class id 10 unused; the server already sizes its class
 arrays for 12 (`MAX_CLASSES`). stoneharry/WoW-Custom-Class added a 12th class ("Engineer") to 3.3.5a without
