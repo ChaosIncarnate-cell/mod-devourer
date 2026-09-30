@@ -32,7 +32,8 @@ Read `docs/design.md` first. It explains the target architecture and why.
 
 ## Layout
 
-- `src/` module code (currently the CoA version, being ported), `conf/`, `data/sql/`
+- `src/` module code, `conf/`, `data/sql/` (install + `uninstall/`, see `data/sql/README.md`)
+- `tools/build_class_dbc_sql.py` class-10 rows derived from the server's DBCs (output never committed)
 - `core-patch/` the class-10 core patch + apply/revert scripts (task 001)
 - `tools/coa/` the CoA generators (spells, identity, talents, models, skins, DBC merge); to be adapted
 - `docs/coa-original/` CoA README and the list of CoA core files it had to override (reference only)

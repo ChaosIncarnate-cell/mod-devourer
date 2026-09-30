@@ -1,0 +1,2 @@
+# Written by tools/build_class_dbc_sql.py from the server's DBC files (Blizzard data: never commit)
+*.generated.sql

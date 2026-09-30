@@ -1,1 +1,0 @@
--- Replaced by 2026_09_27_01_devourer_rebuild.sql (the Devourer was rebuilt from the ground up).
