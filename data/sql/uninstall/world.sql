@@ -20,6 +20,12 @@ DELETE FROM `creature_template`       WHERE `entry` BETWEEN 9101000 AND 9101199;
 DELETE FROM `creature_model_info`     WHERE `DisplayID` BETWEEN 991001 AND 991065 OR `DisplayID` IN (80018, 80305, 200004, 280018);
 DELETE FROM `creaturedisplayinfo_dbc` WHERE `ID` BETWEEN 991001 AND 991065;
 DELETE FROM `creaturemodeldata_dbc`   WHERE `ID` BETWEEN 902038 AND 902045;
+-- Looks the client patch tool copied from the CoA client (the generated _06); it lists them in devourer_client_rows.
+CREATE TABLE IF NOT EXISTS `devourer_client_rows` (`tbl` VARCHAR(64) NOT NULL, `ID` INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`tbl`, `ID`)) ENGINE=InnoDB;
+DELETE `t` FROM `creaturedisplayinfo_dbc` AS `t` JOIN `devourer_client_rows` AS `r` ON `r`.`tbl` = 'creaturedisplayinfo_dbc' AND `r`.`ID` = `t`.`ID`;
+DELETE `t` FROM `creaturemodeldata_dbc` AS `t` JOIN `devourer_client_rows` AS `r` ON `r`.`tbl` = 'creaturemodeldata_dbc' AND `r`.`ID` = `t`.`ID`;
+DELETE `t` FROM `creaturedisplayinfoextra_dbc` AS `t` JOIN `devourer_client_rows` AS `r` ON `r`.`tbl` = 'creaturedisplayinfoextra_dbc' AND `r`.`ID` = `t`.`ID`;
 -- The spawns' explicit guids raised the counter; this sets it back to the highest guid left + 1.
 ALTER TABLE `creature` AUTO_INCREMENT = 1;
 
@@ -58,9 +64,9 @@ DELETE `t` FROM `gtoctclasscombatratingscalar_dbc` AS `t` LEFT JOIN `devourer_ba
 
 -- --- the module's own tables, last -------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `devourer_evolution_task`, `devourer_evolution`, `devourer_diet`, `devourer_skin`,
-    `devourer_shape_source`, `devourer_shape`, `devourer_backup_gt`;
+    `devourer_shape_source`, `devourer_shape`, `devourer_backup_gt`, `devourer_client_rows`;
 
 -- Forget that the install files ran, so a later reinstall runs them again.
 DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '2026_09_30_01_devourer_class.sql',
     '2026_09_30_02_devourer_spells.sql', '2026_09_30_03_devourer_models.sql', '2026_09_30_04_devourer_world.sql',
-    '2026_09_30_05_devourer_class_dbc.generated.sql');
+    '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql');
