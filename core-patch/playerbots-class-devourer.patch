@@ -1,0 +1,37 @@
+diff --git a/src/Bot/Factory/RandomPlayerbotFactory.cpp b/src/Bot/Factory/RandomPlayerbotFactory.cpp
+index b0dde688..6929bc4c 100644
+--- a/src/Bot/Factory/RandomPlayerbotFactory.cpp
++++ b/src/Bot/Factory/RandomPlayerbotFactory.cpp
+@@ -727,6 +727,10 @@ void RandomPlayerbotFactory::CreateRandomBots()
+             if (!((1 << (cls - 1)) & CLASSMASK_ALL_PLAYABLE) || !sChrClassesStore.LookupEntry(cls))
+                 continue;
+ 
++            // skip the Devourer (mod-devourer): there is no bot AI for it
++            if (cls == CLASS_DEVOURER)
++                continue;
++
+             // skip disabled with config classes
+             if ((1 << (cls - 1)) & sWorld->getIntConfig(CONFIG_CHARACTER_CREATING_DISABLED_CLASSMASK))
+                 continue;
+diff --git a/src/Mgr/Item/RandomItemMgr.cpp b/src/Mgr/Item/RandomItemMgr.cpp
+index 2ee82d9b..fcd9d19e 100644
+--- a/src/Mgr/Item/RandomItemMgr.cpp
++++ b/src/Mgr/Item/RandomItemMgr.cpp
+@@ -1588,7 +1588,7 @@ void RandomItemMgr::InitWeaponProficiency()
+ 
+         for (uint8 cls = CLASS_WARRIOR; cls < MAX_CLASSES; ++cls)
+         {
+-            if (!((1u << (cls - 1)) & CLASSMASK_ALL_PLAYABLE))
++            if (!((1u << (cls - 1)) & CLASSMASK_ALL_PLAYABLE) || cls == CLASS_DEVOURER)
+                 continue;
+ 
+             // Weapon proficiencies in WotLK are class-based, not race-based, so
+@@ -1910,7 +1910,7 @@ void RandomItemMgr::BuildCacheEquip()
+         for (uint8 clazz = CLASS_WARRIOR; clazz < MAX_CLASSES; ++clazz)
+         {
+             // skip non-playable classes
+-            if (((1u << (clazz - 1)) & CLASSMASK_ALL_PLAYABLE) == 0)
++            if (((1u << (clazz - 1)) & CLASSMASK_ALL_PLAYABLE) == 0 || clazz == CLASS_DEVOURER)
+                 continue;
+ 
+             // skip classes that cannot use this item
