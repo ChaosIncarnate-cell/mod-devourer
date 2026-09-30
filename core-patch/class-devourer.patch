@@ -1,0 +1,136 @@
+diff --git a/src/server/game/Entities/Player/Player.cpp b/src/server/game/Entities/Player/Player.cpp
+index 489450092..b0320ada9 100644
+--- a/src/server/game/Entities/Player/Player.cpp
++++ b/src/server/game/Entities/Player/Player.cpp
+@@ -5299,7 +5299,7 @@ void Player::GetDodgeFromAgility(float& diminishing, float& nondiminishing)
+         0.021080f, // Shaman
+         0.036587f, // Mage
+         0.024211f, // Warlock
+-        0.0f,      // ??
++        0.036640f, // Devourer (as Warrior)
+         0.056097f  // Druid
+     };
+     // Crit/agility to dodge/agility coefficient multipliers; 3.2.0 increased required agility by 15%
+@@ -5314,7 +5314,7 @@ void Player::GetDodgeFromAgility(float& diminishing, float& nondiminishing)
+         1.60f / 1.15f,  // Shaman
+         1.00f / 1.15f,  // Mage
+         0.97f / 1.15f,  // Warlock (?)
+-        0.0f,           // ??
++        0.85f / 1.15f,  // Devourer (as Warrior)
+         2.00f / 1.15f   // Druid
+     };
+ 
+diff --git a/src/server/game/Entities/Unit/StatSystem.cpp b/src/server/game/Entities/Unit/StatSystem.cpp
+index 24c025ac6..37c41ba8e 100644
+--- a/src/server/game/Entities/Unit/StatSystem.cpp
++++ b/src/server/game/Entities/Unit/StatSystem.cpp
+@@ -719,7 +719,7 @@ const float m_diminishing_k[MAX_CLASSES] =
+     0.9880f,  // Shaman
+     0.9830f,  // Mage
+     0.9830f,  // Warlock
+-    0.0f,     // ??
++    0.9560f,  // Devourer (as Warrior)
+     0.9720f   // Druid
+ };
+ 
+@@ -736,7 +736,7 @@ float Player::GetMissPercentageFromDefence() const
+         16.00f,     // Shaman  //?
+         16.00f,     // Mage    //?
+         16.00f,     // Warlock //?
+-        0.0f,       // ??
++        16.00f,     // Devourer (as Warrior)
+         16.00f      // Druid   //?
+     };
+ 
+@@ -763,7 +763,7 @@ void Player::UpdateParryPercentage()
+         145.560408f,    // Shaman
+         0.0f,           // Mage
+         0.0f,           // Warlock
+-        0.0f,           // ??
++        47.003525f,     // Devourer (as Warrior)
+         0.0f            // Druid
+     };
+ 
+@@ -809,7 +809,7 @@ void Player::UpdateDodgePercentage()
+         145.560408f,    // Shaman
+         150.375940f,    // Mage
+         150.375940f,    // Warlock
+-        0.0f,           // ??
++        88.129021f,     // Devourer (as Warrior)
+         116.890707f     // Druid
+     };
+ 
+diff --git a/src/server/game/Globals/ObjectMgr.cpp b/src/server/game/Globals/ObjectMgr.cpp
+index 5fa86d4b5..c4addf54e 100644
+--- a/src/server/game/Globals/ObjectMgr.cpp
++++ b/src/server/game/Globals/ObjectMgr.cpp
+@@ -5013,6 +5013,7 @@ void ObjectMgr::BuildPlayerLevelInfo(uint8 race, uint8 _class, uint8 level, Play
+         switch (_class)
+         {
+             case CLASS_WARRIOR:
++            case CLASS_DEVOURER:
+                 info->stats[STAT_STRENGTH]  += (lvl > 23 ? 2 : (lvl > 1  ? 1 : 0));
+                 info->stats[STAT_STAMINA]   += (lvl > 23 ? 2 : (lvl > 1  ? 1 : 0));
+                 info->stats[STAT_AGILITY]   += (lvl > 36 ? 1 : (lvl > 6 && (lvl % 2) ? 1 : 0));
+diff --git a/src/server/shared/SharedDefines.h b/src/server/shared/SharedDefines.h
+index 8b6dacc8b..5c38482c0 100644
+--- a/src/server/shared/SharedDefines.h
++++ b/src/server/shared/SharedDefines.h
+@@ -132,7 +132,7 @@ enum Classes
+     CLASS_SHAMAN        = 7, // TITLE Shaman
+     CLASS_MAGE          = 8, // TITLE Mage
+     CLASS_WARLOCK       = 9, // TITLE Warlock
+-    //CLASS_UNK           = 10,
++    CLASS_DEVOURER      = 10, // TITLE Devourer
+     CLASS_DRUID         = 11 // TITLE Druid
+ };
+ 
+@@ -143,7 +143,7 @@ enum Classes
+     ((1<<(CLASS_WARRIOR-1))|(1<<(CLASS_PALADIN-1))|(1<<(CLASS_HUNTER-1))| \
+     (1<<(CLASS_ROGUE-1))  |(1<<(CLASS_PRIEST-1)) |(1<<(CLASS_SHAMAN-1))| \
+     (1<<(CLASS_MAGE-1))   |(1<<(CLASS_WARLOCK-1))|(1<<(CLASS_DRUID-1)) | \
+-    (1<<(CLASS_DEATH_KNIGHT-1)))
++    (1<<(CLASS_DEATH_KNIGHT-1))|(1<<(CLASS_DEVOURER-1)))
+ 
+ // valid classes for creature_template.unit_class
+ #define CLASSMASK_ALL_CREATURES ((1<<(CLASS_WARRIOR-1)) | (1<<(CLASS_PALADIN-1)) | (1<<(CLASS_ROGUE-1)) | (1<<(CLASS_MAGE-1)))
+diff --git a/src/server/shared/enuminfo_SharedDefines.cpp b/src/server/shared/enuminfo_SharedDefines.cpp
+index bb68abfb0..01e969391 100644
+--- a/src/server/shared/enuminfo_SharedDefines.cpp
++++ b/src/server/shared/enuminfo_SharedDefines.cpp
+@@ -104,13 +104,14 @@ AC_API_EXPORT EnumText EnumUtils<Classes>::ToString(Classes value)
+         case CLASS_SHAMAN: return { "CLASS_SHAMAN", "Shaman", "" };
+         case CLASS_MAGE: return { "CLASS_MAGE", "Mage", "" };
+         case CLASS_WARLOCK: return { "CLASS_WARLOCK", "Warlock", "" };
++        case CLASS_DEVOURER: return { "CLASS_DEVOURER", "Devourer", "" };
+         case CLASS_DRUID: return { "CLASS_DRUID", "Druid", "" };
+         default: throw std::out_of_range("value");
+     }
+ }
+ 
+ template <>
+-AC_API_EXPORT std::size_t EnumUtils<Classes>::Count() { return 10; }
++AC_API_EXPORT std::size_t EnumUtils<Classes>::Count() { return 11; }
+ 
+ template <>
+ AC_API_EXPORT Classes EnumUtils<Classes>::FromIndex(std::size_t index)
+@@ -126,7 +127,8 @@ AC_API_EXPORT Classes EnumUtils<Classes>::FromIndex(std::size_t index)
+         case 6: return CLASS_SHAMAN;
+         case 7: return CLASS_MAGE;
+         case 8: return CLASS_WARLOCK;
+-        case 9: return CLASS_DRUID;
++        case 9: return CLASS_DEVOURER;
++        case 10: return CLASS_DRUID;
+         default: throw std::out_of_range("index");
+     }
+ }
+@@ -145,7 +147,8 @@ AC_API_EXPORT std::size_t EnumUtils<Classes>::ToIndex(Classes value)
+         case CLASS_SHAMAN: return 6;
+         case CLASS_MAGE: return 7;
+         case CLASS_WARLOCK: return 8;
+-        case CLASS_DRUID: return 9;
++        case CLASS_DEVOURER: return 9;
++        case CLASS_DRUID: return 10;
+         default: throw std::out_of_range("value");
+     }
+ }

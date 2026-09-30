@@ -1,6 +1,6 @@
 # 001 — Core patch: class 10 becomes playable
 
-Status: open
+Status: done in cloud (PR), waiting for local build/test
 
 ## Goal
 The smallest possible, self-contained change to azerothcore-wotlk (Playerbot branch) and, if needed,
