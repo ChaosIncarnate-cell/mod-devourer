@@ -1,0 +1,23 @@
+# Never commit client data or assets (Blizzard / Ascension / CoA)
+*.mpq
+*.MPQ
+*.dbc
+*.DBC
+*.blp
+*.BLP
+*.m2
+*.M2
+*.skin
+*.anim
+*.wmo
+# Build output, local configs, python caches
+*.obj
+*.pdb
+*.exe
+*.dll
+*.lib
+*.conf
+!*.conf.dist
+__pycache__/
+*.pyc
+out/
