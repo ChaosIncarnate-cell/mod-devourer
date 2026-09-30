@@ -50,10 +50,14 @@ namespace Devourer
             uint32 Spell;
         };
 
+        // Each spec's identity passive (on CoA the first entry of its tree) and its abilities.
         // ChaosCore0.3: Devour Whole is a Glutton talent now (the talent tree teaches it), no longer handed out.
         constexpr SpecSpell SpecSpells[] =
         {
-            { SpecBrood,   SpellHatchBrood },
+            { SpecGlutton,     SpellIdentityGlutton },
+            { SpecSkinchanger, SpellIdentitySkinchanger },
+            { SpecBrood,       SpellIdentityBrood },
+            { SpecBrood,       SpellHatchBrood },
         };
 
         constexpr uint32 GorgedDigestAfter = 6000;       // out of combat this long, Gorged melts a stack per tick

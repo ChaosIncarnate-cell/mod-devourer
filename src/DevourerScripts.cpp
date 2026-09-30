@@ -680,6 +680,20 @@ public:
         if (sDevourer.IsDevourer(player))
             sDevourer.TaskEvent(player, TaskKill, killed->GetCreatureType());
     }
+
+    // The core only knows the ten classes. Where it asks "is this a warrior?" for stats (attack power from
+    // strength and agility) and for armour and shields, a Devourer answers yes. Warrior abilities stay off.
+    Optional<bool> OnPlayerIsClass(Player const* player, Classes unitClass, ClassContext context) override
+    {
+        if (unitClass != CLASS_WARRIOR)
+            return std::nullopt;
+        if (context != CLASS_CONTEXT_STATS && context != CLASS_CONTEXT_EQUIP_ARMOR_CLASS &&
+            context != CLASS_CONTEXT_EQUIP_SHIELDS)
+            return std::nullopt;
+        if (!sDevourer.IsDevourer(player))
+            return std::nullopt;
+        return true;
+    }
 };
 
 // Brood hatchlings devour what dies near them.
@@ -720,7 +734,12 @@ public:
     devourer_world() : WorldScript("devourer_world") { }
 
     void OnAfterConfigLoad(bool /*reload*/) override { sDevourer.LoadConfig(); }
-    void OnStartup() override { sDevourer.LoadWorldData(); }
+    // Switched off, the module does not even read its tables (they may not be installed).
+    void OnStartup() override
+    {
+        if (sDevourer.Enabled())
+            sDevourer.LoadWorldData();
+    }
 };
 
 // --- commands: .devour, .devour skin <shape> <display>, .devour unlock <shape> (GM), .devour reload (GM) --
@@ -778,6 +797,11 @@ public:
 
     static bool HandleReload(ChatHandler* handler)
     {
+        if (!sDevourer.Enabled())
+        {
+            handler->SendSysMessage("mod-devourer is switched off (Devourer.Enable = 0).");
+            return true;
+        }
         sDevourer.LoadWorldData();
         handler->SendSysMessage("Devourer shapes reloaded.");
         return true;

@@ -1,20 +1,21 @@
 [worldserver]
 
 ########################################
-# mod-devourer: the Devourer (class slot 20)
+# mod-devourer: the Devourer (class 10)
 ########################################
 
 #    Devourer.Enable
-#        Description: Turns the Devourer's shapes, devouring and shifting on or off.
+#        Description: Turns the module on or off. Off, it does nothing at all: no shapes, devouring,
+#                     shifting, spec abilities or warrior-like stats, and its tables are not read.
 #        Default:     1
 
 Devourer.Enable = 1
 
 #    Devourer.ClassId
-#        Description: The class slot the Devourer lives in.
-#        Default:     20
+#        Description: The class id the Devourer lives in (CLASS_DEVOURER in core-patch/).
+#        Default:     10
 
-Devourer.ClassId = 20
+Devourer.ClassId = 10
 
 #    Devourer.RequireLooted
 #        Description: Only corpses the Devourer (or its group) has the right to loot can be devoured.
@@ -27,6 +28,12 @@ Devourer.RequireLooted = 1
 #        Default:     30
 
 Devourer.HungerPerMeal = 30
+
+#    Devourer.HungerPerSwing
+#        Description: Hunger gained by each of the Devourer's own auto-attack hits. 0 = off.
+#        Default:     2
+
+Devourer.HungerPerSwing = 2
 
 #    Devourer.ShiftCooldown / Devourer.SkinchangerShiftCooldown
 #        Description: The one cooldown all shapes share, in milliseconds. The form spells carry the normal

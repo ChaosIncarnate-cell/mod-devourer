@@ -1,6 +1,6 @@
 # 002 — Port the module code
 
-Status: open (can run in parallel with 001; assume `CLASS_DEVOURER = 10` exists or define it locally)
+Status: done in cloud (PR), waiting for local build/test
 
 ## Goal
 `src/` compiles as a normal AzerothCore module on the Playerbot fork with no CoA engine code, and keeps the

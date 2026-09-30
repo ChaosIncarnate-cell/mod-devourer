@@ -10,7 +10,7 @@ Read `docs/design.md` first. It explains the target architecture and why.
 
 - **Cloud sessions write code, SQL and tools.** No game client, no client data, no running server there.
   You may clone upstream azerothcore-wotlk (Playerbot branch) and mod-playerbots to read code and to
-  compile-check (see mod-llm-party's `tools/syntax-check.sh` for the approach).
+  compile-check (`tools/syntax-check.sh` does it).
 - **The local session (owner's PC)** builds the server, generates the client patch from the real client
   files, installs, and tests in game. It writes what happened to `docs/results/`.
 - Channel = this repo: tasks in `docs/tasks/NNN-name.md`, results in `docs/results/NNN-name.md`.

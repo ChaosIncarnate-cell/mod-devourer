@@ -6,10 +6,10 @@
 #include "Devourer.h"
 #include "DevourerSpellIds.h"
 
-#include "AscensionSpecialization.h"
 #include "Chat.h"
 #include "Config.h"
 #include "Creature.h"
+#include "DBCStores.h"
 #include "DatabaseEnv.h"
 #include "Log.h"
 #include "ObjectMgr.h"
@@ -34,7 +34,7 @@ namespace Devourer
     void Mgr::LoadConfig()
     {
         _enabled = sConfigMgr->GetOption<bool>("Devourer.Enable", true);
-        _classId = uint8(sConfigMgr->GetOption<uint32>("Devourer.ClassId", 20));
+        _classId = uint8(sConfigMgr->GetOption<uint32>("Devourer.ClassId", 10));
         _requireLooted = sConfigMgr->GetOption<bool>("Devourer.RequireLooted", true);
         _hungerPerMeal = sConfigMgr->GetOption<uint32>("Devourer.HungerPerMeal", 30);
         _hungerPerSwing = sConfigMgr->GetOption<uint32>("Devourer.HungerPerSwing", 2);
@@ -108,9 +108,47 @@ namespace Devourer
         return _enabled && player && player->getClass() == _classId;
     }
 
+    // The spec is the talent tree (of the active talent spec) with the most points spent: tab page 0 = Glutton,
+    // 1 = Skinchanger, 2 = Brood. No points, or a tie for the most, is no spec.
     uint32 Mgr::SpecOf(Player const* player) const
     {
-        return GetAscensionActiveSpecialization(player);
+        if (!IsDevourer(player))
+            return SpecNone;
+
+        std::array<uint32, 3> points{};
+        for (auto const& [spellId, talent] : player->GetTalentMap())
+        {
+            if (talent->State == PLAYERSPELL_REMOVED || !talent->IsInSpec(player->GetActiveSpec()))
+                continue;
+            TalentEntry const* talentInfo = sTalentStore.LookupEntry(talent->talentID);
+            if (!talentInfo)
+                continue;
+            TalentTabEntry const* tab = sTalentTabStore.LookupEntry(talentInfo->TalentTab);
+            if (!tab || tab->tabpage >= points.size() || !(tab->ClassMask & player->getClassMask()))
+                continue;
+            for (uint8 rank = 0; rank < MAX_TALENT_RANK; ++rank)
+                if (talentInfo->RankID[rank] == spellId)
+                {
+                    points[tab->tabpage] += rank + 1;
+                    break;
+                }
+        }
+
+        uint32 best = SpecNone;
+        uint32 most = 0;
+        bool tie = false;
+        for (uint8 page = 0; page < points.size(); ++page)
+        {
+            if (points[page] > most)
+            {
+                most = points[page];
+                best = SpecGlutton + page;
+                tie = false;
+            }
+            else if (points[page] && points[page] == most)
+                tie = true;
+        }
+        return tie ? uint32(SpecNone) : best;
     }
 
     Shape const* Mgr::FindShape(uint32 shapeId) const
@@ -591,8 +629,8 @@ namespace Devourer
         SyncTalentSpells(player);                        // ChaosCore0.3: Quick Devour takes Devour's place
         // Form spells follow the shapes owned (a shape added by a GM or a data fix is taught here too).
         State& state = Get(player);
-        // A Devourer with no shape yet gets the idol. (CoA hands out the starting items itself, so
-        // playercreateinfo_item does not reach new characters.)
+        // A Devourer with no shape yet gets the idol (here rather than in playercreateinfo_item, so it also
+        // reaches characters that lost it and nothing but this module has to know about it).
         if (state.Shapes.empty() && !player->HasItemCount(ItemSethrakIdol, 1, true) &&
             sObjectMgr->GetItemTemplate(ItemSethrakIdol))
         {

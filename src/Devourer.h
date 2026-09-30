@@ -2,8 +2,8 @@
  * mod-devourer: the Devourer, a class that becomes what it eats.
  * Released under GNU AGPL v3, like AzerothCore.
  *
- * Class slot 20 (renamed DEVOURER by the identity patch). The Devourer devours slain creatures to unlock their
- * shapes, then shifts between them. Every shape brings four abilities and a passive, learned while it is worn.
+ * Class 10 (CLASS_DEVOURER, see core-patch/; the id is Devourer.ClassId). The Devourer devours slain creatures
+ * to unlock their shapes, then shifts between them. Every shape brings four abilities and a passive, learned while it is worn.
  * Hunger (the rage bar) is the only resource. All shapes share one shift cooldown.
  *
  * Data:
@@ -45,12 +45,13 @@ namespace Devourer
     constexpr uint32 RisingSerpentDisplays[2] = { 991040, 991045 };   // Twinfangs: purple, pale teal
     constexpr uint32 EmoteReadySpellOmni = 917;   // ChaosCore0.3: ONESHOT_READYSPELLOMNI, Overrun's wind-up
 
+    // The three talent trees (tab pages 0-2); see Mgr::SpecOf.
     enum Spec : uint32
     {
         SpecNone        = 0,
-        SpecGlutton     = 25,
-        SpecSkinchanger = 26,
-        SpecBrood       = 27,
+        SpecGlutton     = 1,
+        SpecSkinchanger = 2,
+        SpecBrood       = 3,
     };
 
     struct Shape
@@ -243,7 +244,7 @@ namespace Devourer
         std::vector<Evolution> _evolutions;
 
         bool _enabled = true;
-        uint8 _classId = 20;
+        uint8 _classId = 10;
         bool _requireLooted = true;
         uint32 _hungerPerMeal = 30;
         uint32 _hungerPerSwing = 2;              // ChaosCore0.2: Hunger per auto-attack hit (0 = off)
