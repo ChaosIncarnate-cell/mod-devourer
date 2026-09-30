@@ -104,20 +104,24 @@ FROM `playercreateinfo` AS `p`
 WHERE `p`.`class` = (SELECT MIN(`q`.`class`) FROM (SELECT `race`, `class` FROM `playercreateinfo`) AS `q`
                      WHERE `q`.`race` = `p`.`race` AND `q`.`class` NOT IN (6, 10));
 
--- Devour and Gnash (task 006, spell in 2026_09_30_08) from the start (the module also teaches Devour at login).
--- Bars: Attack, Gnash, Devour.
+-- The base kit from the start (spells in 2026_09_30_08; the module also teaches them at login, and the hidden
+-- Anima passive). Bars: Attack, Rush, Concentrate, Devour.
 DELETE FROM `playercreateinfo_spell_custom` WHERE `classmask` = 512;
 INSERT INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) VALUES
 (0, 512, 9100001, 'Devourer: Devour'),
-(0, 512, 9100900, 'Devourer: Gnash');
+(0, 512, 9100990, 'Devourer: Rush'),
+(0, 512, 9100992, 'Devourer: Concentrate'),
+(0, 512, 9100993, 'Devourer: Anima');
 
 DELETE FROM `playercreateinfo_action` WHERE `class` = 10;
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
 SELECT `race`, 10, 0, 6603, 0 FROM `playercreateinfo` WHERE `class` = 10;          -- Attack
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
-SELECT `race`, 10, 1, 9100900, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Gnash
+SELECT `race`, 10, 1, 9100990, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Rush
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
-SELECT `race`, 10, 2, 9100001, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Devour
+SELECT `race`, 10, 2, 9100992, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Concentrate
+INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
+SELECT `race`, 10, 3, 9100001, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Devour
 
 -- Weapon and armour skills at creation (task 006): leather, maces, two-handed maces, daggers, staves. Cloth,
 -- Defense and Unarmed come with every class (classMask 0). Fist weapons and polearms are taught by the weapon

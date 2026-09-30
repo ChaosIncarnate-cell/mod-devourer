@@ -10,12 +10,12 @@
 UPDATE `characters` SET `class` = 1, `at_login` = `at_login` | 0x02 | 0x04   -- AT_LOGIN_RESET_SPELLS, _RESET_TALENTS
  WHERE `class` = 10;
 
--- 2. Nothing of the Devourer's spells, talents, auras, cooldowns or buttons stays behind (spells 9100000-9100899).
-DELETE FROM `character_talent`         WHERE `spell` BETWEEN 9100000 AND 9100899;
-DELETE FROM `character_spell`          WHERE `spell` BETWEEN 9100000 AND 9100899;
-DELETE FROM `character_aura`           WHERE `spell` BETWEEN 9100000 AND 9100899;
-DELETE FROM `character_spell_cooldown` WHERE `spell` BETWEEN 9100000 AND 9100899;
-DELETE FROM `character_action`         WHERE `type` = 0 AND `action` BETWEEN 9100000 AND 9100899;
+-- 2. Nothing of the Devourer's spells, talents, auras, cooldowns or buttons stays behind (spells 9100000-9100999).
+DELETE FROM `character_talent`         WHERE `spell` BETWEEN 9100000 AND 9100999;
+DELETE FROM `character_spell`          WHERE `spell` BETWEEN 9100000 AND 9100999;
+DELETE FROM `character_aura`           WHERE `spell` BETWEEN 9100000 AND 9100999;
+DELETE FROM `character_spell_cooldown` WHERE `spell` BETWEEN 9100000 AND 9100999;
+DELETE FROM `character_action`         WHERE `type` = 0 AND `action` BETWEEN 9100000 AND 9100999;
 
 -- 3. The idols (items 9100100, 9100101) disappear with their item template: from bags, bank and mail.
 DELETE `ci` FROM `character_inventory` AS `ci`

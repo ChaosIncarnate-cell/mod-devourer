@@ -456,11 +456,13 @@ namespace Devourer
         player->HandleEmoteCommand(EmoteReadySpellOmni);
     }
 
-    // Overrun: run down the target (or 20 yards straight ahead) and knock over every enemy in the way.
-    void Mgr::Overrun(Player* player)
+    // Overrun: run down the target (or 20 yards straight ahead) and knock over every enemy in the way. Rush (the
+    // base kit) always runs straight ahead (chase = false) and knocks over with its own, lighter hit.
+    void Mgr::Overrun(Player* player, uint32 hitSpell, bool chase)
     {
         Get(player).OverrunWindup = 0;
-        Unit* target = player->GetSelectedUnit();
+        uint32 const hit = hitSpell ? hitSpell : SpellBabyOverrunHit;
+        Unit* target = chase ? player->GetSelectedUnit() : nullptr;
         if (target && (!target->IsAlive() || !player->IsValidAttackTarget(target) ||
                        !player->IsWithinDistInMap(target, OverrunReach) || !player->IsWithinLOSInMap(target)))
             target = nullptr;
@@ -502,11 +504,11 @@ namespace Devourer
         {
             ObjectGuid const victimGuid = guid;
             uint32 const delay = uint32(along / SPEED_CHARGE * 1000.0f) + 50;
-            player->m_Events.AddEventAtOffset([player, victimGuid]()
+            player->m_Events.AddEventAtOffset([player, victimGuid, hit]()
             {
                 Unit* victim = ObjectAccessor::GetUnit(*player, victimGuid);
                 if (victim && victim->IsAlive() && player->IsAlive() && player->IsValidAttackTarget(victim))
-                    player->CastSpell(victim, SpellBabyOverrunHit, true);
+                    player->CastSpell(victim, hit, true);
             }, Milliseconds(delay));
         }
         if (target)

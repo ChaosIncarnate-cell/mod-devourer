@@ -492,6 +492,9 @@ class Builder:
             if new != text:
                 self.files[path] = (b"\xef\xbb\xbf" if bom else b"") + new.encode("utf-8", "surrogateescape")
             r.info(f"  {path} (from {self.client.origin(path)}): {note}")
+        for path, source in interface.EXTRA_FILES.items():
+            self.files[path] = source.read_bytes()
+            r.info(f"  {path}: from {source.name} (ours)")
         self.check_lua()
 
         if icon and icon.suffix.lower() == ".blp":

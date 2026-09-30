@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tasks 006 + 007: the Devourer's start (levels 1-20) -- true-form kit, trainers and the eight starting forms.
+"""Tasks 006 + 007: the Devourer's start -- base kit (Rush, Concentrate, Anima), trainers, eight starting forms.
 
     python tools/start_kit.py --spell-dbc <server>/data/dbc/Spell.dbc
 
@@ -13,7 +13,9 @@ helpers of tools/coa/build_devourer_spells.py. The committed SQL holds only the 
 
 Ids (all inside the Devourer's reserved spell range 9100000-9100999; 9100900+ so that 2026_09_30_02, which clears
 9100000-9100899 when it runs again, never touches them):
-  9100900-9100909   true-form kit, taught by the Devourer Trainers (9100909 Consuming Strikes)
+  9100990-9100993   the base kit every Devourer has from level 1: Rush, Rush's hit, Concentrate, Anima (the
+                    hidden passive that keeps Anima from draining away out of combat)
+                    (9100900-9100909 were the true-form kit, parked in commit fdf67e9: the true form comes later)
   9100910-9100989   starting forms: shape s (5-12) uses 9100910 + (s - 5) * 10 + slot
                     slot 0 form, 1-2 abilities, 3 passive, 4-5 abilities that open at levels 10 and 20
   shapes 5-12, creatures 9101200-9101215 (trainers), spawns 9910101-9910116, trainer 9101200,
@@ -62,9 +64,11 @@ GCD = {"StartRecoveryCategory": 133, "StartRecoveryTime": 1500}
 ATTR0_DROP = 0x00010000 | 0x00020000
 ATTR1_DROP = 0x00100000 | 0x00400000
 CHARGE_STUN = 7922                     # stock "Charge Stun": the knock-down after a charge
-CONSUMING_STRIKES = 9100909            # the owner's idea (Parrot\Devourer - the class.md); heals like Meal: Grave
-DUR_12S = b.DUR_12S
-PROC_DONE_MELEE_AUTO, PROC_DONE_SPELL_MELEE = b.PROC_DONE_MELEE_AUTO, b.PROC_DONE_SPELL_MELEE
+# The base kit (owner, 2026-09-30): Anima is the Devourer's resource (the rage bar, renamed); shifting costs it
+# (the module: Devourer.AnimaPerShift), Concentrate gathers it, Rush needs no target.
+RUSH, RUSH_HIT, CONCENTRATE, ANIMA = 9100990, 9100991, 9100992, 9100993
+A_INTERRUPT_REGEN = 94                 # the core skips rage decay out of combat while a unit has it
+DUR_1S, DMG_MELEE, A_MOD_STUN, MECHANIC_STUN = b.DUR_1S, b.DMG_MELEE, b.A_MOD_STUN, b.MECHANIC_STUN
 
 
 def hit(amount, spread=0):
@@ -100,53 +104,31 @@ def placeholder(level, icon):
                     **effects({"effect": E_DUMMY})})
 
 
-# --- task 006: the true form's kit --------------------------------------------------------------------------------
-# (id, level, trainer cost in copper, template, overrides, (name, description, aura text))
-TRUE_FORM = [
-    (9100900, 1, 10, 1082, ability({                                  # Claw: the swipe and its icon
-        "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000,
-        "SchoolMask": SCHOOL_PHYSICAL, **effects(hit(6), gain(5))}),
-     ("Gnash", "Bite into the enemy with your weapon: weapon damage plus $s1. Generates 5 Hunger.", "")),
-    (9100901, 4, 100, 772, ability({                                  # Rend: bleed visual
-        **hunger(10), "RangeIndex": RANGE_COMBAT, "DurationIndex": DUR_15S, "Mechanic": MECHANIC_BLEED,
-        "EffectMechanic_2": MECHANIC_BLEED, "SchoolMask": SCHOOL_PHYSICAL,
-        **effects(hit(3), aura(A_PERIODIC_DAMAGE, 4, target=T_ENEMY, period=3000))}),
-     ("Rend Flesh", "Tear the enemy's flesh: weapon damage plus $s1, and it bleeds for $o2 over 15 sec.",
-      "Bleeding for $s2 every 3 sec.")),
-    (9100902, 6, 100, 22842, ability({                                # Frenzied Regeneration
-        **hunger(15), "RangeIndex": RANGE_SELF, "DurationIndex": DUR_9S, "RecoveryTime": 30000,
-        **effects(aura(A_OBS_MOD_HEALTH, 3, period=3000))}),
-     ("Hunger Pangs", "Turn your hunger inward: heals 9% of your maximum health over 9 sec.",
-      "Healing 3% of maximum health every 3 sec.")),
-    (9100903, 8, 200, 99, ability({                                   # Demoralizing Roar
-        **hunger(10), "RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S, "RecoveryTime": 10000,
-        "EffectMechanic_1": MECHANIC_SNARE,
-        **effects(around(A_MOD_DECREASE_SPEED, -30),
-                  {"effect": E_THREAT, "amount": 30, "target": T_SRC_CASTER, "targetB": T_SRC_AREA_ENEMY,
-                   "radius": RADIUS_8})}),
-     ("Unnerving Snarl", "A snarl that turns enemies within 8 yards towards you and slows them by 30% for 6 sec.",
-      "Movement slowed by 30%.")),
-    (CONSUMING_STRIKES, 10, 600, 23881, ability({                    # Bloodthirst: the strike that heals
-        **hunger(20), "RangeIndex": RANGE_COMBAT, "DurationIndex": DUR_12S, "RecoveryTime": 30000,
-        "SchoolMask": SCHOOL_PHYSICAL, "ProcTypeMask": PROC_DONE_MELEE_AUTO | PROC_DONE_SPELL_MELEE,
-        "ProcChance": 100, **effects(hit(2), aura(A_DUMMY, 25))}),   # healing: spell_devourer_meal_grave
-     ("Consuming Strikes", "Strike the enemy and consume a portion of its anima: weapon damage plus $s1, and for "
-      "12 sec your melee attacks heal you for $s2% of the damage they deal.",
-      "Melee attacks heal you for $s2% of the damage dealt.")),
-    (9100904, 12, 1000, 100, {                                       # Charge (keeps: not in combat)
-        **CLEAN, **NO_MECHANICS, "RecoveryTime": 15000, **GCD,
-        **effects({"effect": E_CHARGE, "target": T_ENEMY}, gain(10),
-                  {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": CHARGE_STUN})},
-     ("Ravenous Leap", "Leap at an enemy 8 to 25 yards away and knock it down. Generates 10 Hunger. "
-      "Cannot be used in combat.", "")),
-    (9100905, 14, 1500, 12294, ability({                              # Mortal Strike: the heavy swing
-        **hunger(20), "RangeIndex": RANGE_COMBAT, "DurationIndex": 0, "RecoveryTime": 6000,
-        "SchoolMask": SCHOOL_PHYSICAL, **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 140,
-                                                  "target": T_ENEMY})}),
-     ("Bone Crunch", "A crushing bite that deals 140% weapon damage.", "")),
-    (9100906, 16, 2000, *placeholder(16, 166), ("Scent of Blood (placeholder)", "Placeholder ability: not designed yet.", "")),
-    (9100907, 18, 3000, *placeholder(18, 166), ("Maw Guard (placeholder)", "Placeholder ability: not designed yet.", "")),
-    (9100908, 20, 4000, *placeholder(20, 166), ("Gorge (placeholder)", "Placeholder ability: not designed yet.", "")),
+# --- the base kit: every Devourer from level 1 -------------------------------------------------------------------
+# (id, level, trainer cost in copper or None = not on the trainer, template, overrides, (name, description, aura))
+BASE = [
+    (RUSH, 1, 0, 100, {                                              # Charge: its icon; the module does the run
+        **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
+        "AttributesEx3": 0, "Targets": 0, "FacingCasterFlags": 0, "ExcludeCasterAuraState": 0,
+        "CastingTimeIndex": 3, "DurationIndex": 0, "RangeIndex": RANGE_SELF, "Speed": 0.0, "InterruptFlags": 0x0F,
+        "ChannelInterruptFlags": 0, "AuraInterruptFlags": 0, "RecoveryTime": 15000, **GCD,
+        "SpellVisualID_1": 0, **effects({"effect": E_DUMMY})},
+     ("Rush", "Gather yourself for 0.5 sec, then rush 20 yards straight ahead. Every enemy in your path takes 50% "
+      "weapon damage and is knocked down for 1 sec. Needs no target.", "")),
+    (RUSH_HIT, 1, None, CHARGE_STUN, {                               # the knock-down, like Overrun's
+        **CLEAN, **NO_MECHANICS, "Attributes": 0, "SchoolMask": SCHOOL_PHYSICAL, "DefenseType": DMG_MELEE,
+        "PreventionType": 2, "DurationIndex": DUR_1S, "Mechanic": MECHANIC_STUN, "RangeIndex": 13,
+        **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 50, "target": T_ENEMY},
+                  aura(A_MOD_STUN, target=T_ENEMY))},
+     ("Rush", "", "Knocked down.")),
+    (CONCENTRATE, 1, 0, 2687, {                                      # Bloodrage: the surge of power
+        **CLEAN, **NO_MECHANICS, "Targets": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0,
+        "RangeIndex": RANGE_SELF, "RecoveryTime": 30000, **effects(gain(30))},
+     ("Concentrate", "Draw the anima scattered through your body together: gain 30 Anima. Usable in combat.", "")),
+    (ANIMA, 1, None, 25941, {
+        **CLEAN, **PASSIVE, **NO_MECHANICS, "Attributes": ATTR0_ABILITY | b.ATTR0_PASSIVE | b.ATTR0_HIDDEN,
+        **effects(aura(A_INTERRUPT_REGEN))},
+     ("Anima", "Your anima does not drain away while you rest.", "")),
 ]
 
 
@@ -167,7 +149,7 @@ FORMS = [
          [(1, 10), (0, 3)], "Grey",
          (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
                          **effects(hit(4), gain(5))}),
-          ("Savage Bite", "Bite the enemy: weapon damage plus $s1. Generates 5 Hunger.", "")),
+          ("Savage Bite", "Bite the enemy: weapon damage plus $s1. Generates 5 Anima.", "")),
          (24604, ability({**hunger(10), "RangeIndex": RANGE_SELF, "DurationIndex": DUR_20S, "RecoveryTime": 30000,
                          **effects(aura(A_MOD_MELEE_HASTE, 10))}),
           ("Pack Howl", "Howl like the pack before the kill: attack speed increased by 10% for 20 sec.",
@@ -177,7 +159,7 @@ FORMS = [
     Form(6, "Trogg", "Coldridge Valley", 707, 606, 93, [], [(7, 10), (0, 3)], "Rockjaw",
          (6552, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
                         **effects(hit(5), gain(5))}),
-          ("Stone Fist", "Hammer the enemy with a fist of stone: weapon damage plus $s1. Generates 5 Hunger.", "")),
+          ("Stone Fist", "Hammer the enemy with a fist of stone: weapon damage plus $s1. Generates 5 Anima.", "")),
          (20594, ability({**hunger(10), "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S, "RecoveryTime": 30000,
                          **effects(aura(A_DMG_TAKEN_PCT, -10, SCHOOL_ALL))}),
           ("Stoneskin", "Your hide turns to stone: damage taken reduced by 10% for 10 sec.", "Damage taken reduced by 10%.")),
@@ -189,7 +171,7 @@ FORMS = [
                         "DurationIndex": DUR_9S, "Mechanic": MECHANIC_BLEED, "EffectMechanic_2": MECHANIC_BLEED,
                         **effects({"effect": E_SCHOOL_DAMAGE, "amount": 3, "target": T_ENEMY},
                                   aura(A_PERIODIC_DAMAGE, 2, target=T_ENEMY, period=3000), gain(5))}),
-          ("Rake", "Rake the enemy for $s1 damage; it bleeds for $o2 over 9 sec. Generates 5 Hunger.",
+          ("Rake", "Rake the enemy for $s1 damage; it bleeds for $o2 over 9 sec. Generates 5 Anima.",
            "Bleeding for $s2 every 3 sec.")),
          (5215, {**CLEAN, "RecoveryTime": 10000, **GCD},             # Prowl keeps its own effects and rules
           ("Prowl", "Slip into the shadows, unseen but slower. Cannot be used in combat.", "Stealthed.")),
@@ -200,7 +182,7 @@ FORMS = [
                         "SchoolMask": SCHOOL_NATURE,
                         **effects({"effect": E_SCHOOL_DAMAGE, "amount": 5, "spread": 2, "target": T_SRC_CASTER,
                                    "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_5}, gain(5))}),
-          ("Dusty Wings", "Beat your wings: $s1 Nature damage to enemies within 5 yards. Generates 5 Hunger.", "")),
+          ("Dusty Wings", "Beat your wings: $s1 Nature damage to enemies within 5 yards. Generates 5 Anima.", "")),
          (770, ability({**hunger(10), "RangeIndex": RANGE_30, "DurationIndex": DUR_10S, "RecoveryTime": 10000,
                        "SchoolMask": SCHOOL_NATURE, **effects(aura(A_MOD_HIT_CHANCE, -10, target=T_ENEMY))}),
           ("Blinding Dust", "Throw wing dust into the enemy's eyes: its chance to hit is reduced by 10% for 10 sec.",
@@ -211,11 +193,11 @@ FORMS = [
          [(1, 10), (0, 3)], "Mottled",
          (35290, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
                          **effects(hit(5), gain(5))}),
-          ("Gore", "Gore the enemy with your tusks: weapon damage plus $s1. Generates 5 Hunger.", "")),
+          ("Gore", "Gore the enemy with your tusks: weapon damage plus $s1. Generates 5 Anima.", "")),
          (100, {**CLEAN, **NO_MECHANICS, "RecoveryTime": 15000, **GCD,
                 **effects({"effect": E_CHARGE, "target": T_ENEMY}, gain(10),
                           {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": CHARGE_STUN})},
-          ("Boar Charge", "Charge an enemy 8 to 25 yards away and knock it down. Generates 10 Hunger. "
+          ("Boar Charge", "Charge an enemy 8 to 25 yards away and knock it down. Generates 10 Anima. "
            "Cannot be used in combat.", "")),
          (A_MOD_TOTAL_STAT_PERCENTAGE, 5, STAT_STAMINA, ("Bristling Hide", "Your stamina is increased by 5%.", "")),
          ("Tusk Toss", "Wallow")),
@@ -225,7 +207,7 @@ FORMS = [
                         "DurationIndex": DUR_4S, "EffectMechanic_2": MECHANIC_SNARE,
                         **effects(hit(4), aura(A_MOD_DECREASE_SPEED, -30, target=T_ENEMY), gain(5))}),
           ("Hind Kick", "Kick back hard: weapon damage plus $s1, and the enemy is slowed by 30% for 4 sec. "
-           "Generates 5 Hunger.", "Movement slowed by 30%.")),
+           "Generates 5 Anima.", "Movement slowed by 30%.")),
          (2983, ability({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_15S, "RecoveryTime": 60000,
                         **effects(aura(A_MOD_INCREASE_SPEED, 40))}),
           ("Long Stride", "Run on long legs: movement speed increased by 40% for 15 sec.", "Movement speed increased by 40%.")),
@@ -238,7 +220,7 @@ FORMS = [
                                     "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8},
                                    around(A_MOD_ATTACK_POWER, -10), gain(5))}),
           ("Screech", "A piercing screech: $s1 Nature damage to enemies within 8 yards, and their attack power is "
-           "reduced by 10 for 10 sec. Generates 5 Hunger.", "Attack power reduced by 10.")),
+           "reduced by 10 for 10 sec. Generates 5 Anima.", "Attack power reduced by 10.")),
          (689, ability({**hunger(10), "RangeIndex": RANGE_30, "RecoveryTime": 10000, "SchoolMask": SCHOOL_SHADOW,
                        "Attributes": 0x10000 & 0, **effects(aura(A_PERIODIC_LEECH, 3, target=T_ENEMY, period=1000)),
                        "EffectMultipleValue_1": 1.0, "StartRecoveryCategory": 133, "StartRecoveryTime": 1500}),
@@ -250,7 +232,7 @@ FORMS = [
          (13901, ability({"Attributes": 0, "CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
                          "SchoolMask": SCHOOL_ARCANE,
                          **effects({"effect": E_SCHOOL_DAMAGE, "amount": 7, "spread": 3, "target": T_ENEMY}, gain(5))}),
-          ("Arcane Bolt", "Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Hunger.", "")),
+          ("Arcane Bolt", "Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Anima.", "")),
          (1449, ability({"Attributes": ATTR0_ABILITY, **hunger(10), "RangeIndex": RANGE_SELF, "RecoveryTime": 8000,
                         "SchoolMask": SCHOOL_ARCANE,
                         **effects({"effect": E_SCHOOL_DAMAGE, "amount": 8, "spread": 4, "target": T_SRC_CASTER,
@@ -346,7 +328,7 @@ def main() -> int:
     a = ap.parse_args()
     dbc = b.Dbc(a.spell_dbc)
 
-    true_defs = [(sid, lvl, t, o, x) for sid, lvl, cost, t, o, x in TRUE_FORM]
+    true_defs = [(sid, lvl, t, o, x) for sid, lvl, cost, t, o, x in BASE]
     form_defs = [d for f in FORMS for d in form_spells(f)]
     ids = [d[0] for d in true_defs + form_defs]
     assert len(ids) == len(set(ids)), "duplicate spell id"
@@ -366,13 +348,7 @@ def main() -> int:
         f"DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES",
         ",\n".join([f"({s}, 'spell_devourer_form')" for s in forms]
-                   + [f"({CONSUMING_STRIKES}, 'spell_devourer_meal_grave')"]) + ";",
-        "-- Consuming Strikes heals from melee damage done, the way Meal: Grave does.",
-        f"DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN {FIRST} AND {LAST};",
-        "INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`,"
-        " `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`,"
-        " `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES",
-        f"({CONSUMING_STRIKES}, 0, 0, 0, 0, 0, {PROC_DONE_MELEE_AUTO | PROC_DONE_SPELL_MELEE}, 1, 2, 0, 0, 0, 100, 0, 0);",
+                   + [f"({RUSH}, 'spell_devourer_rush')"]) + ";",
         f"DELETE FROM `spell_custom_attr` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES",
         ",\n".join(f"({s}, 0x01000000)" for s in forms) + ";",
@@ -405,7 +381,8 @@ def main() -> int:
         f"DELETE FROM `trainer_spell` WHERE `TrainerId` = {TRAINER};",
         "INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`,"
         " `ReqAbility1`, `ReqAbility2`, `ReqAbility3`, `ReqLevel`, `VerifiedBuild`) VALUES",
-        ",\n".join(f"({TRAINER}, {sid}, {cost}, 0, 0, 0, 0, 0, {lvl}, 0)" for sid, lvl, cost, *_ in TRUE_FORM) + ";",
+        ",\n".join(f"({TRAINER}, {sid}, {cost}, 0, 0, 0, 0, 0, {lvl}, 0)" for sid, lvl, cost, *_ in BASE
+                   if cost is not None) + ";",
         "",
         "-- What they say, and \"I require training\" only for a Devourer (class mask 512); others are sent away.",
         f"DELETE FROM `npc_text` WHERE `ID` IN ({TEXT_DEVOURER}, {TEXT_OTHER});",
@@ -487,16 +464,17 @@ def main() -> int:
           "Generated by `tools/start_kit.py` (tasks 006 + 007) — edit the script, not this file. Design: "
           "`docs/starting-experience.md`. Numbers are a first pass for levels 1-20.",
           "",
-          f"Spell ids {FIRST}-{LAST}: true form 9100900-9100909, starting forms 9100910-9100989 "
+          f"Spell ids {FIRST}-{LAST}: base kit 9100990-9100993, starting forms 9100910-9100989 "
           "(shape s: 9100910 + (s-5)*10 + slot; slot 0 form, 1-2 abilities, 3 passive, 4-5 open at 10 and 20).",
           "",
-          "## True form (Devourer Trainers)",
+          "## Base kit (every Devourer from level 1; the trainers list it too)",
           "",
           "| Level | Spell | Name | Cost | What it does |",
           "|---|---|---|---|---|"]
-    for sid, lvl, cost, t, o, (name, desc, _) in TRUE_FORM:
-        md.append(f"| {lvl} | {sid} | {name} | {cost // 100}s {cost % 100}c | {desc} |")
-    md += ["", "Gnash is known from creation; bars: Attack, Gnash, Devour.", "",
+    for sid, lvl, cost, t, o, (name, desc, _) in BASE:
+        md.append(f"| {lvl} | {sid} | {name} | {'-' if cost is None else f'{cost // 100}s {cost % 100}c'} | {desc} |")
+    md += ["", "Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape costs Anima "
+           "(Devourer.AnimaPerShift, default 25).", "",
            "## Trainers", "", "| Entry | Name | Where | Stands beside | Looks like |", "|---|---|---|---|---|"]
     for e, g, n, bs, lk, where in TRAINERS:
         md.append(f"| {e} | {n} | {where} | creature {bs} | creature {lk} |")

@@ -4,7 +4,8 @@
  *
  * Class 10 (CLASS_DEVOURER, see core-patch/; the id is Devourer.ClassId). The Devourer devours slain creatures
  * to unlock their shapes, then shifts between them. Every shape brings four abilities and a passive, learned while it is worn.
- * Hunger (the rage bar) is the only resource. All shapes share one shift cooldown.
+ * Anima (the rage bar; called Hunger before 2026-09-30) is the only resource: shifting into a shape costs it,
+ * Concentrate gathers it, and it does not drain away out of combat. All shapes share one shift cooldown.
  *
  * Data:
  *   world      devourer_shape          one row per shape: its form spell, base display, kit, passive
@@ -44,6 +45,13 @@ namespace Devourer
     constexpr uint32 NpcRisingSerpent = 9101102;  // Vashnik: stationary serpents that repeat its spells
     constexpr uint32 RisingSerpentDisplays[2] = { 991040, 991045 };   // Twinfangs: purple, pale teal
     constexpr uint32 EmoteReadySpellOmni = 917;   // ChaosCore0.3: ONESHOT_READYSPELLOMNI, Overrun's wind-up
+
+    // The base kit every Devourer has from level 1 (tools/start_kit.py, 2026_09_30_08).
+    constexpr uint32 SpellRush = 9100990;         // no target needed: the module runs 20 yards straight ahead
+    constexpr uint32 SpellRushHit = 9100991;      // what Rush does to an enemy in its path
+    constexpr uint32 SpellConcentrate = 9100992;  // gathers Anima
+    constexpr uint32 SpellAnima = 9100993;        // hidden passive: Anima does not drain away out of combat
+    constexpr char const* MenuPrefix = "DVR";     // addon messages for the shape menu (client: DevourerMenu.lua)
 
     // The three talent trees (tab pages 0-2); see Mgr::SpecOf.
     enum Spec : uint32
@@ -197,7 +205,7 @@ namespace Devourer
 
         // --- ChaosCore0.3: the Baby Berserker -------------------------------------------------------------
         void OverrunWindup(Player* player);
-        void Overrun(Player* player);
+        void Overrun(Player* player, uint32 hitSpell = 0, bool chase = true);   // Rush: its own hit, no chase
         void GnawBite(Unit* caster, Unit* target);
         void VoidFrenzy(Player* player, Unit* target);
 
@@ -225,6 +233,10 @@ namespace Devourer
         // --- chat --------------------------------------------------------------------------------------
         void Tell(Player* player, std::string const& text) const;
         void ListShapes(Player* player);
+        void SendMenu(Player* player);           // the shape menu's data, as addon messages (".devour menu")
+
+        // --- Anima ---------------------------------------------------------------------------------------
+        [[nodiscard]] uint32 AnimaPerShift() const { return _animaPerShift; }
 
     private:
         void Load(Player* player, State& state);
@@ -253,6 +265,7 @@ namespace Devourer
         uint32 _shiftCooldown = 8000;
         uint32 _skinchangerShiftCooldown = 3000;
         uint8 _shapeBarSlot = 60;                // first action button for the kit, 0 = leave the bars alone
+        uint32 _animaPerShift = 25;              // Anima a shift into a shape costs (0 = free)
     };
 }
 

@@ -42,6 +42,7 @@ OUTFIT_FALLBACK = (4, 11, 3)            # rogue, druid, hunter: the leather wear
 # Two-Handed Maces, Staves, Polearms, Unarmed, Defense (weapon masters teach what the class starts without).
 NOT_DEVOURER = {413, 293, 433, 43, 55, 44, 172, 45, 46, 226, 176}
 OUTFIT_WEAPON = 35                      # Bent Staff (the Tauren druid's), for every race
+OUTFIT_WEAPON_LOOK = (35, 472, 17)       # its display and inventory type in a stock 3.3.5a CharStartOutfit.dbc
 WEAPON_INVENTORY_TYPES = {13, 14, 15, 17, 18, 21, 22, 23, 24, 25, 26, 28}   # weapons, shields, ranged, ammo, quivers
 OUT_NAME = "2026_09_30_05_devourer_class_dbc.generated.sql"
 
@@ -154,8 +155,8 @@ def outfit_rows(load) -> list[tuple]:
         for i in range(24):
             if values[i] == OUTFIT_WEAPON:
                 weapon = (values[i], values[24 + i], values[48 + i])
-    if weapon is None:
-        raise SystemExit(f"CharStartOutfit.dbc: no outfit holds item {OUTFIT_WEAPON} (the Devourer's starting weapon)")
+    if weapon is None:                                  # a client with replaced outfits (the HD patches)
+        weapon = OUTFIT_WEAPON_LOOK
     next_id = max(cso.ids()) + 1
     rows = []
     for race, gender in sorted({(r, g) for r, _, g in outfits}):

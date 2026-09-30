@@ -113,6 +113,10 @@ class spell_devourer_form : public SpellScript
             return SPELL_FAILED_DONT_REPORT;
         if (player->HasAura(GetSpellInfo()->Id) && !GetSpell()->IsTriggered())
             return SPELL_FAILED_ONLY_SHAPESHIFT;         // already wearing it
+        // Anima makes the shift happen (2026-09-30). The body forcing itself on its eater, and a shape put back
+        // after login or resurrection, are triggered casts and free.
+        if (!GetSpell()->IsTriggered() && player->GetPower(POWER_RAGE) < int32(sDevourer.AnimaPerShift() * 10))
+            return SPELL_FAILED_NO_POWER;
         return SPELL_CAST_OK;
     }
 
@@ -120,7 +124,10 @@ class spell_devourer_form : public SpellScript
     {
         if (Player* player = GetCaster()->ToPlayer())
             if (!GetSpell()->IsTriggered())
+            {
+                player->ModifyPower(POWER_RAGE, -int32(sDevourer.AnimaPerShift() * 10));
                 sDevourer.AfterShift(player, GetSpellInfo()->Id);
+            }
     }
 
     void Register() override
@@ -580,6 +587,36 @@ class spell_devourer_baby_overrun : public SpellScript
     }
 };
 
+// Rush (the base kit, 2026-09-30): Overrun's run without a target: a 0.5 sec wind-up, then 20 yards straight
+// ahead, knocking over every enemy in the way.
+class spell_devourer_rush : public SpellScript
+{
+    PrepareSpellScript(spell_devourer_rush);
+
+    SpellCastResult CheckCast()
+    {
+        Player* player = GetCaster()->ToPlayer();
+        if (!player || !sDevourer.IsDevourer(player))
+            return SPELL_FAILED_DONT_REPORT;
+        if (player->HasUnitState(UNIT_STATE_ROOT))
+            return SPELL_FAILED_ROOTED;
+        sDevourer.OverrunWindup(player);
+        return SPELL_CAST_OK;
+    }
+
+    void Run(SpellEffIndex /*effIndex*/)
+    {
+        if (Player* player = GetCaster()->ToPlayer())
+            sDevourer.Overrun(player, SpellRushHit, false);
+    }
+
+    void Register() override
+    {
+        OnCheckCast += SpellCheckCastFn(spell_devourer_rush::CheckCast);
+        OnEffectHit += SpellEffectFn(spell_devourer_rush::Run, EFFECT_0, SPELL_EFFECT_DUMMY);
+    }
+};
+
 // Gnaw: the grapple opens a bleeding wound; every second of it is a bite that heals the Devourer.
 class spell_devourer_baby_gnaw : public SpellScript
 {
@@ -755,6 +792,7 @@ public:
         {
             { "",       HandleList,   SEC_PLAYER,        Console::No },
             { "skin",   HandleSkin,   SEC_PLAYER,        Console::No },
+            { "menu",   HandleMenu,   SEC_PLAYER,        Console::No },
             { "unlock", HandleUnlock, SEC_GAMEMASTER,    Console::No },
             { "reload", HandleReload, SEC_ADMINISTRATOR, Console::Yes },
         };
@@ -779,6 +817,13 @@ public:
         Player* player = handler->GetSession()->GetPlayer();
         if (sDevourer.IsDevourer(player))
             sDevourer.ChooseSkin(player, name);
+        return true;
+    }
+
+    // The shape menu asks for its data (addon messages, see Mgr::SendMenu).
+    static bool HandleMenu(ChatHandler* handler)
+    {
+        sDevourer.SendMenu(handler->GetSession()->GetPlayer());
         return true;
     }
 
@@ -827,6 +872,7 @@ void AddSC_devourer()
     RegisterSpellScript(spell_devourer_digested);
     RegisterSpellScript(spell_devourer_bile_coating);
     RegisterSpellScript(spell_devourer_baby_overrun);
+    RegisterSpellScript(spell_devourer_rush);
     RegisterSpellAndAuraScriptPair(spell_devourer_baby_gnaw, spell_devourer_baby_gnaw_aura);
     RegisterSpellScript(spell_devourer_baby_void_frenzy);
     new devourer_player();

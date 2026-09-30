@@ -24,13 +24,19 @@ Devourer.ClassId = 10
 Devourer.RequireLooted = 1
 
 #    Devourer.HungerPerMeal
-#        Description: Hunger gained by devouring a corpse (the rage bar, 0-100).
+#        Description: Anima gained by devouring a corpse (the rage bar, 0-100; Anima was called Hunger).
 #        Default:     30
 
 Devourer.HungerPerMeal = 30
 
+#    Devourer.AnimaPerShift
+#        Description: Anima a shift into a shape costs (0 = free). Concentrate gives 30, a meal 30.
+#        Default:     25
+
+Devourer.AnimaPerShift = 25
+
 #    Devourer.HungerPerSwing
-#        Description: Hunger gained by each of the Devourer's own auto-attack hits. 0 = off.
+#        Description: Anima gained by each of the Devourer's own auto-attack hits. 0 = off.
 #        Default:     2
 
 Devourer.HungerPerSwing = 2

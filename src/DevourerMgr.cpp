@@ -1,5 +1,5 @@
 /*
- * mod-devourer: shapes, devouring, the shared shift cooldown, Hunger.
+ * mod-devourer: shapes, devouring, the shared shift cooldown, Anima (the rage bar, once called Hunger).
  * Released under GNU AGPL v3, like AzerothCore.
  */
 
@@ -17,6 +17,7 @@
 #include "SpellAuras.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
+#include "WorldPacket.h"
 #include "WorldSession.h"
 #include <algorithm>
 #include <cctype>
@@ -41,6 +42,7 @@ namespace Devourer
         _shiftCooldown = sConfigMgr->GetOption<uint32>("Devourer.ShiftCooldown", 8000);
         _skinchangerShiftCooldown = sConfigMgr->GetOption<uint32>("Devourer.SkinchangerShiftCooldown", 3000);
         _shapeBarSlot = uint8(std::min<uint32>(sConfigMgr->GetOption<uint32>("Devourer.ShapeBarSlot", 60), 140));
+        _animaPerShift = std::min<uint32>(sConfigMgr->GetOption<uint32>("Devourer.AnimaPerShift", 25), 100);
     }
 
     void Mgr::LoadWorldData()
@@ -359,6 +361,7 @@ namespace Devourer
 
         if (!player->HasSpell(shape->FormSpell))
             player->learnSpell(shape->FormSpell);
+        SendMenu(player);
 
         // The first time, the body forces itself on its eater.
         if (shiftNow)
@@ -399,6 +402,7 @@ namespace Devourer
         state.Worn = shape->Id;
         SaveState(player, state);
         GrantKit(player, state, *shape);
+        SendMenu(player);
     }
 
     // ChaosCore0.2: a teleport or map change can reset the display to the form spell's placeholder creature (a
@@ -447,6 +451,7 @@ namespace Devourer
         {
             state.Worn = 0;
             SaveState(player, state);
+            SendMenu(player);
         }
     }
 
@@ -572,6 +577,7 @@ namespace Devourer
         if (state.Worn == shapeId)
             player->SetDisplayId(ShownDisplay(player, *shape));
         Tell(player, "Your " + shape->Name + " shape now wears " + SkinName(ShownDisplay(player, *shape)) + ".");
+        SendMenu(player);
     }
 
     std::string Mgr::SkinName(uint32 display) const
@@ -634,6 +640,10 @@ namespace Devourer
         if (!player->HasSpell(SpellDevour) && !player->HasSpell(SpellDevourQuick) && sSpellMgr->GetSpellInfo(SpellDevour))
             player->learnSpell(SpellDevour);
         SyncTalentSpells(player);                        // ChaosCore0.3: Quick Devour takes Devour's place
+        // The base kit (2026-09-30): Rush, Concentrate and the Anima passive, for new and older characters alike.
+        for (uint32 spellId : { SpellRush, SpellConcentrate, SpellAnima })
+            if (!player->HasSpell(spellId) && sSpellMgr->GetSpellInfo(spellId))
+                player->learnSpell(spellId);
         // Form spells follow the shapes owned (a shape added by a GM or a data fix is taught here too). A new
         // Devourer starts without a shape: it devours the first one from its starting zone's beasts (task 007),
         // so the Idol of the Sethrak is no longer handed out.
@@ -685,5 +695,38 @@ namespace Devourer
             if (!growth.empty())
                 Tell(player, growth);
         }
+    }
+
+    // The shape menu (tools/client/lua/DevourerMenu.lua) is fed by addon messages, one per line, prefix "DVR":
+    //   B                                                  a new list begins
+    //   S:<shape>:<form spell>:<worn 0/1>:<colouring worn>:<colouring>,<colouring>,...   one owned shape
+    //   E:<Anima per shift>                                the list is complete
+    // Sent on ".devour menu" (the menu asks at login) and whenever a shape is gained, worn, left or recoloured.
+    void Mgr::SendMenu(Player* player)
+    {
+        if (!IsDevourer(player) || !player->GetSession() || !player->IsInWorld())
+            return;
+        auto send = [player](std::string const& line)
+        {
+            WorldPacket data;
+            ChatHandler::BuildChatPacket(data, CHAT_MSG_WHISPER, LANG_ADDON, player, player,
+                std::string(MenuPrefix) + "	" + line);
+            player->SendDirectMessage(&data);
+        };
+        State& state = Get(player);
+        send("B");
+        for (auto const& [id, owned] : state.Shapes)
+        {
+            Shape const* shape = FindShape(id);
+            if (!shape)
+                continue;
+            std::ostringstream line;
+            line << "S:" << id << ':' << shape->FormSpell << ':' << (state.Worn == id ? 1 : 0) << ':'
+                 << SkinName(ShownDisplay(player, *shape)) << ':' << SkinName(shape->Display);
+            for (uint32 skin : owned.Skins)
+                line << ',' << SkinName(skin);
+            send(line.str().substr(0, 250));             // an addon message holds 255 bytes with its prefix
+        }
+        send("E:" + std::to_string(_animaPerShift));
     }
 }

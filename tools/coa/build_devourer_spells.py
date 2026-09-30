@@ -260,7 +260,7 @@ def chaoscore03_glutton():
     d.append((I["SpellMealDemon"], 22812, {
         **CLEAN, **NO_MECHANICS, "Attributes": 0, "RecoveryTime": 0, "SpellVisualID_1": 0, "DurationIndex": DUR_10MIN, "SpellIconID": 90,
         **effects(aura(A_PERIODIC_ENERGIZE, 20, POWER_RAGE, period=3000)),
-    }, ("Meal: Fel", "", "Generating 2 Hunger every 3 sec.")))
+    }, ("Meal: Fel", "", "Generating 2 Anima every 3 sec.")))
     d.append((I["SpellIndigestion"], 22812, {
         **CLEAN, **NO_MECHANICS, "Attributes": 0, "RecoveryTime": 0, "SpellVisualID_1": 0, "DurationIndex": DUR_30S, "SpellIconID": 353,
         **effects(aura(A_MOD_DECREASE_SPEED, -10)),
@@ -276,7 +276,7 @@ def chaoscore03_glutton():
         "StartRecoveryCategory": 133, "StartRecoveryTime": 1000, "SpellVisualID_1": 5724, "SpellIconID": 166,
         **effects({"effect": E_DUMMY, "target": T_ANY}, aura(A_DUMMY)),
     }, ("Devour", "Channel for 1 sec to devour the corpse of a creature you have slain. Taking damage does not "
-        "stop you. Its shape becomes yours and the meal feeds your Hunger.", "Devouring.")))
+        "stop you. Its shape becomes yours and the meal feeds your Anima.", "Devouring.")))
     d.append(talent_passive("SpellTalentRegurgitate", 636, "Regurgitate",
         "Devour Whole holds the swallowed enemy's ability in: for 10 sec Devour Whole becomes Regurgitate, which "
         "releases it when you choose. If you wait too long, it bursts out anyway and you are Digested: the meal "
@@ -352,7 +352,7 @@ def chaoscore03_baby():
                   aura(A_MOD_DISARM, target=T_ENEMY)),
     }, ("Gnaw", "Grapple an enemy and gnaw on it for 3 sec: it is held and disarmed, and it bleeds for 9 sec. "
         "Every bite heals you for 4% of your maximum health (twice as much on an enemy Chewed 5 times) and gives "
-        "5 Hunger.", "Held and disarmed.")))
+        "5 Anima.", "Held and disarmed.")))
     d.append((I["SpellBabyGnawBleed"], 772, {                          # Rend's bleed, without Rend's swing
         **CLEAN, "SchoolMask": SCHOOL_PHYSICAL, "DurationIndex": DUR_9S, "RangeIndex": 13, "SpellVisualID_1": 0,
         "Mechanic": MECHANIC_BLEED, "EffectMechanic_1": MECHANIC_BLEED, "EffectMechanic_2": 0, "EffectMechanic_3": 0,
@@ -406,7 +406,7 @@ def definitions():
         "StartRecoveryCategory": 133, "StartRecoveryTime": 1500, "SpellVisualID_1": 5724, "SpellIconID": 166,
         **effects({"effect": E_DUMMY, "target": T_ANY}, aura(A_DUMMY)),
     }, ("Devour", "Channel for 3 sec to devour the corpse of a creature you have slain. Its shape becomes yours "
-        "and the meal feeds your Hunger.", "Devouring.")))
+        "and the meal feeds your Anima.", "Devouring.")))
 
     d.append((I["SpellUnlockSethrak"], 20578, {
         **CLEAN, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
@@ -539,7 +539,7 @@ def definitions():
         "StartRecoveryTime": 1000, "CastingTimeIndex": CAST_INSTANT,
         **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 200, "target": T_ENEMY},
                   {"effect": E_ENERGIZE, "amount": 150, "misc": POWER_RAGE}),
-    }, ("Smash", "Smash an enemy for $s1% weapon damage, 50% more if it is stunned. Generates 15 Hunger.", "")))
+    }, ("Smash", "Smash an enemy for $s1% weapon damage, 50% more if it is stunned. Generates 15 Anima.", "")))
 
     d.append((I["SpellBerserkerBloodScent"], 25941, {
         **CLEAN, "Attributes": ATTR0_ABILITY | ATTR0_PASSIVE, "DurationIndex": DUR_INFINITE,
@@ -578,7 +578,7 @@ def definitions():
                   {"effect": E_ENERGIZE, "amount": 150, "misc": POWER_RAGE},
                   {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": I["SpellVashnikCoilingWhirlHit"]}),
     }, ("Coiling Whirl", "Lunge at an enemy and whirl your coils around you: Nature damage to every enemy within 8 "
-        "yards, and they are rooted for 3 sec. Generates 15 Hunger.", "")))
+        "yards, and they are rooted for 3 sec. Generates 15 Anima.", "")))
 
     d.append((I["SpellVashnikCoilingWhirlHit"], 1680, {                 # Whirlwind
         **CLEAN, "Attributes": 0, "SchoolMask": SCHOOL_NATURE, "DefenseType": DMG_MELEE, "DurationIndex": DUR_3S,
@@ -642,7 +642,7 @@ def definitions():
                   {"effect": E_ENERGIZE, "amount": 100, "misc": POWER_RAGE},
                   {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": I["SpellSethrakCoilStrikeHit"]}),
     }, ("Coil Strike", "Lunge at an enemy, striking for Nature damage and coiling around it: rooted for 2 sec. "
-        "Generates 10 Hunger.", "")))
+        "Generates 10 Anima.", "")))
 
     d.append((I["SpellSethrakCoilStrikeHit"], 7922, {
         **CLEAN, "Attributes": 0, "SchoolMask": SCHOOL_NATURE, "DefenseType": DMG_MELEE,

@@ -11,6 +11,7 @@ FrameXML (in game):
   Constants.lua         class colour and icon coordinates, so class-keyed lookups (who list, chat, LFG,
                         arena frames ...) find the Devourer
   WorldStateFrame.lua   the battleground score board's class icon table
+  FrameXML.toc          loads DevourerMenu.lua (ours, tools/client/lua/) last: the shape menu and the Anima colour
 AddOns:
   Blizzard_RaidUI       a Devourer in a raid no longer breaks the raid frame (no class button of its own)
   Blizzard_Calendar     the same for an event's invite list
@@ -18,6 +19,7 @@ AddOns:
 from __future__ import annotations
 
 import re
+from pathlib import Path
 
 TOKEN = "DEVOURER"
 COLOR = (0.72, 0.47, 0.18)                 # the bronze of the CoA emblem
@@ -28,16 +30,17 @@ FREE_CELL = (0.5, 0.7421875, 0.5, 0.75)
 MARK = "-- mod-devourer (tools/client/build_client_patch.py)"
 
 DESCRIPTION = (
-    "Devourers are shapeshifters that become what they eat. They devour the creatures they slay, and every "
-    "meal feeds their Hunger, which powers everything they do.|n|nA Devourer that tastes something new can "
+    "Devourers are aberrations touched by the void, shapeshifters that become what they eat. They devour the "
+    "creatures they slay and gather their anima, the essence they were born from, which lets them change "
+    "their very flesh.|n|nA Devourer that tastes something new can "
     "take its shape: a Sethrak of the dunes, a void-scarred Berserker and more. Every shape brings its own "
     "abilities. Gluttons grow huge and hard to kill, Skinchangers flow from shape to shape in the middle of "
     "a fight, and the Brood hatch young that fight and feed for their mother.")
 INFO_LINES = [
     "- Role: Tank, Damage",
     "- Takes on the shapes of what it has eaten, each with its own abilities.",
-    "- Devours slain creatures to feed its Hunger.",
-    "- Uses Hunger as a resource.",
+    "- Devours slain creatures to feed its Anima.",
+    "- Uses Anima as a resource: shifting into a shape costs it.",
 ]
 
 
@@ -213,6 +216,20 @@ def calendar_lua(text: str) -> tuple[str, str]:
     return text.rstrip() + "\n\n" + CALENDAR_LUA, "invite lists accept a Devourer"
 
 
+MENU_LUA = Path(__file__).resolve().parent / "lua" / "DevourerMenu.lua"
+MENU_PATH = "Interface\\FrameXML\\DevourerMenu.lua"
+
+
+def frame_toc(text: str) -> tuple[str, str]:
+    if "DevourerMenu.lua" in text:
+        return text, "already loads DevourerMenu.lua (kept as it is)"
+    nl = "\r\n" if "\r\n" in text else "\n"
+    return text.rstrip() + nl + "DevourerMenu.lua" + nl, "loads the shape menu (DevourerMenu.lua)"
+
+
+# Files that are ours from start to end: archive path -> source file.
+EXTRA_FILES = {MENU_PATH: MENU_LUA}
+
 # archive path -> (patch function, required)
 PATCHES = {
     "Interface\\GlueXML\\CharacterCreate.xml": (character_create_xml, True),
@@ -220,6 +237,7 @@ PATCHES = {
     "Interface\\GlueXML\\GlueStrings.lua": (glue_strings, True),
     "Interface\\FrameXML\\Constants.lua": (constants_lua, True),
     "Interface\\FrameXML\\WorldStateFrame.lua": (world_state_frame_lua, False),
+    "Interface\\FrameXML\\FrameXML.toc": (frame_toc, True),
     "Interface\\AddOns\\Blizzard_RaidUI\\Blizzard_RaidUI.lua": (raid_ui_lua, False),
     "Interface\\AddOns\\Blizzard_Calendar\\Blizzard_Calendar.lua": (calendar_lua, False),
 }
