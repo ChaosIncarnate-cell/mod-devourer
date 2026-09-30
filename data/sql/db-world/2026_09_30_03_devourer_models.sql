@@ -1,7 +1,7 @@
 -- mod-devourer: the models and looks the Devourer's shapes and creatures use, for the server (the client
 -- patch carries the same rows in CreatureModelData.dbc / CreatureDisplayInfo.dbc, task 004). Safe to run again.
 --
---   902038-902045  CreatureModelData: creature\berserker, berserkerboss, vashnik, ulateksnake, babyberserker
+--   902038-902045  CreatureModelData: creature\berserker, berserkerboss, vashnik, babyberserker (902043 unused)
 --                  (converted by the RetroportTool; the model files come with the client patch)
 --   991001-991065  CreatureDisplayInfo: Sethrak colourings, Berserker, Vashnik, Baby Berserker, snakes
 --
@@ -80,7 +80,7 @@ INSERT INTO `creaturedisplayinfo_dbc` (`ID`, `ModelID`, `SoundID`, `ExtendedDisp
 DELETE FROM `creature_model_info` WHERE `DisplayID` = 991065;
 INSERT INTO `creature_model_info` (`DisplayID`, `BoundingRadius`, `CombatReach`, `Gender`) VALUES (991065, 0.38, 1.5, 2);
 
--- --- the Vashnik, and the Ulatek snake (registered, unused: the Rising Serpents wear the Twinfangs) ---
+-- --- the Vashnik (the Rising Serpents wear the Twinfangs; the Ulatek snake is not planned, owner 2026-09-30) ---
 DELETE FROM `creaturemodeldata_dbc` WHERE `ID` = 902041;
 INSERT INTO `creaturemodeldata_dbc` (`ID`, `Flags`, `ModelName`, `SizeClass`, `ModelScale`, `BloodID`, `FootprintTextureID`, `FootprintTextureLength`, `FootprintTextureWidth`, `FootprintParticleScale`, `FoleyMaterialID`, `FootstepShakeSize`, `DeathThudShakeSize`, `SoundID`, `CollisionWidth`, `CollisionHeight`, `MountHeight`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, `GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`, `WorldEffectScale`, `AttachedEffectScale`, `MissileCollisionRadius`, `MissileCollisionPush`, `MissileCollisionRaise`) VALUES (902041, 148, 'creature\\vashnik\\vashnik.mdx', 1, 1.0, 2, 4, 18.0, 12.0, 1.0, 0, 0, 5834, 0, 2.03128, 1.0, 0.0, -1.37326, -0.618815, -0.034495, 0.495563, 1.53916, 2.4973, 1.0, 1.0, 1.0, 0.0, 0.0);
 DELETE FROM `creaturedisplayinfo_dbc` WHERE `ID` = 991029;
@@ -123,13 +123,6 @@ DELETE FROM `creaturedisplayinfo_dbc` WHERE `ID` = 991038;
 INSERT INTO `creaturedisplayinfo_dbc` (`ID`, `ModelID`, `SoundID`, `ExtendedDisplayInfoID`, `CreatureModelScale`, `CreatureModelAlpha`, `TextureVariation_1`, `TextureVariation_2`, `TextureVariation_3`, `PortraitTextureName`, `BloodLevel`, `BloodID`, `NPCSoundID`, `ParticleColorID`, `CreatureGeosetData`, `ObjectEffectPackageID`) VALUES (991038, 902041, 6114, 0, 1.0, 255, 'vashnik_armor', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
 DELETE FROM `creature_model_info` WHERE `DisplayID` = 991038;
 INSERT INTO `creature_model_info` (`DisplayID`, `BoundingRadius`, `CombatReach`, `Gender`) VALUES (991038, 0.38, 1.5, 2);
-DELETE FROM `creaturemodeldata_dbc` WHERE `ID` = 902043;
-INSERT INTO `creaturemodeldata_dbc` (`ID`, `Flags`, `ModelName`, `SizeClass`, `ModelScale`, `BloodID`, `FootprintTextureID`, `FootprintTextureLength`, `FootprintTextureWidth`, `FootprintParticleScale`, `FoleyMaterialID`, `FootstepShakeSize`, `DeathThudShakeSize`, `SoundID`, `CollisionWidth`, `CollisionHeight`, `MountHeight`, `GeoBoxMinX`, `GeoBoxMinY`, `GeoBoxMinZ`, `GeoBoxMaxX`, `GeoBoxMaxY`, `GeoBoxMaxZ`, `WorldEffectScale`, `AttachedEffectScale`, `MissileCollisionRadius`, `MissileCollisionPush`, `MissileCollisionRaise`) VALUES (902043, 148, 'creature\\ulateksnake\\ulateksnake01.mdx', 1, 1.0, 2, 4, 18.0, 12.0, 1.0, 0, 0, 5834, 0, 2.03128, 1.0, 0.0, -1.37326, -0.618815, -0.034495, 0.495563, 1.53916, 2.4973, 1.0, 1.0, 1.0, 0.0, 0.0);
-DELETE FROM `creaturedisplayinfo_dbc` WHERE `ID` = 991008;
-INSERT INTO `creaturedisplayinfo_dbc` (`ID`, `ModelID`, `SoundID`, `ExtendedDisplayInfoID`, `CreatureModelScale`, `CreatureModelAlpha`, `TextureVariation_1`, `TextureVariation_2`, `TextureVariation_3`, `PortraitTextureName`, `BloodLevel`, `BloodID`, `NPCSoundID`, `ParticleColorID`, `CreatureGeosetData`, `ObjectEffectPackageID`) VALUES
-(991008, 902043, 0, 0, 0.6, 255, 'ulateksnake01_7485611', 'ulateksnake01_7485605', '', '', 0, 0, 0, 0, 0, 0);
-DELETE FROM `creature_model_info` WHERE `DisplayID` = 991008;
-INSERT INTO `creature_model_info` (`DisplayID`, `BoundingRadius`, `CombatReach`, `Gender`, `DisplayID_Other_Gender`) VALUES (991008, 0.5, 1.5, 2, 0);
 
 -- A creature can only use a model that has a creature_model_info row. These looks come from task 004's
 -- display rows; their creature_model_info rows are the module's own.
