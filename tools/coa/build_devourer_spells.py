@@ -3,9 +3,10 @@
 
     python build_devourer_spells.py --spell-dbc <Spell.dbc to start from> --out <folder>
 
-Starts from a client Spell.dbc (CoA's, or the package's), removes every row in the Devourer's range
-(9100000-9100899) and adds the spells defined below. Writes:
-    <out>/DBFilesClient/Spell.dbc          for the client patch (patch-T)
+Starts from a client Spell.dbc (the stock 3.3.5a one works: it only lends template rows), removes every row in
+the Devourer's range (9100000-9100899) and adds the spells defined below. Writes:
+    <out>/DBFilesClient/Spell.dbc          not needed any more: tools/client/build_client_patch.py builds the
+                                           client's Spell.dbc from the committed SQL
     <out>/devourer_spells.sql              the same rows for the server's `spell_dbc`, plus script bindings,
                                            proc rules, custom attributes, the shape table and the unlock item
                                            (committed as data/sql/db-world/2026_09_30_02_devourer_spells.sql,

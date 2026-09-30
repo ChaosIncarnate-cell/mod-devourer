@@ -34,6 +34,8 @@ Read `docs/design.md` first. It explains the target architecture and why.
 
 - `src/` module code, `conf/`, `data/sql/` (install + `uninstall/`, see `data/sql/README.md`)
 - `tools/build_class_dbc_sql.py` class-10 rows derived from the server's DBCs (output never committed)
+- `tools/client/` the client patch: `build_client_patch.py` builds `patch-Z.MPQ` from the owner's client + CoA
+  files (pure-Python MPQ/DBC/BLP, no StormLib); `selftest.py` checks it against a made-up client (task 004)
 - `core-patch/` the class-10 core patch + apply/revert scripts (task 001)
-- `tools/coa/` the CoA generators (spells, identity, talents, models, skins, DBC merge); to be adapted
+- `tools/coa/` the CoA generators still in use: spells (`build_devourer_spells.py`), models, skins
 - `docs/coa-original/` CoA README and the list of CoA core files it had to override (reference only)

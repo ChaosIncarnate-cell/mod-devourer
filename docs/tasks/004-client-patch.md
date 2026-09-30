@@ -1,6 +1,6 @@
 # 004 — Client patch tooling
 
-Status: open (the cloud writes the tooling; the local session runs it on the real client files)
+Status: done in cloud (PR), waiting for local build/test. Tool and test plan: `tools/client/README.md`
 
 ## Goal
 One command, run locally, that builds `patch-Devourer.MPQ` (name to be chosen so it loads after the HD patches)
