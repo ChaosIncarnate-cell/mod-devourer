@@ -126,6 +126,7 @@ namespace Devourer
         bool Loaded = false;
         uint32 SyncTimer = 0;                    // spec abilities are re-checked every few seconds
         uint32 SyncedSpec = 0xFFFFFFFF;
+        uint8 SyncedLevel = 0;                   // spec abilities also open by level (placeholders at 20/40/60)
         std::set<ObjectGuid> Eaten;              // corpses already fed on (they stay for their loot)
         std::map<uint32, uint32> Bio;            // shape id -> Bio Points earned while worn
         std::map<std::pair<uint32, uint32>, uint32> Tasks;   // (evolved shape, task id) -> progress

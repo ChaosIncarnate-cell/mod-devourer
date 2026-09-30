@@ -11,6 +11,7 @@
 
 #include "Devourer.h"
 #include "DevourerSpellIds.h"
+#include "DevourerPlaceholderIds.h"
 
 #include "Creature.h"
 #include "CreatureAI.h"
@@ -48,16 +49,27 @@ namespace Devourer
         {
             uint32 Spec;
             uint32 Spell;
+            uint8 MinLevel;
         };
 
         // Each spec's identity passive (on CoA the first entry of its tree) and its abilities.
         // ChaosCore0.3: Devour Whole is a Glutton talent now (the talent tree teaches it), no longer handed out.
+        // The (placeholder) abilities at 20/40/60 come from tools/placeholders.py (DevourerPlaceholderIds.h).
         constexpr SpecSpell SpecSpells[] =
         {
-            { SpecGlutton,     SpellIdentityGlutton },
-            { SpecSkinchanger, SpellIdentitySkinchanger },
-            { SpecBrood,       SpellIdentityBrood },
-            { SpecBrood,       SpellHatchBrood },
+            { SpecGlutton,     SpellIdentityGlutton,         1 },
+            { SpecSkinchanger, SpellIdentitySkinchanger,     1 },
+            { SpecBrood,       SpellIdentityBrood,           1 },
+            { SpecBrood,       SpellHatchBrood,              1 },
+            { SpecGlutton,     SpellPlaceholderGlutton20,     20 },
+            { SpecGlutton,     SpellPlaceholderGlutton40,     40 },
+            { SpecGlutton,     SpellPlaceholderGlutton60,     60 },
+            { SpecSkinchanger, SpellPlaceholderSkinchanger20, 20 },
+            { SpecSkinchanger, SpellPlaceholderSkinchanger40, 40 },
+            { SpecSkinchanger, SpellPlaceholderSkinchanger60, 60 },
+            { SpecBrood,       SpellPlaceholderBrood20,       20 },
+            { SpecBrood,       SpellPlaceholderBrood40,       40 },
+            { SpecBrood,       SpellPlaceholderBrood60,       60 },
         };
 
         constexpr uint32 GorgedDigestAfter = 6000;       // out of combat this long, Gorged melts a stack per tick
@@ -113,7 +125,7 @@ namespace Devourer
         state.SyncTimer = SyncInterval;
         if (state.GrowthDirty)
             SaveGrowth(player);
-        if (state.SyncedSpec != SpecOf(player))
+        if (state.SyncedSpec != SpecOf(player) || state.SyncedLevel != player->GetLevel())
             SyncSpecSpells(player);
         SyncTalentSpells(player);                        // talents can change at any time, not only with the spec
         DigestGorged(player, state);
@@ -126,11 +138,12 @@ namespace Devourer
         State& state = Get(player);
         uint32 const spec = SpecOf(player);
         state.SyncedSpec = spec;
+        state.SyncedLevel = player->GetLevel();
         for (SpecSpell const& entry : SpecSpells)
         {
             if (!sSpellMgr->GetSpellInfo(entry.Spell))
                 continue;
-            bool const wanted = entry.Spec == spec;
+            bool const wanted = entry.Spec == spec && player->GetLevel() >= entry.MinLevel;
             if (wanted && !player->HasSpell(entry.Spell))
                 player->learnSpell(entry.Spell);
             else if (!wanted && player->HasSpell(entry.Spell))

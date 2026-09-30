@@ -32,7 +32,7 @@ ALTER TABLE `creature` AUTO_INCREMENT = 1;
 -- --- the class (2026_09_30_01, and the generated _05) ----------------------------------------------------------
 DELETE FROM `chrclasses_dbc`                WHERE `ID` = 10;
 DELETE FROM `talenttab_dbc`                 WHERE `ID` BETWEEN 900 AND 902;
-DELETE FROM `talent_dbc`                    WHERE `ID` BETWEEN 9000 AND 9019;
+DELETE FROM `talent_dbc`                    WHERE `ID` BETWEEN 9000 AND 9179;   -- task 005 placeholders up to 9179
 DELETE FROM `player_class_stats`            WHERE `Class` = 10;
 DELETE FROM `playercreateinfo`              WHERE `class` = 10;
 DELETE FROM `playercreateinfo_action`       WHERE `class` = 10;
