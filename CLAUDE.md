@@ -19,6 +19,14 @@ Read `docs/design.md` first. It explains the target architecture and why.
 - Channel = this repo: tasks in `docs/tasks/NNN-name.md`, results in `docs/results/NNN-name.md`.
   Branch `task/NNN-name`, PR per task, PR text says what to test.
 
+## The game client (owner's PC)
+
+- **The one client to use:** `Z:\ChromaticawBots\WOW HD CLIENT` (the patch goes to its `Data\` folder,
+  e.g. `Data\patch-Z.MPQ`; build the patch with `--client "Z:\ChromaticawBots\WOW HD CLIENT"`).
+- **Never use** `Z:\AzerothCore\Chromatica\world of warcraft 3.3.5a hd older`: an old copy, kept only as a backup.
+  Do not read from it, build from it or install into it.
+- Always write the full path in notes and instructions (never just "world of warcraft 3.3.5a hd").
+
 ## Hard rules
 
 1. **Removable.** Gameplay lives in this module; class data lives in SQL with a matching uninstall; client
