@@ -4,6 +4,9 @@ Port of the **Devourer** class (a shapeshifter that becomes what it eats) from t
 Chromaticaw server: AzerothCore WotLK 3.3.5a, **mod-playerbots fork** (`github.com/mod-playerbots/azerothcore-wotlk`,
 branch `Playerbot`), standard 3.3.5a client (build 12340) with HD model patches. Owner: ChaosIncarnate-cell.
 
+**Target is Chromaticaw only.** CoA is just where the code came from: do not keep CoA compatibility, class 20,
+CoA schemas or anything "so it still works on CoA". Change or drop CoA-specific code freely.
+
 Read `docs/design.md` first. It explains the target architecture and why.
 
 ## How work is split
