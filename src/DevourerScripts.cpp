@@ -682,13 +682,13 @@ public:
     }
 
     // The core only knows the ten classes. Where it asks "is this a warrior?" for stats (attack power from
-    // strength and agility) and for armour and shields, a Devourer answers yes. Warrior abilities stay off.
+    // strength and agility), a Devourer answers yes; for the armour it may wear it answers "a rogue" (leather,
+    // task 006), and it never counts as a shield bearer. Warrior and rogue abilities stay off.
     Optional<bool> OnPlayerIsClass(Player const* player, Classes unitClass, ClassContext context) override
     {
-        if (unitClass != CLASS_WARRIOR)
-            return std::nullopt;
-        if (context != CLASS_CONTEXT_STATS && context != CLASS_CONTEXT_EQUIP_ARMOR_CLASS &&
-            context != CLASS_CONTEXT_EQUIP_SHIELDS)
+        bool const asWarrior = unitClass == CLASS_WARRIOR && context == CLASS_CONTEXT_STATS;
+        bool const asRogue = unitClass == CLASS_ROGUE && context == CLASS_CONTEXT_EQUIP_ARMOR_CLASS;
+        if (!asWarrior && !asRogue)
             return std::nullopt;
         if (!sDevourer.IsDevourer(player))
             return std::nullopt;

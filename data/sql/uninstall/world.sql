@@ -6,17 +6,25 @@
 -- then drops the module's tables. Afterwards remove the module folder (or set Devourer.Enable = 0 and keep it
 -- out of the build); otherwise the next worldserver start installs it again.
 
--- --- spells and items (2026_09_30_02) --------------------------------------------------------------------------
-DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9100899;
-DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9100899;
-DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9100899;
-DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9100899;
+-- --- spells and items (2026_09_30_02, _07, _08) --------------------------------------------------------------------------
+DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9100999;
+DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9100999;
+DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9100999;
+DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9100999;
 DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101);
 
 -- --- creatures, spawns and looks (2026_09_30_03, _04) ------------------------------------------------------------
-DELETE FROM `creature`                WHERE `guid` BETWEEN 9910001 AND 9910020 OR `id` BETWEEN 9101000 AND 9101199;
-DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9101000 AND 9101199;
-DELETE FROM `creature_template`       WHERE `entry` BETWEEN 9101000 AND 9101199;
+-- 9101200-9101299 and spawns 9910101-9910199: the Devourer Trainers (2026_09_30_08).
+DELETE FROM `creature`                WHERE `guid` BETWEEN 9910001 AND 9910199 OR `id` BETWEEN 9101000 AND 9101299;
+DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9101000 AND 9101299;
+DELETE FROM `creature_default_trainer` WHERE `CreatureId` BETWEEN 9101000 AND 9101299;
+DELETE FROM `creature_template`       WHERE `entry` BETWEEN 9101000 AND 9101299;
+DELETE FROM `trainer_spell`           WHERE `TrainerId` = 9101200;
+DELETE FROM `trainer`                 WHERE `Id` = 9101200;
+DELETE FROM `gossip_menu_option`      WHERE `MenuID` = 9101200;
+DELETE FROM `gossip_menu`             WHERE `MenuID` = 9101200;
+DELETE FROM `conditions`              WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` = 9101200;
+DELETE FROM `npc_text`                WHERE `ID` IN (9101200, 9101201);
 DELETE FROM `creature_model_info`     WHERE `DisplayID` BETWEEN 991001 AND 991065 OR `DisplayID` IN (80018, 80305, 200004, 280018);
 DELETE FROM `creaturedisplayinfo_dbc` WHERE `ID` BETWEEN 991001 AND 991065;
 DELETE FROM `creaturemodeldata_dbc`   WHERE `ID` BETWEEN 902038 AND 902045;
@@ -69,4 +77,5 @@ DROP TABLE IF EXISTS `devourer_evolution_task`, `devourer_evolution`, `devourer_
 -- Forget that the install files ran, so a later reinstall runs them again.
 DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '2026_09_30_01_devourer_class.sql',
     '2026_09_30_02_devourer_spells.sql', '2026_09_30_03_devourer_models.sql', '2026_09_30_04_devourer_world.sql',
-    '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql');
+    '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
+    '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql');

@@ -232,6 +232,7 @@ namespace Devourer
         void SaveSkin(Player* player, uint32 shapeId, uint32 display);
         void SaveState(Player* player, State const& state);
         void GrantKit(Player* player, State& state, Shape const& shape);
+        [[nodiscard]] static bool KitSpellOpen(Player const* player, uint32 spellId);   // player level >= spell level
         void EatShape(Player* player, Creature* meal, std::string const& how);   // shape/colouring the meal carries
         void RevokeKit(Player* player, State& state);
         void RememberBar(Player* player, State& state, bool clear);   // reads (and clears) the kit's buttons

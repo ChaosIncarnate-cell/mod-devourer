@@ -470,7 +470,7 @@ namespace Devourer
         spells.push_back(shape.Passive);
         for (uint32 spellId : spells)
         {
-            if (!spellId || player->HasSpell(spellId) || !sSpellMgr->GetSpellInfo(spellId))
+            if (!spellId || player->HasSpell(spellId) || !KitSpellOpen(player, spellId))
                 continue;
             player->learnSpell(spellId, true);
             state.Granted.push_back(spellId);
@@ -619,6 +619,13 @@ namespace Devourer
             player->CastSpell(player, shape->FormSpell, true);
     }
 
+    // Task 007: a kit ability opens at its spell's level (the starting forms' last two abilities come at 10 and 20).
+    bool Mgr::KitSpellOpen(Player const* player, uint32 spellId)
+    {
+        SpellInfo const* info = sSpellMgr->GetSpellInfo(spellId);
+        return info && player->GetLevel() >= info->SpellLevel;
+    }
+
     void Mgr::TeachBasics(Player* player)
     {
         if (!IsDevourer(player))
@@ -627,22 +634,23 @@ namespace Devourer
         if (!player->HasSpell(SpellDevour) && !player->HasSpell(SpellDevourQuick) && sSpellMgr->GetSpellInfo(SpellDevour))
             player->learnSpell(SpellDevour);
         SyncTalentSpells(player);                        // ChaosCore0.3: Quick Devour takes Devour's place
-        // Form spells follow the shapes owned (a shape added by a GM or a data fix is taught here too).
+        // Form spells follow the shapes owned (a shape added by a GM or a data fix is taught here too). A new
+        // Devourer starts without a shape: it devours the first one from its starting zone's beasts (task 007),
+        // so the Idol of the Sethrak is no longer handed out.
         State& state = Get(player);
-        // A Devourer with no shape yet gets the idol (here rather than in playercreateinfo_item, so it also
-        // reaches characters that lost it and nothing but this module has to know about it).
-        if (state.Shapes.empty() && !player->HasItemCount(ItemSethrakIdol, 1, true) &&
-            sObjectMgr->GetItemTemplate(ItemSethrakIdol))
-        {
-            if (player->AddItem(ItemSethrakIdol, 1))
-                Tell(player, "An Idol of the Sethrak is in your bags. Use it to take your first shape.");
-            else
-                Tell(player, "Your bags are full: make room for the Idol of the Sethrak and log in again.");
-        }
         for (auto const& [id, owned] : state.Shapes)
             if (Shape const* shape = FindShape(id))
                 if (!player->HasSpell(shape->FormSpell))
                     player->learnSpell(shape->FormSpell);
+        // A level gained in a form can open one of its abilities.
+        if (Shape const* worn = FindShape(state.KitShape))
+        {
+            bool opened = false;
+            for (uint32 spellId : worn->Kit)
+                opened |= spellId && !player->HasSpell(spellId) && KitSpellOpen(player, spellId);
+            if (opened)
+                GrantKit(player, state, *worn);
+        }
     }
 
     // --- chat ---------------------------------------------------------------------------------------------

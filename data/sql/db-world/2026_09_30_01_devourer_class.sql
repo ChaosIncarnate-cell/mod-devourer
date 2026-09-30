@@ -104,22 +104,29 @@ FROM `playercreateinfo` AS `p`
 WHERE `p`.`class` = (SELECT MIN(`q`.`class`) FROM (SELECT `race`, `class` FROM `playercreateinfo`) AS `q`
                      WHERE `q`.`race` = `p`.`race` AND `q`.`class` NOT IN (6, 10));
 
--- Devour from the start (the module also teaches it at login), on the second button next to Attack.
+-- Devour and Gnash (task 006, spell in 2026_09_30_08) from the start (the module also teaches Devour at login).
+-- Bars: Attack, Gnash, Devour.
 DELETE FROM `playercreateinfo_spell_custom` WHERE `classmask` = 512;
 INSERT INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) VALUES
-(0, 512, 9100001, 'Devourer: Devour');
+(0, 512, 9100001, 'Devourer: Devour'),
+(0, 512, 9100900, 'Devourer: Gnash');
 
 DELETE FROM `playercreateinfo_action` WHERE `class` = 10;
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
 SELECT `race`, 10, 0, 6603, 0 FROM `playercreateinfo` WHERE `class` = 10;          -- Attack
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
-SELECT `race`, 10, 1, 9100001, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Devour
+SELECT `race`, 10, 1, 9100900, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Gnash
+INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
+SELECT `race`, 10, 2, 9100001, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Devour
 
--- The warrior's weapon and armour skills (mail, shield, swords, axes, maces, daggers, thrown ...), not its class
--- skill lines (26 Arms, 256 Fury, 257 Protection). The skills every class gets (classMask 0) apply already.
--- They only take effect with the SkillRaceClassInfo rows from tools/build_class_dbc_sql.py.
+-- Weapon and armour skills at creation (task 006): leather, maces, two-handed maces, daggers, staves. Cloth,
+-- Defense and Unarmed come with every class (classMask 0). Fist weapons and polearms are taught by the weapon
+-- masters. No mail, plate, shields, swords, axes or ranged weapons. They only take effect with the
+-- SkillRaceClassInfo rows from tools/build_class_dbc_sql.py.
 DELETE FROM `playercreateinfo_skills` WHERE `classMask` = 512;
-INSERT IGNORE INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`, `comment`)
-SELECT `raceMask`, 512, `skill`, `rank`, CONCAT('Devourer: ', IFNULL(`comment`, ''))
-FROM (SELECT * FROM `playercreateinfo_skills`) AS `s`
-WHERE (`s`.`classMask` & 1) <> 0 AND `s`.`skill` NOT IN (26, 256, 257);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`, `comment`) VALUES
+(0, 512, 414, 0, 'Devourer: Leather'),
+(0, 512, 54, 0, 'Devourer: Maces'),
+(0, 512, 160, 0, 'Devourer: Two-Handed Maces'),
+(0, 512, 173, 0, 'Devourer: Daggers'),
+(0, 512, 136, 0, 'Devourer: Staves');
