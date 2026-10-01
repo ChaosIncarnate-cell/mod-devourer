@@ -493,6 +493,15 @@ local function OnMessage(message)
 		if ( id ) then
 			pendingOwned[id] = { worn = f[4] == "1", wearing = f[5] or "", skins = Split(f[6], ",") };
 		end
+	elseif ( kind == "K" and pendingOwned ) then
+		-- K:<shape>:<colouring>,<colouring>,... (more colourings of an owned shape; a kind can have dozens)
+		local id, list = string.match(message, "^K:(%d+):(.*)$");
+		local mine = id and pendingOwned[tonumber(id)];
+		if ( mine ) then
+			for _, skin in ipairs(Split(list, ",")) do
+				table.insert(mine.skins, skin);
+			end
+		end
 	elseif ( kind == "E" ) then
 		if ( pendingCatalog ) then
 			catalog, pendingCatalog = pendingCatalog, nil;

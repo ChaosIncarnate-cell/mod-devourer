@@ -987,7 +987,8 @@ namespace Devourer
     //   H:<shape>:<text>                                   how to get it, one line each
     // Then, always (also whenever a shape is gained, worn, left or recoloured):
     //   B                                                  the owned list begins
-    //   S:<shape>:<form spell>:<worn 0/1>:<colouring worn>:<colouring>,<colouring>,...   one owned shape
+    //   S:<shape>:<form spell>:<worn 0/1>:<colouring worn>:<base colouring>   one owned shape
+    //   K:<shape>:<colouring>,<colouring>,...              its other colourings, as many lines as needed
     //   E:<Anima per shift>                                done
     void Mgr::SendMenu(Player* player, bool catalog)
     {
@@ -1034,9 +1035,23 @@ namespace Devourer
             std::ostringstream line;
             line << "S:" << id << ':' << shape->FormSpell << ':' << (state.Worn == id ? 1 : 0) << ':'
                  << SkinName(ShownDisplay(player, *shape)) << ':' << SkinName(shape->Display);
-            for (uint32 skin : owned.Skins)
-                line << ',' << SkinName(skin);
             send(line.str());
+            // The colourings follow in as many K:<shape>:<colouring>,... lines as they need (a kind of creature can
+            // have dozens; one message holds 255 bytes).
+            std::string const head = "K:" + std::to_string(id) + ":";
+            std::string chunk;
+            for (uint32 skin : owned.Skins)
+            {
+                std::string const name = SkinName(skin);
+                if (!chunk.empty() && head.size() + chunk.size() + 1 + name.size() > 240)
+                {
+                    send(head + chunk);
+                    chunk.clear();
+                }
+                chunk += (chunk.empty() ? "" : ",") + name;
+            }
+            if (!chunk.empty())
+                send(head + chunk);
         }
         send("E:" + std::to_string(_animaPerShift));
     }
