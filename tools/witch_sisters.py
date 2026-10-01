@@ -1,0 +1,589 @@
+#!/usr/bin/env python3
+"""Task 010: the Hollowmoor witch sisters -- the Devourer's trainers and its level-5 intro in the In-Between.
+
+    python tools/witch_sisters.py
+
+Needs no client or server files. One source for three outputs; run it again after any change:
+  data/sql/db-world/2026_10_01_00_devourer_witch_sisters.sql   the sisters, the cage and their trappings, the
+                                                                quests, texts, gossip, the trainer link
+  src/DevourerSistersIds.h                                      the same ids and places for the module code
+  docs/witch-sisters.md                                         who says what, the quests, ids and places
+
+The names live here once (HAGATHA, WREN); every line that names a sister is built from them.
+
+The In-Between: map 35 "StormwindPrison" (in Map.dbc as "<unused>StormwindPrison"), a non-instanced map that
+no player content uses: one dark round hall of the old prison, with nothing outside its walls. The cage stands
+in the middle of the hall, at the stock `game_tele` point "JailAlliance" (-98.0, 149.8, -40.4). The other
+spots were picked from the server's navigation mesh for that map (floor heights included).
+
+Ids (all removed by data/sql/uninstall/world.sql and characters.sql):
+  creature_template      9101300 Hagatha, 9101301 Wren, 9101302 Wren's Snack (the rats of the first chore),
+                         9101303 the void under the cage, 9101310-9101312 quest credit (never spawned)
+  creature (spawns)      9910200-9910202
+  gameobject_template    9101300-9101309      gameobject (spawns) 9910200-9910229
+  quest                  9101301-9101303
+  gossip_menu / npc_text 9101300-9101301 / 9101300-9101305 (conditions on the same menus)
+  creature_default_trainer: both sisters -> trainer 9101200 (its spells: tools/start_kit.py)
+"""
+from __future__ import annotations
+
+import math
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+OUT_SQL = REPO / "data" / "sql" / "db-world" / "2026_10_01_00_devourer_witch_sisters.sql"
+OUT_H = REPO / "src" / "DevourerSistersIds.h"
+OUT_MD = REPO / "docs" / "witch-sisters.md"
+
+# --- the sisters' names: change them here, nowhere else ---------------------------------------------------------
+HAGATHA, HAGATHA_SHORT = "Hagatha Hollowmoor", "Hagatha"
+WREN, WREN_SHORT = "Wren Hollowmoor", "Wren"
+N = {"hagatha": HAGATHA_SHORT, "wren": WREN_SHORT, "Hagatha": HAGATHA, "Wren": WREN}
+
+# --- ids --------------------------------------------------------------------------------------------------------
+NPC_HAGATHA, NPC_WREN, NPC_SNACK, NPC_VOID = 9101300, 9101301, 9101302, 9101303
+CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE = 9101310, 9101311, 9101312
+NPC_FIRST, NPC_LAST = 9101300, 9101399
+SPAWN_FIRST, SPAWN_LAST = 9910200, 9910299
+GO_FIRST, GO_LAST = 9101300, 9101399
+GO_CAGE = 9101300                                   # the Devourer's own cage: summoned per player, opens at the end
+Q_FEEDING, Q_TRICK, Q_TALE = 9101301, 9101302, 9101303
+MENU_HAGATHA, MENU_WREN = 9101300, 9101301
+TRAINER = 9101200                                    # tools/start_kit.py: the class trainer and what it teaches
+CLASS_MASK = 512                                     # class 10
+SCRIPT = "npc_devourer_witch_sister"
+
+# Options the module answers (gossip_menu_option.OptionID); the rest the core handles.
+OPT_TRAIN, OPT_UNLEARN, OPT_DUALSPEC, OPT_TALE, OPT_BACK = 0, 1, 2, 3, 4
+
+# --- the In-Between ----------------------------------------------------------------------------------------------
+MAP = 35
+CAGE = (-98.0, 150.0, -40.28, math.pi / 2)          # the Devourer wakes here, facing the sisters
+ARRIVE = (-98.0, 143.5, -40.21, math.pi / 2)        # where a freed Devourer comes back to (.inbetween), outside it
+CAGE_RADIUS = 2.0                                    # yards it may stray from the middle before being put back
+
+
+def facing(x, y, at=CAGE):
+    return math.atan2(at[1] - y, at[0] - x) % (2 * math.pi)
+
+
+SISTERS = [  # (entry, spawn guid, name, menu, looks like (creature entry), x, y, z)
+    (NPC_HAGATHA, 9910200, HAGATHA, MENU_HAGATHA, 11872, -100.4, 153.4, -40.11),   # Myranda the Hag
+    (NPC_WREN, 9910201, WREN, MENU_WREN, 2963, -95.6, 153.4, -40.11),              # Windfury Wind Witch (a harpy)
+]
+VOID_SPAWN = (9910202, CAGE[0], CAGE[1], CAGE[2])
+
+# Game objects: (entry, type, display, name, size, flags). Type 0 = door (the cage opens), 5 = decoration.
+GO_TEMPLATES = [
+    (GO_CAGE, 0, 4154, "Wren's Cage", 1.2, 0x10),           # the larger stock cage (G_Cage 03), not clickable
+    (9101301, 5, 1787, "Wren's Cage", 1.0, 0),               # G_Cage 02: her cages everywhere, empty
+    (9101302, 5, 216, "Bubbling Cauldron", 1.0, 0),
+    (9101303, 5, 6038, "Hagatha's Lantern", 1.0, 0),
+    (9101304, 5, 187, "Bookshelf", 1.0, 0),
+    (9101305, 5, 107, "Book of Monster Tales", 1.0, 0),
+    (9101306, 5, 6328, "Skull Pile", 1.0, 0),
+    (9101307, 5, 6406, "Skull Candle", 1.0, 0),
+    (9101308, 5, 4152, "Black Candle", 1.0, 0),
+    (9101309, 5, 465, "Ritual Circle", 1.5, 0),
+]
+GO_SPAWNS = [  # (entry, x, y, z, orientation or None = facing the cage)
+    (9101309, CAGE[0], CAGE[1], round(CAGE[2] + 0.05, 2), 0.0),      # the circle the ritual pulls the Devourer into
+    (9101302, -98.0, 157.0, -39.93, None),                  # the cauldron behind the sisters
+    (9101303, -101.9, 155.0, -40.03, None),                 # Hagatha's lantern of trapped anima
+    (9101305, -102.7, 152.6, -40.15, None),
+    (9101304, -105.5, 160.5, -40.21, None),
+    (9101306, -103.5, 157.5, -40.02, None),
+    (9101307, -100.6, 146.8, -40.27, None),
+    (9101307, -95.4, 146.8, -40.27, None),
+    (9101308, -101.6, 150.0, -40.28, None),
+    (9101308, -94.4, 150.0, -40.28, None),
+    (9101301, -92.0, 157.0, -39.93, None),                  # Wren's cages: one beside her, four along the walls
+    (9101301, -108.0, 160.0, -40.12, None),
+    (9101301, -88.0, 160.0, -40.11, None),
+    (9101301, -108.0, 140.0, -40.31, None),
+    (9101301, -88.0, 140.0, -40.24, None),
+]
+
+# Stock visual-only spells the module casts (3.3.5a Spell.dbc, no effect but the look):
+VISUAL_PULL = 52233        # Teleport Visual (Evil): the ritual takes hold
+VISUAL_ARRIVE = 61456      # Evil Teleport Visual Only: arriving in the In-Between
+VISUAL_SLEEP = 55474       # Cosmetic - Sleep Zzz: asleep in the cage
+VISUAL_TRANSFORM = 24085   # Transform Visual: Wren's spell
+VOID_AURA = 64469          # Void Zone Visual: the void under the cage (on the hidden creature 9101303)
+
+# --- what they say ------------------------------------------------------------------------------------------------
+# creature_text: (creature, group, line, emote, draft). All lines are first drafts in the owner's descriptions of the
+# two sisters (task 010); PLACEHOLDER marks the ones written only to make the flow work. Type 12 = say.
+SAY, WHISPER = 12, 15
+EMOTE_TALK, EMOTE_EXCLAMATION, EMOTE_LAUGH, EMOTE_CHEER, EMOTE_POINT, EMOTE_NO = 1, 5, 11, 4, 25, 274
+DRAFT, PLACEHOLDER = "draft", "PLACEHOLDER"
+
+TEXTS = [
+    # Wren, 0: heard from nowhere when the ritual takes hold (sent by the module as her whisper)
+    (NPC_WREN, 0, "Found you! Hold still, Snack. This tickles. Mostly.", 0, DRAFT),
+    # Hagatha, 0: the Devourer lies asleep in the cage
+    (NPC_HAGATHA, 0, "Hush, sister. Let it wake slowly. The ones that wake fast bite the hand that feeds them.",
+     EMOTE_TALK, DRAFT),
+    # Wren, 1: it wakes
+    (NPC_WREN, 1, "It's awake! {hagatha}, it's AWAKE! Hello, hello, Project #9! Don't chew the bars, they're new.",
+     EMOTE_EXCLAMATION, DRAFT),
+    # Hagatha, 1
+    (NPC_HAGATHA, 1, "So. Another hungry thing out of the In-Between. They always come back here in the end, my little "
+     "horror. Back to the dark between the stars and the world.", EMOTE_TALK, DRAFT),
+    # Wren, 2: before the spell
+    (NPC_WREN, 2, "You eat what you kill and wear what you eat? Messy, messy! Let's give you something with proper "
+     "teeth. Hold still... no, the other still!", EMOTE_LAUGH, DRAFT),
+    # Wren, 3: the Baby Berserker
+    (NPC_WREN, 3, "Ha! Look at you! Little horns, little teeth, little temper! I'm calling you Fluffy. No, Snack. "
+     "No... both!", EMOTE_CHEER, DRAFT),
+    # Hagatha, 2
+    (NPC_HAGATHA, 2, "A young Berserker. In the villages they tell of a beast that ate the moon off the water of a "
+     "well, and was never full again. Mind which stories you become.", EMOTE_TALK, DRAFT),
+    # Wren, 4: the chores begin (she offers the first task)
+    (NPC_WREN, 4, "Chores, Fluffy! Every pet in this house has chores. I made a list. It's a long list. It's a lovely "
+     "list!", EMOTE_POINT, DRAFT),
+    # Wren, 5: the snacks are tossed into the cage
+    (NPC_WREN, 5, "Snacks incoming! Catch!", EMOTE_EXCLAMATION, DRAFT),
+    # Wren, 6: the roar
+    (NPC_WREN, 6, "THAT'S my monster! Again! No, don't, the ceiling's loose.", EMOTE_CHEER, DRAFT),
+    # Hagatha, 3-6: the tale of the hungry thing (the third task)
+    (NPC_HAGATHA, 3, "Listen, then. Before the villages had walls, something crawled out of the In-Between. It had no "
+     "shape of its own.", EMOTE_TALK, DRAFT),
+    (NPC_HAGATHA, 4, "It ate a wolf and ran on four legs. It ate a man and learned to lie. It ate a king and wore his "
+     "crown, and no one noticed for a year.", EMOTE_TALK, DRAFT),
+    (NPC_HAGATHA, 5, "When there was nothing left it had not been, it came back here, starving, and began to eat "
+     "itself.", EMOTE_TALK, DRAFT),
+    (NPC_HAGATHA, 6, "That is what you are, my little horror. Not the wolf, not the man. The hunger underneath. Never "
+     "let it eat the last of you.", EMOTE_TALK, DRAFT),
+    # The cage opens (the third task handed in)
+    (NPC_WREN, 7, "Out you go! Come back when you've eaten something interesting. Or someone. I'm joking! Mostly. Ha!",
+     EMOTE_LAUGH, DRAFT),
+    (NPC_HAGATHA, 7, "The door is open. Doors are worse than cages, hungry thing: through them you choose what you "
+     "become. Come back to us when you need teaching.", EMOTE_TALK, DRAFT),
+    # Wren, 8: the Devourer died in the cage and is put back on its feet
+    (NPC_WREN, 8, "No dying in my cage! Up you get, Snack. I haven't finished my list.", EMOTE_NO, PLACEHOLDER),
+    # Wren, 9: it tried to leave the cage
+    (NPC_WREN, 9, "Ah-ah-ah! The cage stays shut until the chores are done.", EMOTE_NO, PLACEHOLDER),
+    # Wren, 10: a freed Devourer comes back (.inbetween)
+    (NPC_WREN, 10, "Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!", EMOTE_CHEER,
+     PLACEHOLDER),
+]
+
+# npc_text: (id, text, draft). Shown on the sisters' gossip; conditions pick one.
+NPC_TEXTS = [
+    (9101300, "Sit still, hungry thing. The bars are for your sake, not ours.", DRAFT),
+    (9101301, "You smell of new meals, my little horror. Sit by the lantern, and I will teach you what the dark "
+     "already knows about you.", DRAFT),
+    (9101302, "You are not one of mine. Go back the way the dark let you in, and do not look into the lantern.", DRAFT),
+    (9101303, "Chores first, then no cage! Or cage first, then chores, then no cage. I wrote it down somewhere.", DRAFT),
+    (9101304, "Project #9! Back already? Lessons! I LOVE lessons. Hold still while I find the list.", DRAFT),
+    (9101305, "Ooh, a visitor! You'd make a lovely toad. No? Then shoo! {hagatha} says I can't keep everyone.", DRAFT),
+]
+# (menu, Devourer still caged, Devourer freed, anyone else)
+MENU_TEXTS = {MENU_HAGATHA: (9101300, 9101301, 9101302), MENU_WREN: (9101303, 9101304, 9101305)}
+
+# --- the chores ------------------------------------------------------------------------------------------------------
+QUESTS = [
+    dict(id=Q_FEEDING, giver=NPC_WREN, ender=NPC_WREN, prev=0, next=Q_TRICK, xp=4,
+         title="Feeding Time",
+         log="Kill 3 of {wren}'s snacks and devour one of them.",
+         details="Fluffy! No, Snack. Project #9! You'll answer to all of them, I've decided.$B$BFirst chore on the "
+                 "list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them in, you "
+                 "catch them. And don't just bite them. EAT one. Properly, the way you do. I want to watch!",
+         objectives=[(NPC_SNACK, 3, ""), (CREDIT_DEVOURED, 1, "Snack devoured")],
+         incomplete="Still squeaking in there? Somebody's not done.",
+         reward="Crunchy! {hagatha}, did you see? It ate it whole! Well. Mostly whole.$B$BGold star, Snack. Next "
+                "chore!",
+         complete="Return to {Wren}."),
+    dict(id=Q_TRICK, giver=NPC_WREN, ender=NPC_WREN, prev=Q_FEEDING, next=0, xp=4,
+         title="A Trick for {wren}",
+         log="Roar at {Wren}.",
+         details="Every good pet knows a trick. The toad knows 'sit'. The other toad knows 'sit' too, but louder.$B$B"
+                 "You, Fluffy, are going to ROAR. Big and scary, right at me. Go on! I'll pretend to be frightened. "
+                 "I'm very good at it.",
+         objectives=[(CREDIT_ROAR, 1, "Roar at {wren}")],
+         incomplete="I'm waiting! Rooooar. Like that, but you.",
+         reward="Eek! Ha! Oh, that was GOOD. That goes on the list of things you're good at. It's a short list. It's "
+                "a new list!$B$BNow go and sit nicely for {hagatha}. She's been dying to frighten you back.",
+         complete="Return to {Wren}."),
+    dict(id=Q_TALE, giver=NPC_HAGATHA, ender=NPC_HAGATHA, prev=Q_TRICK, next=0, xp=5,
+         title="What the Dark Remembers",
+         log="Ask {Hagatha} for the tale of the hungry thing, and listen to its end.",
+         details="My sister teaches you tricks. I will teach you what you are.$B$BEvery village has a story about "
+                 "something that came out of the dark and ate until it became something else. Sit, hungry thing. Ask "
+                 "me for the tale, and listen to the end of it. The ones who do not listen end up in it.",
+         objectives=[(CREDIT_TALE, 1, "Hear {hagatha}'s tale")],
+         incomplete="The tale is not finished with you yet.",
+         reward="Now you know the shape beneath all your shapes. Remember it when you wear someone else's.$B$B"
+                "{wren}, open the cage. Our little horror has lessons to carry into the world, and it will come back "
+                "to us for more.",
+         complete="Return to {Hagatha}."),
+]
+
+OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, action menu, who sees it)]
+    # who: "trained" = a Devourer whose cage is open, "tale" = a Devourer on the third task
+    MENU_HAGATHA: [
+        (OPT_TRAIN, 3, "I require training.", 0, 5, 16, 0, "trained"),
+        (OPT_UNLEARN, 0, "I wish to unlearn my talents.", 62295, 16, 16, 4461, "trained"),
+        (OPT_DUALSPEC, 0, "I wish to know about Dual Talent Specialization.", 33762, 20, 1, 10371, "trained"),
+        (OPT_TALE, 0, "Tell me the tale of the hungry thing.", 0, 1, 1, 0, "tale"),
+        (OPT_BACK, 0, "Send me back to where you found me.", 0, 1, 1, 0, "trained"),
+    ],
+    MENU_WREN: [
+        (OPT_TRAIN, 3, "I require training.", 0, 5, 16, 0, "trained"),
+        (OPT_UNLEARN, 0, "I wish to unlearn my talents.", 62295, 16, 16, 4461, "trained"),
+        (OPT_DUALSPEC, 0, "I wish to know about Dual Talent Specialization.", 33762, 20, 1, 10371, "trained"),
+        (OPT_BACK, 0, "Send me back to where you found me.", 0, 1, 1, 0, "trained"),
+    ],
+}
+
+# The 16 Devourer Trainers of task 006 (gone; the owner disliked them). Removed from databases that have them.
+OLD_TRAINERS = (9101200, 9101215)
+OLD_TRAINER_SPAWNS = (9910101, 9910116)
+OLD_MENU, OLD_TEXTS = 9101200, (9101200, 9101201)
+
+
+def f(text: str) -> str:
+    return text.format(**N)
+
+
+def q(s: str) -> str:
+    return "'" + s.replace("\\", "\\\\").replace("'", "''") + "'"
+
+
+def rot(o: float) -> tuple[float, float]:
+    return round(math.sin(o / 2), 6), round(math.cos(o / 2), 6)
+
+
+def cond(menu_type, group, entry, ctype, value, negative, comment, else_group=0):
+    return (f"({menu_type}, {group}, {entry}, 0, {else_group}, {ctype}, 0, {value}, 0, 0, {negative}, 0, 0, '',"
+            f" {q(comment)})")
+
+
+CONDITION_QUESTREWARDED, CONDITION_QUESTTAKEN, CONDITION_CLASS = 8, 9, 15
+
+
+def build_sql() -> str:
+    s = [
+        "-- Generated by tools/witch_sisters.py (task 010). Do not edit by hand: change the script and run it again.",
+        f"-- The Hollowmoor sisters ({HAGATHA}, {WREN}): the Devourer's trainers in the In-Between (map {MAP}), their",
+        "-- cage and trappings, the three chores of the level-5 intro. Safe to run again; removed by uninstall/world.sql.",
+        "",
+        "-- --- the 16 Devourer Trainers of task 006 are gone (tools/start_kit.py no longer makes them) ------------------",
+        f"DELETE FROM `creature` WHERE `guid` BETWEEN {OLD_TRAINER_SPAWNS[0]} AND {OLD_TRAINER_SPAWNS[1]};",
+        f"DELETE FROM `creature_default_trainer` WHERE `CreatureId` BETWEEN {OLD_TRAINERS[0]} AND {OLD_TRAINERS[1]};",
+        f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {OLD_TRAINERS[0]} AND {OLD_TRAINERS[1]};",
+        f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {OLD_TRAINERS[0]} AND {OLD_TRAINERS[1]};",
+        f"DELETE FROM `gossip_menu_option` WHERE `MenuID` = {OLD_MENU};",
+        f"DELETE FROM `gossip_menu` WHERE `MenuID` = {OLD_MENU};",
+        f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` = {OLD_MENU};",
+        f"DELETE FROM `npc_text` WHERE `ID` IN ({OLD_TEXTS[0]}, {OLD_TEXTS[1]});",
+        "",
+        "-- --- clean slate for this file's ids ---------------------------------------------------------------------------",
+        f"DELETE FROM `creature` WHERE `guid` BETWEEN {SPAWN_FIRST} AND {SPAWN_LAST};",
+        f"DELETE FROM `gameobject` WHERE `guid` BETWEEN {SPAWN_FIRST} AND {SPAWN_LAST};",
+        f"DELETE FROM `creature_text` WHERE `CreatureID` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `creature_template_addon` WHERE `entry` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `creature_default_trainer` WHERE `CreatureId` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `creature_queststarter` WHERE `id` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `creature_questender` WHERE `id` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
+        f"DELETE FROM `gameobject_template_addon` WHERE `entry` BETWEEN {GO_FIRST} AND {GO_LAST};",
+        f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {GO_FIRST} AND {GO_LAST};",
+        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
+        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
+        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
+        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
+        f"DELETE FROM `gossip_menu_option` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
+        f"DELETE FROM `gossip_menu` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
+        f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN ({MENU_HAGATHA},"
+        f" {MENU_WREN});",
+        f"DELETE FROM `npc_text` WHERE `ID` BETWEEN {NPC_TEXTS[0][0]} AND {NPC_TEXTS[-1][0]};",
+        "",
+        "-- --- the sisters ------------------------------------------------------------------------------------------------",
+        "-- Copies of a friendly stock NPC (made at install time, so no creature data is written here), as Devourer",
+        "-- Trainers, quest givers and gossip; the module's AI (ScriptName) answers the options it owns. Looks: a",
+        "-- stock creature's model each (Hagatha: Myranda the Hag 11872; Wren: Windfury Wind Witch 2963, a harpy).",
+        "DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;",
+        "CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 11872;",
+        "UPDATE `devourer_tmp_ct` SET `subname` = 'Devourer Trainer', `minlevel` = 80, `maxlevel` = 80, `faction` = 35,",
+        f"    `npcflag` = 51, `unit_flags` = 768, `AIName` = '', `ScriptName` = {q(SCRIPT)}, `lootid` = 0,"
+        " `KillCredit1` = 0,",
+        "    `KillCredit2` = 0, `MovementType` = 0, `VerifiedBuild` = 0;",
+    ]
+    for entry, _, name, menu, _, *_ in SISTERS:
+        s.append(f"UPDATE `devourer_tmp_ct` SET `entry` = {entry}, `name` = {q(name)}, `gossip_menu_id` = {menu};")
+        s.append("INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;")
+    s += [
+        "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
+        "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
+        " `VerifiedBuild`)",
+        "SELECT `m`.`entry`, 0, `ctm`.`CreatureDisplayID`, `ctm`.`DisplayScale`, 1, 0 FROM (",
+        "    " + " UNION ALL ".join(f"SELECT {e} AS `entry`, {lk} AS `looks`" for e, _, _, _, lk, *_ in SISTERS),
+        ") AS `m` JOIN `creature_template_model` AS `ctm` ON `ctm`.`CreatureID` = `m`.`looks` AND `ctm`.`Idx` = 0;",
+        "INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES",
+        ", ".join(f"({e}, {TRAINER})" for e, *_ in SISTERS) + ";",
+        "",
+        "-- --- Wren's snacks (the first chore): rats, hostile, worth no experience; summoned into the cage by the module",
+        "CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 4075;   -- Rat",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {NPC_SNACK}, `name` = {q(f("{wren}'s Snack"))},"
+        " `subname` = NULL, `minlevel` = 2, `maxlevel` = 3,",
+        "    `faction` = 14, `type` = 1, `npcflag` = 0, `unit_flags` = 0, `lootid` = 0, `skinloot` = 0,"
+        " `pickpocketloot` = 0,",
+        "    `mingold` = 0, `maxgold` = 0, `ExperienceModifier` = 0, `DamageModifier` = 0.5, `AIName` = '',"
+        " `ScriptName` = '',",
+        "    `KillCredit1` = 0, `KillCredit2` = 0, `VerifiedBuild` = 0;",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
+        f"INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`,"
+        " `Probability`, `VerifiedBuild`)",
+        f"SELECT {NPC_SNACK}, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model`"
+        " WHERE `CreatureID` = 4075 AND `Idx` = 0;",
+        "",
+        "-- --- the void under the cage: an unseen, unselectable creature wearing the Void Zone visual ------------------",
+        "-- --- and the three quest credits (never spawned; their names are what the quest log would show) ------------",
+        "CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15384;"
+        "  -- OLDWorld Trigger",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {NPC_VOID}, `name` = 'The In-Between', `subname` = NULL,"
+        " `faction` = 35, `npcflag` = 0,",
+        "    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0;",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_DEVOURED}, `name` = 'Snack devoured';",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_ROAR}, `name` = {q(f('Roar at {wren}'))};",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_TALE}, `name` = {q(f("{hagatha}'s tale heard"))};",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
+        "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
+        " `VerifiedBuild`) VALUES",
+        ",\n".join(f"({e}, 0, 11686, 1, 1, 0)" for e in (NPC_VOID, CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE))
+        + ";   -- the invisible stalker model",
+        "INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`,"
+        " `visibilityDistanceType`, `auras`) VALUES",
+        f"({NPC_VOID}, 0, 0, 0, 0, 0, 0, '{VOID_AURA}');",
+        "",
+        f"-- --- spawns in the In-Between (map {MAP}) ------------------------------------------------------------------",
+        "INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`,"
+        " `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES",
+        ",\n".join(
+            [f"({g}, {e}, {MAP}, 1, 1, {x}, {y}, {z}, {facing(x, y):.4f}, 300, 0, 0, {q('mod-devourer: ' + n)})"
+             for e, g, n, _, _, x, y, z in SISTERS]
+            + [f"({VOID_SPAWN[0]}, {NPC_VOID}, {MAP}, 1, 1, {VOID_SPAWN[1]}, {VOID_SPAWN[2]}, {VOID_SPAWN[3]}, 0, 300,"
+               f" 0, 0, 'mod-devourer: the void under the cage')"]) + ";",
+        "",
+        "-- --- game objects: the Devourer's cage (a door: it opens), and the sisters' trappings -------------------------",
+        "INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`,"
+        " `unk1`, `size`, `AIName`, `ScriptName`, `VerifiedBuild`) VALUES",
+        ",\n".join(f"({e}, {t}, {d}, {q(n)}, '', '', '', {sz}, '', '', 0)" for e, t, d, n, sz, _ in GO_TEMPLATES) + ";",
+        "INSERT INTO `gameobject_template_addon` (`entry`, `faction`, `flags`, `mingold`, `maxgold`) VALUES",
+        ",\n".join(f"({e}, 0, {fl}, 0, 0)" for e, t, d, n, sz, fl in GO_TEMPLATES) + ";",
+        "INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`,"
+        " `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`,"
+        " `animprogress`, `state`, `Comment`) VALUES",
+    ]
+    rows = []
+    for i, (e, x, y, z, o) in enumerate(GO_SPAWNS):
+        o = facing(x, y) if o is None else o
+        r2, r3 = rot(o)
+        rows.append(f"({SPAWN_FIRST + i}, {e}, {MAP}, 1, 1, {x}, {y}, {z}, {o:.4f}, 0, 0, {r2}, {r3}, 300, 0, 1,"
+                    " 'mod-devourer: the In-Between')")
+    assert SPAWN_FIRST + len(GO_SPAWNS) - 1 <= SPAWN_LAST
+    s += [",\n".join(rows) + ";", ""]
+
+    # quests
+    s += ["-- --- the three chores (class 10 only; each opens after the one before) ------------------------------------",
+          "INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`,"
+          " `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`,"
+          " `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredNpcOrGo1`, `RequiredNpcOrGo2`,"
+          " `RequiredNpcOrGoCount1`, `RequiredNpcOrGoCount2`, `ObjectiveText1`, `ObjectiveText2`, `ObjectiveText3`,"
+          " `ObjectiveText4`, `VerifiedBuild`) VALUES"]
+    rows = []
+    for qd in QUESTS:
+        obj = qd["objectives"] + [(0, 0, "")] * (2 - len(qd["objectives"]))
+        rows.append(f"({qd['id']}, 2, 5, 5, 0, 0, {qd['next']}, {qd['xp']}, 0, 0, {q(f(qd['title']))},"
+                    f" {q(f(qd['log']))}, {q(f(qd['details']))}, '', {q(f(qd['complete']))},"
+                    f" {obj[0][0]}, {obj[1][0]}, {obj[0][1]}, {obj[1][1]}, {q(f(obj[0][2]))}, {q(f(obj[1][2]))}, '', '',"
+                    " 0)")
+    s += [",\n".join(rows) + ";",
+          "INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES",
+          ",\n".join(f"({qd['id']}, {CLASS_MASK}, {qd['prev']})" for qd in QUESTS) + ";",
+          "INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`,"
+          " `VerifiedBuild`) VALUES",
+          ",\n".join(f"({qd['id']}, 1, 1, {q(f(qd['incomplete']))}, 0)" for qd in QUESTS) + ";",
+          "INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES",
+          ",\n".join(f"({qd['id']}, 1, {q(f(qd['reward']))}, 0)" for qd in QUESTS) + ";",
+          "INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES",
+          ", ".join(f"({qd['giver']}, {qd['id']})" for qd in QUESTS) + ";",
+          "INSERT INTO `creature_questender` (`id`, `quest`) VALUES",
+          ", ".join(f"({qd['ender']}, {qd['id']})" for qd in QUESTS) + ";",
+          ""]
+
+    # texts
+    s += ["-- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------",
+          "INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`,"
+          " `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES",
+          ",\n".join(f"({c}, {g}, 0, {q(f(t))}, {WHISPER if (c, g) == (NPC_WREN, 0) else SAY}, 0, 100, {em}, 0, 0, 0,"
+                     f" 0, {q(('Hagatha' if c == NPC_HAGATHA else 'Wren') + f' {g} ({d})')})"
+                     for c, g, t, em, d in TEXTS) + ";",
+          "",
+          "-- --- gossip: the text depends on who asks; training only for a Devourer whose cage is open ---------------",
+          "INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES",
+          ",\n".join(f"({i}, {q(f(t))}, {q(f(t))}, 1)" for i, t, _ in NPC_TEXTS) + ";",
+          "INSERT INTO `gossip_menu` (`MenuID`, `TextID`) VALUES",
+          ",\n".join(f"({m}, {t})" for m, ts in MENU_TEXTS.items() for t in ts) + ";",
+          "INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionText`, `OptionBroadcastTextID`,"
+          " `OptionType`, `OptionNpcFlag`, `ActionMenuID`, `ActionPoiID`, `BoxCoded`, `BoxMoney`, `BoxText`,"
+          " `BoxBroadcastTextID`, `VerifiedBuild`) VALUES",
+          ",\n".join(f"({m}, {o}, {ic}, {q(t)}, {bc}, {ty}, {nf}, {am}, 0, 0, 0, '', 0, 0)"
+                     for m, opts in OPTIONS.items() for o, ic, t, bc, ty, nf, am, _ in opts) + ";"]
+    conds = []
+    for m, (caged, freed, other) in MENU_TEXTS.items():
+        who = "Hagatha" if m == MENU_HAGATHA else "Wren"
+        conds += [cond(14, m, caged, CONDITION_CLASS, CLASS_MASK, 0, f"{who}: a caged Devourer"),
+                  cond(14, m, caged, CONDITION_QUESTREWARDED, Q_TALE, 1, f"{who}: a caged Devourer"),
+                  cond(14, m, freed, CONDITION_CLASS, CLASS_MASK, 0, f"{who}: a freed Devourer"),
+                  cond(14, m, freed, CONDITION_QUESTREWARDED, Q_TALE, 0, f"{who}: a freed Devourer"),
+                  cond(14, m, other, CONDITION_CLASS, CLASS_MASK, 1, f"{who}: anyone else is sent away")]
+        for o, _, t, _, _, _, _, seen in OPTIONS[m]:
+            conds.append(cond(15, m, o, CONDITION_CLASS, CLASS_MASK, 0, f"{who}: {t} (Devourer)"))
+            if seen == "trained":
+                conds.append(cond(15, m, o, CONDITION_QUESTREWARDED, Q_TALE, 0, f"{who}: {t} (cage open)"))
+            else:
+                conds.append(cond(15, m, o, CONDITION_QUESTTAKEN, Q_TALE, 0, f"{who}: {t} (on the third chore)"))
+    s += ["INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`,"
+          " `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`,"
+          " `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES",
+          ",\n".join(conds) + ";", ""]
+    return "\n".join(s)
+
+
+def build_header() -> str:
+    c = CAGE
+    a = ARRIVE
+    return "\n".join([
+        "// Generated by tools/witch_sisters.py (task 010) -- change the script and run it again.",
+        "#ifndef DEVOURER_SISTERS_IDS_H",
+        "#define DEVOURER_SISTERS_IDS_H",
+        "",
+        "#include <cstdint>",
+        "",
+        "namespace Devourer::Sisters",
+        "{",
+        f"    constexpr uint32_t NpcHagatha = {NPC_HAGATHA};",
+        f"    constexpr uint32_t NpcWren = {NPC_WREN};",
+        f"    constexpr uint32_t NpcSnack = {NPC_SNACK};",
+        f"    constexpr uint32_t CreditDevoured = {CREDIT_DEVOURED};",
+        f"    constexpr uint32_t CreditRoar = {CREDIT_ROAR};",
+        f"    constexpr uint32_t CreditTale = {CREDIT_TALE};",
+        f"    constexpr uint32_t GoCage = {GO_CAGE};",
+        f"    constexpr uint32_t QuestFeeding = {Q_FEEDING};",
+        f"    constexpr uint32_t QuestTrick = {Q_TRICK};",
+        f"    constexpr uint32_t QuestTale = {Q_TALE};",
+        f"    constexpr uint32_t MenuHagatha = {MENU_HAGATHA};",
+        f"    constexpr uint32_t MenuWren = {MENU_WREN};",
+        f"    constexpr uint32_t OptionTale = {OPT_TALE};",
+        f"    constexpr uint32_t OptionBack = {OPT_BACK};",
+        f"    constexpr uint32_t InBetweenMap = {MAP};",
+        f"    constexpr float CageX = {c[0]}f, CageY = {c[1]}f, CageZ = {c[2]}f, CageO = {c[3]:.4f}f;",
+        f"    constexpr float ArriveX = {a[0]}f, ArriveY = {a[1]}f, ArriveZ = {a[2]}f, ArriveO = {a[3]:.4f}f;",
+        f"    constexpr float CageRadius = {CAGE_RADIUS}f;",
+        f"    constexpr uint32_t VisualPull = {VISUAL_PULL};",
+        f"    constexpr uint32_t VisualArrive = {VISUAL_ARRIVE};",
+        f"    constexpr uint32_t VisualSleep = {VISUAL_SLEEP};",
+        f"    constexpr uint32_t VisualTransform = {VISUAL_TRANSFORM};",
+        "",
+        "    // creature_text groups",
+        "    enum Line : uint8_t",
+        "    {",
+        "        WrenFoundYou = 0, WrenAwake = 1, WrenBeforeSpell = 2, WrenBaby = 3, WrenChores = 4, WrenSnacks = 5,",
+        "        WrenRoar = 6, WrenCageOpen = 7, WrenNoDying = 8, WrenStayIn = 9, WrenWelcomeBack = 10,",
+        "        HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,",
+        "        HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,",
+        "    };",
+        "}",
+        "",
+        "#endif",
+        "",
+    ])
+
+
+def build_md() -> str:
+    md = ["# The Hollowmoor sisters: the Devourer's trainers and its level-5 intro",
+          "",
+          "Generated by `tools/witch_sisters.py` (task 010) — edit the script, not this file. Lines marked *draft* are "
+          "first drafts in the owner's descriptions of the sisters; *PLACEHOLDER* lines only make the flow work.",
+          "",
+          f"- **{HAGATHA}**: the folklore sister. Looks like creature 11872 (Myranda the Hag).",
+          f"- **{WREN}**: the task sister. Looks like creature 2963 (Windfury Wind Witch, a harpy: half feather, half "
+          "girl).",
+          "",
+          "## The In-Between",
+          "",
+          f"Map **{MAP}** (`StormwindPrison`, unused, not instanced): the round hall of the old prison, nothing outside "
+          f"its walls. Cage (where the Devourer wakes): **{CAGE[0]}, {CAGE[1]}, {CAGE[2]}**. A freed Devourer that "
+          f"comes back (`.inbetween`) arrives at {ARRIVE[0]}, {ARRIVE[1]}, {ARRIVE[2]}. "
+          "GM: `.go xyz -98 150 -40.3 35`.",
+          "",
+          "| Spawn | What | Where |",
+          "|---|---|---|"]
+    for e, g, n, _, _, x, y, z in SISTERS:
+        md.append(f"| creature {g} | {n} ({e}) | {x}, {y}, {z} |")
+    md.append(f"| creature {VOID_SPAWN[0]} | the void under the cage ({NPC_VOID}) | the cage |")
+    names = {e: n for e, _, _, n, _, _ in GO_TEMPLATES}
+    for i, (e, x, y, z, _) in enumerate(GO_SPAWNS):
+        md.append(f"| gameobject {SPAWN_FIRST + i} | {names[e]} ({e}) | {x}, {y}, {z} |")
+    md += ["", f"The Devourer's own cage ({GO_CAGE}, display 4154) is summoned by the module for each Devourer, and "
+           "opens when the third chore is handed in.", "",
+           "## How it goes", "",
+           "1. A Devourer reaches level 5 (or logs in at 5+ without having finished): Wren's whisper, a dark flash, "
+           "and it is pulled into the In-Between (not from a dungeon, battleground, flight or fight: the module waits).",
+           "2. It wakes asleep in the cage; the sisters talk; Wren turns it into a **Baby Berserker** (shape 4, base "
+           "colouring, worn at once) and offers the first chore.",
+           "3. Three chores (below). Until the last is handed in, the cage holds it (it is put back if it strays).",
+           "4. The cage opens; both sisters train it from now on. \"Send me back to where you found me\" returns it to "
+           "where the ritual took it.",
+           "5. Later, `.inbetween` (a stopgap until the proposed spell, see the PR) brings a freed Devourer back here.",
+           "", "## The chores", ""]
+    for qd in QUESTS:
+        giver = HAGATHA if qd["giver"] == NPC_HAGATHA else WREN
+        md += [f"### {qd['id']} {f(qd['title'])} ({giver})", "",
+               f"*Objective:* {f(qd['log'])}", "",
+               f"> {f(qd['details']).replace('$B$B', ' / ')}", "",
+               f"*Not done yet:* {f(qd['incomplete'])}  ", f"*Handed in:* {f(qd['reward']).replace('$B$B', ' / ')}", ""]
+    md += ["## Lines (creature_text)", "", "| Who | Group | When | Line | |", "|---|---|---|---|---|"]
+    when = {(NPC_WREN, 0): "the ritual takes hold (whisper)", (NPC_HAGATHA, 0): "asleep in the cage",
+            (NPC_WREN, 1): "it wakes", (NPC_HAGATHA, 1): "", (NPC_WREN, 2): "before the spell",
+            (NPC_WREN, 3): "it is a Baby Berserker", (NPC_HAGATHA, 2): "", (NPC_WREN, 4): "first chore offered",
+            (NPC_WREN, 5): "snacks tossed in", (NPC_WREN, 6): "it roared at her", (NPC_HAGATHA, 3): "the tale 1/4",
+            (NPC_HAGATHA, 4): "the tale 2/4", (NPC_HAGATHA, 5): "the tale 3/4", (NPC_HAGATHA, 6): "the tale 4/4",
+            (NPC_WREN, 7): "the cage opens", (NPC_HAGATHA, 7): "the cage opens", (NPC_WREN, 8): "died in the cage",
+            (NPC_WREN, 9): "strayed from the cage", (NPC_WREN, 10): "came back with .inbetween"}
+    for c, g, t, _, d in TEXTS:
+        md.append(f"| {HAGATHA_SHORT if c == NPC_HAGATHA else WREN_SHORT} | {g} | {when.get((c, g), '')} | {f(t)} | {d} |")
+    md += ["", "## Gossip texts", "", "| npc_text | Shown to | Text | |", "|---|---|---|---|"]
+    shown = {}
+    for m, (a, b_, c) in MENU_TEXTS.items():
+        who = HAGATHA_SHORT if m == MENU_HAGATHA else WREN_SHORT
+        shown[a], shown[b_], shown[c] = f"{who}: a caged Devourer", f"{who}: a freed Devourer", f"{who}: anyone else"
+    for i, t, d in NPC_TEXTS:
+        md.append(f"| {i} | {shown[i]} | {f(t)} | {d} |")
+    md += ["", "Options: training, unlearn talents, dual spec and \"Send me back\" only for a freed Devourer; "
+           "Hagatha's \"Tell me the tale\" only during the third chore.", ""]
+    return "\n".join(md)
+
+
+def main() -> int:
+    # Plain "\n" line ends on every system, so the output is the same wherever the script runs.
+    OUT_SQL.write_text(build_sql(), encoding="utf-8", newline="\n")
+    OUT_H.write_text(build_header(), encoding="utf-8", newline="\n")
+    OUT_MD.write_text(build_md(), encoding="utf-8", newline="\n")
+    print(f"{len(SISTERS)} sisters, {len(QUESTS)} quests, {len(TEXTS)} lines, {len(GO_SPAWNS)} objects in the In-Between")
+    for p in (OUT_SQL, OUT_H, OUT_MD):
+        print(f"wrote {p.relative_to(REPO)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -17,24 +17,7 @@ Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a sh
 
 ## Trainers
 
-| Entry | Name | Where | Stands beside | Looks like |
-|---|---|---|---|---|
-| 9101200 | Aldric Vane | Northshire | creature 911 | creature 918 |
-| 9101201 | Corwin Gloam | Stormwind | creature 914 | creature 915 |
-| 9101202 | Thorvik Gnashbeard | Coldridge Valley | creature 912 | creature 5166 |
-| 9101203 | Brunn Deepmaw | Ironforge | creature 1901 | creature 916 |
-| 9101204 | Ilyssa Moonhunger | Shadowglen | creature 3593 | creature 4163 |
-| 9101205 | Faelan Nightmaw | Darnassus | creature 4087 | creature 3594 |
-| 9101206 | Oronaar | Ammen Vale | creature 16503 | creature 16771 |
-| 9101207 | Vesheel | The Exodar | creature 17120 | creature 16503 |
-| 9101208 | Grak | Valley of Trials | creature 3153 | creature 3327 |
-| 9101209 | Throg Bloodjaw | Orgrimmar | creature 3353 | creature 3155 |
-| 9101210 | Mahka Hollowhorn | Camp Narache | creature 3059 | creature 3034 |
-| 9101211 | Tarn Hungerhoof | Thunder Bluff | creature 3043 | creature 3060 |
-| 9101212 | Agatha Crane | Deathknell | creature 2119 | creature 4582 |
-| 9101213 | Silas Marrow | Undercity | creature 4593 | creature 2122 |
-| 9101214 | Lyriel Sunhunger | Sunstrider Isle | creature 15285 | creature 16685 |
-| 9101215 | Caelis Emberthirst | Silvermoon City | creature 16684 | creature 15285 |
+Trainer 9101200 teaches the base kit above. The Devourer's trainers are the Hollowmoor witch sisters in the In-Between (task 010): see `docs/witch-sisters.md`.
 
 ## Starting forms
 
@@ -44,7 +27,7 @@ Devour **299** for the base look (31049, skin `Grey`); colourings: 69 → 31048 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100910 | 1 | Wolf Form | Take the shape of the wolf you devoured: Savage Bite, Pack Howl and Pack Instinct; Rip Throat opens at level 10, Call of the Pack at 20. All shapes share one cooldown. |
-| 9100911 | 1 | Savage Bite | Bite the enemy: weapon damage plus $s1. Generates 5 Hunger. |
+| 9100911 | 1 | Savage Bite | Bite the enemy: weapon damage plus $s1. Generates 5 Anima. |
 | 9100912 | 1 | Pack Howl | Howl like the pack before the kill: attack speed increased by 10% for 20 sec. |
 | 9100913 | 1 | Pack Instinct | Your critical strike chance is increased by 2%. |
 | 9100914 | 10 | Rip Throat (placeholder) | Placeholder Wolf ability (level 10): not designed yet. |
@@ -56,7 +39,7 @@ Devour **707** for the base look (606, skin `Rockjaw`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100920 | 1 | Trogg Form | Take the shape of the trogg you devoured: Stone Fist, Stoneskin and Thick Skull; Rock Hurl opens at level 10, Tunnel Rage at 20. All shapes share one cooldown. |
-| 9100921 | 1 | Stone Fist | Hammer the enemy with a fist of stone: weapon damage plus $s1. Generates 5 Hunger. |
+| 9100921 | 1 | Stone Fist | Hammer the enemy with a fist of stone: weapon damage plus $s1. Generates 5 Anima. |
 | 9100922 | 1 | Stoneskin | Your hide turns to stone: damage taken reduced by 10% for 10 sec. |
 | 9100923 | 1 | Thick Skull | Your armor is increased by 10%. |
 | 9100924 | 10 | Rock Hurl (placeholder) | Placeholder Trogg ability (level 10): not designed yet. |
@@ -68,7 +51,7 @@ Devour **2031** for the base look (11454, skin `Nightsaber`); colourings: 15366 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100930 | 1 | Nightsaber Form | Take the shape of the nightsaber you devoured: Rake, Prowl and Hunter's Poise; Ambush Leap opens at level 10, Shadow Stalk at 20. All shapes share one cooldown. |
-| 9100931 | 1 | Rake | Rake the enemy for $s1 damage; it bleeds for $o2 over 9 sec. Generates 5 Hunger. |
+| 9100931 | 1 | Rake | Rake the enemy for $s1 damage; it bleeds for $o2 over 9 sec. Generates 5 Anima. |
 | 9100932 | 1 | Prowl | Slip into the shadows, unseen but slower. Cannot be used in combat. |
 | 9100933 | 1 | Hunter's Poise | Your attack power is increased by 5%. |
 | 9100934 | 10 | Ambush Leap (placeholder) | Placeholder Nightsaber ability (level 10): not designed yet. |
@@ -80,7 +63,7 @@ Devour **16520** for the base look (17574, skin `Vale`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100940 | 1 | Moth Form | Take the shape of the moth you devoured: Dusty Wings, Blinding Dust and Fluttering; Luring Glow opens at level 10, Silken Cocoon at 20. All shapes share one cooldown. |
-| 9100941 | 1 | Dusty Wings | Beat your wings: $s1 Nature damage to enemies within 5 yards. Generates 5 Hunger. |
+| 9100941 | 1 | Dusty Wings | Beat your wings: $s1 Nature damage to enemies within 5 yards. Generates 5 Anima. |
 | 9100942 | 1 | Blinding Dust | Throw wing dust into the enemy's eyes: its chance to hit is reduced by 10% for 10 sec. |
 | 9100943 | 1 | Fluttering | Your chance to dodge is increased by 3%. |
 | 9100944 | 10 | Luring Glow (placeholder) | Placeholder Moth ability (level 10): not designed yet. |
@@ -92,8 +75,8 @@ Devour **3098** for the base look (503, skin `Mottled`); colourings: 1984 → 88
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100950 | 1 | Boar Form | Take the shape of the boar you devoured: Gore, Boar Charge and Bristling Hide; Tusk Toss opens at level 10, Wallow at 20. All shapes share one cooldown. |
-| 9100951 | 1 | Gore | Gore the enemy with your tusks: weapon damage plus $s1. Generates 5 Hunger. |
-| 9100952 | 1 | Boar Charge | Charge an enemy 8 to 25 yards away and knock it down. Generates 10 Hunger. Cannot be used in combat. |
+| 9100951 | 1 | Gore | Gore the enemy with your tusks: weapon damage plus $s1. Generates 5 Anima. |
+| 9100952 | 1 | Boar Charge | Charge an enemy 8 to 25 yards away and knock it down. Generates 10 Anima. Cannot be used in combat. |
 | 9100953 | 1 | Bristling Hide | Your stamina is increased by 5%. |
 | 9100954 | 10 | Tusk Toss (placeholder) | Placeholder Boar ability (level 10): not designed yet. |
 | 9100955 | 20 | Wallow (placeholder) | Placeholder Boar ability (level 20): not designed yet. |
@@ -104,7 +87,7 @@ Devour **2955** for the base look (1219, skin `Plainstrider`); colourings: 2956 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100960 | 1 | Plainstrider Form | Take the shape of the plainstrider you devoured: Hind Kick, Long Stride and Long Legs; Peck opens at level 10, Stampede at 20. All shapes share one cooldown. |
-| 9100961 | 1 | Hind Kick | Kick back hard: weapon damage plus $s1, and the enemy is slowed by 30% for 4 sec. Generates 5 Hunger. |
+| 9100961 | 1 | Hind Kick | Kick back hard: weapon damage plus $s1, and the enemy is slowed by 30% for 4 sec. Generates 5 Anima. |
 | 9100962 | 1 | Long Stride | Run on long legs: movement speed increased by 40% for 15 sec. |
 | 9100963 | 1 | Long Legs | Your movement speed is increased by 8%. |
 | 9100964 | 10 | Peck (placeholder) | Placeholder Plainstrider ability (level 10): not designed yet. |
@@ -116,7 +99,7 @@ Devour **1512** for the base look (4732, skin `Duskbat`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100970 | 1 | Bat Form | Take the shape of the bat you devoured: Screech, Blood Drain and Echolocation; Sonic Burst opens at level 10, Night Swarm at 20. All shapes share one cooldown. |
-| 9100971 | 1 | Screech | A piercing screech: $s1 Nature damage to enemies within 8 yards, and their attack power is reduced by 10 for 10 sec. Generates 5 Hunger. |
+| 9100971 | 1 | Screech | A piercing screech: $s1 Nature damage to enemies within 8 yards, and their attack power is reduced by 10 for 10 sec. Generates 5 Anima. |
 | 9100972 | 1 | Blood Drain | Drink the enemy's blood: $s1 Shadow damage every second for 5 sec, healing you for the same. |
 | 9100973 | 1 | Echolocation | Your chance to hit is increased by 2%. |
 | 9100974 | 10 | Sonic Burst (placeholder) | Placeholder Bat ability (level 10): not designed yet. |
@@ -128,7 +111,7 @@ Devour **15274** for the base look (16217, skin `Wyrm`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100980 | 1 | Mana Wyrm Form | Take the shape of the mana wyrm you devoured: Arcane Bolt, Arcane Pulse and Mana Sheath; Mana Tap opens at level 10, Arcane Coil at 20. All shapes share one cooldown. |
-| 9100981 | 1 | Arcane Bolt | Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Hunger. |
+| 9100981 | 1 | Arcane Bolt | Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Anima. |
 | 9100982 | 1 | Arcane Pulse | Release the mana in you: $s1 Arcane damage to enemies within 8 yards. |
 | 9100983 | 1 | Mana Sheath | Magic damage taken reduced by 3%. |
 | 9100984 | 10 | Mana Tap (placeholder) | Placeholder Mana Wyrm ability (level 10): not designed yet. |

@@ -56,3 +56,25 @@ Devourer.SkinchangerShiftCooldown = 3000
 #        Default:     60
 
 Devourer.ShapeBarSlot = 60
+
+#    Devourer.InBetween.Enable
+#        Description: The Hollowmoor witch sisters' ritual (task 010): at Devourer.InBetween.Level a Devourer is
+#                     pulled into the In-Between, wakes caged, becomes a Baby Berserker and does the sisters'
+#                     chores; then they are its trainers. 0 = no ritual, no cage, no .inbetween (the sisters
+#                     still stand there and train a Devourer that has done the chores).
+#        Default:     1
+
+Devourer.InBetween.Enable = 1
+
+#    Devourer.InBetween.Level
+#        Description: The level at which the ritual takes the Devourer (also at login, if it is at this level or
+#                     higher and has not done the chores).
+#        Default:     5
+
+Devourer.InBetween.Level = 5
+
+#    Devourer.InBetween.ReturnCooldown
+#        Description: Seconds between two uses of .inbetween (a freed Devourer goes back to the sisters).
+#        Default:     1800
+
+Devourer.InBetween.ReturnCooldown = 1800
