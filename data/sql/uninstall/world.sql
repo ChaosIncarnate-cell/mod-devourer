@@ -14,17 +14,29 @@ DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9100999;
 DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101);
 
 -- --- creatures, spawns and looks (2026_09_30_03, _04) ------------------------------------------------------------
--- 9101200-9101299 and spawns 9910101-9910199: the Devourer Trainers (2026_09_30_08).
-DELETE FROM `creature`                WHERE `guid` BETWEEN 9910001 AND 9910199 OR `id` BETWEEN 9101000 AND 9101299;
-DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9101000 AND 9101299;
-DELETE FROM `creature_default_trainer` WHERE `CreatureId` BETWEEN 9101000 AND 9101299;
-DELETE FROM `creature_template`       WHERE `entry` BETWEEN 9101000 AND 9101299;
+-- 9101300-9101399 and spawns 9910200-9910299: the witch sisters in the In-Between and what goes with them
+-- (2026_10_01_00); trainer 9101200 is what they teach (2026_09_30_08).
+DELETE FROM `creature`                WHERE `guid` BETWEEN 9910001 AND 9910299 OR `id` BETWEEN 9101000 AND 9101399;
+DELETE FROM `creature_template_addon` WHERE `entry` BETWEEN 9101300 AND 9101399;
+DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9101000 AND 9101399;
+DELETE FROM `creature_default_trainer` WHERE `CreatureId` BETWEEN 9101000 AND 9101399;
+DELETE FROM `creature_text`           WHERE `CreatureID` BETWEEN 9101300 AND 9101399;
+DELETE FROM `creature_queststarter`   WHERE `id` BETWEEN 9101300 AND 9101399;
+DELETE FROM `creature_questender`     WHERE `id` BETWEEN 9101300 AND 9101399;
+DELETE FROM `creature_template`       WHERE `entry` BETWEEN 9101000 AND 9101399;
+DELETE FROM `gameobject`              WHERE `guid` BETWEEN 9910200 AND 9910299 OR `id` BETWEEN 9101300 AND 9101399;
+DELETE FROM `gameobject_template_addon` WHERE `entry` BETWEEN 9101300 AND 9101399;
+DELETE FROM `gameobject_template`     WHERE `entry` BETWEEN 9101300 AND 9101399;
+DELETE FROM `quest_offer_reward`      WHERE `ID` BETWEEN 9101301 AND 9101303;
+DELETE FROM `quest_request_items`     WHERE `ID` BETWEEN 9101301 AND 9101303;
+DELETE FROM `quest_template_addon`    WHERE `ID` BETWEEN 9101301 AND 9101303;
+DELETE FROM `quest_template`          WHERE `ID` BETWEEN 9101301 AND 9101303;
 DELETE FROM `trainer_spell`           WHERE `TrainerId` = 9101200;
 DELETE FROM `trainer`                 WHERE `Id` = 9101200;
-DELETE FROM `gossip_menu_option`      WHERE `MenuID` = 9101200;
-DELETE FROM `gossip_menu`             WHERE `MenuID` = 9101200;
-DELETE FROM `conditions`              WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` = 9101200;
-DELETE FROM `npc_text`                WHERE `ID` IN (9101200, 9101201);
+DELETE FROM `gossip_menu_option`      WHERE `MenuID` IN (9101300, 9101301);
+DELETE FROM `gossip_menu`             WHERE `MenuID` IN (9101300, 9101301);
+DELETE FROM `conditions`              WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN (9101300, 9101301);
+DELETE FROM `npc_text`                WHERE `ID` BETWEEN 9101300 AND 9101305;
 DELETE FROM `creature_model_info`     WHERE `DisplayID` BETWEEN 991001 AND 991065 OR `DisplayID` IN (80018, 80305, 200004, 280018);
 DELETE FROM `creaturedisplayinfo_dbc` WHERE `ID` BETWEEN 991001 AND 991065;
 DELETE FROM `creaturemodeldata_dbc`   WHERE `ID` BETWEEN 902038 AND 902045;
@@ -36,6 +48,7 @@ DELETE `t` FROM `creaturemodeldata_dbc` AS `t` JOIN `devourer_client_rows` AS `r
 DELETE `t` FROM `creaturedisplayinfoextra_dbc` AS `t` JOIN `devourer_client_rows` AS `r` ON `r`.`tbl` = 'creaturedisplayinfoextra_dbc' AND `r`.`ID` = `t`.`ID`;
 -- The spawns' explicit guids raised the counter; this sets it back to the highest guid left + 1.
 ALTER TABLE `creature` AUTO_INCREMENT = 1;
+ALTER TABLE `gameobject` AUTO_INCREMENT = 1;
 
 -- --- the class (2026_09_30_01, and the generated _05) ----------------------------------------------------------
 DELETE FROM `chrclasses_dbc`                WHERE `ID` = 10;
@@ -81,4 +94,4 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_02_devourer_spells.sql', '2026_09_30_03_devourer_models.sql', '2026_09_30_04_devourer_world.sql',
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
     '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
-    '2026_09_30_09_devourer_spellbook.sql');
+    '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql');

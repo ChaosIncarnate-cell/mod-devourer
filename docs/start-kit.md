@@ -17,24 +17,7 @@ Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a sh
 
 ## Trainers
 
-| Entry | Name | Where | Stands beside | Looks like |
-|---|---|---|---|---|
-| 9101200 | Aldric Vane | Northshire | creature 911 | creature 918 |
-| 9101201 | Corwin Gloam | Stormwind | creature 914 | creature 915 |
-| 9101202 | Thorvik Gnashbeard | Coldridge Valley | creature 912 | creature 5166 |
-| 9101203 | Brunn Deepmaw | Ironforge | creature 1901 | creature 916 |
-| 9101204 | Ilyssa Moonhunger | Shadowglen | creature 3593 | creature 4163 |
-| 9101205 | Faelan Nightmaw | Darnassus | creature 4087 | creature 3594 |
-| 9101206 | Oronaar | Ammen Vale | creature 16503 | creature 16771 |
-| 9101207 | Vesheel | The Exodar | creature 17120 | creature 16503 |
-| 9101208 | Grak | Valley of Trials | creature 3153 | creature 3327 |
-| 9101209 | Throg Bloodjaw | Orgrimmar | creature 3353 | creature 3155 |
-| 9101210 | Mahka Hollowhorn | Camp Narache | creature 3059 | creature 3034 |
-| 9101211 | Tarn Hungerhoof | Thunder Bluff | creature 3043 | creature 3060 |
-| 9101212 | Agatha Crane | Deathknell | creature 2119 | creature 4582 |
-| 9101213 | Silas Marrow | Undercity | creature 4593 | creature 2122 |
-| 9101214 | Lyriel Sunhunger | Sunstrider Isle | creature 15285 | creature 16685 |
-| 9101215 | Caelis Emberthirst | Silvermoon City | creature 16684 | creature 15285 |
+Trainer 9101200 teaches the base kit above. The Devourer's trainers are the Hollowmoor witch sisters in the In-Between (task 010): see `docs/witch-sisters.md`.
 
 ## Starting forms
 

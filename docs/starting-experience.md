@@ -5,7 +5,8 @@ came from level-44 CoA content (the Sethrak camp in Tanaris). It must start like
 
 ## Decisions
 - **Trainers, the classic way**: a Devourer trainer in every starting zone and every capital, teaching true-form
-  abilities for coin every 2 levels.
+  abilities for coin every 2 levels. *Replaced 2026-10-01 (task 010):* the trainers are the two Hollowmoor witch
+  sisters in the In-Between, met at level 5 (`docs/witch-sisters.md`); the 16 zone and capital trainers are gone.
 - **Leather** armour (not mail). Weapons proposal: daggers, fist weapons, one-handed maces, staves, polearms,
   two-handed maces (no shields, no swords/axes). The trainer teaches the usual weapon skills where classic does.
 - **One starting form per starting zone** (8 forms), each unlocked by devouring that zone's iconic creature, using
