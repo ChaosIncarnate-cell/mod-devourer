@@ -73,7 +73,8 @@ DELETE `t` FROM `gtoctclasscombatratingscalar_dbc` AS `t` LEFT JOIN `devourer_ba
 
 -- --- the module's own tables, last -------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `devourer_evolution_task`, `devourer_evolution`, `devourer_diet`, `devourer_skin`,
-    `devourer_shape_source`, `devourer_shape`, `devourer_backup_gt`, `devourer_client_rows`;
+    `devourer_shape_source`, `devourer_shape`, `devourer_backup_gt`, `devourer_client_rows`,
+    `devourer_shape_family`, `devourer_favourite_food`;   -- task 009
 
 -- Forget that the install files ran, so a later reinstall runs them again.
 DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '2026_09_30_01_devourer_class.sql',

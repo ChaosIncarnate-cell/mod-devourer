@@ -17,7 +17,10 @@ Ids (all inside the Devourer's reserved spell range 9100000-9100999; 9100900+ so
                     hidden passive that keeps Anima from draining away out of combat)
                     (9100900-9100909 were the true-form kit, parked in commit fdf67e9: the true form comes later)
   9100910-9100989   starting forms: shape s (5-12) uses 9100910 + (s - 5) * 10 + slot
-                    slot 0 form, 1-2 abilities, 3 passive, 4-5 abilities that open at levels 10 and 20
+                    slot 0 form, 1-2 abilities, 3 passive, 4-5 abilities that open at levels 10 and 20,
+                    6-9 helper spells the kit casts (task 009: Pup Bite, Poised to Strike, Silken Cocoon ...)
+  Task 009: a starting form is a kind of creature (devourer_shape_family: any creature of that family gives it,
+  every look a colouring) with a favourite food (devourer_favourite_food); both tables are created here.
   shapes 5-12, creatures 9101200-9101215 (trainers), spawns 9910101-9910116, trainer 9101200,
   gossip menu / npc_text 9101200-9101201
 Removed by data/sql/uninstall/world.sql.
@@ -69,6 +72,24 @@ CHARGE_STUN = 7922                     # stock "Charge Stun": the knock-down aft
 RUSH, RUSH_HIT, CONCENTRATE, ANIMA = 9100990, 9100991, 9100992, 9100993
 A_INTERRUPT_REGEN = 94                 # the core skips rage decay out of combat while a unit has it
 DUR_1S, DMG_MELEE, A_MOD_STUN, MECHANIC_STUN = b.DUR_1S, b.DMG_MELEE, b.A_MOD_STUN, b.MECHANIC_STUN
+
+# --- task 009 (starter forms batch 1) ---------------------------------------------------------------------------
+E_HEALTH_LEECH, E_JUMP_DEST, E_SANCTUARY = 9, 42, 79
+A_MOD_STEALTH, A_SCHOOL_IMMUNITY, A_FEATHER_FALL = 16, 39, 144
+A_SCHOOL_ABSORB, A_PROC_TRIGGER_SPELL, A_MOD_DAMAGE_PCT_DONE = b.A_SCHOOL_ABSORB, b.A_PROC_TRIGGER_SPELL, 79
+T_CASTER_AREA_PARTY, T_DEST_TARGET_FRONT = 20, 64
+RANGE_20, RANGE_5_15, RANGE_ANYWHERE = 3, 179, 13
+RADIUS_20 = 9
+DUR_3S, DUR_12S = 27, 29
+SCHOOL_NONE_MASK = 0
+DMG_MAGIC = b.DMG_MAGIC
+# Proc flags (spell_proc.ProcFlags / Spell.ProcTypeMask) and hit masks (spell_proc.HitMask).
+PROC_DONE_MELEE, PROC_TAKEN_MELEE, PROC_DONE_SPELL_MELEE, PROC_TAKEN_SPELL_MELEE = 0x4, 0x8, 0x10, 0x20
+PROC_DONE_SPELL_MAGIC = 0x10000
+HIT_DODGE, HIT_PARRY = 0x10, 0x20
+ATTR0_NOT_IN_COMBAT = 0x10000000
+CREATURE_TYPE_BEAST, CREATURE_TYPE_ELEMENTAL, CREATURE_TYPE_CRITTER = 1, 4, 8
+FAMILY_WOLF, FAMILY_CAT, FAMILY_SPIDER, FAMILY_BOAR, FAMILY_CROCOLISK, FAMILY_SCORPID, FAMILY_MOTH = 1, 2, 3, 5, 6, 20, 37
 
 
 def hit(amount, spread=0):
@@ -135,27 +156,248 @@ BASE = [
 # --- task 007: the eight starting forms ----------------------------------------------------------------------------
 class Form:
     def __init__(self, shape, name, zone, source, display, icon, colourings, diet, skin, one, two, passive_,
-                 later):
+                 later, family=0, food=(), extra=(), changes=()):
         self.shape, self.name, self.zone, self.source, self.display, self.icon = shape, name, zone, source, display, icon
         self.colourings = colourings          # [(creature entry, display, skin name)]
         self.diet = diet                      # [(creature type, bp)]
         self.skin = skin                      # the base look's name for .devour skin
+        # passive_: (aura, amount, misc, texts) for a plain passive, or (template, overrides, texts) for a full
+        # spell. later: two names (placeholders), or two (template, overrides, texts).
         self.one, self.two, self.passive, self.later = one, two, passive_, later
         self.base = FIRST + 10 + (shape - 5) * 10
+        self.family = family                  # task 009: any creature of this creature_template.family gives it
+        self.food = list(food)                # task 009: [(creature type, family, name part, label)] -> 2x BP
+        self.extra = list(extra)              # task 009: [(slot 6-9, template, overrides, texts)] helper spells
+        self.changes = list(changes)          # task 009: what changed against the canvas card, and why
+
+
+def sid(shape, slot):
+    """A starting form's spell id: shape 5-12, slot 0-9."""
+    return FIRST + 10 + (shape - 5) * 10 + slot
+
+
+# Task 009: creatures of a form's family that are not that body (another model, or a ghost). They give no shape:
+# devourer_shape_source rows with shape 0. (entry, why)
+NOT_THAT_BODY = [
+    (21952, "Lobo (Wolf family): a translucent ghost wolf"),
+    (29452, "Vargul Blighthound (Wolf family): a mage hunter model, not a wolf"),
+    (29889, "Vargul Blighthound (Wolf family): a mage hunter model, not a wolf"),
+    (19023, "Stabled Tallstrider (Cat family): a tallstrider model"),
+    (19024, "Stabled Boar (Cat family): a boar model"),
+    (19025, "Stabled Bear (Cat family): a bear model"),
+    (19026, "Stabled Raptor (Cat family): a raptor model"),
+]
+
+# spell_proc rows of the batch-1 kits: (spell, proc flags, spell type mask, hit mask, cooldown ms, charges)
+PROCS = [
+    (sid(5, 3), PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE, 1, 0, 15000, 0),                     # Pack Prowess
+    (sid(7, 3), PROC_TAKEN_MELEE | PROC_TAKEN_SPELL_MELEE, 0, HIT_DODGE | HIT_PARRY, 20000, 0),  # Shadow Reflexes
+    (sid(7, 6), PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE | PROC_DONE_SPELL_MAGIC, 1, 0, 0, 1),   # Poised to Strike
+    (sid(9, 3), PROC_TAKEN_MELEE | PROC_TAKEN_SPELL_MELEE, 1, 0, 0, 0),                       # Barbed Bristles
+]
+# The module's scripts on them (src/DevourerForms.cpp).
+SCRIPTS = [
+    (sid(5, 3), "spell_devourer_pack_prowess"),
+    (sid(5, 5), "spell_devourer_ravaging_feast"),
+    (sid(7, 1), "spell_devourer_anima_shred"),
+    (sid(7, 2), "spell_devourer_phase_prowl"),
+    (sid(8, 3), "spell_devourer_cocoon"),
+    (sid(9, 3), "spell_devourer_barbed_bristles"),
+]
+
+
+def proc_passive(icon, procs, *effs):
+    """A batch-1 gimmick: a passive whose aura procs (spell_proc above) or is scripted."""
+    return {**CLEAN, **PASSIVE, **NO_MECHANICS, "SpellIconID": icon, "ProcTypeMask": procs, "ProcChance": 100,
+            **effects(*effs)}
+
+
+def helper(fields: dict) -> dict:
+    """A spell the kit casts by itself: instant, no cooldown, no global cooldown."""
+    return {**CLEAN, **NO_MECHANICS, "Attributes": 0, "AttributesEx": 0, "AttributesEx2": 0,
+            "CastingTimeIndex": CAST_INSTANT, "RecoveryTime": 0, "StartRecoveryCategory": 0, "StartRecoveryTime": 0,
+            "AuraInterruptFlags": 0, "InterruptFlags": 0, "ChannelInterruptFlags": 0, **fields}
+
+
+WOLF = Form(
+    5, "Wolf", "Northshire", 299, 31049, 1573, [(69, 31048, "Timber"), (1508, 447, "Scavenger")],
+    [(1, 10), (0, 3)], "Grey",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": DUR_9S, "EffectMechanic_2": MECHANIC_BLEED,
+                     **effects(hit(3), aura(A_PERIODIC_DAMAGE, 2, target=T_ENEMY, period=3000), gain(15))}),
+     ("Tear Throat", "Tear at the enemy's throat: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. "
+      "Generates 15 Anima.", "Bleeding for $s2 every 3 sec.")),
+    (49376, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_5_15, "RecoveryTime": 15000,
+                     "DurationIndex": DUR_4S, "SchoolMask": SCHOOL_PHYSICAL, "AuraInterruptFlags": 0,
+                     "InterruptFlags": 0, "EffectMechanic_2": MECHANIC_SNARE,
+                     **effects({"effect": E_JUMP_DEST, "target": T_DEST_TARGET_FRONT, "misc": 5, "miscB": 150},
+                               aura(A_MOD_DECREASE_SPEED, -50, target=T_ENEMY)),
+                     "EffectMultipleValue_1": 4.0}),
+     ("Hungering Lunge", "Leap at an enemy 5 to 15 yards away and bite at its legs: its movement is slowed by 50% "
+      "for 4 sec.", "Movement slowed by 50%.")),
+    (25941, proc_passive(1573, PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE, aura(A_DUMMY)),
+     ("Pack Prowess", "Your strikes on an enemy below 30% health call two spectral wolf pups to your side for "
+      "6 sec. Their bites open bleeding wounds. Once every 15 sec.", "")),
+    [(24604, ability({**hunger(10), "RangeIndex": RANGE_SELF, "DurationIndex": DUR_15S, "RecoveryTime": 60000,
+                      **effects(aura(A_MOD_MELEE_HASTE, 10, target=T_CASTER_AREA_PARTY, radius=RADIUS_20))}),
+      ("Howl of the Pack", "Howl for the hunt: you and your group within 20 yards attack 10% faster for 15 sec.",
+       "Attack speed increased by 10%.")),
+     (6785, ability({"AttributesEx": 0, "RangeIndex": RANGE_COMBAT, "RecoveryTime": 12000,
+                     "SchoolMask": SCHOOL_PHYSICAL, **effects({"effect": E_DUMMY, "target": T_ENEMY})}),
+      ("Ravaging Feast", "Feast on the enemy's open wounds: your bleeds on it close at once, and you are healed for "
+       "all the damage they had left to do, plus 3% of your maximum health for each.", ""))],
+    family=FAMILY_WOLF,
+    food=[(0, FAMILY_BOAR, "", ""), (0, FAMILY_CROCOLISK, "", "")],
+    extra=[(6, 17253, helper({"RangeIndex": RANGE_20, "DurationIndex": DUR_6S, "CumulativeAura": 2,
+                              "SchoolMask": SCHOOL_PHYSICAL, "EffectMechanic_1": MECHANIC_BLEED,
+                              **effects(aura(A_PERIODIC_DAMAGE, 2, target=T_ENEMY, period=2000))}),
+            ("Pup Bite", "", "Bleeding for $s1 every 2 sec."))],
+    changes=[
+        "Any wolf-like creature (creature family Wolf: wolves, worgs, dire wolves) gives the form; every look is a "
+        "colouring named after the creature (owner, 2026-10-01).",
+        "Howl of the Pack is only a haste howl now: the card had \"AoE disorient & haste\", two jobs in one button. "
+        "The disorient went, the haste fits an executioner. It reaches the group (\"of the Pack\"), 10% for 15 sec.",
+        "Tear Throat is the builder: +15 Anima as on the card, with a short bleed.",
+        "Ravaging Feast needs bleeds to eat (Tear Throat, the pups' bites): it closes them and heals for what they "
+        "had left, plus 3% health each, so it rewards bleeding first instead of being a free heal.",
+        "Pack Prowess pups are short (6 sec) with a 15 sec rest, so a level-1 wolf cannot keep a pack up.",
+        "Hungering Lunge: a 15 yard leap (5-15 yards) and a 50% slow for 4 sec; usable in combat.",
+    ])
+
+SABER = Form(
+    7, "Saber", "Shadowglen", 2031, 11454, 103, [(15366, 15507, "Springpaw"), (15372, 15506, "Lynx")],
+    [(1, 10), (0, 3)], "Nightsaber",
+    (5221, ability({"AttributesEx": 0, "RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000,
+                    "SchoolMask": SCHOOL_PHYSICAL, **effects(hit(4), gain(10))}),
+     ("Anima Shred", "Shred the enemy: weapon damage plus $s1. Generates 10 Anima, 20 when you strike from behind.",
+      "")),
+    (5215, {**CLEAN, "RecoveryTime": 10000, **GCD},                 # Prowl keeps its stealth, slow and rules
+     ("Phase Prowl", "Slip between shadow and anima: unseen, but 30% slower. Your first strike out of it deals "
+      "50% more damage. Cannot be used in combat.", "Unseen.")),
+    (25941, proc_passive(103, PROC_TAKEN_MELEE | PROC_TAKEN_SPELL_MELEE,
+                         aura(A_PROC_TRIGGER_SPELL, trigger=sid(7, 7))),
+     ("Shadow Reflexes", "When you dodge or parry an attack, you slip out of the fight and back into Phase Prowl. "
+      "Once every 20 sec.", "")),
+    [(1079, ability({**hunger(30), "AttributesEx": 0, "RangeIndex": RANGE_COMBAT, "RecoveryTime": 0,
+                     "DurationIndex": DUR_12S, "SchoolMask": SCHOOL_PHYSICAL, "EffectMechanic_1": MECHANIC_BLEED,
+                     **effects(aura(A_PERIODIC_DAMAGE, 5, target=T_ENEMY, period=2000))}),
+      ("Essence Rend", "A finishing rend that spends your stored anima: the enemy bleeds for $o1 over 12 sec.",
+       "Bleeding for $s1 every 2 sec.")),
+     (36563, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_20, "RecoveryTime": 20000,
+                      "DurationIndex": 0, "SchoolMask": SCHOOL_PHYSICAL,
+                      **effects({"effect": 5, "target": T_CASTER, "targetB": 65, "radius": 7})}),
+      ("Flicker Step", "Flicker through the shadows to an enemy within 20 yards and appear behind it.", ""))],
+    family=FAMILY_CAT,
+    food=[(0, FAMILY_CAT, "", ""), (0, FAMILY_SPIDER, "", "")],
+    extra=[(6, 25941, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_5S, "SpellIconID": 103,
+                              "ProcTypeMask": PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE | PROC_DONE_SPELL_MAGIC,
+                              "ProcChance": 100, "ProcCharges": 1,
+                              **effects(aura(A_MOD_DAMAGE_PCT_DONE, 50, SCHOOL_ALL), aura(A_DUMMY))}),
+            ("Poised to Strike", "", "Your next strike deals 50% more damage.")),
+           (7, 1856, helper({"RangeIndex": RANGE_SELF, "DurationIndex": 0,
+                             **effects({"effect": E_SANCTUARY, "target": T_CASTER},
+                                       {"effect": E_TRIGGER_SPELL, "target": T_CASTER, "trigger": sid(7, 2)})}),
+            ("Shadow Reflexes", "", ""))],
+    changes=[
+        "Nightsaber is now Saber (same shape id 7): any creature of the Cat family gives it (sabers, lynxes, "
+        "lions, tigers); every look is a colouring.",
+        "Phase Prowl is an own spell (stealth and slow from Prowl, no cat-form requirement); its opener bonus is "
+        "\"Poised to Strike\": 50% more damage on the first strike out of it, for up to 5 sec.",
+        "Shadow Reflexes (the dodge/parry reset) has a 20 sec rest: on every dodge it would make the saber "
+        "untouchable. It leaves the fight like a vanish, then prowls again.",
+        "Anima Shred works from any side (a level-1 builder that needs the enemy's back cannot be used alone: "
+        "the enemy always faces you); from behind it gives the card's 20 Anima, else 10.",
+        "Essence Rend has no combo points (the Devourer has none): it is the Anima spender, 30 Anima.",
+        "Flicker Step: 20 yards, appears behind the enemy (sets up the 20-Anima Shred).",
+    ])
+
+MOTH = Form(
+    8, "Moth", "Ammen Vale", 16520, 17574, 109, [], [(1, 10), (0, 3)], "Vale",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     **effects({"effect": E_HEALTH_LEECH, "amount": 6, "spread": 2, "target": T_ENEMY}, gain(10)),
+                     "EffectMultipleValue_1": 1.0}),
+     ("Siphon Proboscis", "Pierce the enemy and drink its life: $s1 Nature damage, and you are healed for as much. "
+      "Generates 10 Anima.", "")),
+    (8921, ability({"Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": 0, "RecoveryTime": 8000,
+                    "SchoolMask": SCHOOL_ARCANE,
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 6, "spread": 3, "target": T_SRC_CASTER,
+                               "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8}, gain(5))}),
+     ("Luminescent Pulse", "Your wings flare with moonlight: $s1 Arcane damage to enemies within 8 yards. "
+      "Generates 5 Anima.", "")),
+    (25941, proc_passive(109, 0, aura(A_SCHOOL_ABSORB, 0, SCHOOL_ALL)),
+     ("Cocoon Metamorphosis", "When a blow would drop you below 25% health, silk wraps you in a cocoon: for 3 sec "
+      "nothing can harm you and you regain 30% of your maximum health, but you cannot act. Once per fight.", "")),
+    [(770, ability({**hunger(10), "AttributesEx": 0, "RangeIndex": RANGE_20, "DurationIndex": DUR_6S,
+                    "RecoveryTime": 30000, "SchoolMask": SCHOOL_NATURE,
+                    **effects(aura(A_MOD_HIT_CHANCE, -20, target=T_ENEMY))}),
+      ("Blinding Spores", "Shake blinding spores into the enemy's eyes: it misses 20% more often for 6 sec.",
+       "Chance to hit reduced by 20%.")),
+     (2983, ability({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S, "RecoveryTime": 30000,
+                     **effects(aura(A_MOD_INCREASE_SPEED, 60), aura(A_FEATHER_FALL))}),
+      ("Flutter Dash", "Beat your wings and glide: movement speed increased by 60%, and you fall slowly, for 6 sec.",
+       "Movement speed increased by 60%. Falling slowly."))],
+    family=FAMILY_MOTH,
+    food=[(CREATURE_TYPE_BEAST, 0, "", "")]
+         + [(CREATURE_TYPE_ELEMENTAL, 0, part, "Plants") for part in
+            ("lasher", "treant", "sapling", "shrub", "vine", "thorn", "petal", "root", "moss", "spore", "thistle")],
+    extra=[(6, 28622, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_3S, "SchoolMask": SCHOOL_NATURE,
+                              **effects(aura(A_MOD_STUN), aura(A_SCHOOL_IMMUNITY, 0, SCHOOL_ALL),
+                                        aura(A_OBS_MOD_HEALTH, 10, period=1000))}),
+            ("Silken Cocoon", "", "Wrapped in silk: nothing can harm you, and you regain 10% health every second."))],
+    changes=[
+        "Any creature of the Moth family gives the form; every look is a colouring.",
+        "Blinding Spores: 20% more misses for 6 sec instead of the card's 60% (far too strong at level 1).",
+        "Luminescent Pulse is moonlight (Arcane), with Moonfire's beam on every enemy hit (the owner's older moth "
+        "idea), instead of Holy/Nature.",
+        "Cocoon Metamorphosis works once per fight (it resets when you leave combat): every time, it would make the "
+        "moth unkillable. It also catches a killing blow.",
+        "Favourite food \"Elemental [Plant] OR Beast\": 3.3.5 has no plant type. Chosen: any Beast, plus "
+        "Elementals whose name says plant (lasher, treant, sapling, shrub, vine, thorn, petal, root, moss, spore, "
+        "thistle: Bloodpetal, Withervine, Thistleshrub, Warpwood Treant ...).",
+        "Siphon Proboscis is the builder: it drinks (damage that heals you) and gives 10 Anima.",
+    ])
+
+BOAR = Form(
+    9, "Boar", "Valley of Trials", 3098, 503, 1578, [(1984, 8869, "Thistle"), (113, 0, "")],
+    [(1, 10), (0, 3)], "Mottled",
+    (35290, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": DUR_15S, "CumulativeAura": 5,
+                     **effects(hit(3), aura(A_MOD_RESISTANCE_PCT, -4, 1, target=T_ENEMY), gain(10))}),
+     ("Gore", "Gore the enemy with your tusks: weapon damage plus $s1, and its armor is torn by 4% for 15 sec, "
+      "up to 5 times. Generates 10 Anima.", "Armor reduced by 4% for each wound.")),
+    (100, {**CLEAN, **NO_MECHANICS, "Attributes": 0x20040010, "RecoveryTime": 20000, **GCD,
+           **effects({"effect": E_CHARGE, "target": T_ENEMY}, gain(15),
+                     {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": CHARGE_STUN})},
+     ("Primal Charge", "Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for "
+      "1.5 sec. Generates 15 Anima.", "")),
+    (25941, proc_passive(1578, PROC_TAKEN_MELEE | PROC_TAKEN_SPELL_MELEE, aura(A_DUMMY)),
+     ("Barbed Bristles", "Your barbed bristles return 15% of the melee damage you take to the attacker as Nature "
+      "damage.", "")),
+    [(22812, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_4S,
+                      "RecoveryTime": 45000, "SchoolMask": SCHOOL_PHYSICAL,
+                      **effects(aura(A_DMG_TAKEN_PCT, -30, SCHOOL_ALL))}),
+      ("Thick Hide", "Your hide hardens: damage taken reduced by 30% for 4 sec.", "Damage taken reduced by 30%.")),
+     (845, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_COMBAT, "RecoveryTime": 8000,
+                    "SchoolMask": SCHOOL_PHYSICAL, **effects({**hit(4), "chain": 3})}),
+      ("Tusk Sweep", "Sweep your tusks: weapon damage plus $s1 to the enemy and up to 2 others beside it.", ""))],
+    family=FAMILY_BOAR,
+    food=[(CREATURE_TYPE_CRITTER, 0, "", ""), (0, FAMILY_SCORPID, "", "")],
+    extra=[(6, 17253, helper({"RangeIndex": RANGE_ANYWHERE, "DurationIndex": 0, "SchoolMask": SCHOOL_NATURE,
+                              "DefenseType": DMG_MAGIC, "SpellVisualID_1": 0,
+                              **effects({"effect": E_SCHOOL_DAMAGE, "amount": 1, "target": T_ENEMY})}),
+            ("Barbed Bristles", "", ""))],
+    changes=[
+        "Any creature of the Boar family gives the form; every look is a colouring.",
+        "\"Thickened Rind\" is now Thick Hide (a rind is fruit peel); -30% damage only for 4 sec.",
+        "Primal Charge is usable in combat (not a copy of the warrior's Charge; Rush already covers moving out of "
+        "combat). It carries the gimmick's \"charging builds Anima\": 15 Anima.",
+        "Gore is the builder (+10 Anima) and tears armor (4% a wound, up to 5).",
+        "Barbed Bristles answers melee hits only (\"physical damage\" from a level-1 enemy is melee).",
+    ])
 
 
 FORMS = [
-    Form(5, "Wolf", "Northshire", 299, 31049, 1573, [(69, 31048, "Timber"), (1508, 447, "Scavenger")],
-         [(1, 10), (0, 3)], "Grey",
-         (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
-                         **effects(hit(4), gain(5))}),
-          ("Savage Bite", "Bite the enemy: weapon damage plus $s1. Generates 5 Anima.", "")),
-         (24604, ability({**hunger(10), "RangeIndex": RANGE_SELF, "DurationIndex": DUR_20S, "RecoveryTime": 30000,
-                         **effects(aura(A_MOD_MELEE_HASTE, 10))}),
-          ("Pack Howl", "Howl like the pack before the kill: attack speed increased by 10% for 20 sec.",
-           "Attack speed increased by 10%.")),
-         (A_MOD_CRIT_PERCENT, 2, 0, ("Pack Instinct", "Your critical strike chance is increased by 2%.", "")),
-         ("Rip Throat", "Call of the Pack")),
+    WOLF,
     Form(6, "Trogg", "Coldridge Valley", 707, 606, 93, [], [(7, 10), (0, 3)], "Rockjaw",
          (6552, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
                         **effects(hit(5), gain(5))}),
@@ -165,42 +407,9 @@ FORMS = [
           ("Stoneskin", "Your hide turns to stone: damage taken reduced by 10% for 10 sec.", "Damage taken reduced by 10%.")),
          (A_MOD_RESISTANCE_PCT, 10, 1, ("Thick Skull", "Your armor is increased by 10%.", "")),
          ("Rock Hurl", "Tunnel Rage")),
-    Form(7, "Nightsaber", "Shadowglen", 2031, 11454, 103, [(15366, 15507, "Springpaw"), (15372, 15506, "Lynx")],
-         [(1, 10), (0, 3)], "Nightsaber",
-         (1822, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
-                        "DurationIndex": DUR_9S, "Mechanic": MECHANIC_BLEED, "EffectMechanic_2": MECHANIC_BLEED,
-                        **effects({"effect": E_SCHOOL_DAMAGE, "amount": 3, "target": T_ENEMY},
-                                  aura(A_PERIODIC_DAMAGE, 2, target=T_ENEMY, period=3000), gain(5))}),
-          ("Rake", "Rake the enemy for $s1 damage; it bleeds for $o2 over 9 sec. Generates 5 Anima.",
-           "Bleeding for $s2 every 3 sec.")),
-         (5215, {**CLEAN, "RecoveryTime": 10000, **GCD},             # Prowl keeps its own effects and rules
-          ("Prowl", "Slip into the shadows, unseen but slower. Cannot be used in combat.", "Stealthed.")),
-         (A_MOD_ATTACK_POWER_PCT, 5, 0, ("Hunter's Poise", "Your attack power is increased by 5%.", "")),
-         ("Ambush Leap", "Shadow Stalk")),
-    Form(8, "Moth", "Ammen Vale", 16520, 17574, 109, [], [(1, 10), (0, 3)], "Vale",
-         (1449, ability({"Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "RecoveryTime": 6000,
-                        "SchoolMask": SCHOOL_NATURE,
-                        **effects({"effect": E_SCHOOL_DAMAGE, "amount": 5, "spread": 2, "target": T_SRC_CASTER,
-                                   "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_5}, gain(5))}),
-          ("Dusty Wings", "Beat your wings: $s1 Nature damage to enemies within 5 yards. Generates 5 Anima.", "")),
-         (770, ability({**hunger(10), "RangeIndex": RANGE_30, "DurationIndex": DUR_10S, "RecoveryTime": 10000,
-                       "SchoolMask": SCHOOL_NATURE, **effects(aura(A_MOD_HIT_CHANCE, -10, target=T_ENEMY))}),
-          ("Blinding Dust", "Throw wing dust into the enemy's eyes: its chance to hit is reduced by 10% for 10 sec.",
-           "Chance to hit reduced by 10%.")),
-         (A_MOD_DODGE_PERCENT, 3, 0, ("Fluttering", "Your chance to dodge is increased by 3%.", "")),
-         ("Luring Glow", "Silken Cocoon")),
-    Form(9, "Boar", "Valley of Trials", 3098, 503, 1578, [(1984, 8869, "Thistle"), (113, 0, "")],
-         [(1, 10), (0, 3)], "Mottled",
-         (35290, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
-                         **effects(hit(5), gain(5))}),
-          ("Gore", "Gore the enemy with your tusks: weapon damage plus $s1. Generates 5 Anima.", "")),
-         (100, {**CLEAN, **NO_MECHANICS, "RecoveryTime": 15000, **GCD,
-                **effects({"effect": E_CHARGE, "target": T_ENEMY}, gain(10),
-                          {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": CHARGE_STUN})},
-          ("Boar Charge", "Charge an enemy 8 to 25 yards away and knock it down. Generates 10 Anima. "
-           "Cannot be used in combat.", "")),
-         (A_MOD_TOTAL_STAT_PERCENTAGE, 5, STAT_STAMINA, ("Bristling Hide", "Your stamina is increased by 5%.", "")),
-         ("Tusk Toss", "Wallow")),
+    SABER,
+    MOTH,
+    BOAR,
     Form(10, "Plainstrider", "Camp Narache", 2955, 1219, 516, [(2956, 1220, "Tallstrider")], [(1, 10), (0, 3)],
          "Plainstrider",
          (1766, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 8000, "SchoolMask": SCHOOL_PHYSICAL,
@@ -244,11 +453,21 @@ FORMS = [
 
 
 def form_spells(f: Form):
-    """(id, level, template, overrides, texts) for one form: form, 2 abilities, passive, 2 later abilities."""
+    """(id, level, template, overrides, texts) for one form: form, 2 abilities, passive, 2 later abilities, then
+    the helper spells (task 009)."""
     one_t, one_o, one_x = f.one
     two_t, two_o, two_x = f.two
-    p_kind, p_amount, p_misc, p_x = f.passive
-    later = [(f.base + 4, 10, f.later[0]), (f.base + 5, 20, f.later[1])]
+    if len(f.passive) == 4:
+        p_kind, p_amount, p_misc, p_x = f.passive
+        p_t, p_o = 25941, passive(p_kind, p_amount, p_misc, f.icon)
+    else:
+        p_t, p_o, p_x = f.passive
+    designed = not isinstance(f.later[0], str)
+    later_names = [l[2][0] for l in f.later] if designed else list(f.later)
+    if f.family:                                                     # task 009: a kind of creature
+        what = f"Take the shape of a {f.name.lower()} you have devoured"
+    else:
+        what = f"Take the shape of the {f.name.lower()} you devoured"
     out = [
         (f.base, 1, 16591, {
             **CLEAN, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
@@ -256,17 +475,25 @@ def form_spells(f: Form):
             "Category": SHAPE_CATEGORY, "RecoveryTime": 0, "CategoryRecoveryTime": SHIFT_COOLDOWN,
             "StartRecoveryCategory": 133, "StartRecoveryTime": 1000, "InterruptFlags": 0, "AuraInterruptFlags": 0,
             "SpellIconID": f.icon, **effects(aura(A_TRANSFORM, 0, FORM_PLACEHOLDER_ENTRY))},
-         (f"{f.name} Form", f"Take the shape of the {f.name.lower()} you devoured: {one_x[0]}, {two_x[0]} and "
-          f"{p_x[0]}; {later[0][2]} opens at level 10, {later[1][2]} at 20. All shapes share one cooldown.",
+         (f"{f.name} Form", f"{what}: {one_x[0]}, {two_x[0]} and "
+          f"{p_x[0]}; {later_names[0]} opens at level 10, {later_names[1]} at 20. All shapes share one cooldown.",
           f"Wearing the {f.name.lower()}'s shape.")),
         (f.base + 1, 1, one_t, one_o, one_x),
         (f.base + 2, 1, two_t, two_o, two_x),
-        (f.base + 3, 1, 25941, passive(p_kind, p_amount, p_misc, f.icon), p_x),
+        (f.base + 3, 1, p_t, p_o, p_x),
     ]
-    for sid, level, name in later:
-        t, o = placeholder(level, f.icon)
-        out.append((sid, level, t, o, (f"{name} (placeholder)",
-                                       f"Placeholder {f.name} ability (level {level}): not designed yet.", "")))
+    for slot, level, entry in ((4, 10, f.later[0]), (5, 20, f.later[1])):
+        if designed:
+            t, o, x = entry                                          # the level opens it (Mgr::KitSpellOpen)
+            out.append((f.base + slot, level, t, {**o, "SpellLevel": level, "BaseLevel": level}, x))
+        else:
+            t, o = placeholder(level, f.icon)
+            out.append((f.base + slot, level, t, o, (f"{entry} (placeholder)",
+                                                     f"Placeholder {f.name} ability (level {level}): not designed yet.",
+                                                     "")))
+    for slot, t, o, x in f.extra:
+        assert 6 <= slot <= 9, slot
+        out.append((f.base + slot, 1, t, o, x))
     return out
 
 
@@ -340,6 +567,22 @@ def main() -> int:
         "-- The Devourer's start: true-form kit, Devourer Trainers, eight starting forms. Safe to run again;",
         "-- removed by uninstall/world.sql.",
         "",
+        "-- Task 009: a starting form is a kind of creature, and has a favourite food. (Module tables, created here",
+        "-- because this file is the one that fills them; dropped by uninstall/world.sql.)",
+        "CREATE TABLE IF NOT EXISTS `devourer_shape_family` (",
+        "    `family` INT UNSIGNED NOT NULL COMMENT 'creature_template.family: any creature of it gives the shape',",
+        "    `shape_id` INT UNSIGNED NOT NULL,",
+        "    PRIMARY KEY (`family`)",
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+        "CREATE TABLE IF NOT EXISTS `devourer_favourite_food` (",
+        "    `shape_id` INT UNSIGNED NOT NULL,",
+        "    `creature_type` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 = any',",
+        "    `family` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 = any',",
+        "    `name_part` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'the creature name contains it; empty = any',",
+        "    `label` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'shown in the menu; empty = the type or family name',",
+        "    PRIMARY KEY (`shape_id`, `creature_type`, `family`, `name_part`)",
+        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+        "",
         f"DELETE FROM `spell_dbc` WHERE `ID` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_dbc` (" + ",".join(f"`{c}`" for c in b.COLUMNS) + ") VALUES",
         ",\n".join(rows) + ";",
@@ -348,10 +591,18 @@ def main() -> int:
         f"DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES",
         ",\n".join([f"({s}, 'spell_devourer_form')" for s in forms]
-                   + [f"({RUSH}, 'spell_devourer_rush')"]) + ";",
+                   + [f"({RUSH}, 'spell_devourer_rush')"]
+                   + [f"({s}, '{n}')" for s, n in SCRIPTS]) + ";",
         f"DELETE FROM `spell_custom_attr` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES",
         ",\n".join(f"({s}, 0x01000000)" for s in forms) + ";",
+        "-- Task 009: the gimmicks that answer to hits (HitMask 48 = dodge or parry; Cooldown = their rest).",
+        f"DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN {FIRST} AND {LAST};",
+        "INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`,"
+        " `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`,"
+        " `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES",
+        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, 2, {hits}, 0, 0, 100, {cd}, {charges})"
+                   for s, flags, types, hits, cd, charges in PROCS) + ";",
         "",
         "-- Shapes 5-12: one per starting zone. spell_3 and spell_4 open at levels 10 and 20 (their spell level).",
         "DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 12;",
@@ -361,10 +612,23 @@ def main() -> int:
                    f" {f.base + 5}, {f.base + 3}, {f.display})" for f in FORMS) + ";",
         "",
         "-- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).",
-        "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "-- Shape 0: a creature of a form's family that is not that body (task 009); it gives no shape.",
+        "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 12 OR `creature_entry` IN ("
+        + ", ".join(str(e) for e, _ in NOT_THAT_BODY) + ");",
         "INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`) VALUES",
         ",\n".join([f"({f.source}, {f.shape}, 0)" for f in FORMS]
-                   + [f"({e}, {f.shape}, {d})" for f in FORMS for e, d, _ in f.colourings]) + ";",
+                   + [f"({e}, {f.shape}, {d})" for f in FORMS for e, d, _ in f.colourings]
+                   + [f"({e}, 0, 0)" for e, _ in NOT_THAT_BODY]) + ";",
+        "-- Task 009: any creature of the family gives the shape; each of its looks (displays) is a colouring named",
+        "-- after the creature. The module builds those colourings at startup from creature_template(_model).",
+        "DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",
+        ",\n".join(f"({f.family}, {f.shape})" for f in FORMS if f.family) + ";",
+        "-- Task 009: favourite food, 2x Bio Points for everyone. A row matches when every field it sets matches.",
+        "DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `name_part`, `label`) VALUES",
+        ",\n".join(f"({f.shape}, {t}, {fam}, {q(part)}, {q(label)})" for f in FORMS for t, fam, part, label in f.food)
+        + ";",
         "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 12;",
         "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES",
         ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0)" for f in FORMS]
@@ -478,18 +742,55 @@ def main() -> int:
            "## Trainers", "", "| Entry | Name | Where | Stands beside | Looks like |", "|---|---|---|---|---|"]
     for e, g, n, bs, lk, where in TRAINERS:
         md.append(f"| {e} | {n} | {where} | creature {bs} | creature {lk} |")
-    md += ["", "## Starting forms", ""]
+    families = {FAMILY_WOLF: "Wolf", FAMILY_CAT: "Cat", FAMILY_SPIDER: "Spider", FAMILY_BOAR: "Boar",
+                FAMILY_CROCOLISK: "Crocolisk", FAMILY_SCORPID: "Scorpid", FAMILY_MOTH: "Moth"}
+    types = {CREATURE_TYPE_BEAST: "Beast", CREATURE_TYPE_ELEMENTAL: "Elemental", CREATURE_TYPE_CRITTER: "Critter"}
+
+    def food_text(f):
+        parts, names = [], []
+        for t, fam, part, label in f.food:
+            if part:
+                names.append(part)
+            else:
+                parts.append(f"family {families[fam]}" if fam else f"type {types[t]}")
+        if names:
+            parts.append(f"{types[CREATURE_TYPE_ELEMENTAL]}s named *{'*, *'.join(names)}*")
+        return " or ".join(parts)
+
+    md += ["", "## Starting forms", "",
+           "Task 009 (batch 1: Wolf, Saber, Moth, Boar): a form is a **kind of creature**. Devouring any creature of "
+           "its creature family (`devourer_shape_family`) gives the form; every different look (display id) of that "
+           "family is a colouring, named after the creature that wears it (the most common one). The module builds "
+           "them at startup from the world database; explicit `devourer_shape_source` rows still win. Favourite "
+           "food (`devourer_favourite_food`) gives 2x Bio Points for every Devourer.",
+           "",
+           "Creatures of those families that are not that body give nothing (`devourer_shape_source` shape 0):",
+           ""]
+    md += [f"- {e}: {why}" for e, why in NOT_THAT_BODY]
+    md.append("")
     for f in FORMS:
         md.append(f"### {f.name} (shape {f.shape}, {f.zone})")
-        md.append(f"Devour **{f.source}** for the base look ({f.display}, skin `{f.skin}`)"
-                  + ("; colourings: " + ", ".join(f"{e} → {d or 'base look'}" + (f" (`{n}`)" if n else "")
-                                                  for e, d, n in f.colourings) if f.colourings else "") + ".")
+        if f.family:
+            md.append(f"Devour **any creature of the {families[f.family]} family** (e.g. {f.source} for the base look "
+                      f"{f.display}, skin `{f.skin}`); each look is a colouring. Favourite food: {food_text(f)}.")
+            if f.colourings:
+                md.append("Named colourings kept from task 007: " + ", ".join(
+                    f"{e} → {d or 'base look'}" + (f" (`{n}`)" if n else "") for e, d, n in f.colourings) + ".")
+        else:
+            md.append(f"Devour **{f.source}** for the base look ({f.display}, skin `{f.skin}`)"
+                      + ("; colourings: " + ", ".join(f"{e} → {d or 'base look'}" + (f" (`{n}`)" if n else "")
+                                                      for e, d, n in f.colourings) if f.colourings else "") + ".")
         md.append("")
         md.append("| Spell | Level | Name | What it does |")
         md.append("|---|---|---|---|")
-        for sid, lvl, t, o, (name, desc, _) in form_spells(f):
-            md.append(f"| {sid} | {lvl} | {name} | {desc} |")
+        for spell, lvl, t, o, (name, desc, tip) in form_spells(f):
+            md.append(f"| {spell} | {lvl} | {name} | {desc or '(cast by the kit) ' + tip} |")
         md.append("")
+        if f.changes:
+            md.append("Changes against the canvas card (task 009), and why:")
+            md.append("")
+            md += [f"- {c}" for c in f.changes]
+            md.append("")
     OUT_MD.write_text("\n".join(md), encoding="utf-8")
     print(f"{len(rows)} spells ({min(ids)}-{max(ids)}), {len(FORMS)} forms, {len(TRAINERS)} trainers")
     print(f"wrote {OUT_SQL.relative_to(REPO)}, {OUT_MD.relative_to(REPO)}")

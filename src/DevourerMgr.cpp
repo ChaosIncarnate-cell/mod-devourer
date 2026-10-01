@@ -86,9 +86,10 @@ namespace Devourer
             do
             {
                 Field* f = result->Fetch();
-                if (!_shapes.count(f[1].Get<uint32>()))
+                uint32 const shapeId = f[1].Get<uint32>();
+                if (shapeId && !_shapes.count(shapeId))   // shape 0 (task 009): not that body, gives nothing
                     continue;
-                _sources[f[0].Get<uint32>()] = { f[1].Get<uint32>(), f[2].Get<uint32>() };
+                _sources[f[0].Get<uint32>()] = { shapeId, f[2].Get<uint32>() };
             } while (result->NextRow());
         }
 
@@ -102,10 +103,12 @@ namespace Devourer
             } while (result->NextRow());
         }
 
+        LoadFamilies();
         LoadGrowthData();
         BuildHints();
-        LOG_INFO("module", "mod-devourer: {} shapes, {} colourings, {} creatures that grant them, {} evolutions",
-            _shapes.size(), _skins.size(), _sources.size(), _evolutions.size());
+        LOG_INFO("module", "mod-devourer: {} shapes, {} colourings, {} creatures and {} creature families that grant "
+            "them, {} evolutions", _shapes.size(), _skins.size(), _sources.size(), _familyShapes.size(),
+            _evolutions.size());
     }
 
     bool Mgr::IsDevourer(Player const* player) const
@@ -172,6 +175,95 @@ namespace Devourer
     {
         auto itr = _sources.find(creatureEntry);
         return itr != _sources.end() ? &itr->second : nullptr;
+    }
+
+    uint32 Mgr::ShapeForFamily(uint32 family) const
+    {
+        auto itr = family ? _familyShapes.find(family) : _familyShapes.end();
+        return itr != _familyShapes.end() ? itr->second : 0;
+    }
+
+    // Task 009: a starting form is a kind of creature. Any creature of its family gives it, and each look of that
+    // family is a colouring, named after the creature that wears it most often in the world. Explicit
+    // devourer_shape_source rows win (another shape, or shape 0: not that body), and so do named devourer_skin rows.
+    void Mgr::LoadFamilies()
+    {
+        _familyShapes.clear();
+        _food.clear();
+
+        if (QueryResult result = WorldDatabase.Query("SELECT family, shape_id FROM devourer_shape_family"))
+        {
+            do
+            {
+                Field* f = result->Fetch();
+                uint32 const family = f[0].Get<uint32>();
+                uint32 const shapeId = f[1].Get<uint32>();
+                if (family && _shapes.count(shapeId))
+                    _familyShapes[family] = shapeId;
+            } while (result->NextRow());
+        }
+
+        if (QueryResult result = WorldDatabase.Query(
+                "SELECT shape_id, creature_type, family, name_part, label FROM devourer_favourite_food"))
+        {
+            do
+            {
+                Field* f = result->Fetch();
+                FoodRule rule;
+                rule.Type = f[1].Get<uint32>();
+                rule.Family = f[2].Get<uint32>();
+                rule.NamePart = f[3].Get<std::string>();
+                std::transform(rule.NamePart.begin(), rule.NamePart.end(), rule.NamePart.begin(),
+                    [](unsigned char ch) { return std::tolower(ch); });
+                rule.Label = f[4].Get<std::string>();
+                _food[f[0].Get<uint32>()].push_back(std::move(rule));
+            } while (result->NextRow());
+        }
+
+        if (_familyShapes.empty())
+            return;
+
+        auto lower = [](std::string text)
+        {
+            std::transform(text.begin(), text.end(), text.begin(), [](unsigned char ch) { return std::tolower(ch); });
+            return text;
+        };
+        std::set<std::string> taken;
+        for (auto const& [display, skin] : _skins)
+            taken.insert(lower(skin.Name));
+
+        // Most spawned first: a look shared by several creatures is named after the one met most often.
+        if (QueryResult result = WorldDatabase.Query(
+                "SELECT sf.shape_id, ctm.CreatureDisplayID, ct.name, COUNT(c.guid) AS spawns "
+                "FROM devourer_shape_family sf JOIN creature_template ct ON ct.family = sf.family "
+                "JOIN creature_template_model ctm ON ctm.CreatureID = ct.entry "
+                "JOIN creature c ON c.id = ct.entry "
+                "LEFT JOIN devourer_shape_source ss ON ss.creature_entry = ct.entry "
+                "WHERE ss.creature_entry IS NULL OR ss.shape_id = sf.shape_id "
+                "GROUP BY sf.shape_id, ctm.CreatureDisplayID, ct.entry, ct.name "
+                "ORDER BY spawns DESC, ct.entry"))
+        {
+            do
+            {
+                Field* f = result->Fetch();
+                uint32 const shapeId = f[0].Get<uint32>();
+                uint32 const display = f[1].Get<uint32>();
+                Shape const* shape = FindShape(shapeId);
+                if (!shape || !display || display == shape->Display || _skins.count(display) ||
+                    !sCreatureDisplayInfoStore.LookupEntry(display))
+                    continue;
+                // The menu splits its lines on ':' and lists colourings with ','.
+                std::string name;
+                for (char ch : f[2].Get<std::string>())
+                    if (ch != ':' && ch != ',')
+                        name += ch;
+                std::string unique = name;
+                for (uint32 n = 2; taken.count(lower(unique)); ++n)
+                    unique = name + " " + std::to_string(n);
+                taken.insert(lower(unique));
+                _skins[display] = { shapeId, unique, display };
+            } while (result->NextRow());
+        }
     }
 
     std::vector<Shape const*> Mgr::AllShapes() const
@@ -336,6 +428,17 @@ namespace Devourer
     {
         GainBio(player, meal);
         Source const* source = SourceFor(meal->GetEntry());
+        // Task 009: no row of its own, so its kind decides: any creature of a form's family gives the form, and
+        // its look is the colouring.
+        Source byFamily;
+        if (!source)
+            if (uint32 const shapeId = ShapeForFamily(meal->GetCreatureTemplate()->family))
+            {
+                auto skin = _skins.find(meal->GetNativeDisplayId());
+                byFamily.ShapeId = shapeId;
+                byFamily.Display = skin != _skins.end() && skin->second.ShapeId == shapeId ? skin->first : 0;
+                source = &byFamily;
+            }
         Shape const* shape = source ? FindShape(source->ShapeId) : nullptr;
         if (!shape)
         {
@@ -747,6 +850,57 @@ namespace Devourer
     void Mgr::BuildHints()
     {
         _hints.clear();
+        auto zoneName = [](Field* f) -> std::string
+        {
+            if (f[0].IsNull())
+                return "not placed in the world";
+            uint32 const zone = sMapMgr->GetZoneId(PHASEMASK_NORMAL, f[0].Get<uint32>(), f[1].Get<float>(),
+                f[2].Get<float>(), f[3].Get<float>());
+            if (AreaTableEntry const* area = sAreaTableStore.LookupEntry(zone))
+                return area->area_name[sWorld->GetDefaultDbcLocale()];
+            return "unknown place";
+        };
+
+        // Task 009: a form that is a kind of creature: "Devour any wolf, e.g. ...", the youngest kinds from three
+        // different places.
+        std::set<uint32> kinds;
+        for (auto const& [family, shapeId] : _familyShapes)
+            kinds.insert(shapeId);
+        if (!kinds.empty())
+            if (QueryResult result = WorldDatabase.Query(
+                    "SELECT sf.shape_id, ct.name, c.map, c.position_x, c.position_y, c.position_z "
+                    "FROM devourer_shape_family sf JOIN creature_template ct ON ct.family = sf.family "
+                    "JOIN creature c ON c.guid = (SELECT MIN(c2.guid) FROM creature c2 WHERE c2.id = ct.entry) "
+                    "LEFT JOIN devourer_shape_source ss ON ss.creature_entry = ct.entry "
+                    "WHERE ss.creature_entry IS NULL OR ss.shape_id = sf.shape_id "
+                    "ORDER BY sf.shape_id, ct.minlevel, ct.entry"))
+            {
+                std::map<uint32, std::vector<std::pair<std::string, std::string>>> examples;   // shape -> (name, zone)
+                do
+                {
+                    Field* f = result->Fetch();
+                    uint32 const shapeId = f[0].Get<uint32>();
+                    auto& list = examples[shapeId];
+                    if (list.size() >= 3 || !FindShape(shapeId))
+                        continue;
+                    std::string const where = zoneName(f + 2);
+                    if (std::none_of(list.begin(), list.end(), [&where](auto const& e) { return e.second == where; }))
+                        list.emplace_back(f[1].Get<std::string>(), where);
+                } while (result->NextRow());
+                for (auto const& [shapeId, list] : examples)
+                {
+                    Shape const* shape = FindShape(shapeId);
+                    if (!shape || list.empty())
+                        continue;
+                    std::string kind = shape->Name;
+                    std::transform(kind.begin(), kind.end(), kind.begin(), [](unsigned char ch) { return std::tolower(ch); });
+                    std::string line = "Devour any " + kind;
+                    for (size_t i = 0; i < list.size(); ++i)
+                        line += (i ? ", " : ", e.g. ") + list[i].first + " (" + list[i].second + ")";
+                    _hints[shapeId].push_back(line);
+                }
+            }
+
         if (QueryResult result = WorldDatabase.Query(
                 "SELECT s.shape_id, s.display_id, ct.name, c.map, c.position_x, c.position_y, c.position_z "
                 "FROM devourer_shape_source s JOIN creature_template ct ON ct.entry = s.creature_entry "
@@ -761,17 +915,9 @@ namespace Devourer
                 Shape const* shape = FindShape(shapeId);
                 if (!shape)
                     continue;
-                std::string where = "not placed in the world";
-                if (!f[3].IsNull())
-                {
-                    uint32 const zone = sMapMgr->GetZoneId(PHASEMASK_NORMAL, f[3].Get<uint32>(), f[4].Get<float>(),
-                        f[5].Get<float>(), f[6].Get<float>());
-                    if (AreaTableEntry const* area = sAreaTableStore.LookupEntry(zone))
-                        where = area->area_name[sWorld->GetDefaultDbcLocale()];
-                    else
-                        where = "unknown place";
-                }
-                std::string line = "Devour " + f[2].Get<std::string>() + " - " + where;
+                if (kinds.count(shapeId) && (!display || display == shape->Display))
+                    continue;                            // "Devour any ..." already says it
+                std::string line = "Devour " + f[2].Get<std::string>() + " - " + zoneName(f + 3);
                 if (display && display != shape->Display)
                     line = "Colouring " + SkinName(display) + ": " + line;
                 _hints[shapeId].push_back(line);
@@ -809,6 +955,30 @@ namespace Devourer
         }
     }
 
+    // Task 009: what the menu shows as a shape's favourite food ("Boar, Crocolisk"; "Beast, Plants").
+    std::string Mgr::FavouriteFoodText(uint32 shapeId) const
+    {
+        auto itr = _food.find(shapeId);
+        if (itr == _food.end() || itr->second.empty())
+            return CreatureTypeName(FavouriteFood(shapeId));
+        std::vector<std::string> parts;
+        for (FoodRule const& rule : itr->second)
+        {
+            std::string text = rule.Label;
+            if (text.empty() && rule.Family)
+                if (CreatureFamilyEntry const* family = sCreatureFamilyStore.LookupEntry(rule.Family))
+                    text = family->Name[sWorld->GetDefaultDbcLocale()];
+            if (text.empty() && rule.Type)
+                text = CreatureTypeName(rule.Type);
+            if (!text.empty() && std::find(parts.begin(), parts.end(), text) == parts.end())
+                parts.push_back(text);
+        }
+        std::string out;
+        for (std::string const& part : parts)
+            out += (out.empty() ? "" : ", ") + part;
+        return out;
+    }
+
     // The shape menu (tools/client/lua/DevourerMenu.lua) is fed by addon messages, one per line, prefix "DVR".
     // With catalog (".devour menu", and after a GM unlock), the gallery comes first:
     //   C                                                  a new catalog begins
@@ -837,7 +1007,7 @@ namespace Devourer
             for (auto const& [id, shape] : _shapes)
             {
                 std::ostringstream line;
-                line << "G:" << id << ':' << shape.FormSpell << ':' << CreatureTypeName(FavouriteFood(id)) << ':';
+                line << "G:" << id << ':' << shape.FormSpell << ':' << FavouriteFoodText(id) << ':';
                 bool first = true;
                 for (uint32 spellId : shape.Kit)
                     if (spellId)

@@ -11,6 +11,9 @@
  *   world      devourer_shape          one row per shape: its form spell, base display, kit, passive
  *              devourer_shape_source   creature entry -> shape (+ the colouring that creature grants)
  *              devourer_skin           display -> shape and colouring name
+ *              devourer_shape_family   creature family -> shape (task 009: any creature of it gives the shape,
+ *                                      each of its looks is a colouring, built at startup)
+ *              devourer_favourite_food shape -> creature type / family / name part: 2x Bio Points
  *   characters character_devourer_shape    unlocked shapes, chosen colouring
  *              character_devourer_skin     unlocked colourings
  *              character_devourer_worn    the shape worn at logout
@@ -54,6 +57,15 @@ namespace Devourer
     constexpr uint32 SkillDevourer = 900;         // class skill line: the Devourer's spellbook tab (task 008, 2026_09_30_09)
     constexpr char const* MenuPrefix = "DVR";     // addon messages for the shape menu (client: DevourerMenu.lua)
 
+    // Task 009, starter forms batch 1 (tools/start_kit.py, 2026_09_30_08): the spells the module's scripts use.
+    constexpr uint32 SpellWolfTearThroat = 9100911;      // its bleed: Ravaging Feast eats it
+    constexpr uint32 SpellWolfPupBite = 9100916;         // the spectral pups' bleed (Pack Prowess)
+    constexpr uint32 SpellSaberPhaseProwl = 9100932;
+    constexpr uint32 SpellSaberPoised = 9100936;         // Poised to Strike: Phase Prowl's opener bonus
+    constexpr uint32 SpellMothSilkenCocoon = 9100946;    // Cocoon Metamorphosis wraps the moth in it
+    constexpr uint32 SpellBoarBristlesHit = 9100956;     // Barbed Bristles' Nature damage
+     // addon messages for the shape menu (client: DevourerMenu.lua)
+
     // The three talent trees (tab pages 0-2); see Mgr::SpecOf.
     enum Spec : uint32
     {
@@ -79,6 +91,15 @@ namespace Devourer
     {
         uint32 ShapeId = 0;
         uint32 Display = 0;                      // colouring this creature grants; 0 = the base one
+    };
+
+    // Task 009: a meal is a shape's favourite food when every field a rule sets matches (0 / empty = any).
+    struct FoodRule
+    {
+        uint32 Type = 0;                         // creature type
+        uint32 Family = 0;                       // creature family
+        std::string NamePart;                    // lower case; the creature's name contains it
+        std::string Label;                       // what the menu shows; empty = the type or family name
     };
 
     struct Skin
@@ -151,6 +172,9 @@ namespace Devourer
         uint32 StomachLeft = 0;                          // ms until it bursts out by itself
         bool StomachFull = false;
         uint32 OverrunWindup = 0;                        // getMSTime() of the last Overrun wind-up emote
+
+        // Task 009 (runtime only)
+        bool CocoonUsed = false;                         // Moth: Cocoon Metamorphosis, once per fight
     };
 
     constexpr uint8 NotOnBar = 255;                      // the player took that ability off the bars
@@ -173,6 +197,7 @@ namespace Devourer
         [[nodiscard]] Shape const* FindShape(uint32 shapeId) const;
         [[nodiscard]] Shape const* ShapeByFormSpell(uint32 spellId) const;
         [[nodiscard]] Source const* SourceFor(uint32 creatureEntry) const;
+        [[nodiscard]] uint32 ShapeForFamily(uint32 family) const;   // task 009: 0 = none
         [[nodiscard]] std::vector<Shape const*> AllShapes() const;
 
         // --- devouring ---------------------------------------------------------------------------------
@@ -199,6 +224,9 @@ namespace Devourer
 
         // --- ChaosCore0.3: the Glutton's talents and meals --------------------------------------------
         [[nodiscard]] uint32 FavouriteFood(uint32 shapeId) const;   // the creature type a shape's diet rates highest
+        // Task 009: devourer_favourite_food when the shape has rows, else FavouriteFood's creature type.
+        [[nodiscard]] bool IsFavouriteFood(uint32 shapeId, Creature const* meal) const;
+        [[nodiscard]] std::string FavouriteFoodText(uint32 shapeId) const;
         void SyncTalentSpells(Player* player);                        // Quick Devour replaces Devour on the bars
         void DigestGorged(Player* player, State& state);              // Gorged melts away out of combat
         void UpdateStomach(Player* player, State& state, uint32 diff);
@@ -211,6 +239,10 @@ namespace Devourer
         void Overrun(Player* player, uint32 hitSpell = 0, bool chase = true);   // Rush: its own hit, no chase
         void GnawBite(Unit* caster, Unit* target);
         void VoidFrenzy(Player* player, Unit* target);
+
+        // --- task 009: starter forms batch 1 (src/DevourerForms.cpp has their spell scripts) -------------
+        void CallPups(Player* player, Unit* target);                   // Wolf: Pack Prowess
+        bool TryCocoon(Player* player, uint32 damage, uint32& absorb);  // Moth: Cocoon Metamorphosis
 
         // --- growth (Bio Points and evolution) ---------------------------------------------------------
         void LoadGrowthData();
@@ -262,6 +294,9 @@ namespace Devourer
         std::vector<Evolution> _evolutions;
         std::map<uint32, std::vector<std::string>> _hints;   // shape -> how to get it (gallery), from the world data
         void BuildHints();
+        std::unordered_map<uint32, uint32> _familyShapes;    // task 009: creature family -> shape
+        std::map<uint32, std::vector<FoodRule>> _food;       // task 009: shape -> favourite food rules
+        void LoadFamilies();                                 // task 009: families, their colourings, favourite food
 
         bool _enabled = true;
         uint8 _classId = 10;

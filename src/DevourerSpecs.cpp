@@ -40,6 +40,7 @@ namespace Devourer
     {
         constexpr uint32 SyncInterval = 3000;
         constexpr uint32 EchoDuration = 8000;
+        constexpr uint32 PupDuration = 6000;             // task 009: Pack Prowess
         constexpr uint32 SummonGuardianProperties = 61;
         constexpr float BroodReach = 40.0f;
         constexpr uint8 DevourWholeLevelGap = 5;
@@ -125,6 +126,8 @@ namespace Devourer
         state.SyncTimer = SyncInterval;
         if (state.GrowthDirty)
             SaveGrowth(player);
+        if (state.CocoonUsed && !player->IsInCombat())
+            state.CocoonUsed = false;                    // task 009: Cocoon Metamorphosis, once per fight
         if (state.SyncedSpec != SpecOf(player) || state.SyncedLevel != player->GetLevel())
             SyncSpecSpells(player);
         SyncTalentSpells(player);                        // talents can change at any time, not only with the spec
@@ -244,7 +247,7 @@ namespace Devourer
         // One more stack of Gorged: bigger, tougher. The worn shape's favourite food counts twice.
         State& state = Get(player);
         Shape const* worn = FindShape(state.Worn);
-        bool const favourite = worn && FavouriteFood(worn->Id) && meal->GetCreatureType() == FavouriteFood(worn->Id);
+        bool const favourite = worn && IsFavouriteFood(worn->Id, meal);
         player->CastSpell(player, SpellGorged, true);
         if (favourite)
         {
@@ -305,6 +308,34 @@ namespace Devourer
                 bestBp = bp;
             }
         return best;
+    }
+
+    // Task 009: devourer_favourite_food decides when the shape has rows (creature type, family, a part of the
+    // name: every field a row sets must match); otherwise the diet's best creature type, as before.
+    bool Mgr::IsFavouriteFood(uint32 shapeId, Creature const* meal) const
+    {
+        if (!meal)
+            return false;
+        auto itr = _food.find(shapeId);
+        if (itr == _food.end() || itr->second.empty())
+        {
+            uint32 const type = FavouriteFood(shapeId);
+            return type && meal->GetCreatureType() == type;
+        }
+        std::string name = meal->GetName();
+        std::transform(name.begin(), name.end(), name.begin(), [](unsigned char ch) { return std::tolower(ch); });
+        uint32 const family = meal->GetCreatureTemplate()->family;
+        for (FoodRule const& rule : itr->second)
+        {
+            if (rule.Type && rule.Type != meal->GetCreatureType())
+                continue;
+            if (rule.Family && rule.Family != family)
+                continue;
+            if (!rule.NamePart.empty() && name.find(rule.NamePart) == std::string::npos)
+                continue;
+            return true;
+        }
+        return false;
     }
 
     bool Mgr::ReplaceButtons(Player* player, uint32 from, uint32 to)
@@ -638,6 +669,50 @@ namespace Devourer
         if (Unit* victim = player->GetVictim())
             if (shape.Kit[0] && sSpellMgr->GetSpellInfo(shape.Kit[0]))
                 echo->CastSpell(victim, shape.Kit[0], true, nullptr, nullptr, player->GetGUID());
+    }
+
+    // --- task 009: starter forms batch 1 --------------------------------------------------------------------
+
+    // Wolf, Pack Prowess: two spectral pups (the Skinchanger's translucent echo, in the worn wolf's look and half
+    // its size) fight for 6 sec; each bites once at once (Pup Bite, a bleed that is the Devourer's own, so Ravaging
+    // Feast can eat it).
+    void Mgr::CallPups(Player* player, Unit* target)
+    {
+        if (!target || !target->IsAlive() || !player->IsValidAttackTarget(target))
+            return;
+        State& state = Get(player);
+        Shape const* worn = FindShape(state.Worn);
+        uint32 const display = worn ? ShownDisplay(player, *worn) : 0;
+        for (uint8 i = 0; i < 2; ++i)
+        {
+            Position pos = player->GetPosition();
+            player->MovePositionToFirstCollision(pos, 1.5f, i ? float(M_PI) / 2 : -float(M_PI) / 2);
+            TempSummon* pup = player->SummonCreature(NpcEcho, pos, TEMPSUMMON_TIMED_DESPAWN, PupDuration, 0,
+                sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
+            if (!pup)
+                continue;
+            Dress(pup, player, display, 0.10f, 0.4f, 0.6f);
+            pup->SetObjectScale(0.5f);
+            pup->AddAura(SpellGhostVisual, pup);
+            if (CreatureAI* ai = pup->AI())
+                ai->AttackStart(target);
+            pup->CastSpell(target, SpellWolfPupBite, true, nullptr, nullptr, player->GetGUID());
+        }
+    }
+
+    // Moth, Cocoon Metamorphosis: a blow that would drop the moth below 25% health (or kill it) is stopped at 25%,
+    // and the moth is wrapped in Silken Cocoon. Once per fight (reset out of combat in OnUpdate).
+    bool Mgr::TryCocoon(Player* player, uint32 damage, uint32& absorb)
+    {
+        State& state = Get(player);
+        if (state.CocoonUsed || !player->IsAlive() || !player->HealthBelowPctDamaged(25, damage))
+            return false;
+        state.CocoonUsed = true;
+        uint32 const floor = uint32(player->CountPctFromMaxHealth(25));
+        uint32 const health = uint32(player->GetHealth());
+        absorb = health > floor ? damage - std::min(damage, health - floor) : damage;
+        player->CastSpell(player, SpellMothSilkenCocoon, true);
+        return true;
     }
 
     // --- Vashnik: Rising Serpents --------------------------------------------------------------------------

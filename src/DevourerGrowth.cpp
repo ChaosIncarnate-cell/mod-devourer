@@ -107,9 +107,11 @@ namespace Devourer
             else if ((type = diet->second.find(0)) != diet->second.end())
                 perMeal = type->second;
 
-            // ChaosCore0.3: a Glutton gets twice the Bio Points from its shape's favourite food.
+            // Task 009 (owner, 2026-10-01): every Devourer gets twice the Bio Points from its shape's favourite
+            // food (before: only a Glutton; the Glutton keeps its double Gorged for it, see FeedGlutton).
             uint32 gained = perMeal * Rarity(meal);
-            if (gained && SpecOf(player) == SpecGlutton && meal->GetCreatureType() == FavouriteFood(worn->Id))
+            bool const favourite = gained && IsFavouriteFood(worn->Id, meal);
+            if (favourite)
                 gained *= 2;
             if (gained)
             {
@@ -117,7 +119,8 @@ namespace Devourer
                 bp += gained;
                 state.GrowthDirty = true;
                 std::ostringstream text;
-                text << "+" << gained << " BP (" << worn->Name << ": " << bp << " BP)";
+                text << "+" << gained << " BP" << (favourite ? ", a favourite meal" : "") << " (" << worn->Name
+                     << ": " << bp << " BP)";
                 Tell(player, text.str());
             }
             else

@@ -820,11 +820,12 @@ public:
         return true;
     }
 
-    static bool HandleSkin(ChatHandler* handler, std::string name)
+    // Task 009: colourings are named after creatures ("Prairie Wolf"), so the name is the rest of the line.
+    static bool HandleSkin(ChatHandler* handler, Tail name)
     {
         Player* player = handler->GetSession()->GetPlayer();
         if (sDevourer.IsDevourer(player))
-            sDevourer.ChooseSkin(player, name);
+            sDevourer.ChooseSkin(player, std::string(name));
         return true;
     }
 
