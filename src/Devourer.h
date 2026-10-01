@@ -51,6 +51,7 @@ namespace Devourer
     constexpr uint32 SpellRushHit = 9100991;      // what Rush does to an enemy in its path
     constexpr uint32 SpellConcentrate = 9100992;  // gathers Anima
     constexpr uint32 SpellAnima = 9100993;        // hidden passive: Anima does not drain away out of combat
+    constexpr uint32 SkillDevourer = 900;         // class skill line: the Devourer's spellbook tab (task 008, 2026_09_30_09)
     constexpr char const* MenuPrefix = "DVR";     // addon messages for the shape menu (client: DevourerMenu.lua)
 
     // The three talent trees (tab pages 0-2); see Mgr::SpecOf.

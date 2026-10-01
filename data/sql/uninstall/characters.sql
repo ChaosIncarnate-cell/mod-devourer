@@ -16,6 +16,7 @@ DELETE FROM `character_spell`          WHERE `spell` BETWEEN 9100000 AND 9100999
 DELETE FROM `character_aura`           WHERE `spell` BETWEEN 9100000 AND 9100999;
 DELETE FROM `character_spell_cooldown` WHERE `spell` BETWEEN 9100000 AND 9100999;
 DELETE FROM `character_action`         WHERE `type` = 0 AND `action` BETWEEN 9100000 AND 9100999;
+DELETE FROM `character_skills`         WHERE `skill` = 900;                       -- the Devourer's spellbook tab
 
 -- 3. The idols (items 9100100, 9100101) disappear with their item template: from bags, bank and mail.
 DELETE `ci` FROM `character_inventory` AS `ci`

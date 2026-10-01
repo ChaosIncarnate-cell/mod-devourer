@@ -46,6 +46,7 @@ DELETE FROM `playercreateinfo`              WHERE `class` = 10;
 DELETE FROM `playercreateinfo_action`       WHERE `class` = 10;
 DELETE FROM `playercreateinfo_skills`       WHERE `classMask` = 512;
 DELETE FROM `playercreateinfo_spell_custom` WHERE `classmask` = 512;
+DELETE FROM `skillline_dbc`                 WHERE `ID` = 900;                   -- the Devourer's spellbook tab (_09)
 DELETE FROM `skillraceclassinfo_dbc`        WHERE `ClassMask` & 512;
 DELETE FROM `skilllineability_dbc`          WHERE `ClassMask` & 512;
 DELETE FROM `charstartoutfit_dbc`           WHERE `ClassID` = 10;
@@ -78,4 +79,5 @@ DROP TABLE IF EXISTS `devourer_evolution_task`, `devourer_evolution`, `devourer_
 DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '2026_09_30_01_devourer_class.sql',
     '2026_09_30_02_devourer_spells.sql', '2026_09_30_03_devourer_models.sql', '2026_09_30_04_devourer_world.sql',
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
-    '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql');
+    '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
+    '2026_09_30_09_devourer_spellbook.sql');

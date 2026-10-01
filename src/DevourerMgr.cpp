@@ -672,6 +672,10 @@ namespace Devourer
         for (uint32 spellId : { SpellRush, SpellConcentrate, SpellAnima })
             if (!player->HasSpell(spellId) && sSpellMgr->GetSpellInfo(spellId))
                 player->learnSpell(spellId);
+        // Task 008: the class skill that gives the Devourer its own spellbook tab. New characters get it from
+        // playercreateinfo_skills, older ones here (nothing happens while its SkillRaceClassInfo row is missing).
+        if (!player->HasSkill(SkillDevourer))
+            player->LearnDefaultSkill(SkillDevourer, 0);
         // Form spells follow the shapes owned (a shape added by a GM or a data fix is taught here too). A new
         // Devourer starts without a shape: it devours the first one from its starting zone's beasts (task 007),
         // so the Idol of the Sethrak is no longer handed out.

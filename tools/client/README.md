@@ -30,7 +30,8 @@ really uses: an HD patch's `CreatureDisplayInfo.dbc` is extended, not replaced b
 - **DBCs** (`DBFilesClient`)
   - Rows of the committed SQL, the same values the server gets: `ChrClasses` 10 (Hunger = rage), `TalentTab`
     900-902, `Talent` 9000-9019, `Spell` 9100000-9100899, `CreatureModelData` 902038-902045, `CreatureDisplayInfo`
-    991001-991065. `dbc_layouts.json` maps AzerothCore's `*_dbc` columns onto the DBC fields (same order). The
+    991001-991065, the spellbook tab (`SkillLine` 900, `SkillRaceClassInfo` 91000, `SkillLineAbility` 91001-91999,
+    task 008). `dbc_layouts.json` maps AzerothCore's `*_dbc` columns onto the DBC fields (same order). The
     client reads the string of its own locale, so empty locale slots get the enUS text.
   - `SkillRaceClassInfo`, `SkillLineAbility`, `CharStartOutfit`: the warrior's skills and starting outfit for class
     10, by the rules in `tools/build_class_dbc_sql.py` (imported, not copied), and the same SQL file that script
@@ -78,5 +79,5 @@ single unit, sector CRC, v1/v2). The SQL (install twice, uninstall) was run on M
 - Class icon in game frames (raid, arena, score board): needs the icon painted into the free cell of Blizzard's
   class icon sheets. `CLASS_SORT_ORDER` is left alone: the raid and calendar frames make one class button per
   entry and have no 11th, so Devourers are not counted on a class button there.
-- A spellbook tab of its own (a `SkillLine`), other locales' texts, the achievement frame (stoneharry saw it fail
+- Other locales' texts, the achievement frame (stoneharry saw it fail
   for a new class).
