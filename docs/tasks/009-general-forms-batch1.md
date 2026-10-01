@@ -1,53 +1,78 @@
-# 009 — General forms, first batch: Wolf, Cat, Boar, Moth (+ fix their abilities)
+# 009 — Starter forms, first batch (Wolf, Saber, Boar, Moth): general kinds, canvas kits
 
-Status: open. Base: branch `task/006-007-devourer-start` (after 008, or in parallel; both add SQL, keep ids apart).
-Branch: `task/009-general-forms-batch1`. Read `CLAUDE.md`, `docs/design.md`, `docs/start-kit.md`, `tools/start_kit.py`.
-Owner's rule: build only what is asked here; anything else goes into the PR text as a proposal.
+Status: open. Base: branch `task/006-007-devourer-start`. Branch: `task/009-starter-forms-batch1`.
+Read `CLAUDE.md`, `docs/design.md`, `docs/start-kit.md`, `tools/start_kit.py`.
+**Source of the design:** the owner's Obsidian canvas "Canvas Evolutions for Devourer", Section 1 (Regional Race
+Starter Lines); the four cards are summarised below. The canvas belongs to the owner/Canvas session: don't change it.
+Owner's rule: build only what is asked; anything else goes into the PR text as a proposal.
 
 ## Owner's words (2026-10-01)
-"The single forms should not be THAT specific ... reworked into wolf, or allow many many wolf like creatures, to be
-overall less specific. Also go through the abilities and make changes to the abilities that are weird, do not make
-sense, or you think might be better differently. Let's start with only a first batch of those creatures."
+"The single forms should not be THAT specific, the 'Anima-Stalked Wolf' should be reworked into wolf, or allow many
+many wolf-like creatures, to be overall less specific. Also go through the abilities and make changes to the
+abilities that are weird, do not make sense, or you think might be better differently. Let's start with only a
+first batch." Canvas prep decisions: names not too important; if a creature/model doesn't exist, take the most
+fitting existing one. Favourite food gives 2x Bio Points for everyone, matched by creature type and family.
 
-## 1. A form is a kind of creature, not one creature
-Today a starting form is unlocked by one creature entry (+ a few listed colouring creatures) in `devourer_shape_source`.
-New: a shape can name a **creature family** (`creature_template.family`, beasts): devouring **any** creature of that
-family unlocks the shape, and each different look (display id) unlocks a **colouring**, named after the creature it
-came from (e.g. "Prairie Wolf"). Spawned creatures of the families (stock DB, counted locally):
-| Shape | Was | Family | Creatures | Looks |
+## 1. A form is a kind of creature
+Today a starting form comes from one creature entry (+ listed colouring creatures) in `devourer_shape_source`.
+New: a shape names a **creature family** (`creature_template.family`); devouring **any** creature of that family
+unlocks it, and every different look (display id) is a **colouring**, named after the creature eaten.
+
+| Shape (new name) | Canvas card | Today | Family | Spawned creatures / looks |
 |---|---|---|---|---|
-| Wolf | Wolf (Diseased Young Wolf) | 1 | 114 | 69 |
-| Cat | Nightsaber (Young Nightsaber) | 2 | 102 | 67 |
-| Boar | Boar (Mottled Boar) | 5 | 32 | 22 |
-| Moth | Moth (Vale Moth) | 37 | 11 | 10 |
-- Data, not code: e.g. a table `devourer_shape_family (shape_id, family)` (+ uninstall). Explicit `devourer_shape_source`
-  rows keep working and win over the family rule. Colouring names and the display list are built at startup from
-  the world DB (like `Mgr::BuildHints`); `.devour skin <name>`, the menu (colouring button, gallery hints: "Devour any
-  wolf, e.g. ... (zone)") and `character_devourer_skin` keep working; existing characters keep what they have.
-- Leave out looks that are not that body (ghosts/spirits, other models: compare the display's model with the family's
-  usual ones) and bosses' unique looks if they break the shape; say in the PR what was left out and why.
-- Shape names become the kind: "Wolf Form", "Cat Form", "Boar Form", "Moth Form" (rename Nightsaber; same shape id).
-- Bat, Strider, Trogg, Mana Wyrm stay as they are (later batches).
-- If incarnations data is affected: note in the PR that `source\wxl\own\wxl-incarnations\tools\build_chromaticaw_data.py`
-  must be run again locally.
+| **Wolf** | Anima-Stalked Wolf | Wolf (shape 5) | 1 | 114 / 69 |
+| **Saber** | Shadow-Gorged Saber | Nightsaber (7) | 2 | 102 / 67 |
+| **Boar** | Gore-Tusk Boar | Boar (9) | 5 | 32 / 22 |
+| **Moth** | Luminescent Vale Moth | Moth (8) | 37 | 11 / 10 |
 
-## 2. Their abilities: fix what is weird
-Claude's review of the four kits (tools/start_kit.py), to be done:
-- **All four**: the two level-10/20 abilities are empty placeholders: make them real, fitting the kind and level
-  (names in the script: Wolf "Rip Throat", "Call of the Pack"; Cat "Ambush Leap", "Shadow Stalk"; Boar "Tusk Toss",
-  "Wallow"; Moth "Luring Glow", "Silken Cocoon"). Modest numbers for levels 10-20; a level-10 ability may cost Anima.
-- **Moth**: "Dusty Wings" is Nature damage with Arcane Explosion's visual (mismatch); the owner's older idea for moths
-  is **lunar magic**: make the moth's damage lunar/arcane and its visuals match (moonlight, dust).
-- **Cat**: "Prowl" is the stock druid spell: check it works outside druid cat form (stealth, speed, breaks on
-  damage) and with the Devourer's shapes; if not, an own stealth spell.
-- **Boar**: "Boar Charge" duplicates the warrior's Charge (out of combat only) and Rush already exists in the base
-  kit: give the boar something of its own instead (e.g. a short charge usable in combat, or a knock-back gore).
-- **Wolf**: fine as is ("Savage Bite", "Pack Howl", passive crit), only the two placeholders.
-- Every text a player reads: Anima, no game jargon in names, the spell's own tooltip numbers ($s1...).
-Write each change and its reason into `docs/start-kit.md` (generated) and the PR text.
+- Data, not code: e.g. `devourer_shape_family (shape_id, family)` (+ uninstall); explicit `devourer_shape_source`
+  rows still work and win. Colouring names/displays are built at startup from the world DB (like `Mgr::BuildHints`);
+  `.devour skin`, the menu's colouring button and the gallery hints ("Devour any wolf, e.g. Prairie Wolf (Mulgore)")
+  keep working; existing characters keep what they own. Same shape ids, new names ("Wolf Form", "Saber Form" ...).
+- Leave out looks that are not that body (ghost/spirit/other models) and list them in the PR.
+- Favourite food per card (below) as data; 2x Bio Points for everyone when it matches (type or family).
+- After it, `source/wxl/own/wxl-incarnations/tools/build_chromaticaw_data.py` must run again locally (say so in the PR).
+
+## 2. The kits: the canvas cards, with these fixes (Claude's review)
+Each form: 4 abilities + the gimmick as its passive. Numbers modest for levels 1-20 (the owner: strong is fine for
+later forms, but starters must play at level 1). Anima: builders give it, shifting costs 25. Visuals: stock 3.3.5.
+
+**Wolf** (Pack Assassin & Low-Health Executioner) · food: family Boar / Crocolisk
+- Tear Throat (+15 Anima, bleed) · Hungering Lunge (15 yd leap & slow) · Howl of the Pack · Ravaging Feast (eats bleed to heal)
+- Gimmick Pack Prowess: hitting targets below 30% summons spectral pups that bite for extra bleeds.
+- Fix: "Howl of the Pack (AoE disorient & haste)" mixes two jobs: make it one. Proposal: a haste howl (fits an
+  executioner); the disorient goes.
+
+**Saber** (Stealth Infiltration & Critical Ambush Assassin) · food: family Cat / Spider
+- Phase Prowl (stealth, +50% opener) · Anima Shred (+20 Anima, from behind) · Essence Rend (bleed finisher) · Flicker Step (20 yd shadowstep)
+- Gimmick: dodge/parry resets Phase Prowl in combat.
+- Fix: an in-combat stealth reset on every dodge/parry is too strong: give it an internal cooldown (e.g. 20 s).
+  Phase Prowl: an own spell (the stock druid Prowl may need cat form); check it with the Devourer's shapes.
+
+**Boar** (Knockdown Charge Tank & Spiked Reflector) · food: type Critter or family Scorpid
+- Gore (armour sunder) · Primal Charge (knockdown) · Thick Hide (-30% damage taken, short) · Tusk Sweep (cleave 3)
+- Gimmick Barbed Bristles: reflects 15% physical damage as Nature thorns; charging builds Anima.
+- Fixes: "Thickened Rind" renamed Thick Hide (a rind is fruit peel). Primal Charge usable in combat (not a copy of
+  the warrior's Charge; Rush already covers moving out of combat). The -30% only for a few seconds.
+
+**Moth** (Support Healer & Emergency Chrysalis Shielder) · food: Beast or plant-like creatures
+- Siphon Proboscis (nature heal) · Blinding Spores · Flutter Dash (glide sprint) · Luminescent Pulse (AoE)
+- Gimmick Cocoon Metamorphosis: below 25% wraps you in an invulnerable cocoon regenerating 30% max HP.
+- Fixes: "Blinding Spores (60% miss chance)" is far too strong at level 1: about 20-25% for a few seconds.
+  "Luminescent Pulse (Holy/Nature AoE)": the owner's older moth idea is lunar magic: make it moonlight (Arcane)
+  with a matching visual. Cocoon once per fight (internal cooldown), or the moth cannot die. "Elemental [Plant]"
+  does not exist in 3.3.5 (no plant type): use name/family rules or drop it; say what you chose.
+
+**General (all cards):** "[Arcane]", "[Plant]", "[Lesser]" subtypes don't exist in 3.3.5 data: use type +
+family/name rules. A Devourer has no taunt (the Glutton doubles threat instead): no taunts in kits. Mana/energy
+drains must give the Devourer Anima (it has no mana). Every text a player reads: Anima, no game jargon.
+Write each change and its reason into `docs/start-kit.md` and the PR text.
+
+Later batches (not now): Strider (Plainstrider Chick), Trogg (Flesheater Trogg), Bat (Blight-Wing Bat), Wyrm (Anima
+Siphon Wyrm), Owl (Strigid Moon-Owl, a new starter), and the tier 2/3 lines of Section 1.
 
 ## Done when (local session tests in game)
-1. Devouring a different wolf (e.g. a Prairie Wolf) gives the Wolf form (if new) and a new colouring; the menu shows it.
-2. Same for one cat, one boar, one moth that were not sources before.
-3. Taleka keeps her Moth and colourings; the Nightsaber shape is now "Cat" with the same id.
-4. The reworked abilities work and read right; no server log errors; uninstall covers the new table.
+1. Devouring a different wolf (e.g. a Prairie Wolf) gives the Wolf form if new, else a new colouring; the menu shows it.
+2. The same for one saber, one boar, one moth that were not sources before.
+3. Taleka keeps her Moth and colourings; Nightsaber is now Saber with the same id.
+4. The four kits play at levels 1-20 and read right; no server log errors; the uninstall covers the new table.
