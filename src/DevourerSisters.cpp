@@ -46,7 +46,9 @@ using namespace Acore::ChatCommands;
 
 namespace
 {
-    constexpr uint32 ShapeBabyBerserker = 4;
+    // Owner, 2026-10-01: a new form, the Warp Stalker (shape 13), instead of the Baby Berserker (its ported model
+    // crashes the client), and no cage: the Devourer stands in the summoning circle.
+    constexpr uint32 ShapeIntro = 13;
     constexpr uint32 CheckInterval = 1000;       // ms between looks at the cage, the snacks and the ritual
     constexpr uint32 SnackDelay = 8000;          // ms before Wren tosses in more snacks once they are all gone
     constexpr uint32 SnackLifetime = 120000;     // ms a snack lives, dead or alive (its corpse waits to be eaten)
@@ -172,13 +174,10 @@ namespace
 
     GameObject* Cage(Player* player, Visit& visit)
     {
-        if (GameObject* cage = ObjectAccessor::GetGameObject(*player, visit.Cage))
-            return cage;
-        // Summoned by the Devourer: each has its own, and it goes when the Devourer leaves the map or logs out.
-        GameObject* cage = player->SummonGameObject(GoCage, CageX, CageY, CageZ, CageO, 0.0f, 0.0f,
-            std::sin(CageO / 2), std::cos(CageO / 2), 0);
-        visit.Cage = cage ? cage->GetGUID() : ObjectGuid::Empty;
-        return cage;
+        // Owner, 2026-10-01: no cage any more; the summoning circle (a fixed object on that spot) holds the Devourer
+        // until the chores are done. Nothing is summoned; the "cage" names below stand for the circle.
+        visit.Cage = ObjectGuid::Empty;
+        return nullptr;
     }
 
     void PutBackInCage(Player* player)
@@ -276,7 +275,7 @@ namespace
                 if (Creature* wren = Sister(player, NpcWren))
                     wren->HandleEmoteCommand(EMOTE_ONESHOT_SPELL_CAST_OMNI);
                 player->CastSpell(player, VisualTransform, true);
-                sDevourer.Unlock(player, ShapeBabyBerserker, 0, true);
+                sDevourer.Unlock(player, ShapeIntro, 0, true);
                 return 2500;
             case 6:
                 Say(player, NpcWren, WrenBaby);

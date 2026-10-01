@@ -46,7 +46,7 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 
 *Objective:* Kill 3 of Wren's snacks and devour one of them.
 
-> Fluffy! No, Snack. Project #9! You'll answer to all of them, I've decided. / First chore on the list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them in, you catch them. And don't just bite them. EAT one. Properly, the way you do. I want to watch!
+> Fluffy! No, Snack. Project #9! You'll answer to all of them, I've decided. / First chore on the list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them into your circle, you catch them. And don't just bite them. EAT one. Properly, the way you do. I want to watch!
 
 *Not done yet:* Still squeaking in there? Somebody's not done.  
 *Handed in:* Crunchy! Hagatha, did you see? It ate it whole! Well. Mostly whole. / Gold star, Snack. Next chore!
@@ -67,7 +67,7 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 > My sister teaches you tricks. I will teach you what you are. / Every village has a story about something that came out of the dark and ate until it became something else. Sit, hungry thing. Ask me for the tale, and listen to the end of it. The ones who do not listen end up in it.
 
 *Not done yet:* The tale is not finished with you yet.  
-*Handed in:* Now you know the shape beneath all your shapes. Remember it when you wear someone else's. / Wren, open the cage. Our little horror has lessons to carry into the world, and it will come back to us for more.
+*Handed in:* Now you know the shape beneath all your shapes. Remember it when you wear someone else's. / Wren, break the circle. Our little horror has lessons to carry into the world, and it will come back to us for more.
 
 ## Lines (creature_text)
 
@@ -75,11 +75,11 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 |---|---|---|---|---|
 | Wren | 0 | the ritual takes hold (whisper) | Found you! Hold still, Snack. This tickles. Mostly. | draft |
 | Hagatha | 0 | asleep in the cage | Hush, sister. Let it wake slowly. The ones that wake fast bite the hand that feeds them. | draft |
-| Wren | 1 | it wakes | It's awake! Hagatha, it's AWAKE! Hello, hello, Project #9! Don't chew the bars, they're new. | draft |
+| Wren | 1 | it wakes | It's awake! Hagatha, it's AWAKE! Hello, hello, Project #9! Don't smudge the circle, the chalk is new. | draft |
 | Hagatha | 1 |  | So. Another hungry thing out of the In-Between. They always come back here in the end, my little horror. Back to the dark between the stars and the world. | draft |
 | Wren | 2 | before the spell | You eat what you kill and wear what you eat? Messy, messy! Let's give you something with proper teeth. Hold still... no, the other still! | draft |
-| Wren | 3 | it is a Baby Berserker | Ha! Look at you! Little horns, little teeth, little temper! I'm calling you Fluffy. No, Snack. No... both! | draft |
-| Hagatha | 2 |  | A young Berserker. In the villages they tell of a beast that ate the moon off the water of a well, and was never full again. Mind which stories you become. | draft |
+| Wren | 3 | it is a Baby Berserker | Ha! Look at you! Now you see it, now you don't! Blink, blink! I'm calling you Fluffy. No, Snack. No... both! | draft |
+| Hagatha | 2 |  | A warp stalker. In the villages they tell of a beast that was never quite where you looked, and ate the shadows off the walls. Mind which stories you become. | draft |
 | Wren | 4 | first chore offered | Chores, Fluffy! Every pet in this house has chores. I made a list. It's a long list. It's a lovely list! | draft |
 | Wren | 5 | snacks tossed in | Snacks incoming! Catch! | draft |
 | Wren | 6 | it roared at her | THAT'S my monster! Again! No, don't, the ceiling's loose. | draft |
@@ -88,19 +88,19 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 | Hagatha | 5 | the tale 3/4 | When there was nothing left it had not been, it came back here, starving, and began to eat itself. | draft |
 | Hagatha | 6 | the tale 4/4 | That is what you are, my little horror. Not the wolf, not the man. The hunger underneath. Never let it eat the last of you. | draft |
 | Wren | 7 | the cage opens | Out you go! Come back when you've eaten something interesting. Or someone. I'm joking! Mostly. Ha! | draft |
-| Hagatha | 7 | the cage opens | The door is open. Doors are worse than cages, hungry thing: through them you choose what you become. Come back to us when you need teaching. | draft |
-| Wren | 8 | died in the cage | No dying in my cage! Up you get, Snack. I haven't finished my list. | PLACEHOLDER |
-| Wren | 9 | strayed from the cage | Ah-ah-ah! The cage stays shut until the chores are done. | PLACEHOLDER |
+| Hagatha | 7 | the cage opens | The circle lets you go. A circle is worse than a cage, hungry thing: you step out of it yourself, and choose what you become. Come back to us when you need teaching. | draft |
+| Wren | 8 | died in the cage | No dying in my circle! Up you get, Snack. I haven't finished my list. | PLACEHOLDER |
+| Wren | 9 | strayed from the cage | Ah-ah-ah! The circle holds you until the chores are done. | PLACEHOLDER |
 | Wren | 10 | came back with .inbetween | Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then! | PLACEHOLDER |
 
 ## Gossip texts
 
 | npc_text | Shown to | Text | |
 |---|---|---|---|
-| 9101300 | Hagatha: a caged Devourer | Sit still, hungry thing. The bars are for your sake, not ours. | draft |
+| 9101300 | Hagatha: a caged Devourer | Sit still, hungry thing. The circle is for your sake, not ours. | draft |
 | 9101301 | Hagatha: a freed Devourer | You smell of new meals, my little horror. Sit by the lantern, and I will teach you what the dark already knows about you. | draft |
 | 9101302 | Hagatha: anyone else | You are not one of mine. Go back the way the dark let you in, and do not look into the lantern. | draft |
-| 9101303 | Wren: a caged Devourer | Chores first, then no cage! Or cage first, then chores, then no cage. I wrote it down somewhere. | draft |
+| 9101303 | Wren: a caged Devourer | Chores first, then out of the circle! Or circle first, then chores, then out. I wrote it down somewhere. | draft |
 | 9101304 | Wren: a freed Devourer | Project #9! Back already? Lessons! I LOVE lessons. Hold still while I find the list. | draft |
 | 9101305 | Wren: anyone else | Ooh, a visitor! You'd make a lovely toad. No? Then shoo! Hagatha says I can't keep everyone. | draft |
 

@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `devourer_favourite_food` (
     PRIMARY KEY (`shape_id`, `creature_type`, `family`, `name_part`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DELETE FROM `spell_dbc` WHERE `ID` BETWEEN 9100900 AND 9100999;
+DELETE FROM `spell_dbc` WHERE `ID` BETWEEN 9100900 AND 9101099;
 INSERT INTO `spell_dbc` (`ID`,`Category`,`DispelType`,`Mechanic`,`Attributes`,`AttributesEx`,`AttributesEx2`,`AttributesEx3`,`AttributesEx4`,`AttributesEx5`,`AttributesEx6`,`AttributesEx7`,`ShapeshiftMask`,`unk_320_2`,`ShapeshiftExclude`,`unk_320_3`,`Targets`,`TargetCreatureType`,`RequiresSpellFocus`,`FacingCasterFlags`,`CasterAuraState`,`TargetAuraState`,`ExcludeCasterAuraState`,`ExcludeTargetAuraState`,`CasterAuraSpell`,`TargetAuraSpell`,`ExcludeCasterAuraSpell`,`ExcludeTargetAuraSpell`,`CastingTimeIndex`,`RecoveryTime`,`CategoryRecoveryTime`,`InterruptFlags`,`AuraInterruptFlags`,`ChannelInterruptFlags`,`ProcTypeMask`,`ProcChance`,`ProcCharges`,`MaxLevel`,`BaseLevel`,`SpellLevel`,`DurationIndex`,`PowerType`,`ManaCost`,`ManaCostPerLevel`,`ManaPerSecond`,`ManaPerSecondPerLevel`,`RangeIndex`,`Speed`,`ModalNextSpell`,`CumulativeAura`,`Totem_1`,`Totem_2`,`Reagent_1`,`Reagent_2`,`Reagent_3`,`Reagent_4`,`Reagent_5`,`Reagent_6`,`Reagent_7`,`Reagent_8`,`ReagentCount_1`,`ReagentCount_2`,`ReagentCount_3`,`ReagentCount_4`,`ReagentCount_5`,`ReagentCount_6`,`ReagentCount_7`,`ReagentCount_8`,`EquippedItemClass`,`EquippedItemSubclass`,`EquippedItemInvTypes`,`Effect_1`,`Effect_2`,`Effect_3`,`EffectDieSides_1`,`EffectDieSides_2`,`EffectDieSides_3`,`EffectRealPointsPerLevel_1`,`EffectRealPointsPerLevel_2`,`EffectRealPointsPerLevel_3`,`EffectBasePoints_1`,`EffectBasePoints_2`,`EffectBasePoints_3`,`EffectMechanic_1`,`EffectMechanic_2`,`EffectMechanic_3`,`ImplicitTargetA_1`,`ImplicitTargetA_2`,`ImplicitTargetA_3`,`ImplicitTargetB_1`,`ImplicitTargetB_2`,`ImplicitTargetB_3`,`EffectRadiusIndex_1`,`EffectRadiusIndex_2`,`EffectRadiusIndex_3`,`EffectAura_1`,`EffectAura_2`,`EffectAura_3`,`EffectAuraPeriod_1`,`EffectAuraPeriod_2`,`EffectAuraPeriod_3`,`EffectMultipleValue_1`,`EffectMultipleValue_2`,`EffectMultipleValue_3`,`EffectChainTargets_1`,`EffectChainTargets_2`,`EffectChainTargets_3`,`EffectItemType_1`,`EffectItemType_2`,`EffectItemType_3`,`EffectMiscValue_1`,`EffectMiscValue_2`,`EffectMiscValue_3`,`EffectMiscValueB_1`,`EffectMiscValueB_2`,`EffectMiscValueB_3`,`EffectTriggerSpell_1`,`EffectTriggerSpell_2`,`EffectTriggerSpell_3`,`EffectPointsPerCombo_1`,`EffectPointsPerCombo_2`,`EffectPointsPerCombo_3`,`EffectSpellClassMaskA_1`,`EffectSpellClassMaskA_2`,`EffectSpellClassMaskA_3`,`EffectSpellClassMaskB_1`,`EffectSpellClassMaskB_2`,`EffectSpellClassMaskB_3`,`EffectSpellClassMaskC_1`,`EffectSpellClassMaskC_2`,`EffectSpellClassMaskC_3`,`SpellVisualID_1`,`SpellVisualID_2`,`SpellIconID`,`ActiveIconID`,`SpellPriority`,`Name_Lang_enUS`,`Name_Lang_enGB`,`Name_Lang_koKR`,`Name_Lang_frFR`,`Name_Lang_deDE`,`Name_Lang_enCN`,`Name_Lang_zhCN`,`Name_Lang_enTW`,`Name_Lang_zhTW`,`Name_Lang_esES`,`Name_Lang_esMX`,`Name_Lang_ruRU`,`Name_Lang_ptPT`,`Name_Lang_ptBR`,`Name_Lang_itIT`,`Name_Lang_Unk`,`Name_Lang_Mask`,`NameSubtext_Lang_enUS`,`NameSubtext_Lang_enGB`,`NameSubtext_Lang_koKR`,`NameSubtext_Lang_frFR`,`NameSubtext_Lang_deDE`,`NameSubtext_Lang_enCN`,`NameSubtext_Lang_zhCN`,`NameSubtext_Lang_enTW`,`NameSubtext_Lang_zhTW`,`NameSubtext_Lang_esES`,`NameSubtext_Lang_esMX`,`NameSubtext_Lang_ruRU`,`NameSubtext_Lang_ptPT`,`NameSubtext_Lang_ptBR`,`NameSubtext_Lang_itIT`,`NameSubtext_Lang_Unk`,`NameSubtext_Lang_Mask`,`Description_Lang_enUS`,`Description_Lang_enGB`,`Description_Lang_koKR`,`Description_Lang_frFR`,`Description_Lang_deDE`,`Description_Lang_enCN`,`Description_Lang_zhCN`,`Description_Lang_enTW`,`Description_Lang_zhTW`,`Description_Lang_esES`,`Description_Lang_esMX`,`Description_Lang_ruRU`,`Description_Lang_ptPT`,`Description_Lang_ptBR`,`Description_Lang_itIT`,`Description_Lang_Unk`,`Description_Lang_Mask`,`AuraDescription_Lang_enUS`,`AuraDescription_Lang_enGB`,`AuraDescription_Lang_koKR`,`AuraDescription_Lang_frFR`,`AuraDescription_Lang_deDE`,`AuraDescription_Lang_enCN`,`AuraDescription_Lang_zhCN`,`AuraDescription_Lang_enTW`,`AuraDescription_Lang_zhTW`,`AuraDescription_Lang_esES`,`AuraDescription_Lang_esMX`,`AuraDescription_Lang_ruRU`,`AuraDescription_Lang_ptPT`,`AuraDescription_Lang_ptBR`,`AuraDescription_Lang_itIT`,`AuraDescription_Lang_Unk`,`AuraDescription_Lang_Mask`,`ManaCostPct`,`StartRecoveryCategory`,`StartRecoveryTime`,`MaxTargetLevel`,`SpellClassSet`,`SpellClassMask_1`,`SpellClassMask_2`,`SpellClassMask_3`,`MaxTargets`,`DefenseType`,`PreventionType`,`StanceBarOrder`,`EffectChainAmplitude_1`,`EffectChainAmplitude_2`,`EffectChainAmplitude_3`,`MinFactionID`,`MinReputation`,`RequiredAuraVision`,`RequiredTotemCategoryID_1`,`RequiredTotemCategoryID_2`,`RequiredAreasID`,`SchoolMask`,`RuneCostID`,`SpellMissileID`,`PowerDisplayID`,`EffectBonusMultiplier_1`,`EffectBonusMultiplier_2`,`EffectBonusMultiplier_3`,`SpellDescriptionVariableID`,`SpellDifficultyID`) VALUES
 (9100990,0,0,0,16,0,0,0,0,0,8388608,262144,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,15000,0,15,0,0,0,101,0,0,1,1,0,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,3,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,457,0,50,'Rush','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Gather yourself for 0.5 sec, then rush 20 yards straight ahead. Every enemy in your path takes 50% weapon damage and is knocked down for 1 sec. Needs no target.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,0,2,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
 (9100991,0,0,12,0,648,1073741824,0,0,0,8388608,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,101,0,0,1,1,36,0,0,0,0,0,13,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,31,6,0,1,1,0,0.0,0.0,0.0,49,-1,0,0,0,0,6,6,0,0,0,0,0,0,0,0,12,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,2816,0,15,0,50,'Rush','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Knocked down.','','','','','','','','','','','','','','','',16712190,0,0,0,0,0,0,0,0,0,2,2,0,1.0,1.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,1.0,0.0,0,0),
@@ -71,6 +71,12 @@ INSERT INTO `spell_dbc` (`ID`,`Category`,`DispelType`,`Mechanic`,`Attributes`,`A
 (9100973,0,0,0,80,1024,2147483648,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,101,0,0,1,1,21,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,6,0,0,1,0,0,0.0,0.0,0.0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,54,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1579,0,0,'Echolocation','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Your chance to hit is increased by 2%.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,0,0,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
 (9100974,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6000,0,0,0,0,0,101,0,0,10,10,0,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,3,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1579,0,0,'Sonic Burst (placeholder)','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Placeholder Bat ability (level 10): not designed yet.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
 (9100975,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6000,0,0,0,0,0,101,0,0,20,20,0,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,3,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1579,0,0,'Night Swarm (placeholder)','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Placeholder Bat ability (level 20): not designed yet.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
+(9101000,4001,1,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,8000,0,0,0,0,101,0,0,1,1,21,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,6,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,299,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1499,0,50,'Warp Stalker Form','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Take the shape of a warp stalker you have devoured: Warp Bite, Warp and Phasing Hide; Tail Lash opens at level 10, Warp Ambush at 20. All shapes share one cooldown.','','','','','','','','','','','','','','','',16712190,'Wearing the warp stalker''s shape.','','','','','','','','','','','','','','','',16712190,0,133,1000,0,0,0,0,0,0,1,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
+(9101001,0,0,0,262160,512,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,6000,0,0,0,0,0,101,0,0,1,1,0,0,0,0,0,0,2,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,58,30,0,1,1,0,0.0,0.0,0.0,3,49,0,0,0,0,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,376,0,1680,0,0,'Warp Bite','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Bite through the space between: weapon damage plus $s1. Generates 5 Anima.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,2,2,0,1.0,1.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,1.0,0.0,0,0),
+(9101002,0,0,0,0,32768,0,0,64,0,0,1048576,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,15000,0,8,0,0,0,101,0,0,1,1,36,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,29,6,6,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,1,1,1,55,0,0,9,0,0,0,77,77,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,12,7,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,263,0,1499,0,0,'Warp','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Blink up to 20 yards forward, slipping out of stuns and roots.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,1,1,0,1.0,1.0,1.0,0,0,0,0,0,0,64,0,0,0,0.0,1.0,1.0,0,0),
+(9101003,0,0,0,80,1024,2147483648,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,101,0,0,1,1,21,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,6,0,0,1,0,0,0.0,0.0,0.0,2,0,0,0,0,0,1,0,0,0,0,0,0,0,0,49,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1499,0,0,'Phasing Hide','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Your body is never quite where it seems: chance to dodge increased by 3%.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,0,0,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
+(9101004,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6000,0,0,0,0,0,101,0,0,10,10,0,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,3,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1499,0,0,'Tail Lash (placeholder)','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Placeholder Warp Stalker ability (level 10): not designed yet.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
+(9101005,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6000,0,0,0,0,0,101,0,0,20,20,0,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,3,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1499,0,0,'Warp Ambush (placeholder)','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Placeholder Warp Stalker ability (level 20): not designed yet.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
 (9100980,4001,1,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,8000,0,0,0,0,101,0,0,1,1,21,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,6,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,299,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1485,0,50,'Mana Wyrm Form','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Take the shape of the mana wyrm you devoured: Arcane Bolt, Arcane Pulse and Mana Sheath; Mana Tap opens at level 10, Arcane Coil at 20. All shapes share one cooldown.','','','','','','','','','','','','','','','',16712190,'Wearing the mana wyrm''s shape.','','','','','','','','','','','','','','','',16712190,0,133,1000,0,0,0,0,0,0,1,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0),
 (9100981,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,16,0,0,15,0,0,0,101,0,0,1,1,0,0,0,0,0,0,4,24.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,2,30,0,4,1,0,0.0,0.0,0.0,6,49,0,0,0,0,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,271,0,1485,0,50,'Arcane Bolt','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Anima.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,1,1,0,1.0,1.0,0.0,0,0,0,0,0,0,64,0,0,0,1.0,1.0,0.0,0,0),
 (9100982,0,0,0,16,136,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,8000,0,8,0,0,0,101,0,0,1,1,0,1,100,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,2,0,0,5,0,0,0.0,0.0,0.0,7,0,0,0,0,0,22,0,0,15,0,0,14,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,965,0,122,0,0,'Arcane Pulse','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Release the mana in you: $s1 Arcane damage to enemies within 8 yards.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,1,1,0,1.0,0.0,0.0,0,0,0,0,0,0,64,0,0,0,1.0,0.0,0.0,0,0),
@@ -79,7 +85,7 @@ INSERT INTO `spell_dbc` (`ID`,`Category`,`DispelType`,`Mechanic`,`Attributes`,`A
 (9100985,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,6000,0,0,0,0,0,101,0,0,20,20,0,0,0,0,0,0,1,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,3,0,0,1,0,0,0.0,0.0,0.0,-1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,1485,0,0,'Arcane Coil (placeholder)','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,'Placeholder Mana Wyrm ability (level 20): not designed yet.','','','','','','','','','','','','','','','',16712190,'','','','','','','','','','','','','','','','',16712190,0,133,1500,0,0,0,0,0,0,0,0,0,1.0,0.0,0.0,0,0,0,0,0,0,1,0,0,0,1.0,0.0,0.0,0,0);
 
 -- Form spells: the module puts the body on and hands out the kit; never saved with the character.
-DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100900 AND 9100999;
+DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100900 AND 9101099;
 INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES
 (9100910, 'spell_devourer_form'),
 (9100920, 'spell_devourer_form'),
@@ -88,6 +94,7 @@ INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES
 (9100950, 'spell_devourer_form'),
 (9100960, 'spell_devourer_form'),
 (9100970, 'spell_devourer_form'),
+(9101000, 'spell_devourer_form'),
 (9100980, 'spell_devourer_form'),
 (9100990, 'spell_devourer_rush'),
 (9100913, 'spell_devourer_pack_prowess'),
@@ -96,7 +103,7 @@ INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES
 (9100932, 'spell_devourer_phase_prowl'),
 (9100943, 'spell_devourer_cocoon'),
 (9100953, 'spell_devourer_barbed_bristles');
-DELETE FROM `spell_custom_attr` WHERE `spell_id` BETWEEN 9100900 AND 9100999;
+DELETE FROM `spell_custom_attr` WHERE `spell_id` BETWEEN 9100900 AND 9101099;
 INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES
 (9100910, 0x01000000),
 (9100920, 0x01000000),
@@ -105,17 +112,18 @@ INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES
 (9100950, 0x01000000),
 (9100960, 0x01000000),
 (9100970, 0x01000000),
+(9101000, 0x01000000),
 (9100980, 0x01000000);
 -- Task 009: the gimmicks that answer to hits (HitMask 48 = dodge or parry; Cooldown = their rest).
-DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN 9100900 AND 9100999;
+DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN 9100900 AND 9101099;
 INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`, `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`, `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES
 (9100913, 0, 0, 0, 0, 0, 20, 1, 2, 0, 0, 0, 100, 15000, 0),
 (9100933, 0, 0, 0, 0, 0, 40, 0, 2, 48, 0, 0, 100, 20000, 0),
 (9100936, 0, 0, 0, 0, 0, 65556, 1, 2, 0, 0, 0, 100, 0, 1),
 (9100953, 0, 0, 0, 0, 0, 40, 1, 2, 0, 0, 0, 100, 0, 0);
 
--- Shapes 5-12: one per starting zone. spell_3 and spell_4 open at levels 10 and 20 (their spell level).
-DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 12;
+-- Shapes 5-13: one per starting zone. spell_3 and spell_4 open at levels 10 and 20 (their spell level).
+DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 13;
 INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`, `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES
 (5, 'Wolf', 9100910, 31049, 1, 9100911, 9100912, 9100914, 9100915, 9100913, 31049),
 (6, 'Trogg', 9100920, 606, 1, 9100921, 9100922, 9100924, 9100925, 9100923, 606),
@@ -124,11 +132,12 @@ INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `s
 (9, 'Boar', 9100950, 503, 1, 9100951, 9100952, 9100954, 9100955, 9100953, 503),
 (10, 'Plainstrider', 9100960, 1219, 1, 9100961, 9100962, 9100964, 9100965, 9100963, 1219),
 (11, 'Bat', 9100970, 4732, 1, 9100971, 9100972, 9100974, 9100975, 9100973, 4732),
+(13, 'Warp Stalker', 9101000, 20025, 1, 9101001, 9101002, 9101004, 9101005, 9101003, 20025),
 (12, 'Mana Wyrm', 9100980, 16217, 1, 9100981, 9100982, 9100984, 9100985, 9100983, 16217);
 
 -- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).
 -- Shape 0: a creature of a form's family that is not that body (task 009); it gives no shape.
-DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 12 OR `creature_entry` IN (21952, 29452, 29889, 19023, 19024, 19025, 19026);
+DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 13 OR `creature_entry` IN (21952, 29452, 29889, 19023, 19024, 19025, 19026);
 INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`) VALUES
 (299, 5, 0),
 (707, 6, 0),
@@ -137,6 +146,7 @@ INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`)
 (3098, 9, 0),
 (2955, 10, 0),
 (1512, 11, 0),
+(18464, 13, 0),
 (15274, 12, 0),
 (69, 5, 31048),
 (1508, 5, 447),
@@ -154,14 +164,15 @@ INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`)
 (19026, 0, 0);
 -- Task 009: any creature of the family gives the shape; each of its looks (displays) is a colouring named
 -- after the creature. The module builds those colourings at startup from creature_template(_model).
-DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 12;
+DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 13;
 INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES
 (1, 5),
 (2, 7),
 (37, 8),
-(5, 9);
+(5, 9),
+(32, 13);
 -- Task 009: favourite food, 2x Bio Points for everyone. A row matches when every field it sets matches.
-DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 12;
+DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 13;
 INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `name_part`, `label`) VALUES
 (5, 0, 5, '', ''),
 (5, 0, 6, '', ''),
@@ -181,7 +192,7 @@ INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `n
 (8, 4, 0, 'thistle', 'Plants'),
 (9, 8, 0, '', ''),
 (9, 0, 20, '', '');
-DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 12;
+DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 13;
 INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES
 (31049, 5, 'Grey', 0),
 (606, 6, 'Rockjaw', 0),
@@ -190,6 +201,7 @@ INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) 
 (503, 9, 'Mottled', 0),
 (1219, 10, 'Plainstrider', 0),
 (4732, 11, 'Duskbat', 0),
+(20025, 13, 'Warp Stalker', 0),
 (16217, 12, 'Wyrm', 0),
 (31048, 5, 'Timber', 31048),
 (447, 5, 'Scavenger', 447),
@@ -197,7 +209,7 @@ INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) 
 (15506, 7, 'Lynx', 15506),
 (8869, 9, 'Thistle', 8869),
 (1220, 10, 'Tallstrider', 1220);
-DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 12;
+DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 13;
 INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES
 (5, 1, 10),
 (5, 0, 3),
@@ -214,6 +226,8 @@ INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES
 (11, 1, 10),
 (11, 6, 10),
 (11, 0, 3),
+(13, 1, 10),
+(13, 0, 3),
 (12, 1, 10),
 (12, 4, 10),
 (12, 0, 3);

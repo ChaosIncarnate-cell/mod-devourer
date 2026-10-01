@@ -17,6 +17,8 @@ Ids (all inside the Devourer's reserved spell range 9100000-9100999; 9100900+ so
                     hidden passive that keeps Anima from draining away out of combat)
                     (9100900-9100909 were the true-form kit, parked in commit fdf67e9: the true form comes later)
   9100910-9100989   starting forms: shape s (5-12) uses 9100910 + (s - 5) * 10 + slot
+  9101000-9101099   later forms with their own block (owner, 2026-10-01): shape 13 Warp Stalker 9101000-9101009
+                    (the witch sisters' intro form)
                     slot 0 form, 1-2 abilities, 3 passive, 4-5 abilities that open at levels 10 and 20,
                     6-9 helper spells the kit casts (task 009: Pup Bite, Poised to Strike, Silken Cocoon ...)
   Task 009: a starting form is a kind of creature (devourer_shape_family: any creature of that family gives it,
@@ -49,7 +51,7 @@ from build_devourer_spells import (  # noqa: E402
 
 OUT_SQL = REPO / "data" / "sql" / "db-world" / "2026_09_30_08_devourer_start.sql"
 OUT_MD = REPO / "docs" / "start-kit.md"
-FIRST, LAST = 9100900, 9100999
+FIRST, LAST = 9100900, 9101099
 
 # --- enums the DSL does not have yet ---------------------------------------------------------------------------
 E_WEAPON_DAMAGE, E_THREAT = 58, 63
@@ -156,7 +158,7 @@ BASE = [
 # --- task 007: the eight starting forms ----------------------------------------------------------------------------
 class Form:
     def __init__(self, shape, name, zone, source, display, icon, colourings, diet, skin, one, two, passive_,
-                 later, family=0, food=(), extra=(), changes=()):
+                 later, family=0, food=(), extra=(), changes=(), base=0):
         self.shape, self.name, self.zone, self.source, self.display, self.icon = shape, name, zone, source, display, icon
         self.colourings = colourings          # [(creature entry, display, skin name)]
         self.diet = diet                      # [(creature type, bp)]
@@ -164,7 +166,7 @@ class Form:
         # passive_: (aura, amount, misc, texts) for a plain passive, or (template, overrides, texts) for a full
         # spell. later: two names (placeholders), or two (template, overrides, texts).
         self.one, self.two, self.passive, self.later = one, two, passive_, later
-        self.base = FIRST + 10 + (shape - 5) * 10
+        self.base = base or FIRST + 10 + (shape - 5) * 10   # later forms bring their own block
         self.family = family                  # task 009: any creature of this creature_template.family gives it
         self.food = list(food)                # task 009: [(creature type, family, name part, label)] -> 2x BP
         self.extra = list(extra)              # task 009: [(slot 6-9, template, overrides, texts)] helper spells
@@ -396,6 +398,19 @@ BOAR = Form(
     ])
 
 
+# Owner, 2026-10-01: a new form for the witch sisters' intro (the Baby Berserker's ported model crashes the client).
+# The Warp Stalker: any creature of the warp stalker family (32, all 20 wear its model) gives it.
+WARP = Form(13, "Warp Stalker", "the In-Between (the witch sisters' ritual), or any warp stalker in Outland", 18464,
+            20025, 1499, [], [(1, 10), (0, 3)], "Warp Stalker",
+            (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                             **effects(hit(4), gain(5))}),
+             ("Warp Bite", "Bite through the space between: weapon damage plus $s1. Generates 5 Anima.", "")),
+            (1953, {**CLEAN, "RecoveryTime": 15000, **GCD},                 # Blink keeps its own effects and rules
+             ("Warp", "Blink up to 20 yards forward, slipping out of stuns and roots.", "")),
+            (A_MOD_DODGE_PERCENT, 3, 0, ("Phasing Hide", "Your body is never quite where it seems: chance to dodge "
+                                         "increased by 3%.", "")),
+            ("Tail Lash", "Warp Ambush"), family=32, base=9101000)
+
 FORMS = [
     WOLF,
     Form(6, "Trogg", "Coldridge Valley", 707, 606, 93, [], [(7, 10), (0, 3)], "Rockjaw",
@@ -437,6 +452,7 @@ FORMS = [
            "Losing $s1 health every second.")),
          (A_MOD_HIT_CHANCE, 2, 0, ("Echolocation", "Your chance to hit is increased by 2%.", "")),
          ("Sonic Burst", "Night Swarm")),
+    WARP,
     Form(12, "Mana Wyrm", "Sunstrider Isle", 15274, 16217, 1485, [], [(1, 10), (4, 10), (0, 3)], "Wyrm",
          (13901, ability({"Attributes": 0, "CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
                          "SchoolMask": SCHOOL_ARCANE,
@@ -583,8 +599,8 @@ def main() -> int:
         ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, 2, {hits}, 0, 0, 100, {cd}, {charges})"
                    for s, flags, types, hits, cd, charges in PROCS) + ";",
         "",
-        "-- Shapes 5-12: one per starting zone. spell_3 and spell_4 open at levels 10 and 20 (their spell level).",
-        "DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "-- Shapes 5-13: one per starting zone. spell_3 and spell_4 open at levels 10 and 20 (their spell level).",
+        "DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 13;",
         "INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`,"
         " `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES",
         ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.display}, 1, {f.base + 1}, {f.base + 2}, {f.base + 4},"
@@ -592,7 +608,7 @@ def main() -> int:
         "",
         "-- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).",
         "-- Shape 0: a creature of a form's family that is not that body (task 009); it gives no shape.",
-        "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 12 OR `creature_entry` IN ("
+        "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 13 OR `creature_entry` IN ("
         + ", ".join(str(e) for e, _ in NOT_THAT_BODY) + ");",
         "INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`) VALUES",
         ",\n".join([f"({f.source}, {f.shape}, 0)" for f in FORMS]
@@ -600,19 +616,19 @@ def main() -> int:
                    + [f"({e}, 0, 0)" for e, _ in NOT_THAT_BODY]) + ";",
         "-- Task 009: any creature of the family gives the shape; each of its looks (displays) is a colouring named",
         "-- after the creature. The module builds those colourings at startup from creature_template(_model).",
-        "DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 13;",
         "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",
         ",\n".join(f"({f.family}, {f.shape})" for f in FORMS if f.family) + ";",
         "-- Task 009: favourite food, 2x Bio Points for everyone. A row matches when every field it sets matches.",
-        "DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 13;",
         "INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `name_part`, `label`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {fam}, {q(part)}, {q(label)})" for f in FORMS for t, fam, part, label in f.food)
         + ";",
-        "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 13;",
         "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES",
         ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0)" for f in FORMS]
                    + [f"({d}, {f.shape}, {q(n)}, {d})" for f in FORMS for _, d, n in f.colourings if d]) + ";",
-        "DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 12;",
+        "DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 13;",
         "INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {bp})" for f in FORMS for t, bp in f.diet) + ";",
         "",
@@ -651,7 +667,7 @@ def main() -> int:
            f"Trainer {TRAINER} teaches the base kit above. The Devourer's trainers are the Hollowmoor witch sisters "
            "in the In-Between (task 010): see `docs/witch-sisters.md`."]
     families = {FAMILY_WOLF: "Wolf", FAMILY_CAT: "Cat", FAMILY_SPIDER: "Spider", FAMILY_BOAR: "Boar",
-                FAMILY_CROCOLISK: "Crocolisk", FAMILY_SCORPID: "Scorpid", FAMILY_MOTH: "Moth"}
+                FAMILY_CROCOLISK: "Crocolisk", FAMILY_SCORPID: "Scorpid", FAMILY_MOTH: "Moth", 32: "Warp Stalker"}
     types = {CREATURE_TYPE_BEAST: "Beast", CREATURE_TYPE_ELEMENTAL: "Elemental", CREATURE_TYPE_CRITTER: "Critter"}
 
     def food_text(f):

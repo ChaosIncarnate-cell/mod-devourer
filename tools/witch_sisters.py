@@ -121,11 +121,11 @@ DRAFT, PLACEHOLDER = "draft", "PLACEHOLDER"
 TEXTS = [
     # Wren, 0: heard from nowhere when the ritual takes hold (sent by the module as her whisper)
     (NPC_WREN, 0, "Found you! Hold still, Snack. This tickles. Mostly.", 0, DRAFT),
-    # Hagatha, 0: the Devourer lies asleep in the cage
+    # Hagatha, 0: the Devourer lies asleep in the summoning circle
     (NPC_HAGATHA, 0, "Hush, sister. Let it wake slowly. The ones that wake fast bite the hand that feeds them.",
      EMOTE_TALK, DRAFT),
     # Wren, 1: it wakes
-    (NPC_WREN, 1, "It's awake! {hagatha}, it's AWAKE! Hello, hello, Project #9! Don't chew the bars, they're new.",
+    (NPC_WREN, 1, "It's awake! {hagatha}, it's AWAKE! Hello, hello, Project #9! Don't smudge the circle, the chalk is new.",
      EMOTE_EXCLAMATION, DRAFT),
     # Hagatha, 1
     (NPC_HAGATHA, 1, "So. Another hungry thing out of the In-Between. They always come back here in the end, my little "
@@ -133,16 +133,16 @@ TEXTS = [
     # Wren, 2: before the spell
     (NPC_WREN, 2, "You eat what you kill and wear what you eat? Messy, messy! Let's give you something with proper "
      "teeth. Hold still... no, the other still!", EMOTE_LAUGH, DRAFT),
-    # Wren, 3: the Baby Berserker
-    (NPC_WREN, 3, "Ha! Look at you! Little horns, little teeth, little temper! I'm calling you Fluffy. No, Snack. "
+    # Wren, 3: the Warp Stalker (owner, 2026-10-01: a new form instead of the Baby Berserker)
+    (NPC_WREN, 3, "Ha! Look at you! Now you see it, now you don't! Blink, blink! I'm calling you Fluffy. No, Snack. "
      "No... both!", EMOTE_CHEER, DRAFT),
     # Hagatha, 2
-    (NPC_HAGATHA, 2, "A young Berserker. In the villages they tell of a beast that ate the moon off the water of a "
-     "well, and was never full again. Mind which stories you become.", EMOTE_TALK, DRAFT),
+    (NPC_HAGATHA, 2, "A warp stalker. In the villages they tell of a beast that was never quite where you looked, and "
+     "ate the shadows off the walls. Mind which stories you become.", EMOTE_TALK, DRAFT),
     # Wren, 4: the chores begin (she offers the first task)
     (NPC_WREN, 4, "Chores, Fluffy! Every pet in this house has chores. I made a list. It's a long list. It's a lovely "
      "list!", EMOTE_POINT, DRAFT),
-    # Wren, 5: the snacks are tossed into the cage
+    # Wren, 5: the snacks are tossed into the circle
     (NPC_WREN, 5, "Snacks incoming! Catch!", EMOTE_EXCLAMATION, DRAFT),
     # Wren, 6: the roar
     (NPC_WREN, 6, "THAT'S my monster! Again! No, don't, the ceiling's loose.", EMOTE_CHEER, DRAFT),
@@ -155,15 +155,15 @@ TEXTS = [
      "itself.", EMOTE_TALK, DRAFT),
     (NPC_HAGATHA, 6, "That is what you are, my little horror. Not the wolf, not the man. The hunger underneath. Never "
      "let it eat the last of you.", EMOTE_TALK, DRAFT),
-    # The cage opens (the third task handed in)
+    # The circle lets go (the third task handed in)
     (NPC_WREN, 7, "Out you go! Come back when you've eaten something interesting. Or someone. I'm joking! Mostly. Ha!",
      EMOTE_LAUGH, DRAFT),
-    (NPC_HAGATHA, 7, "The door is open. Doors are worse than cages, hungry thing: through them you choose what you "
-     "become. Come back to us when you need teaching.", EMOTE_TALK, DRAFT),
-    # Wren, 8: the Devourer died in the cage and is put back on its feet
-    (NPC_WREN, 8, "No dying in my cage! Up you get, Snack. I haven't finished my list.", EMOTE_NO, PLACEHOLDER),
-    # Wren, 9: it tried to leave the cage
-    (NPC_WREN, 9, "Ah-ah-ah! The cage stays shut until the chores are done.", EMOTE_NO, PLACEHOLDER),
+    (NPC_HAGATHA, 7, "The circle lets you go. A circle is worse than a cage, hungry thing: you step out of it "
+     "yourself, and choose what you become. Come back to us when you need teaching.", EMOTE_TALK, DRAFT),
+    # Wren, 8: the Devourer died in the circle and is put back on its feet
+    (NPC_WREN, 8, "No dying in my circle! Up you get, Snack. I haven't finished my list.", EMOTE_NO, PLACEHOLDER),
+    # Wren, 9: it tried to leave the circle
+    (NPC_WREN, 9, "Ah-ah-ah! The circle holds you until the chores are done.", EMOTE_NO, PLACEHOLDER),
     # Wren, 10: a freed Devourer comes back (.inbetween)
     (NPC_WREN, 10, "Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!", EMOTE_CHEER,
      PLACEHOLDER),
@@ -171,11 +171,11 @@ TEXTS = [
 
 # npc_text: (id, text, draft). Shown on the sisters' gossip; conditions pick one.
 NPC_TEXTS = [
-    (9101300, "Sit still, hungry thing. The bars are for your sake, not ours.", DRAFT),
+    (9101300, "Sit still, hungry thing. The circle is for your sake, not ours.", DRAFT),
     (9101301, "You smell of new meals, my little horror. Sit by the lantern, and I will teach you what the dark "
      "already knows about you.", DRAFT),
     (9101302, "You are not one of mine. Go back the way the dark let you in, and do not look into the lantern.", DRAFT),
-    (9101303, "Chores first, then no cage! Or cage first, then chores, then no cage. I wrote it down somewhere.", DRAFT),
+    (9101303, "Chores first, then out of the circle! Or circle first, then chores, then out. I wrote it down somewhere.", DRAFT),
     (9101304, "Project #9! Back already? Lessons! I LOVE lessons. Hold still while I find the list.", DRAFT),
     (9101305, "Ooh, a visitor! You'd make a lovely toad. No? Then shoo! {hagatha} says I can't keep everyone.", DRAFT),
 ]
@@ -188,8 +188,8 @@ QUESTS = [
          title="Feeding Time",
          log="Kill 3 of {wren}'s snacks and devour one of them.",
          details="Fluffy! No, Snack. Project #9! You'll answer to all of them, I've decided.$B$BFirst chore on the "
-                 "list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them in, you "
-                 "catch them. And don't just bite them. EAT one. Properly, the way you do. I want to watch!",
+                 "list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them into "
+                 "your circle, you catch them. And don't just bite them. EAT one. Properly, the way you do. I want to watch!",
          objectives=[(NPC_SNACK, 3, ""), (CREDIT_DEVOURED, 1, "Snack devoured")],
          incomplete="Still squeaking in there? Somebody's not done.",
          reward="Crunchy! {hagatha}, did you see? It ate it whole! Well. Mostly whole.$B$BGold star, Snack. Next "
@@ -215,7 +215,7 @@ QUESTS = [
          objectives=[(CREDIT_TALE, 1, "Hear {hagatha}'s tale")],
          incomplete="The tale is not finished with you yet.",
          reward="Now you know the shape beneath all your shapes. Remember it when you wear someone else's.$B$B"
-                "{wren}, open the cage. Our little horror has lessons to carry into the world, and it will come back "
+                "{wren}, break the circle. Our little horror has lessons to carry into the world, and it will come back "
                 "to us for more.",
          complete="Return to {Hagatha}."),
 ]

@@ -7,10 +7,10 @@
 -- out of the build); otherwise the next worldserver start installs it again.
 
 -- --- spells and items (2026_09_30_02, _07, _08) --------------------------------------------------------------------------
-DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9100999;
-DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9100999;
-DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9100999;
-DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9100999;
+DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9101099;
+DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9101099;
+DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9101099;
+DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9101099;
 DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101);
 
 -- --- creatures, spawns and looks (2026_09_30_03, _04) ------------------------------------------------------------

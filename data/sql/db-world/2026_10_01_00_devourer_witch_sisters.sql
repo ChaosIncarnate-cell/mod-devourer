@@ -134,7 +134,7 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `positi
 
 -- --- the three chores (class 10 only; each opens after the one before) ------------------------------------
 INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredNpcOrGo1`, `RequiredNpcOrGo2`, `RequiredNpcOrGoCount1`, `RequiredNpcOrGoCount2`, `ObjectiveText1`, `ObjectiveText2`, `ObjectiveText3`, `ObjectiveText4`, `VerifiedBuild`) VALUES
-(9101301, 2, 5, 5, 0, 0, 9101302, 4, 0, 0, 'Feeding Time', 'Kill 3 of Wren''s snacks and devour one of them.', 'Fluffy! No, Snack. Project #9! You''ll answer to all of them, I''ve decided.$B$BFirst chore on the list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them in, you catch them. And don''t just bite them. EAT one. Properly, the way you do. I want to watch!', '', 'Return to Wren Hollowmoor.', 9101302, 9101310, 3, 1, '', 'Snack devoured', '', '', 0),
+(9101301, 2, 5, 5, 0, 0, 9101302, 4, 0, 0, 'Feeding Time', 'Kill 3 of Wren''s snacks and devour one of them.', 'Fluffy! No, Snack. Project #9! You''ll answer to all of them, I''ve decided.$B$BFirst chore on the list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them into your circle, you catch them. And don''t just bite them. EAT one. Properly, the way you do. I want to watch!', '', 'Return to Wren Hollowmoor.', 9101302, 9101310, 3, 1, '', 'Snack devoured', '', '', 0),
 (9101302, 2, 5, 5, 0, 0, 0, 4, 0, 0, 'A Trick for Wren', 'Roar at Wren Hollowmoor.', 'Every good pet knows a trick. The toad knows ''sit''. The other toad knows ''sit'' too, but louder.$B$BYou, Fluffy, are going to ROAR. Big and scary, right at me. Go on! I''ll pretend to be frightened. I''m very good at it.', '', 'Return to Wren Hollowmoor.', 9101311, 0, 1, 0, 'Roar at Wren', '', '', '', 0),
 (9101303, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'What the Dark Remembers', 'Ask Hagatha Hollowmoor for the tale of the hungry thing, and listen to its end.', 'My sister teaches you tricks. I will teach you what you are.$B$BEvery village has a story about something that came out of the dark and ate until it became something else. Sit, hungry thing. Ask me for the tale, and listen to the end of it. The ones who do not listen end up in it.', '', 'Return to Hagatha Hollowmoor.', 9101312, 0, 1, 0, 'Hear Hagatha''s tale', '', '', '', 0);
 INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
@@ -148,7 +148,7 @@ INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`,
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
 (9101301, 1, 'Crunchy! Hagatha, did you see? It ate it whole! Well. Mostly whole.$B$BGold star, Snack. Next chore!', 0),
 (9101302, 1, 'Eek! Ha! Oh, that was GOOD. That goes on the list of things you''re good at. It''s a short list. It''s a new list!$B$BNow go and sit nicely for Hagatha. She''s been dying to frighten you back.', 0),
-(9101303, 1, 'Now you know the shape beneath all your shapes. Remember it when you wear someone else''s.$B$BWren, open the cage. Our little horror has lessons to carry into the world, and it will come back to us for more.', 0);
+(9101303, 1, 'Now you know the shape beneath all your shapes. Remember it when you wear someone else''s.$B$BWren, break the circle. Our little horror has lessons to carry into the world, and it will come back to us for more.', 0);
 INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
 (9101301, 9101301), (9101301, 9101302), (9101300, 9101303);
 INSERT INTO `creature_questender` (`id`, `quest`) VALUES
@@ -158,11 +158,11 @@ INSERT INTO `creature_questender` (`id`, `quest`) VALUES
 INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES
 (9101301, 0, 0, 'Found you! Hold still, Snack. This tickles. Mostly.', 15, 0, 100, 0, 0, 0, 0, 0, 'Wren 0 (draft)'),
 (9101300, 0, 0, 'Hush, sister. Let it wake slowly. The ones that wake fast bite the hand that feeds them.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 0 (draft)'),
-(9101301, 1, 0, 'It''s awake! Hagatha, it''s AWAKE! Hello, hello, Project #9! Don''t chew the bars, they''re new.', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 1 (draft)'),
+(9101301, 1, 0, 'It''s awake! Hagatha, it''s AWAKE! Hello, hello, Project #9! Don''t smudge the circle, the chalk is new.', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 1 (draft)'),
 (9101300, 1, 0, 'So. Another hungry thing out of the In-Between. They always come back here in the end, my little horror. Back to the dark between the stars and the world.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 1 (draft)'),
 (9101301, 2, 0, 'You eat what you kill and wear what you eat? Messy, messy! Let''s give you something with proper teeth. Hold still... no, the other still!', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 2 (draft)'),
-(9101301, 3, 0, 'Ha! Look at you! Little horns, little teeth, little temper! I''m calling you Fluffy. No, Snack. No... both!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 3 (draft)'),
-(9101300, 2, 0, 'A young Berserker. In the villages they tell of a beast that ate the moon off the water of a well, and was never full again. Mind which stories you become.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 2 (draft)'),
+(9101301, 3, 0, 'Ha! Look at you! Now you see it, now you don''t! Blink, blink! I''m calling you Fluffy. No, Snack. No... both!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 3 (draft)'),
+(9101300, 2, 0, 'A warp stalker. In the villages they tell of a beast that was never quite where you looked, and ate the shadows off the walls. Mind which stories you become.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 2 (draft)'),
 (9101301, 4, 0, 'Chores, Fluffy! Every pet in this house has chores. I made a list. It''s a long list. It''s a lovely list!', 12, 0, 100, 25, 0, 0, 0, 0, 'Wren 4 (draft)'),
 (9101301, 5, 0, 'Snacks incoming! Catch!', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 5 (draft)'),
 (9101301, 6, 0, 'THAT''S my monster! Again! No, don''t, the ceiling''s loose.', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 6 (draft)'),
@@ -171,17 +171,17 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (9101300, 5, 0, 'When there was nothing left it had not been, it came back here, starving, and began to eat itself.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 5 (draft)'),
 (9101300, 6, 0, 'That is what you are, my little horror. Not the wolf, not the man. The hunger underneath. Never let it eat the last of you.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 6 (draft)'),
 (9101301, 7, 0, 'Out you go! Come back when you''ve eaten something interesting. Or someone. I''m joking! Mostly. Ha!', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 7 (draft)'),
-(9101300, 7, 0, 'The door is open. Doors are worse than cages, hungry thing: through them you choose what you become. Come back to us when you need teaching.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 7 (draft)'),
-(9101301, 8, 0, 'No dying in my cage! Up you get, Snack. I haven''t finished my list.', 12, 0, 100, 274, 0, 0, 0, 0, 'Wren 8 (PLACEHOLDER)'),
-(9101301, 9, 0, 'Ah-ah-ah! The cage stays shut until the chores are done.', 12, 0, 100, 274, 0, 0, 0, 0, 'Wren 9 (PLACEHOLDER)'),
+(9101300, 7, 0, 'The circle lets you go. A circle is worse than a cage, hungry thing: you step out of it yourself, and choose what you become. Come back to us when you need teaching.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 7 (draft)'),
+(9101301, 8, 0, 'No dying in my circle! Up you get, Snack. I haven''t finished my list.', 12, 0, 100, 274, 0, 0, 0, 0, 'Wren 8 (PLACEHOLDER)'),
+(9101301, 9, 0, 'Ah-ah-ah! The circle holds you until the chores are done.', 12, 0, 100, 274, 0, 0, 0, 0, 'Wren 9 (PLACEHOLDER)'),
 (9101301, 10, 0, 'Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 10 (PLACEHOLDER)');
 
 -- --- gossip: the text depends on who asks; training only for a Devourer whose cage is open ---------------
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES
-(9101300, 'Sit still, hungry thing. The bars are for your sake, not ours.', 'Sit still, hungry thing. The bars are for your sake, not ours.', 1),
+(9101300, 'Sit still, hungry thing. The circle is for your sake, not ours.', 'Sit still, hungry thing. The circle is for your sake, not ours.', 1),
 (9101301, 'You smell of new meals, my little horror. Sit by the lantern, and I will teach you what the dark already knows about you.', 'You smell of new meals, my little horror. Sit by the lantern, and I will teach you what the dark already knows about you.', 1),
 (9101302, 'You are not one of mine. Go back the way the dark let you in, and do not look into the lantern.', 'You are not one of mine. Go back the way the dark let you in, and do not look into the lantern.', 1),
-(9101303, 'Chores first, then no cage! Or cage first, then chores, then no cage. I wrote it down somewhere.', 'Chores first, then no cage! Or cage first, then chores, then no cage. I wrote it down somewhere.', 1),
+(9101303, 'Chores first, then out of the circle! Or circle first, then chores, then out. I wrote it down somewhere.', 'Chores first, then out of the circle! Or circle first, then chores, then out. I wrote it down somewhere.', 1),
 (9101304, 'Project #9! Back already? Lessons! I LOVE lessons. Hold still while I find the list.', 'Project #9! Back already? Lessons! I LOVE lessons. Hold still while I find the list.', 1),
 (9101305, 'Ooh, a visitor! You''d make a lovely toad. No? Then shoo! Hagatha says I can''t keep everyone.', 'Ooh, a visitor! You''d make a lovely toad. No? Then shoo! Hagatha says I can''t keep everyone.', 1);
 INSERT INTO `gossip_menu` (`MenuID`, `TextID`) VALUES
