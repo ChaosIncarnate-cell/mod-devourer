@@ -29,7 +29,7 @@ These are the owner's descriptions: write their lines in these voices (marked pl
 - **The In-Between:** a small place on an existing map nobody uses (no new client map), dark and void-like, with the
   sisters, a cage and their trappings (existing game objects). Name the map and coordinates in the PR.
 - **Level 5, the ritual:** when a Devourer reaches level 5 (or logs in at 5+ without having done it), a ritual
-  summons it: a short visual, teleport to the In-Between, it wakes **caged**. The sisters talk (Folklore sister:
+  summons it: a short visual, teleport to the In-Between, it wakes **caged**. The sisters talk (Hagatha:
   ominous folklore; Wren: manic, chores, turning people into animals). Placeholder texts allowed, marked.
 - **Transformation:** Wren turns the Devourer into a **Baby Berserker**: unlock shape 4 (+ its base
   colouring) through the module (`Mgr::Unlock`, shift now). Then a short custom quest chain (2-3 small tasks in the
