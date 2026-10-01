@@ -10,18 +10,30 @@ into animals -> quests custom." Only for the Devourer class (other classes keep 
 "Make Baby Berserker be able to be obtained by the 'Crazy Witch' through a 'kidnapping quest' where you get
 kidnapped, transformed and first meet the sisters." Answers: **at level 5**, "you will be summoned through a ritual,
 and be caged"; the place: **the In-Between**. Names and personalities: Obsidian note "Devourer Witch Sisters.md",
-the owner picks; until then use placeholder names `Witch Sister (Folklore)` / `Witch Sister (Tasks)`, defined in one
-place so renaming is one change.
+the owner **chose (2026-10-01): the Hollowmoor sisters** (names defined in one place, so renaming stays one change):
+
+- **Hagatha Hollowmoor** (the folklore sister): a hunched crone with a lantern of trapped anima, a collector of
+  monster tales; calm, ominous, every sentence sounds like a warning. Feared in village stories ("Hagatha takes the
+  children who don't come home"). She keeps the stories of every monster that crawled out of the In-Between and
+  treats the Devourer as one of them: "my little horror" or "the hungry thing in the dark". Teaches the dark side:
+  what you are, what you may become.
+- **Wren Hollowmoor** (the task sister): the younger sister, wild-eyed, half feather, half girl from her own failed
+  spells; obsessed with "tasks" and "lessons", sends the Devourer out with lists, cheers loudly at every
+  transformation, sulks when you come back empty-handed. Laughs at her own jokes, has a list of chores that never
+  ends, cages everywhere, nicknames for everyone ("Snack", "Fluffy", "Project #9"); her tasks are absurd and specific.
+  She is the one who summons the Devourer and turns it into the Baby Berserker.
+
+These are the owner's descriptions: write their lines in these voices (marked placeholders are fine where unsure).
 
 ## Scope
 - **The In-Between:** a small place on an existing map nobody uses (no new client map), dark and void-like, with the
   sisters, a cage and their trappings (existing game objects). Name the map and coordinates in the PR.
 - **Level 5, the ritual:** when a Devourer reaches level 5 (or logs in at 5+ without having done it), a ritual
   summons it: a short visual, teleport to the In-Between, it wakes **caged**. The sisters talk (Folklore sister:
-  ominous folklore; Tasks sister: manic, chores, turning people into animals). Placeholder texts allowed, marked.
-- **Transformation:** the Tasks sister turns the Devourer into a **Baby Berserker**: unlock shape 4 (+ its base
+  ominous folklore; Wren: manic, chores, turning people into animals). Placeholder texts allowed, marked.
+- **Transformation:** Wren turns the Devourer into a **Baby Berserker**: unlock shape 4 (+ its base
   colouring) through the module (`Mgr::Unlock`, shift now). Then a short custom quest chain (2-3 small tasks in the
-  In-Between, the Tasks sister's style); at its end the cage opens and both sisters become the Devourer's trainers.
+  In-Between, Wren's style); at its end the cage opens and both sisters become the Devourer's trainers.
 - **Trainers:** the two sisters are the Devourer's class trainers (`trainer` / `trainer_spell` like the current
   Devourer Trainer 9101200, class 10 only). The 16 placeholder Devourer Trainers in starting zones and capitals go
   (the owner disliked them): remove them and their uninstall lines. The Devourer needs a way back to the sisters
