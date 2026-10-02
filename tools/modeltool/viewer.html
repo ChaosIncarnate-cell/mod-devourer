@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Tool</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<style>
+  :root { --bg:#16181d; --panel:#1f2229; --line:#2e323c; --text:#e6e6e6; --dim:#9aa0ab; --acc:#7fd1a8; --warn:#f0b35a; --bad:#ef7f7f; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:13px/1.4 system-ui, Segoe UI, sans-serif; height:100vh; display:grid;
+         grid-template-columns:280px 1fr 380px; overflow:hidden; }
+  aside { background:var(--panel); border-right:1px solid var(--line); overflow:auto; padding:10px; }
+  aside.right { border-right:0; border-left:1px solid var(--line); }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin:14px 0 6px; }
+  input, select, button { background:#262a33; color:var(--text); border:1px solid var(--line); border-radius:6px; padding:6px 8px; font:inherit; }
+  input { width:100%; }
+  button { cursor:pointer; } button:hover { border-color:var(--acc); }
+  button.go { background:#24493a; border-color:#2f6b52; }
+  .list div { padding:4px 6px; border-radius:5px; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .list div:hover { background:#2a2f39; }
+  .list div.on { background:#2d4a3e; }
+  .dim { color:var(--dim); }
+  .seq { display:flex; gap:6px; align-items:center; }
+  .seq .n { width:30px; color:var(--dim); } .seq .nm { flex:1; overflow:hidden; text-overflow:ellipsis; }
+  .seq button { padding:1px 6px; font-size:11px; }
+  table { width:100%; border-collapse:collapse; } td { padding:3px 4px; border-bottom:1px solid var(--line); vertical-align:top; }
+  td button { padding:1px 6px; font-size:11px; }
+  a { color:var(--acc); text-decoration:none; } a:hover { text-decoration:underline; }
+  .ok { color:var(--acc); } .warn { color:var(--warn); } .bad { color:var(--bad); }
+  main { position:relative; min-width:0; overflow:hidden; }
+  @media (max-width:1150px) { body { grid-template-columns:220px 1fr 300px; } }
+  @media (max-width:860px) {
+    body { grid-template-columns:1fr; grid-template-rows:auto 60vh auto; height:auto; overflow:auto; }
+    main { height:60vh; } aside, aside.right { border:0; border-bottom:1px solid var(--line); max-height:none; }
+    #creatures, #models { max-height:180px; overflow:auto; }
+  }
+  canvas { display:block; width:100%; height:100%; }
+  #hud { position:absolute; left:10px; top:10px; right:10px; display:flex; gap:8px; align-items:center; pointer-events:none; }
+  #hud > * { pointer-events:auto; }
+  #title { font-weight:600; background:#0008; padding:4px 8px; border-radius:6px; }
+  #badge { background:var(--warn); color:#222; padding:3px 8px; border-radius:6px; font-weight:600; display:none; }
+  #toast { position:absolute; left:10px; bottom:10px; right:10px; background:#000c; padding:8px 10px; border-radius:8px; white-space:pre-wrap; display:none; }
+  #empty { position:absolute; inset:0; display:grid; place-items:center; color:var(--dim); }
+  .row { display:flex; gap:6px; margin-top:6px; } .row > * { flex:1; }
+  .step { font-weight:600; margin:8px 0 4px; } .step.done { color:var(--acc); }
+  .tag { font-size:10px; padding:1px 5px; border-radius:4px; background:#2d4a3e; color:var(--acc); margin-left:4px; }
+  .tag.st { background:#4a432d; color:var(--warn); }
+  #steps label { display:block; margin:3px 0; } #steps input[type=checkbox] { width:auto; }
+  #steps ul { margin:4px 0; padding-left:18px; color:var(--warn); }
+</style>
+</head>
+<body>
+<aside>
+  <h2>Find</h2>
+  <input id="q" placeholder="creature or model name, display id, c:entry">
+  <div class="row"><button class="go" id="open">Open</button></div>
+  <h2>Creatures</h2><div class="list" id="creatures"></div>
+  <h2>Models</h2><div class="list" id="models"></div>
+  <h2>From wow.export</h2><div class="list" id="exports"><span class="dim">loading ...</span></div>
+</aside>
+<main>
+  <canvas id="c"></canvas>
+  <div id="empty">Search a creature on the left (e.g. "warp stalker", "frog", or a display id like 20025)</div>
+  <div id="hud">
+    <span id="title"></span><span id="badge">changed, not in the game yet: press Pack</span>
+    <span style="flex:1"></span>
+    <label class="dim" style="background:#0008;padding:4px 8px;border-radius:6px">speed
+      <select id="speed"><option>0.25</option><option>0.5</option><option selected>1</option><option>2</option></select></label>
+  </div>
+  <div id="toast"></div>
+</main>
+<aside class="right">
+  <div id="steps" style="display:none; background:#252a33; border:1px solid var(--line); border-radius:8px; padding:10px; margin-bottom:10px"></div>
+  <div id="info" class="dim">No model open.</div>
+  <div class="row"><button id="reset">Reset changes</button><button class="go" id="pack">Pack into game</button></div>
+  <h2>Link an animation</h2>
+  <div class="dim">When the game asks this model for any of these <span id="linkCount"></span></div>
+  <input id="linkFilter" placeholder="filter, e.g. emote">
+  <select id="linkFrom" multiple size="10" style="width:100%; margin-top:4px"></select>
+  <div class="dim" style="font-size:11px">Ctrl+click to pick several, Shift+click for a range</div>
+  <div class="dim" style="margin-top:4px">it plays</div>
+  <div class="row"><select id="linkTo"></select><button class="go" id="doLink" style="flex:0 0 70px">Link</button></div>
+  <div class="dim" id="linkNow" style="margin-top:4px"></div>
+  <h2>Animations <span class="dim">(click to play)</span></h2>
+  <div id="seqs"></div>
+  <h2>Emotes <label class="dim" style="text-transform:none;letter-spacing:0"><input type="checkbox" id="allEmotes" style="width:auto"> show all</label></h2>
+  <table id="emotes"></table>
+</aside>
+<datalist id="animNames"></datalist>
+
+<script>
+const $ = s => document.querySelector(s);
+let current = null, model = null, mixer = null, mesh = null, action = null, playing = null;
+const renderer = new THREE.WebGLRenderer({ canvas: $('#c'), antialias: true });
+renderer.setPixelRatio(devicePixelRatio);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x2a2d35);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 1000);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x445566, 1.0));
+const sun = new THREE.DirectionalLight(0xffffff, 0.8); sun.position.set(3, 5, 4); scene.add(sun);
+const grid = new THREE.GridHelper(20, 20, 0x555a66, 0x3a3e48); scene.add(grid);
+const root = new THREE.Group(); root.rotation.x = -Math.PI / 2; scene.add(root);   // WoW is Z-up
+const clock = new THREE.Clock();
+
+new ResizeObserver(() => resize()).observe(document.querySelector('main'));
+function resize() {
+  const m = $('main'); renderer.setSize(m.clientWidth, m.clientHeight, false);
+  camera.aspect = m.clientWidth / m.clientHeight; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+(function loop() { requestAnimationFrame(loop); const d = clock.getDelta(); if (mixer) mixer.update(d * +$('#speed').value); controls.update(); renderer.render(scene, camera); })();
+
+function toast(text, ms = 4000) { const t = $('#toast'); t.textContent = text; t.style.display = 'block'; clearTimeout(t._h); if (ms) t._h = setTimeout(() => t.style.display = 'none', ms); }
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: 'POST', body: JSON.stringify(body) } : {});
+  const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status); return j;
+}
+
+// --- search ------------------------------------------------------------------------------------------------------
+let findTimer;
+$('#q').addEventListener('input', () => { clearTimeout(findTimer); findTimer = setTimeout(find, 300); });
+$('#q').addEventListener('keydown', e => { if (e.key === 'Enter') open($('#q').value.trim()); });
+$('#open').onclick = () => open($('#q').value.trim());
+async function find() {
+  const q = $('#q').value.trim(); if (q.length < 2 || /^\d+$|^c:/i.test(q)) return;
+  const r = await api('/api/find?q=' + encodeURIComponent(q));
+  $('#creatures').innerHTML = ''; $('#models').innerHTML = '';
+  for (const c of r.creatures) item('#creatures', `${c.name} <span class="dim">· ${c.display}</span>`, String(c.display), `creature ${c.entry}, display ${c.display}`);
+  for (const m of r.models) item('#models', m.split('\\').pop(), m, m);
+  if (!r.creatures.length && !r.models.length) $('#creatures').innerHTML = '<span class="dim">nothing found</span>';
+}
+function item(list, html, spec, title) {
+  const d = document.createElement('div'); d.innerHTML = html; d.title = title;
+  d.onclick = () => { document.querySelectorAll('.list div').forEach(x => x.classList.remove('on')); d.classList.add('on'); open(spec); };
+  $(list).appendChild(d);
+}
+
+// --- the model -----------------------------------------------------------------------------------------------------
+async function open(spec, skin = '') {
+  if (!spec) return;
+  toast('Loading ' + spec + ' ...', 0);
+  try { model = await api('/api/model?m=' + encodeURIComponent(spec) + (skin ? '&skin=' + encodeURIComponent(skin) : '')); }
+  catch (e) { toast('Could not open ' + spec + ': ' + e.message, 8000); return; }
+  current = spec; build(); panels(); $('#empty').style.display = 'none'; $('#toast').style.display = 'none';
+  const stand = model.sequences.find(s => s.anim === 0) || model.sequences[0]; if (stand) play(stand.i);
+}
+
+function build() {
+  if (mesh) { root.remove(mesh); mesh.geometry.dispose(); }
+  mixer = null; playing = null;
+  const m = model, g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(m.pos, 3));
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(m.nrm, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(m.uv, 2));
+  g.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(m.bi, 4));
+  g.setAttribute('skinWeight', new THREE.Float32BufferAttribute(m.bw, 4));
+  const index = [], materials = [];
+  const loader = new THREE.TextureLoader(), cache = {};
+  m.batches.forEach((b, bi) => {
+    const sub = m.subs[b.sub]; if (!sub) return;
+    g.addGroup(index.length, sub.tris.length, bi); index.push(...sub.tris);
+    const p = m.textures[b.tex] || '';
+    let map = null;
+    if (p) { map = cache[p] || (cache[p] = loader.load('/api/tex?p=' + encodeURIComponent(p)));
+             map.flipY = false; map.wrapS = map.wrapT = THREE.RepeatWrapping; }
+    const mat = new (b.unlit ? THREE.MeshBasicMaterial : THREE.MeshLambertMaterial)({ map, color: map ? 0xffffff : 0x999999,
+      side: b.twoSided ? THREE.DoubleSide : THREE.FrontSide, skinning: true });
+    if (b.blend === 1) mat.alphaTest = 0.5;
+    else if (b.blend >= 2) { mat.transparent = true; mat.depthWrite = false; if (b.blend === 3 || b.blend === 4) mat.blending = THREE.AdditiveBlending; }
+    materials.push(mat);
+  });
+  g.setIndex(index);
+  const bones = m.bones.map((b, i) => { const o = new THREE.Bone(); o.name = 'b' + i; return o; });
+  m.bones.forEach((b, i) => {
+    const pp = b.parent >= 0 ? m.bones[b.parent].pivot : [0, 0, 0];
+    bones[i].position.set(b.pivot[0] - pp[0], b.pivot[1] - pp[1], b.pivot[2] - pp[2]);
+    if (b.parent >= 0) bones[b.parent].add(bones[i]);
+  });
+  mesh = new THREE.SkinnedMesh(g, materials.length ? materials : new THREE.MeshLambertMaterial({ color: 0x999999, skinning: true }));
+  bones.forEach((o, i) => { if (m.bones[i].parent < 0) mesh.add(o); });
+  root.add(mesh); mesh.updateMatrixWorld(true);
+  mesh.bind(new THREE.Skeleton(bones));
+  mixer = new THREE.AnimationMixer(mesh);
+  // frame the camera
+  g.computeBoundingSphere(); const s = g.boundingSphere, c = s.center.clone().applyMatrix4(root.matrixWorld);
+  controls.target.copy(c); camera.position.set(c.x + s.radius * 2.2, c.y + s.radius * 0.8, c.z + s.radius * 1.2);
+  camera.near = s.radius / 100; camera.far = s.radius * 100; camera.updateProjectionMatrix();
+  grid.scale.setScalar(Math.max(s.radius / 3, 0.1));
+}
+
+const q16 = v => (v > 0 ? v - 32767 : v + 32767) / 32767;
+async function play(i) {
+  if (!model) return;
+  playing = i; document.querySelectorAll('.seq').forEach(e => e.classList.toggle('on', +e.dataset.i === i));
+  document.querySelectorAll('#seqs .nm').forEach(e => e.style.color = +e.parentNode.dataset.i === i ? 'var(--acc)' : '');
+  const a = await api(`/api/anim?m=${encodeURIComponent(current)}&seq=${i}`);
+  const dur = Math.max(a.dur, 1) / 1000, tracks = [];
+  a.bones.forEach((b, bi) => {
+    const bone = model.bones[bi], pp = bone.parent >= 0 ? model.bones[bone.parent].pivot : [0, 0, 0];
+    const rel = [bone.pivot[0] - pp[0], bone.pivot[1] - pp[1], bone.pivot[2] - pp[2]];
+    const kind = t => t.interp === 0 ? THREE.InterpolateDiscrete : THREE.InterpolateLinear;
+    if (b.t) tracks.push(new THREE.VectorKeyframeTrack(`b${bi}.position`, b.t.t.map(x => x / 1000), b.t.v.flatMap(v => [v[0] + rel[0], v[1] + rel[1], v[2] + rel[2]]), kind(b.t)));
+    else tracks.push(new THREE.VectorKeyframeTrack(`b${bi}.position`, [0], rel));
+    if (b.r) tracks.push(new THREE.QuaternionKeyframeTrack(`b${bi}.quaternion`, b.r.t.map(x => x / 1000), b.r.v.flatMap(v => v.map(q16)), kind(b.r)));
+    else tracks.push(new THREE.QuaternionKeyframeTrack(`b${bi}.quaternion`, [0], [0, 0, 0, 1]));
+    if (b.s) tracks.push(new THREE.VectorKeyframeTrack(`b${bi}.scale`, b.s.t.map(x => x / 1000), b.s.v.flat(), kind(b.s)));
+    else tracks.push(new THREE.VectorKeyframeTrack(`b${bi}.scale`, [0], [1, 1, 1]));
+  });
+  const clip = new THREE.AnimationClip('seq' + i, dur, tracks);
+  if (action) action.stop();
+  mixer.stopAllAction(); action = mixer.clipAction(clip); action.play();
+}
+
+// --- panels --------------------------------------------------------------------------------------------------------
+function panels() {
+  const m = model;
+  $('#title').textContent = m.path.split('\\').pop();
+  $('#badge').style.display = m.changed ? 'inline' : 'none';
+  $('#info').innerHTML = `<div><b>${m.path}</b></div>` + m.notes.map(n => `<div class="dim">${n}</div>`).join('') +
+    (m.effects[0] || m.effects[1] ? `<div class="warn">Effects: ${m.effects[0]} particle emitters, ${m.effects[1]} ribbons. This view does not draw them: check them in game.</div>` : '');
+  $('#animNames').innerHTML = m.animNames.map(n => `<option value="${n}">`).join('');
+  $('#seqs').innerHTML = '';
+  for (const s of m.sequences) {
+    const d = document.createElement('div'); d.className = 'seq'; d.dataset.i = s.i;
+    const extra = s.alias !== null ? ` <span class="dim">→ plays #${s.alias}</span>` : (s.var ? ` <span class="dim">variation ${s.var}</span>` : '');
+    d.innerHTML = `<span class="n">#${s.i}</span><span class="nm" title="${s.name} (${s.anim}), ${s.dur} ms">${s.name}${extra}</span>` +
+      `<span class="dim">${(s.dur / 1000).toFixed(1)}s</span><button title="Make this sequence a different animation">rename</button>`;
+    d.querySelector('.nm').onclick = () => play(s.i);
+    d.querySelector('button').onclick = () => rename(s);
+    $('#seqs').appendChild(d);
+  }
+  emotes();
+  linkBox();
+}
+$('#allEmotes').onchange = emotes;
+function seqOptions(selected) {
+  return model.sequences.filter(s => s.var === 0 && s.alias === null)
+    .map(s => `<option value="${s.anim}" ${s.anim === selected ? 'selected' : ''}>#${s.i} ${s.name}</option>`).join('');
+}
+function linkBox() {
+  const m = model, name = i => i === null ? 'nothing' : m.sequences[i].name;
+  const opt = a => `<option value="${a.id}">${a.name}${a.own ? '' : ' (now: ' + name(a.plays) + ')'}</option>`;
+  $('#linkFrom').innerHTML = `<optgroup label="Missing in this model">${m.anims.filter(a => !a.own).map(opt).join('')}</optgroup>` +
+    `<optgroup label="Has its own">${m.anims.filter(a => a.own).map(opt).join('')}</optgroup>`;
+  $('#linkTo').innerHTML = seqOptions();
+  const picked = () => [...$('#linkFrom').selectedOptions].map(o => m.anims.find(x => x.id === +o.value));
+  const now = () => { const p = picked();
+    $('#linkCount').textContent = p.length ? `(${p.length} picked)` : '';
+    $('#linkNow').textContent = p.length === 1 ? `Now: ${p[0].name} plays ${name(p[0].plays)}${p[0].own ? ' (its own)' : ' (fallback or link)'}.`
+      : p.length ? `Picked: ${p.map(a => a.name).join(', ')}` : ''; };
+  $('#linkFrom').onchange = now; now();
+  $('#linkFilter').value = '';
+  $('#linkFilter').oninput = () => { const f = $('#linkFilter').value.toLowerCase();
+    [...$('#linkFrom').options].forEach(o => o.hidden = !!f && !o.text.toLowerCase().includes(f)); };
+}
+$('#doLink').onclick = () => {
+  const ids = [...$('#linkFrom').selectedOptions].map(o => o.value);
+  if (!current || !ids.length) { toast('Pick one or more animations first.'); return; }
+  const own = model.anims.filter(a => ids.includes(String(a.id)) && a.own).map(a => a.name);
+  if (own.length && !confirm(`These have their own sequence and will be skipped: ${own.join(', ')}. Link the rest?`)) return;
+  change('/api/link', { m: current, anim: ids.join(','), target: $('#linkTo').value });
+};
+function emotes() {
+  const m = model; if (!m) return;
+  const all = $('#allEmotes').checked, seqName = i => i === null ? null : `${m.sequences[i].name}`;
+  const rows = m.emotes.filter(e => all || !e.own);
+  $('#emotes').innerHTML = '<tr class="dim"><td>/emote</td><td>wants</td><td>this model plays</td><td></td></tr>' + rows.map((e, k) => {
+    const got = e.plays === null ? '<span class="bad">nothing</span>' : e.own ? `<span class="ok">${seqName(e.plays)}</span>`
+      : `<span class="warn">${seqName(e.plays)}</span>` + (e.via.length > 1 ? ' <span class="dim">(fallback)</span>' : ' <span class="dim">(linked)</span>');
+    return `<tr><td><a href="#" data-k="${k}" class="pl">/${e.cmd}</a></td><td class="dim">${e.name}</td><td>${got}</td><td><select data-k="${k}" class="inl"><option value="">link to…</option>${seqOptions()}</select></td></tr>`;
+  }).join('');
+  $('#emotes').querySelectorAll('select.inl').forEach(sel => sel.onchange = () => {
+    const e = rows[+sel.dataset.k]; if (sel.value) change('/api/link', { m: current, anim: String(e.anim), target: sel.value }); });
+  $('#emotes').querySelectorAll('a.pl').forEach(a => a.onclick = ev => { ev.preventDefault(); const e = rows[+a.dataset.k]; if (e.plays !== null) play(e.plays); });
+}
+
+// --- changes -------------------------------------------------------------------------------------------------------
+function chooser(title, options) {
+  return new Promise(res => {
+    const d = document.createElement('div');
+    d.style = 'position:fixed;inset:0;background:#0009;display:grid;place-items:center;z-index:9';
+    d.innerHTML = `<div style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;width:380px">
+      <div style="margin-bottom:10px">${title}</div>${options}
+      <div class="row"><button id="cx">Cancel</button><button class="go" id="okx">OK</button></div></div>`;
+    document.body.appendChild(d);
+    d.querySelector('#cx').onclick = () => { d.remove(); res(null); };
+    d.querySelector('#okx').onclick = () => { const v = d.querySelector('select,input').value; d.remove(); res(v); };
+  });
+}
+async function link(e) {
+  const opts = model.sequences.filter(s => s.var === 0 && s.alias === null).map(s => `<option value="${s.name}">#${s.i} ${s.name}</option>`).join('');
+  const target = await chooser(`What should <b>/${e.cmd}</b> (${e.name}) play on this model?`, `<select style="width:100%">${opts}</select>`);
+  if (!target) return;
+  change('/api/link', { m: current, anim: String(e.anim), target });
+}
+async function rename(s) {
+  const v = await chooser(`Sequence #${s.i} <b>${s.name}</b> becomes which animation?`, `<input list="animNames" placeholder="e.g. EmoteRoar">`);
+  if (!v) return;
+  change('/api/rename', { m: current, seq: s.i, anim: v });
+}
+async function change(path, body) {
+  try { const r = await api(path, body); toast(r.text, r.ok ? 5000 : 9000); if (r.ok) await open(current); }
+  catch (e) { toast('Failed: ' + e.message, 9000); }
+}
+$('#reset').onclick = async () => { if (current && confirm('Throw away your changes to this model?')) change('/api/reset', { m: current }); };
+$('#pack').onclick = async () => { toast('Packing into the game ...', 0); change('/api/pack', {}); };
+
+// --- from wow.export: 1 convert, 2 import, 3 pack ----------------------------------------------------------------
+let exportsData = null, chosen = null, stagedMeta = null;
+async function loadExports() {
+  exportsData = await api('/api/exports');
+  const box = $('#exports'); box.innerHTML = '';
+  if (!exportsData.models.length) { box.innerHTML = `<span class="dim">nothing in ${exportsData.folder}</span>`; return; }
+  const imported = Object.values(exportsData.imports).map(e => e.source.toLowerCase());
+  for (const m of exportsData.models) {
+    const d = document.createElement('div');
+    d.innerHTML = m.name + (imported.includes(m.file.toLowerCase()) ? '<span class="tag">imported</span>' : '') + ` <span class="dim">${m.kind}</span>`;
+    d.title = m.file;
+    d.onclick = () => { document.querySelectorAll('.list div').forEach(x => x.classList.remove('on')); d.classList.add('on'); chooseExport(m); };
+    box.appendChild(d);
+  }
+}
+const gameName = stem => stem.replace(/-/g, '_').split('_').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
+function chooseExport(m) {
+  chosen = m; stagedMeta = null;
+  const prev = Object.entries(exportsData.imports).find(([n, e]) => e.source.toLowerCase() === m.file.toLowerCase());
+  $('#steps').style.display = 'block';
+  $('#steps').innerHTML = `<div><b>${m.file}</b></div>
+    <div class="step">1. Convert to our client's format</div>
+    <div class="dim">Name for the game files (its folder: Creature, then this name):</div>
+    <input id="gname" value="${prev ? prev[0] : gameName(m.name)}">
+    <div class="row"><button class="go" id="doConvert">Convert &amp; show</button></div>
+    <div id="step2"></div>`;
+  $('#doConvert').onclick = convertStep;
+}
+async function convertStep() {
+  toast('Converting ...', 0);
+  try { stagedMeta = await api('/api/convert', { file: chosen.file, name: $('#gname').value.trim() }); }
+  catch (e) { toast('Convert failed: ' + e.message, 10000); return; }
+  await open(stagedMeta.path);
+  showImportStep();
+}
+function showImportStep() {
+  const m = stagedMeta, prev = exportsData.imports[m.name];
+  const colours = Object.entries(m.colourings);
+  $('#step2').innerHTML = `<div class="step done">✓ converted: ${m.path}</div>` +
+    (m.report.length ? `<div class="dim">What had to change:</div><ul>${m.report.map(r => `<li>${r}</li>`).join('')}</ul>` : '') +
+    `<div class="step">2. Import into the game files</div>
+    <div class="dim">Colourings (each becomes a display id; click a name to look at it):</div>` +
+    (colours.length ? colours.map(([c, t]) => `<label><input type="checkbox" value="${c}" ${!prev || prev.displays[c] ? 'checked' : ''}> <a href="#" data-t="${t}">${c}</a>${prev && prev.displays[c] ? ` <span class="dim">(display ${prev.displays[c]})</span>` : ''}</label>`).join('')
+      : '<div class="dim">none found: the model uses its own textures</div>') +
+    `<div class="row"><label class="dim">size <input id="iscale" type="number" step="0.1" min="0.1" value="${prev ? prev.scale : 1}"></label>
+       <label class="dim" title="sounds, blood and footsteps are copied from this display">sounds like display <input id="itemplate" type="number" value="${prev ? prev.template : 21950}"></label></div>
+    <div class="dim" id="height"></div>
+    <div class="row"><button class="go" id="doImport">Import</button></div><div id="step3"></div>`;
+  const tall = () => { const h = (m.bbox[5] - m.bbox[2]) * +$('#iscale').value;
+    $('#height').textContent = `At this size it stands about ${h.toFixed(1)} yards tall (a human is about 2).`; };
+  $('#iscale').oninput = tall; tall();
+  $('#step2').querySelectorAll('a[data-t]').forEach(a => a.onclick = ev => { ev.preventDefault(); open(m.path, a.dataset.t); });
+  $('#doImport').onclick = importStep;
+}
+async function importStep() {
+  const colours = [...$('#step2').querySelectorAll('input[type=checkbox]:checked')].map(c => c.value);
+  try {
+    const e = await api('/api/import', { name: stagedMeta.name, colours, scale: $('#iscale').value, template: $('#itemplate').value });
+    await loadExports();
+    $('#step3').innerHTML = `<div class="step done">✓ imported (model data ${e.model_id})</div>` +
+      Object.entries(e.displays).map(([c, d]) => `<div>${c}: display <b>${d}</b></div>`).join('') +
+      `<div class="step">3. Pack into game</div><div class="dim">Close WoW, press <b>Pack into game</b> below the model info, restart the server.
+       In game: target yourself and type <code>.morph ${Object.values(e.displays)[0]}</code> (<code>.demorph</code> to undo).</div>`;
+    toast('Imported. Next: Pack into game (with WoW closed).', 6000);
+    open(stagedMeta.path);
+  } catch (err) { toast('Import failed: ' + err.message, 10000); }
+}
+loadExports();
+
+const start = new URLSearchParams(location.search).get('m'); if (start) { $('#q').value = start; open(start); }
+</script>
+</body>
+</html>
