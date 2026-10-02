@@ -47,6 +47,10 @@ INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9101301, `name` = 'Wren Hollowmoor', `gossip_menu_id` = 9101301;
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` = 9101300;  -- Hagatha buys (owner, 2026-10-03)
+-- A vendor window only opens with something on sale: plain food and water (the owner may pick other wares).
+DELETE FROM `npc_vendor` WHERE `entry` = 9101300;
+INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`, `VerifiedBuild`) VALUES
+(9101300, 0, 159, 0, 0, 0, 0), (9101300, 1, 4540, 0, 0, 0, 0), (9101300, 2, 2678, 0, 0, 0, 0);
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`)
 SELECT `m`.`entry`, 0, `ctm`.`CreatureDisplayID`, `ctm`.`DisplayScale`, 1, 0 FROM (

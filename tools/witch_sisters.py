@@ -354,6 +354,10 @@ def build_sql() -> str:
     s += [
         f"UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` = {NPC_HAGATHA};"
         "  -- Hagatha buys (owner, 2026-10-03)",
+        "-- A vendor window only opens with something on sale: plain food and water (the owner may pick other wares).",
+        f"DELETE FROM `npc_vendor` WHERE `entry` = {NPC_HAGATHA};",
+        "INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`, `VerifiedBuild`) VALUES",
+        ", ".join(f"({NPC_HAGATHA}, {i}, {item}, 0, 0, 0, 0)" for i, item in enumerate((159, 4540, 2678))) + ";",
         "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
         "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
         " `VerifiedBuild`)",

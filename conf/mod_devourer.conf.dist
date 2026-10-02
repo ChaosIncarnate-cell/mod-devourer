@@ -31,9 +31,9 @@ Devourer.HungerPerMeal = 30
 
 #    Devourer.AnimaPerShift
 #        Description: Anima a shift into a shape costs (0 = free). Concentrate gives 30, a meal 30.
-#        Default:     25
+#        Default:     0 (owner, 2026-10-03: shapes are free; strong abilities cost Anima)
 
-Devourer.AnimaPerShift = 25
+Devourer.AnimaPerShift = 0
 
 #    Devourer.HungerPerSwing
 #        Description: Anima gained by each of the Devourer's own auto-attack hits. 0 = off.

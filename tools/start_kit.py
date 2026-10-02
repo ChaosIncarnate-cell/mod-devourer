@@ -74,6 +74,9 @@ CHARGE_STUN = 7922                     # stock "Charge Stun": the knock-down aft
 # The base kit (owner, 2026-09-30): Anima is the Devourer's resource (the rage bar, renamed); shifting costs it
 # (the module: Devourer.AnimaPerShift), Concentrate gathers it, Rush needs no target.
 RUSH, RUSH_HIT, CONCENTRATE, ANIMA = 9100990, 9100991, 9100992, 9100993
+STRIDE = 9100994                    # owner, 2026-10-03: every shape runs 15% faster (the module adds it)
+A_MOD_SPEED_ALWAYS = 129            # stacks with a shape's own speed bonus (MOD_INCREASE_SPEED takes the highest)
+ATTR0_CANT_CANCEL = 0x80000000
 A_INTERRUPT_REGEN = 94                 # the core skips rage decay out of combat while a unit has it
 DUR_1S, DMG_MELEE, A_MOD_STUN, MECHANIC_STUN = b.DUR_1S, b.DMG_MELEE, b.A_MOD_STUN, b.MECHANIC_STUN
 
@@ -136,10 +139,11 @@ BASE = [
     (RUSH, 1, 0, 100, {                                              # Charge: its icon; the module does the run
         **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
         "AttributesEx3": 0, "Targets": 0, "FacingCasterFlags": 0, "ExcludeCasterAuraState": 0,
-        "CastingTimeIndex": 3, "DurationIndex": 0, "RangeIndex": RANGE_SELF, "Speed": 0.0, "InterruptFlags": 0x0F,
-        "ChannelInterruptFlags": 0, "AuraInterruptFlags": 0, "RecoveryTime": 15000, **GCD,
+        "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0, "RangeIndex": RANGE_SELF, "Speed": 0.0,
+        "InterruptFlags": 0,                                         # owner, 2026-10-03: usable while running
+        "ChannelInterruptFlags": 0, "AuraInterruptFlags": 0, "RecoveryTime": 8000, **GCD,
         "SpellVisualID_1": 0, **effects({"effect": E_DUMMY})},
-     ("Rush", "Gather yourself for 0.5 sec, then rush 20 yards straight ahead. Every enemy in your path takes 50% "
+     ("Rush", "Rush 20 yards straight ahead, even on the run. Every enemy in your path takes 50% "
       "weapon damage and is knocked down for 1 sec. Needs no target.", "")),
     (RUSH_HIT, 1, None, CHARGE_STUN, {                               # the knock-down, like Overrun's
         **CLEAN, **NO_MECHANICS, "Attributes": 0, "SchoolMask": SCHOOL_PHYSICAL, "DefenseType": DMG_MELEE,
@@ -147,6 +151,12 @@ BASE = [
         **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 50, "target": T_ENEMY},
                   aura(A_MOD_STUN, target=T_ENEMY))},
      ("Rush", "", "Knocked down.")),
+    (STRIDE, 1, None, 2983, {                                        # Sprint's icon; worn with every shape
+        **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY | ATTR0_CANT_CANCEL, "AttributesEx": 0,
+        "AttributesEx2": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": DUR_INFINITE, "RangeIndex": RANGE_SELF,
+        "RecoveryTime": 0, "StartRecoveryCategory": 0, "StartRecoveryTime": 0, "InterruptFlags": 0,
+        "AuraInterruptFlags": 0, **effects(aura(A_MOD_SPEED_ALWAYS, 15))},
+     ("Shape's Stride", "Every shape runs 15% faster.", "Movement speed increased by 15%.")),
     (CONCENTRATE, 1, 0, 2687, {                                      # Bloodrage: the surge of power
         **CLEAN, **NO_MECHANICS, "Targets": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0,
         "RangeIndex": RANGE_SELF, "RecoveryTime": 30000, **effects(gain(30))},
@@ -638,6 +648,11 @@ def form_spells(f: Form):
         out.append((f.base + slot, 1, t, o, x))
     # 2026-10-03: the abilities stay in the spellbook, so each one says which shape it belongs to.
     tag = f"|cffb87830{f.name} form|r"
+    # 2026-10-03: the passive is an aura while the shape is worn, shown on the buff bar (not cancellable).
+    for i, (sid_, lvl, t, o, x) in enumerate(out):
+        if sid_ == f.base + 3 and isinstance(o, dict):
+            attrs = (o.get("Attributes", ATTR0_ABILITY) & ~(b.ATTR0_PASSIVE | b.ATTR0_HIDDEN)) | ATTR0_CANT_CANCEL
+            out[i] = (sid_, lvl, t, {**o, "Attributes": attrs, "DurationIndex": DUR_INFINITE}, (x[0], x[1], x[2] or x[1]))
     return [(sid_, lvl, t, o, (x[0], f"{x[1]}$B$B{tag}" if x[1] else tag, x[2]))
             if f.base < sid_ <= f.base + 5 else (sid_, lvl, t, o, x) for sid_, lvl, t, o, x in out]
 
@@ -790,8 +805,8 @@ def main() -> int:
           "|---|---|---|---|---|"]
     for sid, lvl, cost, t, o, (name, desc, _) in BASE:
         md.append(f"| {lvl} | {sid} | {name} | {'-' if cost is None else f'{cost // 100}s {cost % 100}c'} | {desc} |")
-    md += ["", "Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape costs Anima "
-           "(Devourer.AnimaPerShift, default 25).", "",
+    md += ["", "Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape is free "
+           "(Devourer.AnimaPerShift, default 0 since 2026-10-03).", "",
            "## Trainers", "",
            f"Trainer {TRAINER} teaches the base kit above. The Devourer's trainers are the Hollowmoor witch sisters "
            "in the In-Between (task 010): see `docs/witch-sisters.md`."]

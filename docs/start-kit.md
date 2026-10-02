@@ -8,12 +8,13 @@ Spell ids 9100900-9101099: base kit 9100990-9100993, starting forms 9100910-9100
 
 | Level | Spell | Name | Cost | What it does |
 |---|---|---|---|---|
-| 1 | 9100990 | Rush | 0s 0c | Gather yourself for 0.5 sec, then rush 20 yards straight ahead. Every enemy in your path takes 50% weapon damage and is knocked down for 1 sec. Needs no target. |
+| 1 | 9100990 | Rush | 0s 0c | Rush 20 yards straight ahead, even on the run. Every enemy in your path takes 50% weapon damage and is knocked down for 1 sec. Needs no target. |
 | 1 | 9100991 | Rush | - |  |
+| 1 | 9100994 | Shape's Stride | - | Every shape runs 15% faster. |
 | 1 | 9100992 | Concentrate | 0s 0c | Draw the anima scattered through your body together: gain 30 Anima. Usable in combat. |
 | 1 | 9100993 | Anima | - | Your anima does not drain away while you rest. |
 
-Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape costs Anima (Devourer.AnimaPerShift, default 25).
+Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape is free (Devourer.AnimaPerShift, default 0 since 2026-10-03).
 
 ## Trainers
 

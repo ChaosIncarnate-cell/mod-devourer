@@ -21,6 +21,7 @@ DELETE FROM `creature_template_addon` WHERE `entry` BETWEEN 9101300 AND 9101399;
 DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9101000 AND 9101399;
 DELETE FROM `creature_default_trainer` WHERE `CreatureId` BETWEEN 9101000 AND 9101399;
 DELETE FROM `creature_text`           WHERE `CreatureID` BETWEEN 9101300 AND 9101399;
+DELETE FROM `npc_vendor`            WHERE `entry` BETWEEN 9101300 AND 9101399;
 DELETE FROM `creature_queststarter`   WHERE `id` BETWEEN 9101300 AND 9101399;
 DELETE FROM `creature_questender`     WHERE `id` BETWEEN 9101300 AND 9101399;
 DELETE FROM `creature_template`       WHERE `entry` BETWEEN 9101000 AND 9101399;

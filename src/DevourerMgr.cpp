@@ -44,7 +44,7 @@ namespace Devourer
         _shiftCooldown = sConfigMgr->GetOption<uint32>("Devourer.ShiftCooldown", 8000);
         _skinchangerShiftCooldown = sConfigMgr->GetOption<uint32>("Devourer.SkinchangerShiftCooldown", 3000);
         _shapeBarSlot = uint8(std::min<uint32>(sConfigMgr->GetOption<uint32>("Devourer.ShapeBarSlot", 60), 140));
-        _animaPerShift = std::min<uint32>(sConfigMgr->GetOption<uint32>("Devourer.AnimaPerShift", 25), 100);
+        _animaPerShift = std::min<uint32>(sConfigMgr->GetOption<uint32>("Devourer.AnimaPerShift", 0), 100);
     }
 
     void Mgr::LoadWorldData()
@@ -296,8 +296,8 @@ namespace Devourer
         auto itr = _states.find(player->GetGUID().GetCounter());
         if (itr == _states.end() || !itr->second.KitShape)
             return;
-        RememberBar(player, itr->second, false);         // the abilities stay learned, so their buttons stay too
-        itr->second.KitShape = 0;
+        RememberBar(player, itr->second, true);          // remembers where they are, then takes them off
+        itr->second.KitShape = 0;                        // Forget must not remember the now empty slots
     }
 
     void Mgr::Forget(Player* player)
@@ -620,8 +620,9 @@ namespace Devourer
         for (uint32 spellId : shape.Kit)                 // also a shape worn but not owned (Wren's Biletoad)
             if (spellId && !player->HasSpell(spellId) && KitSpellOpen(player, spellId))
                 player->learnSpell(spellId);
-        if (shape.Passive && sSpellMgr->GetSpellInfo(shape.Passive) && !player->HasAura(shape.Passive))
-            player->AddAura(shape.Passive, player);
+        for (uint32 aura : { shape.Passive, SpellShapeStride })
+            if (aura && sSpellMgr->GetSpellInfo(aura) && !player->HasAura(aura))
+                player->AddAura(aura, player);
         state.KitShape = shape.Id;
 
         // Hotbar (Copus55, 2026-09-28): each ability goes back where the player last kept it in this shape;
@@ -688,8 +689,8 @@ namespace Devourer
                     continue;
                 if (found == NotOnBar)
                     found = slot;
-                if (clear && std::find(state.Granted.begin(), state.Granted.end(), spellId) != state.Granted.end())
-                    player->removeActionButton(slot);    // the ability is unlearned next: no dead buttons
+                if (clear)
+                    player->removeActionButton(slot);    // off the bars while the shape is not worn
             }
             auto itr = bar.find(spellId);
             if (itr != bar.end() && itr->second == found)
@@ -705,9 +706,13 @@ namespace Devourer
     {
         if (Shape const* shape = FindShape(state.KitShape))
         {
-            RememberBar(player, state, false);
+            // Owner, 2026-10-03: a shape's buttons leave the bars with it and come back when it is worn again.
+            RememberBar(player, state, true);
+            if (_shapeBarSlot)
+                player->SendActionButtons(1);
             if (shape->Passive)
                 player->RemoveAurasDueToSpell(shape->Passive);
+            player->RemoveAurasDueToSpell(SpellShapeStride);
         }
         state.KitShape = 0;
         // Characters from before 2026-10-03 may still carry temporary kit spells: they are permanent now.
