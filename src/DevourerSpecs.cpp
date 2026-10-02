@@ -211,7 +211,7 @@ namespace Devourer
             state.StomachSpell = spellId;
             state.StomachLeft = player->HasSpell(SpellTalentStretchedGut) ? StomachTimeStretched : StomachTime;
             if (!player->HasSpell(SpellRegurgitate))
-                player->learnSpell(SpellRegurgitate, true);
+                LendSpell(player, SpellRegurgitate);      // temporary; the client hears it once
             if (ReplaceButtons(player, SpellDevourWhole, SpellRegurgitate))
                 player->SendActionButtons(1);
             EatShape(player, victim, "You swallow " + name + " whole and hold it in. Regurgitate within " +
@@ -416,7 +416,7 @@ namespace Devourer
         if (ReplaceButtons(player, SpellRegurgitate, SpellDevourWhole))
             player->SendActionButtons(1);
         if (player->HasSpell(SpellRegurgitate))
-            player->removeSpell(SpellRegurgitate, SPEC_MASK_ALL, true);
+            TakeBackSpell(player, SpellRegurgitate);
 
         if (!player->IsAlive())
             return;

@@ -593,8 +593,9 @@ namespace Devourer
         {
             if (!spellId || player->HasSpell(spellId) || !KitSpellOpen(player, spellId))
                 continue;
-            player->learnSpell(spellId, true);
-            state.Granted.push_back(spellId);
+            LendSpell(player, spellId);
+            if (player->HasSpell(spellId))
+                state.Granted.push_back(spellId);
         }
 
         // Hotbar (Copus55, 2026-09-28): each ability goes back where the player last kept it in this shape;
@@ -684,8 +685,43 @@ namespace Devourer
         }
         state.KitShape = 0;
         for (uint32 spellId : state.Granted)
-            player->removeSpell(spellId, SPEC_MASK_ALL, true);
+            TakeBackSpell(player, spellId);
         state.Granted.clear();
+    }
+
+    // A kit spell is lent (a temporary spell: never saved) while its shape is worn. The core's own calls do not
+    // tell the client in pairs: learnSpell(id, true) sends SMSG_LEARNED_SPELL twice (once in Player::_addSpell,
+    // once in learnSpell), and removeSpell(id, mask, true) sends no SMSG_REMOVED_SPELL for a passive aura. The
+    // client's spellbook added a copy on every shift and never lost it. Here the client hears exactly once each way.
+    static bool CoreTellsClient(Player const* player, SpellInfo const* info)
+    {
+        // Player::_addSpell / removeSpell: which temporary spells they announce themselves
+        return player->IsInWorld() && !player->isBeingLoaded() &&
+            (!info->HasAttribute(SpellAttr0(SPELL_ATTR0_PASSIVE | SPELL_ATTR0_DO_NOT_DISPLAY)) || !info->HasAnyAura()) &&
+            !info->HasEffect(SPELL_EFFECT_LEARN_SPELL);
+    }
+
+    void Mgr::LendSpell(Player* player, uint32 spellId)
+    {
+        SpellInfo const* info = sSpellMgr->GetSpellInfo(spellId);
+        if (!info)
+            return;
+        bool const told = CoreTellsClient(player, info);
+        if (!player->addSpell(spellId, SPEC_MASK_ALL, true, true))    // not learnSpell: it would tell again
+            return;
+        if (!told && player->IsInWorld())
+            player->SendLearnPacket(spellId, true);                      // a passive shows in the spellbook too
+    }
+
+    void Mgr::TakeBackSpell(Player* player, uint32 spellId)
+    {
+        SpellInfo const* info = sSpellMgr->GetSpellInfo(spellId);
+        if (!info || !player->HasSpell(spellId))
+            return;
+        bool const told = CoreTellsClient(player, info);
+        player->removeSpell(spellId, SPEC_MASK_ALL, true);
+        if (!told && player->IsInWorld())
+            player->SendLearnPacket(spellId, false);
     }
 
     void Mgr::ChooseSkin(Player* player, uint32 shapeId, uint32 display)

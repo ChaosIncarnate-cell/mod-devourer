@@ -288,6 +288,8 @@ namespace Devourer
         [[nodiscard]] static bool KitSpellOpen(Player const* player, uint32 spellId);   // player level >= spell level
         void EatShape(Player* player, Creature* meal, std::string const& how);   // shape/colouring the meal carries
         void RevokeKit(Player* player, State& state);
+        static void LendSpell(Player* player, uint32 spellId);       // a kit spell while the shape is worn
+        static void TakeBackSpell(Player* player, uint32 spellId);
         void RememberBar(Player* player, State& state, bool clear);   // reads (and clears) the kit's buttons
 
         std::unordered_map<ObjectGuid::LowType, State> _states;
