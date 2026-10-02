@@ -60,7 +60,7 @@ DELETE FROM `playercreateinfo`              WHERE `class` = 10;
 DELETE FROM `playercreateinfo_action`       WHERE `class` = 10;
 DELETE FROM `playercreateinfo_skills`       WHERE `classMask` = 512;
 DELETE FROM `playercreateinfo_spell_custom` WHERE `classmask` = 512;
-DELETE FROM `skillline_dbc`                 WHERE `ID` = 900;                   -- the Devourer's spellbook tab (_09)
+DELETE FROM `skillline_dbc`                 WHERE `ID` BETWEEN 900 AND 902;     -- the Devourer's three spellbook tabs (_09)
 DELETE FROM `skillraceclassinfo_dbc`        WHERE `ClassMask` & 512;
 DELETE FROM `skilllineability_dbc`          WHERE `ClassMask` & 512;
 DELETE FROM `charstartoutfit_dbc`           WHERE `ClassID` = 10;
