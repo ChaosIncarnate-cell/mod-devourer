@@ -6,6 +6,8 @@
  * cage, the sisters talk, Wren turns it into a Baby Berserker (shape 4) and hands out three chores. When the last
  * one is handed in, the cage opens and both sisters are its trainers. "Send me back" returns it to where the ritual
  * took it; `.inbetween` (a stopgap until a proper spell, see the task 010 PR) brings a freed Devourer back.
+ * Wren's fourth chore (owner, 2026-10-02): "Pests in the Cells" turns the Devourer into a Biletoad (shape 14) and
+ * puts anima pests around her cages, for each Devourer its own; some hover out of reach (DevourerFrogs.cpp).
  *
  * Data: all ids, places and lines come from tools/witch_sisters.py (DevourerSistersIds.h and the world SQL).
  * Characters: character_devourer_inbetween keeps where the Devourer was taken from and when it may come back.
@@ -30,6 +32,7 @@
 #include "Player.h"
 #include "PlayerScript.h"
 #include "ScriptedGossip.h"
+#include "Random.h"
 #include "TemporarySummon.h"
 #include "WorldPacket.h"
 #include "WorldScript.h"
@@ -37,6 +40,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iterator>
+#include <set>
 #include <unordered_map>
 #include <vector>
 
@@ -57,6 +61,7 @@ namespace
     constexpr uint32 StrayLineEvery = 20000;     // ms between two "stay in the cage" lines
     constexpr uint32 CageLingers = 10000;        // ms the opened cage stays before it vanishes
     constexpr uint32 ReviveAfter = 2000;         // ms a Devourer that died in the cage lies there
+    constexpr uint32 PestLifetime = 600000;      // ms a pest lives, dead or alive (its corpse waits to be eaten)
 
     struct Config
     {
@@ -90,6 +95,8 @@ namespace
         uint32 CageGone = 0;
         ObjectGuid Cage;
         bool Returning = false;                   // came back with .inbetween: Wren greets it
+        std::vector<ObjectGuid> Pests;            // the fourth chore: this Devourer's pests
+        std::set<ObjectGuid> PestsEaten;          // the ones already counted
     };
 
     std::unordered_map<ObjectGuid::LowType, Visit> visits;
@@ -346,6 +353,46 @@ namespace
             TossSnacks(player, visit);
     }
 
+    // The fourth chore: every pest devoured counts. While none is left about (alive, or a corpse not yet eaten) and the
+    // chore is not done, Wren's cages fill again with as many as are still missing, the hovering ones first.
+    void PestChore(Player* player, Visit& visit)
+    {
+        if (player->GetQuestStatus(QuestPests) != QUEST_STATUS_INCOMPLETE || !player->IsAlive())
+            return;
+        Quest const* quest = sObjectMgr->GetQuestTemplate(QuestPests);
+        if (!quest)
+            return;
+        uint32 const needed = quest->RequiredNpcOrGoCount[0];
+        uint32 done = player->GetReqKillOrCastCurrentCount(QuestPests, CreditPest);
+        for (ObjectGuid const& eaten : sDevourer.Get(player).Eaten)
+            if ((eaten.GetEntry() == NpcPest || eaten.GetEntry() == NpcPestPerched) && done < needed &&
+                visit.PestsEaten.insert(eaten).second)
+            {
+                player->KilledMonsterCredit(CreditPest);
+                if (++done >= needed)
+                    Say(player, NpcWren, WrenPestsGone);
+            }
+        if (done >= needed)
+            return;
+
+        for (ObjectGuid const& guid : visit.Pests)
+            if (Creature* pest = ObjectAccessor::GetCreature(*player, guid))
+                if (pest->IsAlive() || !visit.PestsEaten.count(guid))
+                    return;
+        visit.Pests.clear();
+        uint32 left = needed - done;
+        for (bool perched : { true, false })
+            for (PestSpot const& spot : PestSpots)
+                if (left && spot.Perched == perched)
+                    if (TempSummon* pest = player->SummonCreature(perched ? NpcPestPerched : NpcPest, spot.X, spot.Y,
+                            spot.Z, frand(0.0f, 2.0f * float(M_PI)), TEMPSUMMON_TIMED_DESPAWN, PestLifetime, nullptr,
+                            true))
+                    {
+                        visit.Pests.push_back(pest->GetGUID());
+                        --left;
+                    }
+    }
+
     void TellTale(Player* player, Visit& visit, uint32 diff)
     {
         if (!visit.Tale)
@@ -467,6 +514,8 @@ namespace
         if (Freed(player))
         {
             visit.Now = Visit::None;
+            if (InBetween(player))
+                PestChore(player, visit);
             return;
         }
 
@@ -536,6 +585,16 @@ struct npc_devourer_witch_sister : public CreatureAI
     {
         if (quest->GetQuestId() == QuestFeeding)
             VisitOf(player).Snacks = 0;           // the first snacks come at the next look
+        else if (quest->GetQuestId() == QuestPests)
+        {
+            // "Here, I'll help you with it": Wren's spell turns it into a Biletoad; the pests come at the next look.
+            Talk(WrenPestSpell, player);
+            me->HandleEmoteCommand(EMOTE_ONESHOT_SPELL_CAST_OMNI);
+            player->CastSpell(player, VisualTransform, true);
+            sDevourer.Unlock(player, ShapeBiletoad, 0, true);
+            Talk(WrenPestToad, player, 4s);
+            VisitOf(player).Pests.clear();
+        }
     }
 
     void sQuestReward(Player* player, Quest const* quest, uint32 /*opt*/) override

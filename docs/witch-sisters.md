@@ -69,6 +69,15 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 *Not done yet:* The tale is not finished with you yet.  
 *Handed in:* Now you know the shape beneath all your shapes. Remember it when you wear someone else's. / Wren, break the circle. Our little horror has lessons to carry into the world, and it will come back to us for more.
 
+### 9101304 Pests in the Cells (Wren Hollowmoor)
+
+*Objective:* Devour every anima-fat pest around Wren's cages. Some of them can only be reached with your tongue.
+
+> Snack, I have a teeny problem. The bugs I test my spells on? They got out. All of them. They crawled off around the cells and found Hagatha's store of anima, and they've been feasting on it, and now they MULTIPLY. Every time I catch one and squash it, there are more! I can't cage the anima that comes flowing out of them. / But an ancient horror like you is made for exactly this. Just eat them. They might not be tasty... hmm, maybe you'll learn to like them. Here, I'll help you with it. Hold still!
+
+*Not done yet:* I can still hear crunching, and it isn't you. Keep eating!  
+*Handed in:* All of them? ALL of them? Oh, you lovely, horrible thing. Hagatha's anima is safe and nothing is multiplying any more. / Keep the frog. It suits you.
+
 ## Lines (creature_text)
 
 | Who | Group | When | Line | |
@@ -92,6 +101,9 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 | Wren | 8 | died in the cage | No dying in my circle! Up you get, Snack. I haven't finished my list. | PLACEHOLDER |
 | Wren | 9 | strayed from the cage | Ah-ah-ah! The circle holds you until the chores are done. | PLACEHOLDER |
 | Wren | 10 | came back with .inbetween | Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then! | PLACEHOLDER |
+| Wren | 11 |  | Hold still, Snack! A little swamp, a little croak... there! | draft |
+| Wren | 12 |  | Ha! A toad! The best kind of pet. Now go and eat my bugs. And look up: some of them hide where only a tongue can reach! | draft |
+| Wren | 13 |  | Was that the last one? I think that was the last one! Come here and let me count. | draft |
 
 ## Gossip texts
 

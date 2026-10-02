@@ -24,10 +24,10 @@ DELETE FROM `creature_questender` WHERE `id` BETWEEN 9101300 AND 9101399;
 DELETE FROM `creature_template` WHERE `entry` BETWEEN 9101300 AND 9101399;
 DELETE FROM `gameobject_template_addon` WHERE `entry` BETWEEN 9101300 AND 9101399;
 DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9101300 AND 9101399;
-DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9101301 AND 9101303;
-DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9101301 AND 9101303;
-DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9101301 AND 9101303;
-DELETE FROM `quest_template` WHERE `ID` BETWEEN 9101301 AND 9101303;
+DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9101301 AND 9101304;
+DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9101301 AND 9101304;
+DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9101301 AND 9101304;
+DELETE FROM `quest_template` WHERE `ID` BETWEEN 9101301 AND 9101304;
 DELETE FROM `gossip_menu_option` WHERE `MenuID` IN (9101300, 9101301);
 DELETE FROM `gossip_menu` WHERE `MenuID` IN (9101300, 9101301);
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN (9101300, 9101301);
@@ -65,6 +65,21 @@ DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`)
 SELECT 9101302, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 4075 AND `Idx` = 0;
 
+-- --- Wren's anima pests (the fourth chore): critters, hostile, never fight back, worth no experience;
+-- --- summoned around the cages by the module, for each Devourer its own (beetles below, fireflies above)
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15475;  -- Beetle
+UPDATE `devourer_tmp_ct` SET `entry` = 9101313, `name` = 'Anima-Fat Beetle', `subname` = NULL, `minlevel` = 5, `maxlevel` = 5,
+    `faction` = 14, `type` = 8, `npcflag` = 0, `unit_flags` = 0, `lootid` = 0, `skinloot` = 0, `pickpocketloot` = 0,
+    `mingold` = 0, `maxgold` = 0, `ExperienceModifier` = 0, `DamageModifier` = 0, `AIName` = '', `ScriptName` = 'npc_devourer_anima_pest',
+    `KillCredit1` = 0, `KillCredit2` = 0, `MovementType` = 0, `VerifiedBuild` = 0;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9101314, `name` = 'Anima-Fat Firefly';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`)
+SELECT 9101313, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 15475 AND `Idx` = 0
+UNION ALL SELECT 9101314, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 21076 AND `Idx` = 0;   -- Firefly
+
 -- --- the void under the cage: an unseen, unselectable creature wearing the Void Zone visual ------------------
 -- --- and the three quest credits (never spawned; their names are what the quest log would show) ------------
 CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15384;  -- OLDWorld Trigger
@@ -77,12 +92,15 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9101311, `name` = 'Roar at Wren';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9101312, `name` = 'Hagatha''s tale heard';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9101315, `name` = 'Anima pest devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES
 (9101303, 0, 11686, 1, 1, 0),
 (9101310, 0, 11686, 1, 1, 0),
 (9101311, 0, 11686, 1, 1, 0),
-(9101312, 0, 11686, 1, 1, 0);   -- the invisible stalker model
+(9101312, 0, 11686, 1, 1, 0),
+(9101315, 0, 11686, 1, 1, 0);   -- the invisible stalker model
 INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `visibilityDistanceType`, `auras`) VALUES
 (9101303, 0, 0, 0, 0, 0, 0, '64469');
 
@@ -136,23 +154,27 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `positi
 INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredNpcOrGo1`, `RequiredNpcOrGo2`, `RequiredNpcOrGoCount1`, `RequiredNpcOrGoCount2`, `ObjectiveText1`, `ObjectiveText2`, `ObjectiveText3`, `ObjectiveText4`, `VerifiedBuild`) VALUES
 (9101301, 2, 5, 5, 0, 0, 9101302, 4, 0, 0, 'Feeding Time', 'Kill 3 of Wren''s snacks and devour one of them.', 'Fluffy! No, Snack. Project #9! You''ll answer to all of them, I''ve decided.$B$BFirst chore on the list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them into your circle, you catch them. And don''t just bite them. EAT one. Properly, the way you do. I want to watch!', '', 'Return to Wren Hollowmoor.', 9101302, 9101310, 3, 1, '', 'Snack devoured', '', '', 0),
 (9101302, 2, 5, 5, 0, 0, 0, 4, 0, 0, 'A Trick for Wren', 'Roar at Wren Hollowmoor.', 'Every good pet knows a trick. The toad knows ''sit''. The other toad knows ''sit'' too, but louder.$B$BYou, Fluffy, are going to ROAR. Big and scary, right at me. Go on! I''ll pretend to be frightened. I''m very good at it.', '', 'Return to Wren Hollowmoor.', 9101311, 0, 1, 0, 'Roar at Wren', '', '', '', 0),
-(9101303, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'What the Dark Remembers', 'Ask Hagatha Hollowmoor for the tale of the hungry thing, and listen to its end.', 'My sister teaches you tricks. I will teach you what you are.$B$BEvery village has a story about something that came out of the dark and ate until it became something else. Sit, hungry thing. Ask me for the tale, and listen to the end of it. The ones who do not listen end up in it.', '', 'Return to Hagatha Hollowmoor.', 9101312, 0, 1, 0, 'Hear Hagatha''s tale', '', '', '', 0);
+(9101303, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'What the Dark Remembers', 'Ask Hagatha Hollowmoor for the tale of the hungry thing, and listen to its end.', 'My sister teaches you tricks. I will teach you what you are.$B$BEvery village has a story about something that came out of the dark and ate until it became something else. Sit, hungry thing. Ask me for the tale, and listen to the end of it. The ones who do not listen end up in it.', '', 'Return to Hagatha Hollowmoor.', 9101312, 0, 1, 0, 'Hear Hagatha''s tale', '', '', '', 0),
+(9101304, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'Pests in the Cells', 'Devour every anima-fat pest around Wren''s cages. Some of them can only be reached with your tongue.', 'Snack, I have a teeny problem. The bugs I test my spells on? They got out. All of them. They crawled off around the cells and found Hagatha''s store of anima, and they''ve been feasting on it, and now they MULTIPLY. Every time I catch one and squash it, there are more! I can''t cage the anima that comes flowing out of them.$B$BBut an ancient horror like you is made for exactly this. Just eat them. They might not be tasty... hmm, maybe you''ll learn to like them. Here, I''ll help you with it. Hold still!', '', 'Return to Wren Hollowmoor.', 9101315, 0, 10, 0, 'Anima pest devoured', '', '', '', 0);
 INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
 (9101301, 512, 0),
 (9101302, 512, 9101301),
-(9101303, 512, 9101302);
+(9101303, 512, 9101302),
+(9101304, 512, 9101303);
 INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`, `VerifiedBuild`) VALUES
 (9101301, 1, 1, 'Still squeaking in there? Somebody''s not done.', 0),
 (9101302, 1, 1, 'I''m waiting! Rooooar. Like that, but you.', 0),
-(9101303, 1, 1, 'The tale is not finished with you yet.', 0);
+(9101303, 1, 1, 'The tale is not finished with you yet.', 0),
+(9101304, 1, 1, 'I can still hear crunching, and it isn''t you. Keep eating!', 0);
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
 (9101301, 1, 'Crunchy! Hagatha, did you see? It ate it whole! Well. Mostly whole.$B$BGold star, Snack. Next chore!', 0),
 (9101302, 1, 'Eek! Ha! Oh, that was GOOD. That goes on the list of things you''re good at. It''s a short list. It''s a new list!$B$BNow go and sit nicely for Hagatha. She''s been dying to frighten you back.', 0),
-(9101303, 1, 'Now you know the shape beneath all your shapes. Remember it when you wear someone else''s.$B$BWren, break the circle. Our little horror has lessons to carry into the world, and it will come back to us for more.', 0);
+(9101303, 1, 'Now you know the shape beneath all your shapes. Remember it when you wear someone else''s.$B$BWren, break the circle. Our little horror has lessons to carry into the world, and it will come back to us for more.', 0),
+(9101304, 1, 'All of them? ALL of them? Oh, you lovely, horrible thing. Hagatha''s anima is safe and nothing is multiplying any more.$B$BKeep the frog. It suits you.', 0);
 INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
-(9101301, 9101301), (9101301, 9101302), (9101300, 9101303);
+(9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304);
 INSERT INTO `creature_questender` (`id`, `quest`) VALUES
-(9101301, 9101301), (9101301, 9101302), (9101300, 9101303);
+(9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304);
 
 -- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------
 INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES
@@ -174,7 +196,10 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (9101300, 7, 0, 'The circle lets you go. A circle is worse than a cage, hungry thing: you step out of it yourself, and choose what you become. Come back to us when you need teaching.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 7 (draft)'),
 (9101301, 8, 0, 'No dying in my circle! Up you get, Snack. I haven''t finished my list.', 12, 0, 100, 274, 0, 0, 0, 0, 'Wren 8 (PLACEHOLDER)'),
 (9101301, 9, 0, 'Ah-ah-ah! The circle holds you until the chores are done.', 12, 0, 100, 274, 0, 0, 0, 0, 'Wren 9 (PLACEHOLDER)'),
-(9101301, 10, 0, 'Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 10 (PLACEHOLDER)');
+(9101301, 10, 0, 'Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 10 (PLACEHOLDER)'),
+(9101301, 11, 0, 'Hold still, Snack! A little swamp, a little croak... there!', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 11 (draft)'),
+(9101301, 12, 0, 'Ha! A toad! The best kind of pet. Now go and eat my bugs. And look up: some of them hide where only a tongue can reach!', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 12 (draft)'),
+(9101301, 13, 0, 'Was that the last one? I think that was the last one! Come here and let me count.', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 13 (draft)');
 
 -- --- gossip: the text depends on who asks; training only for a Devourer whose cage is open ---------------
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES

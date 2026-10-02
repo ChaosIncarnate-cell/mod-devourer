@@ -117,6 +117,9 @@ namespace Devourer
         TaskHitBy        = 2,                    // be hit by a school (value = school mask)
         TaskDevourRarity = 3,                    // devour creatures at least this rare (value = rarity multiplier)
         TaskDevourType   = 4,                    // devour creatures of a type (value = creature type)
+        TaskDevourName   = 5,                    // devour creatures whose name holds one of name_part ('|'-separated),
+                                                 // value = creature type (0 = any)
+        TaskSpellHit     = 6,                    // hit an enemy with a spell (value = spell id; the frog line's scripts)
     };
 
     struct EvolutionTask
@@ -126,6 +129,7 @@ namespace Devourer
         uint32 Value = 0;
         uint32 Count = 0;
         std::string Text;
+        std::vector<std::string> Names;          // TaskDevourName: lower-case name parts
     };
 
     struct Evolution
@@ -134,6 +138,7 @@ namespace Devourer
         uint32 To = 0;
         uint32 Bp = 0;
         uint8 MinLevel = 0;
+        bool AnyTask = false;                    // the frog line (2026-10-02): any one task is enough, not all
         std::vector<EvolutionTask> Tasks;
     };
 
@@ -248,7 +253,7 @@ namespace Devourer
         void LoadGrowthData();
         [[nodiscard]] static uint32 Rarity(Creature const* creature);
         void GainBio(Player* player, Creature const* meal);
-        void TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount = 1);
+        void TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount = 1, std::string const& name = {});
         void CheckEvolution(Player* player);
         void SaveGrowth(Player* player);
         [[nodiscard]] std::string GrowthText(Player* player, uint32 shapeId);

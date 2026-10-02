@@ -16,6 +16,7 @@
 #include "Creature.h"
 #include "DatabaseEnv.h"
 #include "Player.h"
+#include <algorithm>
 #include <sstream>
 
 namespace Devourer
@@ -35,7 +36,7 @@ namespace Devourer
         }
 
         if (QueryResult result = WorldDatabase.Query(
-                "SELECT from_shape, to_shape, bp, min_level FROM devourer_evolution"))
+                "SELECT from_shape, to_shape, bp, min_level, any_task FROM devourer_evolution"))
         {
             do
             {
@@ -45,6 +46,7 @@ namespace Devourer
                 evo.To = f[1].Get<uint32>();
                 evo.Bp = f[2].Get<uint32>();
                 evo.MinLevel = f[3].Get<uint8>();
+                evo.AnyTask = f[4].Get<uint8>() != 0;
                 if (!_shapes.count(evo.From) || !_shapes.count(evo.To))
                     continue;
                 _evolutions.push_back(std::move(evo));
@@ -52,7 +54,8 @@ namespace Devourer
         }
 
         if (QueryResult result = WorldDatabase.Query(
-                "SELECT to_shape, task_id, kind, value, count, text FROM devourer_evolution_task ORDER BY task_id"))
+                "SELECT to_shape, task_id, kind, value, count, text, name_part FROM devourer_evolution_task "
+                "ORDER BY task_id"))
         {
             do
             {
@@ -64,6 +67,15 @@ namespace Devourer
                 task.Value = f[3].Get<uint32>();
                 task.Count = std::max<uint32>(1, f[4].Get<uint32>());
                 task.Text = f[5].Get<std::string>();
+                std::string parts = f[6].Get<std::string>();
+                std::transform(parts.begin(), parts.end(), parts.begin(), ::tolower);
+                for (size_t start = 0; start <= parts.size();)
+                {
+                    size_t const end = std::min(parts.find('|', start), parts.size());
+                    if (end > start)
+                        task.Names.push_back(parts.substr(start, end - start));
+                    start = end + 1;
+                }
                 for (Evolution& evo : _evolutions)
                     if (evo.To == to)
                         evo.Tasks.push_back(task);
@@ -129,11 +141,14 @@ namespace Devourer
 
         TaskEvent(player, TaskDevourRarity, Rarity(meal));
         TaskEvent(player, TaskDevourType, meal->GetCreatureType());
+        TaskEvent(player, TaskDevourName, meal->GetCreatureType(), 1, meal->GetName());
         CheckEvolution(player);
     }
 
-    void Mgr::TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount)
+    void Mgr::TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount, std::string const& name)
     {
+        std::string lower = name;
+        std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
         auto itr = _states.find(player->GetGUID().GetCounter());
         if (itr == _states.end() || !itr->second.Worn)
             return;
@@ -155,6 +170,13 @@ namespace Devourer
                     case TaskHitBy:        matches = (task.Value & value) != 0; break;
                     case TaskDevourRarity: matches = value >= task.Value; break;
                     case TaskDevourType:   matches = task.Value == value; break;
+                    case TaskDevourName:
+                        matches = !task.Value || task.Value == value;
+                        if (matches)
+                            matches = std::any_of(task.Names.begin(), task.Names.end(),
+                                [&lower](std::string const& part) { return lower.find(part) != std::string::npos; });
+                        break;
+                    case TaskSpellHit:     matches = task.Value == value; break;
                     default: break;
                 }
                 if (!matches)
@@ -184,10 +206,15 @@ namespace Devourer
                 continue;
             if (player->GetLevel() < evo.MinLevel || state.Bio[evo.From] < evo.Bp)
                 continue;
-            bool done = true;
+            bool done = !evo.AnyTask || evo.Tasks.empty();
             for (EvolutionTask const& task : evo.Tasks)
-                if (state.Tasks[{ evo.To, task.Id }] < task.Count)
+            {
+                bool const finished = state.Tasks[{ evo.To, task.Id }] >= task.Count;
+                if (evo.AnyTask && finished)
+                    done = true;
+                else if (!evo.AnyTask && !finished)
                     done = false;
+            }
             if (!done)
                 continue;
 
@@ -247,6 +274,8 @@ namespace Devourer
             text << "  Grows into " << to->Name << ": " << state.Bio[shapeId] << "/" << evo.Bp << " BP";
             if (player->GetLevel() < evo.MinLevel)
                 text << ", level " << uint32(evo.MinLevel);
+            if (evo.AnyTask && evo.Tasks.size() > 1)
+                text << "; any one of";
             for (EvolutionTask const& task : evo.Tasks)
                 text << "; " << task.Text << " " << std::min(task.Count, state.Tasks[{ evo.To, task.Id }]) << "/"
                      << task.Count;

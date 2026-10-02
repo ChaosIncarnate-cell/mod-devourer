@@ -18,7 +18,9 @@ Ids (all inside the Devourer's reserved spell range 9100000-9100999; 9100900+ so
                     (9100900-9100909 were the true-form kit, parked in commit fdf67e9: the true form comes later)
   9100910-9100989   starting forms: shape s (5-12) uses 9100910 + (s - 5) * 10 + slot
   9101000-9101099   later forms with their own block (owner, 2026-10-01): shape 13 Warp Stalker 9101000-9101009
-                    (the witch sisters' intro form)
+                    (the witch sisters' intro form); the frog line (owner, 2026-10-02, canvas "to be devoured"):
+                    shape 14 Biletoad 9101010-9101019 (Wren's pest chore), shape 15 Giant Marsh Frog 9101020-9101029
+                    (grows out of the Biletoad)
                     slot 0 form, 1-2 abilities, 3 passive, 4-5 abilities that open at levels 10 and 20,
                     6-9 helper spells the kit casts (task 009: Pup Bite, Poised to Strike, Silken Cocoon ...)
   Task 009: a starting form is a kind of creature (devourer_shape_family: any creature of that family gives it,
@@ -158,7 +160,7 @@ BASE = [
 # --- task 007: the eight starting forms ----------------------------------------------------------------------------
 class Form:
     def __init__(self, shape, name, zone, source, display, icon, colourings, diet, skin, one, two, passive_,
-                 later, family=0, food=(), extra=(), changes=(), base=0):
+                 later, family=0, food=(), extra=(), changes=(), base=0, scale=1, how=""):
         self.shape, self.name, self.zone, self.source, self.display, self.icon = shape, name, zone, source, display, icon
         self.colourings = colourings          # [(creature entry, display, skin name)]
         self.diet = diet                      # [(creature type, bp)]
@@ -171,6 +173,8 @@ class Form:
         self.food = list(food)                # task 009: [(creature type, family, name part, label)] -> 2x BP
         self.extra = list(extra)              # task 009: [(slot 6-9, template, overrides, texts)] helper spells
         self.changes = list(changes)          # task 009: what changed against the canvas card, and why
+        self.scale = scale                    # devourer_shape.scale (the frogs' model is critter-sized)
+        self.how = how                        # how it is gained when no creature gives it (source 0)
 
 
 def sid(shape, slot):
@@ -411,6 +415,107 @@ WARP = Form(13, "Warp Stalker", "the In-Between (the witch sisters' ritual), or 
                                          "increased by 3%.", "")),
             ("Tail Lash", "Warp Ambush"), family=32, base=9101000)
 
+# --- the frog line (owner, 2026-10-02, Parrot\to be devoured.canvas): Tier 1 and 2 now, the Huge Toad later ---------
+E_HEAL_PCT, E_PULL_TOWARDS, DUR_2S = 136, b.E_PULL_TOWARDS, b.DUR_2S
+RADIUS_6 = 29
+RANGE_15, RANGE_25, RANGE_8_25 = 11, 34, 95
+MECHANIC_DAZE = 27
+SWAMP_HOP_SPLASH, SWAMP_HOP_KNOCKDOWN = 9101016, 9101017      # Biletoad slots 6-7: cast by Swamp Hop on landing
+BELLY_FLOP_SLAM = 9101026                                     # Giant Marsh Frog slot 6: cast by Belly Flop on landing
+INSECTS = [(CREATURE_TYPE_CRITTER, 0, "", "")] + \
+    [(CREATURE_TYPE_BEAST, fam, "", "Insects") for fam in (FAMILY_SPIDER, FAMILY_SCORPID, FAMILY_MOTH)] + \
+    [(CREATURE_TYPE_BEAST, 0, part, "Insects") for part in ("beetle", "scarab", "roach", "locust", "fly")]
+
+
+def leap(template, range_index, cooldown, school):
+    """A leap at an enemy, as Hungering Lunge's; the module's script splashes where it lands."""
+    return (template, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": range_index,
+                               "RecoveryTime": cooldown, "SchoolMask": school, "AuraInterruptFlags": 0,
+                               "InterruptFlags": 0,
+                               **effects({"effect": E_JUMP_DEST, "target": T_DEST_TARGET_FRONT, "misc": 5,
+                                          "miscB": 150}),
+                               "EffectMultipleValue_1": 4.0}))
+
+
+BILETOAD = Form(
+    14, "Biletoad", "the In-Between (Wren Hollowmoor's chore \"Pests in the Cells\")", 0, 1924, 1987, [],
+    [(CREATURE_TYPE_CRITTER, 10), (CREATURE_TYPE_BEAST, 10), (0, 3)], "Biletoad",
+    (16552, ability({"RangeIndex": RANGE_25, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_9S,
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 5, "spread": 2, "target": T_ENEMY},
+                               aura(A_PERIODIC_DAMAGE, 2, target=T_ENEMY, period=3000), gain(5))}),
+     ("Poison Dart Spit", "Spit a poisoned dart: $s1 Nature damage, and $o2 more over 9 sec. Generates 5 Anima.",
+      "$s2 Nature damage every 3 sec.")),
+    (36398, ability({"RangeIndex": RANGE_20, "RecoveryTime": 12000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": DUR_4S, "EffectMechanic_2": MECHANIC_SNARE,
+                     **effects({"effect": E_PULL_TOWARDS, "misc": 200, "target": T_ENEMY},
+                               aura(A_MOD_DECREASE_SPEED, -50, target=T_ENEMY))}),
+     ("Tongue Pull", "Shoot your sticky tongue at an enemy up to 20 yards away and pull it to you: its movement is "
+      "slowed by 50% for 4 sec.", "Movement slowed by 50%.")),
+    None,
+    [(*leap(49376, RANGE_5_15, 15000, SCHOOL_NATURE),
+      ("Swamp Hop", "Hop onto an enemy 5 to 15 yards away. Where you land, poison splashes over every enemy within "
+       "5 yards: Nature damage, more over 6 sec, and they are knocked down for 1 sec.", "")),
+     (22686, ability({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S, "RecoveryTime": 20000,
+                      "Mechanic": MECHANIC_DAZE, **effects(around(A_MOD_DECREASE_SPEED, -50, radius=RADIUS_8))}),
+      ("Croak of Disorientation", "A deep, booming croak: enemies within 8 yards are dazed, their movement slowed by "
+       "50% for 6 sec.", "Dazed."))],
+    food=INSECTS,
+    extra=[(6, 10251, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S, "SchoolMask": SCHOOL_NATURE,
+                              **effects({"effect": E_SCHOOL_DAMAGE, "amount": 4, "spread": 2, "target": T_SRC_CASTER,
+                                         "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_5},
+                                        around(A_PERIODIC_DAMAGE, 2, radius=RADIUS_5, period=2000))}),
+            ("Swamp Hop", "", "$s2 Nature damage every 2 sec.")),
+           (7, CHARGE_STUN, helper({"DurationIndex": DUR_1S, "Mechanic": MECHANIC_STUN, "RangeIndex": RANGE_ANYWHERE,
+                                    "SchoolMask": SCHOOL_PHYSICAL, **effects(aura(A_MOD_STUN, target=T_ENEMY))}),
+            ("Swamp Hop", "", "Knocked down."))],
+    base=9101010, scale=4,
+    how="Not given by devouring: **Wren Hollowmoor's chore \"Pests in the Cells\"** (In-Between, after the three "
+        "intro chores) turns the Devourer into a Biletoad when it is accepted.",
+    changes=[
+        "No passive: the card lists four abilities, and its signature (Sticky Tongue Grapple) is Tongue Pull.",
+        "Swamp Hop knocks down for 1 sec where it lands: the Giant Marsh Frog's growth task \"Land 25 Hop "
+        "knockdowns\" needs a knockdown to count.",
+        "Swamp Hop opens at level 10 and Croak at 20, like every form's third and fourth ability.",
+        "Not given by devouring Biletoads in the world: the canvas says Wren's chore gives it.",
+    ])
+
+GIANT_MARSH_FROG = Form(
+    15, "Giant Marsh Frog", "grows out of the Biletoad", 0, 21950, 2379, [],
+    [(CREATURE_TYPE_CRITTER, 10), (CREATURE_TYPE_BEAST, 10), (0, 3)], "Giant Marsh Frog",
+    (32906, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 8000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects(hit(6), {"effect": E_HEAL_PCT, "amount": 8, "target": T_CASTER}, gain(5))}),
+     ("Gorging Chomp", "Chomp down on the enemy: weapon damage plus $s1, and you are healed for 8% of your maximum "
+      "health. Generates 5 Anima.", "")),
+    (*leap(49376, RANGE_8_25, 20000, SCHOOL_PHYSICAL),
+     ("Belly Flop", "Leap at an enemy 8 to 25 yards away and slam down belly first: every enemy within 6 yards takes "
+      "damage equal to 10% of your maximum health and is knocked down for 2 sec.", "")),
+    None,
+    [(27807, ability({"RangeIndex": RANGE_15, "RecoveryTime": 12000, "SchoolMask": SCHOOL_NATURE,
+                      "DurationIndex": DUR_15S,
+                      **effects({"effect": E_SCHOOL_DAMAGE, "amount": 10, "spread": 4, "target": T_ENEMY},
+                                aura(A_MOD_RESISTANCE_PCT, -25, 1, target=T_ENEMY))}),
+      ("Acid Vomit", "Vomit burning acid over an enemy: $s1 Nature damage, and its armor is reduced by 25% for "
+       "15 sec.", "Armor reduced by 25%.")),
+     (49822, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0, "AttributesEx3": 0,
+                      "DispelType": 0, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S, "RecoveryTime": 60000,
+                      **effects(aura(A_SCHOOL_ABSORB, 4000, SCHOOL_ALL))}),
+      ("Inflate", "Puff yourself up: absorbs 4000 damage for 10 sec.", "Absorbs damage."))],
+    extra=[(6, 27862, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_2S, "Mechanic": MECHANIC_STUN,
+                              "SchoolMask": SCHOOL_PHYSICAL,
+                              **effects({"effect": E_SCHOOL_DAMAGE, "amount": 1, "target": T_SRC_CASTER,
+                                         "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_6},
+                                        around(A_MOD_STUN, radius=RADIUS_6))}),
+            ("Belly Flop", "", "Knocked down."))],
+    base=9101020, scale=4,
+    how="Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, and any one of its three "
+        "tasks (devour 30 murlocs or swamp beasts, pull 40 enemies with Tongue Pull, land 25 Swamp Hop knockdowns).",
+    changes=[
+        "No passive: the card lists four abilities, and its signature is Belly Flop.",
+        "Belly Flop deals 10% of maximum health (the card: \"damage based on max HP\").",
+        "Inflate keeps the card's 4,000 absorb: a lot at level 14-20, for the owner to tune.",
+    ])
+
 FORMS = [
     WOLF,
     Form(6, "Trogg", "Coldridge Valley", 707, 606, 93, [], [(7, 10), (0, 3)], "Rockjaw",
@@ -453,6 +558,8 @@ FORMS = [
          (A_MOD_HIT_CHANCE, 2, 0, ("Echolocation", "Your chance to hit is increased by 2%.", "")),
          ("Sonic Burst", "Night Swarm")),
     WARP,
+    BILETOAD,
+    GIANT_MARSH_FROG,
     Form(12, "Mana Wyrm", "Sunstrider Isle", 15274, 16217, 1485, [], [(1, 10), (4, 10), (0, 3)], "Wyrm",
          (13901, ability({"Attributes": 0, "CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
                          "SchoolMask": SCHOOL_ARCANE,
@@ -467,13 +574,24 @@ FORMS = [
          ("Mana Tap", "Arcane Coil")),
 ]
 
+# The frog line's scripts (src/DevourerFrogs.cpp).
+SCRIPTS += [
+    (BILETOAD.base + 2, "spell_devourer_tongue_pull"),
+    (BILETOAD.base + 4, "spell_devourer_frog_leap"),
+    (SWAMP_HOP_SPLASH, "spell_devourer_swamp_hop_splash"),
+    (GIANT_MARSH_FROG.base + 2, "spell_devourer_frog_leap"),
+    (BELLY_FLOP_SLAM, "spell_devourer_belly_flop_slam"),
+]
+
 
 def form_spells(f: Form):
     """(id, level, template, overrides, texts) for one form: form, 2 abilities, passive, 2 later abilities, then
     the helper spells (task 009)."""
     one_t, one_o, one_x = f.one
     two_t, two_o, two_x = f.two
-    if len(f.passive) == 4:
+    if f.passive is None:                                            # the frog cards have no passive
+        p_t = p_o = p_x = None
+    elif len(f.passive) == 4:
         p_kind, p_amount, p_misc, p_x = f.passive
         p_t, p_o = 25941, passive(p_kind, p_amount, p_misc, f.icon)
     else:
@@ -482,6 +600,8 @@ def form_spells(f: Form):
     later_names = [l[2][0] for l in f.later] if designed else list(f.later)
     if f.family:                                                     # task 009: a kind of creature
         what = f"Take the shape of a {f.name.lower()} you have devoured"
+    elif not f.source:
+        what = f"Take the shape of the {f.name.lower()}"
     else:
         what = f"Take the shape of the {f.name.lower()} you devoured"
     out = [
@@ -491,13 +611,12 @@ def form_spells(f: Form):
             "Category": SHAPE_CATEGORY, "RecoveryTime": 0, "CategoryRecoveryTime": SHIFT_COOLDOWN,
             "StartRecoveryCategory": 133, "StartRecoveryTime": 1000, "InterruptFlags": 0, "AuraInterruptFlags": 0,
             "SpellIconID": f.icon, **effects(aura(A_TRANSFORM, 0, FORM_PLACEHOLDER_ENTRY))},
-         (f"{f.name} Form", f"{what}: {one_x[0]}, {two_x[0]} and "
-          f"{p_x[0]}; {later_names[0]} opens at level 10, {later_names[1]} at 20. All shapes share one cooldown.",
+         (f"{f.name} Form", f"{what}: {one_x[0]}" + (f", {two_x[0]} and {p_x[0]}" if p_x else f" and {two_x[0]}") +
+          f"; {later_names[0]} opens at level 10, {later_names[1]} at 20. All shapes share one cooldown.",
           f"Wearing the {f.name.lower()}'s shape.")),
         (f.base + 1, 1, one_t, one_o, one_x),
         (f.base + 2, 1, two_t, two_o, two_x),
-        (f.base + 3, 1, p_t, p_o, p_x),
-    ]
+    ] + ([(f.base + 3, 1, p_t, p_o, p_x)] if p_x else [])
     for slot, level, entry in ((4, 10, f.later[0]), (5, 20, f.later[1])):
         if designed:
             t, o, x = entry                                          # the level opens it (Mgr::KitSpellOpen)
@@ -599,36 +718,36 @@ def main() -> int:
         ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, 2, {hits}, 0, 0, 100, {cd}, {charges})"
                    for s, flags, types, hits, cd, charges in PROCS) + ";",
         "",
-        "-- Shapes 5-13: one per starting zone. spell_3 and spell_4 open at levels 10 and 20 (their spell level).",
-        "DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 13;",
+        "-- Shapes 5-13: one per starting zone; 14-15 the frog line. spell_3 and spell_4 open at levels 10 and 20 (their spell level).",
+        "DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`,"
         " `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES",
-        ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.display}, 1, {f.base + 1}, {f.base + 2}, {f.base + 4},"
-                   f" {f.base + 5}, {f.base + 3}, {f.display})" for f in FORMS) + ";",
+        ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.display}, {f.scale}, {f.base + 1}, {f.base + 2},"
+                   f" {f.base + 4}, {f.base + 5}, {f.base + 3 if f.passive else 0}, {f.display})" for f in FORMS) + ";",
         "",
         "-- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).",
         "-- Shape 0: a creature of a form's family that is not that body (task 009); it gives no shape.",
-        "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 13 OR `creature_entry` IN ("
+        "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 15 OR `creature_entry` IN ("
         + ", ".join(str(e) for e, _ in NOT_THAT_BODY) + ");",
         "INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`) VALUES",
-        ",\n".join([f"({f.source}, {f.shape}, 0)" for f in FORMS]
+        ",\n".join([f"({f.source}, {f.shape}, 0)" for f in FORMS if f.source]
                    + [f"({e}, {f.shape}, {d})" for f in FORMS for e, d, _ in f.colourings]
                    + [f"({e}, 0, 0)" for e, _ in NOT_THAT_BODY]) + ";",
         "-- Task 009: any creature of the family gives the shape; each of its looks (displays) is a colouring named",
         "-- after the creature. The module builds those colourings at startup from creature_template(_model).",
-        "DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 13;",
+        "DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",
         ",\n".join(f"({f.family}, {f.shape})" for f in FORMS if f.family) + ";",
         "-- Task 009: favourite food, 2x Bio Points for everyone. A row matches when every field it sets matches.",
-        "DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 13;",
+        "DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `name_part`, `label`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {fam}, {q(part)}, {q(label)})" for f in FORMS for t, fam, part, label in f.food)
         + ";",
-        "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 13;",
+        "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES",
         ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0)" for f in FORMS]
                    + [f"({d}, {f.shape}, {q(n)}, {d})" for f in FORMS for _, d, n in f.colourings if d]) + ";",
-        "DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 13;",
+        "DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {bp})" for f in FORMS for t, bp in f.diet) + ";",
         "",
@@ -671,14 +790,14 @@ def main() -> int:
     types = {CREATURE_TYPE_BEAST: "Beast", CREATURE_TYPE_ELEMENTAL: "Elemental", CREATURE_TYPE_CRITTER: "Critter"}
 
     def food_text(f):
-        parts, names = [], []
+        parts, names = [], {}
         for t, fam, part, label in f.food:
             if part:
-                names.append(part)
+                names.setdefault(t, []).append(part)
             else:
                 parts.append(f"family {families[fam]}" if fam else f"type {types[t]}")
-        if names:
-            parts.append(f"{types[CREATURE_TYPE_ELEMENTAL]}s named *{'*, *'.join(names)}*")
+        for t, named in names.items():
+            parts.append(f"{types[t]}s named *{'*, *'.join(named)}*")
         return " or ".join(parts)
 
     md += ["", "## Starting forms", "",
@@ -700,6 +819,8 @@ def main() -> int:
             if f.colourings:
                 md.append("Named colourings kept from task 007: " + ", ".join(
                     f"{e} → {d or 'base look'}" + (f" (`{n}`)" if n else "") for e, d, n in f.colourings) + ".")
+        elif f.how:
+            md.append(f.how + (f" Favourite food: {food_text(f)}." if f.food else ""))
         else:
             md.append(f"Devour **{f.source}** for the base look ({f.display}, skin `{f.skin}`)"
                       + ("; colourings: " + ", ".join(f"{e} → {d or 'base look'}" + (f" (`{n}`)" if n else "")

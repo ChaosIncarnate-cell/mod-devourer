@@ -930,7 +930,7 @@ namespace Devourer
             lines.push_back("Grows out of the " + (from ? from->Name : std::string("?")) + " shape: " +
                 std::to_string(evo.Bp) + " Bio Points, level " + std::to_string(evo.MinLevel));
             for (EvolutionTask const& task : evo.Tasks)
-                lines.push_back("Task: " + task.Text);
+                lines.push_back((evo.AnyTask && evo.Tasks.size() > 1 ? "Any one task: " : "Task: ") + task.Text);
         }
     }
 

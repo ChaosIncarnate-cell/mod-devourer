@@ -18,10 +18,11 @@ spots were picked from the server's navigation mesh for that map (floor heights 
 
 Ids (all removed by data/sql/uninstall/world.sql and characters.sql):
   creature_template      9101300 Hagatha, 9101301 Wren, 9101302 Wren's Snack (the rats of the first chore),
-                         9101303 the void under the cage, 9101310-9101312 quest credit (never spawned)
+                         9101303 the void under the cage, 9101310-9101312 quest credit (never spawned),
+                         9101313-9101314 the anima pests of Wren's fourth chore, 9101315 its credit
   creature (spawns)      9910200-9910202
   gameobject_template    9101300-9101309      gameobject (spawns) 9910200-9910229
-  quest                  9101301-9101303
+  quest                  9101301-9101304
   gossip_menu / npc_text 9101300-9101301 / 9101300-9101305 (conditions on the same menus)
   creature_default_trainer: both sisters -> trainer 9101200 (its spells: tools/start_kit.py)
 """
@@ -43,11 +44,15 @@ N = {"hagatha": HAGATHA_SHORT, "wren": WREN_SHORT, "Hagatha": HAGATHA, "Wren": W
 # --- ids --------------------------------------------------------------------------------------------------------
 NPC_HAGATHA, NPC_WREN, NPC_SNACK, NPC_VOID = 9101300, 9101301, 9101302, 9101303
 CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE = 9101310, 9101311, 9101312
+# Owner, 2026-10-02 (Parrot\to be devoured.canvas): Wren's fourth chore, the frog line's way in.
+NPC_PEST, NPC_PEST_PERCHED, CREDIT_PEST = 9101313, 9101314, 9101315
+PEST_SCRIPT = "npc_devourer_anima_pest"
+SHAPE_BILETOAD = 14                                  # tools/start_kit.py: the form Wren's spell puts on
 NPC_FIRST, NPC_LAST = 9101300, 9101399
 SPAWN_FIRST, SPAWN_LAST = 9910200, 9910299
 GO_FIRST, GO_LAST = 9101300, 9101399
 GO_CAGE = 9101300                                   # the Devourer's own cage: summoned per player, opens at the end
-Q_FEEDING, Q_TRICK, Q_TALE = 9101301, 9101302, 9101303
+Q_FEEDING, Q_TRICK, Q_TALE, Q_PESTS = 9101301, 9101302, 9101303, 9101304
 MENU_HAGATHA, MENU_WREN = 9101300, 9101301
 TRAINER = 9101200                                    # tools/start_kit.py: the class trainer and what it teaches
 CLASS_MASK = 512                                     # class 10
@@ -103,6 +108,15 @@ GO_SPAWNS = [  # (entry, x, y, z, orientation or None = facing the cage)
     (9101301, -108.0, 140.0, -40.31, None),
     (9101301, -88.0, 140.0, -40.24, None),
 ]
+
+# Wren's pests (the fourth chore): by each of her five cages one on the floor (2.5 yards towards the middle of the
+# hall) and one hovering 5 yards above it, out of reach of teeth: only a tongue gets it down. (x, y, z, perched)
+PEST_HEIGHT = 5.0
+PEST_SPOTS = []
+for _e, _x, _y, _z, _o in [g for g in GO_SPAWNS if g[0] == 9101301]:
+    _d = math.hypot(CAGE[0] - _x, CAGE[1] - _y)
+    PEST_SPOTS.append((round(_x + (CAGE[0] - _x) * 2.5 / _d, 2), round(_y + (CAGE[1] - _y) * 2.5 / _d, 2), _z, 0))
+    PEST_SPOTS.append((_x, _y, round(_z + PEST_HEIGHT, 2), 1))
 
 # Stock visual-only spells the module casts (3.3.5a Spell.dbc, no effect but the look):
 VISUAL_PULL = 52233        # Teleport Visual (Evil): the ritual takes hold
@@ -167,6 +181,12 @@ TEXTS = [
     # Wren, 10: a freed Devourer comes back (.inbetween)
     (NPC_WREN, 10, "Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!", EMOTE_CHEER,
      PLACEHOLDER),
+    # Wren, 11-13: the fourth chore (owner, 2026-10-02): her spell on accepting it, the frog, the last pest eaten
+    (NPC_WREN, 11, "Hold still, Snack! A little swamp, a little croak... there!", EMOTE_EXCLAMATION, DRAFT),
+    (NPC_WREN, 12, "Ha! A toad! The best kind of pet. Now go and eat my bugs. And look up: some of them hide where "
+     "only a tongue can reach!", EMOTE_LAUGH, DRAFT),
+    (NPC_WREN, 13, "Was that the last one? I think that was the last one! Come here and let me count.", EMOTE_CHEER,
+     DRAFT),
 ]
 
 # npc_text: (id, text, draft). Shown on the sisters' gossip; conditions pick one.
@@ -218,6 +238,21 @@ QUESTS = [
                 "{wren}, break the circle. Our little horror has lessons to carry into the world, and it will come back "
                 "to us for more.",
          complete="Return to {Hagatha}."),
+    # Owner, 2026-10-02 (Parrot\to be devoured.canvas): accepting it, Wren turns the Devourer into a Biletoad.
+    dict(id=Q_PESTS, giver=NPC_WREN, ender=NPC_WREN, prev=Q_TALE, next=0, xp=5,
+         title="Pests in the Cells",
+         log="Devour every anima-fat pest around {wren}'s cages. Some of them can only be reached with your tongue.",
+         details="Snack, I have a teeny problem. The bugs I test my spells on? They got out. All of them. They "
+                 "crawled off around the cells and found {hagatha}'s store of anima, and they've been feasting on it, "
+                 "and now they MULTIPLY. Every time I catch one and squash it, there are more! I can't cage the anima "
+                 "that comes flowing out of them.$B$BBut an ancient horror like you is made for exactly this. Just "
+                 "eat them. They might not be tasty... hmm, maybe you'll learn to like them. Here, I'll help you "
+                 "with it. Hold still!",
+         objectives=[(CREDIT_PEST, len(PEST_SPOTS), "Anima pest devoured")],
+         incomplete="I can still hear crunching, and it isn't you. Keep eating!",
+         reward="All of them? ALL of them? Oh, you lovely, horrible thing. {hagatha}'s anima is safe and nothing is "
+                "multiplying any more.$B$BKeep the frog. It suits you.",
+         complete="Return to {Wren}."),
 ]
 
 OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, action menu, who sees it)]
@@ -291,10 +326,10 @@ def build_sql() -> str:
         f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
         f"DELETE FROM `gameobject_template_addon` WHERE `entry` BETWEEN {GO_FIRST} AND {GO_LAST};",
         f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {GO_FIRST} AND {GO_LAST};",
-        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
-        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
-        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
-        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_TALE};",
+        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
+        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
+        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
+        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
         f"DELETE FROM `gossip_menu_option` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
         f"DELETE FROM `gossip_menu` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
         f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN ({MENU_HAGATHA},"
@@ -341,6 +376,27 @@ def build_sql() -> str:
         f"SELECT {NPC_SNACK}, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model`"
         " WHERE `CreatureID` = 4075 AND `Idx` = 0;",
         "",
+        "-- --- Wren's anima pests (the fourth chore): critters, hostile, never fight back, worth no experience;",
+        "-- --- summoned around the cages by the module, for each Devourer its own (beetles below, fireflies above)",
+        "CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15475;  -- Beetle",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {NPC_PEST}, `name` = 'Anima-Fat Beetle', `subname` = NULL,"
+        " `minlevel` = 5, `maxlevel` = 5,",
+        "    `faction` = 14, `type` = 8, `npcflag` = 0, `unit_flags` = 0, `lootid` = 0, `skinloot` = 0,"
+        " `pickpocketloot` = 0,",
+        "    `mingold` = 0, `maxgold` = 0, `ExperienceModifier` = 0, `DamageModifier` = 0, `AIName` = '',"
+        f" `ScriptName` = '{PEST_SCRIPT}',",
+        "    `KillCredit1` = 0, `KillCredit2` = 0, `MovementType` = 0, `VerifiedBuild` = 0;",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {NPC_PEST_PERCHED}, `name` = 'Anima-Fat Firefly';",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
+        "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
+        " `VerifiedBuild`)",
+        f"SELECT {NPC_PEST}, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model`"
+        " WHERE `CreatureID` = 15475 AND `Idx` = 0",
+        f"UNION ALL SELECT {NPC_PEST_PERCHED}, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `creature_template_model`"
+        " WHERE `CreatureID` = 21076 AND `Idx` = 0;   -- Firefly",
+        "",
         "-- --- the void under the cage: an unseen, unselectable creature wearing the Void Zone visual ------------------",
         "-- --- and the three quest credits (never spawned; their names are what the quest log would show) ------------",
         "CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15384;"
@@ -355,10 +411,12 @@ def build_sql() -> str:
         "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
         f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_TALE}, `name` = {q(f("{hagatha}'s tale heard"))};",
         "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+        f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_PEST}, `name` = 'Anima pest devoured';",
+        "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
         "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
         "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
         " `VerifiedBuild`) VALUES",
-        ",\n".join(f"({e}, 0, 11686, 1, 1, 0)" for e in (NPC_VOID, CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE))
+        ",\n".join(f"({e}, 0, 11686, 1, 1, 0)" for e in (NPC_VOID, CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE, CREDIT_PEST))
         + ";   -- the invisible stalker model",
         "INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`,"
         " `visibilityDistanceType`, `auras`) VALUES",
@@ -477,10 +535,15 @@ def build_header() -> str:
         f"    constexpr uint32_t CreditDevoured = {CREDIT_DEVOURED};",
         f"    constexpr uint32_t CreditRoar = {CREDIT_ROAR};",
         f"    constexpr uint32_t CreditTale = {CREDIT_TALE};",
+        f"    constexpr uint32_t NpcPest = {NPC_PEST};",
+        f"    constexpr uint32_t NpcPestPerched = {NPC_PEST_PERCHED};",
+        f"    constexpr uint32_t CreditPest = {CREDIT_PEST};",
+        f"    constexpr uint32_t ShapeBiletoad = {SHAPE_BILETOAD};",
         f"    constexpr uint32_t GoCage = {GO_CAGE};",
         f"    constexpr uint32_t QuestFeeding = {Q_FEEDING};",
         f"    constexpr uint32_t QuestTrick = {Q_TRICK};",
         f"    constexpr uint32_t QuestTale = {Q_TALE};",
+        f"    constexpr uint32_t QuestPests = {Q_PESTS};",
         f"    constexpr uint32_t MenuHagatha = {MENU_HAGATHA};",
         f"    constexpr uint32_t MenuWren = {MENU_WREN};",
         f"    constexpr uint32_t OptionTale = {OPT_TALE};",
@@ -494,11 +557,19 @@ def build_header() -> str:
         f"    constexpr uint32_t VisualSleep = {VISUAL_SLEEP};",
         f"    constexpr uint32_t VisualTransform = {VISUAL_TRANSFORM};",
         "",
+        "    // Wren's pests: x, y, z, perched (1 = hovering out of reach, only a tongue gets it down)",
+        "    struct PestSpot { float X, Y, Z; bool Perched; };",
+        "    constexpr PestSpot PestSpots[] =",
+        "    {",
+        *[f"        {{ {x}f, {y}f, {z}f, {'true' if p else 'false'} }}," for x, y, z, p in PEST_SPOTS],
+        "    };",
+        "",
         "    // creature_text groups",
         "    enum Line : uint8_t",
         "    {",
         "        WrenFoundYou = 0, WrenAwake = 1, WrenBeforeSpell = 2, WrenBaby = 3, WrenChores = 4, WrenSnacks = 5,",
         "        WrenRoar = 6, WrenCageOpen = 7, WrenNoDying = 8, WrenStayIn = 9, WrenWelcomeBack = 10,",
+        "        WrenPestSpell = 11, WrenPestToad = 12, WrenPestsGone = 13,",
         "        HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,",
         "        HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,",
         "    };",

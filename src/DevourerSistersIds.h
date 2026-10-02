@@ -12,10 +12,15 @@ namespace Devourer::Sisters
     constexpr uint32_t CreditDevoured = 9101310;
     constexpr uint32_t CreditRoar = 9101311;
     constexpr uint32_t CreditTale = 9101312;
+    constexpr uint32_t NpcPest = 9101313;
+    constexpr uint32_t NpcPestPerched = 9101314;
+    constexpr uint32_t CreditPest = 9101315;
+    constexpr uint32_t ShapeBiletoad = 14;
     constexpr uint32_t GoCage = 9101300;
     constexpr uint32_t QuestFeeding = 9101301;
     constexpr uint32_t QuestTrick = 9101302;
     constexpr uint32_t QuestTale = 9101303;
+    constexpr uint32_t QuestPests = 9101304;
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
@@ -29,11 +34,28 @@ namespace Devourer::Sisters
     constexpr uint32_t VisualSleep = 55474;
     constexpr uint32_t VisualTransform = 24085;
 
+    // Wren's pests: x, y, z, perched (1 = hovering out of reach, only a tongue gets it down)
+    struct PestSpot { float X, Y, Z; bool Perched; };
+    constexpr PestSpot PestSpots[] =
+    {
+        { -93.63f, 155.1f, -39.93f, false },
+        { -92.0f, 157.0f, -34.93f, true },
+        { -106.23f, 158.23f, -40.12f, false },
+        { -108.0f, 160.0f, -35.12f, true },
+        { -89.77f, 158.23f, -40.11f, false },
+        { -88.0f, 160.0f, -35.11f, true },
+        { -106.23f, 141.77f, -40.31f, false },
+        { -108.0f, 140.0f, -35.31f, true },
+        { -89.77f, 141.77f, -40.24f, false },
+        { -88.0f, 140.0f, -35.24f, true },
+    };
+
     // creature_text groups
     enum Line : uint8_t
     {
         WrenFoundYou = 0, WrenAwake = 1, WrenBeforeSpell = 2, WrenBaby = 3, WrenChores = 4, WrenSnacks = 5,
         WrenRoar = 6, WrenCageOpen = 7, WrenNoDying = 8, WrenStayIn = 9, WrenWelcomeBack = 10,
+        WrenPestSpell = 11, WrenPestToad = 12, WrenPestsGone = 13,
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
     };

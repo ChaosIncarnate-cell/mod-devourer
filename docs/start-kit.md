@@ -172,6 +172,44 @@ Devour **any creature of the Warp Stalker family** (e.g. 18464 for the base look
 | 9101004 | 10 | Tail Lash (placeholder) | Placeholder Warp Stalker ability (level 10): not designed yet. |
 | 9101005 | 20 | Warp Ambush (placeholder) | Placeholder Warp Stalker ability (level 20): not designed yet. |
 
+### Biletoad (shape 14, the In-Between (Wren Hollowmoor's chore "Pests in the Cells"))
+Not given by devouring: **Wren Hollowmoor's chore "Pests in the Cells"** (In-Between, after the three intro chores) turns the Devourer into a Biletoad when it is accepted. Favourite food: type Critter or family Spider or family Scorpid or family Moth or Beasts named *beetle*, *scarab*, *roach*, *locust*, *fly*.
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9101010 | 1 | Biletoad Form | Take the shape of the biletoad: Poison Dart Spit and Tongue Pull; Swamp Hop opens at level 10, Croak of Disorientation at 20. All shapes share one cooldown. |
+| 9101011 | 1 | Poison Dart Spit | Spit a poisoned dart: $s1 Nature damage, and $o2 more over 9 sec. Generates 5 Anima. |
+| 9101012 | 1 | Tongue Pull | Shoot your sticky tongue at an enemy up to 20 yards away and pull it to you: its movement is slowed by 50% for 4 sec. |
+| 9101014 | 10 | Swamp Hop | Hop onto an enemy 5 to 15 yards away. Where you land, poison splashes over every enemy within 5 yards: Nature damage, more over 6 sec, and they are knocked down for 1 sec. |
+| 9101015 | 20 | Croak of Disorientation | A deep, booming croak: enemies within 8 yards are dazed, their movement slowed by 50% for 6 sec. |
+| 9101016 | 1 | Swamp Hop | (cast by the kit) $s2 Nature damage every 2 sec. |
+| 9101017 | 1 | Swamp Hop | (cast by the kit) Knocked down. |
+
+Changes against the canvas card (task 009), and why:
+
+- No passive: the card lists four abilities, and its signature (Sticky Tongue Grapple) is Tongue Pull.
+- Swamp Hop knocks down for 1 sec where it lands: the Giant Marsh Frog's growth task "Land 25 Hop knockdowns" needs a knockdown to count.
+- Swamp Hop opens at level 10 and Croak at 20, like every form's third and fourth ability.
+- Not given by devouring Biletoads in the world: the canvas says Wren's chore gives it.
+
+### Giant Marsh Frog (shape 15, grows out of the Biletoad)
+Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, and any one of its three tasks (devour 30 murlocs or swamp beasts, pull 40 enemies with Tongue Pull, land 25 Swamp Hop knockdowns).
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9101020 | 1 | Giant Marsh Frog Form | Take the shape of the giant marsh frog: Gorging Chomp and Belly Flop; Acid Vomit opens at level 10, Inflate at 20. All shapes share one cooldown. |
+| 9101021 | 1 | Gorging Chomp | Chomp down on the enemy: weapon damage plus $s1, and you are healed for 8% of your maximum health. Generates 5 Anima. |
+| 9101022 | 1 | Belly Flop | Leap at an enemy 8 to 25 yards away and slam down belly first: every enemy within 6 yards takes damage equal to 10% of your maximum health and is knocked down for 2 sec. |
+| 9101024 | 10 | Acid Vomit | Vomit burning acid over an enemy: $s1 Nature damage, and its armor is reduced by 25% for 15 sec. |
+| 9101025 | 20 | Inflate | Puff yourself up: absorbs 4000 damage for 10 sec. |
+| 9101026 | 1 | Belly Flop | (cast by the kit) Knocked down. |
+
+Changes against the canvas card (task 009), and why:
+
+- No passive: the card lists four abilities, and its signature is Belly Flop.
+- Belly Flop deals 10% of maximum health (the card: "damage based on max HP").
+- Inflate keeps the card's 4,000 absorb: a lot at level 14-20, for the owner to tune.
+
 ### Mana Wyrm (shape 12, Sunstrider Isle)
 Devour **15274** for the base look (16217, skin `Wyrm`).
 
