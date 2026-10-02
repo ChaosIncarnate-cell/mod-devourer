@@ -411,10 +411,15 @@ WARP = Form(13, "Warp Stalker", "the In-Between (the witch sisters' ritual), or 
                              **effects(hit(4), gain(5))}),
              ("Warp Bite", "Bite through the space between: weapon damage plus $s1. Generates 5 Anima.", "")),
             (1953, {**CLEAN, "RecoveryTime": 15000, **GCD},                 # Blink keeps its own effects and rules
-             ("Warp", "Blink up to 20 yards forward, slipping out of stuns and roots.", "")),
+             ("Warp", "Blink up to 20 yards forward, slipping out of stuns and roots, then run 50% faster for "
+                      "3 sec.", "")),
             (A_MOD_DODGE_PERCENT, 3, 0, ("Phasing Hide", "Your body is never quite where it seems: chance to dodge "
                                          "increased by 3%.", "")),
-            ("Tail Lash", "Warp Ambush"), family=32, base=9101000)
+            ("Tail Lash", "Warp Ambush"), family=32, base=9101000,
+            # Owner, 2026-10-03: a speed boost after the blink (spell_devourer_warp casts it).
+            extra=[(6, 2983, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_3S,
+                                     **effects(aura(A_MOD_INCREASE_SPEED, 50))}),
+                    ("Warp Surge", "", "Movement speed increased by 50%."))])
 
 # --- the frog line (owner, 2026-10-02, Parrot\to be devoured.canvas): Tier 1 and 2 now, the Huge Toad later ---------
 E_HEAL_PCT, E_PULL_TOWARDS, DUR_2S = 136, b.E_PULL_TOWARDS, b.DUR_2S
@@ -582,6 +587,7 @@ SCRIPTS += [
     (SWAMP_HOP_SPLASH, "spell_devourer_swamp_hop_splash"),
     (GIANT_MARSH_FROG.base + 2, "spell_devourer_frog_leap"),
     (BELLY_FLOP_SLAM, "spell_devourer_belly_flop_slam"),
+    (WARP.base + 2, "spell_devourer_warp"),
 ]
 
 

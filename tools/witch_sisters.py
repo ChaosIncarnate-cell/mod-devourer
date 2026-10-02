@@ -59,7 +59,7 @@ CLASS_MASK = 512                                     # class 10
 SCRIPT = "npc_devourer_witch_sister"
 
 # Options the module answers (gossip_menu_option.OptionID); the rest the core handles.
-OPT_TRAIN, OPT_UNLEARN, OPT_DUALSPEC, OPT_TALE, OPT_BACK = 0, 1, 2, 3, 4
+OPT_TRAIN, OPT_UNLEARN, OPT_DUALSPEC, OPT_TALE, OPT_BACK, OPT_VENDOR = 0, 1, 2, 3, 4, 5
 
 # --- the In-Between ----------------------------------------------------------------------------------------------
 MAP = 35
@@ -261,6 +261,7 @@ OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, ac
         (OPT_TRAIN, 3, "I require training.", 0, 5, 16, 0, "trained"),
         (OPT_UNLEARN, 0, "I wish to unlearn my talents.", 62295, 16, 16, 4461, "trained"),
         (OPT_DUALSPEC, 0, "I wish to know about Dual Talent Specialization.", 33762, 20, 1, 10371, "trained"),
+        (OPT_VENDOR, 1, "I have things to sell.", 0, 3, 128, 0, "trained"),   # owner, 2026-10-03
         (OPT_TALE, 0, "Tell me the tale of the hungry thing.", 0, 1, 1, 0, "tale"),
         (OPT_BACK, 0, "Send me back to where you found me.", 0, 1, 1, 0, "trained"),
     ],
@@ -351,6 +352,8 @@ def build_sql() -> str:
         s.append(f"UPDATE `devourer_tmp_ct` SET `entry` = {entry}, `name` = {q(name)}, `gossip_menu_id` = {menu};")
         s.append("INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;")
     s += [
+        f"UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` = {NPC_HAGATHA};"
+        "  -- Hagatha buys (owner, 2026-10-03)",
         "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
         "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
         " `VerifiedBuild`)",

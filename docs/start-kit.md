@@ -168,10 +168,11 @@ Devour **any creature of the Warp Stalker family** (e.g. 18464 for the base look
 |---|---|---|---|
 | 9101000 | 1 | Warp Stalker Form | Take the shape of a warp stalker you have devoured: Warp Bite, Warp and Phasing Hide; Tail Lash opens at level 10, Warp Ambush at 20. All shapes share one cooldown. |
 | 9101001 | 1 | Warp Bite | Bite through the space between: weapon damage plus $s1. Generates 5 Anima.$B$B|cffb87830Warp Stalker form|r |
-| 9101002 | 1 | Warp | Blink up to 20 yards forward, slipping out of stuns and roots.$B$B|cffb87830Warp Stalker form|r |
+| 9101002 | 1 | Warp | Blink up to 20 yards forward, slipping out of stuns and roots, then run 50% faster for 3 sec.$B$B|cffb87830Warp Stalker form|r |
 | 9101003 | 1 | Phasing Hide | Your body is never quite where it seems: chance to dodge increased by 3%.$B$B|cffb87830Warp Stalker form|r |
 | 9101004 | 10 | Tail Lash (placeholder) | Placeholder Warp Stalker ability (level 10): not designed yet.$B$B|cffb87830Warp Stalker form|r |
 | 9101005 | 20 | Warp Ambush (placeholder) | Placeholder Warp Stalker ability (level 20): not designed yet.$B$B|cffb87830Warp Stalker form|r |
+| 9101006 | 1 | Warp Surge | (cast by the kit) Movement speed increased by 50%. |
 
 ### Biletoad (shape 14, the In-Between (Wren Hollowmoor's chore "Pests in the Cells"))
 Not given by devouring: **Wren Hollowmoor's chore "Pests in the Cells"** (In-Between, after the three intro chores) turns the Devourer into a Biletoad when it is accepted. Favourite food: type Critter or family Spider or family Scorpid or family Moth or Beasts named *beetle*, *scarab*, *roach*, *locust*, *fly*.

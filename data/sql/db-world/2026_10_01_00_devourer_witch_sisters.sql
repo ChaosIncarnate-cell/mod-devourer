@@ -46,6 +46,7 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9101300, `name` = 'Hagatha Hollowmoor', `
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9101301, `name` = 'Wren Hollowmoor', `gossip_menu_id` = 9101301;
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` = 9101300;  -- Hagatha buys (owner, 2026-10-03)
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`)
 SELECT `m`.`entry`, 0, `ctm`.`CreatureDisplayID`, `ctm`.`DisplayScale`, 1, 0 FROM (
@@ -220,6 +221,7 @@ INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionTex
 (9101300, 0, 3, 'I require training.', 0, 5, 16, 0, 0, 0, 0, '', 0, 0),
 (9101300, 1, 0, 'I wish to unlearn my talents.', 62295, 16, 16, 4461, 0, 0, 0, '', 0, 0),
 (9101300, 2, 0, 'I wish to know about Dual Talent Specialization.', 33762, 20, 1, 10371, 0, 0, 0, '', 0, 0),
+(9101300, 5, 1, 'I have things to sell.', 0, 3, 128, 0, 0, 0, 0, '', 0, 0),
 (9101300, 3, 0, 'Tell me the tale of the hungry thing.', 0, 1, 1, 0, 0, 0, 0, '', 0, 0),
 (9101300, 4, 0, 'Send me back to where you found me.', 0, 1, 1, 0, 0, 0, 0, '', 0, 0),
 (9101301, 0, 3, 'I require training.', 0, 5, 16, 0, 0, 0, 0, '', 0, 0),
@@ -238,6 +240,8 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 9101300, 1, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Hagatha: I wish to unlearn my talents. (cage open)'),
 (15, 9101300, 2, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Hagatha: I wish to know about Dual Talent Specialization. (Devourer)'),
 (15, 9101300, 2, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Hagatha: I wish to know about Dual Talent Specialization. (cage open)'),
+(15, 9101300, 5, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Hagatha: I have things to sell. (Devourer)'),
+(15, 9101300, 5, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Hagatha: I have things to sell. (cage open)'),
 (15, 9101300, 3, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Hagatha: Tell me the tale of the hungry thing. (Devourer)'),
 (15, 9101300, 3, 0, 0, 9, 0, 9101303, 0, 0, 0, 0, 0, '', 'Hagatha: Tell me the tale of the hungry thing. (on the third chore)'),
 (15, 9101300, 4, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Hagatha: Send me back to where you found me. (Devourer)'),

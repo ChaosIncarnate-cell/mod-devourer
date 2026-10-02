@@ -193,6 +193,22 @@ class spell_devourer_barbed_bristles : public AuraScript
     }
 };
 
+// Warp Stalker: Warp blinks forward, then Warp Surge (owner, 2026-10-03) makes it run faster for a moment.
+class spell_devourer_warp : public SpellScript
+{
+    PrepareSpellScript(spell_devourer_warp);
+
+    void Surge()
+    {
+        GetCaster()->CastSpell(GetCaster(), SpellWarpSurge, true);
+    }
+
+    void Register() override
+    {
+        AfterCast += SpellCastFn(spell_devourer_warp::Surge);
+    }
+};
+
 void AddSC_devourer_forms()
 {
     RegisterSpellScript(spell_devourer_pack_prowess);
@@ -201,4 +217,5 @@ void AddSC_devourer_forms()
     RegisterSpellScript(spell_devourer_phase_prowl);
     RegisterSpellScript(spell_devourer_cocoon);
     RegisterSpellScript(spell_devourer_barbed_bristles);
+    RegisterSpellScript(spell_devourer_warp);
 }

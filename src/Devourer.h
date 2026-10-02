@@ -62,6 +62,7 @@ namespace Devourer
     constexpr uint32 SpellWolfPupBite = 9100916;         // the spectral pups' bleed (Pack Prowess)
     constexpr uint32 SpellSaberPhaseProwl = 9100932;
     constexpr uint32 SpellSaberPoised = 9100936;         // Poised to Strike: Phase Prowl's opener bonus
+    constexpr uint32 SpellWarpSurge = 9101006;           // Warp Stalker: the speed after Warp (spell_devourer_warp)
     constexpr uint32 SpellMothSilkenCocoon = 9100946;    // Cocoon Metamorphosis wraps the moth in it
     constexpr uint32 SpellBoarBristlesHit = 9100956;     // Barbed Bristles' Nature damage
      // addon messages for the shape menu (client: DevourerMenu.lua)
