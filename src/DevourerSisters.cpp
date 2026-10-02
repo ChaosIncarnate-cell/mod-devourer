@@ -187,6 +187,24 @@ namespace
         return nullptr;
     }
 
+    // Task 014: both sisters channel at the Devourer while the ritual holds it (stock visual beam).
+    void Channel(Player* player, bool on)
+    {
+        for (uint32 entry : { NpcHagatha, NpcWren })
+        {
+            Creature* sister = Sister(player, entry);
+            if (!sister)
+                continue;
+            if (on)
+            {
+                sister->SetFacingToObject(player);
+                sister->CastSpell(player, SpellChannel, false);
+            }
+            else
+                sister->InterruptNonMeleeSpells(false, SpellChannel);
+        }
+    }
+
     void PutBackInCage(Player* player)
     {
         player->NearTeleportTo(CageX, CageY, CageZ + 0.3f, player->GetOrientation());
@@ -199,6 +217,7 @@ namespace
         if (GameObject* cage = ObjectAccessor::GetGameObject(*player, visit.Cage))
             cage->SetGoState(GO_STATE_ACTIVE);
         visit.CageGone = CageLingers;
+        Channel(player, false);
         Say(player, NpcWren, WrenCageOpen);
         Say(player, NpcHagatha, HagathaCageOpen, 6s);
     }
@@ -233,6 +252,8 @@ namespace
         Cage(player, visit);
         if (player->GetExactDist2d(CageX, CageY) > CageRadius)
             PutBackInCage(player);
+        if (!Freed(player))
+            Channel(player, true);
         // Never offered the first chore: the whole intro (also after a logout in the middle of it).
         if (player->GetQuestStatus(QuestFeeding) == QUEST_STATUS_NONE && !player->GetQuestRewardStatus(QuestFeeding))
         {

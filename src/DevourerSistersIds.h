@@ -33,6 +33,7 @@ namespace Devourer::Sisters
     constexpr uint32_t VisualArrive = 61456;
     constexpr uint32_t VisualSleep = 55474;
     constexpr uint32_t VisualTransform = 24085;
+    constexpr uint32_t SpellChannel = 40671;
 
     // Wren's pests: x, y, z, perched (1 = hovering out of reach, only a tongue gets it down)
     struct PestSpot { float X, Y, Z; bool Perched; };

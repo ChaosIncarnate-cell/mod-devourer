@@ -78,6 +78,14 @@ SISTERS = [  # (entry, spawn guid, name, menu, looks like (creature entry), x, y
 ]
 VOID_SPAWN = (9910202, CAGE[0], CAGE[1], CAGE[2])
 
+# Task 014: the ritual area. These displays are stock 3.3.5a GameObjectDisplayInfo ids picked WITHOUT a client to
+# look at: the owner checks each in game (README of PR) and changes the number here, then runs this script again.
+RUNE_DISPLAY = 7881        # a flat glowing rune ring (like the warlock's summoning ring); fallbacks: 3171, 5651
+BRAZIER_DISPLAY = 1291     # standing brazier with a flame; fallbacks: 1287, 462
+STONE_DISPLAY = 1431       # a rune-carved standing stone; fallbacks: 5233, 1432
+CHANNEL = 40671            # stock channelled beam the sisters hold on the Devourer; fallbacks: 59551, 31725
+RITUAL_RADIUS = 4.5        # yards from the middle of the circle: where candles, braziers and stones stand
+
 # Game objects: (entry, type, display, name, size, flags). Type 0 = door (the cage opens), 5 = decoration.
 GO_TEMPLATES = [
     (GO_CAGE, 0, 4154, "Wren's Cage", 1.2, 0x10),           # the larger stock cage (G_Cage 03), not clickable
@@ -87,10 +95,29 @@ GO_TEMPLATES = [
     (9101304, 5, 187, "Bookshelf", 1.0, 0),
     (9101305, 5, 107, "Book of Monster Tales", 1.0, 0),
     (9101306, 5, 6328, "Skull Pile", 1.0, 0),
-    (9101307, 5, 6406, "Skull Candle", 1.0, 0),
-    (9101308, 5, 4152, "Black Candle", 1.0, 0),
-    (9101309, 5, 465, "Ritual Circle", 1.5, 0),
+    (9101309, 5, RUNE_DISPLAY, "Ritual Rune Circle", 1.0, 0),   # task 014: glowing runes (was display 465, a dark disc)
+    (9101310, 5, 4152, "Ritual Candle", 1.0, 0),
+    (9101311, 5, BRAZIER_DISPLAY, "Ritual Brazier", 1.0, 0),
+    (9101312, 5, STONE_DISPLAY, "Ritual Standing Stone", 1.0, 0),
+    (9101313, 5, 107, "Ritual Book", 1.0, 0),
 ]
+# Task 014: eight candles round the rune circle, four braziers and four standing stones on a ring outside them,
+# two ritual books on the sisters' side. Floor height is the cage's: the hall floor is flat there (-40.28 .. -40.2).
+RITUAL_SPAWNS = []
+for _i in range(8):
+    _a = _i * math.pi / 4 + math.pi / 8
+    RITUAL_SPAWNS.append((9101310, round(CAGE[0] + 3.0 * math.cos(_a), 2), round(CAGE[1] + 3.0 * math.sin(_a), 2),
+                          -40.28, None))
+for _i in range(4):
+    _a = _i * math.pi / 2 + math.pi / 4
+    RITUAL_SPAWNS.append((9101311, round(CAGE[0] + RITUAL_RADIUS * math.cos(_a), 2),
+                          round(CAGE[1] + RITUAL_RADIUS * math.sin(_a), 2), -40.28, None))
+    _a += math.pi / 4
+    RITUAL_SPAWNS.append((9101312, round(CAGE[0] + RITUAL_RADIUS * math.cos(_a), 2),
+                          round(CAGE[1] + RITUAL_RADIUS * math.sin(_a), 2), -40.28, None))
+RITUAL_SPAWNS += [(9101313, -99.2, 155.6, -40.1, None), (9101313, -96.8, 155.6, -40.1, None)]
+# nothing stands within 2 yards of a sister (the ring would put a brazier in Hagatha)
+RITUAL_SPAWNS = [r for r in RITUAL_SPAWNS if all(math.hypot(r[1] - sx, r[2] - sy) >= 2.0 for sx, sy in ((-100.4, 153.4), (-95.6, 153.4)))]
 GO_SPAWNS = [  # (entry, x, y, z, orientation or None = facing the cage)
     (9101309, CAGE[0], CAGE[1], round(CAGE[2] + 0.05, 2), 0.0),      # the circle the ritual pulls the Devourer into
     (9101302, -98.0, 157.0, -39.93, None),                  # the cauldron behind the sisters
@@ -98,10 +125,7 @@ GO_SPAWNS = [  # (entry, x, y, z, orientation or None = facing the cage)
     (9101305, -102.7, 152.6, -40.15, None),
     (9101304, -105.5, 160.5, -40.21, None),
     (9101306, -103.5, 157.5, -40.02, None),
-    (9101307, -100.6, 146.8, -40.27, None),
-    (9101307, -95.4, 146.8, -40.27, None),
-    (9101308, -101.6, 150.0, -40.28, None),
-    (9101308, -94.4, 150.0, -40.28, None),
+    *RITUAL_SPAWNS,
     (9101301, -92.0, 157.0, -39.93, None),                  # Wren's cages: one beside her, four along the walls
     (9101301, -108.0, 160.0, -40.12, None),
     (9101301, -88.0, 160.0, -40.11, None),
@@ -563,6 +587,7 @@ def build_header() -> str:
         f"    constexpr uint32_t VisualArrive = {VISUAL_ARRIVE};",
         f"    constexpr uint32_t VisualSleep = {VISUAL_SLEEP};",
         f"    constexpr uint32_t VisualTransform = {VISUAL_TRANSFORM};",
+        f"    constexpr uint32_t SpellChannel = {CHANNEL};",
         "",
         "    // Wren's pests: x, y, z, perched (1 = hovering out of reach, only a tongue gets it down)",
         "    struct PestSpot { float X, Y, Z; bool Perched; };",
