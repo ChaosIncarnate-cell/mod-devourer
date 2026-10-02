@@ -25,6 +25,7 @@ patch tool rebuilds patch-Z from scratch: run `pack` again after it.
 from __future__ import annotations
 
 import argparse
+import os
 import datetime
 import shutil
 import struct
@@ -33,8 +34,10 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent.parent                                    # Z:\ChromaticawBots
-CLIENT_TOOLS = ROOT / "source" / "azerothcore-wotlk" / "modules" / "mod-devourer" / "tools" / "client"
+# Z:\ChromaticawBots: first parent folder that holds the game client (env CHROMATICAW_ROOT overrides)
+ROOT = Path(os.environ.get("CHROMATICAW_ROOT") or next(
+    (p for p in HERE.parents if (p / "WOW HD CLIENT").is_dir()), Path(r"Z:\ChromaticawBots")))
+CLIENT_TOOLS = HERE.parent / "client"                        # mod-devourer/tools/client
 sys.path.insert(0, str(CLIENT_TOOLS))
 
 import mpq                                                   # noqa: E402

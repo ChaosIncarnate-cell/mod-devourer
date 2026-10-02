@@ -41,8 +41,15 @@ a display; kept in `imports.json`), **3. Pack into game** (adds the displays to 
 CreatureDisplayInfo inside patch-Z and to the server's `*_dbc` tables; restart the server). Effects: particle emitters are converted (gravity unpacked, first texture of multi-texture emitters), ribbons kept;
 emitters that spawn little models are left out. Newer shaders: classic shader instead. The 3D view does not draw effects.
 
-## This copy
+## Where it lives
 
-Mirror of the live tool in `Z:\ChromaticawBots\tools\modeltool` (paths in `modeltool.py` are relative to that
-location: `ROOT = ..\..`). `staging\` and `work\` hold client assets and are never committed. `modeltool.bat` belongs
-in `Z:\ChromaticawBots\` (it `cd`s into `tools\modeltool`).
+This folder (mod-devourer `tools/modeltool`) is the only copy; `Z:\ChromaticawBots\modeltool.bat` starts it from
+here. It needs `../client` (mpq, dbc, build_client_patch). The game folder is found as the first parent folder that
+holds `WOW HD CLIENT` (override: env `CHROMATICAW_ROOT`). `staging\`, `work\` and `imports.json` hold client assets
+and are never committed.
+
+## For cloud sessions
+
+No game client, database or MPQ files exist in the cloud: `find`, `import`, `pack` and the web page's model data
+cannot run there. Work on the code, test the binary parsers with your own tiny hand-made fixtures if needed, keep
+`python -m py_compile *.py` clean, and say in the PR what the owner must test locally.
