@@ -201,6 +201,8 @@ namespace Devourer
 
         [[nodiscard]] Shape const* FindShape(uint32 shapeId) const;
         [[nodiscard]] Shape const* ShapeByFormSpell(uint32 spellId) const;
+        // A form ability cast outside its shape fails (2026-10-03: abilities stay learned instead of coming and going).
+        [[nodiscard]] bool KitSpellBlocked(Player* player, uint32 spellId);
         [[nodiscard]] Source const* SourceFor(uint32 creatureEntry) const;
         [[nodiscard]] uint32 ShapeForFamily(uint32 family) const;   // task 009: 0 = none
         [[nodiscard]] std::vector<Shape const*> AllShapes() const;
@@ -288,11 +290,13 @@ namespace Devourer
         [[nodiscard]] static bool KitSpellOpen(Player const* player, uint32 spellId);   // player level >= spell level
         void EatShape(Player* player, Creature* meal, std::string const& how);   // shape/colouring the meal carries
         void RevokeKit(Player* player, State& state);
+        void LearnKits(Player* player, State const& state);   // every open ability of every owned shape
         void RememberBar(Player* player, State& state, bool clear);   // reads (and clears) the kit's buttons
 
         std::unordered_map<ObjectGuid::LowType, State> _states;
         std::map<uint32, Shape> _shapes;
         std::unordered_map<uint32, uint32> _shapeByForm;
+        std::unordered_map<uint32, std::vector<uint32>> _shapesByKitSpell;   // kit spell -> shapes that use it
         std::unordered_map<uint32, Source> _sources;
         std::map<uint32, Skin> _skins;           // display id -> named colouring
         std::map<uint32, std::map<uint32, uint32>> _diet;   // shape -> creature type (0 = anything else) -> BP

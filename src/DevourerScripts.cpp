@@ -6,6 +6,7 @@
 #include "Devourer.h"
 #include "DevourerSpellIds.h"
 
+#include "AllSpellScript.h"
 #include "Chat.h"
 #include "CommandScript.h"
 #include "Creature.h"
@@ -875,8 +876,25 @@ public:
     }
 };
 
+// 2026-10-03: form abilities stay learned; this keeps each one to the shape it belongs to.
+class devourer_kit_check : public AllSpellScript
+{
+public:
+    devourer_kit_check() : AllSpellScript("devourer_kit_check") { }
+
+    void OnSpellCheckCast(Spell* spell, bool /*strict*/, SpellCastResult& res) override
+    {
+        if (res != SPELL_CAST_OK || spell->IsTriggered())
+            return;
+        Player* player = spell->GetCaster() ? spell->GetCaster()->ToPlayer() : nullptr;
+        if (player && sDevourer.KitSpellBlocked(player, spell->GetSpellInfo()->Id))
+            res = SPELL_FAILED_ONLY_SHAPESHIFT;
+    }
+};
+
 void AddSC_devourer()
 {
+    new devourer_kit_check();
     RegisterSpellAndAuraScriptPair(spell_devourer_devour, spell_devourer_devour_aura);
     RegisterSpellAndAuraScriptPair(spell_devourer_form, spell_devourer_form_aura);
     RegisterSpellScript(spell_devourer_unlock);

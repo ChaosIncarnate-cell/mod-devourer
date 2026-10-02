@@ -94,6 +94,7 @@ HIT_DODGE, HIT_PARRY = 0x10, 0x20
 ATTR0_NOT_IN_COMBAT = 0x10000000
 CREATURE_TYPE_BEAST, CREATURE_TYPE_ELEMENTAL, CREATURE_TYPE_CRITTER = 1, 4, 8
 FAMILY_WOLF, FAMILY_CAT, FAMILY_SPIDER, FAMILY_BOAR, FAMILY_CROCOLISK, FAMILY_SCORPID, FAMILY_MOTH = 1, 2, 3, 5, 6, 20, 37
+FAMILY_TALLSTRIDER = 12
 
 
 def hit(amount, spread=0):
@@ -469,7 +470,7 @@ BILETOAD = Form(
            (7, CHARGE_STUN, helper({"DurationIndex": DUR_1S, "Mechanic": MECHANIC_STUN, "RangeIndex": RANGE_ANYWHERE,
                                     "SchoolMask": SCHOOL_PHYSICAL, **effects(aura(A_MOD_STUN, target=T_ENEMY))}),
             ("Swamp Hop", "", "Knocked down."))],
-    base=9101010, scale=4,
+    base=9101010, scale=5.5,
     how="Not given by devouring: **Wren Hollowmoor's chore \"Pests in the Cells\"** (In-Between, after the three "
         "intro chores) turns the Devourer into a Biletoad when it is accepted.",
     changes=[
@@ -507,7 +508,7 @@ GIANT_MARSH_FROG = Form(
                                          "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_6},
                                         around(A_MOD_STUN, radius=RADIUS_6))}),
             ("Belly Flop", "", "Knocked down."))],
-    base=9101020, scale=4,
+    base=9101020, scale=5.5,
     how="Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, and any one of its three "
         "tasks (devour 30 murlocs or swamp beasts, pull 40 enemies with Tongue Pull, land 25 Swamp Hop knockdowns).",
     changes=[
@@ -541,7 +542,7 @@ FORMS = [
                         **effects(aura(A_MOD_INCREASE_SPEED, 40))}),
           ("Long Stride", "Run on long legs: movement speed increased by 40% for 15 sec.", "Movement speed increased by 40%.")),
          (A_MOD_INCREASE_SPEED, 8, 0, ("Long Legs", "Your movement speed is increased by 8%.", "")),
-         ("Peck", "Stampede")),
+         ("Peck", "Stampede"), family=FAMILY_TALLSTRIDER),   # 2026-10-03: every strider, each look a colouring
     Form(11, "Bat", "Deathknell", 1512, 4732, 1579, [], [(1, 10), (6, 10), (0, 3)], "Duskbat",
          (24423, ability({"Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
                          "RecoveryTime": 8000, "SchoolMask": SCHOOL_NATURE,
@@ -629,7 +630,10 @@ def form_spells(f: Form):
     for slot, t, o, x in f.extra:
         assert 6 <= slot <= 9, slot
         out.append((f.base + slot, 1, t, o, x))
-    return out
+    # 2026-10-03: the abilities stay in the spellbook, so each one says which shape it belongs to.
+    tag = f"|cffb87830{f.name} form|r"
+    return [(sid_, lvl, t, o, (x[0], f"{x[1]}$B$B{tag}" if x[1] else tag, x[2]))
+            if f.base < sid_ <= f.base + 5 else (sid_, lvl, t, o, x) for sid_, lvl, t, o, x in out]
 
 
 # --- trainers (task 006; task 010: the trainers are the witch sisters, tools/witch_sisters.py) -----------------
@@ -785,7 +789,7 @@ def main() -> int:
            "## Trainers", "",
            f"Trainer {TRAINER} teaches the base kit above. The Devourer's trainers are the Hollowmoor witch sisters "
            "in the In-Between (task 010): see `docs/witch-sisters.md`."]
-    families = {FAMILY_WOLF: "Wolf", FAMILY_CAT: "Cat", FAMILY_SPIDER: "Spider", FAMILY_BOAR: "Boar",
+    families = {FAMILY_TALLSTRIDER: "Tallstrider", FAMILY_WOLF: "Wolf", FAMILY_CAT: "Cat", FAMILY_SPIDER: "Spider", FAMILY_BOAR: "Boar",
                 FAMILY_CROCOLISK: "Crocolisk", FAMILY_SCORPID: "Scorpid", FAMILY_MOTH: "Moth", 32: "Warp Stalker"}
     types = {CREATURE_TYPE_BEAST: "Beast", CREATURE_TYPE_ELEMENTAL: "Elemental", CREATURE_TYPE_CRITTER: "Critter"}
 

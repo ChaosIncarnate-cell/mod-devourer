@@ -51,6 +51,7 @@ namespace Devourer
     {
         _shapes.clear();
         _shapeByForm.clear();
+        _shapesByKitSpell.clear();
         _sources.clear();
         _skins.clear();
 
@@ -77,6 +78,9 @@ namespace Devourer
                     continue;
                 }
                 _shapeByForm[shape.FormSpell] = shape.Id;
+                for (uint32 spellId : shape.Kit)
+                    if (spellId)
+                        _shapesByKitSpell[spellId].push_back(shape.Id);
                 _shapes[shape.Id] = std::move(shape);
             } while (result->NextRow());
         }
@@ -292,8 +296,8 @@ namespace Devourer
         auto itr = _states.find(player->GetGUID().GetCounter());
         if (itr == _states.end() || !itr->second.KitShape)
             return;
-        RememberBar(player, itr->second, true);          // remembers where they are, then takes them off
-        itr->second.KitShape = 0;                        // Forget must not remember the now empty slots
+        RememberBar(player, itr->second, false);         // the abilities stay learned, so their buttons stay too
+        itr->second.KitShape = 0;
     }
 
     void Mgr::Forget(Player* player)
@@ -584,18 +588,41 @@ namespace Devourer
         (void)formSpell;
     }
 
+    // 2026-10-03: form abilities are learned once (when the shape is owned and the level allows) and stay in the
+    // spellbook and on the bars; KitSpellBlocked keeps them to their own shape. Before, they were learned on every
+    // shift and unlearned on the way out, which spammed "You have learned", refilled the spellbook and cost the
+    // bar buttons. Only the shape's passive still comes and goes, as an aura.
+    void Mgr::LearnKits(Player* player, State const& state)
+    {
+        for (auto const& [id, owned] : state.Shapes)
+            if (Shape const* shape = FindShape(id))
+                for (uint32 spellId : shape->Kit)
+                    if (spellId && !player->HasSpell(spellId) && KitSpellOpen(player, spellId))
+                        player->learnSpell(spellId);
+    }
+
+    bool Mgr::KitSpellBlocked(Player* player, uint32 spellId)
+    {
+        auto itr = _shapesByKitSpell.find(spellId);
+        if (itr == _shapesByKitSpell.end() || !IsDevourer(player))
+            return false;
+        State& state = Get(player);
+        for (uint32 shapeId : itr->second)
+            if (state.KitShape == shapeId)
+                return false;
+        return true;
+    }
+
     void Mgr::GrantKit(Player* player, State& state, Shape const& shape)
     {
         RevokeKit(player, state);
-        std::vector<uint32> spells(shape.Kit.begin(), shape.Kit.end());
-        spells.push_back(shape.Passive);
-        for (uint32 spellId : spells)
-        {
-            if (!spellId || player->HasSpell(spellId) || !KitSpellOpen(player, spellId))
-                continue;
-            player->learnSpell(spellId, true);
-            state.Granted.push_back(spellId);
-        }
+        LearnKits(player, state);
+        for (uint32 spellId : shape.Kit)                 // also a shape worn but not owned (Wren's Biletoad)
+            if (spellId && !player->HasSpell(spellId) && KitSpellOpen(player, spellId))
+                player->learnSpell(spellId);
+        if (shape.Passive && sSpellMgr->GetSpellInfo(shape.Passive) && !player->HasAura(shape.Passive))
+            player->AddAura(shape.Passive, player);
+        state.KitShape = shape.Id;
 
         // Hotbar (Copus55, 2026-09-28): each ability goes back where the player last kept it in this shape;
         // the first time to the default slot (Devourer.ShapeBarSlot + i). A slot the player filled with
@@ -637,8 +664,8 @@ namespace Devourer
                 player->addActionButton(uint8(slot), spellId, ACTION_BUTTON_SPELL);
             }
             player->SendActionButtons(1);
+            RememberBar(player, state, false);           // a first placement is remembered right away
         }
-        state.KitShape = shape.Id;
     }
 
     void Mgr::RememberBar(Player* player, State& state, bool clear)
@@ -676,15 +703,14 @@ namespace Devourer
 
     void Mgr::RevokeKit(Player* player, State& state)
     {
-        if (state.KitShape)
+        if (Shape const* shape = FindShape(state.KitShape))
         {
-            RememberBar(player, state, true);
-            if (_shapeBarSlot)
-                player->SendActionButtons(1);
+            RememberBar(player, state, false);
+            if (shape->Passive)
+                player->RemoveAurasDueToSpell(shape->Passive);
         }
         state.KitShape = 0;
-        for (uint32 spellId : state.Granted)
-            player->removeSpell(spellId, SPEC_MASK_ALL, true);
+        // Characters from before 2026-10-03 may still carry temporary kit spells: they are permanent now.
         state.Granted.clear();
     }
 
@@ -787,7 +813,7 @@ namespace Devourer
             if (Shape const* shape = FindShape(id))
                 if (!player->HasSpell(shape->FormSpell))
                     player->learnSpell(shape->FormSpell);
-        // A level gained in a form can open one of its abilities.
+        // A level gained can open abilities; the worn shape's new ones also go on the bars.
         if (Shape const* worn = FindShape(state.KitShape))
         {
             bool opened = false;
@@ -796,6 +822,7 @@ namespace Devourer
             if (opened)
                 GrantKit(player, state, *worn);
         }
+        LearnKits(player, state);
     }
 
     // --- chat ---------------------------------------------------------------------------------------------

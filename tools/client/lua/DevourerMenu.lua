@@ -521,6 +521,11 @@ events:RegisterEvent("PLAYER_REGEN_ENABLED");
 events:SetScript("OnEvent", function(self, event, prefix, message, channel, sender)
 	if ( event == "PLAYER_ENTERING_WORLD" ) then
 		if ( IsDevourer("player") ) then
+			-- Anima is the rage bar: the client builds cost lines and the bar text from these strings, so a
+			-- Devourer's own client reads "Anima" (only this player's class decides it).
+			RAGE = "Anima";
+			RAGE_COST = "%d Anima";
+			RAGE_COST_PER_TIME = "%d Anima, plus %d per sec";
 			toggle:Show();
 			Server("menu");
 		else

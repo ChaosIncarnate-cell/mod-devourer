@@ -40,11 +40,11 @@ Named colourings kept from task 007: 69 → 31048 (`Timber`), 1508 → 447 (`Sca
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100910 | 1 | Wolf Form | Take the shape of a wolf you have devoured: Tear Throat, Hungering Lunge and Pack Prowess; Howl of the Pack opens at level 10, Ravaging Feast at 20. All shapes share one cooldown. |
-| 9100911 | 1 | Tear Throat | Tear at the enemy's throat: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 15 Anima. |
-| 9100912 | 1 | Hungering Lunge | Leap at an enemy 5 to 15 yards away and bite at its legs: its movement is slowed by 50% for 4 sec. |
-| 9100913 | 1 | Pack Prowess | Your strikes on an enemy below 30% health call two spectral wolf pups to your side for 6 sec. Their bites open bleeding wounds. Once every 15 sec. |
-| 9100914 | 10 | Howl of the Pack | Howl for the hunt: you and your group within 20 yards attack 10% faster for 15 sec. |
-| 9100915 | 20 | Ravaging Feast | Feast on the enemy's open wounds: your bleeds on it close at once, and you are healed for all the damage they had left to do, plus 3% of your maximum health for each. |
+| 9100911 | 1 | Tear Throat | Tear at the enemy's throat: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 15 Anima.$B$B|cffb87830Wolf form|r |
+| 9100912 | 1 | Hungering Lunge | Leap at an enemy 5 to 15 yards away and bite at its legs: its movement is slowed by 50% for 4 sec.$B$B|cffb87830Wolf form|r |
+| 9100913 | 1 | Pack Prowess | Your strikes on an enemy below 30% health call two spectral wolf pups to your side for 6 sec. Their bites open bleeding wounds. Once every 15 sec.$B$B|cffb87830Wolf form|r |
+| 9100914 | 10 | Howl of the Pack | Howl for the hunt: you and your group within 20 yards attack 10% faster for 15 sec.$B$B|cffb87830Wolf form|r |
+| 9100915 | 20 | Ravaging Feast | Feast on the enemy's open wounds: your bleeds on it close at once, and you are healed for all the damage they had left to do, plus 3% of your maximum health for each.$B$B|cffb87830Wolf form|r |
 | 9100916 | 1 | Pup Bite | (cast by the kit) Bleeding for $s1 every 2 sec. |
 
 Changes against the canvas card (task 009), and why:
@@ -62,11 +62,11 @@ Devour **707** for the base look (606, skin `Rockjaw`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100920 | 1 | Trogg Form | Take the shape of the trogg you devoured: Stone Fist, Stoneskin and Thick Skull; Rock Hurl opens at level 10, Tunnel Rage at 20. All shapes share one cooldown. |
-| 9100921 | 1 | Stone Fist | Hammer the enemy with a fist of stone: weapon damage plus $s1. Generates 5 Anima. |
-| 9100922 | 1 | Stoneskin | Your hide turns to stone: damage taken reduced by 10% for 10 sec. |
-| 9100923 | 1 | Thick Skull | Your armor is increased by 10%. |
-| 9100924 | 10 | Rock Hurl (placeholder) | Placeholder Trogg ability (level 10): not designed yet. |
-| 9100925 | 20 | Tunnel Rage (placeholder) | Placeholder Trogg ability (level 20): not designed yet. |
+| 9100921 | 1 | Stone Fist | Hammer the enemy with a fist of stone: weapon damage plus $s1. Generates 5 Anima.$B$B|cffb87830Trogg form|r |
+| 9100922 | 1 | Stoneskin | Your hide turns to stone: damage taken reduced by 10% for 10 sec.$B$B|cffb87830Trogg form|r |
+| 9100923 | 1 | Thick Skull | Your armor is increased by 10%.$B$B|cffb87830Trogg form|r |
+| 9100924 | 10 | Rock Hurl (placeholder) | Placeholder Trogg ability (level 10): not designed yet.$B$B|cffb87830Trogg form|r |
+| 9100925 | 20 | Tunnel Rage (placeholder) | Placeholder Trogg ability (level 20): not designed yet.$B$B|cffb87830Trogg form|r |
 
 ### Saber (shape 7, Shadowglen)
 Devour **any creature of the Cat family** (e.g. 2031 for the base look 11454, skin `Nightsaber`); each look is a colouring. Favourite food: family Cat or family Spider.
@@ -75,11 +75,11 @@ Named colourings kept from task 007: 15366 → 15507 (`Springpaw`), 15372 → 15
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100930 | 1 | Saber Form | Take the shape of a saber you have devoured: Anima Shred, Phase Prowl and Shadow Reflexes; Essence Rend opens at level 10, Flicker Step at 20. All shapes share one cooldown. |
-| 9100931 | 1 | Anima Shred | Shred the enemy: weapon damage plus $s1. Generates 10 Anima, 20 when you strike from behind. |
-| 9100932 | 1 | Phase Prowl | Slip between shadow and anima: unseen, but 30% slower. Your first strike out of it deals 50% more damage. Cannot be used in combat. |
-| 9100933 | 1 | Shadow Reflexes | When you dodge or parry an attack, you slip out of the fight and back into Phase Prowl. Once every 20 sec. |
-| 9100934 | 10 | Essence Rend | A finishing rend that spends your stored anima: the enemy bleeds for $o1 over 12 sec. |
-| 9100935 | 20 | Flicker Step | Flicker through the shadows to an enemy within 20 yards and appear behind it. |
+| 9100931 | 1 | Anima Shred | Shred the enemy: weapon damage plus $s1. Generates 10 Anima, 20 when you strike from behind.$B$B|cffb87830Saber form|r |
+| 9100932 | 1 | Phase Prowl | Slip between shadow and anima: unseen, but 30% slower. Your first strike out of it deals 50% more damage. Cannot be used in combat.$B$B|cffb87830Saber form|r |
+| 9100933 | 1 | Shadow Reflexes | When you dodge or parry an attack, you slip out of the fight and back into Phase Prowl. Once every 20 sec.$B$B|cffb87830Saber form|r |
+| 9100934 | 10 | Essence Rend | A finishing rend that spends your stored anima: the enemy bleeds for $o1 over 12 sec.$B$B|cffb87830Saber form|r |
+| 9100935 | 20 | Flicker Step | Flicker through the shadows to an enemy within 20 yards and appear behind it.$B$B|cffb87830Saber form|r |
 | 9100936 | 1 | Poised to Strike | (cast by the kit) Your next strike deals 50% more damage. |
 | 9100937 | 1 | Shadow Reflexes | (cast by the kit)  |
 
@@ -98,11 +98,11 @@ Devour **any creature of the Moth family** (e.g. 16520 for the base look 17574, 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100940 | 1 | Moth Form | Take the shape of a moth you have devoured: Siphon Proboscis, Luminescent Pulse and Cocoon Metamorphosis; Blinding Spores opens at level 10, Flutter Dash at 20. All shapes share one cooldown. |
-| 9100941 | 1 | Siphon Proboscis | Pierce the enemy and drink its life: $s1 Nature damage, and you are healed for as much. Generates 10 Anima. |
-| 9100942 | 1 | Luminescent Pulse | Your wings flare with moonlight: $s1 Arcane damage to enemies within 8 yards. Generates 5 Anima. |
-| 9100943 | 1 | Cocoon Metamorphosis | When a blow would drop you below 25% health, silk wraps you in a cocoon: for 3 sec nothing can harm you and you regain 30% of your maximum health, but you cannot act. Once per fight. |
-| 9100944 | 10 | Blinding Spores | Shake blinding spores into the enemy's eyes: it misses 20% more often for 6 sec. |
-| 9100945 | 20 | Flutter Dash | Beat your wings and glide: movement speed increased by 60%, and you fall slowly, for 6 sec. |
+| 9100941 | 1 | Siphon Proboscis | Pierce the enemy and drink its life: $s1 Nature damage, and you are healed for as much. Generates 10 Anima.$B$B|cffb87830Moth form|r |
+| 9100942 | 1 | Luminescent Pulse | Your wings flare with moonlight: $s1 Arcane damage to enemies within 8 yards. Generates 5 Anima.$B$B|cffb87830Moth form|r |
+| 9100943 | 1 | Cocoon Metamorphosis | When a blow would drop you below 25% health, silk wraps you in a cocoon: for 3 sec nothing can harm you and you regain 30% of your maximum health, but you cannot act. Once per fight.$B$B|cffb87830Moth form|r |
+| 9100944 | 10 | Blinding Spores | Shake blinding spores into the enemy's eyes: it misses 20% more often for 6 sec.$B$B|cffb87830Moth form|r |
+| 9100945 | 20 | Flutter Dash | Beat your wings and glide: movement speed increased by 60%, and you fall slowly, for 6 sec.$B$B|cffb87830Moth form|r |
 | 9100946 | 1 | Silken Cocoon | (cast by the kit) Wrapped in silk: nothing can harm you, and you regain 10% health every second. |
 
 Changes against the canvas card (task 009), and why:
@@ -121,11 +121,11 @@ Named colourings kept from task 007: 1984 → 8869 (`Thistle`), 113 → base loo
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100950 | 1 | Boar Form | Take the shape of a boar you have devoured: Gore, Primal Charge and Barbed Bristles; Thick Hide opens at level 10, Tusk Sweep at 20. All shapes share one cooldown. |
-| 9100951 | 1 | Gore | Gore the enemy with your tusks: weapon damage plus $s1, and its armor is torn by 4% for 15 sec, up to 5 times. Generates 10 Anima. |
-| 9100952 | 1 | Primal Charge | Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 15 Anima. |
-| 9100953 | 1 | Barbed Bristles | Your barbed bristles return 15% of the melee damage you take to the attacker as Nature damage. |
-| 9100954 | 10 | Thick Hide | Your hide hardens: damage taken reduced by 30% for 4 sec. |
-| 9100955 | 20 | Tusk Sweep | Sweep your tusks: weapon damage plus $s1 to the enemy and up to 2 others beside it. |
+| 9100951 | 1 | Gore | Gore the enemy with your tusks: weapon damage plus $s1, and its armor is torn by 4% for 15 sec, up to 5 times. Generates 10 Anima.$B$B|cffb87830Boar form|r |
+| 9100952 | 1 | Primal Charge | Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 15 Anima.$B$B|cffb87830Boar form|r |
+| 9100953 | 1 | Barbed Bristles | Your barbed bristles return 15% of the melee damage you take to the attacker as Nature damage.$B$B|cffb87830Boar form|r |
+| 9100954 | 10 | Thick Hide | Your hide hardens: damage taken reduced by 30% for 4 sec.$B$B|cffb87830Boar form|r |
+| 9100955 | 20 | Tusk Sweep | Sweep your tusks: weapon damage plus $s1 to the enemy and up to 2 others beside it.$B$B|cffb87830Boar form|r |
 | 9100956 | 1 | Barbed Bristles | (cast by the kit)  |
 
 Changes against the canvas card (task 009), and why:
@@ -137,16 +137,17 @@ Changes against the canvas card (task 009), and why:
 - Barbed Bristles answers melee hits only ("physical damage" from a level-1 enemy is melee).
 
 ### Plainstrider (shape 10, Camp Narache)
-Devour **2955** for the base look (1219, skin `Plainstrider`); colourings: 2956 → 1220 (`Tallstrider`).
+Devour **any creature of the Tallstrider family** (e.g. 2955 for the base look 1219, skin `Plainstrider`); each look is a colouring. Favourite food: .
+Named colourings kept from task 007: 2956 → 1220 (`Tallstrider`).
 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
-| 9100960 | 1 | Plainstrider Form | Take the shape of the plainstrider you devoured: Hind Kick, Long Stride and Long Legs; Peck opens at level 10, Stampede at 20. All shapes share one cooldown. |
-| 9100961 | 1 | Hind Kick | Kick back hard: weapon damage plus $s1, and the enemy is slowed by 30% for 4 sec. Generates 5 Anima. |
-| 9100962 | 1 | Long Stride | Run on long legs: movement speed increased by 40% for 15 sec. |
-| 9100963 | 1 | Long Legs | Your movement speed is increased by 8%. |
-| 9100964 | 10 | Peck (placeholder) | Placeholder Plainstrider ability (level 10): not designed yet. |
-| 9100965 | 20 | Stampede (placeholder) | Placeholder Plainstrider ability (level 20): not designed yet. |
+| 9100960 | 1 | Plainstrider Form | Take the shape of a plainstrider you have devoured: Hind Kick, Long Stride and Long Legs; Peck opens at level 10, Stampede at 20. All shapes share one cooldown. |
+| 9100961 | 1 | Hind Kick | Kick back hard: weapon damage plus $s1, and the enemy is slowed by 30% for 4 sec. Generates 5 Anima.$B$B|cffb87830Plainstrider form|r |
+| 9100962 | 1 | Long Stride | Run on long legs: movement speed increased by 40% for 15 sec.$B$B|cffb87830Plainstrider form|r |
+| 9100963 | 1 | Long Legs | Your movement speed is increased by 8%.$B$B|cffb87830Plainstrider form|r |
+| 9100964 | 10 | Peck (placeholder) | Placeholder Plainstrider ability (level 10): not designed yet.$B$B|cffb87830Plainstrider form|r |
+| 9100965 | 20 | Stampede (placeholder) | Placeholder Plainstrider ability (level 20): not designed yet.$B$B|cffb87830Plainstrider form|r |
 
 ### Bat (shape 11, Deathknell)
 Devour **1512** for the base look (4732, skin `Duskbat`).
@@ -154,11 +155,11 @@ Devour **1512** for the base look (4732, skin `Duskbat`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100970 | 1 | Bat Form | Take the shape of the bat you devoured: Screech, Blood Drain and Echolocation; Sonic Burst opens at level 10, Night Swarm at 20. All shapes share one cooldown. |
-| 9100971 | 1 | Screech | A piercing screech: $s1 Nature damage to enemies within 8 yards, and their attack power is reduced by 10 for 10 sec. Generates 5 Anima. |
-| 9100972 | 1 | Blood Drain | Drink the enemy's blood: $s1 Shadow damage every second for 5 sec, healing you for the same. |
-| 9100973 | 1 | Echolocation | Your chance to hit is increased by 2%. |
-| 9100974 | 10 | Sonic Burst (placeholder) | Placeholder Bat ability (level 10): not designed yet. |
-| 9100975 | 20 | Night Swarm (placeholder) | Placeholder Bat ability (level 20): not designed yet. |
+| 9100971 | 1 | Screech | A piercing screech: $s1 Nature damage to enemies within 8 yards, and their attack power is reduced by 10 for 10 sec. Generates 5 Anima.$B$B|cffb87830Bat form|r |
+| 9100972 | 1 | Blood Drain | Drink the enemy's blood: $s1 Shadow damage every second for 5 sec, healing you for the same.$B$B|cffb87830Bat form|r |
+| 9100973 | 1 | Echolocation | Your chance to hit is increased by 2%.$B$B|cffb87830Bat form|r |
+| 9100974 | 10 | Sonic Burst (placeholder) | Placeholder Bat ability (level 10): not designed yet.$B$B|cffb87830Bat form|r |
+| 9100975 | 20 | Night Swarm (placeholder) | Placeholder Bat ability (level 20): not designed yet.$B$B|cffb87830Bat form|r |
 
 ### Warp Stalker (shape 13, the In-Between (the witch sisters' ritual), or any warp stalker in Outland)
 Devour **any creature of the Warp Stalker family** (e.g. 18464 for the base look 20025, skin `Warp Stalker`); each look is a colouring. Favourite food: .
@@ -166,11 +167,11 @@ Devour **any creature of the Warp Stalker family** (e.g. 18464 for the base look
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9101000 | 1 | Warp Stalker Form | Take the shape of a warp stalker you have devoured: Warp Bite, Warp and Phasing Hide; Tail Lash opens at level 10, Warp Ambush at 20. All shapes share one cooldown. |
-| 9101001 | 1 | Warp Bite | Bite through the space between: weapon damage plus $s1. Generates 5 Anima. |
-| 9101002 | 1 | Warp | Blink up to 20 yards forward, slipping out of stuns and roots. |
-| 9101003 | 1 | Phasing Hide | Your body is never quite where it seems: chance to dodge increased by 3%. |
-| 9101004 | 10 | Tail Lash (placeholder) | Placeholder Warp Stalker ability (level 10): not designed yet. |
-| 9101005 | 20 | Warp Ambush (placeholder) | Placeholder Warp Stalker ability (level 20): not designed yet. |
+| 9101001 | 1 | Warp Bite | Bite through the space between: weapon damage plus $s1. Generates 5 Anima.$B$B|cffb87830Warp Stalker form|r |
+| 9101002 | 1 | Warp | Blink up to 20 yards forward, slipping out of stuns and roots.$B$B|cffb87830Warp Stalker form|r |
+| 9101003 | 1 | Phasing Hide | Your body is never quite where it seems: chance to dodge increased by 3%.$B$B|cffb87830Warp Stalker form|r |
+| 9101004 | 10 | Tail Lash (placeholder) | Placeholder Warp Stalker ability (level 10): not designed yet.$B$B|cffb87830Warp Stalker form|r |
+| 9101005 | 20 | Warp Ambush (placeholder) | Placeholder Warp Stalker ability (level 20): not designed yet.$B$B|cffb87830Warp Stalker form|r |
 
 ### Biletoad (shape 14, the In-Between (Wren Hollowmoor's chore "Pests in the Cells"))
 Not given by devouring: **Wren Hollowmoor's chore "Pests in the Cells"** (In-Between, after the three intro chores) turns the Devourer into a Biletoad when it is accepted. Favourite food: type Critter or family Spider or family Scorpid or family Moth or Beasts named *beetle*, *scarab*, *roach*, *locust*, *fly*.
@@ -178,10 +179,10 @@ Not given by devouring: **Wren Hollowmoor's chore "Pests in the Cells"** (In-Bet
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9101010 | 1 | Biletoad Form | Take the shape of the biletoad: Poison Dart Spit and Tongue Pull; Swamp Hop opens at level 10, Croak of Disorientation at 20. All shapes share one cooldown. |
-| 9101011 | 1 | Poison Dart Spit | Spit a poisoned dart: $s1 Nature damage, and $o2 more over 9 sec. Generates 5 Anima. |
-| 9101012 | 1 | Tongue Pull | Shoot your sticky tongue at an enemy up to 20 yards away and pull it to you: its movement is slowed by 50% for 4 sec. |
-| 9101014 | 10 | Swamp Hop | Hop onto an enemy 5 to 15 yards away. Where you land, poison splashes over every enemy within 5 yards: Nature damage, more over 6 sec, and they are knocked down for 1 sec. |
-| 9101015 | 20 | Croak of Disorientation | A deep, booming croak: enemies within 8 yards are dazed, their movement slowed by 50% for 6 sec. |
+| 9101011 | 1 | Poison Dart Spit | Spit a poisoned dart: $s1 Nature damage, and $o2 more over 9 sec. Generates 5 Anima.$B$B|cffb87830Biletoad form|r |
+| 9101012 | 1 | Tongue Pull | Shoot your sticky tongue at an enemy up to 20 yards away and pull it to you: its movement is slowed by 50% for 4 sec.$B$B|cffb87830Biletoad form|r |
+| 9101014 | 10 | Swamp Hop | Hop onto an enemy 5 to 15 yards away. Where you land, poison splashes over every enemy within 5 yards: Nature damage, more over 6 sec, and they are knocked down for 1 sec.$B$B|cffb87830Biletoad form|r |
+| 9101015 | 20 | Croak of Disorientation | A deep, booming croak: enemies within 8 yards are dazed, their movement slowed by 50% for 6 sec.$B$B|cffb87830Biletoad form|r |
 | 9101016 | 1 | Swamp Hop | (cast by the kit) $s2 Nature damage every 2 sec. |
 | 9101017 | 1 | Swamp Hop | (cast by the kit) Knocked down. |
 
@@ -198,10 +199,10 @@ Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9101020 | 1 | Giant Marsh Frog Form | Take the shape of the giant marsh frog: Gorging Chomp and Belly Flop; Acid Vomit opens at level 10, Inflate at 20. All shapes share one cooldown. |
-| 9101021 | 1 | Gorging Chomp | Chomp down on the enemy: weapon damage plus $s1, and you are healed for 8% of your maximum health. Generates 5 Anima. |
-| 9101022 | 1 | Belly Flop | Leap at an enemy 8 to 25 yards away and slam down belly first: every enemy within 6 yards takes damage equal to 10% of your maximum health and is knocked down for 2 sec. |
-| 9101024 | 10 | Acid Vomit | Vomit burning acid over an enemy: $s1 Nature damage, and its armor is reduced by 25% for 15 sec. |
-| 9101025 | 20 | Inflate | Puff yourself up: absorbs 4000 damage for 10 sec. |
+| 9101021 | 1 | Gorging Chomp | Chomp down on the enemy: weapon damage plus $s1, and you are healed for 8% of your maximum health. Generates 5 Anima.$B$B|cffb87830Giant Marsh Frog form|r |
+| 9101022 | 1 | Belly Flop | Leap at an enemy 8 to 25 yards away and slam down belly first: every enemy within 6 yards takes damage equal to 10% of your maximum health and is knocked down for 2 sec.$B$B|cffb87830Giant Marsh Frog form|r |
+| 9101024 | 10 | Acid Vomit | Vomit burning acid over an enemy: $s1 Nature damage, and its armor is reduced by 25% for 15 sec.$B$B|cffb87830Giant Marsh Frog form|r |
+| 9101025 | 20 | Inflate | Puff yourself up: absorbs 4000 damage for 10 sec.$B$B|cffb87830Giant Marsh Frog form|r |
 | 9101026 | 1 | Belly Flop | (cast by the kit) Knocked down. |
 
 Changes against the canvas card (task 009), and why:
@@ -216,8 +217,8 @@ Devour **15274** for the base look (16217, skin `Wyrm`).
 | Spell | Level | Name | What it does |
 |---|---|---|---|
 | 9100980 | 1 | Mana Wyrm Form | Take the shape of the mana wyrm you devoured: Arcane Bolt, Arcane Pulse and Mana Sheath; Mana Tap opens at level 10, Arcane Coil at 20. All shapes share one cooldown. |
-| 9100981 | 1 | Arcane Bolt | Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Anima. |
-| 9100982 | 1 | Arcane Pulse | Release the mana in you: $s1 Arcane damage to enemies within 8 yards. |
-| 9100983 | 1 | Mana Sheath | Magic damage taken reduced by 3%. |
-| 9100984 | 10 | Mana Tap (placeholder) | Placeholder Mana Wyrm ability (level 10): not designed yet. |
-| 9100985 | 20 | Arcane Coil (placeholder) | Placeholder Mana Wyrm ability (level 20): not designed yet. |
+| 9100981 | 1 | Arcane Bolt | Spit a bolt of raw arcane: $s1 Arcane damage. Generates 5 Anima.$B$B|cffb87830Mana Wyrm form|r |
+| 9100982 | 1 | Arcane Pulse | Release the mana in you: $s1 Arcane damage to enemies within 8 yards.$B$B|cffb87830Mana Wyrm form|r |
+| 9100983 | 1 | Mana Sheath | Magic damage taken reduced by 3%.$B$B|cffb87830Mana Wyrm form|r |
+| 9100984 | 10 | Mana Tap (placeholder) | Placeholder Mana Wyrm ability (level 10): not designed yet.$B$B|cffb87830Mana Wyrm form|r |
+| 9100985 | 20 | Arcane Coil (placeholder) | Placeholder Mana Wyrm ability (level 20): not designed yet.$B$B|cffb87830Mana Wyrm form|r |
