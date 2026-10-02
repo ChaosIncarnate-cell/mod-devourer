@@ -105,9 +105,34 @@ local function Devourer_SetIcon(texture, isDevourer, coords)
 	end
 end
 
+-- The HD client's row (patch-k) chains ... 9 -> 10 -> 6 and anchors button 11 to button 6, but button 11 is
+-- defined before button 6, so that anchor fails and the 11th class (Druid, once the Devourer is class 10) never
+-- shows. Re-chain at runtime, only for that layout: ... 9 -> 6 (Death Knight) -> 11 (Druid) -> 10 (Devourer).
+local devourerRowFixed;
+local function Devourer_FixClassRow()
+	if ( devourerRowFixed ) then
+		return;
+	end
+	devourerRowFixed = true;
+	local b6, b9, b10, b11 = CharacterCreateClassButton6, CharacterCreateClassButton9, CharacterCreateClassButton10, CharacterCreateClassButton11;
+	if ( not (b6 and b9 and b10 and b11) ) then
+		return;
+	end
+	local _, relativeTo = b6:GetPoint(1);
+	if ( relativeTo ~= b10 ) then
+		return;
+	end
+	local point, _, relativePoint, x, y = b10:GetPoint(1);
+	for _, pair in ipairs({ {b6, b9}, {b11, b6}, {b10, b11} }) do
+		pair[1]:ClearAllPoints();
+		pair[1]:SetPoint(point, pair[2], relativePoint, x, y);
+	end
+end
+
 if ( CharacterCreateEnumerateClasses ) then
 	local Devourer_EnumerateClasses = CharacterCreateEnumerateClasses;
 	function CharacterCreateEnumerateClasses(...)
+		Devourer_FixClassRow();
 		Devourer_EnumerateClasses(...);
 		local count = select("#", ...) / 3;
 		if ( count > MAX_CLASSES_PER_RACE ) then
