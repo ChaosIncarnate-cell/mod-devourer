@@ -118,6 +118,16 @@ namespace Devourer
         State& state = Get(player);
         KeepShapeShown(player, state);
         UpdateStomach(player, state, diff);
+        if (player->HasAura(SpellSniff))                 // task 013: marks prey while the toggle is on
+        {
+            if (state.SniffTimer > diff)
+                state.SniffTimer -= diff;
+            else
+            {
+                state.SniffTimer = SniffInterval;
+                SniffScan(player);
+            }
+        }
         if (state.SyncTimer > diff)
         {
             state.SyncTimer -= diff;

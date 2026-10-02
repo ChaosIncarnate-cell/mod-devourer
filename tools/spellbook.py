@@ -49,6 +49,7 @@ BASE_AND_SPEC = {
     9100032: "Devour (Quick Devour talent)",
     9100990: "Rush",
     9100992: "Concentrate",
+    9100995: "Sniff",
     9100011: "Bottomless Appetite (Glutton)",
     9100012: "Restless Skin (Skinchanger)",
     9100013: "Mother of the Brood (Brood)",

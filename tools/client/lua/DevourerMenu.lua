@@ -459,9 +459,122 @@ local function Split(text, sep)
 	return out;
 end
 
+-- --- Sniff (task 013) ----------------------------------------------------------------------------------
+-- While the Sniff aura is on, the server sends the names of nearby creatures worth eating every few seconds
+-- (Mgr::SniffScan): kind N = would give a new shape or colouring, kind F = the worn shape's favourite food.
+-- The marks are drawn on the nameplates (turn them on with V) and on the target frame, by name: a gold star
+-- for N, a green triangle for F. They expire by themselves when the server stops refreshing them.
+local SNIFF_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcons";
+local SNIFF_COORDS = { N = { 0, 0.25, 0, 0.25 }, F = { 0.75, 1, 0, 0.25 } };      -- star, triangle
+local SNIFF_EXPIRE = 10;
+local sniffMarks, sniffPending, sniffStamp = {}, nil, 0;
+local nameplates, nameplateCount = {}, 0;
+
+local function SniffKind(name)
+	if ( name and sniffMarks[name] and GetTime() - sniffStamp < SNIFF_EXPIRE ) then
+		return sniffMarks[name];
+	end
+end
+
+local function SetMark(texture, kind)
+	if ( kind ) then
+		texture:SetTexCoord(unpack(SNIFF_COORDS[kind]));
+		texture:Show();
+	else
+		texture:Hide();
+	end
+end
+
+local function IsNameplate(frame)
+	if ( frame:GetName() ) then
+		return false;
+	end
+	local region = frame:GetRegions();
+	return region and region.GetObjectType and region:GetObjectType() == "Texture"
+		and region:GetTexture() == "Interface\\Tooltips\\Nameplate-Border";
+end
+
+local function NameplateName(plate)
+	for _, region in ipairs({ plate:GetRegions() }) do
+		if ( region:GetObjectType() == "FontString" ) then
+			return region:GetText();
+		end
+	end
+end
+
+local function PlateMark(plate)
+	if ( not plate.devourerSniff ) then
+		local t = plate:CreateTexture(nil, "OVERLAY");
+		t:SetTexture(SNIFF_ICON);
+		t:SetWidth(28);
+		t:SetHeight(28);
+		t:SetPoint("BOTTOM", plate, "TOP", 0, -4);
+		plate.devourerSniff = t;
+	end
+	return plate.devourerSniff;
+end
+
+local targetMark = TargetFrame:CreateTexture(nil, "OVERLAY");
+targetMark:SetTexture(SNIFF_ICON);
+targetMark:SetWidth(26);
+targetMark:SetHeight(26);
+targetMark:SetPoint("LEFT", TargetFrame, "TOPRIGHT", -10, -30);
+targetMark:Hide();
+
+local sniffClock = 0;
+local sniffFrame = CreateFrame("Frame");
+sniffFrame:SetScript("OnUpdate", function(self, elapsed)
+	sniffClock = sniffClock + elapsed;
+	if ( sniffClock < 0.1 ) then
+		return;
+	end
+	sniffClock = 0;
+	local children = WorldFrame:GetNumChildren();
+	if ( children ~= nameplateCount ) then
+		nameplateCount = children;
+		nameplates = {};
+		for _, frame in ipairs({ WorldFrame:GetChildren() }) do
+			if ( IsNameplate(frame) ) then
+				table.insert(nameplates, frame);
+			end
+		end
+	end
+	for _, plate in ipairs(nameplates) do
+		if ( plate:IsShown() ) then
+			SetMark(PlateMark(plate), SniffKind(NameplateName(plate)));
+		elseif ( plate.devourerSniff ) then
+			plate.devourerSniff:Hide();
+		end
+	end
+	SetMark(targetMark, UnitExists("target") and not UnitIsPlayer("target") and SniffKind(UnitName("target")) or nil);
+end);
+
+local function SniffMessage(message)
+	local kind = string.sub(message, 1, 1);
+	if ( kind == "Z" ) then
+		sniffMarks, sniffPending = {}, nil;
+	elseif ( kind == "Q" ) then
+		sniffPending = {};
+	elseif ( kind == "P" and sniffPending ) then
+		-- P:<N or F>:<name>|<name>|...
+		local mark, list = string.match(message, "^P:(%a):(.*)$");
+		if ( mark and SNIFF_COORDS[mark] ) then
+			for _, name in ipairs(Split(list, "|")) do
+				if ( mark == "N" or not sniffPending[name] ) then
+					sniffPending[name] = mark;
+				end
+			end
+		end
+	elseif ( kind == "R" and sniffPending ) then
+		sniffMarks, sniffPending, sniffStamp = sniffPending, nil, GetTime();
+	end
+end
+
 local function OnMessage(message)
 	local kind = string.sub(message, 1, 1);
-	if ( kind == "C" ) then
+	if ( kind == "Z" or kind == "Q" or kind == "P" or kind == "R" ) then
+		SniffMessage(message);
+	elseif ( kind == "C" ) then
 		pendingCatalog = {};
 	elseif ( kind == "A" ) then
 		isGM = string.sub(message, 3) == "1";

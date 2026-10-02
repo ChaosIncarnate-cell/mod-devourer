@@ -74,6 +74,7 @@ CHARGE_STUN = 7922                     # stock "Charge Stun": the knock-down aft
 # The base kit (owner, 2026-09-30): Anima is the Devourer's resource (the rage bar, renamed); shifting costs it
 # (the module: Devourer.AnimaPerShift), Concentrate gathers it, Rush needs no target.
 RUSH, RUSH_HIT, CONCENTRATE, ANIMA = 9100990, 9100991, 9100992, 9100993
+SNIFF = 9100995                     # task 013: toggle that marks prey on the client (module: DevourerSniff.cpp)
 STRIDE = 9100994                    # owner, 2026-10-03: every shape runs 15% faster (the module adds it)
 A_MOD_SPEED_ALWAYS = 129            # stacks with a shape's own speed bonus (MOD_INCREASE_SPEED takes the highest)
 ATTR0_CANT_CANCEL = 0x80000000
@@ -157,6 +158,15 @@ BASE = [
         "RecoveryTime": 0, "StartRecoveryCategory": 0, "StartRecoveryTime": 0, "InterruptFlags": 0,
         "AuraInterruptFlags": 0, **effects(aura(A_MOD_SPEED_ALWAYS, 15))},
      ("Shape's Stride", "Every shape runs 15% faster.", "Movement speed increased by 15%.")),
+    (SNIFF, 1, 0, 1494, {                                            # Track Beasts' icon; the module scans and marks
+        **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
+        "AttributesEx3": 0, "Targets": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": DUR_INFINITE,
+        "RangeIndex": RANGE_SELF, "RecoveryTime": 1000, "StartRecoveryCategory": 0, "StartRecoveryTime": 0,
+        "InterruptFlags": 0, "ChannelInterruptFlags": 0, "AuraInterruptFlags": 0,
+        **effects(aura(A_DUMMY))},
+     ("Sniff", "Toggle: while on, creatures within 40 yards that would give you a new shape or colouring are "
+      "marked with a gold star, and your worn shape's favourite food with a green triangle (on nameplates and "
+      "the target frame).", "Sniffing out prey.")),
     (CONCENTRATE, 1, 0, 2687, {                                      # Bloodrage: the surge of power
         **CLEAN, **NO_MECHANICS, "Targets": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0,
         "RangeIndex": RANGE_SELF, "RecoveryTime": 30000, **effects(gain(30))},
@@ -730,7 +740,7 @@ def main() -> int:
         f"DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES",
         ",\n".join([f"({s}, 'spell_devourer_form')" for s in forms]
-                   + [f"({RUSH}, 'spell_devourer_rush')"]
+                   + [f"({RUSH}, 'spell_devourer_rush')", f"({SNIFF}, 'spell_devourer_sniff')"]
                    + [f"({s}, '{n}')" for s, n in SCRIPTS]) + ";",
         f"DELETE FROM `spell_custom_attr` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES",

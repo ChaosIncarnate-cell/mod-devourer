@@ -62,6 +62,10 @@ namespace Devourer
     constexpr uint32 SpellWolfPupBite = 9100916;         // the spectral pups' bleed (Pack Prowess)
     constexpr uint32 SpellSaberPhaseProwl = 9100932;
     constexpr uint32 SpellSaberPoised = 9100936;         // Poised to Strike: Phase Prowl's opener bonus
+    constexpr uint32 SpellSniff = 9100995;               // task 013: toggle aura, marks prey on the client (Mgr::SniffScan)
+    constexpr float SniffRadius = 40.0f;                 // yards around the Devourer
+    constexpr uint32 SniffInterval = 3000;               // ms between two scans
+    constexpr uint8 SniffMaxNames = 60;                  // names sent per scan
     constexpr uint32 SpellShapeStride = 9100994;         // every shape runs 15% faster (owner, 2026-10-03)
     constexpr uint32 SpellWarpSurge = 9101006;           // Warp Stalker: the speed after Warp (spell_devourer_warp)
     constexpr uint32 SpellMothSilkenCocoon = 9100946;    // Cocoon Metamorphosis wraps the moth in it
@@ -182,6 +186,9 @@ namespace Devourer
 
         // Task 009 (runtime only)
         bool CocoonUsed = false;                         // Moth: Cocoon Metamorphosis, once per fight
+
+        // Task 013 (runtime only)
+        uint32 SniffTimer = 0;                           // ms until the next scan while Sniff is on
     };
 
     constexpr uint8 NotOnBar = 255;                      // the player took that ability off the bars
@@ -230,6 +237,13 @@ namespace Devourer
         [[nodiscard]] std::list<Creature*> RisenSerpents(Player* player) const;   // ChaosCore0.2
         void OnAutoAttackHit(Player* player);                                     // ChaosCore0.2: Hunger per swing
         void MirrorSpell(Player* player, Spell const* spell);
+
+        // --- task 013: Sniff -----------------------------------------------------------------------------
+        // Marks creatures around the Devourer on its client (addon messages, see SniffScan): 'N' = would give a new
+        // shape or colouring, 'F' = the worn shape's favourite food, 0 = nothing to mark.
+        [[nodiscard]] char SniffKind(Player* player, Creature const* creature);
+        void SniffScan(Player* player);
+        void SniffClear(Player* player) const;
 
         // --- ChaosCore0.3: the Glutton's talents and meals --------------------------------------------
         [[nodiscard]] uint32 FavouriteFood(uint32 shapeId) const;   // the creature type a shape's diet rates highest
@@ -291,6 +305,9 @@ namespace Devourer
         void GrantKit(Player* player, State& state, Shape const& shape);
         [[nodiscard]] static bool KitSpellOpen(Player const* player, uint32 spellId);   // player level >= spell level
         void EatShape(Player* player, Creature* meal, std::string const& how);   // shape/colouring the meal carries
+        // The shape and colouring a creature gives (devourer_shape_source first, else its family); null = nothing.
+        [[nodiscard]] Shape const* MealShape(Creature const* meal, Source& out) const;
+        void SendAddon(Player* player, std::string const& line) const;
         void RevokeKit(Player* player, State& state);
         void LearnKits(Player* player, State const& state);   // every open ability of every owned shape
         void RememberBar(Player* player, State& state, bool clear);   // reads (and clears) the kit's buttons

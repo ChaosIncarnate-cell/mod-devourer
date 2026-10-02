@@ -428,22 +428,28 @@ namespace Devourer
             Feast(player, corpse);
     }
 
+    Shape const* Mgr::MealShape(Creature const* meal, Source& out) const
+    {
+        if (Source const* source = SourceFor(meal->GetEntry()))
+            out = *source;
+        else if (uint32 const shapeId = ShapeForFamily(meal->GetCreatureTemplate()->family))
+        {
+            // Task 009: no row of its own, so its kind decides: any creature of a form's family gives the form, and
+            // its look is the colouring.
+            auto skin = _skins.find(meal->GetNativeDisplayId());
+            out.ShapeId = shapeId;
+            out.Display = skin != _skins.end() && skin->second.ShapeId == shapeId ? skin->first : 0;
+        }
+        else
+            return nullptr;
+        return FindShape(out.ShapeId);
+    }
+
     void Mgr::EatShape(Player* player, Creature* meal, std::string const& how)
     {
         GainBio(player, meal);
-        Source const* source = SourceFor(meal->GetEntry());
-        // Task 009: no row of its own, so its kind decides: any creature of a form's family gives the form, and
-        // its look is the colouring.
-        Source byFamily;
-        if (!source)
-            if (uint32 const shapeId = ShapeForFamily(meal->GetCreatureTemplate()->family))
-            {
-                auto skin = _skins.find(meal->GetNativeDisplayId());
-                byFamily.ShapeId = shapeId;
-                byFamily.Display = skin != _skins.end() && skin->second.ShapeId == shapeId ? skin->first : 0;
-                source = &byFamily;
-            }
-        Shape const* shape = source ? FindShape(source->ShapeId) : nullptr;
+        Source found;
+        Shape const* shape = MealShape(meal, found);
         if (!shape)
         {
             Tell(player, how);
@@ -452,7 +458,7 @@ namespace Devourer
 
         State& state = Get(player);
         bool const newShape = !state.Shapes.count(shape->Id);
-        Unlock(player, shape->Id, source->Display, newShape);
+        Unlock(player, shape->Id, found.Display, newShape);
         Owned& owned = state.Shapes[shape->Id];
         ++owned.Eaten;
         SaveShape(player, shape->Id, owned);
@@ -803,7 +809,7 @@ namespace Devourer
             player->learnSpell(SpellDevour);
         SyncTalentSpells(player);                        // ChaosCore0.3: Quick Devour takes Devour's place
         // The base kit (2026-09-30): Rush, Concentrate and the Anima passive, for new and older characters alike.
-        for (uint32 spellId : { SpellRush, SpellConcentrate, SpellAnima })
+        for (uint32 spellId : { SpellRush, SpellConcentrate, SpellAnima, SpellSniff })
             if (!player->HasSpell(spellId) && sSpellMgr->GetSpellInfo(spellId))
                 player->learnSpell(spellId);
         // Task 008: the class skill that gives the Devourer its own spellbook tab. New characters get it from
@@ -1011,6 +1017,14 @@ namespace Devourer
         return out;
     }
 
+    void Mgr::SendAddon(Player* player, std::string const& line) const
+    {
+        WorldPacket data;
+        ChatHandler::BuildChatPacket(data, CHAT_MSG_WHISPER, LANG_ADDON, player, player,
+            std::string(MenuPrefix) + "\t" + line.substr(0, 250));   // 255 bytes with the prefix
+        player->SendDirectMessage(&data);
+    }
+
     // The shape menu (tools/client/lua/DevourerMenu.lua) is fed by addon messages, one per line, prefix "DVR".
     // With catalog (".devour menu", and after a GM unlock), the gallery comes first:
     //   C                                                  a new catalog begins
@@ -1026,13 +1040,7 @@ namespace Devourer
     {
         if (!IsDevourer(player) || !player->GetSession() || !player->IsInWorld())
             return;
-        auto send = [player](std::string const& line)
-        {
-            WorldPacket data;
-            ChatHandler::BuildChatPacket(data, CHAT_MSG_WHISPER, LANG_ADDON, player, player,
-                std::string(MenuPrefix) + "\t" + line.substr(0, 250));   // 255 bytes with the prefix
-            player->SendDirectMessage(&data);
-        };
+        auto send = [this, player](std::string const& line) { SendAddon(player, line); };
         if (catalog)
         {
             send("C");
