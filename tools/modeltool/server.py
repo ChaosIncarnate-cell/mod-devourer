@@ -20,6 +20,7 @@ from urllib.parse import parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import imports                                               # noqa: E402
+import parts                                                 # noqa: E402
 import modeltool as mt                                       # noqa: E402
 
 PORT = 8765
@@ -59,7 +60,7 @@ def skins_of(src, display: int | None) -> list[str]:
     return [cdi.string(x) for x in r[6:9]]
 
 
-def model_json(spec: str, skin_tex: str = "") -> dict:
+def model_json(spec: str, skin_tex: str = "", skin_id: str = "") -> dict:
     src, anims = sources()
     model, notes = mt.load(src, spec)
     b = model.b
@@ -100,7 +101,9 @@ def model_json(spec: str, skin_tex: str = "") -> dict:
         tex = tex_lookup[combo] if combo < len(tex_lookup) else -1
         mflags, blend = mats[mat] if mat < len(mats) else (0, 0)
         batches.append(dict(sub=sub, tex=tex, layer=layer, blend=blend, twoSided=bool(mflags & 4),
-                            unlit=bool(mflags & 1)))
+                            unlit=bool(mflags & 1), mflags=mflags, mat=mat, geoset=subs[sub]["geoset"] if sub < len(subs) else 0))
+    for bt, extra in zip(batches, parts.Parts(src, spec, editing=False).info()):
+        bt["opacity"] = extra["opacity"]
 
     # bones: parent, pivot
     n, o = arr(0x2C)
@@ -109,14 +112,21 @@ def model_json(spec: str, skin_tex: str = "") -> dict:
         p = o + i * 88
         parent = struct.unpack_from("<h", b, p + 8)[0]
         pivot = struct.unpack_from("<3f", b, p + 76)
-        bones.append(dict(parent=parent, pivot=pivot))
+        key = struct.unpack_from("<i", b, p)[0]
+        bones.append(dict(parent=parent, pivot=pivot, key=parts.KEY_BONES[key] if 0 <= key < len(parts.KEY_BONES) else ""))
 
     display = display_of(src, spec)
     skins = skins_of(src, display)
+    skin_list = parts.skin_list(src, model.path)
+    chosen = next((s for s in skin_list if str(s["id"]) == str(skin_id)), None) if skin_id else None
+    if chosen:                                           # a skin picked in the page
+        display, skins = chosen["id"], chosen["textures"]
     staged = imports.staged(model.path)
-    if skin_tex or (not skins and staged and staged["colourings"]):     # a converted model: show a colouring
-        skin_tex = skin_tex or next(iter(staged["colourings"].values()))
-        skins = [skin_tex, skin_tex, skin_tex]
+    if not chosen and staged and staged["colourings"] and (skin_tex or not skins):    # converted: show a colouring
+        colouring = staged["colourings"].get(skin_tex) or next(iter(staged["colourings"].values()))
+        skins = imports.slot_list(colouring, staged)                    # its texture for each skin slot
+    elif not chosen and not skins and skin_list:         # opened by path: the first display that uses it
+        display, skins = skin_list[0]["id"], skin_list[0]["textures"]
     tex_list = []
     for kind, name in textures:
         if kind == 0:
@@ -140,7 +150,8 @@ def model_json(spec: str, skin_tex: str = "") -> dict:
     in_work = (mt.WORK / model.path).exists()
     effects = (arr(0x128)[0], arr(0x120)[0])            # particle emitters, ribbons
     return dict(path=model.path, notes=notes, staged=staged, skin=skins[0] if skins else "", effects=effects, pos=pos, nrm=nrm, uv=uv, bw=bw, bi=bi, subs=subs, batches=batches,
-                bones=bones, textures=tex_list, sequences=sequences, emotes=emotes, changed=in_work,
+                bones=bones, textures=tex_list, texKinds=[k for k, _ in textures], skins=list(skins or []),
+                display=display, skinList=skin_list, blends=parts.BLENDS, sequences=sequences, emotes=emotes, changed=in_work,
                 animNames=sorted(anims.name.values(), key=str.lower),
                 anims=sorted(({"id": i, "name": n, "own": any(x["anim"] == i and x["var"] == 0 and not x["flags"] & mt.F_ALIAS
                                                                for x in seqs),
@@ -224,7 +235,43 @@ def import_step(body: dict) -> dict:
     e = imports.import_model(body["name"], body.get("colours", []), float(body.get("scale", 1)),
                              int(body.get("template", 21950)), mt.WORK)
     refresh()
+    if mt.load_settings().get("autobind_on_import"):
+        e = {**e, "autobind": run("autobind", model=e["path"])["text"]}
     return e
+
+
+def edit(fn, spec: str, *args, **kw) -> dict:
+    """A part edit: its message as the answer; a refused edit is shown, not a crash."""
+    src, _ = sources()
+    try:
+        text = fn(src, spec, *args, **kw)
+    except ValueError as e:
+        return dict(ok=False, text=str(e))
+    refresh()
+    return dict(ok=True, text=text)
+
+
+def recolour_step(body: dict) -> dict:
+    src, _ = sources()
+    try:
+        r = parts.recolour(src, body["m"], int(body["part"]), float(body.get("hue", 0)), float(body.get("sat", 1)),
+                           float(body.get("bright", 1)), bool(body.get("onlyPart", True)), body.get("skins") or [],
+                           body.get("display"), str(body["skinId"]) if body.get("skinId") else None)
+    except ValueError as e:
+        return dict(ok=False, text=str(e))
+    refresh()
+    return dict(ok=True, **r)
+
+
+def settings_json() -> dict:
+    _, anims = sources()
+    return dict(settings=mt.load_settings(), defaults=mt.DEFAULT_RULES, commands=sorted({c for c, _ in anims.commands}),
+                animNames=sorted(anims.name.values(), key=str.lower))
+
+
+def save_settings(body: dict) -> dict:
+    mt.save_settings(body)
+    return dict(ok=True)
 
 
 def find_json(text: str) -> dict:
@@ -272,12 +319,13 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, (HERE / "viewer.html").read_bytes(), "text/html; charset=utf-8")
         routes = {
             "/api/find": lambda: find_json(q.get("q", "")),
-            "/api/model": lambda: model_json(q["m"], q.get("skin", "")),
+            "/api/model": lambda: model_json(q["m"], q.get("skin", ""), q.get("sid", "")),
             "/api/exports": lambda: dict(models=imports.exported_models(), folder=str(imports.EXPORTS),
                                          imports=imports.load_imports()),
             "/api/anim": lambda: anim_json(q["m"], int(q["seq"])),
             "/api/tex": lambda: texture_png(q["p"]),
             "/api/work": lambda: run("work"),
+            "/api/settings": settings_json,
         }
         if u.path in routes:
             return self.answer(routes[u.path])
@@ -290,6 +338,14 @@ class Handler(BaseHTTPRequestHandler):
             "/api/link": lambda: run("link", model=body["m"], anim=body["anim"], target=body["target"]),
             "/api/rename": lambda: run("rename", model=body["m"], seq=int(body["seq"]), anim=body["anim"]),
             "/api/reset": lambda: run("reset", model=body["m"]),
+            "/api/autobind": lambda: run("autobind", model=body["m"]),
+            "/api/part": lambda: edit(parts.edit_part, body["m"], int(body["part"]), opacity=body.get("opacity"),
+                                      blend=body.get("blend"), flags=body.get("flags"), texture=body.get("texture")),
+            "/api/bone": lambda: edit(parts.scale_bone, body["m"], int(body["bone"]), float(body["factor"])),
+            "/api/recolour": lambda: recolour_step(body),
+            "/api/skin/delete": lambda: dict(ok=True, text=parts.delete_skin(str(body["id"]))),
+            "/api/skin/rename": lambda: dict(ok=True, text=parts.rename_skin(str(body["id"]), body["name"])),
+            "/api/settings": lambda: save_settings(body),
             "/api/pack": lambda: run("pack"),
             "/api/convert": lambda: convert_step(body["file"], body.get("name") or None),
             "/api/import": lambda: import_step(body),

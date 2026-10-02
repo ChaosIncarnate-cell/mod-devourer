@@ -26,7 +26,7 @@
   .seq .n { width:30px; color:var(--dim); } .seq .nm { flex:1; overflow:hidden; text-overflow:ellipsis; }
   .seq button { padding:1px 6px; font-size:11px; }
   table { width:100%; border-collapse:collapse; } td { padding:3px 4px; border-bottom:1px solid var(--line); vertical-align:top; }
-  td button { padding:1px 6px; font-size:11px; }
+  td button { padding:1px 6px; font-size:11px; } #emotes select { max-width:110px; }
   a { color:var(--acc); text-decoration:none; } a:hover { text-decoration:underline; }
   .ok { color:var(--acc); } .warn { color:var(--warn); } .bad { color:var(--bad); }
   main { position:relative; min-width:0; overflow:hidden; }
@@ -49,6 +49,25 @@
   .tag.st { background:#4a432d; color:var(--warn); }
   #steps label { display:block; margin:3px 0; } #steps input[type=checkbox] { width:auto; }
   #steps ul { margin:4px 0; padding-left:18px; color:var(--warn); }
+  .modal { position:fixed; inset:0; background:#0009; display:grid; place-items:center; z-index:9; }
+  .modal > div { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; width:min(560px, calc(100vw - 32px)); max-height:90vh; overflow:auto; }
+  .rule { border:1px solid var(--line); border-radius:8px; padding:8px; margin-top:8px; }
+  .rule.off { opacity:.55; }
+  .rule summary { cursor:pointer; }
+  .chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; }
+  .chip { background:#2d4a3e; color:var(--acc); border-radius:4px; padding:1px 6px; }
+  .chip.src { background:#4a432d; color:var(--warn); }
+  .chip a { color:inherit; margin-left:4px; }
+  .modal input[type=checkbox] { width:auto; }
+  #partBox { background:#252a33; border:1px solid var(--warn); border-radius:8px; padding:10px; margin-top:10px; }
+  #partBox h3 { font-size:12px; color:var(--dim); margin:10px 0 4px; text-transform:uppercase; letter-spacing:.05em; }
+  #partBox input[type=checkbox], #partBox input[type=radio] { width:auto; }
+  #partBox input[type=range] { padding:0; min-width:0; }
+  #partBox .row > *, #partBox select { min-width:0; max-width:100%; }
+  #skinList { max-height:160px; overflow:auto; } #partList { max-height:180px; overflow:auto; }
+  .sl { display:grid; grid-template-columns:78px 1fr 44px; gap:6px; align-items:center; margin-top:4px; }
+  .sl span:last-child { text-align:right; color:var(--dim); }
+  #skinList div .tag, #partList div .tag { float:right; }
 </style>
 </head>
 <body>
@@ -74,7 +93,13 @@
 <aside class="right">
   <div id="steps" style="display:none; background:#252a33; border:1px solid var(--line); border-radius:8px; padding:10px; margin-bottom:10px"></div>
   <div id="info" class="dim">No model open.</div>
-  <div class="row"><button id="reset">Reset changes</button><button class="go" id="pack">Pack into game</button></div>
+  <div class="row"><button id="reset">Reset changes</button><button id="autobind" title="Apply the auto-bind rules from Settings to this model">Auto-bind</button><button class="go" id="pack">Pack into game</button></div>
+  <div class="row"><button id="settings">Settings</button></div>
+  <div id="partBox" style="display:none"></div>
+  <h2>Skins <span class="dim">(click to show)</span></h2>
+  <div class="list" id="skinList"></div>
+  <h2>Parts <span class="dim">(or click the model)</span></h2>
+  <div class="list" id="partList"></div>
   <h2>Link an animation</h2>
   <div class="dim">When the game asks this model for any of these <span id="linkCount"></span></div>
   <input id="linkFilter" placeholder="filter, e.g. emote">
@@ -92,7 +117,7 @@
 
 <script>
 const $ = s => document.querySelector(s);
-let current = null, model = null, mixer = null, mesh = null, action = null, playing = null;
+let current = null, model = null, mixer = null, mesh = null, action = null, playing = null, sel = null, currentSid = '', scaled = null;
 const renderer = new THREE.WebGLRenderer({ canvas: $('#c'), antialias: true });
 renderer.setPixelRatio(devicePixelRatio);
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x2a2d35);
@@ -110,7 +135,18 @@ function resize() {
   camera.aspect = m.clientWidth / m.clientHeight; camera.updateProjectionMatrix();
 }
 addEventListener('resize', resize); resize();
-(function loop() { requestAnimationFrame(loop); const d = clock.getDelta(); if (mixer) mixer.update(d * +$('#speed').value); controls.update(); renderer.render(scene, camera); })();
+(function loop() {
+  requestAnimationFrame(loop); const d = clock.getDelta();
+  unscale();                                           // the mixer may not rewrite a still bone: take the preview off first
+  if (mixer) mixer.update(d * +$('#speed').value);
+  if (mesh && sel) {                                   // the picked part pulses; a size preview scales its bone
+    const m = Array.isArray(mesh.material) ? mesh.material[sel.part] : null, t = 0.75 + 0.25 * Math.sin(performance.now() / 180);
+    if (m) m.color.setRGB(1, t, t * 0.8);
+    const bone = mesh.skeleton && mesh.skeleton.bones[sel.bone];
+    if (sel.scale !== 1 && bone) { bone.scale.multiplyScalar(sel.scale); scaled = { bone, f: sel.scale }; }
+  }
+  controls.update(); renderer.render(scene, camera);
+})();
 
 function toast(text, ms = 4000) { const t = $('#toast'); t.textContent = text; t.style.display = 'block'; clearTimeout(t._h); if (ms) t._h = setTimeout(() => t.style.display = 'none', ms); }
 async function api(path, body) {
@@ -138,13 +174,19 @@ function item(list, html, spec, title) {
 }
 
 // --- the model -----------------------------------------------------------------------------------------------------
-async function open(spec, skin = '') {
+async function open(spec, skin = '', sid) {
   if (!spec) return;
+  const same = spec === current, keepPlaying = same ? playing : null;
+  if (!same) { currentSid = ''; select(null); }
+  if (sid !== undefined) currentSid = sid;
   toast('Loading ' + spec + ' ...', 0);
-  try { model = await api('/api/model?m=' + encodeURIComponent(spec) + (skin ? '&skin=' + encodeURIComponent(skin) : '')); }
+  try { model = await api('/api/model?m=' + encodeURIComponent(spec) + (skin ? '&skin=' + encodeURIComponent(skin) : '')
+                          + (currentSid ? '&sid=' + currentSid : '')); }
   catch (e) { toast('Could not open ' + spec + ': ' + e.message, 8000); return; }
   current = spec; build(); panels(); $('#empty').style.display = 'none'; $('#toast').style.display = 'none';
-  const stand = model.sequences.find(s => s.anim === 0) || model.sequences[0]; if (stand) play(stand.i);
+  if (sel && sel.part < model.batches.length) select(sel); else select(null);
+  const stand = model.sequences.find(s => s.anim === 0) || model.sequences[0];
+  if (keepPlaying !== null && keepPlaying < model.sequences.length) play(keepPlaying); else if (stand) play(stand.i);
 }
 
 function build() {
@@ -169,6 +211,8 @@ function build() {
       side: b.twoSided ? THREE.DoubleSide : THREE.FrontSide, skinning: true });
     if (b.blend === 1) mat.alphaTest = 0.5;
     else if (b.blend >= 2) { mat.transparent = true; mat.depthWrite = false; if (b.blend === 3 || b.blend === 4) mat.blending = THREE.AdditiveBlending; }
+    if (b.opacity < 1) { mat.transparent = true; mat.depthWrite = false; mat.opacity = b.opacity; }
+    mat.userData = { tex: p, opacity: mat.opacity };
     materials.push(mat);
   });
   g.setIndex(index);
@@ -233,6 +277,8 @@ function panels() {
   }
   emotes();
   linkBox();
+  skinsPanel();
+  partsList();
 }
 $('#allEmotes').onchange = emotes;
 function seqOptions(selected) {
@@ -306,6 +352,278 @@ async function change(path, body) {
 }
 $('#reset').onclick = async () => { if (current && confirm('Throw away your changes to this model?')) change('/api/reset', { m: current }); };
 $('#pack').onclick = async () => { toast('Packing into the game ...', 0); change('/api/pack', {}); };
+$('#autobind').onclick = () => { if (current) change('/api/autobind', { m: current }); else toast('Open a model first.'); };
+
+// --- settings: auto-bind rules -------------------------------------------------------------------------------------
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+$('#settings').onclick = async () => {
+  let data;
+  try { data = await api('/api/settings'); } catch (e) { toast('Settings failed: ' + e.message, 9000); return; }
+  const s = data.settings;
+  const d = document.createElement('div'); d.className = 'modal';
+  d.innerHTML = `<div><b>Settings</b>
+    <h2>Auto-bind</h2>
+    <div class="dim">A rule: when a model has one of its animations (the first it has), the rule's emotes and animations play it.
+      Never touched: what the model has its own animation for, and links you made yourself.
+      Use <b>Auto-bind</b> next to Pack, or let it run on import. Rules run top to bottom.</div>
+    <label style="display:block;margin-top:8px"><input type="checkbox" id="onImport"> also when importing from wow.export</label>
+    <div id="rules"></div>
+    <div class="row"><button id="addRule">+ Rule</button><button id="addDefaults" title="Brings back default rules you deleted">+ Missing default rules</button></div>
+    <datalist id="emoteCmds">${data.commands.map(c => `<option value="${esc(c)}">`).join('')}</datalist>
+    <datalist id="setAnims">${data.animNames.map(n => `<option value="${esc(n)}">`).join('')}</datalist>
+    <div class="row" style="margin-top:14px"><button id="sx">Cancel</button><button class="go" id="sok">Save</button></div></div>`;
+  document.body.appendChild(d);
+  d.querySelector('#onImport').checked = !!s.autobind_on_import;
+  const copy = r => ({ name: r.name || '', on: r.on !== false, only_stand: r.only_stand !== false,
+    source: [...(r.source || [])], emotes: [...(r.emotes || [])], anims: [...(r.anims || [])] });
+  const rules = s.rules.map(copy), open_ = new Set();
+  const chipList = (list, cls, pre = '') => list.map((x, i) => `<span class="chip ${cls}">${esc(pre + x)}<a href="#" data-i="${i}" title="remove">×</a></span>`).join('');
+  const draw = () => {
+    const box = d.querySelector('#rules'); box.innerHTML = '';
+    rules.forEach((r, k) => {
+      const el = document.createElement('details'); el.className = 'rule' + (r.on ? '' : ' off'); el.open = open_.has(r);
+      el.ontoggle = () => el.open ? open_.add(r) : open_.delete(r);
+      const what = [...r.emotes.map(e => '/' + e), ...r.anims].join(' ');
+      el.innerHTML = `<summary><input type="checkbox" class="on" ${r.on ? 'checked' : ''} title="rule on / off"> <b>${esc(r.name || 'rule ' + (k + 1))}</b>
+          <div class="dim" style="font-size:11px;margin-left:22px">${esc(what || 'nothing picked')} → ${esc(r.source.join(' / ') || '?')}</div></summary>
+        <div class="row"><input class="nm" value="${esc(r.name)}" placeholder="name"><button class="up" style="flex:0 0 auto" title="move up">↑</button><button class="del" style="flex:0 0 auto">Delete</button></div>
+        <div class="dim" style="margin-top:6px">Models with (first found is used):</div>
+        <div class="chips src">${chipList(r.source, 'src')}</div>
+        <div class="row"><input class="addSrc" list="setAnims" placeholder="animation, e.g. Sleep"><button class="aSrc" style="flex:0 0 60px">Add</button></div>
+        <div class="dim" style="margin-top:6px">use it for these emotes:</div>
+        <div class="chips em">${chipList(r.emotes, '', '/')}</div>
+        <div class="row"><input class="addEm" list="emoteCmds" placeholder="emote, e.g. growl (comma for several)"><button class="aEm" style="flex:0 0 60px">Add</button></div>
+        <div class="dim" style="margin-top:6px">and these animations (sitting, sleeping, casting ...):</div>
+        <div class="chips an">${chipList(r.anims, '')}</div>
+        <div class="row"><input class="addAn" list="setAnims" placeholder="animation, e.g. SitGround"><button class="aAn" style="flex:0 0 60px">Add</button></div>
+        <label style="display:block;margin-top:6px"><input type="checkbox" class="os" ${r.only_stand ? 'checked' : ''}> only where the model would otherwise just stand (keeps a better fallback)</label>`;
+      const on = el.querySelector('.on');
+      on.onclick = e => e.stopPropagation();
+      on.onchange = () => { r.on = on.checked; draw(); };
+      el.querySelector('.nm').oninput = e => { r.name = e.target.value; };
+      el.querySelector('.nm').onchange = draw;
+      el.querySelector('.os').onchange = e => { r.only_stand = e.target.checked; };
+      el.querySelector('.up').onclick = () => { if (k) { rules.splice(k - 1, 0, rules.splice(k, 1)[0]); draw(); } };
+      el.querySelector('.del').onclick = () => { if (confirm(`Delete "${r.name || 'rule ' + (k + 1)}"?`)) { rules.splice(k, 1); draw(); } };
+      for (const [cls, list] of [['src', r.source], ['em', r.emotes], ['an', r.anims]])
+        el.querySelectorAll(`.chips.${cls} a`).forEach(a => a.onclick = ev => { ev.preventDefault(); list.splice(+a.dataset.i, 1); draw(); });
+      const add = (input, list, check, what) => {
+        const bad = [];
+        input.value.split(',').map(x => x.trim().replace(/^\//, '')).filter(Boolean).forEach(x => {
+          const hit = check.find(c => c.toLowerCase() === x.toLowerCase());
+          if (!hit) bad.push(x); else if (!list.includes(hit)) list.push(hit);
+        });
+        if (bad.length) toast(`Unknown ${what}: ${bad.join(', ')}`, 6000);
+        draw();
+      };
+      for (const [inp, btn, list, check, what] of [['.addSrc', '.aSrc', r.source, data.animNames, 'animation'],
+                                                    ['.addEm', '.aEm', r.emotes, data.commands, 'emote'],
+                                                    ['.addAn', '.aAn', r.anims, data.animNames, 'animation']]) {
+        const go = () => add(el.querySelector(inp), list, check, what);
+        el.querySelector(btn).onclick = go;
+        el.querySelector(inp).onkeydown = e => { if (e.key === 'Enter') go(); };
+      }
+      box.appendChild(el);
+    });
+  };
+  draw();
+  d.querySelector('#addRule').onclick = () => { const r = copy({ name: 'new rule' }); rules.push(r); open_.add(r); draw(); };
+  d.querySelector('#addDefaults').onclick = () => {
+    const have = new Set(rules.map(r => r.name));
+    const missing = data.defaults.filter(r => !have.has(r.name));
+    missing.forEach(r => rules.push(copy(r)));
+    toast(missing.length ? `Added: ${missing.map(r => r.name).join(', ')}` : 'All default rules are there.', 6000);
+    draw();
+  };
+  d.querySelector('#sx').onclick = () => d.remove();
+  d.querySelector('#sok').onclick = async () => {
+    try { await api('/api/settings', { ...s, autobind_on_import: d.querySelector('#onImport').checked, rules }); d.remove(); toast('Settings saved.'); }
+    catch (e) { toast('Save failed: ' + e.message, 9000); }
+  };
+};
+
+// --- parts: click a part of the model, change it --------------------------------------------------------------------
+const FLAG_BITS = [[1, 'ignores light (unlit)'], [4, 'both sides drawn'], [2, 'no fog'], [16, 'does not hide what is behind it']];
+const texLabel = i => {
+  const k = model.texKinds[i], p = model.textures[i] || '', f = p.split('\\').pop();
+  return k >= 11 && k <= 13 ? `skin ${k - 10}${f ? ': ' + f : ''}` : k === 0 ? f : `type ${k}`;
+};
+const boneLabel = i => { const b = model.bones[i]; return b ? `bone #${i}${b.key ? ' (' + b.key + ')' : ''}` : '-'; };
+function mainBone(vertex) {
+  let best = 0, w = -1;
+  for (let k = 0; k < 4; k++) if (model.bw[vertex * 4 + k] > w) { w = model.bw[vertex * 4 + k]; best = model.bi[vertex * 4 + k]; }
+  return best;
+}
+function partBone(part) {                              // the bone most of the part's vertices hang on
+  const count = {}, tris = model.subs[model.batches[part].sub].tris;
+  for (let t = 0; t < tris.length; t += 3) { const b = mainBone(tris[t]); count[b] = (count[b] || 0) + 1; }
+  return +Object.entries(count).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+// a click (not a drag) picks the part under the mouse
+let downAt = null;
+renderer.domElement.addEventListener('pointerdown', e => downAt = [e.clientX, e.clientY]);
+renderer.domElement.addEventListener('pointerup', e => {
+  if (!downAt || !mesh || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
+  const r = renderer.domElement.getBoundingClientRect();
+  const ray = new THREE.Raycaster();
+  ray.setFromCamera(new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1), camera);
+  const hit = ray.intersectObject(mesh, false).find(h => h.face && (mesh.material[h.face.materialIndex] || {}).opacity > 0.02);
+  if (!hit) { select(null); return; }
+  select({ part: hit.face.materialIndex, bone: mainBone(hit.face.a) });
+});
+
+function unscale() { if (scaled) { scaled.bone.scale.divideScalar(scaled.f); scaled = null; } }
+function resetLook() {                                 // previews off: colours, opacity, textures, bone size
+  unscale();
+  if (!mesh || !Array.isArray(mesh.material)) return;
+  mesh.material.forEach(m => { m.color.setHex(m.map ? 0xffffff : 0x999999); m.opacity = m.userData.opacity;
+    if (m.userData.map) { m.map = m.userData.map; delete m.userData.map; m.needsUpdate = true; } });
+}
+function select(s) {
+  resetLook();
+  sel = s ? { part: s.part, bone: s.bone ?? partBone(s.part), scale: 1 } : null;
+  document.querySelectorAll('#partList div').forEach(d => d.classList.toggle('on', !!sel && +d.dataset.i === sel.part));
+  const box = $('#partBox');
+  if (!sel || !model) { box.style.display = 'none'; box.innerHTML = ''; return; }
+  const b = model.batches[sel.part], tex = b.tex >= 0 ? texLabel(b.tex) : 'none', skinTex = model.texKinds[b.tex] >= 11;
+  box.style.display = 'block';
+  box.innerHTML = `<div class="row" style="margin:0;align-items:center"><b style="flex:1">Part #${sel.part}</b><button id="pDone" style="flex:0 0 auto">Done</button></div>
+    <div class="dim">texture: ${tex} · ${boneLabel(sel.bone)}</div>
+    <h3>See-through</h3>
+    <div class="sl"><span>visible</span><input type="range" id="pOp" min="0" max="100" value="${Math.round(b.opacity * 100)}"><span id="pOpV"></span></div>
+    <div class="row"><button id="pHide">${b.opacity > 0 ? 'Hide' : 'Show'}</button><button class="go" id="pOpOk">Apply</button></div>
+    <h3>How it is drawn</h3>
+    <select id="pBlend" style="width:100%">${model.blends.map((n, i) => `<option value="${i}" ${i === b.blend ? 'selected' : ''}>${n}</option>`).join('')}</select>
+    ${FLAG_BITS.map(([bit, n]) => `<label style="display:block"><input type="checkbox" data-bit="${bit}" ${b.mflags & bit ? 'checked' : ''}> ${n}</label>`).join('')}
+    <div class="row"><button class="go" id="pDrawOk">Apply</button></div>
+    <h3>Texture</h3>
+    <div class="row"><select id="pTex">${model.textures.map((p, i) => `<option value="${i}" ${i === b.tex ? 'selected' : ''}>${texLabel(i)}</option>`).join('')}</select>
+      <button class="go" id="pTexOk" style="flex:0 0 70px">Apply</button></div>
+    <h3>Recolour</h3>
+    <div class="sl"><span>colour</span><input type="range" id="rcH" min="-180" max="180" value="0"><span id="rcHV"></span></div>
+    <div class="sl"><span>saturation</span><input type="range" id="rcS" min="0" max="200" value="100"><span id="rcSV"></span></div>
+    <div class="sl"><span>brightness</span><input type="range" id="rcB" min="0" max="200" value="100"><span id="rcBV"></span></div>
+    <label><input type="radio" name="rcM" value="part" checked> only this part</label>
+    <label style="margin-left:10px"><input type="radio" name="rcM" value="all"> the whole texture</label>
+    <div class="dim" style="font-size:11px">${skinTex ? (isCustom() ? 'Changes this custom skin.' : 'A skin texture: this makes a <b>custom skin</b> (its own display id) from the skin shown.') : 'A fixed texture: the model gets a recoloured copy.'}</div>
+    <div class="row"><button id="rcReset">Undo sliders</button><button class="go" id="rcOk">Apply</button></div>
+    <h3>Size</h3>
+    <div class="dim" id="szBone"></div>
+    <div class="sl"><span>size</span><input type="range" id="sz" min="25" max="300" value="100"><span id="szV"></span></div>
+    <div class="row"><button id="szUp" title="Use the bone this one hangs on (e.g. the whole head instead of the jaw)">↑ Bigger part of the body</button><button class="go" id="szOk">Apply</button></div>`;
+  const m = mesh.material[sel.part];
+  const op = () => { $('#pOpV').textContent = $('#pOp').value + '%'; m.opacity = $('#pOp').value / 100; m.transparent = true; m.depthWrite = m.opacity >= 1; };
+  $('#pOp').oninput = op; $('#pOpV').textContent = $('#pOp').value + '%';
+  $('#pDone').onclick = () => select(null);
+  $('#pHide').onclick = () => partChange({ opacity: b.opacity > 0 ? 0 : 1 });
+  $('#pOpOk').onclick = () => partChange({ opacity: $('#pOp').value / 100 });
+  $('#pDrawOk').onclick = () => {
+    let flags = b.mflags & ~FLAG_BITS.reduce((a, [bit]) => a | bit, 0);
+    box.querySelectorAll('input[data-bit]').forEach(c => { if (c.checked) flags |= +c.dataset.bit; });
+    partChange({ blend: +$('#pBlend').value, flags });
+  };
+  $('#pTexOk').onclick = () => partChange({ texture: +$('#pTex').value });
+  // recolour: the page previews it, the server makes the same change on Apply
+  const rc = () => { $('#rcHV').textContent = $('#rcH').value + '°'; $('#rcSV').textContent = $('#rcS').value + '%'; $('#rcBV').textContent = $('#rcB').value + '%'; recolourPreview(); };
+  ['#rcH', '#rcS', '#rcB'].forEach(id => $(id).oninput = rc);
+  box.querySelectorAll('input[name=rcM]').forEach(r => r.onchange = rc);
+  $('#rcHV').textContent = '0°'; $('#rcSV').textContent = '100%'; $('#rcBV').textContent = '100%';
+  $('#rcReset').onclick = () => { $('#rcH').value = 0; $('#rcS').value = 100; $('#rcB').value = 100; rc(); };
+  $('#rcOk').onclick = recolourApply;
+  // size: preview by scaling the bone every frame
+  const sz = () => { $('#szV').textContent = $('#sz').value + '%'; sel.scale = $('#sz').value / 100; $('#szBone').textContent = 'grows / shrinks ' + boneLabel(sel.bone) + ' and everything on it'; };
+  $('#sz').oninput = sz; sz();
+  $('#szUp').onclick = () => { const p = model.bones[sel.bone].parent; if (p >= 0) { sel.bone = p; sz(); } };
+  $('#szOk').onclick = () => { const f = $('#sz').value / 100; if (f !== 1) change('/api/bone', { m: current, bone: sel.bone, factor: f }); };
+}
+function partChange(body) { change('/api/part', { m: current, part: sel.part, ...body }); }
+function partsList() {
+  const box = $('#partList'); box.innerHTML = '';
+  model.batches.forEach((b, i) => {
+    const d = document.createElement('div'); d.dataset.i = i;
+    d.innerHTML = `#${i} <span class="dim">${b.tex >= 0 ? texLabel(b.tex) : 'no texture'}</span>` +
+      (b.opacity < 1 ? `<span class="tag st">${b.opacity > 0 ? Math.round(b.opacity * 100) + '%' : 'hidden'}</span>` : '');
+    d.onclick = () => select({ part: i });
+    box.appendChild(d);
+  });
+}
+
+// recolour preview: hue / saturation / brightness, only where the part lies on the texture (or all of it)
+const isCustom = () => model.skinList.some(s => s.custom && s.id === model.display);
+let rcFrame = 0;
+function recolourPreview() {
+  cancelAnimationFrame(rcFrame);
+  rcFrame = requestAnimationFrame(() => {
+    const b = model.batches[sel.part], m = mesh.material[sel.part];
+    const base = m.userData.map || m.map; if (!base || !base.image) return;
+    const hue = +$('#rcH').value / 360, sat = $('#rcS').value / 100, bri = $('#rcB').value / 100;
+    const users = mesh.material.filter(x => x.userData.tex === m.userData.tex);
+    if (!hue && sat === 1 && bri === 1) { users.forEach(x => { if (x.userData.map) { x.map = x.userData.map; delete x.userData.map; x.needsUpdate = true; } }); return; }
+    const img = base.image, w = img.width, h = img.height;
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+    const px = g.getImageData(0, 0, w, h), d = px.data;
+    let mask = null;
+    if (document.querySelector('input[name=rcM]:checked').value === 'part') {
+      const mc = document.createElement('canvas'); mc.width = w; mc.height = h;
+      const mg = mc.getContext('2d'); mg.fillStyle = mg.strokeStyle = '#fff'; mg.lineWidth = 3;
+      const tris = model.subs[b.sub].tris, uv = model.uv, P = v => [((uv[v * 2] % 1) + 1) % 1 * w, ((uv[v * 2 + 1] % 1) + 1) % 1 * h];
+      for (let t = 0; t < tris.length; t += 3) {
+        const [a, bb, cc] = [P(tris[t]), P(tris[t + 1]), P(tris[t + 2])];
+        mg.beginPath(); mg.moveTo(...a); mg.lineTo(...bb); mg.lineTo(...cc); mg.closePath(); mg.fill(); mg.stroke();
+      }
+      mask = mg.getImageData(0, 0, w, h).data;
+    }
+    for (let i = 0; i < d.length; i += 4) {
+      if (mask && mask[i] < 128) continue;
+      let r = d[i] / 255, gg = d[i + 1] / 255, bl = d[i + 2] / 255;
+      const mx = Math.max(r, gg, bl), mn = Math.min(r, gg, bl), dl = mx - mn;
+      let H = 0; const S = mx ? dl / mx : 0, V = mx;
+      if (dl) H = (mx === r ? (gg - bl) / dl + (gg < bl ? 6 : 0) : mx === gg ? (bl - r) / dl + 2 : (r - gg) / dl + 4) / 6;
+      const h2 = ((H + hue) % 1 + 1) % 1, s2 = Math.min(1, S * sat), v2 = Math.min(1, V * bri);
+      const k = Math.floor(h2 * 6), f = h2 * 6 - k, p = v2 * (1 - s2), q = v2 * (1 - f * s2), tt = v2 * (1 - (1 - f) * s2);
+      [r, gg, bl] = [[v2, tt, p], [q, v2, p], [p, v2, tt], [p, q, v2], [tt, p, v2], [v2, p, q]][k % 6];
+      d[i] = r * 255; d[i + 1] = gg * 255; d[i + 2] = bl * 255;
+    }
+    g.putImageData(px, 0, 0);
+    const t = new THREE.CanvasTexture(c); t.flipY = false; t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    users.forEach(x => { if (!x.userData.map) x.userData.map = x.map; x.map = t; x.needsUpdate = true; });
+  });
+}
+async function recolourApply() {
+  const hue = +$('#rcH').value, sat = $('#rcS').value / 100, bright = $('#rcB').value / 100;
+  if (!hue && sat === 1 && bright === 1) { toast('Move a slider first.'); return; }
+  toast('Recolouring ...', 0);
+  try {
+    const r = await api('/api/recolour', { m: current, part: sel.part, hue, sat, bright,
+      onlyPart: document.querySelector('input[name=rcM]:checked').value === 'part',
+      skins: model.skins, display: model.display, skinId: isCustom() ? model.display : null });
+    toast(r.text, r.ok ? 7000 : 9000);
+    if (r.ok) await open(current, '', r.skin || currentSid);
+  } catch (e) { toast('Failed: ' + e.message, 9000); }
+}
+
+// skins of this model: the game's displays, imports, custom skins
+function skinsPanel() {
+  const box = $('#skinList'); box.innerHTML = '';
+  if (!model.skinList.length) { box.innerHTML = '<span class="dim">none known (import the model to get its displays)</span>'; return; }
+  for (const s of model.skinList) {
+    const d = document.createElement('div');
+    d.className = s.id === model.display ? 'on' : '';
+    d.innerHTML = `${s.name} <span class="dim">${s.custom ? s.id : ''}</span>` + (s.custom ? '<span class="tag">custom</span>' : '');
+    d.title = s.textures.filter(Boolean).join(', ');
+    d.onclick = () => open(current, '', String(s.id));
+    if (s.custom) d.oncontextmenu = async ev => {
+      ev.preventDefault();
+      const what = await chooser(`Custom skin <b>${s.id}</b>`, `<select style="width:100%"><option value="rename">Rename</option><option value="delete">Delete</option></select>`);
+      if (what === 'rename') { const n = prompt('Name', s.name); if (n) { await api('/api/skin/rename', { id: s.id, name: n }); open(current); } }
+      if (what === 'delete' && confirm(`Delete custom skin ${s.id} and its textures?`)) { const r = await api('/api/skin/delete', { id: s.id }); toast(r.text); open(current, '', ''); }
+    };
+    box.appendChild(d);
+  }
+  if (model.skinList.some(s => s.custom)) box.insertAdjacentHTML('beforeend', '<span class="dim" style="font-size:11px">right-click a custom skin to rename / delete it</span>');
+}
 
 // --- from wow.export: 1 convert, 2 import, 3 pack ----------------------------------------------------------------
 let exportsData = null, chosen = null, stagedMeta = null;
@@ -349,7 +667,7 @@ function showImportStep() {
     (m.report.length ? `<div class="dim">What had to change:</div><ul>${m.report.map(r => `<li>${r}</li>`).join('')}</ul>` : '') +
     `<div class="step">2. Import into the game files</div>
     <div class="dim">Colourings (each becomes a display id; click a name to look at it):</div>` +
-    (colours.length ? colours.map(([c, t]) => `<label><input type="checkbox" value="${c}" ${!prev || prev.displays[c] ? 'checked' : ''}> <a href="#" data-t="${t}">${c}</a>${prev && prev.displays[c] ? ` <span class="dim">(display ${prev.displays[c]})</span>` : ''}</label>`).join('')
+    (colours.length ? colours.map(([c, t]) => `<label><input type="checkbox" value="${c}" ${!prev || prev.displays[c] ? 'checked' : ''}> <a href="#" data-t="${c}">${c}</a>${prev && prev.displays[c] ? ` <span class="dim">(display ${prev.displays[c]})</span>` : ''}</label>`).join('')
       : '<div class="dim">none found: the model uses its own textures</div>') +
     `<div class="row"><label class="dim">size <input id="iscale" type="number" step="0.1" min="0.1" value="${prev ? prev.scale : 1}"></label>
        <label class="dim" title="sounds, blood and footsteps are copied from this display">sounds like display <input id="itemplate" type="number" value="${prev ? prev.template : 21950}"></label></div>
@@ -370,7 +688,7 @@ async function importStep() {
       Object.entries(e.displays).map(([c, d]) => `<div>${c}: display <b>${d}</b></div>`).join('') +
       `<div class="step">3. Pack into game</div><div class="dim">Close WoW, press <b>Pack into game</b> below the model info, restart the server.
        In game: target yourself and type <code>.morph ${Object.values(e.displays)[0]}</code> (<code>.demorph</code> to undo).</div>`;
-    toast('Imported. Next: Pack into game (with WoW closed).', 6000);
+    toast('Imported. Next: Pack into game (with WoW closed).' + (e.autobind ? '\nAuto-bind:\n' + e.autobind : ''), e.autobind ? 12000 : 6000);
     open(stagedMeta.path);
   } catch (err) { toast('Import failed: ' + err.message, 10000); }
 }

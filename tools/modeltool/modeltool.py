@@ -7,6 +7,8 @@ bring models in from other sources, and put the changed files into the client.
     python modeltool.py link  <model> <anim[,anim...]> <to>  make <anim> play the model's <to-anim> (e.g. EmoteRoar ->
                                                           BattleRoar): adds an alias sequence, as Blizzard does
     python modeltool.py rename <model> <seq#> <anim>      give sequence number <seq#> another animation id
+    python modeltool.py autobind <model>                  apply the auto-bind rules of settings.json (e.g. every emote
+                                                          like /angry /growl /roar plays the model's BattleRoar)
     python modeltool.py reset <model>                     throw away your changes to a model (deletes it from work\)
     python modeltool.py import <model> [--from SOURCE]    copy a model (+ skins, .anim files, textures) into work\
     python modeltool.py work                              what is in work\ (changed / imported files)
@@ -25,6 +27,7 @@ patch tool rebuilds patch-Z from scratch: run `pack` again after it.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import datetime
 import shutil
@@ -45,8 +48,9 @@ from build_client_patch import Folder, Layers, MpqSource, client_archives, coa_l
 from dbc import Dbc                                          # noqa: E402
 
 CLIENT = ROOT / "WOW HD CLIENT"
-WORK = HERE / "work"
+WORK = Path(os.environ.get("MODELTOOL_WORK") or HERE / "work")   # env: a test folder instead
 STAGING = HERE / "staging"
+SETTINGS = HERE / "settings.json"
 PATCH = "patch-Z.MPQ"
 MYSQL = ROOT / "mysql" / "bin" / "mysql.exe"
 
@@ -433,6 +437,137 @@ def cmd_link(a, src):
     save(model)
 
 
+# --- settings: auto-bind rules ---------------------------------------------------------------------------------------
+def _rule(name, source, emotes=(), anims=()):
+    return {"name": name, "on": True, "only_stand": True, "source": list(source), "emotes": list(emotes),
+            "anims": list(anims)}
+
+
+# A rule: when the model has one of `source` (the first of the list it has as its own sequence), these emotes and
+# animations play it. With only_stand they are bound only where the model would otherwise stand still (or play
+# nothing); an animation whose fallback already lands on something else keeps that.
+DEFAULT_RULES = [
+    _rule("Angry sounds -> battle roar", ["BattleRoar", "EmoteRoar"],
+          ["angry", "cackle", "growl", "insult", "roar", "shout", "chicken", "flex"]),
+    _rule("Sit down -> lie down / kneel", ["SleepDown", "KneelStart"], anims=["SitGroundDown"]),
+    _rule("Sitting -> sleeping / kneeling", ["Sleep", "KneelLoop"], anims=["SitGround", "EmoteSitGround"]),
+    _rule("Stand up from sitting -> wake up / rise", ["SleepUp", "KneelEnd"], anims=["SitGroundUp"]),
+    _rule("Lie down -> sit down / kneel", ["SitGroundDown", "KneelStart"], anims=["SleepDown"]),
+    _rule("Sleeping -> sitting / kneeling", ["SitGround", "KneelLoop"], anims=["Sleep", "EmoteSleep"]),
+    _rule("Wake up -> stand up from sitting / rise", ["SitGroundUp", "KneelEnd"], anims=["SleepUp"]),
+    _rule("Kneel down -> sit / lie down", ["SitGroundDown", "SleepDown"], anims=["KneelStart"]),
+    _rule("Kneeling, praying -> sitting / sleeping", ["SitGround", "Sleep"], ["pray"], ["KneelLoop"]),
+    _rule("Get up from kneeling -> stand up / wake up", ["SitGroundUp", "SleepUp"], anims=["KneelEnd"]),
+    _rule("Eat, drink, loot -> eating", ["EatingLoop", "EmoteEat", "Loot"], ["eat", "drink"], ["Loot", "EatingLoop"]),
+    _rule("Begging, cowering, crying -> cower / kneel", ["Cower", "EmoteBeg", "KneelLoop"],
+          ["beg", "cower", "cry", "shy", "bow"]),
+    _rule("Cheering, laughing -> cheer / roar", ["EmoteCheer", "EmoteLaugh", "BattleRoar"],
+          ["cheer", "laugh", "applaud", "dance"]),
+    _rule("Talking, gestures -> talking", ["EmoteTalk", "EmoteTalkExclamation", "EmoteTalkQuestion"],
+          ["talk", "talkex", "talkq", "wave", "nod", "no", "point", "salute"]),
+    _rule("Spell casting -> any cast / attack", ["SpellCastOmni", "SpellCastDirected", "SpellCast", "AttackUnarmed"],
+          anims=["Spell", "SpellCast", "SpellCastOmni", "SpellCastDirected"]),
+    _rule("Getting a spell ready -> ready / channel", ["ReadySpellOmni", "ChannelCastOmni", "SpellPrecast",
+                                                       "ReadyUnarmed"],
+          anims=["SpellPrecast", "ReadySpellOmni", "ReadySpellDirected", "ChannelCastOmni", "ChannelCastDirected"]),
+    _rule("Stunned -> hurt", ["Stun", "CombatWound", "StandWound"], anims=["Stun", "Knockdown"]),
+    _rule("Swimming in place -> hovering", ["Hover", "FlyStand"], anims=["SwimIdle"]),
+]
+
+
+def load_settings() -> dict:
+    """settings.json, plus the default rules it has not seen yet (a default rule you delete stays deleted)."""
+    try:
+        s = json.loads(SETTINGS.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        s = {}
+    out = {"autobind_on_import": True, **s}
+    rules = list(out.get("rules") or [])
+    seen = set(out.get("defaults_seen", []))
+    if "defaults_seen" not in out and rules:         # a file from before named rules: its rule is the first default
+        seen.add(DEFAULT_RULES[0]["name"])
+        for r in rules:
+            r.setdefault("name", DEFAULT_RULES[0]["name"])
+    names = seen | {r.get("name") for r in rules}
+    rules += [json.loads(json.dumps(r)) for r in DEFAULT_RULES if r["name"] not in names]
+    out["rules"], out["defaults_seen"] = rules, sorted(seen | {r["name"] for r in DEFAULT_RULES})
+    return out
+
+
+def save_settings(s: dict):
+    SETTINGS.write_text(json.dumps(s, indent=2), encoding="utf-8")
+
+
+def autobind_into(model: Model, anims: Anims, settings: dict) -> tuple[int, list[str]]:
+    """Apply every rule that is on, in order. A rule's source = the first of its list the model has as its own
+    sequence; each of its emotes / animations without an own sequence or an earlier link plays it (with only_stand:
+    only those that would otherwise play Stand or nothing). Returns (links made, report lines)."""
+    commands = {}
+    for command, anim in anims.commands:
+        commands.setdefault(command, anim)
+
+    def anim_id(n) -> int | None:
+        n = str(n).strip()
+        return int(n) if n.isdigit() else anims.by_name.get(n.lower())
+
+    done, out = 0, []
+    for rule in settings.get("rules", []):
+        if not rule.get("on", True) or not (rule.get("emotes") or rule.get("anims")):
+            continue
+        title = rule.get("name") or ", ".join(map(str, rule["source"]))
+        real = {s["anim"] for s in model.sequences() if not s["flags"] & F_ALIAS}   # not links (also this run's)
+        source = next((a for a in map(anim_id, rule["source"]) if a in real), None)
+        if source is None:
+            out.append(f"{title}: the model has none of {', '.join(map(str, rule['source']))}, skipped")
+            continue
+        out.append(f"{title}: uses {anims.label(source)}")
+        wanted = {}                                      # animation -> what asked for it (/commands, names)
+        for command in rule.get("emotes", []):
+            command = command.strip().lstrip("/").lower()
+            if command not in commands:
+                out.append(f"  /{command}: no such emote")
+            else:
+                wanted.setdefault(commands[command], []).append("/" + command)
+        for name in rule.get("anims", []):
+            a = anim_id(name)
+            if a is None:
+                out.append(f"  {name}: no such animation")
+            else:
+                wanted.setdefault(a, []).append(anims.name.get(a, str(a)))
+        for anim, labels in wanted.items():
+            if anim == source:
+                continue
+            label = " ".join(dict.fromkeys(labels))
+            own = next((s for s in model.sequences() if s["anim"] == anim and s["var"] == 0), None)
+            if own and own["flags"] & F_ALIAS:
+                out.append(f"  {label}: already linked, left as it is")
+                continue
+            if own:
+                out.append(f"  {label}: has its own, left as it is")
+                continue
+            idx, _ = model.plays(anims, anim)
+            now = model.sequences()[idx]["anim"] if idx is not None else None
+            if rule.get("only_stand", True) and now not in (None, 0):
+                out.append(f"  {label}: already plays {anims.label(now)} (fallback), left as it is")
+                continue
+            try:
+                out.append(f"  {label}: " + link_into(model, anims, anim, source))
+                done += 1
+            except ValueError as e:
+                out.append(f"  {label}: skipped: {e}")
+    return done, out
+
+
+def cmd_autobind(a, src):
+    anims = Anims(src)
+    model, _ = load(src, a.model)
+    done, lines = autobind_into(model, anims, load_settings())
+    print("\n".join(lines) or "no rules are on (settings.json)")
+    if not done:
+        sys.exit("nothing new to bind")
+    save(model)
+
+
 def cmd_rename(a, src):
     anims = Anims(src)
     model, _ = load(src, a.model)
@@ -460,12 +595,21 @@ def cmd_rename(a, src):
 
 
 def cmd_reset(a, src):
+    """Links, renames and part edits go: the model, its .skin and .anim files in work\\ (an imported model gets the
+    converted ones back from staging\\). Recoloured textures and custom skins stay (delete skins in the page)."""
     path, _ = resolve(src, a.model)
-    target = WORK / path
-    if not target.exists():
+    base = (WORK / path).with_suffix("")
+    files = [WORK / path, Path(f"{base}00.skin")] + sorted(base.parent.glob(base.name + "[0-9][0-9][0-9][0-9]-*.anim"))
+    files = [f for f in files if f.exists()]
+    if not files:
         sys.exit(f"work\\{path}: nothing to reset")
-    target.unlink()
-    print(f"removed work\\{path}; `pack` again to take it out of the client too (the original comes back)")
+    for f in files:
+        staged = STAGING / f.relative_to(WORK)
+        if staged.exists():
+            shutil.copy2(staged, f)                      # an import: back to the converted file
+        else:
+            f.unlink()
+    print(f"reset {len(files)} files of work\\{path}; `pack` again to put the original into the client")
 
 
 def cmd_import(a, src):
@@ -504,7 +648,7 @@ def cmd_pack(a, src):
     if not files and not imports.load_imports():
         sys.exit("work\\ is empty: nothing to pack")
     target = CLIENT / "Data" / PATCH
-    running = subprocess.run(["tasklist", "/FI", "IMAGENAME eq wow.exe"], capture_output=True, text=True).stdout
+    running = subprocess.run(["tasklist", "/FI", "IMAGENAME eq wow.exe"], capture_output=True, text=True).stdout or ""
     if "wow.exe" in running.lower():
         sys.exit("WoW is running and keeps the patch locked: close WoW, then run `pack` again (the work folder is kept)")
     content = {}
@@ -523,7 +667,16 @@ def cmd_pack(a, src):
     added = imports.apply_to_client(content, src, raw_dbc)
     temp = target.with_name(PATCH + ".new")
     mpq.write_archive(temp, content)
-    temp.replace(target)
+    # our own sources keep patch-Z open (Windows will not replace an open file): close it, swap, open the new one
+    held = [s for layer in (src, getattr(src, "client", None)) for s in getattr(layer, "sources", [])
+            if isinstance(s, MpqSource) and s.path.resolve() == target.resolve()]
+    for s in held:
+        s.archive.close()
+    try:
+        temp.replace(target)
+    finally:
+        for s in held:
+            s.archive = mpq.Archive(target)
     print(f"{len(files)} files from work\\ put into {target} ({len(content)} files in it)"
           + (f", {added} imported displays in its creature tables" if added else "") + ".")
     if added:
@@ -542,6 +695,7 @@ def main():
     p = sub.add_parser("find"); p.add_argument("text", nargs="+")
     p = sub.add_parser("anims"); p.add_argument("model"); p.add_argument("--all", action="store_true")
     p = sub.add_parser("link"); p.add_argument("model"); p.add_argument("anim"); p.add_argument("target")
+    p = sub.add_parser("autobind"); p.add_argument("model")
     p = sub.add_parser("reset"); p.add_argument("model")
     p = sub.add_parser("rename"); p.add_argument("model"); p.add_argument("seq", type=int); p.add_argument("anim")
     p = sub.add_parser("import"); p.add_argument("model")
@@ -549,7 +703,7 @@ def main():
     sub.add_parser("pack")
     a = ap.parse_args()
     src = layers(a.sources)
-    {"find": cmd_find, "anims": cmd_anims, "link": cmd_link, "reset": cmd_reset, "rename": cmd_rename,
+    {"find": cmd_find, "anims": cmd_anims, "link": cmd_link, "autobind": cmd_autobind, "reset": cmd_reset, "rename": cmd_rename,
      "import": cmd_import, "work": cmd_work, "pack": cmd_pack}[a.cmd](a, src)
 
 

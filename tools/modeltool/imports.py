@@ -28,10 +28,10 @@ MAX_TEXTURE = 1024
 
 
 # --- textures --------------------------------------------------------------------------------------------------------
-def png_to_blp(path: Path) -> bytes:
+def png_to_blp(path) -> bytes:
     """An image as BLP2 with DXT5 compression (8-bit alpha) and every mip level, like the game's own textures."""
     from PIL import Image
-    img = Image.open(path).convert("RGBA")
+    img = (path if hasattr(path, "convert") else Image.open(path)).convert("RGBA")   # a file or an image
     w, h = img.size
     pw, ph = 1, 1
     while pw < min(w, MAX_TEXTURE):
@@ -92,18 +92,29 @@ def stage(export_file: str, name: str | None = None) -> dict:
     for path, data in result["files"].items():
         (STAGING / path).parent.mkdir(parents=True, exist_ok=True)
         (STAGING / path).write_bytes(data)
-    colours = {}
-    for colour, p in result["colourings"].items():
-        tex = f"{name}_{colour}"
-        p = Path(p)
-        data = p.read_bytes() if p.suffix.lower() == ".blp" else png_to_blp(p)
-        (STAGING / f"Creature\\{name}\\{tex}.blp").write_bytes(data)
-        colours[colour] = tex
+    colours, texs = {}, set()                            # colour -> its texture for skin slots 1-3 ("" = none)
+    for colour, slots in result["colourings"].items():
+        colours[colour] = ["", "", ""]
+        for k, p in slots.items():
+            p = Path(p)
+            tex = f"{name}_{p.stem[len(src.stem) + 1:]}"     # voidcreeper_glow1_red -> Voidcreeper_glow1_red
+            if tex not in texs:
+                data = p.read_bytes() if p.suffix.lower() == ".blp" else png_to_blp(p)
+                (STAGING / f"Creature\\{name}\\{tex}.blp").write_bytes(data)
+                texs.add(tex)
+            colours[colour][int(k) - 1] = tex
     meta = dict(name=name, path=result["path"], source=export_file, report=result["report"], colourings=colours,
                 skin_slots=result["skin_slots"], bbox=result["bbox"],
-                files=sorted(result["files"]) + [f"Creature\\{name}\\{t}.blp" for t in colours.values()])
+                files=sorted(result["files"]) + [f"Creature\\{name}\\{t}.blp" for t in sorted(texs)])
     (STAGING / f"Creature\\{name}\\modeltool.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
     return meta
+
+
+def slot_list(tex, meta: dict) -> list[str]:
+    """A colouring's texture for skin slots 1-3. Older conversions kept one name and used it in every slot."""
+    if isinstance(tex, list):
+        return tex
+    return [tex if k in meta.get("skin_slots", [1]) else "" for k in (1, 2, 3)]
 
 
 def staged(path: str) -> dict | None:
@@ -138,15 +149,16 @@ def import_model(name: str, colours: list[str], scale: float, template: int, wor
                                     if i not in used_displays and i not in displays.values())
     displays = {c: d for c, d in displays.items() if c in (colours or ["base"])}
     for path in meta["files"]:
-        tex_colour = next((c for c, t in meta["colourings"].items() if path.endswith(f"\\{t}.blp")), None)
-        if tex_colour and tex_colour not in colours:
+        owners = [c for c, t in meta["colourings"].items()
+                  if any(path.endswith(f"\\{x}.blp") for x in slot_list(t, meta) if x)]
+        if owners and not set(owners) & set(colours):    # a texture only colourings you did not pick use
             continue
         if path.lower().endswith(".m2") and (work / path).exists():
             continue                                     # changed in the tool already (links): keep those changes
         (work / path).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(STAGING / path, work / path)
     imports[name] = dict(path=meta["path"], source=meta["source"], model_id=model_id, displays=displays,
-                         textures={c: meta["colourings"].get(c, "") for c in displays}, scale=scale,
+                         textures={c: slot_list(meta["colourings"].get(c, ""), meta) for c in displays}, scale=scale,
                          template=template, bbox=meta["bbox"], skin_slots=meta["skin_slots"])
     save_imports(imports)
     return imports[name]
@@ -159,7 +171,7 @@ def rows(src, raw_dbc) -> tuple[list[list], list[list]]:
     cmd = Dbc(raw_dbc(src, "CreatureModelData.dbc").to_bytes(), "CreatureModelData").use_layout("CreatureModelData")
     cdi = Dbc(raw_dbc(src, "CreatureDisplayInfo.dbc").to_bytes(), "CreatureDisplayInfo").use_layout("CreatureDisplayInfo")
     cmd_cols, cdi_cols = cmd.columns(), cdi.columns()
-    models, displays = [], []
+    models, displays, made = [], [], {}
     for name, e in load_imports().items():
         t_disp = cdi.find(e["template"])
         if not t_disp:
@@ -174,12 +186,14 @@ def rows(src, raw_dbc) -> tuple[list[list], list[list]]:
         models.append([m[c] for c in cmd_cols])
         for colour, display in e["displays"].items():
             d = dict(zip(cdi_cols, t_disp))
-            tex = e["textures"].get(colour, "")
+            tex = slot_list(e["textures"].get(colour, ""), e)
             d.update(ID=display, ModelID=e["model_id"], CreatureModelScale=float(e["scale"]), CreatureModelAlpha=255,
                      ExtendedDisplayInfoID=0, PortraitTextureName="", CreatureGeosetData=0,
-                     TextureVariation_1=tex, TextureVariation_2=tex if 2 in e["skin_slots"] else "",
-                     TextureVariation_3=tex if 3 in e["skin_slots"] else "")
+                     TextureVariation_1=tex[0], TextureVariation_2=tex[1], TextureVariation_3=tex[2])
             displays.append([d[c] for c in cdi_cols])
+            made[display] = d
+    import parts                                         # custom skins: copies of a display with other textures
+    displays += parts.skin_rows(cdi, cdi_cols, made)
     return models, displays
 
 
@@ -187,7 +201,7 @@ def apply_to_client(content: dict, src, raw_dbc) -> int:
     """Adds the import rows to the CreatureModelData / CreatureDisplayInfo inside the patch."""
     from dbc import Dbc
     models, displays = rows(src, raw_dbc)
-    if not models:
+    if not models and not displays:
         return 0
     lower = {k.lower(): k for k in content}
     for table, new in (("CreatureModelData", models), ("CreatureDisplayInfo", displays)):
@@ -204,7 +218,7 @@ def apply_to_client(content: dict, src, raw_dbc) -> int:
 def apply_to_server(src, raw_dbc, mysql: Path) -> str:
     from dbc import LAYOUTS
     models, displays = rows(src, raw_dbc)
-    if not models:
+    if not models and not displays:
         return ""
 
     def value(v):

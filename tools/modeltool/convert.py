@@ -5,7 +5,7 @@ The model block inside MD21 is laid out like ours; what changes:
     .manifest.json wow.export writes next to the model turns those ids into file names)
   - version 264; header flags only those our client knows (tilt x/y, texture combiner combos)
   - textures named by path again (Creature\\<Name>\\<file>.blp); creature skins (types 11-13) stay skins, filled by
-    the display's colourings
+    the display's colourings (one colouring = a texture for each skin slot, e.g. body + glow1 + glow2)
   - .anim files: the AFM2 chunk header goes (our client reads the keyframes straight from the file)
   - .skin: newer shader codes (0x8000 and up) -> 0, the classic shader picked from the materials
   - materials: blend mode 7 -> 4 (additive), newer flag bits dropped
@@ -34,17 +34,37 @@ def chunks(data: bytes) -> dict[str, bytes]:
     return out
 
 
-def colourings(folder: Path, model: str, used: set[str]) -> dict[str, Path]:
-    """Creature colourings next to the model: <model>_<colour>.blp (or .png), the textures a skin slot can use."""
-    found = {}
+def colourings(folder: Path, model: str, used: set[str], slot_stems: dict[int, str],
+               skin_slots: list[int]) -> dict[str, dict[int, Path]]:
+    """Creature colourings next to the model, each with the texture for every skin slot (1-3).
+
+    A model can have several skin slots, e.g. body + glow1 + glow2: the files are <model>_<colour>,
+    <model>_glow1_<colour>, <model>_glow2_<colour>, and together they are ONE colouring. The manifest tells which file
+    the export's own display put in which slot; the colour is the last _part those names share."""
+    files = {}                                                # name after "<model>_" -> file
     for p in sorted(folder.iterdir()):
         stem = p.stem.lower()
         if p.suffix.lower() not in (".blp", ".png") or not stem.startswith(model.lower() + "_") or p.name.lower() in used:
             continue
-        colour = stem[len(model) + 1:]
-        if p.suffix.lower() == ".blp" or colour not in found:      # the game's own .blp wins over a .png copy
-            found[colour] = p
-    return found
+        rest = stem[len(model) + 1:]
+        if p.suffix.lower() == ".blp" or rest not in files:   # the game's own .blp wins over a .png copy
+            files[rest] = p
+    rests = {k: s.lower()[len(model) + 1:] for k, s in slot_stems.items() if s.lower().startswith(model.lower() + "_")}
+    tails = [r.split("_")[-1] for r in rests.values()]
+    if len(rests) < 2 or len(set(tails)) != 1:               # one slot (or no manifest): every file is a colouring
+        return {rest: {k: p for k in skin_slots or [1]} for rest, p in files.items()}
+    default = tails[0]
+    parts = {k: r[:-len(default)] for k, r in rests.items()}  # e.g. {1: "", 2: "glow1_", 3: "glow2_"}
+    base = parts[min(parts)]
+    others = [x for x in parts.values() if x and x != base]
+    out = {}
+    for rest in files:
+        if not rest.startswith(base) or any(rest.startswith(x) for x in others):
+            continue
+        colour = rest[len(base):]
+        out[colour] = {k: files.get(part + colour) or files.get(part + default) for k, part in parts.items()}
+        out[colour] = {k: p for k, p in out[colour].items() if p}
+    return out
 
 
 PARTICLE_NEW, PARTICLE_OLD = 492, 476
@@ -183,7 +203,11 @@ def convert(m2_file: Path, game_name: str) -> dict:
             report.append(f"texture {i}: type {kind} (a player/item texture) left empty")
             struct.pack_into("<4I", md, o + i * 16, kind, tflags & 0x3, 0, 0)
     # the skin texture of a single-texture export is listed in the manifest like a normal texture: not "used"
-    found = colourings(folder, model, used)
+    listed = manifest.get("textures", [])
+    kinds = [struct.unpack_from("<I", md, o + i * 16)[0] for i in range(n)]
+    slot_stems = {kind - 10: Path(listed[i]["file"]).stem for i, kind in enumerate(kinds)
+                  if kind in (11, 12, 13) and len(listed) == n}
+    found = colourings(folder, model, used, slot_stems, skin_slots)
 
     # materials
     n, o = arr(OFS["materials"])
@@ -249,4 +273,4 @@ def convert(m2_file: Path, game_name: str) -> dict:
     files[path] = bytes(md)
     bbox = struct.unpack_from("<6f", md, 0xA0)
     return dict(path=path, files=files, report=report, skin_slots=skin_slots,
-                colourings={c: str(p) for c, p in found.items()}, bbox=bbox, source=str(m2_file))
+                colourings={c: {k: str(p) for k, p in slots.items()} for c, slots in found.items()}, bbox=bbox, source=str(m2_file))
