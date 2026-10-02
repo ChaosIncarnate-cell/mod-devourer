@@ -11,5 +11,11 @@ totems, a cauldron, ritual books; the sisters stand at it and **channel** a spel
 pulled in (stock channel visuals, e.g. ritual/summoning beams). Keep within the room, nothing floating or clipping.
 List every gameobject entry used with its display/model so the owner can check it in game.
 
+## Owner's notes after testing (2026-10-03)
+- The circle the Devourer is summoned into is now a big flat **dark disc** (gameobject 9101309) with four candles,
+  a lantern and books around it. The dark disc must go: replace it with something good to look at, **glowing
+  magical symbols / runes on the floor** (a rune-circle decal or spell-area visual, stock 3.3.5a).
+- This ritual area **is** the summoning circle: keep it where the Devourer arrives; the cage/arrival logic stays.
+
 ## Done when (local session tests in game)
 The arrival spot looks like a witch's ritual being cast; the sisters channel at the Devourer on arrival.
