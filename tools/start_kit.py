@@ -32,6 +32,8 @@ Removed by data/sql/uninstall/world.sql.
 from __future__ import annotations
 
 import argparse
+import copy
+import json
 import math
 import sys
 from pathlib import Path
@@ -54,6 +56,63 @@ from build_devourer_spells import (  # noqa: E402
 OUT_SQL = REPO / "data" / "sql" / "db-world" / "2026_09_30_08_devourer_start.sql"
 OUT_MD = REPO / "docs" / "start-kit.md"
 FIRST, LAST = 9100900, 9101099
+# The owner's edits from the model tool's form editor (tools/modeltool, "Devourer forms"). They win over the
+# definitions below: a form's name, look, size, colouring name and icon; a spell's texts, level, any spell_dbc
+# column, and the animation it plays. Fold an edit into the code (and drop it from the file) when redesigning.
+EDITS = REPO / "tools" / "form_edits.json"
+FORM_FIELDS = ("name", "display", "scale", "skin", "icon")
+# A spell whose animation was edited gets its own client-side visual (SpellVisual.dbc) and kits (SpellVisualKit.dbc):
+# one per spell id, so the ids never need bookkeeping. The model tool's `pack` writes those rows into the client.
+VISUAL_BASE = 91000                    # SpellVisual 91000-91199 (FIRST..LAST)
+KIT_BASE = 91000                       # SpellVisualKit 91000-91599: three per spell (while casting, cast, channel)
+KIT_KINDS = ("precast", "cast", "channel")
+ICON_BASE, ICON_LAST = 91000, 91999    # SpellIcon rows for the owner's own icons (the model tool adds them)
+
+
+def custom_visual(spell: int) -> int:
+    return VISUAL_BASE + spell - FIRST
+
+
+def custom_kit(spell: int, kind: str) -> int:
+    return KIT_BASE + (spell - FIRST) * len(KIT_KINDS) + KIT_KINDS.index(kind)
+
+
+def load_edits(path: Path | None = None) -> dict:
+    path = path or EDITS
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def edited_forms(edits: dict) -> list:
+    """FORMS with the editor's form fields put on (copies; FORMS itself stays as written)."""
+    out = []
+    for f in FORMS:
+        e = edits.get("forms", {}).get(str(f.shape), {})
+        if e:
+            f = copy.copy(f)
+            for key in FORM_FIELDS:
+                if key in e:
+                    setattr(f, key, e[key])
+        out.append(f)
+    return out
+
+
+def edit_spell(d: tuple, edits: dict) -> tuple:
+    """One (id, level, template, overrides, texts) with the editor's changes for that spell on top."""
+    sid, level, template, overrides, texts = d
+    e = edits.get("spells", {}).get(str(sid))
+    if not e:
+        return d
+    unknown = set(e.get("fields", {})) - set(b.COL)
+    if unknown:
+        raise SystemExit(f"{EDITS.name}: spell {sid} edits unknown spell_dbc columns {sorted(unknown)}")
+    overrides = {**overrides, **e.get("fields", {})}
+    if "level" in e:
+        level = int(e["level"])
+        overrides["SpellLevel"] = overrides["BaseLevel"] = level
+    if e.get("anim"):
+        overrides["SpellVisualID_1"] = custom_visual(sid)
+    texts = (e.get("name", texts[0]), e.get("description", texts[1]), e.get("aura", texts[2]))
+    return sid, level, template, overrides, texts
 
 # --- enums the DSL does not have yet ---------------------------------------------------------------------------
 E_WEAPON_DAMAGE, E_THREAT = 58, 63
@@ -584,9 +643,11 @@ SCRIPTS += [
 ]
 
 
-def form_spells(f: Form):
+def form_spells(f: Form, edits: dict | None = None):
     """(id, level, template, overrides, texts) for one form: form, 2 abilities, passive, 2 later abilities, then
-    the helper spells (task 009)."""
+    the helper spells (task 009). `edits` (load_edits()) are put on top; the form's own text names the kit as
+    edited."""
+    edits = edits or {}
     one_t, one_o, one_x = f.one
     two_t, two_o, two_x = f.two
     if f.passive is None:                                            # the frog cards have no passive
@@ -597,39 +658,49 @@ def form_spells(f: Form):
     else:
         p_t, p_o, p_x = f.passive
     designed = not isinstance(f.later[0], str)
-    later_names = [l[2][0] for l in f.later] if designed else list(f.later)
+    kit = [(f.base + 1, 1, one_t, one_o, one_x),
+           (f.base + 2, 1, two_t, two_o, two_x)] + ([(f.base + 3, 1, p_t, p_o, p_x)] if p_x else [])
+    later_names = []
+    for slot, level, entry in ((4, 10, f.later[0]), (5, 20, f.later[1])):
+        if designed:
+            t, o, x = entry                                          # the level opens it (Mgr::KitSpellOpen)
+            kit.append((f.base + slot, level, t, {**o, "SpellLevel": level, "BaseLevel": level}, x))
+            later_names.append(x[0])
+        else:
+            t, o = placeholder(level, f.icon)
+            kit.append((f.base + slot, level, t, o, (f"{entry} (placeholder)",
+                                                     f"Placeholder {f.name} ability (level {level}): not designed yet.",
+                                                     "")))
+            later_names.append(entry)
+    for slot, t, o, x in f.extra:
+        assert 6 <= slot <= 9, slot
+        kit.append((f.base + slot, 1, t, o, x))
+    kit = [edit_spell(d, edits) for d in kit]
+
+    def name(slot, default):
+        """The kit spell's name as edited (a placeholder's without its "(placeholder)" mark)."""
+        e = edits.get("spells", {}).get(str(f.base + slot), {})
+        return e.get("name", default)
+
+    level4, level5 = (next(d[1] for d in kit if d[0] == f.base + slot) for slot in (4, 5))
     if f.family:                                                     # task 009: a kind of creature
         what = f"Take the shape of a {f.name.lower()} you have devoured"
     elif not f.source:
         what = f"Take the shape of the {f.name.lower()}"
     else:
         what = f"Take the shape of the {f.name.lower()} you devoured"
-    out = [
-        (f.base, 1, 16591, {
-            **CLEAN, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
-            "CastingTimeIndex": CAST_INSTANT, "DurationIndex": DUR_INFINITE, "RangeIndex": RANGE_SELF,
-            "Category": SHAPE_CATEGORY, "RecoveryTime": 0, "CategoryRecoveryTime": SHIFT_COOLDOWN,
-            "StartRecoveryCategory": 133, "StartRecoveryTime": 1000, "InterruptFlags": 0, "AuraInterruptFlags": 0,
-            "SpellIconID": f.icon, **effects(aura(A_TRANSFORM, 0, FORM_PLACEHOLDER_ENTRY))},
-         (f"{f.name} Form", f"{what}: {one_x[0]}" + (f", {two_x[0]} and {p_x[0]}" if p_x else f" and {two_x[0]}") +
-          f"; {later_names[0]} opens at level 10, {later_names[1]} at 20. All shapes share one cooldown.",
-          f"Wearing the {f.name.lower()}'s shape.")),
-        (f.base + 1, 1, one_t, one_o, one_x),
-        (f.base + 2, 1, two_t, two_o, two_x),
-    ] + ([(f.base + 3, 1, p_t, p_o, p_x)] if p_x else [])
-    for slot, level, entry in ((4, 10, f.later[0]), (5, 20, f.later[1])):
-        if designed:
-            t, o, x = entry                                          # the level opens it (Mgr::KitSpellOpen)
-            out.append((f.base + slot, level, t, {**o, "SpellLevel": level, "BaseLevel": level}, x))
-        else:
-            t, o = placeholder(level, f.icon)
-            out.append((f.base + slot, level, t, o, (f"{entry} (placeholder)",
-                                                     f"Placeholder {f.name} ability (level {level}): not designed yet.",
-                                                     "")))
-    for slot, t, o, x in f.extra:
-        assert 6 <= slot <= 9, slot
-        out.append((f.base + slot, 1, t, o, x))
-    return out
+    one, two = name(1, one_x[0]), name(2, two_x[0])
+    form = (f.base, 1, 16591, {
+        **CLEAN, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
+        "CastingTimeIndex": CAST_INSTANT, "DurationIndex": DUR_INFINITE, "RangeIndex": RANGE_SELF,
+        "Category": SHAPE_CATEGORY, "RecoveryTime": 0, "CategoryRecoveryTime": SHIFT_COOLDOWN,
+        "StartRecoveryCategory": 133, "StartRecoveryTime": 1000, "InterruptFlags": 0, "AuraInterruptFlags": 0,
+        "SpellIconID": f.icon, **effects(aura(A_TRANSFORM, 0, FORM_PLACEHOLDER_ENTRY))},
+        (f"{f.name} Form", f"{what}: {one}" + (f", {two} and {name(3, p_x[0])}" if p_x else f" and {two}") +
+         f"; {name(4, later_names[0])} opens at level {level4}, {name(5, later_names[1])} at {level5}. "
+         "All shapes share one cooldown.",
+         f"Wearing the {f.name.lower()}'s shape."))
+    return [edit_spell(form, edits)] + kit
 
 
 # --- trainers (task 006; task 010: the trainers are the witch sisters, tools/witch_sisters.py) -----------------
@@ -641,40 +712,57 @@ def q(s: str) -> str:
     return "'" + s.replace("\\", "\\\\").replace("'", "''") + "'"
 
 
+def spell_row(dbc, sid, level, template, overrides) -> list[int]:
+    """The finished spell_dbc row (234 raw 32-bit words; strings are left to the caller)."""
+    assert FIRST <= sid <= LAST, sid
+    row = dbc.row(template)
+    row[b.COL["ID"]] = sid
+    for key, value in overrides.items():
+        row[b.COL[key]] = b.to_u32(value, b.COL[key])
+    if "Attributes" not in overrides:
+        row[b.COL["Attributes"]] &= ~ATTR0_DROP
+    if "AttributesEx" not in overrides:
+        row[b.COL["AttributesEx"]] &= ~ATTR1_DROP
+    if "SpellLevel" not in overrides:
+        row[b.COL["SpellLevel"]] = row[b.COL["BaseLevel"]] = level
+    for g in b.STRING_GROUPS:
+        row[b.COL[f"{g}_Mask"]] = 0x00FF01FE
+    return row
+
+
 def spell_rows(dbc, defs):
     rows = []
     for sid, level, template, overrides, (name, desc, tip) in defs:
-        assert FIRST <= sid <= LAST, sid
-        row = dbc.row(template)
-        row[b.COL["ID"]] = sid
-        for key, value in overrides.items():
-            row[b.COL[key]] = b.to_u32(value, b.COL[key])
-        if "Attributes" not in overrides:
-            row[b.COL["Attributes"]] &= ~ATTR0_DROP
-        if "AttributesEx" not in overrides:
-            row[b.COL["AttributesEx"]] &= ~ATTR1_DROP
-        if "SpellLevel" not in overrides:
-            row[b.COL["SpellLevel"]] = row[b.COL["BaseLevel"]] = level
+        row = spell_row(dbc, sid, level, template, overrides)
         texts = {"Name_Lang_enUS": name, "Description_Lang_enUS": desc, "AuraDescription_Lang_enUS": tip,
                  "NameSubtext_Lang_enUS": ""}
-        for g in b.STRING_GROUPS:
-            row[b.COL[f"{g}_Mask"]] = 0x00FF01FE
         rows.append("(" + ",".join(b.sql_value(row[i], i, texts.get(b.COLUMNS[i])) for i in range(234)) + ")")
     return rows
+
+
+def all_defs(edits: dict) -> tuple[list, list]:
+    """(the forms with edits, every spell definition: base kit, then each form's spells)."""
+    forms = edited_forms(edits)
+    base = [edit_spell((sid, lvl, t, o, x), edits) for sid, lvl, cost, t, o, x in BASE]
+    return forms, base + [d for f in forms for d in form_spells(f, edits)]
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--spell-dbc", required=True, type=Path, help="a stock 3.3.5a Spell.dbc (lends template rows)")
     a = ap.parse_args()
-    dbc = b.Dbc(a.spell_dbc)
+    for line in generate(b.Dbc(a.spell_dbc), load_edits()):
+        print(line)
+    return 0
 
-    true_defs = [(sid, lvl, t, o, x) for sid, lvl, cost, t, o, x in BASE]
-    form_defs = [d for f in FORMS for d in form_spells(f)]
-    ids = [d[0] for d in true_defs + form_defs]
+
+def generate(dbc, edits: dict) -> list[str]:
+    """Writes the SQL and the doc; returns what it did (the model tool calls this after every edit)."""
+    shapes, defs = all_defs(edits)                                   # the forms as edited
+    ids = [d[0] for d in defs]
     assert len(ids) == len(set(ids)), "duplicate spell id"
-    rows = spell_rows(dbc, true_defs + form_defs)
-    forms = [f.base for f in FORMS]
+    rows = spell_rows(dbc, defs)
+    forms = [f.base for f in shapes]
 
     sql = [
         "-- Generated by tools/start_kit.py (tasks 006 + 007). Do not edit by hand: change the script and run it again.",
@@ -723,33 +811,33 @@ def main() -> int:
         "INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`,"
         " `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES",
         ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.display}, {f.scale}, {f.base + 1}, {f.base + 2},"
-                   f" {f.base + 4}, {f.base + 5}, {f.base + 3 if f.passive else 0}, {f.display})" for f in FORMS) + ";",
+                   f" {f.base + 4}, {f.base + 5}, {f.base + 3 if f.passive else 0}, {f.display})" for f in shapes) + ";",
         "",
         "-- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).",
         "-- Shape 0: a creature of a form's family that is not that body (task 009); it gives no shape.",
         "DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN 5 AND 15 OR `creature_entry` IN ("
         + ", ".join(str(e) for e, _ in NOT_THAT_BODY) + ");",
         "INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`) VALUES",
-        ",\n".join([f"({f.source}, {f.shape}, 0)" for f in FORMS if f.source]
-                   + [f"({e}, {f.shape}, {d})" for f in FORMS for e, d, _ in f.colourings]
+        ",\n".join([f"({f.source}, {f.shape}, 0)" for f in shapes if f.source]
+                   + [f"({e}, {f.shape}, {d})" for f in shapes for e, d, _ in f.colourings]
                    + [f"({e}, 0, 0)" for e, _ in NOT_THAT_BODY]) + ";",
         "-- Task 009: any creature of the family gives the shape; each of its looks (displays) is a colouring named",
         "-- after the creature. The module builds those colourings at startup from creature_template(_model).",
         "DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",
-        ",\n".join(f"({f.family}, {f.shape})" for f in FORMS if f.family) + ";",
+        ",\n".join(f"({f.family}, {f.shape})" for f in shapes if f.family) + ";",
         "-- Task 009: favourite food, 2x Bio Points for everyone. A row matches when every field it sets matches.",
         "DELETE FROM `devourer_favourite_food` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `name_part`, `label`) VALUES",
-        ",\n".join(f"({f.shape}, {t}, {fam}, {q(part)}, {q(label)})" for f in FORMS for t, fam, part, label in f.food)
+        ",\n".join(f"({f.shape}, {t}, {fam}, {q(part)}, {q(label)})" for f in shapes for t, fam, part, label in f.food)
         + ";",
         "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES",
-        ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0)" for f in FORMS]
-                   + [f"({d}, {f.shape}, {q(n)}, {d})" for f in FORMS for _, d, n in f.colourings if d]) + ";",
+        ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0)" for f in shapes]
+                   + [f"({d}, {f.shape}, {q(n)}, {d})" for f in shapes for _, d, n in f.colourings if d]) + ";",
         "DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES",
-        ",\n".join(f"({f.shape}, {t}, {bp})" for f in FORMS for t, bp in f.diet) + ";",
+        ",\n".join(f"({f.shape}, {t}, {bp})" for f in shapes for t, bp in f.diet) + ";",
         "",
         "-- --- what the Devourer's trainers teach -----------------------------------------------------------------",
         "-- The class trainer (class 10) and its spells. The NPCs that train are the witch sisters (task 010,",
@@ -811,7 +899,7 @@ def main() -> int:
            ""]
     md += [f"- {e}: {why}" for e, why in NOT_THAT_BODY]
     md.append("")
-    for f in FORMS:
+    for f in shapes:
         md.append(f"### {f.name} (shape {f.shape}, {f.zone})")
         if f.family:
             md.append(f"Devour **any creature of the {families[f.family]} family** (e.g. {f.source} for the base look "
@@ -828,7 +916,7 @@ def main() -> int:
         md.append("")
         md.append("| Spell | Level | Name | What it does |")
         md.append("|---|---|---|---|")
-        for spell, lvl, t, o, (name, desc, tip) in form_spells(f):
+        for spell, lvl, t, o, (name, desc, tip) in form_spells(f, edits):
             md.append(f"| {spell} | {lvl} | {name} | {desc or '(cast by the kit) ' + tip} |")
         md.append("")
         if f.changes:
@@ -837,9 +925,10 @@ def main() -> int:
             md += [f"- {c}" for c in f.changes]
             md.append("")
     OUT_MD.write_text("\n".join(md), encoding="utf-8")
-    print(f"{len(rows)} spells ({min(ids)}-{max(ids)}), {len(FORMS)} forms, trainer {TRAINER}")
-    print(f"wrote {OUT_SQL.relative_to(REPO)}, {OUT_MD.relative_to(REPO)}")
-    return 0
+    edited = len(edits.get("spells", {})) + len(edits.get("forms", {}))
+    return [f"{len(rows)} spells ({min(ids)}-{max(ids)}), {len(shapes)} forms, trainer {TRAINER}"
+            + (f", {edited} edits from {EDITS.name}" if edited else ""),
+            f"wrote {OUT_SQL.relative_to(REPO)}, {OUT_MD.relative_to(REPO)}"]
 
 
 if __name__ == "__main__":

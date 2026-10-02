@@ -499,10 +499,11 @@ def cmd_work(a, src):
 
 
 def cmd_pack(a, src):
+    import forms
     import imports
     files = {str(p.relative_to(WORK)): p.read_bytes() for p in WORK.rglob("*") if p.is_file()} if WORK.is_dir() else {}
-    if not files and not imports.load_imports():
-        sys.exit("work\\ is empty: nothing to pack")
+    if not files and not imports.load_imports() and not forms.edits_file():
+        sys.exit("work\\ is empty and no form was edited: nothing to pack")
     target = CLIENT / "Data" / PATCH
     running = subprocess.run(["tasklist", "/FI", "IMAGENAME eq wow.exe"], capture_output=True, text=True).stdout
     if "wow.exe" in running.lower():
@@ -521,13 +522,16 @@ def cmd_pack(a, src):
         content.pop(lower.get(name.lower(), name), None)
         content[name] = data
     added = imports.apply_to_client(content, src, raw_dbc)
+    forms_note = forms.apply_to_client(content, src)          # the Devourer's spells, edited animations, own icons
     temp = target.with_name(PATCH + ".new")
     mpq.write_archive(temp, content)
     temp.replace(target)
     print(f"{len(files)} files from work\\ put into {target} ({len(content)} files in it)"
           + (f", {added} imported displays in its creature tables" if added else "") + ".")
+    print(forms_note)
     if added:
         print(imports.apply_to_server(src, raw_dbc, MYSQL))
+    print(forms.apply_to_server(MYSQL))
     print("Delete the client's Cache folder if a change does not show.")
 
 

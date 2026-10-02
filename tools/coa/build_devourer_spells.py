@@ -790,10 +790,11 @@ def shape_sql() -> list[str]:
 
 # --- DBC --------------------------------------------------------------------------------------------------
 class Dbc:
-    def __init__(self, path: Path):
-        data = path.read_bytes()
+    def __init__(self, path):
+        """`path`: the file, or its bytes (the model tool reads Spell.dbc out of the client's archives)."""
+        data = path.read_bytes() if isinstance(path, Path) else bytes(path)
         magic, self.count, self.fields, self.rsize, ss = struct.unpack_from("<4s4I", data)
-        assert magic == b"WDBC" and self.fields == 234, path
+        assert magic == b"WDBC" and self.fields == 234, "not a 3.3.5a Spell.dbc"
         self.records = bytearray(data[20:20 + self.count * self.rsize])
         self.strings = bytearray(data[20 + self.count * self.rsize:20 + self.count * self.rsize + ss])
         self._interned: dict[str, int] = {}

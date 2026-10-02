@@ -41,4 +41,7 @@ Read `docs/design.md` first. It explains the target architecture and why.
   files (pure-Python MPQ/DBC/BLP, no StormLib); `selftest.py` checks it against a made-up client (task 004)
 - `core-patch/` the class-10 core patch + apply/revert scripts (task 001)
 - `tools/coa/` the CoA generators still in use: spells (`build_devourer_spells.py`), models, skins
+- `tools/modeltool/` the owner's model tool (web page, runs on the PC); its **Devourer forms** tab edits forms and spells into
+  `tools/form_edits.json`, which `tools/start_kit.py` puts on top of its own definitions (the file wins). When you
+  redesign an edited spell in `start_kit.py`, fold the owner's edit in or ask before dropping it from the file
 - `docs/coa-original/` CoA README and the list of CoA core files it had to override (reference only)

@@ -49,16 +49,53 @@
   .tag.st { background:#4a432d; color:var(--warn); }
   #steps label { display:block; margin:3px 0; } #steps input[type=checkbox] { width:auto; }
   #steps ul { margin:4px 0; padding-left:18px; color:var(--warn); }
+  /* Devourer forms */
+  .tabs { display:flex; gap:4px; margin-bottom:6px; } .tabs button { flex:1; } .tabs button.on { background:#2d4a3e; border-color:#2f6b52; }
+  body.forms { grid-template-columns:250px 1fr 540px; }
+  @media (max-width:1150px) { body.forms { grid-template-columns:200px 1fr 420px; } }
+  @media (max-width:860px) { body.forms { grid-template-columns:1fr; } }
+  .ico { width:22px; height:22px; border-radius:4px; vertical-align:middle; background:#111; object-fit:cover; }
+  .ico.big { width:40px; height:40px; cursor:pointer; border:1px solid var(--line); }
+  .list div .ico { margin-right:6px; }
+  .grid2 { display:grid; grid-template-columns:110px 1fr; gap:4px 8px; align-items:center; }
+  .grid2 > label { color:var(--dim); }
+  .spell { border:1px solid var(--line); border-radius:8px; margin:6px 0; background:#232730; }
+  .spell > .head { display:flex; gap:8px; align-items:center; padding:6px 8px; cursor:pointer; }
+  .spell > .head .nm { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .spell > .body { padding:4px 8px 10px; border-top:1px solid var(--line); display:none; }
+  .spell.open > .body { display:block; }
+  .eff { width:100%; font-size:12px; } .eff td { border:0; padding:2px; } .eff select, .eff input { width:100%; padding:3px 4px; }
+  .eff th { color:var(--dim); font-weight:normal; text-align:left; padding:2px; }
+  textarea { width:100%; background:#262a33; color:var(--text); border:1px solid var(--line); border-radius:6px; padding:6px 8px; font:inherit; min-height:54px; }
+  .changed { border-color:var(--warn) !important; }
+  .code { border-left:3px solid #2f6b52; }
+  .note { font-size:11px; color:var(--dim); margin:4px 0; }
+  .note.warn { color:var(--warn); }
+  .schools label { margin-right:8px; white-space:nowrap; } .schools input { width:auto; }
+  .raw { max-height:300px; overflow:auto; } .raw td { padding:1px 4px; font-size:11px; } .raw input { padding:2px 4px; font-size:11px; }
+  .iconGrid { display:grid; grid-template-columns:repeat(auto-fill, 44px); gap:4px; max-height:52vh; overflow:auto; margin-top:8px; }
+  .iconGrid img { width:40px; height:40px; cursor:pointer; border:2px solid transparent; border-radius:4px; }
+  .iconGrid img:hover, .iconGrid img.on { border-color:var(--acc); }
+  .hits div { display:flex; gap:6px; align-items:center; padding:2px 0; } .hits div span { flex:1; }
+  #saveBar { position:sticky; bottom:-10px; background:var(--panel); padding:8px 0; border-top:1px solid var(--line); }
 </style>
 </head>
 <body>
 <aside>
+  <div class="tabs"><button id="tabModels" class="on">Models</button><button id="tabForms">Devourer forms</button></div>
+  <div id="formsPane" hidden>
+    <h2>Forms</h2><div class="list" id="formList"><span class="dim">loading ...</span></div>
+    <div class="note">Your changes are kept in <code id="editsFile">tools/form_edits.json</code> (commit it). Save writes
+      the module's SQL again; <b>Pack into game</b> puts the spells, animations and icons into the client and the server.</div>
+  </div>
+  <div id="modelsPane">
   <h2>Find</h2>
   <input id="q" placeholder="creature or model name, display id, c:entry">
   <div class="row"><button class="go" id="open">Open</button></div>
   <h2>Creatures</h2><div class="list" id="creatures"></div>
   <h2>Models</h2><div class="list" id="models"></div>
   <h2>From wow.export</h2><div class="list" id="exports"><span class="dim">loading ...</span></div>
+  </div>
 </aside>
 <main>
   <canvas id="c"></canvas>
@@ -72,6 +109,8 @@
   <div id="toast"></div>
 </main>
 <aside class="right">
+  <div id="formPane" hidden><div class="dim">Pick a form on the left.</div></div>
+  <div id="modelPane">
   <div id="steps" style="display:none; background:#252a33; border:1px solid var(--line); border-radius:8px; padding:10px; margin-bottom:10px"></div>
   <div id="info" class="dim">No model open.</div>
   <div class="row"><button id="reset">Reset changes</button><button class="go" id="pack">Pack into game</button></div>
@@ -87,6 +126,7 @@
   <div id="seqs"></div>
   <h2>Emotes <label class="dim" style="text-transform:none;letter-spacing:0"><input type="checkbox" id="allEmotes" style="width:auto"> show all</label></h2>
   <table id="emotes"></table>
+  </div>
 </aside>
 <datalist id="animNames"></datalist>
 
@@ -376,7 +416,309 @@ async function importStep() {
 }
 loadExports();
 
+
+// --- Devourer forms: pick a form, change it and its spells, save (tools/form_edits.json), pack --------------------
+let L = null, F = null, W = {}, formShape = null, dirty = false;
+const esc = t => String(t ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const iconImg = (id, cls = 'ico') => `<img class="${cls}" src="/api/icon?id=${id}" onerror="this.style.visibility='hidden'" alt="">`;
+$('#tabModels').onclick = () => mode('models');
+$('#tabForms').onclick = () => mode('forms');
+function mode(m) {
+  const forms = m === 'forms';
+  document.body.classList.toggle('forms', forms);
+  $('#tabModels').classList.toggle('on', !forms); $('#tabForms').classList.toggle('on', forms);
+  $('#modelsPane').hidden = forms; $('#formsPane').hidden = !forms;
+  $('#modelPane').hidden = forms; $('#formPane').hidden = !forms;
+  if (forms) loadForms();
+  setTimeout(resize, 0);
+}
+addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+async function loadForms() {
+  try { if (!L) L = await api('/api/lookups'); } catch (e) { toast('Could not read the client tables: ' + e.message, 10000); return; }
+  const o = await api('/api/forms');
+  $('#editsFile').textContent = o.edits;
+  $('#formList').innerHTML = '';
+  for (const f of o.forms) {
+    const d = document.createElement('div');
+    d.innerHTML = (f.icon ? iconImg(f.icon) : '<span class="ico" style="display:inline-block"></span>') + esc(f.name) +
+      (f.shape !== 'base' ? ` <span class="dim">· ${f.shape}</span>` : '') + (f.edited ? '<span class="tag st">edited</span>' : '');
+    d.className = String(f.shape) === String(formShape) ? 'on' : '';
+    d.onclick = async () => {
+      if (dirty && !confirm('You have unsaved changes on this form. Throw them away?')) return;
+      document.querySelectorAll('#formList div').forEach(x => x.classList.remove('on')); d.classList.add('on'); openForm(f.shape);
+    };
+    $('#formList').appendChild(d);
+  }
+}
+
+async function openForm(shape) {
+  toast('Loading the form ...', 0);
+  try { F = await api('/api/form?shape=' + shape); } catch (e) { toast('Could not open the form: ' + e.message, 10000); return; }
+  formShape = shape; dirty = false; W = {};
+  for (const s of F.spells) W[s.id] = { values: { ...s.values }, name: s.name, description: s.description, aura: s.aura,
+                                        level: s.level, anim: stripAnim(s.edit.anim) };
+  renderForm();
+  $('#toast').style.display = 'none';
+  $('#empty').textContent = F.form ? 'Loading the model ...' : 'The base kit has no model of its own.';
+  $('#empty').style.display = 'grid';
+  if (mesh) { root.remove(mesh); mesh = null; }
+  model = null; current = null; mixer = null;
+  if (F.form) await open(String(F.form.display));
+  if (F.form && !model) $('#empty').textContent = 'This form\'s model cannot be shown here: ' + (F.form.modelNote || 'see the message below');
+}
+const stripAnim = a => { if (!a) return null; const o = {}; for (const k of ['precast', 'cast', 'channel']) if (k in a) o[k] = a[k]; return Object.keys(o).length ? o : null; };
+
+function opts(map, value, extra = '') {
+  const keys = Object.keys(map).map(Number).sort((a, b) => a - b);
+  if (value !== undefined && value !== null && !(value in map) && !(+value === 0 && extra)) keys.unshift(value);
+  return extra + keys.map(k => `<option value="${k}" ${+k === +value ? 'selected' : ''}>${k} ${esc(map[k] ?? '?')}</option>`).join('');
+}
+
+function renderForm() {
+  const f = F.form, pane = $('#formPane');
+  let h = '';
+  if (f) {
+    h += `<h2>Form: ${esc(f.name)} <span class="dim">(shape ${f.shape}, spells ${f.base}-${f.base + 9})</span></h2>
+    <div class="grid2">
+      <label>Icon</label><div><span id="fIcon">${iconImg(f.icon, 'ico big')}</span> <span class="dim" id="fIconPath">${esc(f.iconPath)}</span></div>
+      <label>Name</label><input id="fName" value="${esc(f.name)}">
+      <label>Look (display)</label><div class="row" style="margin:0"><input id="fDisplay" type="number" value="${f.display}"><button id="fLook" style="flex:0 0 90px">Look at it</button></div>
+      <label>Size</label><input id="fScale" type="number" step="0.1" min="0.1" value="${f.scale}">
+      <label>Base colouring</label><input id="fSkin" value="${esc(f.skin)}" title="its name in .devour skin and the menu">
+    </div>
+    <div class="note">${f.family ? 'Any creature of its family gives it; every look of that family is a colouring.' : esc(f.zone)}
+      ${f.model ? `Model: ${esc(f.model)}` : `<span class="warn">${esc(f.modelNote || 'no model')}</span>`}</div>`;
+  } else {
+    h += `<h2>Every Devourer (base kit)</h2><div class="note">Rush, Concentrate and the Anima passive: every Devourer has them from level 1.</div>`;
+  }
+  h += `<div class="note">Templates (stock spells the abilities copy) from ${esc(F.templatesFrom)}.</div><h2>Spells <span class="dim">(click to open)</span></h2>`;
+  h += F.spells.map(s => `<div class="spell ${s.edit && Object.keys(s.edit).length ? 'code' : ''}" id="sp${s.id}">
+      <div class="head">${iconImg(s.values.SpellIconID)}<span class="nm"><b>${esc(s.name)}</b> <span class="dim">${esc(s.kind)}${s.kind === 'Form' || s.kind.startsWith('Cast') ? '' : ', level ' + s.level}</span></span>
+        ${s.edit && Object.keys(s.edit).length ? '<span class="tag st">edited</span>' : ''}<span class="tag st" data-dirty hidden>unsaved</span><span class="dim">${s.id}</span></div>
+      <div class="body"></div></div>`).join('');
+  h += `<div id="saveBar" class="row"><button class="go" id="fSave">Save</button><button id="fPack">Pack into game</button></div>
+    <div class="note">Save keeps your changes and writes the module's SQL and docs/start-kit.md again. Pack (WoW closed) puts them into
+      the client and the server's database; then restart the worldserver.</div>`;
+  pane.innerHTML = h;
+  if (f) {
+    const formIn = () => markDirty();
+    ['#fName', '#fDisplay', '#fScale', '#fSkin'].forEach(k => $(k).oninput = formIn);
+    $('#fLook').onclick = () => open(String($('#fDisplay').value));
+    $('#fIcon').onclick = () => pickIcon(id => { f.icon = id; $('#fIcon').innerHTML = iconImg(id, 'ico big'); $('#fIconPath').textContent = L.icons[id] || ''; markDirty(); });
+  }
+  pane.querySelectorAll('.spell > .head').forEach(hd => hd.onclick = () => {
+    const card = hd.parentNode, id = +card.id.slice(2);
+    card.classList.toggle('open');
+    if (card.classList.contains('open') && !card.querySelector('.body').innerHTML) renderSpell(id);
+  });
+  $('#fSave').onclick = () => saveForm();
+  $('#fPack').onclick = async () => {
+    if (dirty && !confirm('Pack without your unsaved changes? (Save first to include them.)')) return;
+    toast('Packing into the game ...', 0);
+    try { const r = await api('/api/pack', {}); toast(r.text, r.ok ? 12000 : 15000); } catch (e) { toast('Pack failed: ' + e.message, 15000); }
+  };
+}
+
+function markDirty(id) {
+  dirty = true;
+  if (id) { const t = document.querySelector(`#sp${id} [data-dirty]`); if (t) t.hidden = false; }
+}
+
+// --- one spell ---------------------------------------------------------------------------------------------------
+const AURA_EFFECTS = new Set([6, 27, 35, 65, 119, 128, 129, 143, 174]);   // effects that put an aura on
+function amountOf(v, n) { const bp = v['EffectBasePoints_' + n], ds = v['EffectDieSides_' + n]; return ds ? [bp + 1, ds - 1] : [bp, 0]; }
+
+function renderSpell(id) {
+  const s = F.spells.find(x => x.id === id), w = W[id], v = w.values, body = document.querySelector(`#sp${id} .body`);
+  const ch = (col) => v[col] !== s.plainValues[col] ? 'changed' : '';
+  const sel = (col, map, extra = '') => `<select data-col="${col}" class="${ch(col)}">${opts(map, v[col], extra)}</select>`;
+  const num = (col, step = 1, conv = '') => `<input type="number" step="${step}" data-col="${col}" data-conv="${conv}" class="${ch(col)}" value="${conv === 'sec' ? v[col] / 1000 : v[col]}">`;
+  let h = '';
+  if (s.script) h += `<div class="note warn">Part of what it does is in the module's code (<code>${esc(s.script)}</code>): what the code does stays the same, whatever is set here.</div>`;
+  h += `<div class="note">Copied from stock spell ${s.template.id} <b>${esc(s.template.name)}</b>.</div>
+  <div class="grid2">
+    <label>Icon</label><div><span data-icon>${iconImg(v.SpellIconID, 'ico big')}</span> <span class="dim">${esc(L.icons[v.SpellIconID] || '')}</span></div>
+    <label>Name</label><input data-text="name" value="${esc(w.name)}" class="${w.name !== s.plain.name ? 'changed' : ''}">
+    <label>Level</label><input type="number" min="1" max="80" data-level value="${w.level}" class="${w.level !== s.plain.level ? 'changed' : ''}">
+    <label>Anima cost</label><input type="number" min="0" data-anima value="${v.PowerType === 1 ? v.ManaCost / 10 : 0}" class="${ch('ManaCost')}">
+    <label>Cooldown (sec)</label>${num('RecoveryTime', 0.5, 'sec')}
+    <label>Cast time</label>${sel('CastingTimeIndex', L.casttimes)}
+    <label>Range</label>${sel('RangeIndex', L.ranges)}
+    <label>Duration</label>${sel('DurationIndex', L.durations, '<option value="0">0 none</option>')}
+    <label>Stacks up to</label>${num('CumulativeAura')}
+    <label>School</label><div class="schools ${ch('SchoolMask')}">${L.schools.map(([m, n]) => `<label><input type="checkbox" data-school="${m}" ${v.SchoolMask & m ? 'checked' : ''}>${n}</label>`).join('')}</div>
+  </div>
+  <h2>Effects</h2><table class="eff"><tr><th></th><th>1</th><th>2</th><th>3</th></tr>`;
+  const effRow = (label, cell) => `<tr><th>${label}</th>${[1, 2, 3].map(cell).join('')}</tr>`;
+  const none = '<option value="0">0 none</option>';
+  h += effRow('Effect', n => `<td>${sel('Effect_' + n, L.effects, none)}</td>`);
+  h += effRow('Aura', n => `<td>${sel('EffectAura_' + n, L.auras)}</td>`);
+  h += effRow('Amount', n => `<td><input type="number" data-amount="${n}" value="${amountOf(v, n)[0]}" class="${ch('EffectBasePoints_' + n)}"></td>`);
+  h += effRow('+ random up to', n => `<td><input type="number" min="0" data-spread="${n}" value="${amountOf(v, n)[1]}" class="${ch('EffectDieSides_' + n)}"></td>`);
+  h += effRow('Target', n => `<td>${sel('ImplicitTargetA_' + n, L.targets, none)}</td>`);
+  h += effRow('Target B', n => `<td>${sel('ImplicitTargetB_' + n, L.targets, none)}</td>`);
+  h += effRow('Radius', n => `<td>${sel('EffectRadiusIndex_' + n, L.radii, none)}</td>`);
+  h += effRow('Every (ms)', n => `<td>${num('EffectAuraPeriod_' + n)}</td>`);
+  h += effRow('Misc value', n => `<td>${num('EffectMiscValue_' + n)}</td>`);
+  h += effRow('Misc B', n => `<td>${num('EffectMiscValueB_' + n)}</td>`);
+  h += effRow('Casts spell', n => `<td>${num('EffectTriggerSpell_' + n)}</td>`);
+  h += effRow('Chain targets', n => `<td>${num('EffectChainTargets_' + n)}</td>`);
+  h += effRow('Mechanic', n => `<td>${sel('EffectMechanic_' + n, L.mechanics)}</td>`);
+  h += `</table><div class="note">Anima from an ENERGIZE effect (Misc value 1 = rage) counts ten per point: 150 = 15 Anima. An aura's amount is its
+    strength (a % or points); "Every (ms)" is its tick for periodic auras.</div>
+  <h2>Texts</h2>
+  <div class="dim">Tooltip ($s1 = effect 1's amount, $o2 = effect 2's total over time, $d = duration)</div>
+  <textarea data-text="description" class="${w.description !== s.plain.description ? 'changed' : ''}">${esc(w.description)}</textarea>
+  <div class="dim">On the buff / debuff</div>
+  <textarea data-text="aura" class="${w.aura !== s.plain.aura ? 'changed' : ''}">${esc(w.aura)}</textarea>
+  <h2>Animation</h2><div data-anim></div>
+  <h2>Look from another spell</h2>
+  <div class="note">Use the visual effects (and the animations that come with them) or the icon of any spell.</div>
+  <div class="row" style="margin-top:0"><input data-search placeholder="spell name or id, e.g. Ravage"><button data-dosearch style="flex:0 0 70px">Find</button></div>
+  <div class="hits" data-hits></div>
+  <details><summary class="dim" style="cursor:pointer;margin-top:8px">Every field (${Object.keys(v).length})</summary>
+    <div class="note">Green rows differ from the code; edit with care.</div><table class="raw">${Object.keys(v).map(k =>
+      `<tr><td class="${ch(k) ? 'ok' : 'dim'}">${k}</td><td><input data-raw="${k}" value="${v[k]}" class="${ch(k)}"></td></tr>`).join('')}</table></details>
+  <div class="row"><button data-reset ${s.edit && Object.keys(s.edit).length ? '' : 'disabled'}>Back to the code's version</button></div>`;
+  body.innerHTML = h;
+
+  const changed = () => markDirty(id);
+  body.querySelectorAll('[data-col]').forEach(el => el.onchange = () => {
+    const col = el.dataset.col; let val = Number(el.value);
+    if (el.dataset.conv === 'sec') val = Math.round(val * 1000);
+    v[col] = val; el.classList.toggle('changed', v[col] !== s.plainValues[col]); changed();
+    if (col === 'CastingTimeIndex') renderAnim(id);
+  });
+  body.querySelectorAll('[data-text]').forEach(el => el.oninput = () => { w[el.dataset.text] = el.value; changed(); });
+  body.querySelector('[data-level]').oninput = e => { w.level = +e.target.value; changed(); };
+  body.querySelector('[data-anima]').onchange = e => { const a = +e.target.value; v.ManaCost = a * 10; if (a) v.PowerType = 1; changed(); };
+  body.querySelectorAll('[data-school]').forEach(el => el.onchange = () => {
+    v.SchoolMask = [...body.querySelectorAll('[data-school]')].reduce((m, c) => m | (c.checked ? +c.dataset.school : 0), 0); changed(); });
+  body.querySelectorAll('[data-amount],[data-spread]').forEach(el => el.onchange = () => {
+    const n = el.dataset.amount || el.dataset.spread;
+    const amount = +body.querySelector(`[data-amount="${n}"]`).value, spread = +body.querySelector(`[data-spread="${n}"]`).value;
+    v['EffectBasePoints_' + n] = amount - 1; v['EffectDieSides_' + n] = spread + 1; changed(); });
+  body.querySelectorAll('[data-raw]').forEach(el => el.onchange = () => { v[el.dataset.raw] = Number(el.value); changed(); });
+  body.querySelector('[data-icon]').onclick = () => pickIcon(icon => { v.SpellIconID = icon; changed(); renderSpell(id); refreshHead(id); });
+  const search = async () => {
+    const r = await api('/api/spells?q=' + encodeURIComponent(body.querySelector('[data-search]').value));
+    body.querySelector('[data-hits]').innerHTML = r.spells.length ? r.spells.map(x => `<div>${iconImg(x.icon)}<span>${esc(x.name)} <span class="dim">${x.id}</span></span>
+      <button data-vis="${x.visual}" ${x.visual ? '' : 'disabled'}>use its look</button><button data-ic="${x.icon}">use its icon</button></div>`).join('') : '<span class="dim">nothing found</span>';
+    body.querySelectorAll('[data-vis]').forEach(bt => bt.onclick = () => { v.SpellVisualID_1 = +bt.dataset.vis; w.anim = null; changed();
+      toast('Its look is used now. Save, then the animation list shows what it plays.', 6000); });
+    body.querySelectorAll('[data-ic]').forEach(bt => bt.onclick = () => { v.SpellIconID = +bt.dataset.ic; changed(); renderSpell(id); refreshHead(id); });
+  };
+  body.querySelector('[data-dosearch]').onclick = search;
+  body.querySelector('[data-search]').onkeydown = e => { if (e.key === 'Enter') search(); };
+  body.querySelector('[data-reset]').onclick = () => { if (confirm('Drop every change to this spell (saved ones too)?')) saveForm(id); };
+  renderAnim(id);
+}
+
+function refreshHead(id) {
+  const img = document.querySelector(`#sp${id} .head img`); if (img) img.src = '/api/icon?id=' + W[id].values.SpellIconID;
+}
+
+function renderAnim(id) {
+  const s = F.spells.find(x => x.id === id), w = W[id], box = document.querySelector(`#sp${id} [data-anim]`);
+  if (!box) return;
+  const kinds = ['cast'];
+  if (w.values.CastingTimeIndex !== 1 || 'precast' in s.visual.anims) kinds.unshift('precast');
+  if ((w.values.AttributesEx & 4) || 'channel' in s.visual.anims) kinds.push('channel');
+  const label = { precast: 'While casting', cast: 'When cast', channel: 'While channelling' };
+  const now = k => (w.anim && k in w.anim) ? w.anim[k] : (k in s.visual.anims ? s.visual.anims[k] : -1);
+  const mp = F.modelPlays || {};
+  const names = Object.entries(L.anims).map(([i, n]) => [+i, n]).sort((a, b) => a[1].localeCompare(b[1]));
+  const has = names.filter(([i]) => mp[i] && mp[i][2]), other = names.filter(([i]) => !(mp[i] && mp[i][2]));
+  const optList = cur => `<option value="-1" ${cur === -1 ? 'selected' : ''}>none (the game's default)</option>` +
+    (F.form ? `<optgroup label="This model has its own">${has.map(([i, n]) => `<option value="${i}" ${i === cur ? 'selected' : ''}>${esc(n)}</option>`).join('')}</optgroup>` : '') +
+    `<optgroup label="${F.form ? 'Others (the model falls back)' : 'Animations'}">${other.map(([i, n]) => `<option value="${i}" ${i === cur ? 'selected' : ''}>${esc(n)}</option>`).join('')}</optgroup>`;
+  const plays = cur => { if (!F.form) return ''; if (cur < 0) return '<span class="dim">no animation of its own</span>';
+    const p = mp[cur]; if (!p) return '<span class="bad">this model has nothing to play for it</span>';
+    return p[2] ? `<span class="ok">plays its own ${esc(p[1])}</span>` : `<span class="warn">falls back to ${esc(p[1])}</span>`; };
+  box.innerHTML = kinds.map(k => `<div class="grid2" style="margin-bottom:4px"><label>${label[k]}</label>
+      <div class="row" style="margin:0"><select data-kind="${k}" class="${w.anim && k in w.anim ? 'changed' : ''}">${optList(now(k))}</select>
+      <button data-play="${k}" style="flex:0 0 34px" title="play it on the model">▶</button></div>
+      <label></label><div class="note" style="margin:0" data-plays="${k}">${plays(now(k))}</div></div>`).join('') +
+    `<div class="note">${s.visual.id ? `Visual ${s.visual.id}${s.visual.custom ? ' (its animations edited here)' : ''}.` : 'This spell has no visual: an animation gives it one.'}
+      The model can also be changed to play another of its animations (Models tab: link).</div>` +
+    (w.anim ? '<div class="row"><button data-animreset>Use the visual\'s own animations</button></div>' : '');
+  box.querySelectorAll('[data-kind]').forEach(el => el.onchange = () => {
+    w.anim = { ...(w.anim || {}), [el.dataset.kind]: +el.value }; markDirty(id); renderAnim(id); });
+  box.querySelectorAll('[data-play]').forEach(bt => bt.onclick = () => {
+    const p = mp[now(bt.dataset.play)]; if (p && model) play(p[0]); else toast('Nothing to play on this model.'); });
+  const r = box.querySelector('[data-animreset]'); if (r) r.onclick = () => { w.anim = null; markDirty(id); renderAnim(id); };
+}
+
+// --- saving ------------------------------------------------------------------------------------------------------
+async function saveForm(resetId) {
+  const body = { shape: formShape, spells: {} };
+  if (F.form) body.form = { name: $('#fName').value, display: +$('#fDisplay').value, scale: +$('#fScale').value,
+                            skin: $('#fSkin').value, icon: F.form.icon };
+  for (const s of F.spells) {
+    const w = W[s.id], c = {};
+    if (s.id === resetId) { body.spells[s.id] = { reset: true }; continue; }
+    const fields = {};
+    for (const k in w.values) if (w.values[k] !== s.values[k]) fields[k] = w.values[k];
+    if (Object.keys(fields).length) c.fields = fields;
+    for (const k of ['name', 'description', 'aura']) if (w[k] !== s[k]) c[k] = w[k];
+    if (w.level !== s.level) c.level = w.level;
+    if (JSON.stringify(w.anim) !== JSON.stringify(stripAnim(s.edit.anim))) c.anim = w.anim;
+    if (Object.keys(c).length) body.spells[s.id] = c;
+  }
+  toast('Saving ...', 0);
+  try {
+    const r = await api('/api/form/save', body);
+    const open_ = [...document.querySelectorAll('.spell.open')].map(e => +e.id.slice(2));
+    const shown = F.form && F.form.display;
+    F = r.detail; dirty = false; W = {};
+    for (const s of F.spells) W[s.id] = { values: { ...s.values }, name: s.name, description: s.description, aura: s.aura,
+                                          level: s.level, anim: stripAnim(s.edit.anim) };
+    renderForm();
+    open_.forEach(id => { const c = $('#sp' + id); if (c) { c.classList.add('open'); renderSpell(id); } });
+    loadForms();
+    if (F.form && F.form.display !== shown) await open(String(F.form.display));
+    toast('Saved. ' + r.text + '\nPack into game to try it.', 8000);
+  } catch (e) { toast('Save failed: ' + e.message, 12000); }
+}
+
+// --- icons: pick one of the game's, or add your own ----------------------------------------------------------------
+function pickIcon(done) {
+  const d = document.createElement('div');
+  d.style = 'position:fixed;inset:0;background:#0009;display:grid;place-items:center;z-index:9';
+  d.innerHTML = `<div style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;width:min(640px,94vw)">
+    <div class="row" style="margin-top:0"><input id="icQ" placeholder="search icons, e.g. wolf, claw, poison"><button id="icX" style="flex:0 0 80px">Close</button></div>
+    <div class="iconGrid" id="icGrid"></div>
+    <h2>Your own icon</h2>
+    <div class="row"><input type="file" id="icFile" accept="image/*"><input id="icName" placeholder="name, e.g. TearThroat"><button class="go" id="icAdd" style="flex:0 0 70px">Add</button></div>
+    <div class="note">Square images work best; it becomes a 64x64 icon (Interface\\Icons\\Devourer_name), packed with the rest.</div></div>`;
+  document.body.appendChild(d);
+  const all = Object.entries(L.icons).map(([i, p]) => [+i, p]);
+  const show = () => {
+    const q = d.querySelector('#icQ').value.toLowerCase();
+    const hits = all.filter(([i, p]) => !q || p.toLowerCase().includes(q) || String(i) === q).slice(0, 240);
+    d.querySelector('#icGrid').innerHTML = hits.map(([i, p]) => `<img loading="lazy" src="/api/icon?id=${i}" title="${i} ${esc(p.split('\\').pop())}" data-i="${i}">`).join('') ||
+      '<span class="dim">no icon matches</span>';
+    d.querySelectorAll('#icGrid img').forEach(img => img.onclick = () => { d.remove(); done(+img.dataset.i); });
+  };
+  let t; d.querySelector('#icQ').oninput = () => { clearTimeout(t); t = setTimeout(show, 200); };
+  d.querySelector('#icX').onclick = () => d.remove();
+  d.querySelector('#icAdd').onclick = () => {
+    const file = d.querySelector('#icFile').files[0], name = d.querySelector('#icName').value.trim();
+    if (!file || !name) { toast('Choose an image and give it a name.'); return; }
+    const rd = new FileReader();
+    rd.onload = async () => {
+      try { const r = await api('/api/icon/add', { name, data: rd.result }); L.icons[r.id] = r.path; d.remove(); done(r.id);
+            toast(`Icon ${r.id} added (${r.path}). Save, then pack.`, 6000); }
+      catch (e) { toast('Could not add the icon: ' + e.message, 10000); }
+    };
+    rd.readAsDataURL(file);
+  };
+  show();
+}
+
 const start = new URLSearchParams(location.search).get('m'); if (start) { $('#q').value = start; open(start); }
+if (new URLSearchParams(location.search).has('forms')) mode('forms');
 </script>
 </body>
 </html>
