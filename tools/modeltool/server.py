@@ -19,6 +19,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import forms                                                 # noqa: E402
 import imports                                               # noqa: E402
 import modeltool as mt                                       # noqa: E402
 
@@ -37,6 +38,7 @@ def sources():
 
 def refresh():
     state["src"] = None
+    forms.reset()
 
 
 # --- reading a model for the viewer ----------------------------------------------------------------------------------
@@ -227,6 +229,24 @@ def import_step(body: dict) -> dict:
     return e
 
 
+def icon_png(rid: int) -> bytes | None:
+    src, _ = sources()
+    path = forms.lookups(src)["icons"].get(rid)
+    return texture_png(path + ".blp") if path else None
+
+
+def form_save(body: dict) -> dict:
+    src, anims = sources()
+    result = forms.save(src, body["shape"], body)
+    return dict(result, detail=forms.form_detail(src, anims, body["shape"]))
+
+
+def icon_add(body: dict) -> dict:
+    result = forms.add_icon(body["name"], body["data"])
+    refresh()                                                # the new .blp in work\ must be seen
+    return result
+
+
 def find_json(text: str) -> dict:
     src, _ = sources()
     rows = mt.sql("SELECT t.entry, t.name, m.CreatureDisplayID FROM creature_template t JOIN creature_template_model m "
@@ -278,6 +298,11 @@ class Handler(BaseHTTPRequestHandler):
             "/api/anim": lambda: anim_json(q["m"], int(q["seq"])),
             "/api/tex": lambda: texture_png(q["p"]),
             "/api/work": lambda: run("work"),
+            "/api/forms": lambda: forms.overview(sources()[0]),
+            "/api/form": lambda: forms.form_detail(*sources(), q["shape"]),
+            "/api/lookups": lambda: forms.lookups(sources()[0]),
+            "/api/spells": lambda: dict(spells=forms.search_spells(sources()[0], q.get("q", ""))),
+            "/api/icon": lambda: icon_png(int(q["id"])),
         }
         if u.path in routes:
             return self.answer(routes[u.path])
@@ -293,6 +318,8 @@ class Handler(BaseHTTPRequestHandler):
             "/api/pack": lambda: run("pack"),
             "/api/convert": lambda: convert_step(body["file"], body.get("name") or None),
             "/api/import": lambda: import_step(body),
+            "/api/form/save": lambda: form_save(body),
+            "/api/icon/add": lambda: icon_add(body),
         }
         if u.path in routes:
             return self.answer(routes[u.path])

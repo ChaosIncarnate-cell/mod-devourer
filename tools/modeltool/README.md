@@ -41,6 +41,38 @@ a display; kept in `imports.json`), **3. Pack into game** (adds the displays to 
 CreatureDisplayInfo inside patch-Z and to the server's `*_dbc` tables; restart the server). Effects: particle emitters are converted (gravity unpacked, first texture of multi-texture emitters), ribbons kept;
 emitters that spawn little models are left out. Newer shaders: classic shader instead. The 3D view does not draw effects.
 
+## Devourer forms (2026-10-02)
+The page's second tab, **Devourer forms**, edits the Devourer's forms (shapes 5-15) and the base kit: pick a form on
+the left, its model shows in the middle, the editor is on the right.
+
+- **The form**: name, look (display id; *Look at it* shows it), size, the base colouring's name, icon.
+- **Each spell** (click to open): name, level, icon, Anima cost, cooldown, cast time, range, duration, stacks,
+  school, its three effects (effect, aura, amount, targets, radius, tick, misc values, spell it casts, mechanic),
+  tooltip and buff text, and every other `spell_dbc` field under *Every field*.
+- **Animation**: what the form plays while casting, when cast and while channelling. The list shows which
+  animations the model has (green: its own; yellow: the model falls back to another). ▶ plays it on the model.
+- **Look from another spell**: find any spell by name and use its visual effects or its icon.
+- **Icons**: pick one of the game's (search by name), or add your own image (it becomes a 64x64
+  `Interface\Icons\Devourer_<name>.blp` in `work\`).
+- Spells marked *"Part of what it does is in the module's code"* have a script (`src/Devourer*.cpp`): the numbers
+  here still apply, but what the script does stays the same.
+
+**Save** writes your changes into `tools/form_edits.json` (commit it: it is the record of your changes) and runs
+`tools/start_kit.py` again (its SQL and `docs/start-kit.md`). Only what differs from the code is kept; *Back to the
+code's version* drops a spell's changes. **Pack into game** (WoW closed) then puts into `patch-Z.MPQ` the
+Devourer's spells from that SQL, an own visual for every spell whose animation changed (SpellVisual 91000-91199,
+SpellVisualKit 91000-91599: copies of the template's, so its glows and sounds stay), your icons (SpellIcon
+91000-91999), and runs the SQL on the world database. Restart the worldserver and delete the client's Cache.
+
+`forms.py` is the editor's side of the server, `spell_enums.json` the effect / aura / target names
+(`make_spell_enums.py` reads them from the core's headers). The stock spells the abilities copy come from the
+server's `Spell.dbc` when the tool finds it (`server\data\dbc` below the game folder, or env
+`CHROMATICAW_SPELL_DBC`), else from the client's. `python selftest_forms.py` checks the editor against a made-up
+client (needs Pillow).
+
+The Devourer client patch tool rebuilds patch-Z from scratch: run Pack again after it (it puts the animations and
+icons back). Shapes 1-4 (the CoA forms in `tools/coa/build_devourer_spells.py`) are not in the editor.
+
 ## Where it lives
 
 This folder (mod-devourer `tools/modeltool`) is the only copy; `Z:\ChromaticawBots\modeltool.bat` starts it from
@@ -51,5 +83,5 @@ and are never committed.
 ## For cloud sessions
 
 No game client, database or MPQ files exist in the cloud: `find`, `import`, `pack` and the web page's model data
-cannot run there. Work on the code, test the binary parsers with your own tiny hand-made fixtures if needed, keep
+cannot run there (`selftest_forms.py` can: it makes up its own client). Work on the code, test the binary parsers with your own tiny hand-made fixtures if needed, keep
 `python -m py_compile *.py` clean, and say in the PR what the owner must test locally.
