@@ -80,3 +80,10 @@ level 20 (where 3.3.5 Apprentice Riding starts). Winning teaches Apprentice Ridi
 Devourer's first mount (the Derby Beast, two seats). Because Mulgore is a level 1-10 zone, the course moves to the open
 savanna of the Northern Barrens around the Crossroads (level 10-25), still short (about two minutes). Riding and
 mount items go through the Items and balance thread.
+
+## Build note: the seat
+
+Model scouting (2026-10-03): no candidate model has the stock passenger attachments 13/14. Because the player *is*
+the beast, the plan is a transform to the chosen model plus aura 296 (set vehicle id) with **vehicle 102**, which has
+one passenger seat on attachment 0 (the saddle point). That works with every candidate (Primal Tallstrider, Ardenweald
+Toad, Amani Pangolin, Rocket Turtle, Broodmother shrunk to about a third) with no model edit and no client change.
