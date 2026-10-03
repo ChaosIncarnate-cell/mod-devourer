@@ -52,6 +52,7 @@ OUT_SQL = REPO / "data" / "sql" / "db-world" / "2026_10_03_00_devourer_tier2.sql
 OUT_MD = REPO / "docs" / "tier2-kit.md"
 FIRST, LAST = 9102000, 9102999
 FIRST_SHAPE = 16
+MOLT_QUEST_FIRST = 9101310               # task 018: the molt quests (tools/witch_sisters.py), one per form, in order
 
 # --- enums the other tools do not have yet ------------------------------------------------------------------------
 E_INTERRUPT_CAST, E_KNOCK_BACK = 68, 98
@@ -111,6 +112,7 @@ class Evolved:
         self.changes = list(changes)
         self.role = role
         self.base = sid(shape, 0)
+        self.quest = 0                    # task 018: its molt quest (set below, in FORMS order)
         # Retail models brought in with the model tool (tools/modeltool, imports.json): [(display, colouring name)],
         # the first is the base look. They come with the shape (devourer_skin.free), so does the creature's own look.
         self.looks = list(looks)
@@ -577,6 +579,8 @@ VOID_TERROR = Evolved(
 
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR]
+for _i, _form in enumerate(FORMS):
+    _form.quest = MOLT_QUEST_FIRST + _i
 
 
 def form_spells(f: Evolved, dbc):
@@ -702,9 +706,18 @@ def main() -> int:
         "-- Task kinds (src/Devourer.h TaskKind): 3 devour rarity, 4 devour type, 5 devour by name (name_part),",
         "-- 7 devour family, 8 devour one creature (value = entry), 9 use a spell (value = spell id), 10 deal damage,",
         "-- 11 take damage (value = school mask, 0 = any; count = damage), 12 heal yourself (count = health).",
+        "-- Task 018: an evolution with a molt quest waits for it: the module puts the quest in the log when the form",
+        "-- is ready, and handing it in to Wren (tools/witch_sisters.py) is the evolution.",
+        "SET @devourer_col := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE()",
+        "    AND TABLE_NAME = 'devourer_evolution' AND COLUMN_NAME = 'quest');",
+        "SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_evolution` ADD COLUMN `quest` INT UNSIGNED "
+        "NOT NULL DEFAULT 0 COMMENT ''molt quest; 0 = it grows by itself''', 'DO 0');",
+        "PREPARE devourer_stmt FROM @devourer_sql;",
+        "EXECUTE devourer_stmt;",
+        "DEALLOCATE PREPARE devourer_stmt;",
         f"DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN {lo} AND {hi};",
-        "INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`) VALUES",
-        ",\n".join(f"({f.parent}, {f.shape}, {f.bp}, {f.level}, 1)" for f in FORMS) + ";",
+        "INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`, `quest`) VALUES",
+        ",\n".join(f"({f.parent}, {f.shape}, {f.bp}, {f.level}, 1, {f.quest})" for f in FORMS) + ";",
         f"DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`)"
         " VALUES",
@@ -725,7 +738,8 @@ def main() -> int:
           "",
           "A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolution`) once that form has "
           "the Bio Points, the Devourer the level, and **any one** of the three tasks is done (the canvas rule). "
-          "The earlier form stays.",
+          "Then the molt quest (task 018) comes into the log: handing it in to Wren in the In-Between is the "
+          "evolution. The earlier form stays.",
           "",
           "| Shape | Form | Grows out of | Level | Bio Points | Role |",
           "|---|---|---|---|---|---|"]

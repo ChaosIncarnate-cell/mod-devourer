@@ -87,6 +87,22 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 *Not done yet:* I can still hear crunching, and it isn't you. Keep eating!  
 *Handed in:* All of them? ALL of them? Oh, you lovely, horrible thing. Hagatha's anima is safe and nothing is multiplying any more. / Keep the frog. It suits you.
 
+## The molt quests (task 018)
+
+When a form has everything its evolution needs (Bio Points, level, any one task), the module puts its molt quest in the log, already done, and Wren calls from afar. Handing it in to Wren in the In-Between is the evolution: she peels the old body, Hagatha tells the tale of the new one. The earlier form stays.
+
+| Quest | Title | Hagatha's tale |
+|---|---|---|
+| 9101310 | The Molt: Greater Plainstrider | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. |
+| 9101311 | The Molt: Bloodsnout Worg | Every pack has one that runs behind the others. Not out of fear, my little horror. It is choosing which leg to take first. |
+| 9101312 | The Molt: Raging Agam'ar | The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it. |
+| 9101313 | The Molt: Shadowclaw | On Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Mind your voice near it. |
+| 9101314 | The Molt: Rockjaw Backbreaker | The dwarves tell of a trogg that gnawed on a stone giant's toe. It never stopped growing harder. Neither did its hunger. |
+| 9101315 | The Molt: Vampiric Duskbat | In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living. |
+| 9101316 | The Molt: Arcane Wraith | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. |
+| 9101317 | The Molt: Royal Blue Flutterer | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. |
+| 9101318 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+
 ## Lines (creature_text)
 
 | Who | Group | When | Line | |
@@ -113,6 +129,17 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 | Wren | 11 |  | Hold still, Snack! A little swamp, a little croak... there! | draft |
 | Wren | 12 |  | Ha! A toad! The best kind of pet. Now go and eat my bugs. And look up: some of them hide where only a tongue can reach! | draft |
 | Wren | 13 |  | Was that the last one? I think that was the last one! Come here and let me count. | draft |
+| Wren | 14 | a molt quest handed in | Ooh, here it comes! Hold still, Snack, the old skin's coming off! ...Eww. Wonderful! | draft |
+| Wren | 15 | a form is ready (whisper) | Snack! I can smell it from here: that body of yours is fit to burst. Come home and let me peel it! | draft |
+| Hagatha | 8 | the Greater Plainstrider molt | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. | draft |
+| Hagatha | 9 | the Bloodsnout Worg molt | Every pack has one that runs behind the others. Not out of fear, my little horror. It is choosing which leg to take first. | draft |
+| Hagatha | 10 | the Raging Agam'ar molt | The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it. | draft |
+| Hagatha | 11 | the Shadowclaw molt | On Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Mind your voice near it. | draft |
+| Hagatha | 12 | the Rockjaw Backbreaker molt | The dwarves tell of a trogg that gnawed on a stone giant's toe. It never stopped growing harder. Neither did its hunger. | draft |
+| Hagatha | 13 | the Vampiric Duskbat molt | In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living. | draft |
+| Hagatha | 14 | the Arcane Wraith molt | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. | draft |
+| Hagatha | 15 | the Royal Blue Flutterer molt | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. | draft |
+| Hagatha | 16 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
 
 ## Gossip texts
 

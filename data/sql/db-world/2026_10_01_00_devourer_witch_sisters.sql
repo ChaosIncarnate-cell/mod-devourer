@@ -24,10 +24,10 @@ DELETE FROM `creature_questender` WHERE `id` BETWEEN 9101300 AND 9101399;
 DELETE FROM `creature_template` WHERE `entry` BETWEEN 9101300 AND 9101399;
 DELETE FROM `gameobject_template_addon` WHERE `entry` BETWEEN 9101300 AND 9101399;
 DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9101300 AND 9101399;
-DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9101301 AND 9101304;
-DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9101301 AND 9101304;
-DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9101301 AND 9101304;
-DELETE FROM `quest_template` WHERE `ID` BETWEEN 9101301 AND 9101304;
+DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9101301 AND 9101399;
+DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9101301 AND 9101399;
+DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9101301 AND 9101399;
+DELETE FROM `quest_template` WHERE `ID` BETWEEN 9101301 AND 9101399;
 DELETE FROM `gossip_menu_option` WHERE `MenuID` IN (9101300, 9101301);
 DELETE FROM `gossip_menu` WHERE `MenuID` IN (9101300, 9101301);
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN (9101300, 9101301);
@@ -192,6 +192,40 @@ INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
 INSERT INTO `creature_questender` (`id`, `quest`) VALUES
 (9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304);
 
+-- --- the molt quests (task 018): the module hands one out when a form is ready to evolve; Wren takes it ---
+INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `VerifiedBuild`) VALUES
+(9101310, 2, 12, 12, 0, 0, 0, 5, 0, 0, 'The Molt: Greater Plainstrider', 'Go back to Wren Hollowmoor in the In-Between and let her peel your plainstrider body. A greater plainstrider is waiting under the old skin.', 'Your plainstrider body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101311, 2, 14, 14, 0, 0, 0, 5, 0, 0, 'The Molt: Bloodsnout Worg', 'Go back to Wren Hollowmoor in the In-Between and let her peel your wolf body. A bloodsnout worg is waiting under the old skin.', 'Your wolf body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101312, 2, 12, 12, 0, 0, 0, 5, 0, 0, 'The Molt: Raging Agam''ar', 'Go back to Wren Hollowmoor in the In-Between and let her peel your boar body. A raging agam''ar is waiting under the old skin.', 'Your boar body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101313, 2, 14, 14, 0, 0, 0, 5, 0, 0, 'The Molt: Shadowclaw', 'Go back to Wren Hollowmoor in the In-Between and let her peel your saber body. A shadowclaw is waiting under the old skin.', 'Your saber body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101314, 2, 12, 12, 0, 0, 0, 5, 0, 0, 'The Molt: Rockjaw Backbreaker', 'Go back to Wren Hollowmoor in the In-Between and let her peel your trogg body. A rockjaw backbreaker is waiting under the old skin.', 'Your trogg body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101315, 2, 14, 14, 0, 0, 0, 5, 0, 0, 'The Molt: Vampiric Duskbat', 'Go back to Wren Hollowmoor in the In-Between and let her peel your bat body. A vampiric duskbat is waiting under the old skin.', 'Your bat body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101316, 2, 14, 14, 0, 0, 0, 5, 0, 0, 'The Molt: Arcane Wraith', 'Go back to Wren Hollowmoor in the In-Between and let her peel your mana wyrm body. A arcane wraith is waiting under the old skin.', 'Your mana wyrm body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101317, 2, 12, 12, 0, 0, 0, 5, 0, 0, 'The Molt: Royal Blue Flutterer', 'Go back to Wren Hollowmoor in the In-Between and let her peel your moth body. A royal blue flutterer is waiting under the old skin.', 'Your moth body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101318, 2, 16, 16, 0, 0, 0, 5, 0, 0, 'The Molt: Void Terror', 'Go back to Wren Hollowmoor in the In-Between and let her peel your warp stalker body. A void terror is waiting under the old skin.', 'Your warp stalker body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0);
+INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
+(9101310, 512, 9101303),
+(9101311, 512, 9101303),
+(9101312, 512, 9101303),
+(9101313, 512, 9101303),
+(9101314, 512, 9101303),
+(9101315, 512, 9101303),
+(9101316, 512, 9101303),
+(9101317, 512, 9101303),
+(9101318, 512, 9101303);
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
+(9101310, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101311, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101312, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101313, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101314, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101315, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101316, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101317, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101318, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0);
+INSERT INTO `creature_questender` (`id`, `quest`) VALUES
+(9101301, 9101310), (9101301, 9101311), (9101301, 9101312), (9101301, 9101313), (9101301, 9101314), (9101301, 9101315), (9101301, 9101316), (9101301, 9101317), (9101301, 9101318);
+
 -- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------
 INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES
 (9101301, 0, 0, 'Found you! Hold still, Snack. This tickles. Mostly.', 15, 0, 100, 0, 0, 0, 0, 0, 'Wren 0 (draft)'),
@@ -215,7 +249,18 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (9101301, 10, 0, 'Project #9 is back! Did you bring me anything? No? ...Fine. Lessons, then!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 10 (PLACEHOLDER)'),
 (9101301, 11, 0, 'Hold still, Snack! A little swamp, a little croak... there!', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 11 (draft)'),
 (9101301, 12, 0, 'Ha! A toad! The best kind of pet. Now go and eat my bugs. And look up: some of them hide where only a tongue can reach!', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 12 (draft)'),
-(9101301, 13, 0, 'Was that the last one? I think that was the last one! Come here and let me count.', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 13 (draft)');
+(9101301, 13, 0, 'Was that the last one? I think that was the last one! Come here and let me count.', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 13 (draft)'),
+(9101301, 14, 0, 'Ooh, here it comes! Hold still, Snack, the old skin''s coming off! ...Eww. Wonderful!', 12, 0, 100, 4, 0, 0, 0, 0, 'Wren 14 (draft)'),
+(9101301, 15, 0, 'Snack! I can smell it from here: that body of yours is fit to burst. Come home and let me peel it!', 12, 0, 100, 0, 0, 0, 0, 0, 'Wren 15 (draft)'),
+(9101300, 8, 0, 'In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 8 (draft)'),
+(9101300, 9, 0, 'Every pack has one that runs behind the others. Not out of fear, my little horror. It is choosing which leg to take first.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 9 (draft)'),
+(9101300, 10, 0, 'The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 10 (draft)'),
+(9101300, 11, 0, 'On Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Mind your voice near it.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 11 (draft)'),
+(9101300, 12, 0, 'The dwarves tell of a trogg that gnawed on a stone giant''s toe. It never stopped growing harder. Neither did its hunger.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 12 (draft)'),
+(9101300, 13, 0, 'In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 13 (draft)'),
+(9101300, 14, 0, 'When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 14 (draft)'),
+(9101300, 15, 0, 'The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 15 (draft)'),
+(9101300, 16, 0, 'Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 16 (draft)');
 
 -- --- gossip: the text depends on who asks; training only for a Devourer whose cage is open ---------------
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES

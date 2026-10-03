@@ -185,6 +185,7 @@ namespace Devourer
         uint32 Bp = 0;
         uint8 MinLevel = 0;
         bool AnyTask = false;                    // the frog line (2026-10-02): any one task is enough, not all
+        uint32 Quest = 0;                        // task 018: its molt quest (handing it in is the evolution); 0 = none
         std::vector<EvolutionTask> Tasks;
     };
 
@@ -375,6 +376,9 @@ namespace Devourer
         void GainBio(Player* player, Creature const* meal, float factor = 1.0f);   // factor != 1: a bonus share
         void TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount = 1, std::string const& name = {});
         void CheckEvolution(Player* player);
+        void Evolve(Player* player, Evolution const& evo);          // the old body tears open, the new one is put on
+        bool OfferMolt(Player* player, Evolution const& evo);       // task 018: true = waiting for its molt quest
+        bool Molt(Player* player, uint32 questId);                  // task 018: a molt quest handed in to Wren
         void SaveGrowth(Player* player);
         [[nodiscard]] std::string GrowthText(Player* player, uint32 shapeId);
 

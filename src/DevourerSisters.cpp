@@ -648,8 +648,18 @@ struct npc_devourer_witch_sister : public CreatureAI
 
     void sQuestReward(Player* player, Quest const* quest, uint32 /*opt*/) override
     {
-        if (quest->GetQuestId() == QuestTale)
+        uint32 const id = quest->GetQuestId();
+        if (id == QuestTale)
             OpenCage(player);
+        else if (id >= QuestMoltFirst && id <= QuestMoltLast && me->GetEntry() == NpcWren)
+        {
+            // Task 018: Wren peels the old body, the new one crawls out, Hagatha tells its tale.
+            Talk(WrenMolt, player);
+            me->HandleEmoteCommand(EMOTE_ONESHOT_SPELL_CAST_OMNI);
+            player->CastSpell(player, VisualTransform, true);
+            if (sDevourer.Molt(player, id))
+                Say(player, NpcHagatha, uint8(HagathaMoltFirst + (id - QuestMoltFirst)), 5s);
+        }
     }
 };
 

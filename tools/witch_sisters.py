@@ -22,16 +22,20 @@ Ids (all removed by data/sql/uninstall/world.sql and characters.sql):
                          9101313-9101314 the anima pests of Wren's fourth chore, 9101315 its credit
   creature (spawns)      9910200-9910202
   gameobject_template    9101300-9101309      gameobject (spawns) 9910200-9910229
-  quest                  9101301-9101304
+  quest                  9101301-9101304, 9101310-9101399 the molt quests (task 018: one per evolution that has one,
+                         tools/evolved_kit.py gives each evolution its quest id)
   gossip_menu / npc_text 9101300-9101301 / 9101300-9101305 (conditions on the same menus)
   creature_default_trainer: both sisters -> trainer 9101200 (its spells: tools/start_kit.py)
 """
 from __future__ import annotations
 
 import math
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "tools"))
+import evolved_kit  # noqa: E402  (task 018: the evolved forms, their molt quest ids)
 OUT_SQL = REPO / "data" / "sql" / "db-world" / "2026_10_01_00_devourer_witch_sisters.sql"
 OUT_H = REPO / "src" / "DevourerSistersIds.h"
 OUT_MD = REPO / "docs" / "witch-sisters.md"
@@ -53,6 +57,7 @@ SPAWN_FIRST, SPAWN_LAST = 9910200, 9910299
 GO_FIRST, GO_LAST = 9101300, 9101399
 GO_CAGE = 9101300                                   # the Devourer's own cage: summoned per player, opens at the end
 Q_FEEDING, Q_TRICK, Q_TALE, Q_PESTS = 9101301, 9101302, 9101303, 9101304
+Q_FIRST, Q_LAST = 9101301, 9101399                   # every quest of the sisters (molt quests: 9101310+)
 MENU_HAGATHA, MENU_WREN = 9101300, 9101301
 TRAINER = 9101200                                    # tools/start_kit.py: the class trainer and what it teaches
 CLASS_MASK = 512                                     # class 10
@@ -211,7 +216,37 @@ TEXTS = [
      "only a tongue can reach!", EMOTE_LAUGH, DRAFT),
     (NPC_WREN, 13, "Was that the last one? I think that was the last one! Come here and let me count.", EMOTE_CHEER,
      DRAFT),
+    # Task 018, the molt quests: Wren peels the old body (14), and calls from afar when one is ready (15, a whisper
+    # the module sends wherever the Devourer is); Hagatha tells the tale of the new form (8 + its index, MOLT_TALES).
+    (NPC_WREN, 14, "Ooh, here it comes! Hold still, Snack, the old skin's coming off! ...Eww. Wonderful!", EMOTE_CHEER,
+     DRAFT),
+    (NPC_WREN, 15, "Snack! I can smell it from here: that body of yours is fit to burst. Come home and let me peel it!",
+     0, DRAFT),
 ]
+
+# Task 018: Hagatha's tale of each evolved form, said when its molt quest is handed in (creature_text group
+# HAGATHA_MOLT_FIRST + the form's index in evolved_kit.FORMS). Keyed by shape id.
+MOLT_TALES = {
+    16: "In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been "
+        "chasing it ever since.",
+    17: "Every pack has one that runs behind the others. Not out of fear, my little horror. It is choosing which leg "
+        "to take first.",
+    18: "The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it.",
+    19: "On Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Mind your "
+        "voice near it.",
+    20: "The dwarves tell of a trogg that gnawed on a stone giant's toe. It never stopped growing harder. Neither did "
+        "its hunger.",
+    21: "In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for "
+        "the living.",
+    22: "When the elves spill their magic, something always laps it up. That something does not stop when the cup is "
+        "empty.",
+    23: "The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about.",
+    24: "Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to.",
+}
+HAGATHA_MOLT_FIRST = 8
+for i, form in enumerate(evolved_kit.FORMS):
+    TEXTS.append((NPC_HAGATHA, HAGATHA_MOLT_FIRST + i, MOLT_TALES[form.shape], EMOTE_TALK, DRAFT))
+WREN_MOLT, WREN_MOLT_READY = 14, 15
 
 # npc_text: (id, text, draft). Shown on the sisters' gossip; conditions pick one.
 NPC_TEXTS = [
@@ -278,6 +313,21 @@ QUESTS = [
                 "multiplying any more.$B$BKeep the frog. It suits you.",
          complete="Return to {Wren}."),
 ]
+
+# Task 018: the molt quests. Nobody offers them: the module puts one in the log, done, the moment a form has
+# everything its evolution needs (Bio Points, level, one task); handing it in to Wren is the evolution.
+MOLT_QUESTS = [
+    dict(id=form.quest, ender=NPC_WREN, shape=form.shape, level=form.level, xp=5,
+         title=f"The Molt: {form.name}",
+         log=f"Go back to {{Wren}} in the In-Between and let her peel your {form.parent_name.lower()} body. "
+             f"A {form.name.lower()} is waiting under the old skin.",
+         details=f"Your {form.parent_name.lower()} body has eaten enough. It itches, it pulls, it does not fit any more. "
+                 "The sisters can feel it from the In-Between.",
+         reward="There you are! Look how it bulges. Lie down in the circle, Snack, and don't wriggle. "
+                "{hagatha}, the bucket!",
+         complete="Return to {Wren}.")
+    for form in evolved_kit.FORMS]
+assert all(Q_FIRST <= qd["id"] <= Q_LAST for qd in MOLT_QUESTS)
 
 OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, action menu, who sees it)]
     # who: "trained" = a Devourer whose cage is open, "tale" = a Devourer on the third task
@@ -351,10 +401,10 @@ def build_sql() -> str:
         f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {NPC_FIRST} AND {NPC_LAST};",
         f"DELETE FROM `gameobject_template_addon` WHERE `entry` BETWEEN {GO_FIRST} AND {GO_LAST};",
         f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {GO_FIRST} AND {GO_LAST};",
-        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
-        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
-        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
-        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FEEDING} AND {Q_PESTS};",
+        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
+        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
+        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
+        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
         f"DELETE FROM `gossip_menu_option` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
         f"DELETE FROM `gossip_menu` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
         f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN ({MENU_HAGATHA},"
@@ -510,6 +560,22 @@ def build_sql() -> str:
           ", ".join(f"({qd['ender']}, {qd['id']})" for qd in QUESTS) + ";",
           ""]
 
+    # task 018: the molt quests (no giver: the module puts them in the log, already done; Wren takes them)
+    s += ["-- --- the molt quests (task 018): the module hands one out when a form is ready to evolve; Wren takes it ---",
+          "INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`,"
+          " `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`,"
+          " `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `VerifiedBuild`) VALUES",
+          ",\n".join(f"({qd['id']}, 2, {qd['level']}, {qd['level']}, 0, 0, 0, {qd['xp']}, 0, 0, {q(f(qd['title']))},"
+                     f" {q(f(qd['log']))}, {q(f(qd['details']))}, '', {q(f(qd['complete']))}, 0)"
+                     for qd in MOLT_QUESTS) + ";",
+          "INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES",
+          ",\n".join(f"({qd['id']}, {CLASS_MASK}, {Q_TALE})" for qd in MOLT_QUESTS) + ";",
+          "INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES",
+          ",\n".join(f"({qd['id']}, 1, {q(f(qd['reward']))}, 0)" for qd in MOLT_QUESTS) + ";",
+          "INSERT INTO `creature_questender` (`id`, `quest`) VALUES",
+          ", ".join(f"({qd['ender']}, {qd['id']})" for qd in MOLT_QUESTS) + ";",
+          ""]
+
     # texts
     s += ["-- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------",
           "INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`,"
@@ -576,6 +642,8 @@ def build_header() -> str:
         f"    constexpr uint32_t QuestTrick = {Q_TRICK};",
         f"    constexpr uint32_t QuestTale = {Q_TALE};",
         f"    constexpr uint32_t QuestPests = {Q_PESTS};",
+        f"    constexpr uint32_t QuestMoltFirst = {MOLT_QUESTS[0]['id']};   // task 018: one per evolved form, in order",
+        f"    constexpr uint32_t QuestMoltLast = {MOLT_QUESTS[-1]['id']};",
         f"    constexpr uint32_t MenuHagatha = {MENU_HAGATHA};",
         f"    constexpr uint32_t MenuWren = {MENU_WREN};",
         f"    constexpr uint32_t OptionTale = {OPT_TALE};",
@@ -605,6 +673,8 @@ def build_header() -> str:
         "        WrenPestSpell = 11, WrenPestToad = 12, WrenPestsGone = 13,",
         "        HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,",
         "        HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,",
+        f"        WrenMolt = {WREN_MOLT}, WrenMoltReady = {WREN_MOLT_READY}, HagathaMoltFirst = {HAGATHA_MOLT_FIRST},"
+        "   // task 018 (+ the quest's index)",
         "    };",
         "}",
         "",
@@ -656,14 +726,22 @@ def build_md() -> str:
                f"*Objective:* {f(qd['log'])}", "",
                f"> {f(qd['details']).replace('$B$B', ' / ')}", "",
                f"*Not done yet:* {f(qd['incomplete'])}  ", f"*Handed in:* {f(qd['reward']).replace('$B$B', ' / ')}", ""]
-    md += ["## Lines (creature_text)", "", "| Who | Group | When | Line | |", "|---|---|---|---|---|"]
+    md += ["## The molt quests (task 018)", "",
+           "When a form has everything its evolution needs (Bio Points, level, any one task), the module puts its molt "
+           "quest in the log, already done, and Wren calls from afar. Handing it in to Wren in the In-Between is the "
+           "evolution: she peels the old body, Hagatha tells the tale of the new one. The earlier form stays.", "",
+           "| Quest | Title | Hagatha's tale |", "|---|---|---|"]
+    md += [f"| {qd['id']} | {f(qd['title'])} | {MOLT_TALES[qd['shape']]} |" for qd in MOLT_QUESTS]
+    md += ["", "## Lines (creature_text)", "", "| Who | Group | When | Line | |", "|---|---|---|---|---|"]
     when = {(NPC_WREN, 0): "the ritual takes hold (whisper)", (NPC_HAGATHA, 0): "asleep in the cage",
             (NPC_WREN, 1): "it wakes", (NPC_HAGATHA, 1): "", (NPC_WREN, 2): "before the spell",
             (NPC_WREN, 3): "it is a Baby Berserker", (NPC_HAGATHA, 2): "", (NPC_WREN, 4): "first chore offered",
             (NPC_WREN, 5): "snacks tossed in", (NPC_WREN, 6): "it roared at her", (NPC_HAGATHA, 3): "the tale 1/4",
             (NPC_HAGATHA, 4): "the tale 2/4", (NPC_HAGATHA, 5): "the tale 3/4", (NPC_HAGATHA, 6): "the tale 4/4",
             (NPC_WREN, 7): "the cage opens", (NPC_HAGATHA, 7): "the cage opens", (NPC_WREN, 8): "died in the cage",
-            (NPC_WREN, 9): "strayed from the cage", (NPC_WREN, 10): "came back with .inbetween"}
+            (NPC_WREN, 9): "strayed from the cage", (NPC_WREN, 10): "came back with .inbetween",
+            (NPC_WREN, WREN_MOLT): "a molt quest handed in", (NPC_WREN, WREN_MOLT_READY): "a form is ready (whisper)",
+            **{(NPC_HAGATHA, HAGATHA_MOLT_FIRST + i): f"the {form.name} molt" for i, form in enumerate(evolved_kit.FORMS)}}
     for c, g, t, _, d in TEXTS:
         md.append(f"| {HAGATHA_SHORT if c == NPC_HAGATHA else WREN_SHORT} | {g} | {when.get((c, g), '')} | {f(t)} | {d} |")
     md += ["", "## Gossip texts", "", "| npc_text | Shown to | Text | |", "|---|---|---|---|"]
@@ -683,7 +761,8 @@ def main() -> int:
     OUT_SQL.write_text(build_sql(), encoding="utf-8", newline="\n")
     OUT_H.write_text(build_header(), encoding="utf-8", newline="\n")
     OUT_MD.write_text(build_md(), encoding="utf-8", newline="\n")
-    print(f"{len(SISTERS)} sisters, {len(QUESTS)} quests, {len(TEXTS)} lines, {len(GO_SPAWNS)} objects in the In-Between")
+    print(f"{len(SISTERS)} sisters, {len(QUESTS)} chores, {len(MOLT_QUESTS)} molt quests, {len(TEXTS)} lines, "
+          f"{len(GO_SPAWNS)} objects in the In-Between")
     for p in (OUT_SQL, OUT_H, OUT_MD):
         print(f"wrote {p.relative_to(REPO)}")
     return 0

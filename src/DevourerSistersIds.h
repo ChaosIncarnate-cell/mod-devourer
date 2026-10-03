@@ -21,6 +21,8 @@ namespace Devourer::Sisters
     constexpr uint32_t QuestTrick = 9101302;
     constexpr uint32_t QuestTale = 9101303;
     constexpr uint32_t QuestPests = 9101304;
+    constexpr uint32_t QuestMoltFirst = 9101310;   // task 018: one per evolved form, in order
+    constexpr uint32_t QuestMoltLast = 9101318;
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
@@ -59,6 +61,7 @@ namespace Devourer::Sisters
         WrenPestSpell = 11, WrenPestToad = 12, WrenPestsGone = 13,
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
+        WrenMolt = 14, WrenMoltReady = 15, HagathaMoltFirst = 8,   // task 018 (+ the quest's index)
     };
 }
 

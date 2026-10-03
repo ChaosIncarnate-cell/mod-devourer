@@ -47,9 +47,9 @@ DELETE `mi` FROM `mail_items` AS `mi`
  WHERE `ii`.`itemEntry` IN (9100100, 9100101);
 DELETE FROM `item_instance` WHERE `itemEntry` IN (9100100, 9100101);
 
--- 4. The witch sisters' chores (quests 9101301-9101303, task 010) leave the quest logs.
-DELETE FROM `character_queststatus`          WHERE `quest` BETWEEN 9101301 AND 9101303;
-DELETE FROM `character_queststatus_rewarded` WHERE `quest` BETWEEN 9101301 AND 9101303;
+-- 4. The witch sisters' chores (quests 9101301-9101304, task 010) and the molt quests (9101310+, task 018) leave the quest logs.
+DELETE FROM `character_queststatus`          WHERE `quest` BETWEEN 9101301 AND 9101399;
+DELETE FROM `character_queststatus_rewarded` WHERE `quest` BETWEEN 9101301 AND 9101399;
 
 -- 5. The module's own tables, last.
 DROP TABLE IF EXISTS `character_devourer_inbetween`, `character_devourer_bar`, `character_devourer_task`,

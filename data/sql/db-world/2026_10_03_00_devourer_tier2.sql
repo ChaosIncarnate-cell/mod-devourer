@@ -211,17 +211,25 @@ INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `n
 -- Task kinds (src/Devourer.h TaskKind): 3 devour rarity, 4 devour type, 5 devour by name (name_part),
 -- 7 devour family, 8 devour one creature (value = entry), 9 use a spell (value = spell id), 10 deal damage,
 -- 11 take damage (value = school mask, 0 = any; count = damage), 12 heal yourself (count = health).
+-- Task 018: an evolution with a molt quest waits for it: the module puts the quest in the log when the form
+-- is ready, and handing it in to Wren (tools/witch_sisters.py) is the evolution.
+SET @devourer_col := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE()
+    AND TABLE_NAME = 'devourer_evolution' AND COLUMN_NAME = 'quest');
+SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_evolution` ADD COLUMN `quest` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT ''molt quest; 0 = it grows by itself''', 'DO 0');
+PREPARE devourer_stmt FROM @devourer_sql;
+EXECUTE devourer_stmt;
+DEALLOCATE PREPARE devourer_stmt;
 DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN 16 AND 24;
-INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`) VALUES
-(10, 16, 500, 12, 1),
-(5, 17, 550, 14, 1),
-(9, 18, 500, 12, 1),
-(7, 19, 550, 14, 1),
-(6, 20, 500, 12, 1),
-(11, 21, 550, 14, 1),
-(12, 22, 550, 14, 1),
-(8, 23, 500, 12, 1),
-(13, 24, 600, 16, 1);
+INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`, `quest`) VALUES
+(10, 16, 500, 12, 1, 9101310),
+(5, 17, 550, 14, 1, 9101311),
+(9, 18, 500, 12, 1, 9101312),
+(7, 19, 550, 14, 1, 9101313),
+(6, 20, 500, 12, 1, 9101314),
+(11, 21, 550, 14, 1, 9101315),
+(12, 22, 550, 14, 1, 9101316),
+(8, 23, 500, 12, 1, 9101317),
+(13, 24, 600, 16, 1, 9101318);
 DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN 16 AND 24;
 INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`) VALUES
 (16, 1, 4, 1, 25, 'Devour 25 beasts as a Plainstrider', ''),

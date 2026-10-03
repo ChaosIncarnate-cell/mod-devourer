@@ -14,9 +14,17 @@
 
 #include "Devourer.h"
 
+#include "DevourerSistersIds.h"
+
+#include "Chat.h"
 #include "Creature.h"
+#include "CreatureTextMgr.h"
 #include "DatabaseEnv.h"
+#include "ObjectMgr.h"
 #include "Player.h"
+#include "QuestDef.h"
+#include "WorldPacket.h"
+#include "WorldSession.h"
 #include <algorithm>
 #include <sstream>
 
@@ -37,7 +45,7 @@ namespace Devourer
         }
 
         if (QueryResult result = WorldDatabase.Query(
-                "SELECT from_shape, to_shape, bp, min_level, any_task FROM devourer_evolution"))
+                "SELECT from_shape, to_shape, bp, min_level, any_task, quest FROM devourer_evolution"))
         {
             do
             {
@@ -48,6 +56,7 @@ namespace Devourer
                 evo.Bp = f[2].Get<uint32>();
                 evo.MinLevel = f[3].Get<uint8>();
                 evo.AnyTask = f[4].Get<uint8>() != 0;
+                evo.Quest = f[5].Get<uint32>();
                 if (!_shapes.count(evo.From) || !_shapes.count(evo.To))
                     continue;
                 _evolutions.push_back(std::move(evo));
@@ -234,25 +243,77 @@ namespace Devourer
             }
             if (!done)
                 continue;
-
-            Shape const* from = FindShape(evo.From);
-            Shape const* to = FindShape(evo.To);
-            Tell(player, "Your " + from->Name + " body has eaten enough. It tears open, and a " + to->Name +
-                " crawls out.");
-            SaveGrowth(player);
-            // ChaosCore0.3: the grown body keeps its colouring - the colouring of the new shape whose young look
-            // like the old body (a teal Baby Berserker grows into a teal Berserker).
-            uint32 const young = ShownDisplay(player, *from);
-            uint32 grown = 0;
-            for (auto const& [display, skin] : _skins)
-                if (skin.ShapeId == evo.To && skin.BroodDisplay == young)
-                    grown = display;
-            Unlock(player, evo.To, grown, false);
-            if (grown && grown != to->Display)
-                ChooseSkin(player, evo.To, grown);
-            Unlock(player, evo.To, 0, true);             // the first time, the body forces itself on its eater
+            if (evo.Quest && OfferMolt(player, evo))
+                return;                                  // task 018: the sisters do the rest (Molt)
+            Evolve(player, evo);
             return;                                      // one evolution at a time
         }
+    }
+
+    // Task 018: a form that is ready to evolve and has a molt quest gets it in the log, already done, and Wren calls
+    // from the In-Between. False when it should simply grow now (no quest data, or the quest is handed in already).
+    bool Mgr::OfferMolt(Player* player, Evolution const& evo)
+    {
+        Quest const* quest = sObjectMgr->GetQuestTemplate(evo.Quest);
+        if (!quest || player->GetQuestRewardStatus(evo.Quest))
+            return false;
+        if (player->GetQuestStatus(evo.Quest) != QUEST_STATUS_NONE)
+            return true;                                 // in the log: waiting for the trip home
+        if (!player->CanAddQuest(quest, false))
+            return true;                                 // a full log: the next meal asks again
+        player->AddQuestAndCheckCompletion(quest, nullptr);
+
+        // Wren's voice from nowhere (she lives on the In-Between's map): her creature_text line as her whisper.
+        CreatureTemplate const* wren = sObjectMgr->GetCreatureTemplate(Sisters::NpcWren);
+        std::string const text = sCreatureTextMgr->GetLocalizedChatString(Sisters::NpcWren, 0, Sisters::WrenMoltReady,
+            0, player->GetSession()->GetSessionDbLocaleIndex());
+        if (wren && !text.empty())
+        {
+            WorldPacket data;
+            ChatHandler::BuildChatPacket(data, CHAT_MSG_MONSTER_WHISPER, LANG_UNIVERSAL, ObjectGuid::Empty,
+                player->GetGUID(), text, 0, wren->Name);
+            player->SendDirectMessage(&data);
+        }
+        Shape const* from = FindShape(evo.From);
+        Shape const* to = FindShape(evo.To);
+        Tell(player, "Your " + (from ? from->Name : std::string("old")) + " body is ready to molt into a " +
+            (to ? to->Name : std::string("new shape")) + ". Go back to the sisters in the In-Between (.inbetween) and "
+            "let Wren peel it.");
+        return true;
+    }
+
+    bool Mgr::Molt(Player* player, uint32 questId)
+    {
+        if (!questId || !IsDevourer(player))
+            return false;
+        State& state = Get(player);
+        for (Evolution const& evo : _evolutions)
+            if (evo.Quest == questId && !state.Shapes.count(evo.To))
+            {
+                Evolve(player, evo);
+                return true;
+            }
+        return false;
+    }
+
+    void Mgr::Evolve(Player* player, Evolution const& evo)
+    {
+        Shape const* from = FindShape(evo.From);
+        Shape const* to = FindShape(evo.To);
+        Tell(player, "Your " + from->Name + " body has eaten enough. It tears open, and a " + to->Name +
+            " crawls out.");
+        SaveGrowth(player);
+        // ChaosCore0.3: the grown body keeps its colouring - the colouring of the new shape whose young look
+        // like the old body (a teal Baby Berserker grows into a teal Berserker).
+        uint32 const young = ShownDisplay(player, *from);
+        uint32 grown = 0;
+        for (auto const& [display, skin] : _skins)
+            if (skin.ShapeId == evo.To && skin.BroodDisplay == young)
+                grown = display;
+        Unlock(player, evo.To, grown, false);
+        if (grown && grown != to->Display)
+            ChooseSkin(player, evo.To, grown);
+        Unlock(player, evo.To, 0, true);             // the first time, the body forces itself on its eater
     }
 
     void Mgr::SaveGrowth(Player* player)
