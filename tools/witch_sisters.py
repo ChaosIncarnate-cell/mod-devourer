@@ -65,6 +65,7 @@ SCRIPT = "npc_devourer_witch_sister"
 
 # Options the module answers (gossip_menu_option.OptionID); the rest the core handles.
 OPT_TRAIN, OPT_UNLEARN, OPT_DUALSPEC, OPT_TALE, OPT_BACK, OPT_VENDOR = 0, 1, 2, 3, 4, 5
+OPT_SHAPE_TALE = 6                                  # task 018: Hagatha tells the tale of the worn shape
 
 # --- the In-Between ----------------------------------------------------------------------------------------------
 MAP = 35
@@ -248,6 +249,58 @@ for i, form in enumerate(evolved_kit.FORMS):
     TEXTS.append((NPC_HAGATHA, HAGATHA_MOLT_FIRST + i, MOLT_TALES[form.shape], EMOTE_TALK, DRAFT))
 WREN_MOLT, WREN_MOLT_READY = 14, 15
 
+# Task 018 B: "Tell me about the shape I wear" at Hagatha's lantern. The evolved forms use their molt tale, the
+# Warp Stalker the line she says at the intro (group 2); these are the others (shape id -> tale), then a fallback.
+SHAPE_TALES = {
+    1: "The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They "
+       "would not approve.",
+    2: "Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when "
+       "nothing ever tells them no.",
+    3: "A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because "
+       "the ground remembers it.",
+    4: "Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts.",
+    5: "In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was "
+       "waiting for the shepherd.",
+    6: "The troggs came up out of the stone hungry, and they have not been full since. You will understand them "
+       "better than the dwarves ever did.",
+    7: "The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there.",
+    8: "Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was "
+       "the way out.",
+    9: "The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror.",
+    10: "The tauren children race the striders across the plains, and the striders let them win. Mostly.",
+    11: "In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and "
+        "they never forget a meal.",
+    12: "The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms "
+        "were still thirsty.",
+    14: "A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything "
+        "in here eats something.",
+    15: "The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there.",
+}
+NO_TALE = "That shape has no story yet. Eat a little more of the world, and the world will write you one."
+HAGATHA_SHAPE_FIRST = HAGATHA_MOLT_FIRST + len(evolved_kit.FORMS)
+for i, (shape, tale) in enumerate(SHAPE_TALES.items()):
+    TEXTS.append((NPC_HAGATHA, HAGATHA_SHAPE_FIRST + i, tale, EMOTE_TALK, DRAFT))
+HAGATHA_NO_TALE = HAGATHA_SHAPE_FIRST + len(SHAPE_TALES)
+TEXTS.append((NPC_HAGATHA, HAGATHA_NO_TALE, NO_TALE, EMOTE_TALK, DRAFT))
+HAGATHA_TALE_OF = {**{shape: HAGATHA_SHAPE_FIRST + i for i, shape in enumerate(SHAPE_TALES)}, 13: 2,
+                   **{form.shape: HAGATHA_MOLT_FIRST + i for i, form in enumerate(evolved_kit.FORMS)}}
+
+# Task 018 B: Wren's word on the shape a freed Devourer comes back in (.inbetween), after her welcome back.
+WREN_REACTIONS = [  # (line, shapes)
+    ("Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you.", (5, 7, 9, 17, 18, 19)),
+    ("Look at those legs! You could outrun {hagatha}'s temper. Almost.", (10, 16)),
+    ("Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles.", (8, 23)),
+    ("Upside down, please, that's how I like my bats. No? Fine. Rightside up.", (11, 21)),
+    ("My toad! Hello, my toad! Did you eat any bugs? Of course you did.", (14, 15)),
+    ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
+    ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20)),
+    ("Sssso fancy! Sorry. I had to.", (1, 3)),
+]
+WREN_REACTION_FIRST = 16
+for i, (line, _) in enumerate(WREN_REACTIONS):
+    TEXTS.append((NPC_WREN, WREN_REACTION_FIRST + i, line, EMOTE_LAUGH, DRAFT))
+WREN_REACTION_OF = {shape: WREN_REACTION_FIRST + i for i, (_, shapes) in enumerate(WREN_REACTIONS) for shape in shapes}
+
 # npc_text: (id, text, draft). Shown on the sisters' gossip; conditions pick one.
 NPC_TEXTS = [
     (9101300, "Sit still, hungry thing. The circle is for your sake, not ours.", DRAFT),
@@ -337,6 +390,7 @@ OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, ac
         (OPT_DUALSPEC, 0, "I wish to know about Dual Talent Specialization.", 33762, 20, 1, 10371, "trained"),
         (OPT_VENDOR, 1, "I have things to sell.", 0, 3, 128, 0, "trained"),   # owner, 2026-10-03
         (OPT_TALE, 0, "Tell me the tale of the hungry thing.", 0, 1, 1, 0, "tale"),
+        (OPT_SHAPE_TALE, 0, "Tell me about the shape I wear.", 0, 1, 1, 0, "trained"),   # task 018
         (OPT_BACK, 0, "Send me back to where you found me.", 0, 1, 1, 0, "trained"),
     ],
     MENU_WREN: [
@@ -648,6 +702,7 @@ def build_header() -> str:
         f"    constexpr uint32_t MenuWren = {MENU_WREN};",
         f"    constexpr uint32_t OptionTale = {OPT_TALE};",
         f"    constexpr uint32_t OptionBack = {OPT_BACK};",
+        f"    constexpr uint32_t OptionShapeTale = {OPT_SHAPE_TALE};   // task 018",
         f"    constexpr uint32_t InBetweenMap = {MAP};",
         f"    constexpr float CageX = {c[0]}f, CageY = {c[1]}f, CageZ = {c[2]}f, CageO = {c[3]:.4f}f;",
         f"    constexpr float ArriveX = {a[0]}f, ArriveY = {a[1]}f, ArriveZ = {a[2]}f, ArriveO = {a[3]:.4f}f;",
@@ -675,6 +730,18 @@ def build_header() -> str:
         "        HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,",
         f"        WrenMolt = {WREN_MOLT}, WrenMoltReady = {WREN_MOLT_READY}, HagathaMoltFirst = {HAGATHA_MOLT_FIRST},"
         "   // task 018 (+ the quest's index)",
+        f"        HagathaNoTale = {HAGATHA_NO_TALE},",
+        "    };",
+        "",
+        "    // Task 018: Hagatha's tale of a shape (\"Tell me about the shape I wear\"), Wren's word on a shape she sees.",
+        "    struct ShapeLine { uint32_t Shape; uint8_t Group; };",
+        "    constexpr ShapeLine HagathaShapeTales[] =",
+        "    {",
+        *[f"        {{ {s}, {g} }}," for s, g in sorted(HAGATHA_TALE_OF.items())],
+        "    };",
+        "    constexpr ShapeLine WrenShapeReactions[] =",
+        "    {",
+        *[f"        {{ {s}, {g} }}," for s, g in sorted(WREN_REACTION_OF.items())],
         "    };",
         "}",
         "",
@@ -741,6 +808,10 @@ def build_md() -> str:
             (NPC_WREN, 7): "the cage opens", (NPC_HAGATHA, 7): "the cage opens", (NPC_WREN, 8): "died in the cage",
             (NPC_WREN, 9): "strayed from the cage", (NPC_WREN, 10): "came back with .inbetween",
             (NPC_WREN, WREN_MOLT): "a molt quest handed in", (NPC_WREN, WREN_MOLT_READY): "a form is ready (whisper)",
+            (NPC_HAGATHA, HAGATHA_NO_TALE): "a shape with no tale yet",
+            **{(NPC_HAGATHA, g): f"the tale of shape {s}" for s, g in HAGATHA_TALE_OF.items() if g >= HAGATHA_SHAPE_FIRST},
+            **{(NPC_WREN, WREN_REACTION_FIRST + i): "back in shape " + ", ".join(map(str, shapes))
+               for i, (_, shapes) in enumerate(WREN_REACTIONS)},
             **{(NPC_HAGATHA, HAGATHA_MOLT_FIRST + i): f"the {form.name} molt" for i, form in enumerate(evolved_kit.FORMS)}}
     for c, g, t, _, d in TEXTS:
         md.append(f"| {HAGATHA_SHORT if c == NPC_HAGATHA else WREN_SHORT} | {g} | {when.get((c, g), '')} | {f(t)} | {d} |")
@@ -751,8 +822,11 @@ def build_md() -> str:
         shown[a], shown[b_], shown[c] = f"{who}: a caged Devourer", f"{who}: a freed Devourer", f"{who}: anyone else"
     for i, t, d in NPC_TEXTS:
         md.append(f"| {i} | {shown[i]} | {f(t)} | {d} |")
-    md += ["", "Options: training, unlearn talents, dual spec and \"Send me back\" only for a freed Devourer; "
-           "Hagatha's \"Tell me the tale\" only during the third chore.", ""]
+    md += ["", "Options: training, unlearn talents, dual spec, \"Send me back\" and Hagatha's \"Tell me about the shape "
+           "I wear\" (task 018) only for a freed Devourer; Hagatha's \"Tell me the tale\" only during the third chore.",
+           "", "Task 018: when a freed Devourer comes back (`.inbetween`), Wren has a word on the shape it wears; Hagatha "
+           "tells the tale of the worn shape on request (the evolved forms' molt tales, the Warp Stalker's intro line).",
+           ""]
     return "\n".join(md)
 
 

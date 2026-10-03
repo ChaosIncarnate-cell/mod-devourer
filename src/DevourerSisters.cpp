@@ -528,7 +528,14 @@ namespace
                 {
                     visit.Now = Visit::None;      // came back with .inbetween
                     if (visit.Returning)
+                    {
                         Say(player, NpcWren, WrenWelcomeBack, 2s);
+                        // Task 018: and a word on the shape it came back in.
+                        uint32 const worn = sDevourer.Get(player).Worn;
+                        for (ShapeLine const& line : WrenShapeReactions)
+                            if (line.Shape == worn)
+                                Say(player, NpcWren, line.Group, 7s);
+                    }
                     visit.Returning = false;
                     return;
                 }
@@ -621,6 +628,17 @@ struct npc_devourer_witch_sister : public CreatureAI
                 visit.Tale = 1;
                 visit.TaleTimer = 0;
             }
+        }
+        else if (menuId == MenuHagatha && optionId == OptionShapeTale)
+        {
+            // Task 018: the tale of the shape it wears.
+            CloseGossipMenuFor(player);
+            uint32 const worn = sDevourer.Get(player).Worn;
+            uint8 group = HagathaNoTale;
+            for (ShapeLine const& line : HagathaShapeTales)
+                if (line.Shape == worn)
+                    group = line.Group;
+            Talk(group, player);
         }
         else if ((menuId == MenuHagatha || menuId == MenuWren) && optionId == OptionBack)
         {

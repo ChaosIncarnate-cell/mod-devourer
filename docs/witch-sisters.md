@@ -140,6 +140,29 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 14 | the Arcane Wraith molt | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. | draft |
 | Hagatha | 15 | the Royal Blue Flutterer molt | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. | draft |
 | Hagatha | 16 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 17 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
+| Hagatha | 18 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
+| Hagatha | 19 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
+| Hagatha | 20 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
+| Hagatha | 21 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
+| Hagatha | 22 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
+| Hagatha | 23 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
+| Hagatha | 24 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
+| Hagatha | 25 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
+| Hagatha | 26 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
+| Hagatha | 27 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
+| Hagatha | 28 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
+| Hagatha | 29 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
+| Hagatha | 30 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
+| Hagatha | 31 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
+| Wren | 16 | back in shape 5, 7, 9, 17, 18, 19 | Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you. | draft |
+| Wren | 17 | back in shape 10, 16 | Look at those legs! You could outrun Hagatha's temper. Almost. | draft |
+| Wren | 18 | back in shape 8, 23 | Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles. | draft |
+| Wren | 19 | back in shape 11, 21 | Upside down, please, that's how I like my bats. No? Fine. Rightside up. | draft |
+| Wren | 20 | back in shape 14, 15 | My toad! Hello, my toad! Did you eat any bugs? Of course you did. | draft |
+| Wren | 21 | back in shape 2, 4, 12, 13, 22, 24 | You're all sparkly and wrong-looking. I love it. Don't touch the cauldron. | draft |
+| Wren | 22 | back in shape 6, 20 | Ew. EW! You smell like a cave. A good cave! But a cave. | draft |
+| Wren | 23 | back in shape 1, 3 | Sssso fancy! Sorry. I had to. | draft |
 
 ## Gossip texts
 
@@ -152,4 +175,6 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101304 | Wren: a freed Devourer | Project #9! Back already? Lessons! I LOVE lessons. Hold still while I find the list. | draft |
 | 9101305 | Wren: anyone else | Ooh, a visitor! You'd make a lovely toad. No? Then shoo! Hagatha says I can't keep everyone. | draft |
 
-Options: training, unlearn talents, dual spec and "Send me back" only for a freed Devourer; Hagatha's "Tell me the tale" only during the third chore.
+Options: training, unlearn talents, dual spec, "Send me back" and Hagatha's "Tell me about the shape I wear" (task 018) only for a freed Devourer; Hagatha's "Tell me the tale" only during the third chore.
+
+Task 018: when a freed Devourer comes back (`.inbetween`), Wren has a word on the shape it wears; Hagatha tells the tale of the worn shape on request (the evolved forms' molt tales, the Warp Stalker's intro line).

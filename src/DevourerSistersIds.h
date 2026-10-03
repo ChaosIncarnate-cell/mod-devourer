@@ -27,6 +27,7 @@ namespace Devourer::Sisters
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
     constexpr uint32_t OptionBack = 4;
+    constexpr uint32_t OptionShapeTale = 6;   // task 018
     constexpr uint32_t InBetweenMap = 35;
     constexpr float CageX = -98.0f, CageY = 150.0f, CageZ = -40.28f, CageO = 1.5708f;
     constexpr float ArriveX = -98.0f, ArriveY = 143.5f, ArriveZ = -40.21f, ArriveO = 1.5708f;
@@ -62,6 +63,64 @@ namespace Devourer::Sisters
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
         WrenMolt = 14, WrenMoltReady = 15, HagathaMoltFirst = 8,   // task 018 (+ the quest's index)
+        HagathaNoTale = 31,
+    };
+
+    // Task 018: Hagatha's tale of a shape ("Tell me about the shape I wear"), Wren's word on a shape she sees.
+    struct ShapeLine { uint32_t Shape; uint8_t Group; };
+    constexpr ShapeLine HagathaShapeTales[] =
+    {
+        { 1, 17 },
+        { 2, 18 },
+        { 3, 19 },
+        { 4, 20 },
+        { 5, 21 },
+        { 6, 22 },
+        { 7, 23 },
+        { 8, 24 },
+        { 9, 25 },
+        { 10, 26 },
+        { 11, 27 },
+        { 12, 28 },
+        { 13, 2 },
+        { 14, 29 },
+        { 15, 30 },
+        { 16, 8 },
+        { 17, 9 },
+        { 18, 10 },
+        { 19, 11 },
+        { 20, 12 },
+        { 21, 13 },
+        { 22, 14 },
+        { 23, 15 },
+        { 24, 16 },
+    };
+    constexpr ShapeLine WrenShapeReactions[] =
+    {
+        { 1, 23 },
+        { 2, 21 },
+        { 3, 23 },
+        { 4, 21 },
+        { 5, 16 },
+        { 6, 22 },
+        { 7, 16 },
+        { 8, 18 },
+        { 9, 16 },
+        { 10, 17 },
+        { 11, 19 },
+        { 12, 21 },
+        { 13, 21 },
+        { 14, 20 },
+        { 15, 20 },
+        { 16, 17 },
+        { 17, 16 },
+        { 18, 16 },
+        { 19, 16 },
+        { 20, 22 },
+        { 21, 19 },
+        { 22, 21 },
+        { 23, 18 },
+        { 24, 21 },
     };
 }
 
