@@ -70,7 +70,7 @@ Devour **707** for the base look (606, skin `Rockjaw`).
 | 9100925 | 20 | Tunnel Rage (placeholder) | Placeholder Trogg ability (level 20): not designed yet.$B$B|cffb87830Trogg form|r |
 
 ### Saber (shape 7, Shadowglen)
-Look (task 017): a retail model, base 994036 (`Dreamsaber`); its other colourings come with the shape: 994037 `Dreamsaber Green`. The old look 11454 (`Nightsaber`) comes with it too.
+Look (task 017): a retail model, base 994036 (`Dreamsaber`); its other colourings come with the shape: 994037 `Dreamsaber Green`, 994038 `Lynx Black`, 994039 `Lynx Brown`, 994040 `Lynx Pale`, 994041 `Sabertooth Beige`, 994042 `Sabertooth Brown`, 994043 `Sabertooth Dark`, 994044 `Sabertooth Light`, 994045 `Sabertooth Red`, 994046 `Sabertooth Spotted`, 994047 `Sabertooth Striped Grey`, 994048 `Sabertooth Striped Orange`, 994049 `Sabertooth Striped White`, 994050 `Sabertooth Striped Yellow`. The old look 11454 (`Nightsaber`) comes with it too.
 Devour **any creature of the Cat family** (e.g. 2031 for the base look 11454, skin `Nightsaber`); each look is a colouring. Favourite food: family Cat or family Spider.
 Named colourings kept from task 007: 15366 → 15507 (`Springpaw`), 15372 → 15506 (`Lynx`).
 

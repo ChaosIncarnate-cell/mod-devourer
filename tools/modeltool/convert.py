@@ -48,7 +48,7 @@ def colourings(folder: Path, model: str, used: set[str], slot_stems: dict[int, s
         stem, m = stem.lower(), model.lower()
         if stem.startswith(m + "_"):
             return stem[len(m) + 1:]
-        if stem.startswith(m) and len(stem) > len(m) and "_" in stem[len(m):]:
+        if stem.startswith(m + "glow"):
             return stem[len(m):]                              # "glow_blue"
         return None
 
@@ -62,7 +62,8 @@ def colourings(folder: Path, model: str, used: set[str], slot_stems: dict[int, s
     rests = {k: r for k, r in ((k, rest_of(s)) for k, s in slot_stems.items()) if r is not None}
     tails = [r.split("_")[-1] for r in rests.values()]
     heads = {r.rsplit("_", 1)[0] for r in rests.values() if "_" in r}
-    if len(rests) >= 2 and len(heads) == 1 and len(set(tails)) == len(rests) and len(heads | {""}) == 2:
+    if (len(rests) >= 2 and all("_" in r for r in rests.values()) and len(heads) == 1
+            and len(set(tails)) == len(rests)):
         ends = {k: "_" + r.rsplit("_", 1)[1] for k, r in rests.items()}   # {1: "_1", 2: "_2"}
         out = {}
         for rest in files:
