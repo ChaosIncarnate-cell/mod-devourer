@@ -25,9 +25,11 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 30 | Water Salamander | Biletoad | 14 | 550 | water skirmisher |
 | 31 | Snapjaw | devouring (family 21) | 15 | - | shell tank |
 | 32 | Spikeshell | Snapjaw | 35 | 900 | spiked tank |
+| 33 | Borer | devouring (family 42) | 13 | - | burrowing ambusher |
+| 34 | Deep Borer | Borer | 40 | 1000 | burrowing bruiser |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
-### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101323)
+### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
 
 - Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent
 - Breathe lightning 80 times (Lightning Breath)
@@ -415,3 +417,44 @@ Changes against the canvas card, and why:
 - The giant dragon turtle model (one look: its textures are built in).
 - Barnacled is a slow heal all the time (the pick's "Withdraw heals 2% a second" would need a script on Withdraw; the steady heal does the same job for a tank).
 - Fortress Shell is the stronger Withdraw, at level 38.
+
+### Borer (shape 33, devoured: any creature of family 42)
+Look: a retail model, base 994132 (`Rock Worm Purple`); its other colourings come with the shape: 994133 `Rock Worm Green`, 994134 `Rock Worm Red`. The creature's own look (creature 11320, display 994132, `Rock Worm Purple`) comes with it too. Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102170 | 1 | Borer Form | Take the shape of a borer you have devoured: Grinding Bite, Burrow, Erupt and Tremor Sense; Earthen Maw opens at level 20. All shapes share one cooldown. |
+| 9102171 | 1 | Grinding Bite | Grind your teeth into the enemy: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 10 Anima. |cffb87830Borer form|r |
+| 9102172 | 1 | Burrow | Sink into the ground for up to 6 sec: 30% faster, and nothing can strike you. Using any ability brings you up. |cffb87830Borer form|r |
+| 9102173 | 1 | Tremor Sense | You feel what walks above you: you see stealthed enemies more easily. |cffb87830Borer form|r |
+| 9102174 | 1 | Erupt | Only from under the ground: burst up and throw every enemy within 6 yards into the air for 80% weapon damage. |cffb87830Borer form|r |
+| 9102175 | 20 | Earthen Maw | Swallow an enemy below 35% health for 3 sec: it cannot act and takes $s2 damage every second. Generates 15 Anima. |cffb87830Borer form|r |
+
+Changes against the canvas card, and why:
+
+- The form review's line 3: any creature of the Worm family gives it (the Wetlands' Earthborers, 13, first); the retail rock worm.
+- Burrow ends when you use any ability (Erupt is only usable from under the ground); its Submerge and Emerge are the stock spells that play the model's animations.
+- Earthen Maw works on any enemy below 35% health ("non-elite" left out: the game cannot check it without a script).
+- Tremor Sense sees stealth better at all times ("while burrowed" would need a script).
+
+### Deep Borer (shape 34, grows out of the Borer)
+Look: a retail model, base 994136 (`Deep Borer Green`); its other colourings come with the shape: 994135 `Deep Borer Purple`, 994137 `Deep Borer Red`. The creature's own look (creature 11789, display 994136, `Deep Borer Green`) comes with it too. Any one task:
+
+- Devour 25 worms as a Borer
+- Weather 20,000 damage as a Borer
+- Devour the Oozeworm (Dustwallow Marsh)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102180 | 1 | Deep Borer Form | Take the shape of the deep borer, grown out of your borer: Acid Gnash, Burrow, Erupt and Bedrock Hide; Quake opens at level 43. All shapes share one cooldown. |
+| 9102181 | 1 | Acid Gnash | Gnash with acid-wet teeth: weapon damage plus $s1, and the enemy's armor is eaten by 10% for 15 sec, twice over. Generates 15 Anima. |cffb87830Deep Borer form|r |
+| 9102182 | 1 | Burrow | Sink into the ground for up to 6 sec: 40% faster, and nothing can strike you. Using any ability brings you up. |cffb87830Deep Borer form|r |
+| 9102183 | 1 | Bedrock Hide | Your armor is increased by 20%, and you see stealthed enemies more easily. |cffb87830Deep Borer form|r |
+| 9102184 | 1 | Erupt | Only from under the ground: burst up and throw every enemy within 6 yards into the air for 110% weapon damage. |cffb87830Deep Borer form|r |
+| 9102185 | 43 | Quake | Shake the ground: $s1 Nature damage to enemies within 8 yards, and they are stunned for 1.5 sec. |cffb87830Deep Borer form|r |
+
+Changes against the canvas card, and why:
+
+- A larger copy of the rock worm (its own displays: one look cannot belong to two forms).
+- Quake (level 43) replaces the pick's "tunnel line" (a damaging line needs a script); the Jormungar step comes later with the stock Northrend jormungar.

@@ -12,6 +12,7 @@
  *   Viper                 Sand Slither            under the ground for 2 sec, then up behind the target (Emerge)
  *                         Cold Blood              its venom ticks 20% harder on slowed or rooted enemies (ColdBlood)
  *   Water Salamander      Steam Spit              half again as much on an enemy in water
+ *   Borer, Deep Borer     Burrow                  when it ends, the worm comes up with the Emerge animation
  * The Shadowclaw's opener lives in DevourerForms.cpp (spell_devourer_phase_prowl); the Rockjaw Backbreaker's and the
  * Royal Blue Flutterer's gimmicks are plain procs (spell_proc), no script.
  */
@@ -290,6 +291,26 @@ class spell_devourer_steam_spit : public SpellScript
     }
 };
 
+// Borer and Deep Borer: Burrow. However it ends (Erupt, another ability, its 6 sec), the worm comes up with the model's
+// Emerge animation (Erupt casts it as well; twice does no harm).
+class spell_devourer_burrow : public AuraScript
+{
+    PrepareAuraScript(spell_devourer_burrow);
+
+    void Surface(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+    {
+        Unit* owner = GetTarget();
+        if (owner->IsAlive() && GetTargetApplication()->GetRemoveMode() != AURA_REMOVE_BY_DEATH)
+            owner->CastSpell(owner, SpellViperEmerge, true);
+    }
+
+    void Register() override
+    {
+        AfterEffectRemove += AuraEffectRemoveFn(spell_devourer_burrow::Surface, EFFECT_2, SPELL_AURA_DUMMY,
+            AURA_EFFECT_HANDLE_REAL);
+    }
+};
+
 namespace Devourer
 {
     // Viper: Cold Blood. Called for every tick of damage over time (devourer_unit).
@@ -307,6 +328,7 @@ void AddSC_devourer_evolved()
 {
     RegisterSpellScript(spell_devourer_sand_slither);
     RegisterSpellScript(spell_devourer_steam_spit);
+    RegisterSpellScript(spell_devourer_burrow);
     RegisterSpellScript(spell_devourer_gale_flurry);
     RegisterSpellScript(spell_devourer_hamstring_cripple);
     RegisterSpellScript(spell_devourer_kinetic_tremor);

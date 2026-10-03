@@ -837,7 +837,7 @@ WATER_SALAMANDER = Evolved(
                                aura(A_MOD_DECREASE_SPEED, -40, target=T_ENEMY))}),
      ("Undertow", "Drag an enemy up to 20 yards away to you like a current: it moves 40% slower for 4 sec.",
       "Movement slowed by 40%.")),
-    (25941, gimmick(1924, 0, aura(A_WATER_BREATHING), aura(A_MOD_SWIM_SPEED, 60)),
+    (25941, gimmick(2287, 0, aura(A_WATER_BREATHING), aura(A_MOD_SWIM_SPEED, 60)),
      ("Amphibious", "You breathe under water and swim 60% faster.", "")),
     (52127, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S,
                      "RecoveryTime": 30000, "SchoolMask": SCHOOL_NATURE,
@@ -956,10 +956,113 @@ SPIKESHELL = Evolved(
         "Fortress Shell is the stronger Withdraw, at level 38.",
     ])
 
+# 33 Borer -> 34 Deep Borer (the form review's line 3, owner: "3 is good"): the retail rock worm (Rockwormlight; the
+# Deep Borer wears a larger copy of it, displays of its own). Burrow sinks it (the stock Submerge visual), Erupt only
+# works from under the ground and brings it up (Emerge).
+A_MOD_STEALTH_DETECT = 17
+FAMILY_WORM = 42
+AURA_INTERRUPT_CAST = 0x4                # ends when the caster casts anything (Erupt, or any other ability)
+AURA_STATE_HEALTHLESS_35 = 13            # the target is below 35% health
+
+
+def burrow(shape, cooldown, speed):
+    return (26234, ability({"Attributes": ATTR0_ABILITY, "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_SELF,
+                            "DurationIndex": DUR_6S, "RecoveryTime": cooldown,
+                            "AuraInterruptFlags": AURA_INTERRUPT_CAST,
+                            **effects(aura(A_MOD_INCREASE_SPEED, speed), aura(A_MOD_UNATTACKABLE), aura(A_DUMMY))}))
+
+
+def erupt(shape, weapon_pct, cooldown):
+    return (66947, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "CastingTimeIndex": CAST_INSTANT,
+                            "RangeIndex": RANGE_SELF, "RecoveryTime": cooldown, "DurationIndex": 0,
+                            "SchoolMask": SCHOOL_PHYSICAL, "CasterAuraSpell": sid(shape, 2),
+                            **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": weapon_pct,
+                                       "target": T_SRC_CASTER, "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_6},
+                                      {"effect": E_KNOCK_BACK, "amount": 80, "misc": 0, "target": T_SRC_CASTER,
+                                       "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_6},
+                                      {"effect": E_TRIGGER_SPELL, "target": T_CASTER, "trigger": sid(25, 6)})}))
+
+
+BORER = Evolved(
+    33, "Borer", 0, "", 11320, 994132, "Rock Worm Purple",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": sk.DUR_9S, "EffectMechanic_2": MECHANIC_BLEED,
+                     **effects(hit(5), bleed(3), gain(10))}),
+     ("Grinding Bite", "Grind your teeth into the enemy: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. "
+      "Generates 10 Anima.", "Bleeding for $s2 every 3 sec.")),
+    (*burrow(33, 15000, 30),
+     ("Burrow", "Sink into the ground for up to 6 sec: 30% faster, and nothing can strike you. Using any ability "
+      "brings you up.", "Under the ground.")),
+    (25941, gimmick(1137, 0, aura(A_MOD_STEALTH_DETECT, 30)),
+     ("Tremor Sense", "You feel what walks above you: you see stealthed enemies more easily.", "")),
+    (*erupt(33, 80, 6000),
+     ("Erupt", "Only from under the ground: burst up and throw every enemy within 6 yards into the air for 80% "
+      "weapon damage.", "")),
+    (17253, ability({**hunger(10), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 30000, "DurationIndex": DUR_3S,
+                     "TargetAuraState": AURA_STATE_HEALTHLESS_35, "Mechanic": MECHANIC_STUN,
+                     "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects(aura(A_MOD_STUN, target=T_ENEMY),
+                               aura(A_PERIODIC_DAMAGE, 10, target=T_ENEMY, period=1000), gain(15))}),
+     ("Earthen Maw", "Swallow an enemy below 35% health for 3 sec: it cannot act and takes $s2 damage every second. "
+      "Generates 15 Anima.", "Swallowed.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 8), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "kobold", "Kobolds")],
+    13, 0, [], family=FAMILY_WORM,
+    scripts=[(2, "spell_devourer_burrow")],
+    looks=[(994132, "Rock Worm Purple"), (994133, "Rock Worm Green"), (994134, "Rock Worm Red")],
+    role="burrowing ambusher",
+    changes=[
+        "The form review's line 3: any creature of the Worm family gives it (the Wetlands' Earthborers, 13, first); "
+        "the retail rock worm.",
+        "Burrow ends when you use any ability (Erupt is only usable from under the ground); its Submerge and Emerge "
+        "are the stock spells that play the model's animations.",
+        "Earthen Maw works on any enemy below 35% health (\"non-elite\" left out: the game cannot check it without a "
+        "script).",
+        "Tremor Sense sees stealth better at all times (\"while burrowed\" would need a script).",
+    ])
+
+DEEP_BORER = Evolved(
+    34, "Deep Borer", 33, "Borer", 11789, 994136, "Deep Borer Green",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_15S, "CumulativeAura": 2,
+                     **effects(hit(9), aura(A_MOD_RESISTANCE_PCT, -10, 1, target=T_ENEMY), gain(15))}),
+     ("Acid Gnash", "Gnash with acid-wet teeth: weapon damage plus $s1, and the enemy's armor is eaten by 10% for "
+      "15 sec, twice over. Generates 15 Anima.", "Armor reduced by 10% for each wound.")),
+    (*burrow(34, 12000, 40),
+     ("Burrow", "Sink into the ground for up to 6 sec: 40% faster, and nothing can strike you. Using any ability "
+      "brings you up.", "Under the ground.")),
+    (25941, gimmick(1137, 0, aura(A_MOD_RESISTANCE_PCT, 20, 1), aura(A_MOD_STEALTH_DETECT, 30)),
+     ("Bedrock Hide", "Your armor is increased by 20%, and you see stealthed enemies more easily.", "")),
+    (*erupt(34, 110, 6000),
+     ("Erupt", "Only from under the ground: burst up and throw every enemy within 6 yards into the air for 110% "
+      "weapon damage.", "")),
+    (6343, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": DUR_1500, "RecoveryTime": 30000, "Mechanic": MECHANIC_STUN,
+                    "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.15, 0),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 20, "spread": 8, "target": T_SRC_CASTER,
+                               "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8}, around(A_MOD_STUN, radius=RADIUS_8))}),
+     ("Quake", "Shake the ground: $s1 Nature damage to enemies within 8 yards, and they are stunned for 1.5 sec.",
+      "Stunned.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 8), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "kobold", "Kobolds")],
+    40, 1000,
+    [(DEVOUR_FAMILY, FAMILY_WORM, 25, "Devour 25 worms as a Borer", ""),
+     (TAKE_DAMAGE, 0, 20000, "Weather 20,000 damage as a Borer", ""),
+     (DEVOUR_ENTRY, 14237, 1, "Devour the Oozeworm (Dustwallow Marsh)", "")],
+    scripts=[(2, "spell_devourer_burrow")],
+    looks=[(994136, "Deep Borer Green"), (994135, "Deep Borer Purple"), (994137, "Deep Borer Red")],
+    later_level=43,
+    role="burrowing bruiser",
+    changes=[
+        "A larger copy of the rock worm (its own displays: one look cannot belong to two forms).",
+        "Quake (level 43) replaces the pick's \"tunnel line\" (a damaging line needs a script); the Jormungar step "
+        "comes later with the stock Northrend jormungar.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
-         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL]
+         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER]
 
 
 class Growth:
