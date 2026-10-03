@@ -713,7 +713,7 @@ namespace Devourer
             if (Player* owner = victim->GetCharmerOrOwnerPlayerOrPlayerItself())
                 if (IsDevourer(owner))
                     OnHatchlingDeath(owner, victim);
-        if (!killer || victim->GetEntry() == NpcHatchling || victim->GetEntry() == NpcEcho)
+        if (!killer || victim->GetEntry() == NpcHatchling || victim->GetEntry() == NpcEcho || victim->GetEntry() == NpcVoidEgg)
             return;
         Player* mother = killer->GetCharmerOrOwnerPlayerOrPlayerItself();
         if (!mother || !IsDevourer(mother))
@@ -723,6 +723,7 @@ namespace Devourer
 
         State& state = Get(mother);
         RememberKill(state, victim->GetGUID());          // task 016: the pet's kills count as its own
+        VoidBroodOnKill(mother, victim);                 // task 019: void eggs, the voidlings grow
         if (state.Eaten.count(victim->GetGUID()))
             return;
 

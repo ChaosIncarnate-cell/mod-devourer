@@ -32,6 +32,7 @@ the build's module list). `uninstall/` sits outside those folders so it is never
 | `db-world/…_08_devourer_start.sql` | written by `tools/start_kit.py` (see `docs/start-kit.md`): the base kit, trainers and starting forms; creates and fills `devourer_shape_family` (creature family -> shape) and `devourer_favourite_food` (task 009) |
 | `db-world/2026_10_01_00_devourer_witch_sisters.sql` | written by `tools/witch_sisters.py` (task 010): the witch sisters (creatures 9101300-9101399, spawns and game objects 9910200-9910299 on map 35, game objects 9101300-9101399), their texts, gossip 9101300-9101301, quests 9101301-9101303; removes the 16 Devourer Trainers of task 006 |
 | `db-world/2026_10_03_00_devourer_tier2.sql` | written by `tools/evolved_kit.py` (task 017, see `docs/tier2-kit.md`): the evolved forms, tier 2 of the canvas lines: `spell_dbc` 9102000-9102999, their scripts and procs, shapes 16-24, colourings, diet, favourite food, `devourer_evolution` / `_task` rows for them. Run after `_04` (which clears the evolution tables) |
+| `db-world/2026_10_03_01_devourer_void_egg.sql` | task 019: creature 9101103 "Void Egg", the egg a kill leaves in the voidcreeper line (hand-written, cloned from the Hatchling) |
 | `db-characters/…_00_devourer_characters.sql` | the module's character tables |
 | `db-characters/2026_10_01_00_devourer_inbetween.sql` | `character_devourer_inbetween`: where the sisters' ritual took a Devourer from (task 010) |
 

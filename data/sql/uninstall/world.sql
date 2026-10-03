@@ -97,4 +97,5 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
     '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
     '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql',
-    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql');
+    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql',
+    '2026_10_03_01_devourer_void_egg.sql');

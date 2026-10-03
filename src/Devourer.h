@@ -55,6 +55,10 @@ namespace Devourer
     // The form review's Viper (src/DevourerEvolved.cpp): its venom ticks harder on slowed or rooted enemies.
     void ColdBlood(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spell);
 
+    // Task 019 (src/DevourerVoid.cpp): the voidcreeper line's brood (shapes 41-43). Called for every kill a Devourer
+    // (or its minions) makes: void eggs, and voidlings that devour the corpses near them and grow.
+    void VoidBroodOnKill(Player* mother, Creature* victim);
+
     constexpr uint8 KitSize = 4;
     constexpr uint32 ItemSethrakIdol = 9100100;   // teaches the first shape until it can be devoured in the world
     constexpr uint32 NpcHatchling = 9101100;      // Brood hatchling (guardian from Hatch Brood)
@@ -62,6 +66,7 @@ namespace Devourer
     constexpr uint32 DefaultBroodDisplay = 4312;  // a serpent, when a shape names no kin
     constexpr uint32 SpellGhostVisual = 22650;    // "Ghost Visual": echoes are translucent
     constexpr uint32 NpcRisingSerpent = 9101102;  // Vashnik: stationary serpents that repeat its spells
+    constexpr uint32 NpcVoidEgg = 9101103;        // task 019: the egg a kill leaves in the voidcreeper line
     constexpr uint32 RisingSerpentDisplays[2] = { 991040, 991045 };   // Twinfangs: purple, pale teal
     constexpr uint32 EmoteReadySpellOmni = 917;   // ChaosCore0.3: ONESHOT_READYSPELLOMNI, Overrun's wind-up
 

@@ -76,6 +76,7 @@ A_MOD_UNATTACKABLE = 93
 DISPEL_POISON = 4
 MECHANIC_DISORIENTED = 2
 T_DEST_TARGET_BACK = 65                  # behind the target (Shadowstep's destination)
+T_TARGET_ALLY = 21                       # TARGET_UNIT_TARGET_ALLY (an explicit friendly unit: a voidling)
 FAMILY_SERPENT = 35
 
 # Growth task kinds (src/Devourer.h TaskKind): 1 kill type, 2 hit by school, 3 devour rarity, 4 devour type,
@@ -1358,6 +1359,13 @@ VOID_DIET = [(CREATURE_TYPE_DEMON_, 12), (CREATURE_TYPE_BEAST, 10), (CREATURE_TY
 VOID_FOOD = [(CREATURE_TYPE_DEMON_, 0, "", ""), (0, 0, "void", "Void creatures"), (0, 0, "nether", "Nether creatures")]
 
 
+# Task 019: the brood's helper spells are built from two finished helpers (template and fields kept, then overridden).
+TREMOR_PLATING = RAGING_AGAMAR.extra[0]            # (slot, template, fields, texts): a stacking aura on the caster
+ANIMA_WHIRLPOOL = VOID_TERROR.extra[1]             # a Shadow damage helper
+FEED_STEPS = 3                                     # Feed the Swarm: how often a voidling can grow
+MARK_SECONDS = 15
+
+
 def shadow_bite(points, dot, anima, duration=DUR_12S):
     return ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_SHADOW,
                     "DurationIndex": duration, "_bonus": (0, 0, 0, 0.02),
@@ -1376,7 +1384,9 @@ VOIDLING = Evolved(
      ("Phase Shift", "Slip halfway out of the world for 2 sec: 50% faster, and nothing can strike you.",
       "Out of phase.")),
     (25941, gimmick(213, 0, aura(A_MOD_DAMAGE_PCT_DONE, 5, SCHOOL_SHADOW)),
-     ("Hungry Void", "The void in you is hungry too: your Shadow damage is increased by 5%.", "")),
+     ("Hungry Void", "The void in you is hungry too: your Shadow damage is increased by 5%. Void Eggs: a kill leaves "
+      "an egg that hatches a voidling a few seconds later (two eggs as a Brood Devourer); this holds for the whole "
+      "line.", "")),
     (7588, ability({"CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_25, "RecoveryTime": 4000,
                     "SchoolMask": SCHOOL_SHADOW, "_bonus": (0, 0, 0.12, 0),
                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 14, "spread": 4, "target": T_ENEMY}, gain(10))}),
@@ -1392,7 +1402,9 @@ VOIDLING = Evolved(
         "The form review's line 7, its own Brood-themed branch: the retail baby voidwalker. The Void Critters of "
         "Bloodmyst Isle (3) give it, and so do the Void Anomalies there and the Voidspawn of Outland.",
         "A Brood Devourer's hatchlings are voidlings in every step of this line (devourer_shape.brood_display).",
-        "The pick's void eggs and growing voidlings need module code: later.",
+        "The pick's Void Eggs are module code (src/DevourerVoid.cpp, task 019): a kill in any shape of the line "
+        "leaves a void egg (creature 9101103) that hatches a voidling after 3 sec, two eggs for a Brood Devourer. "
+        "The voidling is the Brood's own hatchling, so its limits, despawn and AI are unchanged (8 at most).",
     ])
 
 VOIDCREEPER = Evolved(
@@ -1404,7 +1416,8 @@ VOIDCREEPER = Evolved(
      ("Burrow", "Sink into the ground for up to 6 sec: 30% faster, and nothing can strike you. Using any ability "
       "brings you up.", "Under the ground.")),
     (25941, gimmick(213, 0, aura(A_DMG_TAKEN_PCT, -5, SCHOOL_ALL), aura(A_MOD_DAMAGE_PCT_DONE, 5, SCHOOL_ALL)),
-     ("Brood Bond", "The brood is one body: you take 5% less damage and deal 5% more.", "")),
+     ("Brood Bond", "The brood is one body: you take 5% less damage and deal 5% more. Feed the Swarm: voidlings near "
+      "a kill devour the corpse and grow, up to 3 times.", "")),
     (*erupt(42, 90, 6000),
      ("Ambush from Below", "Only from under the ground: burst up and throw every enemy within 6 yards into the air "
       "for 90% weapon damage.", "")),
@@ -1417,6 +1430,9 @@ VOIDCREEPER = Evolved(
     [(DEVOUR_NAME, 0, 25, "Devour 25 void creatures as a Voidling", VOID_NAMES),
      (SPELL_CAST, sid(41, 4), 60, "Spit void 60 times (Void Spit)", ""),
      (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")],
+    extra=[(6, TREMOR_PLATING[1], {**TREMOR_PLATING[2], "DurationIndex": DUR_INFINITE, "CumulativeAura": FEED_STEPS,
+                                   **effects(aura(A_MOD_DAMAGE_PCT_DONE, 15, SCHOOL_PHYSICAL))},
+            ("Fed Voidling", "", "Fed: damage increased by 15% for each step."))],
     scripts=[(2, "spell_devourer_burrow")],
     looks=[(994177, "Voidcreeper Blue"), (994178, "Voidcreeper Red"), (994179, "Voidcreeper Yellow")],
     brood=VOIDLING_LOOK,
@@ -1424,6 +1440,8 @@ VOIDCREEPER = Evolved(
     role="void ambusher",
     changes=[
         "The retail voidcreeper (three colourings); Burrow and Ambush from Below work like the Borer's.",
+        "Feed the Swarm (task 019, src/DevourerVoid.cpp; the Broodmother has it too): the voidling nearest to a kill "
+        "comes to eat the corpse and grows a step (Fed Voidling, slot 6: +15% damage and 15% size, 3 steps at most).",
     ])
 
 VOIDCREEPER_BROODMOTHER = Evolved(
@@ -1436,7 +1454,7 @@ VOIDCREEPER_BROODMOTHER = Evolved(
       "brings you up.", "Under the ground.")),
     (25941, gimmick(1581, 0, aura(A_MOD_RESISTANCE_PCT, 20, 1), aura(A_OBS_MOD_HEALTH, 1, period=3000)),
      ("Broodmother's Carapace", "Your armor is increased by 20%, and you regain 1% of your maximum health every "
-      "3 sec.", "")),
+      "3 sec. Your voidlings feed on corpses and grow, as in Feed the Swarm.", "")),
     (*erupt(43, 120, 6000),
      ("Brood Eruption", "Only from under the ground: burst up and throw every enemy within 6 yards into the air for "
       "120% weapon damage.", "")),
@@ -1445,20 +1463,34 @@ VOIDCREEPER_BROODMOTHER = Evolved(
                      "ChannelInterruptFlags": 0, "AttributesEx": 0,
                      **effects({"effect": E_PERSISTENT_AREA_AURA, "aura": A_PERIODIC_DAMAGE, "amount": 12,
                                 "period": 1000, "target": T_DEST_TARGET_ANY, "radius": RADIUS_8})}),
-     ("Call the Swarm", "A swarm of voidlings boils out of the ground up to 30 yards away: for 6 sec, enemies there "
-      "take $s1 Shadow damage every second.", "In the swarm.")),
+     ("Broodmother's Call", "Call every voidling to your target for 15 sec (up to 3 hatch if you have fewer): they "
+      "fixate on it, and a voidling that dies bursts for Shadow damage around it. A swarm also boils out of the "
+      "ground up to 30 yards away: for 6 sec, enemies there take $s1 Shadow damage every second.",
+      "In the swarm.")),
     VOID_DIET, VOID_FOOD, 40, 1200,
     [(DEVOUR_NAME, 0, 30, "Devour 30 void creatures as a Voidcreeper", VOID_NAMES),
      (TAKE_DAMAGE, 0, 20000, "Weather 20,000 damage as a Voidcreeper", ""),
      (DEVOUR_ENTRY, 2337, 1, "Devour a Dark Strand Voidcaller (Ashenvale)", "")],
-    scripts=[(2, "spell_devourer_burrow")],
+    extra=[(6, TREMOR_PLATING[1], {**TREMOR_PLATING[2], "DurationIndex": DUR_15S, "CumulativeAura": 0,
+                                   "RangeIndex": RANGE_ANYWHERE,
+                                   **effects(aura(b.A_PERIODIC_DUMMY, 0, period=1000, target=T_TARGET_ALLY))},
+            ("Broodmother's Call", "", "Fixated on the Broodmother's target; bursts when it dies.")),
+           (7, ANIMA_WHIRLPOOL[1], {**ANIMA_WHIRLPOOL[2], "_bonus": (0, 0, 0.25, 0),
+                                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 35, "spread": 10,
+                                               "target": T_ENEMY})},
+            ("Brood Burst", "", ""))],
+    scripts=[(2, "spell_devourer_burrow"), (5, "spell_devourer_broodmothers_call"),
+             (6, "spell_devourer_broodmothers_call_mark")],
     looks=[(994174, "Broodmother Blue"), (994175, "Broodmother Orange")],
     brood=VOIDLING_LOOK,
     later_level=48,
     role="brood tank",
     changes=[
         "The retail vicious voidcreeper with its saddle hidden (model tool, Parts), two colourings.",
-        "Broodmother's Call (voidlings that fixate and explode) needs module code: Call the Swarm stands in for it.",
+        "Broodmother's Call (task 019, src/DevourerVoid.cpp) is Call the Swarm with the voidlings' part: it hatches "
+        "voidlings up to 3, marks every voidling for 15 sec (slot 6: it keeps to the Broodmother's target) and a marked "
+        "voidling that dies bursts (Brood Burst, slot 7: 35-45 Shadow damage plus 25% attack power to every enemy "
+        "within 8 yards). The swarm that boils out of the ground stays.",
     ])
 
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
