@@ -70,5 +70,5 @@ tells you when you beat it.
 2. Course place: Mulgore plains (proposed) or somewhere else.
 3. Wren's Saddle as a permanent reward: yes or no.
 
-Custom items need display rows in the client patch (patch-Z, the Devourer thread's job), using icons and models
-the client already has.
+The reward items (goggles, cloak, beetle, toffee) are designed, balanced and implemented by the Items and balance
+thread; the quest only references their item IDs once they exist. Wren's Saddle stays with the quest.
