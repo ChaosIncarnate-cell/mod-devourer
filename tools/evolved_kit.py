@@ -1472,12 +1472,94 @@ EARTHEN_PROTO_DRAKE = Evolved(
         "overlays hidden (they drew as solid yellow).",
     ])
 
+# 45 Primal Tallstrider (owner, 2026-10-03): tier 2 of the Plainstrider line at level 20 ("its a tier 2 but unlocked
+# later level from plainstrider"), also unlocked when Wren transforms a Devourer for her Derby (the quest thread).
+# Unsaddled it wears the wild primal tallstrider (three horn sets, each its own model copy); saddled it wears the
+# complete mount and carries one rider (the module puts the rider seat on, src/DevourerEvolved.cpp SyncSaddle).
+A_SET_VEHICLE, VEHICLE_RIDER_SEAT = 296, 102
+T_CASTER_AREA_PARTY_ = 20
+FAMILY_TALLSTRIDER_ = 12
+PRIMAL_TALLSTRIDER = Evolved(
+    45, "Primal Tallstrider", 10, "Plainstrider", 0, 994230, "Primal Blue",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": 0, **effects(hit(8), gain(15))}),
+     ("Primal Kick", "A kick from long, armored legs: weapon damage plus $s1. Generates 15 Anima.", "")),
+    (*charge(20000, CHARGE_STUN, 10),
+     ("Trample", "Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. "
+      "Generates 10 Anima.", "")),
+    (25941, gimmick(1581, 0, aura(sk.A_MOD_SPEED_ALWAYS, 15), aura(A_MOD_RESISTANCE_PCT, 10, 1)),
+     ("Long Stride", "You run 15% faster, and your armor is increased by 10%.", "")),
+    (49966, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 10000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 70, "target": T_SRC_CASTER,
+                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
+     ("Horn Sweep", "Sweep your horns around: 70% weapon damage to every enemy within 8 yards.", "")),
+    (1850, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": DUR_6S, "RecoveryTime": 45000, "CastingTimeIndex": CAST_INSTANT,
+                    **effects(aura(A_MOD_INCREASE_SPEED, 30, target=T_CASTER_AREA_PARTY_, radius=RADIUS_20))}),
+     ("Stampede", "You and your group within 20 yards run 30% faster for 6 sec.", "30% faster.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_CRITTER, 8), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "snake", "Snakes"), (0, 0, "scorpid", "Scorpids")],
+    20, 700,
+    [(DEVOUR_FAMILY, FAMILY_TALLSTRIDER_, 30, "Devour 30 tallstriders as a Plainstrider", ""),
+     (SPELL_CAST, PLAINSTRIDER_HIND_KICK, 60, "Kick 60 times with Hind Kick", ""),
+     (TAKE_DAMAGE, 0, 10000, "Weather 10,000 damage as a Plainstrider", "")],
+    extra=[(6, 1850, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_INFINITE, "SpellVisualID_1": 0,
+                              **effects(aura(A_SET_VEHICLE, 0, VEHICLE_RIDER_SEAT))}),
+            ("Rider's Seat", "", "A companion can ride on your saddle."))],
+    looks=[(994230, "Primal Blue"),
+           (994229, "Primal Black"),
+           (994231, "Primal Green"),
+           (994232, "Primal Pink"),
+           (994233, "Primal Red"),
+           (994234, "Primal White"),
+           (994195, "Primal Black Short Horns"),
+           (994196, "Primal Blue Short Horns"),
+           (994197, "Primal Green Short Horns"),
+           (994198, "Primal Pink Short Horns"),
+           (994199, "Primal Red Short Horns"),
+           (994200, "Primal White Short Horns"),
+           (994201, "Primal Black Ram Horns"),
+           (994202, "Primal Blue Ram Horns"),
+           (994204, "Primal Green Ram Horns"),
+           (994205, "Primal Pink Ram Horns"),
+           (994206, "Primal Red Ram Horns"),
+           (994207, "Primal White Ram Horns"),
+           (994208, "Saddled Black 1"),
+           (994209, "Saddled Black 2"),
+           (994210, "Saddled Black 3"),
+           (994211, "Saddled Blue 1"),
+           (994212, "Saddled Blue 2"),
+           (994213, "Saddled Blue 3"),
+           (994214, "Saddled Green 1"),
+           (994215, "Saddled Green 2"),
+           (994216, "Saddled Green 3"),
+           (994217, "Saddled Red 1"),
+           (994218, "Saddled Red 2"),
+           (994219, "Saddled Red 3"),
+           (994220, "Saddled Purple 1"),
+           (994221, "Saddled Purple 2"),
+           (994222, "Saddled Purple 3"),
+           (994223, "Saddled Gold 1"),
+           (994224, "Saddled Gold 2"),
+           (994225, "Saddled Gold 3"),
+           (994226, "Saddled White 1"),
+           (994227, "Saddled White 2"),
+           (994228, "Saddled White 3")],
+    later_level=26,
+    role="armored runner",
+    changes=[
+        "The owner's form (2026-10-03): the retail primal tallstrider; wild looks unsaddled, the complete mount saddled "
+        "(a saddled look carries one rider). Also unlocked by Wren's Derby transformation.",
+        "The wild model has three horn sets; each is its own look (swept, short, ram).",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
          KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER, WHELP, PROTO_DRAKE, STORM_DRAGON,
          OWL, MOONKIN, MOONTOUCHED_OWLBEAST, VOIDLING, VOIDCREEPER, VOIDCREEPER_BROODMOTHER,
-         EARTHEN_PROTO_DRAKE]
+         EARTHEN_PROTO_DRAKE, PRIMAL_TALLSTRIDER]
 
 
 class Growth:

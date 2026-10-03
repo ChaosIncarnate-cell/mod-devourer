@@ -252,6 +252,8 @@ MOLT_TALES = {
     1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
        "my little horror: as something that would not stop eating.",
     44: "Some dragons sleep so long under the mountains that the mountain moves in. When they wake up, they keep it.",
+    45: "The primal striders ran before there were roads. Put a saddle on one and it still thinks it is running "
+        "away. Hold on tight, whoever sits up there.",
     43: "A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer.",
     42: "Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family.",
     40: "When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells "
@@ -328,7 +330,7 @@ HAGATHA_TALE_OF = {**{molt.shape: HAGATHA_MOLT_FIRST + i for i, molt in enumerat
 # Task 018 B: Wren's word on the shape a freed Devourer comes back in (.inbetween), after her welcome back.
 WREN_REACTIONS = [  # (line, shapes)
     ("Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you.", (5, 7, 9, 17, 18, 19)),
-    ("Look at those legs! You could outrun {hagatha}'s temper. Almost.", (10, 16)),
+    ("Look at those legs! You could outrun {hagatha}'s temper. Almost.", (10, 16, 45)),
     ("Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles.", (8, 23, 27)),
     ("Upside down, please, that's how I like my bats. No? Fine. Rightside up.", (11, 21)),
     ("My toad! Hello, my toad! Did you eat any bugs? Of course you did.", (14, 15)),

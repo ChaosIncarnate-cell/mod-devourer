@@ -37,6 +37,7 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 42 | Voidcreeper | Voidling | 20 | 700 | void ambusher |
 | 43 | Voidcreeper Broodmother | Voidcreeper | 40 | 1200 | brood tank |
 | 44 | Earthen Proto-Drake | Whelp | 35 | 1000 | stone tank |
+| 45 | Primal Tallstrider | Plainstrider | 20 | 700 | armored runner |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 | 16 | Greater Plainstrider | Baby Eagle | 12 | 500 | (an older form) |
 | 24 | Void Terror | Baby Komodo | 16 | 600 | (an older form) |
@@ -49,25 +50,25 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 - Breathe lightning 80 times (Lightning Breath)
 - Devour Gahz'rilla (Zul'Farrak)
 
-### Greater Plainstrider (shape 16, now also grows out of the Baby Eagle, quest 9101332)
+### Greater Plainstrider (shape 16, now also grows out of the Baby Eagle, quest 9101333)
 
 - Devour 20 hawks or eagles as a Baby Eagle
 - Dive 30 times
 - Devour a Thunderhawk Hatchling (the Barrens)
 
-### Void Terror (shape 24, now also grows out of the Baby Komodo, quest 9101333)
+### Void Terror (shape 24, now also grows out of the Baby Komodo, quest 9101334)
 
 - Devour 20 void creatures as a Baby Komodo
 - Deal 8,000 damage as a Baby Komodo
 - Devour a Void Anomaly (Bloodmyst Isle)
 
-### Void Terror (shape 24, now also grows out of the Mana Wyrm, quest 9101334)
+### Void Terror (shape 24, now also grows out of the Mana Wyrm, quest 9101335)
 
 - Devour 20 void or arcane creatures as a Mana Wyrm
 - Cast Arcane Bolt 50 times
 - Devour a Void Anomaly (Bloodmyst Isle)
 
-### Baby Wind Serpent (shape 26, now also grows out of the Baby Eagle, quest 9101335)
+### Baby Wind Serpent (shape 26, now also grows out of the Baby Eagle, quest 9101336)
 
 - Devour 25 wind serpents as a Baby Eagle
 - Beat up 40 Wing Gusts
@@ -698,3 +699,25 @@ Look: a retail model, base 994155 (`Earthen Drake Brown`); its other colourings 
 Changes against the canvas card, and why:
 
 - The Whelp's second branch: the retail earth proto-drake as an earth elemental, five colourings; its glow overlays hidden (they drew as solid yellow).
+
+### Primal Tallstrider (shape 45, grows out of the Plainstrider)
+Look: a retail model, base 994230 (`Primal Blue`); its other colourings come with the shape: 994229 `Primal Black`, 994231 `Primal Green`, 994232 `Primal Pink`, 994233 `Primal Red`, 994234 `Primal White`, 994195 `Primal Black Short Horns`, 994196 `Primal Blue Short Horns`, 994197 `Primal Green Short Horns`, 994198 `Primal Pink Short Horns`, 994199 `Primal Red Short Horns`, 994200 `Primal White Short Horns`, 994201 `Primal Black Ram Horns`, 994202 `Primal Blue Ram Horns`, 994204 `Primal Green Ram Horns`, 994205 `Primal Pink Ram Horns`, 994206 `Primal Red Ram Horns`, 994207 `Primal White Ram Horns`, 994208 `Saddled Black 1`, 994209 `Saddled Black 2`, 994210 `Saddled Black 3`, 994211 `Saddled Blue 1`, 994212 `Saddled Blue 2`, 994213 `Saddled Blue 3`, 994214 `Saddled Green 1`, 994215 `Saddled Green 2`, 994216 `Saddled Green 3`, 994217 `Saddled Red 1`, 994218 `Saddled Red 2`, 994219 `Saddled Red 3`, 994220 `Saddled Purple 1`, 994221 `Saddled Purple 2`, 994222 `Saddled Purple 3`, 994223 `Saddled Gold 1`, 994224 `Saddled Gold 2`, 994225 `Saddled Gold 3`, 994226 `Saddled White 1`, 994227 `Saddled White 2`, 994228 `Saddled White 3`. The creature's own look (creature 0, display 994230, `Primal Blue`) comes with it too. Any one task:
+
+- Devour 30 tallstriders as a Plainstrider
+- Kick 60 times with Hind Kick
+- Weather 10,000 damage as a Plainstrider
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102290 | 1 | Primal Tallstrider Form | Take the shape of the primal tallstrider, grown out of your plainstrider: Primal Kick, Trample, Horn Sweep and Long Stride; Stampede opens at level 26. All shapes share one cooldown. |
+| 9102291 | 1 | Primal Kick | A kick from long, armored legs: weapon damage plus $s1. Generates 15 Anima. |cffb87830Primal Tallstrider form|r |
+| 9102292 | 1 | Trample | Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 10 Anima. |cffb87830Primal Tallstrider form|r |
+| 9102293 | 1 | Long Stride | You run 15% faster, and your armor is increased by 10%. |cffb87830Primal Tallstrider form|r |
+| 9102294 | 1 | Horn Sweep | Sweep your horns around: 70% weapon damage to every enemy within 8 yards. |cffb87830Primal Tallstrider form|r |
+| 9102295 | 26 | Stampede | You and your group within 20 yards run 30% faster for 6 sec. |cffb87830Primal Tallstrider form|r |
+| 9102296 | 1 | Rider's Seat | (cast by the kit) A companion can ride on your saddle. |
+
+Changes against the canvas card, and why:
+
+- The owner's form (2026-10-03): the retail primal tallstrider; wild looks unsaddled, the complete mount saddled (a saddled look carries one rider). Also unlocked by Wren's Derby transformation.
+- The wild model has three horn sets; each is its own look (swept, short, ram).

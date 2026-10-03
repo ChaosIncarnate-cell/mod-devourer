@@ -322,6 +322,17 @@ namespace Devourer
         if (target->HasAuraType(SPELL_AURA_MOD_ROOT) || target->HasAuraType(SPELL_AURA_MOD_DECREASE_SPEED))
             damage += damage * ColdBloodPct / 100;
     }
+
+    // Primal Tallstrider: a saddled look carries one rider (the owner, 2026-10-03: "ofc it is supposed to be a form").
+    // Put on when the shape is worn with a saddled colouring, taken off otherwise (shape 0: no shape worn).
+    void SyncSaddle(Player* player, uint32 shapeId, uint32 display)
+    {
+        bool const saddled = shapeId == ShapePrimalTallstrider && display >= SaddledFirst && display <= SaddledLast;
+        if (saddled && !player->HasAura(SpellRiderSeat))
+            player->CastSpell(player, SpellRiderSeat, true);
+        else if (!saddled && player->HasAura(SpellRiderSeat))
+            player->RemoveAurasDueToSpell(SpellRiderSeat);
+    }
 }
 
 void AddSC_devourer_evolved()

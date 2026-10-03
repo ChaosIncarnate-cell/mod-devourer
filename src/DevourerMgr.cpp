@@ -564,6 +564,7 @@ namespace Devourer
             player->SetObjectScale(player->GetObjectScale() * shape->Scale);
         state.Worn = shape->Id;
         SaveState(player, state);
+        SyncSaddle(player, shape->Id, ShownDisplay(player, *shape));
         GrantKit(player, state, *shape);
         SendMenu(player);
     }
@@ -608,6 +609,7 @@ namespace Devourer
             return;                               // an older form, already replaced
 
         RevokeKit(player, state);
+        SyncSaddle(player, 0, 0);
         player->RestoreDisplayId();
         player->RecalculateObjectScale();
         OnShapeLeft(player, *shape);                     // task 015: remembered for Stolen Instinct, Restless Form
@@ -779,7 +781,10 @@ namespace Devourer
         itr->second.Display = display == shape->Display ? 0 : display;
         SaveShape(player, shapeId, itr->second);
         if (state.Worn == shapeId)
+        {
             player->SetDisplayId(ShownDisplay(player, *shape));
+            SyncSaddle(player, shapeId, ShownDisplay(player, *shape));
+        }
         Tell(player, "Your " + shape->Name + " shape now wears " + SkinName(ShownDisplay(player, *shape)) + ".");
         SendMenu(player);
     }
