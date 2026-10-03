@@ -1130,6 +1130,24 @@ WHELP = Evolved(
         "Lair, the Netherwing, Ley and Proto-Whelps ...).",
     ])
 
+SCHOOL_FROST = 16
+FIRE_BREATH = breath(16396, SCHOOL_FIRE, 30, 10, 10000, 20, 0.25, RADIUS_15)   # template and fields of Fire Breath
+
+
+def breath_helper(school, name, tip, *slow):
+    """Task 019 B: what Fire Breath does to one enemy in one element (the breath's script casts it on every enemy hit,
+    spell_devourer_proto_breath). The breath's own numbers; `slow` is an optional (percent, duration) of a slow."""
+    template, fields = FIRE_BREATH
+    effs = [{"effect": E_SCHOOL_DAMAGE, "amount": 30, "spread": 10, "target": T_ENEMY}]
+    extra = {}
+    if slow:
+        effs.append(aura(A_MOD_DECREASE_SPEED, -slow[0], target=T_ENEMY))
+        extra = {"Mechanic": MECHANIC_SNARE, "DurationIndex": slow[1]}
+    return (template, {**fields, "Attributes": 0, "PowerType": 0, "ManaCost": 0, "RangeIndex": RANGE_ANYWHERE,
+                       "RecoveryTime": 0, "StartRecoveryCategory": 0, "StartRecoveryTime": 0, "SchoolMask": school,
+                       **extra, **effects(*effs)}, (name, "", tip))
+
+
 PROTO_DRAKE = Evolved(
     36, "Proto-Drake", 35, "Whelp", 0, 994158, "Proto-Drake Red",
     (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
@@ -1148,8 +1166,10 @@ PROTO_DRAKE = Evolved(
       "back.", "")),
     (25941, gimmick(1618, 0, aura(A_MOD_RESISTANCE_PCT, 15, 1), aura(A_DMG_TAKEN_PCT, -10, SCHOOL_MAGIC_ALL)),
      ("Proto Hide", "Your armor is increased by 15%, and magic hurts you 10% less.", "")),
-    (*breath(16396, SCHOOL_FIRE, 30, 10, 10000, 20, 0.25, RADIUS_15),
-     ("Fire Breath", "Breathe fire on the enemies in front of you within 15 yards: $s1 Fire damage.", "")),
+    (*FIRE_BREATH,
+     ("Fire Breath", "Breathe on the enemies in front of you within 15 yards: $s1 damage, and the colouring you wear "
+      "picks the element: Fire (red), Nature (earth looks), Nature and a 3 sec slow (storm look) or Frost and a "
+      "5 sec slow (blue fire looks).", "")),
     (15847, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
                      "DurationIndex": 0, "RecoveryTime": 20000, "SchoolMask": SCHOOL_PHYSICAL, "_custom": CONE_BACK,
                      "CastingTimeIndex": CAST_INSTANT,
@@ -1166,12 +1186,20 @@ PROTO_DRAKE = Evolved(
     looks=[(994158, "Proto-Drake Red"), (994155, "Proto-Drake Brown"), (994156, "Proto-Drake Grey"),
            (994157, "Proto-Drake Pale"), (994159, "Proto-Drake Yellow"), (994160, "Proto-Drake Storm"),
            (994161, "Proto-Drake Fire Blue"), (994162, "Proto-Drake Fire Dark")],
+    extra=[(6, *breath_helper(SCHOOL_FIRE, "Fire Breath", "")),
+           (7, *breath_helper(SCHOOL_NATURE, "Earth Breath", "")),
+           (8, *breath_helper(SCHOOL_NATURE, "Storm Breath", "Movement slowed by 20%.", 20, DUR_3S)),
+           (9, *breath_helper(SCHOOL_FROST, "Frost Breath", "Movement slowed by 30%.", 30, DUR_5S))],
+    scripts=[(4, "spell_devourer_proto_breath")],
     later_level=43,
     role="drake bruiser",
     changes=[
         "The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, "
         "not the 20-yard drakes of the Howling Fjord.",
-        "One breath (Fire) for every colouring: \"the colouring picks the element\" would need a script; later.",
+        "The colouring picks the breath's element (task 019, src/DevourerVoid.cpp): the red look breathes Fire, the "
+        "earth looks (994155-994157, 994159) Nature, the storm look (994160) Nature with a short slow, the blue fire "
+        "looks (994161-994162) Frost with a slow. The breath's script casts the helper spells (slots 6-9) on every "
+        "enemy it hits.",
         "Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).",
     ])
 

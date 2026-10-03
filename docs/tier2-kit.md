@@ -500,13 +500,17 @@ Look: a retail model, base 994158 (`Proto-Drake Red`); its other colourings come
 | 9102201 | 1 | Rending Bite | Tear into the enemy: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 15 Anima. |cffb87830Proto-Drake form|r |
 | 9102202 | 1 | Wing Buffet | Buffet the enemies in front of you within 10 yards: 60% weapon damage, and they are blown back. |cffb87830Proto-Drake form|r |
 | 9102203 | 1 | Proto Hide | Your armor is increased by 15%, and magic hurts you 10% less. |cffb87830Proto-Drake form|r |
-| 9102204 | 1 | Fire Breath | Breathe fire on the enemies in front of you within 15 yards: $s1 Fire damage. |cffb87830Proto-Drake form|r |
+| 9102204 | 1 | Fire Breath | Breathe on the enemies in front of you within 15 yards: $s1 damage, and the colouring you wear picks the element: Fire (red), Nature (earth looks), Nature and a 3 sec slow (storm look) or Frost and a 5 sec slow (blue fire looks). |cffb87830Proto-Drake form|r |
 | 9102205 | 43 | Tail Sweep | Sweep your tail through the enemies behind you within 10 yards: 70% weapon damage, and they are knocked back. |cffb87830Proto-Drake form|r |
+| 9102206 | 1 | Fire Breath | (cast by the kit)  |
+| 9102207 | 1 | Earth Breath | (cast by the kit)  |
+| 9102208 | 1 | Storm Breath | (cast by the kit) Movement slowed by 20%. |
+| 9102209 | 1 | Frost Breath | (cast by the kit) Movement slowed by 30%. |
 
 Changes against the canvas card, and why:
 
 - The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, not the 20-yard drakes of the Howling Fjord.
-- One breath (Fire) for every colouring: "the colouring picks the element" would need a script; later.
+- The colouring picks the breath's element (task 019, src/DevourerVoid.cpp): the red look breathes Fire, the earth looks (994155-994157, 994159) Nature, the storm look (994160) Nature with a short slow, the blue fire looks (994161-994162) Frost with a slow. The breath's script casts the helper spells (slots 6-9) on every enemy it hits.
 - Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).
 
 ### Storm Dragon (shape 37, grows out of the Proto-Drake)
