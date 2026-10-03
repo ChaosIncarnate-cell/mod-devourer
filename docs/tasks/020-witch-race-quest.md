@@ -87,3 +87,7 @@ Model scouting (2026-10-03): no candidate model has the stock passenger attachme
 the beast, the plan is a transform to the chosen model plus aura 296 (set vehicle id) with **vehicle 102**, which has
 one passenger seat on attachment 0 (the saddle point). That works with every candidate (Primal Tallstrider, Ardenweald
 Toad, Amani Pangolin, Rocket Turtle, Broodmother shrunk to about a third) with no model edit and no client change.
+Vehicle 102: one seat, 1541, on attachment 0, offset (0.15, 0, -0.08), flags 0x0200840F (no CAN_CONTROL,
+CAN_ENTER_OR_EXIT). Primal Tallstrider (Creature\Tallstriderprimalmount) has its saddle at attachment 0 = (-0.29, 0, 2.36).
+Still to check while building: which creature uses vehicle 102 in the DB, and how Bramble's ride pose looks in game.
+Renders: Z:\ChromaticawBots\Parrot\renders\derby-beast\.
