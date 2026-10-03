@@ -29,3 +29,36 @@ via the existing tools), apply the Anima costs, update `docs/talents.md`. Uninst
 
 ## Done when (local session tests in game)
 Each spec plays differently; talents and spec abilities work and show real tooltips; strong abilities cost Anima.
+
+## Owner's answer to the proposal (2026-10-03)
+"Sounds pretty good. I like all the changes" — **the whole proposal is approved as written** (30 talents per tree,
+the Anima costs, the suggestions in "Things I noticed"; for Last Supper build the proposed version, fall back to
+the safer 60-Anima heal only if the lethal-damage hook proves unreliable).
+
+**One change: Concentrate goes; the Devourer gets a pet like the hunter.** "Basically just give me the ability for
+that, and maybe add some nice interactions." So:
+- Remove Concentrate from the base kit (spell 9100992: unlearn it from existing characters, take it off the
+  trainer and the default bars) and replace it with the hunter's pet abilities for class 10: tame a beast, call /
+  dismiss / revive the pet, feed it, the pet bar and pet frame, stable (if the stock stable master works for
+  class 10), and pet talents if the client shows them. Reuse stock hunter spells/mechanics where AzerothCore
+  allows (check class checks for CLASS_HUNTER in core pet code: Player::CanTameExoticPets, Pet::LoadPetFromDB,
+  SpellEffects EffectTameCreature, the client's pet UI keyed on class); keep any core change in the dormant
+  core-patch style (core-patch/*.patch, apply.ps1/revert.ps1) and as small as possible.
+- Anima: Concentrate was a refill (+30). Make up for it in the simplest way that fits the proposal (e.g. the pet's
+  kills/meals feed Anima, or a higher HungerPerSwing) and say which in the PR.
+- **Nice interactions (a few, small, in the Devourer's voice, no game jargon):** e.g. the pet eats corpses with
+  the Devourer (a shared meal gives Bio Points), the pet takes on a hint of the worn shape's colouring or size,
+  the pet flinches/whimpers when the Devourer devours something big, Brood hatchlings and the pet ignore or play
+  with each other. Pick 3-4 that are cheap to build and list them in the PR so the owner can say yes/no.
+- The specs stay: Brood's hatchlings are separate from the pet.
+Then do Step 2 as described above.
+
+## Step 2 built (2026-10-03)
+Status: built in a cloud session, **untested in game** (the PR text says what to test).
+- `tools/placeholders.py` is now the one source for the 90 talents, the nine spec abilities and 18 helper spells
+  (`docs/talents.md` lists each one and how it works; `src/DevourerTalentIds.h`, SQL 07 are generated).
+- `src/DevourerTalents.cpp`: the rank reader, the perks worked out every second (three hidden auras), Devourer's
+  Hide (Last Supper, Fat Reserves, the roar, Slow Chew), the spec abilities and active talents, the Brood talents.
+  `DevourerSpecs.cpp` / `DevourerMgr.cpp`: the Glutton and Skinchanger talents inside the existing meal, echo and shift code.
+- Concentrate is gone; the pet (`docs/pet.md`, `src/DevourerPet.cpp`) with four interactions. No core change.
+- Anima costs: see `docs/talents.md` (spec abilities 25-60, active talents 15-25) and the PR text.

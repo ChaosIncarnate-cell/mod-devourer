@@ -11,7 +11,7 @@
 
 #include "Devourer.h"
 #include "DevourerSpellIds.h"
-#include "DevourerPlaceholderIds.h"
+#include "DevourerTalentIds.h"
 
 #include "Creature.h"
 #include "CreatureAI.h"
@@ -55,22 +55,22 @@ namespace Devourer
 
         // Each spec's identity passive (on CoA the first entry of its tree) and its abilities.
         // ChaosCore0.3: Devour Whole is a Glutton talent now (the talent tree teaches it), no longer handed out.
-        // The (placeholder) abilities at 20/40/60 come from tools/placeholders.py (DevourerPlaceholderIds.h).
+        // The spec abilities at 20/40/60 come from tools/placeholders.py (DevourerTalentIds.h; task 015 made them real).
         constexpr SpecSpell SpecSpells[] =
         {
             { SpecGlutton,     SpellIdentityGlutton,         1 },
             { SpecSkinchanger, SpellIdentitySkinchanger,     1 },
             { SpecBrood,       SpellIdentityBrood,           1 },
             { SpecBrood,       SpellHatchBrood,              1 },
-            { SpecGlutton,     SpellPlaceholderGlutton20,     20 },
-            { SpecGlutton,     SpellPlaceholderGlutton40,     40 },
-            { SpecGlutton,     SpellPlaceholderGlutton60,     60 },
-            { SpecSkinchanger, SpellPlaceholderSkinchanger20, 20 },
-            { SpecSkinchanger, SpellPlaceholderSkinchanger40, 40 },
-            { SpecSkinchanger, SpellPlaceholderSkinchanger60, 60 },
-            { SpecBrood,       SpellPlaceholderBrood20,       20 },
-            { SpecBrood,       SpellPlaceholderBrood40,       40 },
-            { SpecBrood,       SpellPlaceholderBrood60,       60 },
+            { SpecGlutton,     SpellIronGut,                 20 },
+            { SpecGlutton,     SpellDevouringChallenge,      40 },
+            { SpecGlutton,     SpellLastSupper,              60 },
+            { SpecSkinchanger, SpellMimicStrike,             20 },
+            { SpecSkinchanger, SpellSkinSwap,                40 },
+            { SpecSkinchanger, SpellFormOfMany,              60 },
+            { SpecBrood,       SpellCallTheClutch,           20 },
+            { SpecBrood,       SpellFeedTheYoung,            40 },
+            { SpecBrood,       SpellBroodSwarm,              60 },
         };
 
         constexpr uint32 GorgedDigestAfter = 6000;       // out of combat this long, Gorged melts a stack per tick
@@ -128,6 +128,7 @@ namespace Devourer
                 SniffScan(player);
             }
         }
+        UpdatePerks(player, state, diff);                // task 015: armour, damage ... that depend on a state
         if (state.SyncTimer > diff)
         {
             state.SyncTimer -= diff;
@@ -142,6 +143,8 @@ namespace Devourer
             SyncSpecSpells(player);
         SyncTalentSpells(player);                        // talents can change at any time, not only with the spec
         DigestGorged(player, state);
+        SyncBrood(player, state);                        // task 015: Brood Mother, Queen of the Brood
+        SyncPet(player, state);                          // task 015: the pet takes on a hint of the worn shape's size
     }
 
     void Mgr::SyncSpecSpells(Player* player)
@@ -206,9 +209,21 @@ namespace Devourer
         State& state = Get(player);
         state.Eaten.insert(victim->GetGUID());
         player->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
-        player->ModifyPower(POWER_RAGE, int32(_hungerPerMeal * 10));
+        OnMeal(player, victim, true);                    // task 015: Anima, talents, the pet whimpers
         player->CastSpell(player, SpellSated, true);
         FeedGlutton(player, victim);
+        if (uint8 const r = Rank(player, TalUnendingMeal))           // Unending Meal: and a heal at once
+            player->ModifyHealth(int32(player->CountPctFromMaxHealth(5 * r)));
+        if (uint8 const r = Rank(player, TalCrushingJaw))            // Crushing Jaw: the others stand stunned
+        {
+            Acore::AnyUnfriendlyUnitInObjectRangeCheck check(player, player, 8.0f);
+            std::list<Unit*> around;
+            Acore::UnitListSearcher<Acore::AnyUnfriendlyUnitInObjectRangeCheck> searcher(player, around, check);
+            Cell::VisitObjects(player, searcher, 8.0f);
+            for (Unit* enemy : around)
+                if (enemy != victim && enemy->IsAlive() && player->IsValidAttackTarget(enemy))
+                    StunFor(player, enemy, uint32(1500 * r));
+        }
 
         uint32 const spellId = abilities.empty() ? 0 : Acore::Containers::SelectRandomContainerElement(abilities);
         // ChaosCore0.3, Regurgitate (talent): the ability stays in. Devour Whole becomes Regurgitate until it is
@@ -241,7 +256,10 @@ namespace Devourer
             }
             if (target)
             {
-                player->CastSpell(target, spellId, true);
+                if (uint8 const r = Rank(player, TalDigestiveFire))   // Digestive Fire: it hits harder
+                    CastScaled(player, target, spellId, 1.0f + 0.15f * r);
+                else
+                    player->CastSpell(target, spellId, true);
                 Tell(player, "Its " + std::string(info->SpellName[0] ? info->SpellName[0] : "power") + " bursts out of you.");
             }
         }
@@ -264,6 +282,9 @@ namespace Devourer
             player->CastSpell(player, SpellGorged, true);
             Tell(player, "Your " + worn->Name + " body loves that meal: Gorged twice.");
         }
+        if (Aura* gorged = player->GetAura(SpellGorged))              // task 015: Belly of the Beast, Stomach of Stone
+            if (gorged->GetStackAmount() > GorgedCap(player))
+                gorged->SetStackAmount(GorgedCap(player));
         state.GorgedIdle = 0;
 
         // What was eaten decides the meal (ChaosCore0.3: Zack's list). Machines give only Indigestion.
@@ -295,10 +316,18 @@ namespace Devourer
                 break;
         }
         player->RemoveAurasDueToSpell(SpellDigested);    // Digested lets go of the old meal before it changes
+        bool const grand = Rank(player, TalGrandAppetite) > 0;       // task 015: the buff before this one stays too
         for (uint32 other : MealSpells)
-            if (other != buff)
+            if (other != buff && !(grand && other == state.LastMealSpell))
                 player->RemoveAurasDueToSpell(other);
         player->CastSpell(player, buff, true);
+        if (grand)
+            if (Aura* meal = player->GetAura(buff))
+            {
+                meal->SetMaxDuration(30 * 60 * 1000);
+                meal->SetDuration(30 * 60 * 1000);
+            }
+        state.LastMealSpell = buff;
         if (buff == SpellMealDragon)
             player->CastSpell(player, SpellMealDragonBreath, true);   // the dragon breathes out of you
     }
@@ -394,7 +423,8 @@ namespace Devourer
             return;
         }
         state.GorgedIdle += SyncInterval;
-        uint32 const hold = player->HasSpell(SpellTalentStretchedGut) ? GorgedHeldFor : GorgedDigestAfter;
+        uint32 const hold = player->HasSpell(SpellTalentStretchedGut) ? GorgedHeldFor :
+            GorgedDigestAfter + 20000u * Rank(player, TalThickGullet);   // task 015: Thick Gullet
         if (state.GorgedIdle >= hold)
             gorged->ModStackAmount(-1);
     }
@@ -443,7 +473,10 @@ namespace Devourer
             }
             if (target)
             {
-                player->CastSpell(target, spellId, true);
+                if (uint8 const r = Rank(player, TalDigestiveFire))   // task 015: Digestive Fire
+                    CastScaled(player, target, spellId, 1.0f + 0.15f * r);
+                else
+                    player->CastSpell(target, spellId, true);
                 Tell(player, "Its " + std::string(info->SpellName[0] ? info->SpellName[0] : "power") +
                     (expired ? " bursts out of you." : " comes up."));
             }
@@ -474,7 +507,7 @@ namespace Devourer
             Get(player).Eaten.insert(corpse->GetGUID());
             if (corpse->loot.isLooted())
                 corpse->DespawnOrUnsummon(1500ms);
-            player->ModifyPower(POWER_RAGE, int32(_hungerPerMeal * 10));
+            OnMeal(player, corpse, false);
             FeedGlutton(player, corpse);
             EatShape(player, corpse, "You also devour " + corpse->GetName() + ".");
             ++eaten;
@@ -499,9 +532,16 @@ namespace Devourer
 
     // Overrun: run down the target (or 20 yards straight ahead) and knock over every enemy in the way. Rush (the
     // base kit) always runs straight ahead (chase = false) and knocks over with its own, lighter hit.
-    void Mgr::Overrun(Player* player, uint32 hitSpell, bool chase)
+    void Mgr::Overrun(Player* player, uint32 hitSpell, bool chase, float extra)
     {
         Get(player).OverrunWindup = 0;
+        if (hitSpell == SpellRushHit)                    // task 015: Wandering Skin takes Rush further, leaves an echo
+            if (uint8 const r = Rank(player, TalWanderingSkin))
+            {
+                extra += 2.0f * r;
+                if (Shape const* worn = FindShape(Get(player).Worn))
+                    SpawnEcho(player, *worn, false, true);
+            }
         uint32 const hit = hitSpell ? hitSpell : SpellBabyOverrunHit;
         Unit* target = chase ? player->GetSelectedUnit() : nullptr;
         if (target && (!target->IsAlive() || !player->IsValidAttackTarget(target) ||
@@ -516,7 +556,7 @@ namespace Devourer
             dest = player->GetFirstCollisionPosition(dist, player->GetRelativeAngle(target));
         }
         else
-            dest = player->GetFirstCollisionPosition(OverrunDash, 0.0f);
+            dest = player->GetFirstCollisionPosition(OverrunDash + extra, 0.0f);
 
         // Who stands in the way: enemies close to the line from here to the end of the run.
         float const sx = player->GetPositionX(), sy = player->GetPositionY();
@@ -588,7 +628,11 @@ namespace Devourer
 
     // --- Brood --------------------------------------------------------------------------------------------
 
-    void Mgr::OnBroodHatched(Player* player)
+    // Hatch Brood's summon effect makes the guardians (fromSpell); the module dresses them: the worn shape's kin, and
+    // what the Brood talents add. Task 015: Many Mouths (every second hatching) and Swollen Sac hatch more young than
+    // the spell does; Queen of the Brood makes them large. Other callers (Endless Clutch, Brood Swarm ...) refill
+    // the brood and only dress the new ones.
+    void Mgr::OnBroodHatched(Player* player, bool fromSpell)
     {
         State& state = Get(player);
         Shape const* worn = FindShape(state.Worn);
@@ -602,18 +646,38 @@ namespace Devourer
         }
         // An adult body worn by a hatchling is shrunk; a real young model or another kin keeps its size.
         bool const adult = worn && (display == worn->Display || _skins.count(display));
+        bool const queen = Rank(player, TalQueenOfTheBrood) > 0;
 
-        std::list<Creature*> hatchlings;
-        player->GetAllMinionsByEntry(hatchlings, NpcHatchling);
-        for (Creature* hatchling : hatchlings)
+        if (fromSpell)
+        {
+            ++state.HatchCount;
+            uint32 extra = Rank(player, TalSwollenSac);
+            if (state.HatchCount % 2 == 0)
+                extra += Rank(player, TalManyMouths);
+            uint32 const life = 20000 + 2000u * Rank(player, TalSwellingBrood);
+            for (uint32 i = 0; i < extra; ++i)
+            {
+                Position pos = player->GetPosition();
+                player->MovePositionToFirstCollision(pos, 2.0f, 0.6f + float(i) * 1.2f);
+                player->SummonCreature(NpcHatchling, pos, TEMPSUMMON_TIMED_DESPAWN, life, 0,
+                    sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
+            }
+        }
+
+        for (Creature* hatchling : Mine(player, NpcHatchling))
         {
             if (!hatchling->IsAlive() || hatchling->GetDisplayId() == display)
                 continue;                                // already dressed
             Dress(hatchling, player, display, 0.15f, 0.9f, 1.4f);
+            TuneHatchling(player, hatchling, 0.15f, 0.9f, 1.4f, false);
             if (adult)
                 hatchling->SetObjectScale(0.5f);
+            if (queen)
+                hatchling->SetObjectScale(hatchling->GetObjectScale() * 1.5f);
             Engage(hatchling, player);
         }
+        if (fromSpell)
+            PetPlay(player);                             // the pet is glad of them
     }
 
     bool Mgr::IsOwnHatchling(Player* player, Unit* unit) const
@@ -627,23 +691,55 @@ namespace Devourer
         player->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
         player->ModifyHealth(int32(player->CountPctFromMaxHealth(15)));
         player->ModifyPower(POWER_RAGE, 15 * 10);
+        if (Rank(player, TalBloodMilk))                  // task 015: Blood Milk: and the strikes come faster
+        {
+            State& state = Get(player);
+            state.BloodMilkUntil = getMSTime() + 10000;
+            state.PerkTimer = 0;
+        }
         Tell(player, "You eat one of your own hatchlings.");
     }
 
     void Mgr::OnCreatureDeath(Creature* victim, Unit* killer)
     {
+        // Task 015: a hatchling dies: Twitching Eggs, Mother's Wrath, Endless Clutch.
+        if (victim->GetEntry() == NpcHatchling)
+            if (Player* owner = victim->GetCharmerOrOwnerPlayerOrPlayerItself())
+                if (IsDevourer(owner))
+                    OnHatchlingDeath(owner, victim);
         if (!killer || victim->GetEntry() == NpcHatchling || victim->GetEntry() == NpcEcho)
             return;
         Player* mother = killer->GetCharmerOrOwnerPlayerOrPlayerItself();
-        if (!mother || !IsDevourer(mother) || SpecOf(mother) != SpecBrood)
+        if (!mother || !IsDevourer(mother))
             return;
+        if (killer->IsPet())
+            OnPetKill(mother, victim);                   // task 015: the pet's kills feed Anima
 
         State& state = Get(mother);
         if (state.Eaten.count(victim->GetGUID()))
             return;
 
-        std::list<Creature*> hatchlings;
-        mother->GetAllMinionsByEntry(hatchlings, NpcHatchling);
+        // Task 015, Worn Faces: for a while the Skinchanger's echo eats what dies near it, as a hatchling would.
+        if (Active(state.WornFacesUntil, getMSTime()))
+        {
+            Creature* echo = nullptr;
+            for (Creature* candidate : Mine(mother, NpcEcho, BroodReach))
+                if (candidate->IsWithinDist(victim, BroodReach) && (!echo || candidate->GetDistance(victim) < echo->GetDistance(victim)))
+                    echo = candidate;
+            if (echo)
+            {
+                state.Eaten.insert(victim->GetGUID());
+                echo->GetMotionMaster()->MovePoint(0, victim->GetPositionX(), victim->GetPositionY(), victim->GetPositionZ());
+                echo->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
+                GainAnima(mother, 10);
+                EatShape(mother, victim, "Your echo devours " + victim->GetName() + " and feeds you.");
+                return;
+            }
+        }
+        if (SpecOf(mother) != SpecBrood)
+            return;
+
+        std::list<Creature*> hatchlings = Mine(mother, NpcHatchling, BroodReach);
         Creature* eater = nullptr;
         for (Creature* hatchling : hatchlings)
             if (hatchling->IsAlive() && hatchling->IsWithinDist(victim, BroodReach) &&
@@ -655,30 +751,94 @@ namespace Devourer
         state.Eaten.insert(victim->GetGUID());
         eater->GetMotionMaster()->MovePoint(0, victim->GetPositionX(), victim->GetPositionY(), victim->GetPositionZ());
         eater->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
-        mother->ModifyPower(POWER_RAGE, 10 * 10);
+        GainAnima(mother, 10 + Rank(mother, TalNursingHunger));      // task 015: Nursing Hunger
         mother->ModifyHealth(int32(mother->CountPctFromMaxHealth(3)));
+        if (uint8 const r = Rank(mother, TalHungryYoung))            // Hungry Young: it mends
+            eater->ModifyHealth(int32(eater->CountPctFromMaxHealth(5 * r)));
+        if (uint8 const r = Rank(mother, TalFeedingFrenzy))          // Feeding Frenzy: it runs faster for a while
+        {
+            ObjectGuid const guid = eater->GetGUID();
+            float const was = eater->GetSpeedRate(MOVE_RUN);
+            eater->SetSpeedRate(MOVE_RUN, was * (1.0f + 0.03f * r));
+            mother->m_Events.AddEventAtOffset([mother, guid, was]()
+            {
+                if (Unit* young = ObjectAccessor::GetUnit(*mother, guid))
+                    if (Creature* creature = young->ToCreature())
+                        creature->SetSpeedRate(MOVE_RUN, was);
+            }, Milliseconds(6000));
+        }
         EatShape(mother, victim, "Your hatchlings devour " + victim->GetName() + " and feed you.");
     }
 
     // --- Skinchanger --------------------------------------------------------------------------------------
 
-    void Mgr::SpawnEcho(Player* player, Shape const& shape)
+    // Task 015: Many Faces, Form of Many (longer echoes, two casts), Mimic's Eye, Borrowed Voice, Flicker Shape, Mirror
+    // Hunger, Skin Hoard, Hollow Shell (a second, smaller echo) and Thousand Skins (an echo out of combat, three at most).
+    void Mgr::SpawnEcho(Player* player, Shape const& shape, bool small, bool force)
     {
-        if (!player->IsInCombat() || !player->GetVictim())
+        State& state = Get(player);
+        uint32 const now = getMSTime();
+        bool const thousand = Rank(player, TalThousandSkins) > 0;
+        if (!force && !thousand && (!player->IsInCombat() || !player->GetVictim()))
+            return;
+        if ((thousand || force) && Mine(player, NpcEcho).size() >= 3)
             return;
 
-        TempSummon* echo = player->SummonCreature(NpcEcho, player->GetPosition(), TEMPSUMMON_TIMED_DESPAWN, EchoDuration,
+        bool const many = Active(state.ManyUntil, now);
+        uint32 const duration = (many ? 14000u : EchoDuration) + 2000u * Rank(player, TalManyFaces);
+        float const share = small ? 0.5f : 1.0f;
+        float const power = (1.0f + 0.10f * Rank(player, TalMimicsEye)) * share;
+        TempSummon* echo = player->SummonCreature(NpcEcho, player->GetPosition(), TEMPSUMMON_TIMED_DESPAWN, duration,
             0, sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
         if (!echo)
             return;
 
-        Dress(echo, player, ShownDisplay(player, shape), 0.25f, 1.5f, 2.2f);
+        Dress(echo, player, ShownDisplay(player, shape), 0.25f * share, 1.5f * power, 2.2f * power);
+        if (small)
+            echo->SetObjectScale(echo->GetObjectScale() * 0.7f);
         echo->AddAura(SpellGhostVisual, echo);
         Engage(echo, player);
-        // The echo remembers the shape's first ability and throws it once.
-        if (Unit* victim = player->GetVictim())
-            if (shape.Kit[0] && sSpellMgr->GetSpellInfo(shape.Kit[0]))
-                echo->CastSpell(victim, shape.Kit[0], true, nullptr, nullptr, player->GetGUID());
+
+        // The echo remembers the shape's first ability and throws it once (twice in Form of Many).
+        Unit* victim = player->GetVictim();
+        uint32 const kit = shape.Kit[0];
+        if (victim && kit && sSpellMgr->GetSpellInfo(kit))
+        {
+            float const voice = (1.0f + 0.04f * Rank(player, TalBorrowedVoice)) * share;
+            CastScaled(echo, victim, kit, voice, player->GetGUID());
+            if (many)
+            {
+                ObjectGuid const echoGuid = echo->GetGUID(), victimGuid = victim->GetGUID();
+                player->m_Events.AddEventAtOffset([this, player, echoGuid, victimGuid, kit, voice]()
+                {
+                    Unit* e = ObjectAccessor::GetUnit(*player, echoGuid);
+                    Unit* v = ObjectAccessor::GetUnit(*player, victimGuid);
+                    if (e && e->IsAlive() && v && v->IsAlive())
+                        CastScaled(e, v, kit, voice, player->GetGUID());
+                }, Milliseconds(1000));
+            }
+        }
+        if (small)
+            return;
+
+        if (uint8 const r = Rank(player, TalFlickerShape))
+            player->ModifyHealth(int32(player->CountPctFromMaxHealth(3 * r)));
+        if (uint8 const r = Rank(player, TalMirrorHunger))
+            if (victim && (victim->getPowerType() == POWER_MANA || victim->getPowerType() == POWER_RAGE) &&
+                victim->GetPower(victim->getPowerType()) > 0)
+            {
+                victim->ModifyPower(victim->getPowerType(), -int32(3 * r * (victim->getPowerType() == POWER_RAGE ? 10 : 1)));
+                GainAnima(player, 3 * r);
+            }
+        if (uint8 const r = Rank(player, TalSkinHoard))
+            player->m_Events.AddEventAtOffset([this, player, r]()
+            {
+                if (player->IsAlive())
+                    GainAnima(player, 4u * r);
+            }, Milliseconds(duration));
+        if (uint8 const r = Rank(player, TalHollowShell))
+            if (player->GetHealthPct() >= (r >= 2 ? 80.0f : 99.9f))
+                SpawnEcho(player, shape, true, true);
     }
 
     // --- task 009: starter forms batch 1 --------------------------------------------------------------------

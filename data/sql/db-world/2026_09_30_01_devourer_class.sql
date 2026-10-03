@@ -23,8 +23,8 @@ INSERT INTO `talenttab_dbc` (`ID`, `Name_Lang_enUS`, `Name_Lang_Mask`, `SpellIco
 (902, 'Brood', 16712190, 689, 0, 512, 0, 2, 'HunterBeastMastery');
 
 -- Talents 9000-9019 (stock 3.3.5a Talent ends near 2300). Every tier needs 5 points spent in the tree before
--- it opens (server and client both check), so each tree has 5-rank placeholder talents (spells 9100050-9100069,
--- no effect yet) until it gets real ones. Glutton, as designed on CoA (the CoA layout, squeezed into 4 columns):
+-- it opens (server and client both check), so each tree has 5-rank talents in its first tiers (spells 9100050-9100069;
+-- task 015 gave them real effects in 2026_09_30_07). Glutton, as designed on CoA (the CoA layout, squeezed into 4 columns):
 --   tier 0  Iron Stomach (5)   Quick Devour        Devour Whole [ability]
 --   tier 1  Deep Hunger (5)    Feast <-Quick       Regurgitate <-Devour Whole
 --   tier 2                     Stretched Gut
@@ -105,12 +105,19 @@ WHERE `p`.`class` = (SELECT MIN(`q`.`class`) FROM (SELECT `race`, `class` FROM `
                      WHERE `q`.`race` = `p`.`race` AND `q`.`class` NOT IN (6, 10));
 
 -- The base kit from the start (spells in 2026_09_30_08; the module also teaches them at login, and the hidden
--- Anima passive). Bars: Attack, Rush, Concentrate, Devour.
+-- Anima passive) and, since task 015, the hunter's pet spells (stock 3.3.5a: Tame Beast 1515, Call Pet 883,
+-- Dismiss Pet 2641, Revive Pet 982, Mend Pet 136, Feed Pet 6991, Beast Lore 1462). Bars: Attack, Rush, Call Pet, Devour.
 DELETE FROM `playercreateinfo_spell_custom` WHERE `classmask` = 512;
 INSERT INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) VALUES
 (0, 512, 9100001, 'Devourer: Devour'),
 (0, 512, 9100990, 'Devourer: Rush'),
-(0, 512, 9100992, 'Devourer: Concentrate'),
+(0, 512, 1515, 'Devourer: Tame Beast'),
+(0, 512, 883, 'Devourer: Call Pet'),
+(0, 512, 2641, 'Devourer: Dismiss Pet'),
+(0, 512, 982, 'Devourer: Revive Pet'),
+(0, 512, 136, 'Devourer: Mend Pet'),
+(0, 512, 6991, 'Devourer: Feed Pet'),
+(0, 512, 1462, 'Devourer: Beast Lore'),
 (0, 512, 9100993, 'Devourer: Anima');
 
 DELETE FROM `playercreateinfo_action` WHERE `class` = 10;
@@ -119,7 +126,7 @@ SELECT `race`, 10, 0, 6603, 0 FROM `playercreateinfo` WHERE `class` = 10;       
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
 SELECT `race`, 10, 1, 9100990, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Rush
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
-SELECT `race`, 10, 2, 9100992, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Concentrate
+SELECT `race`, 10, 2, 883, 0 FROM `playercreateinfo` WHERE `class` = 10;           -- Call Pet
 INSERT INTO `playercreateinfo_action` (`race`, `class`, `button`, `action`, `type`)
 SELECT `race`, 10, 3, 9100001, 0 FROM `playercreateinfo` WHERE `class` = 10;       -- Devour
 

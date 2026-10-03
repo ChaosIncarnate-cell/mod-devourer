@@ -24,7 +24,7 @@ never in the spellbook and stay out, so General holds no Devourer spell.
 
 The client patch (tools/client/build_client_patch.py) puts the same SkillLine, SkillRaceClassInfo and
 SkillLineAbility rows into the client's DBCs (it reads every committed 2026_09_30_0*.sql), which is what makes the
-client show the tabs. tools/build_class_dbc_sql.py checks these ids are free (RESERVED).
+client show the tabs (task 011). Task 015 adds the hunter's pet spells (PET_SPELLS, Brood tab). tools/build_class_dbc_sql.py checks these ids are free (RESERVED).
 Removed by data/sql/uninstall/world.sql (ids above, ClassMask 512) and uninstall/characters.sql (skills 900-902).
 """
 from __future__ import annotations
@@ -51,7 +51,6 @@ RCI_FLAGS = 0x10                     # SKILL_FLAG_ALWAYS_MAX_VALUE: the bar is a
 BASE_AND_SPEC = {
     9100001: (900, "Devour"),
     9100032: (900, "Devour (Quick Devour talent)"),
-    9100992: (900, "Concentrate"),
     9100011: (900, "Bottomless Appetite (Glutton)"),
     9100020: (900, "Devour Whole (Glutton)"),
     9100034: (900, "Regurgitate (Glutton talent)"),
@@ -60,7 +59,15 @@ BASE_AND_SPEC = {
     9100012: (901, "Restless Skin (Skinchanger)"),
     9100013: (902, "Mother of the Brood (Brood)"),
     9100040: (902, "Hatch Brood (Brood)"),
-    **{9100800 + i: (900 + i // 3, "spec ability (placeholder)") for i in range(9)},   # 3 per spec, in tab order
+    **{9100800 + i: (900 + i // 3, "spec ability (task 015)") for i in range(9)},   # 3 per spec, in tab order
+}
+
+
+# Task 015: the hunter's pet spells, stock 3.3.5a (they have no spell_dbc row here, the client and the core already
+# know them). A SkillLineAbility row with the Devourer's skill and class mask puts them on the Devourer's tab.
+PET_SPELLS = {
+    1515: "Tame Beast", 883: "Call Pet", 2641: "Dismiss Pet", 982: "Revive Pet", 136: "Mend Pet",
+    6991: "Feed Pet", 1462: "Beast Lore",
 }
 ICON_SPELL = 9100001                 # fallback tab icon
 
@@ -111,6 +118,10 @@ def main() -> int:
         print(f"skipped {s} ({want[s][1]}): no spell_dbc row in the committed SQL", file=sys.stderr)
     # spellbook order: tab by tab, each tab in the order the spells were found (a shape's spells stay together)
     ids = [s for _, skill in TABS for s, (k, _) in want.items() if k == skill and s in spells]
+    # Task 015: the stock pet spells (no spell_dbc row here) go on the Brood tab, after its own spells.
+    for s, name in PET_SPELLS.items():
+        want.setdefault(s, (902, name))
+    ids += [s for s in sorted(PET_SPELLS) if s not in ids]
     if len(ids) > SLA_LAST - SLA_FIRST + 1:
         print(f"{len(ids)} spells do not fit SkillLineAbility {SLA_FIRST}-{SLA_LAST}", file=sys.stderr)
         return 1

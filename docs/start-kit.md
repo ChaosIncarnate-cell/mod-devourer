@@ -11,10 +11,10 @@ Spell ids 9100900-9101099: base kit 9100990-9100993, starting forms 9100910-9100
 | 1 | 9100990 | Rush | 0s 0c | Rush 20 yards straight ahead, even on the run. Every enemy in your path takes 50% weapon damage and is knocked down for 1 sec. Needs no target. |
 | 1 | 9100991 | Rush | - |  |
 | 1 | 9100994 | Shape's Stride | - | Every shape runs 15% faster. |
-| 1 | 9100992 | Concentrate | 0s 0c | Draw the anima scattered through your body together: gain 30 Anima. Usable in combat. |
+| 1 | 9100995 | Sniff | 0s 0c | Toggle: while on, creatures within 40 yards that would give you a new shape or colouring are marked with a gold star, and your worn shape's favourite food with a green triangle (on nameplates and the target frame). |
 | 1 | 9100993 | Anima | - | Your anima does not drain away while you rest. |
 
-Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape is free (Devourer.AnimaPerShift, default 0 since 2026-10-03).
+Known from creation; bars: Attack, Rush, Call Pet, Devour (Concentrate is gone since task 015: the pet replaced it). Shifting into a shape is free (Devourer.AnimaPerShift, default 0 since 2026-10-03).
 
 ## Trainers
 
