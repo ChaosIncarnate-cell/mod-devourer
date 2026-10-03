@@ -56,6 +56,7 @@ BASE_AND_SPEC = {
     9100020: (900, "Devour Whole (Glutton)"),
     9100034: (900, "Regurgitate (Glutton talent)"),
     9100990: (901, "Rush"),
+    9100995: (901, "Sniff"),
     9100012: (901, "Restless Skin (Skinchanger)"),
     9100013: (902, "Mother of the Brood (Brood)"),
     9100040: (902, "Hatch Brood (Brood)"),

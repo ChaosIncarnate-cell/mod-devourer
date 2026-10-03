@@ -618,6 +618,55 @@ class spell_devourer_rush : public SpellScript
     }
 };
 
+// Sniff (task 013): a toggle. Casting it with the aura on takes the aura off; the aura itself only tells the
+// module to scan (Mgr::OnUpdate), and clears the client's marks when it ends.
+class spell_devourer_sniff : public SpellScript
+{
+    PrepareSpellScript(spell_devourer_sniff);
+
+    SpellCastResult CheckCast()
+    {
+        Player* player = GetCaster()->ToPlayer();
+        if (!player || !sDevourer.IsDevourer(player))
+            return SPELL_FAILED_DONT_REPORT;
+        if (player->HasAura(SpellSniff))
+        {
+            player->RemoveAurasDueToSpell(SpellSniff);
+            return SPELL_FAILED_DONT_REPORT;             // switched off, nothing to cast
+        }
+        return SPELL_CAST_OK;
+    }
+
+    void Register() override
+    {
+        OnCheckCast += SpellCheckCastFn(spell_devourer_sniff::CheckCast);
+    }
+};
+
+class spell_devourer_sniff_aura : public AuraScript
+{
+    PrepareAuraScript(spell_devourer_sniff_aura);
+
+    void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+    {
+        if (Player* player = GetTarget()->ToPlayer())
+            sDevourer.Get(player).SniffTimer = 0;        // the first scan comes at once
+    }
+
+    void OnRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+    {
+        if (Player* player = GetTarget()->ToPlayer())
+            if (player->IsInWorld())
+                sDevourer.SniffClear(player);
+    }
+
+    void Register() override
+    {
+        AfterEffectApply += AuraEffectApplyFn(spell_devourer_sniff_aura::OnApply, EFFECT_0, SPELL_AURA_DUMMY, AURA_EFFECT_HANDLE_REAL);
+        AfterEffectRemove += AuraEffectRemoveFn(spell_devourer_sniff_aura::OnRemove, EFFECT_0, SPELL_AURA_DUMMY, AURA_EFFECT_HANDLE_REAL);
+    }
+};
+
 // Gnaw: the grapple opens a bleeding wound; every second of it is a bite that heals the Devourer.
 class spell_devourer_baby_gnaw : public SpellScript
 {
@@ -913,6 +962,7 @@ void AddSC_devourer()
     RegisterSpellScript(spell_devourer_bile_coating);
     RegisterSpellScript(spell_devourer_baby_overrun);
     RegisterSpellScript(spell_devourer_rush);
+    RegisterSpellAndAuraScriptPair(spell_devourer_sniff, spell_devourer_sniff_aura);   // task 013
     RegisterSpellAndAuraScriptPair(spell_devourer_baby_gnaw, spell_devourer_baby_gnaw_aura);
     RegisterSpellScript(spell_devourer_baby_void_frenzy);
     new devourer_player();
