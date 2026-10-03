@@ -126,8 +126,8 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconNa
 (9101306, 5, 6328, 'Skull Pile', '', '', '', 1.0, '', '', 0),
 (9101309, 5, 7881, 'Ritual Rune Circle', '', '', '', 1.0, '', '', 0),
 (9101310, 5, 4152, 'Ritual Candle', '', '', '', 1.0, '', '', 0),
-(9101311, 5, 1291, 'Ritual Brazier', '', '', '', 1.0, '', '', 0),
-(9101312, 5, 1431, 'Ritual Standing Stone', '', '', '', 1.0, '', '', 0),
+(9101311, 5, 197, 'Ritual Brazier', '', '', '', 1.0, '', '', 0),
+(9101312, 5, 7017, 'Ritual Standing Stone', '', '', '', 1.0, '', '', 0),
 (9101313, 5, 107, 'Ritual Book', '', '', '', 1.0, '', '', 0);
 INSERT INTO `gameobject_template_addon` (`entry`, `faction`, `flags`, `mingold`, `maxgold`) VALUES
 (9101300, 0, 16, 0, 0),

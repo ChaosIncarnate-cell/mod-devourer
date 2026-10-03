@@ -81,8 +81,8 @@ VOID_SPAWN = (9910202, CAGE[0], CAGE[1], CAGE[2])
 # Task 014: the ritual area. These displays are stock 3.3.5a GameObjectDisplayInfo ids picked WITHOUT a client to
 # look at: the owner checks each in game (README of PR) and changes the number here, then runs this script again.
 RUNE_DISPLAY = 7881        # a flat glowing rune ring (like the warlock's summoning ring); fallbacks: 3171, 5651
-BRAZIER_DISPLAY = 1291     # standing brazier with a flame; fallbacks: 1287, 462
-STONE_DISPLAY = 1431       # a rune-carved standing stone; fallbacks: 5233, 1432
+BRAZIER_DISPLAY = 197      # standing brazier (the most used "Brazier"; 1291 does not exist in this client)
+STONE_DISPLAY = 7017       # "Glyph Inscribed Obelisk", a rune-carved standing stone (1431 does not exist)
 CHANNEL = 40671            # stock channelled beam the sisters hold on the Devourer; fallbacks: 59551, 31725
 RITUAL_RADIUS = 4.5        # yards from the middle of the circle: where candles, braziers and stones stand
 

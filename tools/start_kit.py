@@ -53,7 +53,7 @@ from build_devourer_spells import (  # noqa: E402
 
 OUT_SQL = REPO / "data" / "sql" / "db-world" / "2026_09_30_08_devourer_start.sql"
 OUT_MD = REPO / "docs" / "start-kit.md"
-FIRST, LAST = 9100900, 9101099
+FIRST, LAST = 9100900, 9101029     # 9101030-9101059: talent helpers (tools/placeholders.py), never delete them here
 
 # --- enums the DSL does not have yet ---------------------------------------------------------------------------
 E_WEAPON_DAMAGE, E_THREAT = 58, 63
