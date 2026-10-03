@@ -54,7 +54,7 @@ namespace Devourer
 
     // The form review's Viper (src/DevourerEvolved.cpp): its venom ticks harder on slowed or rooted enemies.
     // The Primal Tallstrider (shape 45): its saddled looks carry one rider (the Rider's Seat, a vehicle aura).
-    constexpr uint32 ShapePrimalTallstrider = 45;
+    constexpr uint32 ShapeSaddledStrider = 45;   // the Derby code names it ShapePrimalTallstrider
     constexpr uint32 SpellRiderSeat = 9102296;
     constexpr uint32 SaddledFirst = 994208, SaddledLast = 994228;
     void SyncSaddle(Player* player, uint32 shapeId, uint32 display);

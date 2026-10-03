@@ -327,7 +327,7 @@ namespace Devourer
     // Put on when the shape is worn with a saddled colouring, taken off otherwise (shape 0: no shape worn).
     void SyncSaddle(Player* player, uint32 shapeId, uint32 display)
     {
-        bool const saddled = shapeId == ShapePrimalTallstrider && display >= SaddledFirst && display <= SaddledLast;
+        bool const saddled = shapeId == ShapeSaddledStrider && display >= SaddledFirst && display <= SaddledLast;
         if (saddled && !player->HasAura(SpellRiderSeat))
             player->CastSpell(player, SpellRiderSeat, true);
         else if (!saddled && player->HasAura(SpellRiderSeat))
