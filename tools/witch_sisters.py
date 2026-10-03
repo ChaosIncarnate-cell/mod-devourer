@@ -22,7 +22,7 @@ Ids (all removed by data/sql/uninstall/world.sql and characters.sql):
                          9101313-9101314 the anima pests of Wren's fourth chore, 9101315 its credit
   creature (spawns)      9910200-9910202
   gameobject_template    9101300-9101309      gameobject (spawns) 9910200-9910229
-  quest                  9101301-9101305 (9101305: Wren's apprentice, task 018), 9101310-9101399 the molt quests (task 018: one per evolution that has one,
+  quest                  9101301-9101305 (9101305: Wren's apprentice, task 018), 9101310-9101359 the molt quests (task 018: one per evolution that has one,
                          tools/evolved_kit.py gives each evolution its quest id)
   gossip_menu / npc_text 9101300-9101301 / 9101300-9101305 (conditions on the same menus)
   creature_default_trainer: both sisters -> trainer 9101200 (its spells: tools/start_kit.py)
@@ -52,14 +52,15 @@ CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE = 9101310, 9101311, 9101312
 NPC_PEST, NPC_PEST_PERCHED, CREDIT_PEST = 9101313, 9101314, 9101315
 PEST_SCRIPT = "npc_devourer_anima_pest"
 SHAPE_BILETOAD = 14                                  # tools/start_kit.py: the form Wren's spell puts on
-NPC_FIRST, NPC_LAST = 9101300, 9101399
+NPC_FIRST, NPC_LAST = 9101300, 9101359
 SPAWN_FIRST, SPAWN_LAST = 9910200, 9910299
-GO_FIRST, GO_LAST = 9101300, 9101399
+GO_FIRST, GO_LAST = 9101300, 9101359
 GO_CAGE = 9101300                                   # the Devourer's own cage: summoned per player, opens at the end
 Q_FEEDING, Q_TRICK, Q_TALE, Q_PESTS = 9101301, 9101302, 9101303, 9101304
 Q_APPRENTICE = 9101305                              # task 018: Wren sends her apprentice along (the companion)
 COMPANION = "Bramble"                               # the default of Devourer.WitchCompanion (the bot's name)
-Q_FIRST, Q_LAST = 9101301, 9101399                   # every quest of the sisters (molt quests: 9101310+)
+Q_FIRST, Q_LAST = 9101301, 9101359                   # every quest of the sisters (molt quests: 9101310+);
+                                                    # 9101360-9101379 belong to the quest thread (task 020)
 MENU_HAGATHA, MENU_WREN = 9101300, 9101301
 TRAINER = 9101200                                    # tools/start_kit.py: the class trainer and what it teaches
 CLASS_MASK = 512                                     # class 10
