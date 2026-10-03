@@ -23,7 +23,7 @@ namespace Devourer::Sisters
     constexpr uint32_t QuestPests = 9101304;
     constexpr uint32_t QuestApprentice = 9101305;   // task 018: the companion joins
     constexpr uint32_t QuestMoltFirst = 9101310;   // task 018: one per evolved form, in order
-    constexpr uint32_t QuestMoltLast = 9101318;
+    constexpr uint32_t QuestMoltLast = 9101320;
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
@@ -64,28 +64,28 @@ namespace Devourer::Sisters
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
         WrenMolt = 14, WrenMoltReady = 15, HagathaMoltFirst = 8,   // task 018 (+ the quest's index)
-        HagathaNoTale = 31, WrenApprentice = 24,
+        HagathaNoTale = 34, WrenApprentice = 24,
     };
 
     // Task 018: Hagatha's tale of a shape ("Tell me about the shape I wear"), Wren's word on a shape she sees.
     struct ShapeLine { uint32_t Shape; uint8_t Group; };
     constexpr ShapeLine HagathaShapeTales[] =
     {
-        { 1, 17 },
-        { 2, 18 },
-        { 3, 19 },
-        { 4, 20 },
-        { 5, 21 },
-        { 6, 22 },
-        { 7, 23 },
-        { 8, 24 },
-        { 9, 25 },
-        { 10, 26 },
-        { 11, 27 },
-        { 12, 28 },
+        { 1, 19 },
+        { 2, 20 },
+        { 3, 21 },
+        { 4, 22 },
+        { 5, 23 },
+        { 6, 24 },
+        { 7, 25 },
+        { 8, 26 },
+        { 9, 27 },
+        { 10, 28 },
+        { 11, 29 },
+        { 12, 30 },
         { 13, 2 },
-        { 14, 29 },
-        { 15, 30 },
+        { 14, 31 },
+        { 15, 32 },
         { 16, 8 },
         { 17, 9 },
         { 18, 10 },
@@ -95,6 +95,8 @@ namespace Devourer::Sisters
         { 22, 14 },
         { 23, 15 },
         { 24, 16 },
+        { 25, 33 },
+        { 26, 17 },
     };
     constexpr ShapeLine WrenShapeReactions[] =
     {
@@ -122,6 +124,8 @@ namespace Devourer::Sisters
         { 22, 21 },
         { 23, 18 },
         { 24, 21 },
+        { 25, 23 },
+        { 26, 23 },
     };
 }
 

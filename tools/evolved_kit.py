@@ -70,6 +70,13 @@ DONE_PROCS = PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE | PROC_DONE_SPELL_MAGIC   #
 CREATURE_TYPE_DEMON, CREATURE_TYPE_UNDEAD, CREATURE_TYPE_HUMANOID = 3, 6, 7
 FAMILY_BEAR = 4
 SKILL_TAG = "|cffb87830{} form|r"        # like the starting forms: each ability says which shape it belongs to
+# The form review's picks (2026-10-03): new lines from the converted models.
+E_TELEPORT_UNITS, E_PERSISTENT_AREA_AURA, E_DISPEL, E_DISPEL_MECHANIC = 5, 27, 38, 108
+A_MOD_UNATTACKABLE = 93
+DISPEL_POISON = 4
+MECHANIC_DISORIENTED = 2
+T_DEST_TARGET_BACK = 65                  # behind the target (Shadowstep's destination)
+FAMILY_SERPENT = 35
 
 # Growth task kinds (src/Devourer.h TaskKind): 1 kill type, 2 hit by school, 3 devour rarity, 4 devour type,
 # 5 devour by name, 6 hit with a spell (scripted), and new in task 017:
@@ -96,10 +103,16 @@ def sid(shape, slot):
 
 
 class Evolved:
-    """A tier-2 form: grows out of `parent` (devourer_evolution), not devoured."""
+    """A form of this file. Tier 2 and up grow out of `parent` (devourer_evolution) and are not devoured; a new line's
+    first form (parent 0) is devoured instead: any creature of `family` gives it, as the starting forms do."""
 
     def __init__(self, shape, name, parent, parent_name, creature, display, skin, one, two, gimmick, four, five,
-                 diet, food, level, bp, tasks, extra=(), procs=(), scripts=(), changes=(), role="", looks=()):
+                 diet, food, level, bp, tasks, extra=(), procs=(), scripts=(), changes=(), role="", looks=(),
+                 family=0, later_level=20, scale=1):
+        assert bool(parent) != bool(family), f"{name}: grows out of a parent, or is devoured from a family"
+        self.family = family              # a line's first form: any creature of this family gives it
+        self.later_level = later_level    # the level the fifth ability opens at
+        self.scale = scale                # devourer_shape.scale (a model bigger or smaller than its looks)
         self.shape, self.name, self.parent, self.parent_name = shape, name, parent, parent_name
         self.creature, self.display, self.skin = creature, display, skin   # the creature the look comes from
         self.one, self.two, self.gimmick, self.four, self.five = one, two, gimmick, four, five
@@ -578,10 +591,140 @@ VOID_TERROR = Evolved(
         "Stalker's kit is physical.",
     ])
 
+# --- the form review's picks (2026-10-03): line 1, Viper -> Twin-Fang -> Sethrak ----------------------------------
+# The owner asked for a snake line that leads to the Sethrak mage (shape 1, until now only met in Tanaris at 44-46).
+# Numbers lean on attack power (spell_bonus_data, the "_bonus" key: direct, dot, ap, ap_dot) so they keep up past 20.
+SERPENT_FOOD = [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "egg", "Eggs"), (0, 0, "frog", "Frogs"),
+                (0, 0, "toad", "Frogs")]
+SERPENTS = "serpent|snake|viper|adder|cobra|moccasin|naga|siren|myrmidon|slitherblade|coilskar"
+EMERGE_STATE = 65982                     # stock "Emerge": its state kit plays the model's Emerge animation
+
+# 25 Viper (devoured: any creature of the Serpent family; the Wailing Caverns' Deviate Adders and Vipers, 18-19)
+VIPER = Evolved(
+    25, "Viper", 0, "", 5755, 994052, "Rock Viper",
+    (16552, ability({"RangeIndex": RANGE_25, "RecoveryTime": 3000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": sk.DUR_9S, "_bonus": (0, 0, 0.12, 0.03),
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 16, "spread": 6, "target": T_ENEMY},
+                               aura(A_PERIODIC_DAMAGE, 5, target=T_ENEMY, period=3000), gain(10))}),
+     ("Venom Spit", "Spit venom at an enemy up to 25 yards away: $s1 Nature damage, and $o2 more over 9 sec. "
+      "Generates 10 Anima.", "$s2 Nature damage every 3 sec.")),
+    (26234, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "CastingTimeIndex": CAST_INSTANT,
+                     "RangeIndex": RANGE_SELF, "DurationIndex": DUR_2S, "RecoveryTime": 15000, "AuraInterruptFlags": 0,
+                     **effects(aura(A_MOD_INCREASE_SPEED, 60), aura(A_MOD_UNATTACKABLE), aura(A_DUMMY))}),
+     ("Sand Slither", "Sink into the ground for 2 sec: 60% faster, and nothing can strike you. You come up behind your "
+      "target.", "Under the ground.")),
+    (25941, gimmick(1987, 0, aura(A_DUMMY)),
+     ("Cold Blood", "Your venom bites 20% harder into enemies that are slowed or rooted.", "")),
+    (50245, ability({**hunger(10), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 20000, "DurationIndex": DUR_3S,
+                     "Mechanic": MECHANIC_ROOT, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects(aura(A_MOD_ROOT, target=T_ENEMY))}),
+     ("Coil", "Wrap your coils around an enemy in reach: it cannot move for 3 sec.", "Coiled: cannot move.")),
+    (20594, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF, "DurationIndex": 0,
+                     "RecoveryTime": 45000,
+                     **effects({"effect": E_DISPEL, "amount": 1, "misc": DISPEL_POISON, "target": T_CASTER},
+                               {"effect": E_DISPEL_MECHANIC, "misc": MECHANIC_SNARE, "target": T_CASTER},
+                               {"effect": E_HEAL_PCT, "amount": 10, "target": T_CASTER})}),
+     ("Shed", "Shed your skin: one poison and every slow come off with it, and you are healed for 10% of your maximum "
+      "health.", "")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_CRITTER, 10), (CREATURE_TYPE_HUMANOID, 6), (0, 3)],
+    SERPENT_FOOD, 18, 0, [], family=FAMILY_SERPENT,
+    extra=[(6, EMERGE_STATE, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_1S, **effects(aura(A_DUMMY))}),
+            ("Emerge", "", ""))],
+    scripts=[(2, "spell_devourer_sand_slither")],
+    looks=[(994052, "Rock Viper"), (994054, "Rock Viper Yellow"), (994051, "Rock Viper Blue"),
+           (994053, "Rock Viper Red")],
+    role="ranged poisoner",
+    changes=[
+        "A new line from the form review (2026-10-03, \"Devourer Form Picks\"): devoured from any creature of the "
+        "Serpent family, the first ones are the Deviate Adders and Vipers of the Wailing Caverns (18-19).",
+        "Sand Slither keeps the model's Submerge and Emerge (stock spells that play them: Submerge Visual, Emerge).",
+        "Shed opens at level 20 as an ability, as the pick proposed, instead of being a passive.",
+        "Venom Spit grows with attack power (12% on the hit, 3% a tick), so it keeps up past level 20.",
+    ])
+
+# 26 Twin-Fang Serpent (tier 2, the Viper's; wears the Twinfangs model the Vashnik's Rising Serpents already use)
+TWIN_FANG = Evolved(
+    26, "Twin-Fang Serpent", 25, "Viper", 0, 991040, "Twin-Fang Purple",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 60, "target": T_ENEMY},
+                               {"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 60, "target": T_ENEMY}, gain(15))}),
+     ("Twin Bite", "Both heads bite: twice 60% weapon damage, and your venom on the enemy lasts 3 sec longer. "
+      "Generates 15 Anima.", "")),
+    (2637, ability({**hunger(15), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_20, "RecoveryTime": 25000,
+                    "DurationIndex": DUR_4S, "Mechanic": MECHANIC_DISORIENTED, "TargetCreatureType": 0,
+                    "SchoolMask": SCHOOL_NATURE, "AuraInterruptFlags": AURA_INTERRUPT_DAMAGE,
+                    **effects(aura(A_MOD_STUN, target=T_ENEMY))}),
+     ("Hypnotic Sway", "Sway both heads before an enemy within 20 yards: it stands entranced for 4 sec. Any damage "
+      "wakes it.", "Entranced.")),
+    (25941, gimmick(1987, 0, aura(A_DUMMY)),
+     ("Second Head", "Every third Twin Bite, the second head bites again on its own: another Twin Bite at half "
+      "strength.", "")),
+    (66947, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "CastingTimeIndex": CAST_INSTANT,
+                     "RangeIndex": RANGE_20, "RecoveryTime": 20000, "DurationIndex": 0, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects({"effect": E_TELEPORT_UNITS, "target": T_CASTER, "targetB": T_DEST_TARGET_BACK,
+                                "radius": 7},
+                               {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": sid(26, 6)},
+                               {"effect": E_TRIGGER_SPELL, "target": T_CASTER, "trigger": sid(25, 6)})}),
+     ("Burrowing Ambush", "Dive under the ground and burst up beneath an enemy within 20 yards: it takes Physical "
+      "damage and is thrown into the air.", "")),
+    (37615, ability({**hunger(15), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_25, "RecoveryTime": 20000,
+                     "DurationIndex": DUR_6S, "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0, 0.03),
+                     **effects({"effect": E_PERSISTENT_AREA_AURA, "aura": A_PERIODIC_DAMAGE, "amount": 6,
+                                "period": 1000, "target": T_DEST_TARGET_ANY, "radius": RADIUS_8},
+                               {"effect": E_PERSISTENT_AREA_AURA, "aura": A_MOD_DECREASE_SPEED, "amount": -40,
+                                "target": T_DEST_TARGET_ANY, "radius": RADIUS_8})}),
+     ("Venom Pool", "Spit a pool of venom up to 25 yards away: for 6 sec, enemies in it take $s1 Nature damage every "
+      "second and move 40% slower.", "Poisoned and slowed.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 10), (CREATURE_TYPE_CRITTER, 6), (0, 3)],
+    SERPENT_FOOD, 30, 800,
+    [(DEVOUR_NAME, 0, 30, "Devour 30 serpents or naga as a Viper", SERPENTS),
+     (SPELL_CAST, sid(25, 1), 60, "Spit venom 60 times (Venom Spit)", ""),
+     (DEVOUR_ENTRY, 3654, 1, "Devour Mutanus the Devourer (Wailing Caverns)", "")],
+    extra=[(6, 6343, helper({"RangeIndex": RANGE_ANYWHERE, "DurationIndex": 0, "SchoolMask": SCHOOL_PHYSICAL,
+                             "_bonus": (0, 0, 0.15, 0),
+                             **effects({"effect": E_SCHOOL_DAMAGE, "amount": 20, "spread": 8, "target": T_ENEMY},
+                                       {"effect": E_KNOCK_BACK, "amount": 120, "misc": 0, "target": T_ENEMY})}),
+            ("Burrowing Ambush", "", ""))],
+    scripts=[(1, "spell_devourer_twin_bite")],
+    looks=[(991040, "Twin-Fang Purple"), (991045, "Twin-Fang Teal")],
+    later_level=34, scale=0.42,
+    role="poison controller and ambusher",
+    changes=[
+        "The Twinfangs model is the one the Vashnik's Rising Serpents wear (displays 991040 purple, 991045 teal): no new "
+        "import, the shape scales it down (0.42).",
+        "Second Head repeats Twin Bite only (every third, at half strength): repeating the crowd control too would "
+        "chain it.",
+        "Burrowing Ambush comes up behind the enemy (the Shadowstep destination) and throws it up with the Emerge "
+        "animation.",
+        "Venom Pool opens at level 34 (the form itself opens at 30).",
+    ])
+
+# The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
-         ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR]
-for _i, _form in enumerate(FORMS):
-    _form.quest = MOLT_QUEST_FIRST + _i
+         ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, TWIN_FANG]
+
+
+class Growth:
+    """An evolution into a form made elsewhere (e.g. into the CoA Sethrak, shape 1)."""
+
+    def __init__(self, parent, parent_name, shape, name, level, bp, tasks):
+        self.parent, self.parent_name, self.shape, self.name = parent, parent_name, shape, name
+        self.level, self.bp, self.tasks = level, bp, tasks
+        self.quest = 0
+
+
+EXTRA_GROWTH = [
+    Growth(26, "Twin-Fang Serpent", 1, "Sethrak", 44, 1400,
+           [(DEVOUR_NAME, 0, 20, "Devour 20 Sandfury trolls or sand beasts as a Twin-Fang",
+             "sandfury|basilisk|dune|sand "),
+            (SPELL_CAST, sid(26, 2), 50, "Entrance 50 enemies (Hypnotic Sway)", ""),
+            (DEVOUR_ENTRY, 7273, 1, "Devour Gahz'rilla (Zul'Farrak)", "")]),
+]
+
+# Task 018: every evolution of this file gets a molt quest, in this order (tools/witch_sisters.py builds them).
+MOLTS = [f for f in FORMS if f.parent] + EXTRA_GROWTH
+for _i, _m in enumerate(MOLTS):
+    _m.quest = MOLT_QUEST_FIRST + _i
 
 
 def form_spells(f: Evolved, dbc):
@@ -596,14 +739,16 @@ def form_spells(f: Evolved, dbc):
             "Category": SHAPE_CATEGORY, "RecoveryTime": 0, "CategoryRecoveryTime": SHIFT_COOLDOWN,
             "StartRecoveryCategory": 133, "StartRecoveryTime": 1000, "InterruptFlags": 0, "AuraInterruptFlags": 0,
             "SpellIconID": icon, **effects(aura(sk.A_TRANSFORM, 0, FORM_PLACEHOLDER_ENTRY))},
-         (f"{f.name} Form", f"Take the shape of the {f.name.lower()}, grown out of your {f.parent_name.lower()}: "
-          f"{names[0]}, {names[1]}, {names[2]} and {gim[2][0]}; {five[2][0]} opens at level 20. All shapes share "
-          "one cooldown.", f"Wearing the {f.name.lower()}'s shape.")),
+         (f"{f.name} Form", (f"Take the shape of the {f.name.lower()}, grown out of your {f.parent_name.lower()}: "
+                             if f.parent else f"Take the shape of a {f.name.lower()} you have devoured: ") +
+          f"{names[0]}, {names[1]}, {names[2]} and {gim[2][0]}; {five[2][0]} opens at level {f.later_level}. All "
+          "shapes share one cooldown.", f"Wearing the {f.name.lower()}'s shape.")),
         (f.base + 1, 1, *one),
         (f.base + 2, 1, *two),
         (f.base + 3, 1, *gim),
         (f.base + 4, 1, *four),
-        (f.base + 5, 20, five[0], {**five[1], "SpellLevel": 20, "BaseLevel": 20}, five[2]),
+        (f.base + 5, f.later_level, five[0], {**five[1], "SpellLevel": f.later_level, "BaseLevel": f.later_level},
+         five[2]),
     ]
     for slot, t, o, x in f.extra:
         assert 6 <= slot <= 9, slot
@@ -625,6 +770,8 @@ def spell_rows(dbc, defs):
         row = dbc.row(template)
         row[b.COL["ID"]] = spell
         for key, value in overrides.items():
+            if key.startswith("_"):                  # "_bonus": spell_bonus_data, not a Spell.dbc column
+                continue
             row[b.COL[key]] = b.to_u32(value, b.COL[key])
         if "Attributes" not in overrides:
             row[b.COL["Attributes"]] &= ~ATTR0_DROP
@@ -658,10 +805,14 @@ def main() -> int:
         [(f.base + slot, name) for f in FORMS for slot, name in f.scripts]
     procs = [(f.base + slot, flags, types, hits, cd, charges, chance)
              for f in FORMS for slot, flags, types, hits, cd, charges, chance in f.procs]
+    bonus = [(spell, *o["_bonus"]) for spell, _, _, o, _ in defs if "_bonus" in o]
+    others = sorted({m.shape for m in MOLTS if not FIRST_SHAPE <= m.shape})   # growth into older shapes (Sethrak)
+    other_sql = f" OR `to_shape` IN ({', '.join(map(str, others))})" if others else ""
 
     sql = [
         "-- Generated by tools/evolved_kit.py (task 017). Do not edit by hand: change the script and run it again.",
-        "-- The evolved forms, tier 2 of the canvas lines: spells 9102000-9102999, shapes 16-24, their evolutions.",
+        f"-- The evolved forms and new lines: spells {FIRST}-{LAST}, shapes {lo}-{hi}, their evolutions (and the ones",
+        "-- into older shapes, e.g. the Twin-Fang into the Sethrak).",
         "-- Safe to run again; removed by uninstall/world.sql.",
         "-- Note: 2026_09_30_04_devourer_world.sql clears devourer_evolution(_task) when it runs; run this file after it.",
         "",
@@ -680,20 +831,29 @@ def main() -> int:
         "INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`,"
         " `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`,"
         " `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES",
-        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, {2 if flags & DONE_PROCS else 0}, {hits}, 0, 0, {chance}, {cd}, {charges})"
-                   for s, flags, types, hits, cd, charges, chance in procs) + ";",
+        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, {2 if flags & DONE_PROCS else 0}, {hits}, 0, 0, {chance},"
+                   f" {cd}, {charges})" for s, flags, types, hits, cd, charges, chance in procs) + ";",
+        "-- Abilities that grow with attack power (the form review, 2026-10-03: numbers that keep up past level 20).",
+        f"DELETE FROM `spell_bonus_data` WHERE `entry` BETWEEN {FIRST} AND {LAST};",
+        "INSERT INTO `spell_bonus_data` (`entry`, `direct_bonus`, `dot_bonus`, `ap_bonus`, `ap_dot_bonus`, `comments`)"
+        " VALUES",
+        ",\n".join(f"({s}, {d}, {dot}, {ap}, {apdot}, 'mod-devourer')" for s, d, dot, ap, apdot in bonus) + ";",
         "",
-        f"-- Shapes {lo}-{hi}: spell_3 is the fourth ability, spell_4 the fifth (opens at level 20, its spell level).",
+        f"-- Shapes {lo}-{hi}: spell_3 is the fourth ability, spell_4 the fifth (opens at its spell level: 20, or later for later forms).",
         f"DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`,"
         " `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES",
-        ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.look}, 1, {f.base + 1}, {f.base + 2}, {f.base + 4},"
+        ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.look}, {f.scale}, {f.base + 1}, {f.base + 2}, {f.base + 4},"
                    f" {f.base + 5}, {f.base + 3}, {f.display})" for f in FORMS) + ";",
+        "-- A new line's first form is devoured: any creature of its family gives it (each look a colouring).",
+        f"DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN {lo} AND {hi};",
+        "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",
+        ",\n".join(f"({f.family}, {f.shape})" for f in FORMS if f.family) + ";",
         f"DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "-- free = 1: comes with the shape (the retail looks, and the creature's own look beside them).",
         "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`, `free`) VALUES",
         ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0, {1 if f.looks else 0})" for f in FORMS]
-                   + [f"({d}, {f.shape}, {q(n)}, 0, 1)" for f in FORMS for d, n in f.looks]) + ";",
+                   + [f"({d}, {f.shape}, {q(n)}, 0, 1)" for f in FORMS for d, n in f.looks if d != f.display]) + ";",
         f"DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {bp})" for f in FORMS for t, bp in f.diet) + ";",
@@ -716,41 +876,49 @@ def main() -> int:
         "PREPARE devourer_stmt FROM @devourer_sql;",
         "EXECUTE devourer_stmt;",
         "DEALLOCATE PREPARE devourer_stmt;",
-        f"DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN {lo} AND {hi};",
+        f"DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN {lo} AND {hi}{other_sql};",
         "INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`, `quest`) VALUES",
-        ",\n".join(f"({f.parent}, {f.shape}, {f.bp}, {f.level}, 1, {f.quest})" for f in FORMS) + ";",
+        ",\n".join(f"({m.parent}, {m.shape}, {m.bp}, {m.level}, 1, {m.quest})" for m in MOLTS) + ";",
         "-- The name lists of the devour-by-name tasks need more room than the frog line's 100 characters.",
         "ALTER TABLE `devourer_evolution_task` MODIFY COLUMN `name_part` VARCHAR(255) NOT NULL DEFAULT '' COMMENT "
         "'kind 5: the meal''s name holds one of these (|-separated)';",
-        f"DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN {lo} AND {hi};",
+        f"DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN {lo} AND {hi}{other_sql};",
         "INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`)"
         " VALUES",
-        ",\n".join(f"({f.shape}, {i}, {kind}, {value}, {count}, {q(text)}, {q(parts)})"
-                   for f in FORMS for i, (kind, value, count, text, parts) in enumerate(f.tasks, 1)) + ";",
+        ",\n".join(f"({m.shape}, {i}, {kind}, {value}, {count}, {q(text)}, {q(parts)})"
+                   for m in MOLTS for i, (kind, value, count, text, parts) in enumerate(m.tasks, 1)) + ";",
         "",
     ]
     OUT_SQL.write_bytes("\n".join(sql).encode("utf-8"))
 
-    md = ["# Evolved forms, tier 2 (task 017)",
+    md = ["# Evolved forms and new lines (tasks 017-018)",
           "",
           "Generated by `tools/evolved_kit.py` — edit the script, not this file. Design: the owner's canvas \"Canvas "
-          "Evolutions for Devourer\", Section 1 (the \"A\" branch of each starter line) and the Warp Stalker's line. "
-          "Numbers are a first pass for levels 12-20.",
+          "Evolutions for Devourer\", Section 1 (the \"A\" branch of each starter line) and the Warp Stalker's line; "
+          "the form review's picks (2026-10-03) for the new lines. Numbers are a first pass.",
           "",
           f"Spell ids {FIRST}-{LAST}: shape s uses {FIRST} + (s-16)*10 + slot (slot 0 form, 1-2 abilities, 3 passive, "
-          "4 ability, 5 ability that opens at level 20, 6-9 spells the kit casts).",
+          "4 ability, 5 ability that opens later, 6-9 spells the kit casts).",
           "",
           "A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolution`) once that form has "
           "the Bio Points, the Devourer the level, and **any one** of the three tasks is done (the canvas rule). "
           "Then the molt quest (task 018) comes into the log: handing it in to Wren in the In-Between is the "
-          "evolution. The earlier form stays.",
+          "evolution. The earlier form stays. A new line's first form is devoured, from any creature of its family.",
           "",
-          "| Shape | Form | Grows out of | Level | Bio Points | Role |",
+          "| Shape | Form | Comes from | Level | Bio Points | Role |",
           "|---|---|---|---|---|---|"]
-    md += [f"| {f.shape} | {f.name} | {f.parent_name} | {f.level} | {f.bp} | {f.role} |" for f in FORMS]
+    md += [f"| {f.shape} | {f.name} | {f.parent_name or f'devouring (family {f.family})'} | {f.level} | {f.bp or '-'} "
+           f"| {f.role} |" for f in FORMS]
+    md += [f"| {m.shape} | {m.name} | {m.parent_name} | {m.level} | {m.bp} | (an older form) |" for m in EXTRA_GROWTH]
     md.append("")
+    for m in EXTRA_GROWTH:
+        md.append(f"### {m.name} (shape {m.shape}, now also grows out of the {m.parent_name}, quest {m.quest})")
+        md.append("")
+        md += [f"- {text}" for kind, value, count, text, parts in m.tasks]
+        md.append("")
     for f in FORMS:
-        md.append(f"### {f.name} (shape {f.shape}, grows out of the {f.parent_name})")
+        md.append(f"### {f.name} (shape {f.shape}, " + (f"grows out of the {f.parent_name})" if f.parent else
+                                                        f"devoured: any creature of family {f.family})"))
         if f.looks:
             md.append(f"Look: a retail model, base {f.look} (`{f.looks[0][1]}`); its other colourings come with the "
                       "shape: " + ", ".join(f"{d} `{n}`" for d, n in f.looks[1:]) + f". The creature's own look "

@@ -52,6 +52,9 @@ namespace Devourer
     // category pet, so it never takes the pet slot (Unit::SetMinion dismisses the hunter-like pet for those).
     SummonPropertiesEntry const* GuardianProperties();
 
+    // The form review's Viper (src/DevourerEvolved.cpp): its venom ticks harder on slowed or rooted enemies.
+    void ColdBlood(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spell);
+
     constexpr uint8 KitSize = 4;
     constexpr uint32 ItemSethrakIdol = 9100100;   // teaches the first shape until it can be devoured in the world
     constexpr uint32 NpcHatchling = 9101100;      // Brood hatchling (guardian from Hatch Brood)

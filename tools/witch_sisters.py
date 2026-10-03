@@ -229,7 +229,7 @@ TEXTS = [
 ]
 
 # Task 018: Hagatha's tale of each evolved form, said when its molt quest is handed in (creature_text group
-# HAGATHA_MOLT_FIRST + the form's index in evolved_kit.FORMS). Keyed by shape id.
+# HAGATHA_MOLT_FIRST + the molt's index in evolved_kit.MOLTS). Keyed by the shape it grows into.
 MOLT_TALES = {
     16: "In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been "
         "chasing it ever since.",
@@ -246,10 +246,13 @@ MOLT_TALES = {
         "empty.",
     23: "The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about.",
     24: "Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to.",
+    26: "Two heads, one hunger. In the Barrens they say the second head is the one that remembers every grudge.",
+    1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
+       "my little horror: as something that would not stop eating.",
 }
 HAGATHA_MOLT_FIRST = 8
-for i, form in enumerate(evolved_kit.FORMS):
-    TEXTS.append((NPC_HAGATHA, HAGATHA_MOLT_FIRST + i, MOLT_TALES[form.shape], EMOTE_TALK, DRAFT))
+for i, molt in enumerate(evolved_kit.MOLTS):
+    TEXTS.append((NPC_HAGATHA, HAGATHA_MOLT_FIRST + i, MOLT_TALES[molt.shape], EMOTE_TALK, DRAFT))
 WREN_MOLT, WREN_MOLT_READY = 14, 15
 
 # Task 018 B: "Tell me about the shape I wear" at Hagatha's lantern. The evolved forms use their molt tale, the
@@ -278,15 +281,17 @@ SHAPE_TALES = {
     14: "A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything "
         "in here eats something.",
     15: "The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there.",
+    25: "The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in "
+        "the dark are the worst kind.",
 }
 NO_TALE = "That shape has no story yet. Eat a little more of the world, and the world will write you one."
-HAGATHA_SHAPE_FIRST = HAGATHA_MOLT_FIRST + len(evolved_kit.FORMS)
+HAGATHA_SHAPE_FIRST = HAGATHA_MOLT_FIRST + len(evolved_kit.MOLTS)
 for i, (shape, tale) in enumerate(SHAPE_TALES.items()):
     TEXTS.append((NPC_HAGATHA, HAGATHA_SHAPE_FIRST + i, tale, EMOTE_TALK, DRAFT))
 HAGATHA_NO_TALE = HAGATHA_SHAPE_FIRST + len(SHAPE_TALES)
 TEXTS.append((NPC_HAGATHA, HAGATHA_NO_TALE, NO_TALE, EMOTE_TALK, DRAFT))
-HAGATHA_TALE_OF = {**{shape: HAGATHA_SHAPE_FIRST + i for i, shape in enumerate(SHAPE_TALES)}, 13: 2,
-                   **{form.shape: HAGATHA_MOLT_FIRST + i for i, form in enumerate(evolved_kit.FORMS)}}
+HAGATHA_TALE_OF = {**{molt.shape: HAGATHA_MOLT_FIRST + i for i, molt in enumerate(evolved_kit.MOLTS)},
+                   **{shape: HAGATHA_SHAPE_FIRST + i for i, shape in enumerate(SHAPE_TALES)}, 13: 2}
 
 # Task 018 B: Wren's word on the shape a freed Devourer comes back in (.inbetween), after her welcome back.
 WREN_REACTIONS = [  # (line, shapes)
@@ -297,7 +302,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("My toad! Hello, my toad! Did you eat any bugs? Of course you did.", (14, 15)),
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20)),
-    ("Sssso fancy! Sorry. I had to.", (1, 3)),
+    ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
 ]
 WREN_REACTION_FIRST = 16
 for i, (line, _) in enumerate(WREN_REACTIONS):
@@ -391,16 +396,16 @@ QUESTS = [
 # Task 018: the molt quests. Nobody offers them: the module puts one in the log, done, the moment a form has
 # everything its evolution needs (Bio Points, level, one task); handing it in to Wren is the evolution.
 MOLT_QUESTS = [
-    dict(id=form.quest, ender=NPC_WREN, shape=form.shape, level=form.level, xp=5,
-         title=f"The Molt: {form.name}",
-         log=f"Go back to {{Wren}} in the In-Between and let her peel your {form.parent_name.lower()} body. "
-             f"A {form.name.lower()} is waiting under the old skin.",
-         details=f"Your {form.parent_name.lower()} body has eaten enough. It itches, it pulls, it does not fit any more. "
+    dict(id=molt.quest, ender=NPC_WREN, shape=molt.shape, level=molt.level, xp=5,
+         title=f"The Molt: {molt.name}",
+         log=f"Go back to {{Wren}} in the In-Between and let her peel your {molt.parent_name.lower()} body. "
+             f"A {molt.name.lower()} is waiting under the old skin.",
+         details=f"Your {molt.parent_name.lower()} body has eaten enough. It itches, it pulls, it does not fit any more. "
                  "The sisters can feel it from the In-Between.",
          reward="There you are! Look how it bulges. Lie down in the circle, Snack, and don't wriggle. "
                 "{hagatha}, the bucket!",
          complete="Return to {Wren}.")
-    for form in evolved_kit.FORMS]
+    for molt in evolved_kit.MOLTS]
 assert all(Q_FIRST <= qd["id"] <= Q_LAST for qd in MOLT_QUESTS)
 
 OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, action menu, who sees it)]
@@ -837,7 +842,7 @@ def build_md() -> str:
             **{(NPC_HAGATHA, g): f"the tale of shape {s}" for s, g in HAGATHA_TALE_OF.items() if g >= HAGATHA_SHAPE_FIRST},
             **{(NPC_WREN, WREN_REACTION_FIRST + i): "back in shape " + ", ".join(map(str, shapes))
                for i, (_, shapes) in enumerate(WREN_REACTIONS)},
-            **{(NPC_HAGATHA, HAGATHA_MOLT_FIRST + i): f"the {form.name} molt" for i, form in enumerate(evolved_kit.FORMS)}}
+            **{(NPC_HAGATHA, HAGATHA_MOLT_FIRST + i): f"the {m.name} molt" for i, m in enumerate(evolved_kit.MOLTS)}}
     for c, g, t, _, d in TEXTS:
         md.append(f"| {HAGATHA_SHORT if c == NPC_HAGATHA else WREN_SHORT} | {g} | {when.get((c, g), '')} | {f(t)} | {d} |")
     md += ["", "## Gossip texts", "", "| npc_text | Shown to | Text | |", "|---|---|---|---|"]

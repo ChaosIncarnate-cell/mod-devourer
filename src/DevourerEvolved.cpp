@@ -9,12 +9,17 @@
  *   Vampiric Duskbat      Exsanguinating Frenzy   melee hits heal for 10% of the damage per own bleed on the enemy
  *   Arcane Wraith         Spell Devour            attacks tear a magic buff off the enemy and feed on it
  *   Void Terror           Gravitational Shadows   Nether Bolt's ticks stack a slow; at 10 the enemy collapses
+ *   Viper                 Sand Slither            under the ground for 2 sec, then up behind the target (Emerge)
+ *                         Cold Blood              its venom ticks 20% harder on slowed or rooted enemies (ColdBlood)
+ *   Twin-Fang Serpent     Twin Bite               the venom on the enemy lasts 3 sec longer; every third one the
+ *                                                 second head bites again at half strength (Second Head)
  * The Shadowclaw's opener lives in DevourerForms.cpp (spell_devourer_phase_prowl); the Rockjaw Backbreaker's and the
  * Royal Blue Flutterer's gimmicks are plain procs (spell_proc), no script.
  */
 
 #include "Devourer.h"
 
+#include "ObjectAccessor.h"
 #include "Player.h"
 #include "ScriptMgr.h"
 #include "SpellAuraEffects.h"
@@ -23,6 +28,8 @@
 #include "SpellScript.h"
 #include "SpellScriptLoader.h"
 #include "Unit.h"
+#include <cmath>
+#include <unordered_map>
 
 using namespace Devourer;
 
@@ -40,6 +47,16 @@ namespace
     constexpr uint32 SpellGravitySlow = 9102086;
     constexpr uint32 SpellAnimaWhirlpool = 9102087;
     constexpr uint8 GravityStacks = 10;
+    // The form review's line 1 (2026-10-03): Viper 9102090+, Twin-Fang Serpent 9102100+
+    constexpr uint32 SpellVenomSpit = 9102091;
+    constexpr uint32 SpellColdBlood = 9102093;
+    constexpr uint32 SpellViperEmerge = 9102096;
+    constexpr uint32 SpellTwinBite = 9102101;
+    constexpr uint32 SpellVenomPool = 9102105;
+    constexpr int32 VenomExtendMs = 3000;
+    constexpr uint8 SecondHeadEvery = 3;
+    constexpr uint32 ColdBloodPct = 20;
+    std::unordered_map<ObjectGuid::LowType, uint8> twinBites;   // runtime: Twin Bites since the second head bit
 
     // A positive magic aura on `target` that a dispel could take, or null.
     Aura* StealableBuff(Unit* target)
@@ -233,8 +250,96 @@ class spell_devourer_gravitational_shadows : public AuraScript
     }
 };
 
+// Viper: Sand Slither. When the 2 sec under the ground are over, the viper comes up behind its target (if it has one
+// in reach) with the model's Emerge animation.
+class spell_devourer_sand_slither : public AuraScript
+{
+    PrepareAuraScript(spell_devourer_sand_slither);
+
+    void Surface(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
+    {
+        Player* player = GetTarget()->ToPlayer();
+        if (!player || !player->IsAlive() || GetTargetApplication()->GetRemoveMode() == AURA_REMOVE_BY_DEATH)
+            return;
+        Unit* target = player->GetSelectedUnit();
+        if (target && target != player && target->IsAlive() && player->IsValidAttackTarget(target) &&
+            player->IsWithinDist(target, 40.0f) && target->GetMapId() == player->GetMapId())
+        {
+            Position behind = target->GetNearPosition(2.0f, float(M_PI));
+            player->NearTeleportTo(behind.GetPositionX(), behind.GetPositionY(), behind.GetPositionZ(),
+                behind.GetAngle(target));
+        }
+        player->CastSpell(player, SpellViperEmerge, true);
+    }
+
+    void Register() override
+    {
+        AfterEffectRemove += AuraEffectRemoveFn(spell_devourer_sand_slither::Surface, EFFECT_2, SPELL_AURA_DUMMY,
+            AURA_EFFECT_HANDLE_REAL);
+    }
+};
+
+// Twin-Fang Serpent: Twin Bite. The Devourer's venom on the enemy (Venom Spit) lasts 3 sec longer; every third Twin
+// Bite, the second head bites again by itself at half strength (Second Head).
+class spell_devourer_twin_bite : public SpellScript
+{
+    PrepareSpellScript(spell_devourer_twin_bite);
+
+    void Bitten()
+    {
+        Unit* caster = GetCaster();
+        Unit* target = GetHitUnit();
+        if (!caster || !target)
+            return;
+        if (Aura* venom = target->GetAura(SpellVenomSpit, caster->GetGUID()))
+        {
+            venom->SetMaxDuration(venom->GetMaxDuration() + VenomExtendMs);
+            venom->SetDuration(venom->GetDuration() + VenomExtendMs);
+        }
+
+        Player* player = caster->ToPlayer();
+        if (!player || GetSpell()->IsTriggered())
+            return;
+        uint8& bites = twinBites[player->GetGUID().GetCounter()];
+        if (++bites < SecondHeadEvery)
+            return;
+        bites = 0;
+        SpellInfo const* info = GetSpellInfo();
+        int32 const first = info->Effects[EFFECT_0].CalcValue(player) / 2;
+        int32 const second = info->Effects[EFFECT_1].CalcValue(player) / 2;
+        int32 const anima = info->Effects[EFFECT_2].CalcValue(player) / 2;
+        ObjectGuid const victim = target->GetGUID();
+        player->m_Events.AddEventAtOffset([player, victim, first, second, anima]()
+        {
+            if (Unit* again = ObjectAccessor::GetUnit(*player, victim))
+                if (again->IsAlive() && player->IsAlive())
+                    player->CastCustomSpell(again, SpellTwinBite, &first, &second, &anima, true);
+        }, 400ms);
+    }
+
+    void Register() override
+    {
+        AfterHit += SpellHitFn(spell_devourer_twin_bite::Bitten);
+    }
+};
+
+namespace Devourer
+{
+    // Viper: Cold Blood. Called for every tick of damage over time (devourer_unit).
+    void ColdBlood(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spell)
+    {
+        if (!damage || !spell || !target || !attacker || !attacker->IsPlayer() ||
+            (spell->Id != SpellVenomSpit && spell->Id != SpellVenomPool) || !attacker->HasAura(SpellColdBlood))
+            return;
+        if (target->HasAuraType(SPELL_AURA_MOD_ROOT) || target->HasAuraType(SPELL_AURA_MOD_DECREASE_SPEED))
+            damage += damage * ColdBloodPct / 100;
+    }
+}
+
 void AddSC_devourer_evolved()
 {
+    RegisterSpellScript(spell_devourer_sand_slither);
+    RegisterSpellScript(spell_devourer_twin_bite);
     RegisterSpellScript(spell_devourer_gale_flurry);
     RegisterSpellScript(spell_devourer_hamstring_cripple);
     RegisterSpellScript(spell_devourer_kinetic_tremor);

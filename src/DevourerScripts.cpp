@@ -857,7 +857,10 @@ public:
     void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spellInfo) override
     {
         if (spellInfo && !spellInfo->IsPositive())
+        {
+            ColdBlood(target, attacker, damage, spellInfo);     // the Viper's venom on slowed or rooted enemies
             CountDamage(target, attacker, damage, spellInfo->GetSchoolMask());
+        }
     }
 
     // Task 017: "drink N health" growth tasks count the healing a Devourer does to itself.

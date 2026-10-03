@@ -226,8 +226,10 @@ def convert(m2_file: Path, game_name: str) -> dict:
     # the skin texture of a single-texture export is listed in the manifest like a normal texture: not "used"
     listed = manifest.get("textures", [])
     kinds = [struct.unpack_from("<I", md, o + i * 16)[0] for i in range(n)]
-    slot_stems = {kind - 10: Path(listed[i]["file"]).stem for i, kind in enumerate(kinds)
-                  if kind in (11, 12, 13) and len(listed) == n}
+    # 2026-10-03 (task 017): a manifest with fewer textures than the model lists them in the model's order, the
+    # slots the export's display left empty at the end (viperrock: body, armorreflect, glow; slot 3 empty).
+    slot_stems = {kind - 10: Path(listed[i]["file"]).stem for i, kind in enumerate(kinds[:len(listed)])
+                  if kind in (11, 12, 13) and len(listed) <= n}
     found = colourings(folder, model, used, slot_stems, skin_slots)
 
     # materials

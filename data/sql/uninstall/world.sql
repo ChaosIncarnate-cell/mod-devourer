@@ -11,6 +11,7 @@ DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9101099 OR
 DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9101099 OR `SpellId`  BETWEEN 9102000 AND 9102999;
+DELETE FROM `spell_bonus_data`   WHERE `entry`    BETWEEN 9102000 AND 9102999;   -- task 017: attack power scaling
 DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101);
 
 -- --- creatures, spawns and looks (2026_09_30_03, _04) ------------------------------------------------------------
