@@ -26,6 +26,7 @@
 #include "GameObject.h"
 #include "GameTime.h"
 #include "GossipDef.h"
+#include "Log.h"
 #include "Map.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
@@ -85,6 +86,7 @@ namespace
         Step Now = None;
         uint32 Timer = 0;                         // ms to the next pull/intro beat
         uint8 Beat = 0;
+        uint32 ChannelCheck = 0;                  // ms until the sisters' channel is looked at again
         uint32 Check = 5000;                      // the first look waits a little after login
         uint32 Snacks = 0;                        // ms until more snacks may be tossed
         std::vector<ObjectGuid> Tossed;
@@ -187,7 +189,9 @@ namespace
         return nullptr;
     }
 
-    // Task 014: both sisters channel at the Devourer while the ritual holds it (stock visual beam).
+    // Task 014/016: both sisters channel at the Devourer while the ritual holds it (stock visual beam). The cast is
+    // triggered (no range/line/target checks to fail it) and repeated by KeepChannel; when the core still does not
+    // start a channel, the channel fields are set by hand so the client draws the beam anyway.
     void Channel(Player* player, bool on)
     {
         for (uint32 entry : { NpcHagatha, NpcWren })
@@ -197,11 +201,23 @@ namespace
                 continue;
             if (on)
             {
+                if (sister->GetCurrentSpell(CURRENT_CHANNELED_SPELL))
+                    continue;
                 sister->SetFacingToObject(player);
-                sister->CastSpell(player, SpellChannel, false);
+                sister->CastSpell(player, SpellChannel, TRIGGERED_FULL_MASK);
+                if (!sister->GetCurrentSpell(CURRENT_CHANNELED_SPELL))
+                {
+                    LOG_DEBUG("module", "mod-devourer: sister {} did not start channel {}, setting it by hand", entry, SpellChannel);
+                    sister->SetUInt32Value(UNIT_CHANNEL_SPELL, SpellChannel);
+                    sister->SetGuidValue(UNIT_FIELD_CHANNEL_OBJECT, player->GetGUID());
+                }
             }
             else
+            {
                 sister->InterruptNonMeleeSpells(false, SpellChannel);
+                sister->SetUInt32Value(UNIT_CHANNEL_SPELL, 0);
+                sister->SetGuidValue(UNIT_FIELD_CHANNEL_OBJECT, ObjectGuid::Empty);
+            }
         }
     }
 
@@ -484,6 +500,18 @@ namespace
         }
 
         TellTale(player, visit, diff);
+
+        // The beam runs out or breaks off now and then: take it up again while the ritual holds the Devourer.
+        if ((visit.Now == Visit::Intro || visit.Now == Visit::Caged) && InBetween(player) && !Freed(player))
+        {
+            if (visit.ChannelCheck > diff)
+                visit.ChannelCheck -= diff;
+            else
+            {
+                visit.ChannelCheck = 2000;
+                Channel(player, true);
+            }
+        }
 
         switch (visit.Now)
         {
