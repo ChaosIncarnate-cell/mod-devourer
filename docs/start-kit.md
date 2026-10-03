@@ -180,6 +180,7 @@ Devour **any creature of the Warp Stalker family** (e.g. 18464 for the base look
 | 9101006 | 1 | Warp Surge | (cast by the kit) Movement speed increased by 50%. |
 
 ### Biletoad (shape 14, the In-Between (Wren Hollowmoor's chore "Pests in the Cells"))
+Look (task 017): a retail model, base 1924 (`Dart Frog Green`); its other colourings come with the shape: 994097 `Dart Frog Blue`, 994098 `Dart Frog Gold`, 994100 `Dart Frog Red`, 994101 `Dart Frog Yellow`, 994104 `Swamp Toad Green`, 994102 `Swamp Toad Blue`, 994103 `Swamp Toad Dark`, 994105 `Swamp Toad Light`, 994106 `Swamp Toad Orange`, 994107 `Swamp Toad Yellow`. The old look 1924 (`Biletoad`) comes with it too.
 Not given by devouring: **Wren Hollowmoor's chore "Pests in the Cells"** (In-Between, after the three intro chores) turns the Devourer into a Biletoad when it is accepted. Favourite food: type Critter or family Spider or family Scorpid or family Moth or Beasts named *beetle*, *scarab*, *roach*, *locust*, *fly*.
 
 | Spell | Level | Name | What it does |
@@ -200,6 +201,7 @@ Changes against the canvas card (task 009), and why:
 - Not given by devouring Biletoads in the world: the canvas says Wren's chore gives it.
 
 ### Giant Marsh Frog (shape 15, grows out of the Biletoad)
+Look (task 017): a retail model, base 21950 (`Primal Toad Green`); its other colourings come with the shape: 994108 `Primal Toad Black`, 994109 `Primal Toad Blue`, 994110 `Primal Toad Gold`, 994112 `Primal Toad Orange`, 994113 `Primal Toad Red`, 994114 `Ardenweald Toad Black`, 994115 `Ardenweald Toad Blue`, 994116 `Ardenweald Toad Dark Blue`, 994117 `Ardenweald Toad Fawn`, 994118 `Ardenweald Toad Teal`, 994119 `Ardenweald Toad Violet`, 994120 `Frogduck`. The old look 21950 (`Giant Marsh Frog`) comes with it too.
 Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, and any one of its three tasks (devour 30 murlocs or swamp beasts, pull 40 enemies with Tongue Pull, land 25 Swamp Hop knockdowns).
 
 | Spell | Level | Name | What it does |

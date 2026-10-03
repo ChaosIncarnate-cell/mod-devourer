@@ -179,7 +179,7 @@ BASE = [
 # --- task 007: the eight starting forms ----------------------------------------------------------------------------
 class Form:
     def __init__(self, shape, name, zone, source, display, icon, colourings, diet, skin, one, two, passive_,
-                 later, family=0, food=(), extra=(), changes=(), base=0, scale=1, how="", looks=()):
+                 later, family=0, food=(), extra=(), changes=(), base=0, scale=1, how="", looks=(), keep_look=False):
         self.shape, self.name, self.zone, self.source, self.display, self.icon = shape, name, zone, source, display, icon
         self.colourings = colourings          # [(creature entry, display, skin name)]
         self.diet = diet                      # [(creature type, bp)]
@@ -198,11 +198,12 @@ class Form:
         # the model tool (tools/modeltool, imports.json): [(display, colouring name)], the first is the new base look.
         # They come with the shape (devourer_skin.free); the old base look stays, as a colouring that comes with it too.
         self.looks = list(looks)
+        self.keep_look = keep_look            # the looks are only colourings: the base look stays (the frog line)
 
     @property
     def look(self):
         """The base look the shape shows (devourer_shape.display_id)."""
-        return self.looks[0][0] if self.looks else self.display
+        return self.looks[0][0] if self.looks and not self.keep_look else self.display
 
 
 def sid(shape, slot):
@@ -512,6 +513,11 @@ BILETOAD = Form(
                                     "SchoolMask": SCHOOL_PHYSICAL, **effects(aura(A_MOD_STUN, target=T_ENEMY))}),
             ("Swamp Hop", "", "Knocked down."))],
     base=9101010, scale=5.5,
+    # Owner, 2026-10-03 ("use the coloring we have models from"): retail frogs as colourings that come with it.
+    looks=[(994099, "Dart Frog Green"), (994097, "Dart Frog Blue"), (994098, "Dart Frog Gold"),
+           (994100, "Dart Frog Red"), (994101, "Dart Frog Yellow"), (994104, "Swamp Toad Green"),
+           (994102, "Swamp Toad Blue"), (994103, "Swamp Toad Dark"), (994105, "Swamp Toad Light"),
+           (994106, "Swamp Toad Orange"), (994107, "Swamp Toad Yellow")], keep_look=True,
     how="Not given by devouring: **Wren Hollowmoor's chore \"Pests in the Cells\"** (In-Between, after the three "
         "intro chores) turns the Devourer into a Biletoad when it is accepted.",
     changes=[
@@ -550,6 +556,11 @@ GIANT_MARSH_FROG = Form(
                                         around(A_MOD_STUN, radius=RADIUS_6))}),
             ("Belly Flop", "", "Knocked down."))],
     base=9101020, scale=5.5,
+    looks=[(994111, "Primal Toad Green"), (994108, "Primal Toad Black"), (994109, "Primal Toad Blue"),
+           (994110, "Primal Toad Gold"), (994112, "Primal Toad Orange"), (994113, "Primal Toad Red"),
+           (994114, "Ardenweald Toad Black"), (994115, "Ardenweald Toad Blue"),
+           (994116, "Ardenweald Toad Dark Blue"), (994117, "Ardenweald Toad Fawn"), (994118, "Ardenweald Toad Teal"),
+           (994119, "Ardenweald Toad Violet"), (994120, "Frogduck")], keep_look=True,
     how="Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, and any one of its three "
         "tasks (devour 30 murlocs or swamp beasts, pull 40 enemies with Tongue Pull, land 25 Swamp Hop knockdowns).",
     changes=[
