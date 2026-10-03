@@ -33,14 +33,20 @@ Not done yet: *Hagatha is already polishing her broom. Go on, Snack, back to the
 Handed in (to Wren, at the finish): *WE WON! Hagatha, the cauldron is yours! Both hands! / Snack, you were magnificent.
 Bramble, stop waving, it's over.* Hagatha: *The broom is old. Next year, little horror.*
 
-**Rewards:** Bio Points, some experience and silver, and **Wren's Saddle**: a spell that lets the Devourer become the
-Derby Beast anywhere outdoors and carry one party member on its back (a two-seat mount that is you).
+**Rewards** (owner, 2026-10-03: "dont reward bio points, reward actual things that are like quests"): experience,
+silver, **Wren's Saddle** (the Derby Beast spell, see below) and a choice of one level-10 green:
+- *Wren's Racing Goggles* (cloth head, Intellect and Stamina)
+- *Hagatha's Bristle Cloak* (cloak, Agility and Stamina)
+- *Bramble's Lucky Beetle* (neck, Strength and Stamina; "it might still be alive")
+
+Wren's Saddle: a spell that lets the Devourer become the Derby Beast anywhere outdoors and carry one party member on
+its back (a two-seat mount that is you).
 
 ### 9101361 Rematch! (repeatable, from Wren at the starting line, after 9101360)
 
 > Hagatha wants a rematch. She ALWAYS wants a rematch.
 
-Same race, Hagatha a little faster each time you win; small Bio Points reward. Owner (2026-10-03): "rematch is okay, dont make it too gigantic": the course stays short, about two minutes, and the beast stays normal mount size. Your best time is remembered and Wren
+Same race, Hagatha a little faster each time you win; reward: silver and a stack of *Hagatha's Sour Toffee* (food, a short run-speed buff). Owner (2026-10-03): "rematch is okay, dont make it too gigantic": the course stays short, about two minutes, and the beast stays normal mount size. Your best time is remembered and Wren
 tells you when you beat it.
 
 ## How it works (for the build)
@@ -63,3 +69,6 @@ tells you when you beat it.
 1. The beast: mammoth, kodo or wolf (renders follow).
 2. Course place: Mulgore plains (proposed) or somewhere else.
 3. Wren's Saddle as a permanent reward: yes or no.
+
+Custom items need display rows in the client patch (patch-Z, the Devourer thread's job), using icons and models
+the client already has.
