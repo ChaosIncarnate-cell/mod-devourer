@@ -89,7 +89,7 @@ UNION ALL SELECT 9101314, 0, `CreatureDisplayID`, `DisplayScale`, 1, 0 FROM `cre
 -- --- and the three quest credits (never spawned; their names are what the quest log would show) ------------
 CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15384;  -- OLDWorld Trigger
 UPDATE `devourer_tmp_ct` SET `entry` = 9101303, `name` = 'The In-Between', `subname` = NULL, `faction` = 35, `npcflag` = 0,
-    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `scale` = 0.6;
+    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0;
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9101310, `name` = 'Snack devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
@@ -101,7 +101,7 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9101315, `name` = 'Anima pest devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES
-(9101303, 0, 11686, 1, 1, 0),
+(9101303, 0, 11686, 0.6, 1, 0),
 (9101310, 0, 11686, 1, 1, 0),
 (9101311, 0, 11686, 1, 1, 0),
 (9101312, 0, 11686, 1, 1, 0),

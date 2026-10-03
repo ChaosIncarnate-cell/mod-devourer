@@ -434,8 +434,7 @@ def build_sql() -> str:
         "  -- OLDWorld Trigger",
         f"UPDATE `devourer_tmp_ct` SET `entry` = {NPC_VOID}, `name` = 'The In-Between', `subname` = NULL,"
         " `faction` = 35, `npcflag` = 0,",
-        f"    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0,"
-        f" `scale` = {VOID_SCALE};",
+        f"    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0;",
         "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
         f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_DEVOURED}, `name` = 'Snack devoured';",
         "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
@@ -448,7 +447,8 @@ def build_sql() -> str:
         "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
         "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
         " `VerifiedBuild`) VALUES",
-        ",\n".join(f"({e}, 0, 11686, 1, 1, 0)" for e in (NPC_VOID, CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE, CREDIT_PEST))
+        ",\n".join(f"({e}, 0, 11686, {VOID_SCALE if e == NPC_VOID else 1}, 1, 0)"   # this fork: size = DisplayScale
+                   for e in (NPC_VOID, CREDIT_DEVOURED, CREDIT_ROAR, CREDIT_TALE, CREDIT_PEST))
         + ";   -- the invisible stalker model",
         "INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`,"
         " `visibilityDistanceType`, `auras`) VALUES",
