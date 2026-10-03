@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tasks 006 + 007: the Devourer's start -- base kit (Rush, Concentrate, Anima), trainers, eight starting forms.
+"""Tasks 006 + 007: the Devourer's start -- base kit (Rush, Anima; Concentrate left in task 015), trainers, eight starting forms.
 
     python tools/start_kit.py --spell-dbc <server>/data/dbc/Spell.dbc
 
@@ -13,7 +13,7 @@ helpers of tools/coa/build_devourer_spells.py. The committed SQL holds only the 
 
 Ids (all inside the Devourer's reserved spell range 9100000-9100999; 9100900+ so that 2026_09_30_02, which clears
 9100000-9100899 when it runs again, never touches them):
-  9100990-9100993   the base kit every Devourer has from level 1: Rush, Rush's hit, Concentrate, Anima (the
+  9100990-9100993   the base kit every Devourer has from level 1: Rush, Rush's hit, Anima (9100992 was Concentrate, removed in task 015) (the
                     hidden passive that keeps Anima from draining away out of combat)
                     (9100900-9100909 were the true-form kit, parked in commit fdf67e9: the true form comes later)
   9100910-9100989   starting forms: shape s (5-12) uses 9100910 + (s - 5) * 10 + slot
@@ -72,8 +72,8 @@ ATTR0_DROP = 0x00010000 | 0x00020000
 ATTR1_DROP = 0x00100000 | 0x00400000
 CHARGE_STUN = 7922                     # stock "Charge Stun": the knock-down after a charge
 # The base kit (owner, 2026-09-30): Anima is the Devourer's resource (the rage bar, renamed); shifting costs it
-# (the module: Devourer.AnimaPerShift), Concentrate gathers it, Rush needs no target.
-RUSH, RUSH_HIT, CONCENTRATE, ANIMA = 9100990, 9100991, 9100992, 9100993
+# (the module: Devourer.AnimaPerShift; devouring and own swings gather it), Rush needs no target.
+RUSH, RUSH_HIT, ANIMA = 9100990, 9100991, 9100993   # 9100992 was Concentrate (task 015: replaced by the pet)
 STRIDE = 9100994                    # owner, 2026-10-03: every shape runs 15% faster (the module adds it)
 A_MOD_SPEED_ALWAYS = 129            # stacks with a shape's own speed bonus (MOD_INCREASE_SPEED takes the highest)
 ATTR0_CANT_CANCEL = 0x80000000
@@ -140,6 +140,7 @@ BASE = [
         **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
         "AttributesEx3": 0, "Targets": 0, "FacingCasterFlags": 0, "ExcludeCasterAuraState": 0,
         "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0, "RangeIndex": RANGE_SELF, "Speed": 0.0,
+        "SpellClassSet": 90, "SpellClassMask_1": 0x400,              # task 015: Shapeless Step shortens its cooldown
         "InterruptFlags": 0,                                         # owner, 2026-10-03: usable while running
         "ChannelInterruptFlags": 0, "AuraInterruptFlags": 0, "RecoveryTime": 8000, **GCD,
         "SpellVisualID_1": 0, **effects({"effect": E_DUMMY})},
@@ -157,10 +158,6 @@ BASE = [
         "RecoveryTime": 0, "StartRecoveryCategory": 0, "StartRecoveryTime": 0, "InterruptFlags": 0,
         "AuraInterruptFlags": 0, **effects(aura(A_MOD_SPEED_ALWAYS, 15))},
      ("Shape's Stride", "Every shape runs 15% faster.", "Movement speed increased by 15%.")),
-    (CONCENTRATE, 1, 0, 2687, {                                      # Bloodrage: the surge of power
-        **CLEAN, **NO_MECHANICS, "Targets": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0,
-        "RangeIndex": RANGE_SELF, "RecoveryTime": 30000, **effects(gain(30))},
-     ("Concentrate", "Draw the anima scattered through your body together: gain 30 Anima. Usable in combat.", "")),
     (ANIMA, 1, None, 25941, {
         **CLEAN, **PASSIVE, **NO_MECHANICS, "Attributes": ATTR0_ABILITY | b.ATTR0_PASSIVE | b.ATTR0_HIDDEN,
         **effects(aura(A_INTERRUPT_REGEN))},
@@ -805,7 +802,7 @@ def main() -> int:
           "|---|---|---|---|---|"]
     for sid, lvl, cost, t, o, (name, desc, _) in BASE:
         md.append(f"| {lvl} | {sid} | {name} | {'-' if cost is None else f'{cost // 100}s {cost % 100}c'} | {desc} |")
-    md += ["", "Known from creation; bars: Attack, Rush, Concentrate, Devour. Shifting into a shape is free "
+    md += ["", "Known from creation; bars: Attack, Rush, Call Pet, Devour (Concentrate is gone since task 015: the pet replaced it). Shifting into a shape is free "
            "(Devourer.AnimaPerShift, default 0 since 2026-10-03).", "",
            "## Trainers", "",
            f"Trainer {TRAINER} teaches the base kit above. The Devourer's trainers are the Hollowmoor witch sisters "

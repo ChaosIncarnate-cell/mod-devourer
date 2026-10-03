@@ -104,11 +104,6 @@ IDS = {
     "SpellBabyVoidFrenzyHit": 9100407,
     "SpellBabyTeething": 9100408,
     "SpellBabyChewed": 9100409,
-    # --- class 10: placeholder talents (5 ranks each) so every tree can be opened tier by tier ------------------
-    **{f"SpellTalentIronStomach{r}": 9100049 + r for r in range(1, 6)},
-    **{f"SpellTalentDeepHunger{r}": 9100054 + r for r in range(1, 6)},
-    **{f"SpellTalentFluidFlesh{r}": 9100059 + r for r in range(1, 6)},
-    **{f"SpellTalentSwellingBrood{r}": 9100064 + r for r in range(1, 6)},
 }
 I = IDS
 SHAPE_SETHRAK = 1
@@ -331,6 +326,7 @@ def chaoscore03_baby():
 
     d.append((I["SpellBabyOverrun"], 20578, {                          # a self dummy: the module does the run
         **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
+        **hunger(25),                                                   # task 015: a "big" ability, 25 Anima
         "CastingTimeIndex": 3, "DurationIndex": 0, "RangeIndex": RANGE_SELF, "InterruptFlags": 0x0F,
         "ChannelInterruptFlags": 0, "RecoveryTime": 12000, "StartRecoveryCategory": 133, "StartRecoveryTime": 1000,
         "SpellIconID": 4925, "SpellVisualID_1": 0, **effects({"effect": E_DUMMY}),
@@ -369,7 +365,7 @@ def chaoscore03_baby():
         "break the fear.", "Fleeing in fear.")))
 
     d.append((I["SpellBabyVoidFrenzy"], 25225, {                       # starts with a BattleRoar
-        **CLEAN, **NO_MECHANICS, **hunger(40), "RecoveryTime": 8000, "RangeIndex": RANGE_COMBAT,
+        **CLEAN, **NO_MECHANICS, **hunger(30), "RecoveryTime": 8000, "RangeIndex": RANGE_COMBAT,   # task 015: 40 -> 30
         "SchoolMask": SCHOOL_PHYSICAL, "SpellIconID": 95, "SpellVisualID_1": 247, "AttributesEx3": 0, "CumulativeAura": 0,
         **effects({"effect": E_DUMMY, "target": T_ENEMY}),
     }, ("Void Frenzy", "Roar, then tear into an enemy with 5 fast strikes over 2 sec, each dealing 70% weapon "
@@ -437,7 +433,8 @@ def definitions():
 
     # --- Glutton: Devour Whole, Gorged, meals --------------------------------------------------------------
     d.append((I["SpellDevourWhole"], 20578, {
-        **CLEAN, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
+        **CLEAN, **hunger(20), "SpellClassSet": 90, "SpellClassMask_1": 0x1,   # task 015: 20 Anima; Bloated Resolve
+        "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
         "CastingTimeIndex": CAST_INSTANT, "DurationIndex": 0, "RangeIndex": RANGE_COMBAT, "InterruptFlags": 0,
         "ChannelInterruptFlags": 0, "RecoveryTime": 20000, "StartRecoveryCategory": 133, "StartRecoveryTime": 1000,
         "SpellIconID": 166, "SpellVisualID_1": 5724, **effects({"effect": E_DUMMY, "target": T_ENEMY}),
@@ -448,7 +445,7 @@ def definitions():
     # ChaosCore0.3: Gorged lasts while you fight; the module digests a stack every few seconds out of combat
     # (Stretched Gut holds them). +5% size per stack (was 4%), so the growth shows.
     d.append((I["SpellGorged"], 22812, {
-        **CLEAN, "Attributes": 0, "RecoveryTime": 0, "DurationIndex": DUR_INFINITE, "CumulativeAura": 10,
+        **CLEAN, "Attributes": 0, "RecoveryTime": 0, "DurationIndex": DUR_INFINITE, "CumulativeAura": 15,   # task 015: 10 + Belly of the Beast; Stomach of Stone 15
         "SpellIconID": 166,
         **effects(aura(A_MOD_HEALTH_PCT, 3), aura(A_MOD_SCALE, 5)),
     }, ("Gorged", "", "Maximum health increased by $s1% and size by $s2%. Digested out of combat.")))
@@ -473,7 +470,8 @@ def definitions():
 
     # --- Brood: Hatch Brood ------------------------------------------------------------------------------
     d.append((I["SpellHatchBrood"], 51533, {
-        **CLEAN, **hunger(30), "Attributes": ATTR0_ABILITY, "RecoveryTime": 30000, "DurationIndex": DUR_20S,
+        **CLEAN, **hunger(30), "SpellClassSet": 90, "SpellClassMask_1": 0x200,   # task 015: Hatching Heat etc.
+        "Attributes": ATTR0_ABILITY, "RecoveryTime": 30000, "DurationIndex": DUR_20S,
         "StartRecoveryCategory": 133, "StartRecoveryTime": 1500, "SpellIconID": 689,
         **effects({"effect": E_SUMMON, "misc": NPC_HATCHLING, "miscB": SUMMON_GUARDIAN_COUNTED, "amount": 2,
                    "target": 47, "targetB": 1, "radius": 7}),
@@ -501,7 +499,7 @@ def definitions():
         "Wearing the Berserker's shape.")))
 
     d.append((I["SpellBerserkerVoidBreath"], 15407, {                  # Mind Flay: a directed channel
-        **CLEAN, **hunger(20), "RecoveryTime": 10000, "DurationIndex": DUR_3S, "RangeIndex": RANGE_30,
+        **CLEAN, **hunger(25), "RecoveryTime": 10000, "DurationIndex": DUR_3S, "RangeIndex": RANGE_30,
         "SchoolMask": SCHOOL_SHADOW, "SpellIconID": 2028,
         **effects(aura(A_PERIODIC_DAMAGE, 180, target=T_ENEMY, period=1000, spread=20),
                   aura(A_MOD_DECREASE_SPEED, -30, target=T_ENEMY)),
@@ -549,7 +547,7 @@ def definitions():
         "increased by 5% and attack speed by 10%, stacking, until the blood is gone.", "")))
 
     d.append((I["SpellBerserkerBloodScentBuff"], 22812, {
-        **CLEAN, "Attributes": 0, "RecoveryTime": 0, "DurationIndex": DUR_INFINITE, "CumulativeAura": 10,
+        **CLEAN, "Attributes": 0, "RecoveryTime": 0, "DurationIndex": DUR_INFINITE, "CumulativeAura": 15,   # task 015: 10 + Belly of the Beast; Stomach of Stone 15
         "SpellIconID": 2028,
         **effects(aura(A_MOD_INCREASE_SPEED, 5), aura(A_MOD_MELEE_HASTE, 10)),
     }, ("Scent of Blood", "", "Movement speed increased by $s1% and attack speed by $s2%.")))
@@ -589,7 +587,7 @@ def definitions():
     }, ("Coiling Whirl", "Coiled: rooted.", "Rooted.")))
 
     d.append((I["SpellVashnikRisingSerpents"], 51533, {                # summons two guardians
-        **CLEAN, **hunger(20), "Attributes": ATTR0_ABILITY, "RecoveryTime": 45000, "DurationIndex": DUR_20S,
+        **CLEAN, **hunger(25), "Attributes": ATTR0_ABILITY, "RecoveryTime": 45000, "DurationIndex": DUR_20S,
         "StartRecoveryCategory": 133, "StartRecoveryTime": 1500, "SpellIconID": 3058,
         **effects({"effect": E_SUMMON, "misc": NPC_RISING_SERPENT, "miscB": SUMMON_GUARDIAN_COUNTED, "amount": 2,
                    "target": 47, "targetB": 1, "radius": 7}),
@@ -686,21 +684,11 @@ def definitions():
                   aura(A_HEALING_DONE_PCT, -50, target=T_ENEMY)),
     }, ("Plague", "", "Healing done reduced by 50%. $s1 Nature damage every 3 sec.")))
     d += chaoscore03_baby()
-    d += talent_placeholders()
     return d
 
 
-def talent_placeholders():
-    """Class 10: every talent tier needs 5 points in its tree, so each tree has 5-rank talents that do nothing yet
-    (Glutton: Iron Stomach in tier 0 and Deep Hunger in tier 1; Skinchanger and Brood: one each). The talent rows
-    are in data/sql/db-world/2026_09_30_01_devourer_class.sql."""
-    d = []
-    for key, icon, name in (("SpellTalentIronStomach", 166, "Iron Stomach"), ("SpellTalentDeepHunger", 166, "Deep Hunger"),
-                            ("SpellTalentFluidFlesh", 3058, "Fluid Flesh"),
-                            ("SpellTalentSwellingBrood", 689, "Swelling Brood")):
-        for rank in range(1, 6):
-            d.append(talent_passive(f"{key}{rank}", icon, name, "Placeholder talent: it has no effect yet."))
-    return d
+# Task 015: the four rank chains that used to be placeholders here (Iron Stomach, Deep Hunger, Fluid Flesh,
+# Swelling Brood: 9100050-9100069) and every other talent are defined by tools/placeholders.py.
 
 
 # --- server-side data that belongs to these spells ----------------------------------------------------------

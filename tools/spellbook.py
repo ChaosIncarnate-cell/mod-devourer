@@ -18,7 +18,7 @@ The client patch (tools/client/build_client_patch.py) puts the same SkillLine, S
 SkillLineAbility rows into the client's DBCs (it reads every committed 2026_09_30_0*.sql), which is what makes the
 client show the tab. tools/build_class_dbc_sql.py checks these ids are free (RESERVED).
 
-Which spells get the tab: Devour, Quick Devour, Rush, Concentrate, every shape's form spell, kit and passive
+Which spells get the tab: Devour, Quick Devour, Rush, the pet spells (task 015), every shape's form spell, kit and passive
 (devourer_shape), every talent rank (talent_dbc), and the spec spells (BASE_AND_SPEC). Effect helpers (hits,
 buffs, meals) and the hidden Anima passive are never in the spellbook and stay out.
 Removed by data/sql/uninstall/world.sql (ids above, ClassMask 512) and uninstall/characters.sql (skill 900).
@@ -48,14 +48,21 @@ BASE_AND_SPEC = {
     9100001: "Devour",
     9100032: "Devour (Quick Devour talent)",
     9100990: "Rush",
-    9100992: "Concentrate",
     9100011: "Bottomless Appetite (Glutton)",
     9100012: "Restless Skin (Skinchanger)",
     9100013: "Mother of the Brood (Brood)",
     9100020: "Devour Whole (Glutton)",
     9100034: "Regurgitate (Glutton talent)",
     9100040: "Hatch Brood (Brood)",
-    **{9100800 + i: "spec ability (placeholder)" for i in range(9)},
+    **{9100800 + i: "spec ability (task 015)" for i in range(9)},
+}
+
+
+# Task 015: the hunter's pet spells, stock 3.3.5a (they have no spell_dbc row here, the client and the core already
+# know them). A SkillLineAbility row with the Devourer's skill and class mask puts them on the Devourer's tab.
+PET_SPELLS = {
+    1515: "Tame Beast", 883: "Call Pet", 2641: "Dismiss Pet", 982: "Revive Pet", 136: "Mend Pet",
+    6991: "Feed Pet", 1462: "Beast Lore",
 }
 
 
@@ -93,7 +100,7 @@ def main() -> int:
     missing = sorted(s for s in want if s not in spells)
     for s in missing:
         print(f"skipped {s} ({want[s]}): no spell_dbc row in the committed SQL", file=sys.stderr)
-    ids = sorted(s for s in want if s in spells)
+    ids = sorted([s for s in want if s in spells] + list(PET_SPELLS))
     if len(ids) > SLA_LAST - SLA_FIRST + 1:
         print(f"{len(ids)} spells do not fit SkillLineAbility {SLA_FIRST}-{SLA_LAST}", file=sys.stderr)
         return 1
