@@ -73,7 +73,9 @@ ICON_SPELL = 9100001                 # fallback tab icon
 
 
 def committed() -> list[Path]:
-    return sorted(p for p in SQL_DIR.glob("2026_09_30_0*.sql") if ".generated." not in p.name and p != OUT_SQL)
+    # Task 017: the evolved forms (tools/evolved_kit.py) have their own file.
+    return sorted(p for p in [*SQL_DIR.glob("2026_09_30_0*.sql"), *SQL_DIR.glob("*_devourer_tier2.sql")]
+                  if ".generated." not in p.name and p != OUT_SQL)
 
 
 def spellbook_spells(files: list[Path]) -> dict[int, tuple[int, str]]:

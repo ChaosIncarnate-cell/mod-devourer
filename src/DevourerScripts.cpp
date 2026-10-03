@@ -770,8 +770,10 @@ public:
 
     void OnPlayerSpellCast(Player* player, Spell* spell, bool /*skipCheck*/) override
     {
-        if (sDevourer.IsDevourer(player))
-            sDevourer.MirrorSpell(player, spell);
+        if (!sDevourer.IsDevourer(player))
+            return;
+        sDevourer.MirrorSpell(player, spell);
+        sDevourer.TaskEvent(player, TaskSpellCast, spell->GetSpellInfo()->Id);   // task 017: "use a spell" growth tasks
     }
 
     // Growth tasks: kills made in a form.
@@ -810,12 +812,25 @@ public:
             sDevourer.OnCreatureDeath(victim, killer);
     }
 
-    // Growth tasks: hits taken in a form, by school.
+    // Growth tasks: hits taken in a form, by school; task 017: damage dealt and taken, by school.
+    static void CountDamage(Unit* target, Unit* attacker, uint32 damage, uint32 schoolMask)
+    {
+        if (!damage)
+            return;
+        if (Player* player = target ? target->ToPlayer() : nullptr)
+            if (sDevourer.IsDevourer(player))
+                sDevourer.TaskEvent(player, TaskTakeDamage, schoolMask, damage);
+        if (Player* player = attacker ? attacker->ToPlayer() : nullptr)
+            if (player != target && sDevourer.IsDevourer(player))
+                sDevourer.TaskEvent(player, TaskDealDamage, schoolMask, damage);
+    }
+
     void ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage) override
     {
         if (Player* player = target->ToPlayer())
             if (damage && sDevourer.IsDevourer(player))
                 sDevourer.TaskEvent(player, TaskHitBy, SPELL_SCHOOL_MASK_NORMAL);
+        CountDamage(target, attacker, damage, SPELL_SCHOOL_MASK_NORMAL);
         // ChaosCore0.2: a Devourer's own auto-attack hits fill Hunger a little.
         if (Player* player = attacker ? attacker->ToPlayer() : nullptr)
             if (damage)
@@ -828,11 +843,30 @@ public:
                         sDevourer.OnHatchlingHit(mother, hatchling, target, damage);
     }
 
-    void ModifySpellDamageTaken(Unit* target, Unit* /*attacker*/, int32& damage, SpellInfo const* spellInfo) override
+    void ModifySpellDamageTaken(Unit* target, Unit* attacker, int32& damage, SpellInfo const* spellInfo) override
     {
         if (Player* player = target->ToPlayer())
             if (damage > 0 && spellInfo && sDevourer.IsDevourer(player))
                 sDevourer.TaskEvent(player, TaskHitBy, spellInfo->GetSchoolMask());
+        if (damage > 0 && spellInfo)
+            CountDamage(target, attacker, uint32(damage), spellInfo->GetSchoolMask());
+    }
+
+    // Task 017: damage over time counts too (bleeds, Nether Bolt). The core calls this for heal-over-time ticks
+    // as well: those are positive spells and are left out.
+    void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spellInfo) override
+    {
+        if (spellInfo && !spellInfo->IsPositive())
+            CountDamage(target, attacker, damage, spellInfo->GetSchoolMask());
+    }
+
+    // Task 017: "drink N health" growth tasks count the healing a Devourer does to itself.
+    void OnHeal(Unit* healer, Unit* receiver, uint32& gain) override
+    {
+        if (gain && healer && healer == receiver)
+            if (Player* player = healer->ToPlayer())
+                if (sDevourer.IsDevourer(player))
+                    sDevourer.TaskEvent(player, TaskHeal, 0, gain);
     }
 };
 

@@ -6,7 +6,8 @@
  *
  *   world       devourer_diet             shape, creature type (0 = anything else) -> BP per meal
  *               devourer_evolution        from shape -> to shape, BP and level needed
- *               devourer_evolution_task   the evolution's tasks (kill, be hit by, devour rare, devour type)
+ *               devourer_evolution_task   the evolution's tasks (kill, be hit by, devour rare / type / name / family /
+ *                                         one creature, hit or use a spell, deal or take damage, heal: TaskKind)
  *   characters  character_devourer_growth BP per shape
  *               character_devourer_task   task progress per evolution
  */
@@ -147,17 +148,21 @@ namespace Devourer
         TaskEvent(player, TaskDevourRarity, Rarity(meal));
         TaskEvent(player, TaskDevourType, meal->GetCreatureType());
         TaskEvent(player, TaskDevourName, meal->GetCreatureType(), 1, meal->GetName());
+        TaskEvent(player, TaskDevourFamily, meal->GetCreatureTemplate()->family);
+        TaskEvent(player, TaskDevourEntry, meal->GetEntry());
         CheckEvolution(player);
     }
 
     void Mgr::TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount, std::string const& name)
     {
-        std::string lower = name;
-        std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+        if (!amount)
+            return;
         auto itr = _states.find(player->GetGUID().GetCounter());
         if (itr == _states.end() || !itr->second.Worn)
             return;
         State& state = itr->second;
+        std::string lower = name;
+        std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
 
         bool finishedOne = false;
         for (Evolution const& evo : _evolutions)
@@ -182,6 +187,12 @@ namespace Devourer
                                 [&lower](std::string const& part) { return lower.find(part) != std::string::npos; });
                         break;
                     case TaskSpellHit:     matches = task.Value == value; break;
+                    case TaskDevourFamily: matches = value && task.Value == value; break;
+                    case TaskDevourEntry:  matches = task.Value == value; break;
+                    case TaskSpellCast:    matches = task.Value == value; break;
+                    case TaskDealDamage:
+                    case TaskTakeDamage:   matches = !task.Value || (task.Value & value) != 0; break;
+                    case TaskHeal:         matches = true; break;
                     default: break;
                 }
                 if (!matches)
@@ -198,8 +209,9 @@ namespace Devourer
                 }
             }
         }
+        // Task 017: a moment later, so an evolution never shifts the Devourer inside a damage or spell hook.
         if (finishedOne)
-            CheckEvolution(player);
+            Defer(player, [this, player]() { CheckEvolution(player); });
     }
 
     void Mgr::CheckEvolution(Player* player)

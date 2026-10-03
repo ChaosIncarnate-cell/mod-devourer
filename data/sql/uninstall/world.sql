@@ -6,11 +6,11 @@
 -- then drops the module's tables. Afterwards remove the module folder (or set Devourer.Enable = 0 and keep it
 -- out of the build); otherwise the next worldserver start installs it again.
 
--- --- spells and items (2026_09_30_02, _07, _08) --------------------------------------------------------------------------
-DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9101099;
-DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9101099;
-DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9101099;
-DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9101099;
+-- --- spells and items (2026_09_30_02, _07, _08; 9102000-9102999 the evolved forms, 2026_10_03_00) ---------------------
+DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9101099 OR `ID`       BETWEEN 9102000 AND 9102999;
+DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
+DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
+DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9101099 OR `SpellId`  BETWEEN 9102000 AND 9102999;
 DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101);
 
 -- --- creatures, spawns and looks (2026_09_30_03, _04) ------------------------------------------------------------
@@ -95,4 +95,5 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_02_devourer_spells.sql', '2026_09_30_03_devourer_models.sql', '2026_09_30_04_devourer_world.sql',
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
     '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
-    '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql');
+    '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql',
+    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql');

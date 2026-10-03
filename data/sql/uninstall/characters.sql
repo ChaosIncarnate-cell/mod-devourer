@@ -29,13 +29,13 @@ DELETE `cp` FROM `character_pet` AS `cp` JOIN `characters` AS `c` ON `c`.`guid` 
 UPDATE `characters` SET `class` = 1, `at_login` = `at_login` | 0x02 | 0x04   -- AT_LOGIN_RESET_SPELLS, _RESET_TALENTS
  WHERE `class` = 10;
 
--- 2. Nothing of the Devourer's spells, talents, auras, cooldowns or buttons stays behind (spells 9100000-9101099).
+-- 2. Nothing of the Devourer's spells, talents, auras, cooldowns or buttons stays behind (spells 9100000-9101099, 9102000-9102999).
 --    (The stock pet spells it learned, Tame Beast and the rest, go with the reset of spells at the next login.)
-DELETE FROM `character_talent`         WHERE `spell` BETWEEN 9100000 AND 9101099;
-DELETE FROM `character_spell`          WHERE `spell` BETWEEN 9100000 AND 9101099;
-DELETE FROM `character_aura`           WHERE `spell` BETWEEN 9100000 AND 9101099;
-DELETE FROM `character_spell_cooldown` WHERE `spell` BETWEEN 9100000 AND 9101099;
-DELETE FROM `character_action`         WHERE `type` = 0 AND `action` BETWEEN 9100000 AND 9101099;
+DELETE FROM `character_talent`         WHERE (`spell` BETWEEN 9100000 AND 9101099 OR `spell` BETWEEN 9102000 AND 9102999);
+DELETE FROM `character_spell`          WHERE (`spell` BETWEEN 9100000 AND 9101099 OR `spell` BETWEEN 9102000 AND 9102999);
+DELETE FROM `character_aura`           WHERE (`spell` BETWEEN 9100000 AND 9101099 OR `spell` BETWEEN 9102000 AND 9102999);
+DELETE FROM `character_spell_cooldown` WHERE (`spell` BETWEEN 9100000 AND 9101099 OR `spell` BETWEEN 9102000 AND 9102999);
+DELETE FROM `character_action`         WHERE `type` = 0 AND (`action` BETWEEN 9100000 AND 9101099 OR `action` BETWEEN 9102000 AND 9102999);
 DELETE FROM `character_skills`         WHERE `skill` BETWEEN 900 AND 902;       -- the Devourer's three spellbook tabs
 
 -- 3. The idols (items 9100100, 9100101) disappear with their item template: from bags, bank and mail.

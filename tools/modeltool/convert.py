@@ -40,17 +40,37 @@ def colourings(folder: Path, model: str, used: set[str], slot_stems: dict[int, s
 
     A model can have several skin slots, e.g. body + glow1 + glow2: the files are <model>_<colour>,
     <model>_glow1_<colour>, <model>_glow2_<colour>, and together they are ONE colouring. The manifest tells which file
-    the export's own display put in which slot; the colour is the last _part those names share."""
-    files = {}                                                # name after "<model>_" -> file
+    the export's own display put in which slot; the colour is the last _part those names share.
+    2026-10-03 (task 017): two more namings of the same idea: <model>glow_<colour> (no "_" after the model name,
+    e.g. shadowstalkerpantherglow_blue) and <model>_<colour>_1, <model>_<colour>_2 (the slot as a number at the end,
+    e.g. mothunderlight_pink_1)."""
+    def rest_of(stem: str) -> str | None:                    # the name after "<model>_" (or after "<model>")
+        stem, m = stem.lower(), model.lower()
+        if stem.startswith(m + "_"):
+            return stem[len(m) + 1:]
+        if stem.startswith(m) and len(stem) > len(m) and "_" in stem[len(m):]:
+            return stem[len(m):]                              # "glow_blue"
+        return None
+
+    files = {}                                                # rest of the name -> file
     for p in sorted(folder.iterdir()):
-        stem = p.stem.lower()
-        if p.suffix.lower() not in (".blp", ".png") or not stem.startswith(model.lower() + "_") or p.name.lower() in used:
+        rest = rest_of(p.stem)
+        if p.suffix.lower() not in (".blp", ".png") or rest is None or p.name.lower() in used:
             continue
-        rest = stem[len(model) + 1:]
         if p.suffix.lower() == ".blp" or rest not in files:   # the game's own .blp wins over a .png copy
             files[rest] = p
-    rests = {k: s.lower()[len(model) + 1:] for k, s in slot_stems.items() if s.lower().startswith(model.lower() + "_")}
+    rests = {k: r for k, r in ((k, rest_of(s)) for k, s in slot_stems.items()) if r is not None}
     tails = [r.split("_")[-1] for r in rests.values()]
+    heads = {r.rsplit("_", 1)[0] for r in rests.values() if "_" in r}
+    if len(rests) >= 2 and len(heads) == 1 and len(set(tails)) == len(rests) and len(heads | {""}) == 2:
+        ends = {k: "_" + r.rsplit("_", 1)[1] for k, r in rests.items()}   # {1: "_1", 2: "_2"}
+        out = {}
+        for rest in files:
+            for end in ends.values():
+                if rest.endswith(end):
+                    colour = rest[:-len(end)]
+                    out[colour] = {k: files[colour + e] for k, e in ends.items() if colour + e in files}
+        return {c: slots for c, slots in out.items() if slots}
     if len(rests) < 2 or len(set(tails)) != 1:               # one slot (or no manifest): every file is a colouring
         return {rest: {k: p for k in skin_slots or [1]} for rest, p in files.items()}
     default = tails[0]

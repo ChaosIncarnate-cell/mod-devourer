@@ -246,7 +246,9 @@ class Builder:
         self.added: dict[str, set[int]] = {}          # ids of the rows the patch adds, per DBC
         self.missing: list[str] = []
         self.baked: list[str] = []                     # baked NPC textures of dressed looks copied from CoA
-        self.committed = sorted(p for p in SQL_DIR.glob("2026_09_30_0*.sql") if ".generated." not in p.name)
+        # Task 017: the evolved forms' spells live in their own file (tools/evolved_kit.py).
+        self.committed = sorted(p for p in [*SQL_DIR.glob("2026_09_30_0*.sql"), *SQL_DIR.glob("*_devourer_tier2.sql")]
+                                if ".generated." not in p.name)
         self.class_sql: list[str] = []
         self.overwrite_reserved = False                # --overwrite-reserved
         self.own_client = client                       # the client without --foreign patches: a model the patch

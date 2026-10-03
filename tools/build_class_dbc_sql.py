@@ -18,7 +18,7 @@ ignored by git (hard rule 2) and every install generates it again. It contains:
                             then the hunter's), its weapons replaced by a Bent Staff, as class 10.
 
 It also checks that the ids the committed SQL uses for class 10 are free in these DBCs (ChrClasses 10,
-TalentTab 900-902, Talent 9000-9179, Spell 9100000-9101099, CreatureModelData 902038-902045,
+TalentTab 900-902, Talent 9000-9179, Spell 9100000-9101099 and 9102000-9102999, CreatureModelData 902038-902045,
 CreatureDisplayInfo 991001-991065, SkillLine 900-902, SkillRaceClassInfo 91000-91002, SkillLineAbility 91001-91999) and
 stops if one is taken.
 
@@ -52,7 +52,7 @@ RESERVED = [
     ("ChrClasses.dbc", [(CLASS_ID, CLASS_ID)]),
     ("TalentTab.dbc", [(900, 902)]),
     ("Talent.dbc", [(9000, 9179)]),
-    ("Spell.dbc", [(9100000, 9101099)]),
+    ("Spell.dbc", [(9100000, 9101099), (9102000, 9102999)]),   # 9102000+: the evolved forms (task 017)
     ("CreatureModelData.dbc", [(902038, 902045)]),
     ("CreatureDisplayInfo.dbc", [(991001, 991065)]),
     ("SkillLine.dbc", [(900, 902)]),                    # the Devourer's three spellbook tabs (tasks 008, 011, tools/spellbook.py)

@@ -97,13 +97,15 @@ namespace Devourer
             } while (result->NextRow());
         }
 
-        if (QueryResult result = WorldDatabase.Query("SELECT display_id, shape_id, name, brood_display FROM devourer_skin"))
+        if (QueryResult result = WorldDatabase.Query(
+                "SELECT display_id, shape_id, name, brood_display, free FROM devourer_skin"))
         {
             do
             {
                 Field* f = result->Fetch();
                 if (_shapes.count(f[1].Get<uint32>()))
-                    _skins[f[0].Get<uint32>()] = { f[1].Get<uint32>(), f[2].Get<std::string>(), f[3].Get<uint32>() };
+                    _skins[f[0].Get<uint32>()] = { f[1].Get<uint32>(), f[2].Get<std::string>(), f[3].Get<uint32>(),
+                                                   f[4].Get<uint8>() != 0 };
             } while (result->NextRow());
         }
 
@@ -367,6 +369,18 @@ namespace Devourer
                 state.Bar[f[0].Get<uint32>()][f[1].Get<uint32>()] = f[2].Get<uint8>();
             } while (result->NextRow());
         }
+        for (auto& [shapeId, owned] : state.Shapes)
+            GrantFreeSkins(shapeId, owned);
+    }
+
+    // Task 017: the colourings that come with a shape (devourer_skin.free: the retail looks of the older forms, and
+    // their old look beside them). Never saved per character: the world data decides.
+    void Mgr::GrantFreeSkins(uint32 shapeId, Owned& owned) const
+    {
+        Shape const* shape = FindShape(shapeId);
+        for (auto const& [display, skin] : _skins)
+            if (skin.Free && skin.ShapeId == shapeId && (!shape || display != shape->Display))
+                owned.Skins.insert(display);
     }
 
     void Mgr::SaveShape(Player* player, uint32 shapeId, Owned const& owned)
@@ -485,7 +499,10 @@ namespace Devourer
         bool const isNew = !state.Shapes.count(shapeId);
         Owned& owned = state.Shapes[shapeId];
         if (isNew)
+        {
             SaveShape(player, shapeId, owned);
+            GrantFreeSkins(shapeId, owned);
+        }
         if (display && display != shape->Display && owned.Skins.insert(display).second)
         {
             SaveSkin(player, shapeId, display);

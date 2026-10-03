@@ -99,6 +99,9 @@ namespace Devourer
     constexpr uint32 SpellWarpSurge = 9101006;           // Warp Stalker: the speed after Warp (spell_devourer_warp)
     constexpr uint32 SpellMothSilkenCocoon = 9100946;    // Cocoon Metamorphosis wraps the moth in it
     constexpr uint32 SpellBoarBristlesHit = 9100956;     // Barbed Bristles' Nature damage
+    // Task 017, the evolved forms (tools/evolved_kit.py, 2026_10_03_00): shape s uses 9102000 + (s - 16) * 10 + slot.
+    constexpr uint32 SpellShadowclawProwl = 9102032;     // the Shadowclaw's Phase Prowl ...
+    constexpr uint32 SpellShadowclawPoised = 9102037;    // ... leaves this Poised to Strike (it also silences)
      // addon messages for the shape menu (client: DevourerMenu.lua)
 
     // The three talent trees (tab pages 0-2); see Mgr::SpecOf.
@@ -142,6 +145,7 @@ namespace Devourer
         uint32 ShapeId = 0;
         std::string Name;                        // what .devour skin <name> takes
         uint32 BroodDisplay = 0;                 // a Brood's hatchlings while this colouring is worn
+        bool Free = false;                       // task 017: comes with the shape (the retail looks of older forms)
     };
 
     // Growth: a form earns Bio Points (BP) from what it eats while worn, weighted by its diet and the meal's rarity.
@@ -155,6 +159,13 @@ namespace Devourer
         TaskDevourName   = 5,                    // devour creatures whose name holds one of name_part ('|'-separated),
                                                  // value = creature type (0 = any)
         TaskSpellHit     = 6,                    // hit an enemy with a spell (value = spell id; the frog line's scripts)
+        // Task 017 (the evolved forms):
+        TaskDevourFamily = 7,                    // devour creatures of a family (value = creature_template.family)
+        TaskDevourEntry  = 8,                    // devour one creature (value = creature entry)
+        TaskSpellCast    = 9,                    // use a spell (value = spell id; every cast counts)
+        TaskDealDamage   = 10,                   // deal damage (value = school mask, 0 = any; count = damage)
+        TaskTakeDamage   = 11,                   // take damage (value = school mask, 0 = any; count = damage)
+        TaskHeal         = 12,                   // heal yourself (count = health)
     };
 
     struct EvolutionTask
@@ -392,6 +403,7 @@ namespace Devourer
         void Load(Player* player, State& state);
         void SaveShape(Player* player, uint32 shapeId, Owned const& owned);
         void SaveSkin(Player* player, uint32 shapeId, uint32 display);
+        void GrantFreeSkins(uint32 shapeId, Owned& owned) const;   // task 017: colourings that come with the shape
         void SaveState(Player* player, State const& state);
         void GrantKit(Player* player, State& state, Shape const& shape);
         [[nodiscard]] static bool KitSpellOpen(Player const* player, uint32 spellId);   // player level >= spell level

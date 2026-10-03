@@ -6,7 +6,7 @@
  *   Wolf   Pack Prowess      strikes on an enemy below 30% call two spectral pups (proc, 15 sec rest in spell_proc)
  *          Ravaging Feast    eats the Devourer's bleeds on the enemy and heals for what they had left
  *   Saber  Anima Shred       10 Anima, 20 from behind
- *          Phase Prowl       leaving it leaves Poised to Strike (+50% on the next strike)
+ *          Phase Prowl       leaving it leaves Poised to Strike (+50% on the next strike; the Shadowclaw's also silences)
  *          Shadow Reflexes   needs no script: a proc (dodge/parry, 20 sec rest) that triggers a vanish + Phase Prowl
  *   Moth   Cocoon Metamorphosis   a blow below 25% health is stopped there and the moth is cocooned; once a fight
  *   Boar   Barbed Bristles   15% of a melee hit taken goes back to the attacker as Nature damage
@@ -133,7 +133,8 @@ class spell_devourer_phase_prowl : public AuraScript
         AuraRemoveMode const how = GetTargetApplication()->GetRemoveMode();
         if (!target->IsAlive() || how == AURA_REMOVE_BY_CANCEL || how == AURA_REMOVE_BY_DEATH)
             return;
-        target->CastSpell(target, SpellSaberPoised, true);
+        // Task 017: the Shadowclaw's Phase Prowl leaves its own Poised to Strike (it also silences).
+        target->CastSpell(target, GetId() == SpellShadowclawProwl ? SpellShadowclawPoised : SpellSaberPoised, true);
     }
 
     void Register() override

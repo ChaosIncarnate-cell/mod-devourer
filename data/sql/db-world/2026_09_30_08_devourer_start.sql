@@ -17,6 +17,13 @@ CREATE TABLE IF NOT EXISTS `devourer_favourite_food` (
     `label` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'shown in the menu; empty = the type or family name',
     PRIMARY KEY (`shape_id`, `creature_type`, `family`, `name_part`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Task 017: a colouring that comes with its shape (free = 1), e.g. the retail looks of the older forms.
+SET @devourer_col := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE()
+    AND TABLE_NAME = 'devourer_skin' AND COLUMN_NAME = 'free');
+SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_skin` ADD COLUMN `free` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT ''1 = comes with the shape''', 'DO 0');
+PREPARE devourer_stmt FROM @devourer_sql;
+EXECUTE devourer_stmt;
+DEALLOCATE PREPARE devourer_stmt;
 
 DELETE FROM `spell_dbc` WHERE `ID` BETWEEN 9100900 AND 9101029;
 INSERT INTO `spell_dbc` (`ID`,`Category`,`DispelType`,`Mechanic`,`Attributes`,`AttributesEx`,`AttributesEx2`,`AttributesEx3`,`AttributesEx4`,`AttributesEx5`,`AttributesEx6`,`AttributesEx7`,`ShapeshiftMask`,`unk_320_2`,`ShapeshiftExclude`,`unk_320_3`,`Targets`,`TargetCreatureType`,`RequiresSpellFocus`,`FacingCasterFlags`,`CasterAuraState`,`TargetAuraState`,`ExcludeCasterAuraState`,`ExcludeTargetAuraState`,`CasterAuraSpell`,`TargetAuraSpell`,`ExcludeCasterAuraSpell`,`ExcludeTargetAuraSpell`,`CastingTimeIndex`,`RecoveryTime`,`CategoryRecoveryTime`,`InterruptFlags`,`AuraInterruptFlags`,`ChannelInterruptFlags`,`ProcTypeMask`,`ProcChance`,`ProcCharges`,`MaxLevel`,`BaseLevel`,`SpellLevel`,`DurationIndex`,`PowerType`,`ManaCost`,`ManaCostPerLevel`,`ManaPerSecond`,`ManaPerSecondPerLevel`,`RangeIndex`,`Speed`,`ModalNextSpell`,`CumulativeAura`,`Totem_1`,`Totem_2`,`Reagent_1`,`Reagent_2`,`Reagent_3`,`Reagent_4`,`Reagent_5`,`Reagent_6`,`Reagent_7`,`Reagent_8`,`ReagentCount_1`,`ReagentCount_2`,`ReagentCount_3`,`ReagentCount_4`,`ReagentCount_5`,`ReagentCount_6`,`ReagentCount_7`,`ReagentCount_8`,`EquippedItemClass`,`EquippedItemSubclass`,`EquippedItemInvTypes`,`Effect_1`,`Effect_2`,`Effect_3`,`EffectDieSides_1`,`EffectDieSides_2`,`EffectDieSides_3`,`EffectRealPointsPerLevel_1`,`EffectRealPointsPerLevel_2`,`EffectRealPointsPerLevel_3`,`EffectBasePoints_1`,`EffectBasePoints_2`,`EffectBasePoints_3`,`EffectMechanic_1`,`EffectMechanic_2`,`EffectMechanic_3`,`ImplicitTargetA_1`,`ImplicitTargetA_2`,`ImplicitTargetA_3`,`ImplicitTargetB_1`,`ImplicitTargetB_2`,`ImplicitTargetB_3`,`EffectRadiusIndex_1`,`EffectRadiusIndex_2`,`EffectRadiusIndex_3`,`EffectAura_1`,`EffectAura_2`,`EffectAura_3`,`EffectAuraPeriod_1`,`EffectAuraPeriod_2`,`EffectAuraPeriod_3`,`EffectMultipleValue_1`,`EffectMultipleValue_2`,`EffectMultipleValue_3`,`EffectChainTargets_1`,`EffectChainTargets_2`,`EffectChainTargets_3`,`EffectItemType_1`,`EffectItemType_2`,`EffectItemType_3`,`EffectMiscValue_1`,`EffectMiscValue_2`,`EffectMiscValue_3`,`EffectMiscValueB_1`,`EffectMiscValueB_2`,`EffectMiscValueB_3`,`EffectTriggerSpell_1`,`EffectTriggerSpell_2`,`EffectTriggerSpell_3`,`EffectPointsPerCombo_1`,`EffectPointsPerCombo_2`,`EffectPointsPerCombo_3`,`EffectSpellClassMaskA_1`,`EffectSpellClassMaskA_2`,`EffectSpellClassMaskA_3`,`EffectSpellClassMaskB_1`,`EffectSpellClassMaskB_2`,`EffectSpellClassMaskB_3`,`EffectSpellClassMaskC_1`,`EffectSpellClassMaskC_2`,`EffectSpellClassMaskC_3`,`SpellVisualID_1`,`SpellVisualID_2`,`SpellIconID`,`ActiveIconID`,`SpellPriority`,`Name_Lang_enUS`,`Name_Lang_enGB`,`Name_Lang_koKR`,`Name_Lang_frFR`,`Name_Lang_deDE`,`Name_Lang_enCN`,`Name_Lang_zhCN`,`Name_Lang_enTW`,`Name_Lang_zhTW`,`Name_Lang_esES`,`Name_Lang_esMX`,`Name_Lang_ruRU`,`Name_Lang_ptPT`,`Name_Lang_ptBR`,`Name_Lang_itIT`,`Name_Lang_Unk`,`Name_Lang_Mask`,`NameSubtext_Lang_enUS`,`NameSubtext_Lang_enGB`,`NameSubtext_Lang_koKR`,`NameSubtext_Lang_frFR`,`NameSubtext_Lang_deDE`,`NameSubtext_Lang_enCN`,`NameSubtext_Lang_zhCN`,`NameSubtext_Lang_enTW`,`NameSubtext_Lang_zhTW`,`NameSubtext_Lang_esES`,`NameSubtext_Lang_esMX`,`NameSubtext_Lang_ruRU`,`NameSubtext_Lang_ptPT`,`NameSubtext_Lang_ptBR`,`NameSubtext_Lang_itIT`,`NameSubtext_Lang_Unk`,`NameSubtext_Lang_Mask`,`Description_Lang_enUS`,`Description_Lang_enGB`,`Description_Lang_koKR`,`Description_Lang_frFR`,`Description_Lang_deDE`,`Description_Lang_enCN`,`Description_Lang_zhCN`,`Description_Lang_enTW`,`Description_Lang_zhTW`,`Description_Lang_esES`,`Description_Lang_esMX`,`Description_Lang_ruRU`,`Description_Lang_ptPT`,`Description_Lang_ptBR`,`Description_Lang_itIT`,`Description_Lang_Unk`,`Description_Lang_Mask`,`AuraDescription_Lang_enUS`,`AuraDescription_Lang_enGB`,`AuraDescription_Lang_koKR`,`AuraDescription_Lang_frFR`,`AuraDescription_Lang_deDE`,`AuraDescription_Lang_enCN`,`AuraDescription_Lang_zhCN`,`AuraDescription_Lang_enTW`,`AuraDescription_Lang_zhTW`,`AuraDescription_Lang_esES`,`AuraDescription_Lang_esMX`,`AuraDescription_Lang_ruRU`,`AuraDescription_Lang_ptPT`,`AuraDescription_Lang_ptBR`,`AuraDescription_Lang_itIT`,`AuraDescription_Lang_Unk`,`AuraDescription_Lang_Mask`,`ManaCostPct`,`StartRecoveryCategory`,`StartRecoveryTime`,`MaxTargetLevel`,`SpellClassSet`,`SpellClassMask_1`,`SpellClassMask_2`,`SpellClassMask_3`,`MaxTargets`,`DefenseType`,`PreventionType`,`StanceBarOrder`,`EffectChainAmplitude_1`,`EffectChainAmplitude_2`,`EffectChainAmplitude_3`,`MinFactionID`,`MinReputation`,`RequiredAuraVision`,`RequiredTotemCategoryID_1`,`RequiredTotemCategoryID_2`,`RequiredAreasID`,`SchoolMask`,`RuneCostID`,`SpellMissileID`,`PowerDisplayID`,`EffectBonusMultiplier_1`,`EffectBonusMultiplier_2`,`EffectBonusMultiplier_3`,`SpellDescriptionVariableID`,`SpellDifficultyID`) VALUES
@@ -153,15 +160,15 @@ DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 15;
 INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`, `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES
 (5, 'Wolf', 9100910, 31049, 1, 9100911, 9100912, 9100914, 9100915, 9100913, 31049),
 (6, 'Trogg', 9100920, 606, 1, 9100921, 9100922, 9100924, 9100925, 9100923, 606),
-(7, 'Saber', 9100930, 11454, 1, 9100931, 9100932, 9100934, 9100935, 9100933, 11454),
-(8, 'Moth', 9100940, 17574, 1, 9100941, 9100942, 9100944, 9100945, 9100943, 17574),
+(7, 'Saber', 9100930, 994036, 1, 9100931, 9100932, 9100934, 9100935, 9100933, 11454),
+(8, 'Moth', 9100940, 994007, 1, 9100941, 9100942, 9100944, 9100945, 9100943, 17574),
 (9, 'Boar', 9100950, 503, 1, 9100951, 9100952, 9100954, 9100955, 9100953, 503),
-(10, 'Plainstrider', 9100960, 1219, 1, 9100961, 9100962, 9100964, 9100965, 9100963, 1219),
-(11, 'Bat', 9100970, 4732, 1, 9100971, 9100972, 9100974, 9100975, 9100973, 4732),
+(10, 'Plainstrider', 9100960, 994015, 1, 9100961, 9100962, 9100964, 9100965, 9100963, 1219),
+(11, 'Bat', 9100970, 994025, 1, 9100971, 9100972, 9100974, 9100975, 9100973, 4732),
 (13, 'Warp Stalker', 9101000, 20025, 1, 9101001, 9101002, 9101004, 9101005, 9101003, 20025),
 (14, 'Biletoad', 9101010, 1924, 5.5, 9101011, 9101012, 9101014, 9101015, 0, 1924),
 (15, 'Giant Marsh Frog', 9101020, 21950, 5.5, 9101021, 9101022, 9101024, 9101025, 0, 21950),
-(12, 'Mana Wyrm', 9100980, 16217, 1, 9100981, 9100982, 9100984, 9100985, 9100983, 16217);
+(12, 'Mana Wyrm', 9100980, 994018, 1, 9100981, 9100982, 9100984, 9100985, 9100983, 16217);
 
 -- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).
 -- Shape 0: a creature of a form's family that is not that body (task 009); it gives no shape.
@@ -231,24 +238,50 @@ INSERT INTO `devourer_favourite_food` (`shape_id`, `creature_type`, `family`, `n
 (14, 1, 0, 'locust', 'Insects'),
 (14, 1, 0, 'fly', 'Insects');
 DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 15;
-INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES
-(31049, 5, 'Grey', 0),
-(606, 6, 'Rockjaw', 0),
-(11454, 7, 'Nightsaber', 0),
-(17574, 8, 'Vale', 0),
-(503, 9, 'Mottled', 0),
-(1219, 10, 'Plainstrider', 0),
-(4732, 11, 'Duskbat', 0),
-(20025, 13, 'Warp Stalker', 0),
-(1924, 14, 'Biletoad', 0),
-(21950, 15, 'Giant Marsh Frog', 0),
-(16217, 12, 'Wyrm', 0),
-(31048, 5, 'Timber', 31048),
-(447, 5, 'Scavenger', 447),
-(15507, 7, 'Springpaw', 15507),
-(15506, 7, 'Lynx', 15506),
-(8869, 9, 'Thistle', 8869),
-(1220, 10, 'Tallstrider', 1220);
+-- free = 1: comes with the shape (task 017: the retail looks, and the old base look beside them).
+INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`, `free`) VALUES
+(31049, 5, 'Grey', 0, 0),
+(606, 6, 'Rockjaw', 0, 0),
+(11454, 7, 'Nightsaber', 0, 1),
+(17574, 8, 'Vale', 0, 1),
+(503, 9, 'Mottled', 0, 0),
+(1219, 10, 'Plainstrider', 0, 1),
+(4732, 11, 'Duskbat', 0, 1),
+(20025, 13, 'Warp Stalker', 0, 0),
+(1924, 14, 'Biletoad', 0, 0),
+(21950, 15, 'Giant Marsh Frog', 0, 0),
+(16217, 12, 'Wyrm', 0, 1),
+(994036, 7, 'Dreamsaber', 0, 1),
+(994037, 7, 'Dreamsaber Green', 0, 1),
+(994007, 8, 'Underlight Teal', 0, 1),
+(994001, 8, 'Underlight Orange', 0, 1),
+(994002, 8, 'Underlight Pink', 0, 1),
+(994003, 8, 'Underlight Red', 0, 1),
+(994004, 8, 'Underlight Rockblue', 0, 1),
+(994005, 8, 'Underlight Rockbrown', 0, 1),
+(994006, 8, 'Underlight Rockred', 0, 1),
+(994015, 10, 'Primal Pink', 0, 1),
+(994012, 10, 'Primal Black', 0, 1),
+(994013, 10, 'Primal Blue', 0, 1),
+(994014, 10, 'Primal Green', 0, 1),
+(994016, 10, 'Primal Red', 0, 1),
+(994017, 10, 'Primal White', 0, 1),
+(994025, 11, 'Vampire Purple', 0, 1),
+(994024, 11, 'Vampire Green', 0, 1),
+(994026, 11, 'Vampire Red', 0, 1),
+(994027, 11, 'Vampire Stone', 0, 1),
+(994018, 12, 'Wyrm Blue', 0, 1),
+(994019, 12, 'Wyrm Green', 0, 1),
+(994020, 12, 'Wyrm Purple', 0, 1),
+(994021, 12, 'Wyrm Red', 0, 1),
+(994022, 12, 'Wyrm Void', 0, 1),
+(994023, 12, 'Wyrm White', 0, 1),
+(31048, 5, 'Timber', 31048, 0),
+(447, 5, 'Scavenger', 447, 0),
+(15507, 7, 'Springpaw', 15507, 0),
+(15506, 7, 'Lynx', 15506, 0),
+(8869, 9, 'Thistle', 8869, 0),
+(1220, 10, 'Tallstrider', 1220, 0);
 DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 15;
 INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES
 (5, 1, 10),

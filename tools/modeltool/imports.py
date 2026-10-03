@@ -97,7 +97,8 @@ def stage(export_file: str, name: str | None = None) -> dict:
         colours[colour] = ["", "", ""]
         for k, p in slots.items():
             p = Path(p)
-            tex = f"{name}_{p.stem[len(src.stem) + 1:]}"     # voidcreeper_glow1_red -> Voidcreeper_glow1_red
+            tex = f"{name}_{p.stem[len(src.stem):].lstrip('_')}"   # voidcreeper_glow1_red -> Voidcreeper_glow1_red,
+                                                                   # shadowstalkerpantherglow_blue -> ..._glow_blue
             if tex not in texs:
                 data = p.read_bytes() if p.suffix.lower() == ".blp" else png_to_blp(p)
                 (STAGING / f"Creature\\{name}\\{tex}.blp").write_bytes(data)

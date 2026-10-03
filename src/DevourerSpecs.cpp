@@ -893,6 +893,7 @@ namespace Devourer
         uint32 const health = uint32(player->GetHealth());
         absorb = health > floor ? damage - std::min(damage, health - floor) : damage;
         player->CastSpell(player, SpellMothSilkenCocoon, true);
+        TaskEvent(player, TaskSpellCast, SpellMothSilkenCocoon);   // task 017: the Royal Blue Flutterer's growth
         return true;
     }
 

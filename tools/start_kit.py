@@ -179,7 +179,7 @@ BASE = [
 # --- task 007: the eight starting forms ----------------------------------------------------------------------------
 class Form:
     def __init__(self, shape, name, zone, source, display, icon, colourings, diet, skin, one, two, passive_,
-                 later, family=0, food=(), extra=(), changes=(), base=0, scale=1, how=""):
+                 later, family=0, food=(), extra=(), changes=(), base=0, scale=1, how="", looks=()):
         self.shape, self.name, self.zone, self.source, self.display, self.icon = shape, name, zone, source, display, icon
         self.colourings = colourings          # [(creature entry, display, skin name)]
         self.diet = diet                      # [(creature type, bp)]
@@ -194,6 +194,15 @@ class Form:
         self.changes = list(changes)          # task 009: what changed against the canvas card, and why
         self.scale = scale                    # devourer_shape.scale (the frogs' model is critter-sized)
         self.how = how                        # how it is gained when no creature gives it (source 0)
+        # Task 017 (owner, 2026-10-03: "newer models especially for the older forms"): retail models brought in with
+        # the model tool (tools/modeltool, imports.json): [(display, colouring name)], the first is the new base look.
+        # They come with the shape (devourer_skin.free); the old base look stays, as a colouring that comes with it too.
+        self.looks = list(looks)
+
+    @property
+    def look(self):
+        """The base look the shape shows (devourer_shape.display_id)."""
+        return self.looks[0][0] if self.looks else self.display
 
 
 def sid(shape, slot):
@@ -313,6 +322,7 @@ SABER = Form(
                       **effects({"effect": 5, "target": T_CASTER, "targetB": 65, "radius": 7})}),
       ("Flicker Step", "Flicker through the shadows to an enemy within 20 yards and appear behind it.", ""))],
     family=FAMILY_CAT,
+    looks=[(994036, "Dreamsaber"), (994037, "Dreamsaber Green")],
     food=[(0, FAMILY_CAT, "", ""), (0, FAMILY_SPIDER, "", "")],
     extra=[(6, 25941, helper({"RangeIndex": RANGE_SELF, "DurationIndex": DUR_5S, "SpellIconID": 103,
                               "ProcTypeMask": PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE | PROC_DONE_SPELL_MAGIC,
@@ -362,6 +372,9 @@ MOTH = Form(
       ("Flutter Dash", "Beat your wings and glide: movement speed increased by 60%, and you fall slowly, for 6 sec.",
        "Movement speed increased by 60%. Falling slowly."))],
     family=FAMILY_MOTH,
+    looks=[(994007, "Underlight Teal"), (994001, "Underlight Orange"), (994002, "Underlight Pink"),
+           (994003, "Underlight Red"), (994004, "Underlight Rockblue"), (994005, "Underlight Rockbrown"),
+           (994006, "Underlight Rockred")],
     food=[(CREATURE_TYPE_BEAST, 0, "", "")]
          + [(CREATURE_TYPE_ELEMENTAL, 0, part, "Plants") for part in
             ("lasher", "treant", "sapling", "shrub", "vine", "thorn", "petal", "root", "moss", "spore", "thistle")],
@@ -565,7 +578,9 @@ FORMS = [
                         **effects(aura(A_MOD_INCREASE_SPEED, 40))}),
           ("Long Stride", "Run on long legs: movement speed increased by 40% for 15 sec.", "Movement speed increased by 40%.")),
          (A_MOD_INCREASE_SPEED, 8, 0, ("Long Legs", "Your movement speed is increased by 8%.", "")),
-         ("Peck", "Stampede"), family=FAMILY_TALLSTRIDER),   # 2026-10-03: every strider, each look a colouring
+         ("Peck", "Stampede"), family=FAMILY_TALLSTRIDER,    # 2026-10-03: every strider, each look a colouring
+         looks=[(994015, "Primal Pink"), (994012, "Primal Black"), (994013, "Primal Blue"), (994014, "Primal Green"),
+                (994016, "Primal Red"), (994017, "Primal White")]),
     Form(11, "Bat", "Deathknell", 1512, 4732, 1579, [], [(1, 10), (6, 10), (0, 3)], "Duskbat",
          (24423, ability({"Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
                          "RecoveryTime": 8000, "SchoolMask": SCHOOL_NATURE,
@@ -580,7 +595,9 @@ FORMS = [
           ("Blood Drain", "Drink the enemy's blood: $s1 Shadow damage every second for 5 sec, healing you for the same.",
            "Losing $s1 health every second.")),
          (A_MOD_HIT_CHANCE, 2, 0, ("Echolocation", "Your chance to hit is increased by 2%.", "")),
-         ("Sonic Burst", "Night Swarm")),
+         ("Sonic Burst", "Night Swarm"),
+         looks=[(994025, "Vampire Purple"), (994024, "Vampire Green"), (994026, "Vampire Red"),
+                (994027, "Vampire Stone")]),
     WARP,
     BILETOAD,
     GIANT_MARSH_FROG,
@@ -595,7 +612,9 @@ FORMS = [
                                    "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
           ("Arcane Pulse", "Release the mana in you: $s1 Arcane damage to enemies within 8 yards.", "")),
          (A_DMG_TAKEN_PCT, -3, SCHOOL_MAGIC_ALL, ("Mana Sheath", "Magic damage taken reduced by 3%.", "")),
-         ("Mana Tap", "Arcane Coil")),
+         ("Mana Tap", "Arcane Coil"),
+         looks=[(994018, "Wyrm Blue"), (994019, "Wyrm Green"), (994020, "Wyrm Purple"), (994021, "Wyrm Red"),
+                (994022, "Wyrm Void"), (994023, "Wyrm White")]),
 ]
 
 # The frog line's scripts (src/DevourerFrogs.cpp).
@@ -729,6 +748,14 @@ def main() -> int:
         "    `label` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'shown in the menu; empty = the type or family name',",
         "    PRIMARY KEY (`shape_id`, `creature_type`, `family`, `name_part`)",
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+        "-- Task 017: a colouring that comes with its shape (free = 1), e.g. the retail looks of the older forms.",
+        "SET @devourer_col := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE()",
+        "    AND TABLE_NAME = 'devourer_skin' AND COLUMN_NAME = 'free');",
+        "SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_skin` ADD COLUMN `free` TINYINT UNSIGNED "
+        "NOT NULL DEFAULT 0 COMMENT ''1 = comes with the shape''', 'DO 0');",
+        "PREPARE devourer_stmt FROM @devourer_sql;",
+        "EXECUTE devourer_stmt;",
+        "DEALLOCATE PREPARE devourer_stmt;",
         "",
         f"DELETE FROM `spell_dbc` WHERE `ID` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_dbc` (" + ",".join(f"`{c}`" for c in b.COLUMNS) + ") VALUES",
@@ -755,7 +782,7 @@ def main() -> int:
         "DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`,"
         " `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES",
-        ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.display}, {f.scale}, {f.base + 1}, {f.base + 2},"
+        ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.look}, {f.scale}, {f.base + 1}, {f.base + 2},"
                    f" {f.base + 4}, {f.base + 5}, {f.base + 3 if f.passive else 0}, {f.display})" for f in FORMS) + ";",
         "",
         "-- Who gives them: the zone's creature the base look, its kin elsewhere a colouring (0 = the base look).",
@@ -777,9 +804,11 @@ def main() -> int:
         ",\n".join(f"({f.shape}, {t}, {fam}, {q(part)}, {q(label)})" for f in FORMS for t, fam, part, label in f.food)
         + ";",
         "DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN 5 AND 15;",
-        "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`) VALUES",
-        ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0)" for f in FORMS]
-                   + [f"({d}, {f.shape}, {q(n)}, {d})" for f in FORMS for _, d, n in f.colourings if d]) + ";",
+        "-- free = 1: comes with the shape (task 017: the retail looks, and the old base look beside them).",
+        "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`, `free`) VALUES",
+        ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0, {1 if f.looks else 0})" for f in FORMS]
+                   + [f"({d}, {f.shape}, {q(n)}, 0, 1)" for f in FORMS for d, n in f.looks]
+                   + [f"({d}, {f.shape}, {q(n)}, {d}, 0)" for f in FORMS for _, d, n in f.colourings if d]) + ";",
         "DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN 5 AND 15;",
         "INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {bp})" for f in FORMS for t, bp in f.diet) + ";",
@@ -846,6 +875,10 @@ def main() -> int:
     md.append("")
     for f in FORMS:
         md.append(f"### {f.name} (shape {f.shape}, {f.zone})")
+        if f.looks:
+            md.append(f"Look (task 017): a retail model, base {f.look} (`{f.looks[0][1]}`); its other colourings come "
+                      "with the shape: " + ", ".join(f"{d} `{n}`" for d, n in f.looks[1:]) +
+                      f". The old look {f.display} (`{f.skin}`) comes with it too.")
         if f.family:
             md.append(f"Devour **any creature of the {families[f.family]} family** (e.g. {f.source} for the base look "
                       f"{f.display}, skin `{f.skin}`); each look is a colouring. Favourite food: {food_text(f)}.")

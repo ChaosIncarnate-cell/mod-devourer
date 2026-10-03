@@ -70,6 +70,7 @@ Devour **707** for the base look (606, skin `Rockjaw`).
 | 9100925 | 20 | Tunnel Rage (placeholder) | Placeholder Trogg ability (level 20): not designed yet.$B$B|cffb87830Trogg form|r |
 
 ### Saber (shape 7, Shadowglen)
+Look (task 017): a retail model, base 994036 (`Dreamsaber`); its other colourings come with the shape: 994037 `Dreamsaber Green`. The old look 11454 (`Nightsaber`) comes with it too.
 Devour **any creature of the Cat family** (e.g. 2031 for the base look 11454, skin `Nightsaber`); each look is a colouring. Favourite food: family Cat or family Spider.
 Named colourings kept from task 007: 15366 → 15507 (`Springpaw`), 15372 → 15506 (`Lynx`).
 
@@ -94,6 +95,7 @@ Changes against the canvas card (task 009), and why:
 - Flicker Step: 20 yards, appears behind the enemy (sets up the 20-Anima Shred).
 
 ### Moth (shape 8, Ammen Vale)
+Look (task 017): a retail model, base 994007 (`Underlight Teal`); its other colourings come with the shape: 994001 `Underlight Orange`, 994002 `Underlight Pink`, 994003 `Underlight Red`, 994004 `Underlight Rockblue`, 994005 `Underlight Rockbrown`, 994006 `Underlight Rockred`. The old look 17574 (`Vale`) comes with it too.
 Devour **any creature of the Moth family** (e.g. 16520 for the base look 17574, skin `Vale`); each look is a colouring. Favourite food: type Beast or Elementals named *lasher*, *treant*, *sapling*, *shrub*, *vine*, *thorn*, *petal*, *root*, *moss*, *spore*, *thistle*.
 
 | Spell | Level | Name | What it does |
@@ -138,6 +140,7 @@ Changes against the canvas card (task 009), and why:
 - Barbed Bristles answers melee hits only ("physical damage" from a level-1 enemy is melee).
 
 ### Plainstrider (shape 10, Camp Narache)
+Look (task 017): a retail model, base 994015 (`Primal Pink`); its other colourings come with the shape: 994012 `Primal Black`, 994013 `Primal Blue`, 994014 `Primal Green`, 994016 `Primal Red`, 994017 `Primal White`. The old look 1219 (`Plainstrider`) comes with it too.
 Devour **any creature of the Tallstrider family** (e.g. 2955 for the base look 1219, skin `Plainstrider`); each look is a colouring. Favourite food: .
 Named colourings kept from task 007: 2956 → 1220 (`Tallstrider`).
 
@@ -151,6 +154,7 @@ Named colourings kept from task 007: 2956 → 1220 (`Tallstrider`).
 | 9100965 | 20 | Stampede (placeholder) | Placeholder Plainstrider ability (level 20): not designed yet.$B$B|cffb87830Plainstrider form|r |
 
 ### Bat (shape 11, Deathknell)
+Look (task 017): a retail model, base 994025 (`Vampire Purple`); its other colourings come with the shape: 994024 `Vampire Green`, 994026 `Vampire Red`, 994027 `Vampire Stone`. The old look 4732 (`Duskbat`) comes with it too.
 Devour **1512** for the base look (4732, skin `Duskbat`).
 
 | Spell | Level | Name | What it does |
@@ -214,6 +218,7 @@ Changes against the canvas card (task 009), and why:
 - Inflate keeps the card's 4,000 absorb: a lot at level 14-20, for the owner to tune.
 
 ### Mana Wyrm (shape 12, Sunstrider Isle)
+Look (task 017): a retail model, base 994018 (`Wyrm Blue`); its other colourings come with the shape: 994019 `Wyrm Green`, 994020 `Wyrm Purple`, 994021 `Wyrm Red`, 994022 `Wyrm Void`, 994023 `Wyrm White`. The old look 16217 (`Wyrm`) comes with it too.
 Devour **15274** for the base look (16217, skin `Wyrm`).
 
 | Spell | Level | Name | What it does |
