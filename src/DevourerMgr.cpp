@@ -822,6 +822,7 @@ namespace Devourer
         for (uint32 spellId : { SpellRush, SpellAnima, SpellSniff })
             if (!player->HasSpell(spellId) && sSpellMgr->GetSpellInfo(spellId))
                 player->learnSpell(spellId);
+        EnsureAnimaAura(player);
         TeachPet(player);
         // Tasks 008, 011: the class skills that give the Devourer its three spellbook tabs. New characters get
         // them from playercreateinfo_skills, older ones here (nothing happens while a SkillRaceClassInfo row is

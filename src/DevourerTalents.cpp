@@ -22,6 +22,7 @@
 #include "DBCStores.h"
 #include "GridNotifiers.h"
 #include "GridNotifiersImpl.h"
+#include "Log.h"
 #include "MotionMaster.h"
 #include "ObjectAccessor.h"
 #include "Pet.h"
@@ -155,10 +156,24 @@ namespace Devourer
             has[2] ? &points[2] : nullptr, true, nullptr, nullptr, original);
     }
 
+    // The passive "Anima" (aura 94) keeps the bar from draining out of combat. A meal is eaten out of combat, so an
+    // aura that was lost (learned before it existed, a form change, a data fix) is put back here too.
+    void Mgr::EnsureAnimaAura(Player* player)
+    {
+        if (player->HasSpell(SpellAnima) && !player->HasAura(SpellAnima))
+            player->AddAura(SpellAnima, player);
+    }
+
     void Mgr::GainAnima(Player* player, uint32 points)
     {
-        if (points)
-            player->ModifyPower(POWER_RAGE, int32(points * 10));
+        if (!points)
+            return;
+        EnsureAnimaAura(player);
+        int32 const was = player->GetPower(POWER_RAGE);
+        player->ModifyPower(POWER_RAGE, int32(points * 10));
+        LOG_DEBUG("module", "mod-devourer: {} gains {} Anima ({} -> {}, power type {}, Anima aura {}, in combat {})",
+            player->GetName(), points, was / 10, player->GetPower(POWER_RAGE) / 10, uint32(player->getPowerType()),
+            player->HasAura(SpellAnima), player->IsInCombat());
     }
 
     void Mgr::Defer(Player* player, std::function<void()> fn)

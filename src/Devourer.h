@@ -343,6 +343,7 @@ namespace Devourer
         void StunFor(Player* player, Unit* target, uint32 ms);
         void CastScaled(Unit* caster, Unit* target, uint32 spellId, float factor, ObjectGuid original = ObjectGuid::Empty);
         void GainAnima(Player* player, uint32 points);
+        void EnsureAnimaAura(Player* player);
         void Defer(Player* player, std::function<void()> fn);                         // runs a moment later, safely
         [[nodiscard]] bool IsBeastShape(uint32 shapeId) const;
         void TeachPet(Player* player);                                                // the hunter's pet spells
