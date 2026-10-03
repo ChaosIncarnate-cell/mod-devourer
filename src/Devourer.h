@@ -54,7 +54,11 @@ namespace Devourer
     constexpr uint32 SpellRushHit = 9100991;      // what Rush does to an enemy in its path
     constexpr uint32 SpellConcentrate = 9100992;  // gathers Anima
     constexpr uint32 SpellAnima = 9100993;        // hidden passive: Anima does not drain away out of combat
-    constexpr uint32 SkillDevourer = 900;         // class skill line: the Devourer's spellbook tab (task 008, 2026_09_30_09)
+    // Class skill lines: the Devourer's three spellbook tabs, one per talent tree (tasks 008, 011, 2026_09_30_09)
+    constexpr uint32 SkillGlutton = 900;
+    constexpr uint32 SkillSkinchanger = 901;
+    constexpr uint32 SkillBrood = 902;
+    constexpr uint32 SkillTabs[] = { SkillGlutton, SkillSkinchanger, SkillBrood };
     constexpr char const* MenuPrefix = "DVR";     // addon messages for the shape menu (client: DevourerMenu.lua)
 
     // Task 009, starter forms batch 1 (tools/start_kit.py, 2026_09_30_08): the spells the module's scripts use.

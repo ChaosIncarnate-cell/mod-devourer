@@ -30,7 +30,7 @@ really uses: an HD patch's `CreatureDisplayInfo.dbc` is extended, not replaced b
 - **DBCs** (`DBFilesClient`)
   - Rows of the committed SQL, the same values the server gets: `ChrClasses` 10 (Hunger = rage), `TalentTab`
     900-902, `Talent` 9000-9019, `Spell` 9100000-9100899, `CreatureModelData` 902038-902045, `CreatureDisplayInfo`
-    991001-991065, the spellbook tab (`SkillLine` 900, `SkillRaceClassInfo` 91000, `SkillLineAbility` 91001-91999,
+    991001-991065, the spellbook tab (`SkillLine` 900-902, `SkillRaceClassInfo` 91000-91002, `SkillLineAbility` 91001-91999,
     task 008). `dbc_layouts.json` maps AzerothCore's `*_dbc` columns onto the DBC fields (same order). The
     client reads the string of its own locale, so empty locale slots get the enUS text.
   - `SkillRaceClassInfo`, `SkillLineAbility`, `CharStartOutfit`: the warrior's skills and starting outfit for class

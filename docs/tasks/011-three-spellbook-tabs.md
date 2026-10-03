@@ -1,6 +1,6 @@
 # 011 — Three spellbook tabs, like the classic classes
 
-Status: open. Base: branch `task/006-007-devourer-start` (6ab2366). Branch: `task/011-three-spellbook-tabs`.
+Status: done (PR into task/006-007-devourer-start). Base: branch `task/006-007-devourer-start` (6ab2366). Branch: `task/011-three-spellbook-tabs`.
 Read `CLAUDE.md` and `docs/design.md` first. Owner's rule: build only what is asked here, nothing extra.
 
 ## Goal
