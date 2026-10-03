@@ -117,6 +117,8 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101322 | The Molt: Water Salamander | Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do not let it near my cauldron. |
 | 9101323 | The Molt: Deep Borer | Below the deepest mine there are tunnels no pick ever cut. The deep borers made them, looking for the heart of the world. They are still hungry, so it is still there. |
 | 9101324 | The Molt: Sethrak | Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, my little horror: as something that would not stop eating. |
+| 9101325 | The Molt: Proto-Drake | Proto-drakes are what dragons were before the Titans tidied them. Wild, hungry, and proud of it. You will fit right in. |
+| 9101326 | The Molt: Storm Dragon | Storm dragons were born in the sky over the sea, and the sea never forgave them. This one was born in the void as well. Mind the weather when you are angry, dear. |
 
 ## Lines (creature_text)
 
@@ -161,26 +163,29 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 20 | the Water Salamander molt | Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do not let it near my cauldron. | draft |
 | Hagatha | 21 | the Deep Borer molt | Below the deepest mine there are tunnels no pick ever cut. The deep borers made them, looking for the heart of the world. They are still hungry, so it is still there. | draft |
 | Hagatha | 22 | the Sethrak molt | Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, my little horror: as something that would not stop eating. | draft |
-| Hagatha | 23 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
-| Hagatha | 24 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
-| Hagatha | 25 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
-| Hagatha | 26 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
-| Hagatha | 27 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
-| Hagatha | 28 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
-| Hagatha | 29 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
-| Hagatha | 30 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
-| Hagatha | 31 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
-| Hagatha | 32 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
-| Hagatha | 33 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
-| Hagatha | 34 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
-| Hagatha | 35 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
-| Hagatha | 36 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
-| Hagatha | 37 | the tale of shape 25 | The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind. | draft |
-| Hagatha | 38 | the tale of shape 27 | The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants. | draft |
-| Hagatha | 39 | the tale of shape 33 | The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by your heartbeat, and a candle only shows you its mouth. | draft |
-| Hagatha | 40 | the tale of shape 31 | The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles are very good at keeping what they bite. | draft |
-| Hagatha | 41 | the tale of shape 28 | Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest. | draft |
-| Hagatha | 42 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
+| Hagatha | 23 | the Proto-Drake molt | Proto-drakes are what dragons were before the Titans tidied them. Wild, hungry, and proud of it. You will fit right in. | draft |
+| Hagatha | 24 | the Storm Dragon molt | Storm dragons were born in the sky over the sea, and the sea never forgave them. This one was born in the void as well. Mind the weather when you are angry, dear. | draft |
+| Hagatha | 25 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
+| Hagatha | 26 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
+| Hagatha | 27 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
+| Hagatha | 28 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
+| Hagatha | 29 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
+| Hagatha | 30 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
+| Hagatha | 31 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
+| Hagatha | 32 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
+| Hagatha | 33 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
+| Hagatha | 34 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
+| Hagatha | 35 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
+| Hagatha | 36 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
+| Hagatha | 37 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
+| Hagatha | 38 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
+| Hagatha | 39 | the tale of shape 25 | The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind. | draft |
+| Hagatha | 40 | the tale of shape 27 | The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants. | draft |
+| Hagatha | 41 | the tale of shape 35 | Every dragon was a whelp once, and every whelp thinks it is a dragon already. Eat the little ones of every flight, and you will wear their colours. | draft |
+| Hagatha | 42 | the tale of shape 33 | The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by your heartbeat, and a candle only shows you its mouth. | draft |
+| Hagatha | 43 | the tale of shape 31 | The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles are very good at keeping what they bite. | draft |
+| Hagatha | 44 | the tale of shape 28 | Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest. | draft |
+| Hagatha | 45 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
 | Wren | 16 | back in shape 5, 7, 9, 17, 18, 19 | Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you. | draft |
 | Wren | 17 | back in shape 10, 16 | Look at those legs! You could outrun Hagatha's temper. Almost. | draft |
 | Wren | 18 | back in shape 8, 23, 27 | Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles. | draft |
@@ -189,9 +194,10 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Wren | 21 | back in shape 2, 4, 12, 13, 22, 24 | You're all sparkly and wrong-looking. I love it. Don't touch the cauldron. | draft |
 | Wren | 22 | back in shape 6, 20, 33, 34 | Ew. EW! You smell like a cave. A good cave! But a cave. | draft |
 | Wren | 23 | back in shape 31, 32 | A shell! Can I live in it? No? Can I knock? Hello in there! | draft |
-| Wren | 24 | back in shape 1, 3, 25, 26 | Sssso fancy! Sorry. I had to. | draft |
-| Wren | 25 | back in shape 28, 29, 30 | A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it. | draft |
-| Wren | 26 | her apprentice joins the Devourer | Bramble! Out from behind the cauldron, you're going with Snack! Take your good boots. And the bucket. No, not that bucket. | draft |
+| Wren | 24 | back in shape 35, 36, 37 | A DRAGON! A real one! Can I ride you? Can I name you? Can I name you Sir Flaps? | draft |
+| Wren | 25 | back in shape 1, 3, 25, 26 | Sssso fancy! Sorry. I had to. | draft |
+| Wren | 26 | back in shape 28, 29, 30 | A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it. | draft |
+| Wren | 27 | her apprentice joins the Devourer | Bramble! Out from behind the cauldron, you're going with Snack! Take your good boots. And the bucket. No, not that bucket. | draft |
 
 ## Gossip texts
 

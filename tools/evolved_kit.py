@@ -108,8 +108,8 @@ class Evolved:
 
     def __init__(self, shape, name, parent, parent_name, creature, display, skin, one, two, gimmick, four, five,
                  diet, food, level, bp, tasks, extra=(), procs=(), scripts=(), changes=(), role="", looks=(),
-                 family=0, later_level=20, scale=1, quest=0):
-        assert bool(parent) != bool(family), f"{name}: grows out of a parent, or is devoured from a family"
+                 family=0, later_level=20, scale=1, quest=0, sources=(), earned=()):
+        assert bool(parent) != bool(family or sources), f"{name}: grows out of a parent, or is devoured"
         self.family = family              # a line's first form: any creature of this family gives it
         self.later_level = later_level    # the level the fifth ability opens at
         self.scale = scale                # devourer_shape.scale (a model bigger or smaller than its looks)
@@ -130,6 +130,10 @@ class Evolved:
         # Retail models brought in with the model tool (tools/modeltool, imports.json): [(display, colouring name)],
         # the first is the base look. They come with the shape (devourer_skin.free), so does the creature's own look.
         self.looks = list(looks)
+        # Creatures that give the form without a family of their own (the Dragonkin whelps): [(entry, colouring
+        # display, 0 = the base look)]; `earned` are the colourings only those creatures give (devourer_skin.free 0).
+        self.sources = list(sources)
+        self.earned = list(earned)
 
     @property
     def look(self):
@@ -1059,10 +1063,156 @@ DEEP_BORER = Evolved(
         "comes later with the stock Northrend jormungar.",
     ])
 
+# --- the form review's line 4 (owner: "4 is good, maybe switch to models we already have ready"): the dragons --------
+# 35 Whelp -> 36 Proto-Drake -> 37 Storm Dragon, all retail models from the owner's wow.export folder. Whelps are
+# Dragonkin without a family: each whelp of the world is named (sources), and gives the colouring of its flight.
+T_CONE_ENEMY = 24                        # TARGET_UNIT_CONE_ENEMY_24 (in front; spell_custom_attr 0x2 turns it behind)
+CONE_BACK = 0x2                          # SPELL_ATTR0_CU_CONE_BACK
+RADIUS_10, RADIUS_15 = 13, 18
+CREATURE_TYPE_DRAGONKIN = 2
+DRAGON_FOOD = [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "sheep", "Sheep"), (0, 0, "goat", "Goats"),
+               (0, 0, "kodo", "Kodos")]
+DRAGON_DIET = [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 8), (CREATURE_TYPE_DRAGONKIN, 12), (0, 3)]
+W_BLACK, W_RED, W_GREEN, W_BLUE, W_BRONZE, W_PURPLE, W_WHITE, W_GEM_BLUE, W_GEM_GREEN = range(994138, 994147)
+W_ARMORED, W_ARMORED_BLUE, W_NIGHTMARE = 994147, 994148, 994149
+W_PROTO_RED, W_PROTO_GREEN, W_PROTO_YELLOW, W_PROTO_WHITE, W_PROTO_DARK = range(994150, 994155)
+
+
+def breath(template, school, amount, spread, cooldown, anima_cost, ap, radius=RADIUS_10, **extra):
+    """A cone in front of the dragon."""
+    return (template, ability({**hunger(anima_cost), "Attributes": ATTR0_ABILITY, "AttributesEx": 0,
+                               "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_SELF, "DurationIndex": 0,
+                               "RecoveryTime": cooldown, "SchoolMask": school, "_bonus": (0, 0, ap, 0), **extra,
+                               **effects({"effect": E_SCHOOL_DAMAGE, "amount": amount, "spread": spread,
+                                          "target": T_CONE_ENEMY, "radius": radius})}))
+
+
+WHELP = Evolved(
+    35, "Whelp", 0, "", 441, 387, "Black Dragon Whelp",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": 0, **effects(hit(5), gain(10))}),
+     ("Whelp Bite", "Bite with needle teeth: weapon damage plus $s1. Generates 10 Anima.", "")),
+    (18500, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF, "DurationIndex": 0,
+                     "RecoveryTime": 15000, "SchoolMask": SCHOOL_PHYSICAL, "CastingTimeIndex": CAST_INSTANT,
+                     **effects({"effect": E_KNOCK_BACK, "amount": 60, "misc": 80, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_10})}),
+     ("Wing Flap", "Beat your little wings: enemies in front of you within 10 yards are blown back.", "")),
+    (25941, gimmick(11, 0, aura(A_MOD_DAMAGE_PCT_DONE, 5, SCHOOL_FIRE)),
+     ("Dragon's Blood", "Fire answers you: your Fire damage is increased by 5%.", "")),
+    (*breath(20712, SCHOOL_FIRE, 14, 6, 8000, 15, 0.15),
+     ("Flame Breath", "Breathe fire on the enemies in front of you within 10 yards: $s1 Fire damage.", "")),
+    (18431, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": DUR_3S, "RecoveryTime": 45000, "Mechanic": MECHANIC_FEAR,
+                     "CastingTimeIndex": CAST_INSTANT, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects(around(A_MOD_FEAR, radius=RADIUS_8))}),
+     ("Tiny Roar", "A roar far bigger than you: enemies within 8 yards flee for 3 sec.", "Fleeing.")),
+    DRAGON_DIET, DRAGON_FOOD, 18, 0, [],
+    sources=[(441, 0), (4324, 0), (21387, 0), (22108, 0), (22130, 0), (10161, 0),
+             (1042, W_RED), (1043, W_RED), (1069, W_RED), (1044, W_RED), (14022, W_RED),
+             (740, W_GREEN), (741, W_GREEN), (14023, W_GREEN), (14024, W_BLUE), (14025, W_BRONZE),
+             (21721, W_PURPLE), (27636, W_GEM_BLUE), (10442, W_GEM_GREEN), (2725, W_ARMORED),
+             (10659, W_ARMORED_BLUE), (8319, W_NIGHTMARE), (23688, W_PROTO_RED), (23882, W_PROTO_YELLOW)],
+    looks=[(W_BLACK, "Black Whelp"), (W_WHITE, "White Whelp"), (W_PROTO_GREEN, "Proto-Whelp Green"),
+           (W_PROTO_WHITE, "Proto-Whelp White"), (W_PROTO_DARK, "Proto-Whelp Dark")],
+    earned=[(W_RED, "Red Whelp"), (W_GREEN, "Green Whelp"), (W_BLUE, "Blue Whelp"), (W_BRONZE, "Bronze Whelp"),
+            (W_PURPLE, "Netherwing Whelp"), (W_GEM_BLUE, "Ley Whelp"), (W_GEM_GREEN, "Chromatic Whelp"),
+            (W_ARMORED, "Armored Whelp"), (W_ARMORED_BLUE, "Cobalt Whelp"), (W_NIGHTMARE, "Nightmare Whelp"),
+            (W_PROTO_RED, "Proto-Whelp Red"), (W_PROTO_YELLOW, "Proto-Whelp Yellow")],
+    later_level=24,
+    role="fire-breathing skirmisher",
+    changes=[
+        "The form review's line 4, on the owner's ready models: the Dragonflight whelp (9 flights), the armored "
+        "Cataclysm whelp, the Nightmare whelp and the proto-whelp.",
+        "Whelps are Dragonkin without a family, so each whelp of the world is named: the Black Dragon Whelps of "
+        "Redridge (17-18) give the form, and every other whelp gives its flight's colouring (red in the Wetlands, "
+        "green in the Swamp of Sorrows, the Nightmare Whelp in the Sunken Temple, the Corrupted Whelps of Blackwing "
+        "Lair, the Netherwing, Ley and Proto-Whelps ...).",
+    ])
+
+PROTO_DRAKE = Evolved(
+    36, "Proto-Drake", 35, "Whelp", 0, 994158, "Proto-Drake Red",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": sk.DUR_9S, "EffectMechanic_2": MECHANIC_BLEED,
+                     **effects(hit(9), bleed(5), gain(15))}),
+     ("Rending Bite", "Tear into the enemy: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 15 "
+      "Anima.", "Bleeding for $s2 every 3 sec.")),
+    (18500, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 15000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "CastingTimeIndex": CAST_INSTANT,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 60, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_10},
+                               {"effect": E_KNOCK_BACK, "amount": 80, "misc": 100, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_10})}),
+     ("Wing Buffet", "Buffet the enemies in front of you within 10 yards: 60% weapon damage, and they are blown "
+      "back.", "")),
+    (25941, gimmick(1618, 0, aura(A_MOD_RESISTANCE_PCT, 15, 1), aura(A_DMG_TAKEN_PCT, -10, SCHOOL_MAGIC_ALL)),
+     ("Proto Hide", "Your armor is increased by 15%, and magic hurts you 10% less.", "")),
+    (*breath(16396, SCHOOL_FIRE, 30, 10, 10000, 20, 0.25, RADIUS_15),
+     ("Fire Breath", "Breathe fire on the enemies in front of you within 15 yards: $s1 Fire damage.", "")),
+    (15847, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 20000, "SchoolMask": SCHOOL_PHYSICAL, "_custom": CONE_BACK,
+                     "CastingTimeIndex": CAST_INSTANT,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 70, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_10},
+                               {"effect": E_KNOCK_BACK, "amount": 80, "misc": 100, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_10})}),
+     ("Tail Sweep", "Sweep your tail through the enemies behind you within 10 yards: 70% weapon damage, and they "
+      "are knocked back.", "")),
+    DRAGON_DIET, DRAGON_FOOD, 35, 1000,
+    [(DEVOUR_NAME, 0, 30, "Devour 30 dragonkin as a Whelp", "whelp|drake|dragon|wyrm|scalebane|dragonspawn"),
+     (DEAL_DAMAGE, 0, 15000, "Deal 15,000 damage as a Whelp", ""),
+     (DEVOUR_ENTRY, 4066, 1, "Devour Nal'taszar, the rare drake of Stonetalon", "")],
+    looks=[(994158, "Proto-Drake Red"), (994155, "Proto-Drake Brown"), (994156, "Proto-Drake Grey"),
+           (994157, "Proto-Drake Pale"), (994159, "Proto-Drake Yellow"), (994160, "Proto-Drake Storm"),
+           (994161, "Proto-Drake Fire Blue"), (994162, "Proto-Drake Fire Dark")],
+    later_level=43,
+    role="drake bruiser",
+    changes=[
+        "The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, "
+        "not the 20-yard drakes of the Howling Fjord.",
+        "One breath (Fire) for every colouring: \"the colouring picks the element\" would need a script; later.",
+        "Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).",
+    ])
+
+STORM_DRAGON = Evolved(
+    37, "Storm Dragon", 36, "Proto-Drake", 0, 994163, "Void Storm Dragon",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": 0, "_bonus": (0, 0, 0.1, 0),
+                     **effects(hit(12), {"effect": E_SCHOOL_DAMAGE, "amount": 10, "spread": 4, "target": T_ENEMY},
+                               gain(15))}),
+     ("Storm Claw", "Claws crackling with lightning: weapon damage plus $s1, and $s2 Nature damage. Generates 15 "
+      "Anima.", "")),
+    (24844, ability({"CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
+                     "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.3, 0),
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 40, "spread": 10, "target": T_ENEMY}, gain(10))}),
+     ("Lightning Lance", "Hurl lightning at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima.",
+      "")),
+    (25941, gimmick(62, 0, aura(A_MOD_SPELL_CRIT_CHANCE, 5), aura(A_DMG_TAKEN_PCT, -5, SCHOOL_ALL)),
+     ("Void-Touched Storm", "Your spells strike critically 5% more often, and all damage hurts you 5% less.", "")),
+    (*breath(22539, SCHOOL_SHADOW, 45, 15, 12000, 25, 0.3, RADIUS_15),
+     ("Void Breath", "Breathe the void on the enemies in front of you within 15 yards: $s1 Shadow damage.", "")),
+    (7803, ability({**hunger(25), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": DUR_2S, "RecoveryTime": 40000, "Mechanic": MECHANIC_STUN,
+                    "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.2, 0), "CastingTimeIndex": CAST_INSTANT,
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 35, "spread": 10, "target": T_SRC_CASTER,
+                               "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8}, around(A_MOD_STUN, radius=RADIUS_8))}),
+     ("Thunderous Roar", "Roar like the storm: $s1 Nature damage to enemies within 8 yards, and they are stunned for "
+      "2 sec.", "Stunned.")),
+    DRAGON_DIET, DRAGON_FOOD, 55, 1400,
+    [(DEVOUR_NAME, 0, 25, "Devour 25 dragonkin as a Proto-Drake", "whelp|drake|dragon|wyrm|scalebane|dragonspawn"),
+     (SPELL_CAST, sid(36, 4), 80, "Breathe fire 80 times (Fire Breath)", ""),
+     (DEVOUR_ENTRY, 2447, 1, "Devour Narillasanz (Alterac Mountains)", "")],
+    later_level=60,
+    role="storm caster",
+    changes=[
+        "The retail void storm dragon (one look, its textures are built in), about 9 yards long.",
+        "Void Breath is a Shadow cone (the Devourer's void), Lightning Lance its ranged spell.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
-         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER]
+         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER, WHELP, PROTO_DRAKE, STORM_DRAGON]
 
 
 class Growth:
@@ -1082,6 +1232,8 @@ EXTRA_GROWTH = [
             (SPELL_CAST, sid(26, 1), 80, "Breathe lightning 80 times (Lightning Breath)", ""),
             (DEVOUR_ENTRY, 7273, 1, "Devour Gahz'rilla (Zul'Farrak)", "")]),
 ]
+
+EXTRA_GROWTH[0].quest = 9101324          # the Sethrak's molt quest, given before the dragons came (keep it)
 
 # Task 018: every evolution of this file gets a molt quest, in this order (tools/witch_sisters.py builds them).
 MOLTS = [f for f in FORMS if f.parent] + EXTRA_GROWTH
@@ -1175,6 +1327,8 @@ def main() -> int:
     procs = [(f.base + slot, flags, types, hits, cd, charges, chance)
              for f in FORMS for slot, flags, types, hits, cd, charges, chance in f.procs]
     bonus = [(spell, *o["_bonus"]) for spell, _, _, o, _ in defs if "_bonus" in o]
+    custom = [(f.base, 0x01000000) for f in FORMS] + \
+        [(spell, o["_custom"]) for spell, _, _, o, _ in defs if "_custom" in o]   # e.g. 0x2: a cone behind
     others = sorted({m.shape for m in MOLTS if not FIRST_SHAPE <= m.shape})   # growth into older shapes (Sethrak)
     other_sql = f" OR `to_shape` IN ({', '.join(map(str, others))})" if others else ""
 
@@ -1194,7 +1348,7 @@ def main() -> int:
         ",\n".join(f"({s}, '{n}')" for s, n in scripts) + ";",
         f"DELETE FROM `spell_custom_attr` WHERE `spell_id` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES",
-        ",\n".join(f"({f.base}, 0x01000000)" for f in FORMS) + ";",
+        ",\n".join(f"({spell}, {attrs:#010x})" for spell, attrs in custom) + ";",
         "-- The gimmicks that answer to hits (Cooldown = their rest, Chance = how often).",
         f"DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN {FIRST} AND {LAST};",
         "INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`,"
@@ -1218,11 +1372,16 @@ def main() -> int:
         f"DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",
         ",\n".join(f"({f.family}, {f.shape})" for f in FORMS if f.family) + ";",
+        "-- ...or named creatures give it (a kind without a family: the Dragonkin whelps), each with its colouring.",
+        f"DELETE FROM `devourer_shape_source` WHERE `shape_id` BETWEEN {lo} AND {hi};",
+        "INSERT INTO `devourer_shape_source` (`creature_entry`, `shape_id`, `display_id`) VALUES",
+        ",\n".join(f"({entry}, {f.shape}, {display})" for f in FORMS for entry, display in f.sources) + ";",
         f"DELETE FROM `devourer_skin` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "-- free = 1: comes with the shape (the retail looks, and the creature's own look beside them).",
         "INSERT INTO `devourer_skin` (`display_id`, `shape_id`, `name`, `brood_display`, `free`) VALUES",
         ",\n".join([f"({f.display}, {f.shape}, {q(f.skin)}, 0, {1 if f.looks else 0})" for f in FORMS]
-                   + [f"({d}, {f.shape}, {q(n)}, 0, 1)" for f in FORMS for d, n in f.looks if d != f.display]) + ";",
+                   + [f"({d}, {f.shape}, {q(n)}, 0, 1)" for f in FORMS for d, n in f.looks if d != f.display]
+                   + [f"({d}, {f.shape}, {q(n)}, 0, 0)" for f in FORMS for d, n in f.earned]) + ";",
         f"DELETE FROM `devourer_diet` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_diet` (`shape_id`, `creature_type`, `bp`) VALUES",
         ",\n".join(f"({f.shape}, {t}, {bp})" for f in FORMS for t, bp in f.diet) + ";",
@@ -1276,7 +1435,7 @@ def main() -> int:
           "",
           "| Shape | Form | Comes from | Level | Bio Points | Role |",
           "|---|---|---|---|---|---|"]
-    md += [f"| {f.shape} | {f.name} | {f.parent_name or f'devouring (family {f.family})'} | {f.level} | {f.bp or '-'} "
+    md += [f"| {f.shape} | {f.name} | {f.parent_name or (f'devouring (family {f.family})' if f.family else 'devouring')} | {f.level} | {f.bp or '-'} "
            f"| {f.role} |" for f in FORMS]
     md += [f"| {m.shape} | {m.name} | {m.parent_name} | {m.level} | {m.bp} | (an older form) |" for m in EXTRA_GROWTH]
     md.append("")
@@ -1287,13 +1446,17 @@ def main() -> int:
         md.append("")
     for f in FORMS:
         md.append(f"### {f.name} (shape {f.shape}, " + (f"grows out of the {f.parent_name})" if f.parent else
-                                                        f"devoured: any creature of family {f.family})"))
+                                                        f"devoured: any creature of family {f.family})" if f.family
+                                                        else f"devoured: {len(f.sources)} kinds of creature)"))
         if f.looks:
             md.append(f"Look: a retail model, base {f.look} (`{f.looks[0][1]}`); its other colourings come with the "
                       "shape: " + ", ".join(f"{d} `{n}`" for d, n in f.looks[1:]) + f". The creature's own look "
                       f"(creature {f.creature}, display {f.display}, `{f.skin}`) comes with it too. Any one task:")
         else:
             md.append(f"Look: creature {f.creature}, display {f.display} (skin `{f.skin}`). Any one task:")
+        if f.earned:
+            md.append("Colourings to earn, each from devouring its creature: " +
+                      ", ".join(f"{d} `{n}`" for d, n in f.earned) + ".")
         md.append("")
         md += [f"- {text}" for kind, value, count, text, parts in f.tasks]
         md.append("")

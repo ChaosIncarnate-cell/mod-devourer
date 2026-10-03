@@ -212,7 +212,9 @@ INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `Ques
 (9101321, 2, 35, 35, 0, 0, 0, 5, 0, 0, 'The Molt: Spikeshell', 'Go back to Wren Hollowmoor in the In-Between and let her peel your snapjaw body. A spikeshell is waiting under the old skin.', 'Your snapjaw body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
 (9101322, 2, 14, 14, 0, 0, 0, 5, 0, 0, 'The Molt: Water Salamander', 'Go back to Wren Hollowmoor in the In-Between and let her peel your biletoad body. A water salamander is waiting under the old skin.', 'Your biletoad body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
 (9101323, 2, 40, 40, 0, 0, 0, 5, 0, 0, 'The Molt: Deep Borer', 'Go back to Wren Hollowmoor in the In-Between and let her peel your borer body. A deep borer is waiting under the old skin.', 'Your borer body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
-(9101324, 2, 44, 44, 0, 0, 0, 5, 0, 0, 'The Molt: Sethrak', 'Go back to Wren Hollowmoor in the In-Between and let her peel your baby wind serpent body. A sethrak is waiting under the old skin.', 'Your baby wind serpent body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0);
+(9101324, 2, 44, 44, 0, 0, 0, 5, 0, 0, 'The Molt: Sethrak', 'Go back to Wren Hollowmoor in the In-Between and let her peel your baby wind serpent body. A sethrak is waiting under the old skin.', 'Your baby wind serpent body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101325, 2, 35, 35, 0, 0, 0, 5, 0, 0, 'The Molt: Proto-Drake', 'Go back to Wren Hollowmoor in the In-Between and let her peel your whelp body. A proto-drake is waiting under the old skin.', 'Your whelp body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0),
+(9101326, 2, 55, 55, 0, 0, 0, 5, 0, 0, 'The Molt: Storm Dragon', 'Go back to Wren Hollowmoor in the In-Between and let her peel your proto-drake body. A storm dragon is waiting under the old skin.', 'Your proto-drake body has eaten enough. It itches, it pulls, it does not fit any more. The sisters can feel it from the In-Between.', '', 'Return to Wren Hollowmoor.', 0);
 INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
 (9101310, 512, 9101303),
 (9101311, 512, 9101303),
@@ -228,7 +230,9 @@ INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VAL
 (9101321, 512, 9101303),
 (9101322, 512, 9101303),
 (9101323, 512, 9101303),
-(9101324, 512, 9101303);
+(9101324, 512, 9101303),
+(9101325, 512, 9101303),
+(9101326, 512, 9101303);
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
 (9101310, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
 (9101311, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
@@ -244,9 +248,11 @@ INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`)
 (9101321, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
 (9101322, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
 (9101323, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
-(9101324, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0);
+(9101324, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101325, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0),
+(9101326, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0);
 INSERT INTO `creature_questender` (`id`, `quest`) VALUES
-(9101301, 9101310), (9101301, 9101311), (9101301, 9101312), (9101301, 9101313), (9101301, 9101314), (9101301, 9101315), (9101301, 9101316), (9101301, 9101317), (9101301, 9101318), (9101301, 9101319), (9101301, 9101320), (9101301, 9101321), (9101301, 9101322), (9101301, 9101323), (9101301, 9101324);
+(9101301, 9101310), (9101301, 9101311), (9101301, 9101312), (9101301, 9101313), (9101301, 9101314), (9101301, 9101315), (9101301, 9101316), (9101301, 9101317), (9101301, 9101318), (9101301, 9101319), (9101301, 9101320), (9101301, 9101321), (9101301, 9101322), (9101301, 9101323), (9101301, 9101324), (9101301, 9101325), (9101301, 9101326);
 
 -- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------
 INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES
@@ -289,26 +295,29 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (9101300, 20, 0, 'Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do not let it near my cauldron.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 20 (draft)'),
 (9101300, 21, 0, 'Below the deepest mine there are tunnels no pick ever cut. The deep borers made them, looking for the heart of the world. They are still hungry, so it is still there.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 21 (draft)'),
 (9101300, 22, 0, 'Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, my little horror: as something that would not stop eating.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 22 (draft)'),
-(9101300, 23, 0, 'The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 23 (draft)'),
-(9101300, 24, 0, 'Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 24 (draft)'),
-(9101300, 25, 0, 'A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 25 (draft)'),
-(9101300, 26, 0, 'Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 26 (draft)'),
-(9101300, 27, 0, 'In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 27 (draft)'),
-(9101300, 28, 0, 'The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 28 (draft)'),
-(9101300, 29, 0, 'The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 29 (draft)'),
-(9101300, 30, 0, 'Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 30 (draft)'),
-(9101300, 31, 0, 'The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 31 (draft)'),
-(9101300, 32, 0, 'The tauren children race the striders across the plains, and the striders let them win. Mostly.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 32 (draft)'),
-(9101300, 33, 0, 'In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 33 (draft)'),
-(9101300, 34, 0, 'The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 34 (draft)'),
-(9101300, 35, 0, 'A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 35 (draft)'),
-(9101300, 36, 0, 'The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 36 (draft)'),
-(9101300, 37, 0, 'The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 37 (draft)'),
-(9101300, 38, 0, 'The trolls of Zul''Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 38 (draft)'),
-(9101300, 39, 0, 'The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by your heartbeat, and a candle only shows you its mouth.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 39 (draft)'),
-(9101300, 40, 0, 'The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles are very good at keeping what they bite.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 40 (draft)'),
-(9101300, 41, 0, 'Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 41 (draft)'),
-(9101300, 42, 0, 'That shape has no story yet. Eat a little more of the world, and the world will write you one.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 42 (draft)'),
+(9101300, 23, 0, 'Proto-drakes are what dragons were before the Titans tidied them. Wild, hungry, and proud of it. You will fit right in.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 23 (draft)'),
+(9101300, 24, 0, 'Storm dragons were born in the sky over the sea, and the sea never forgave them. This one was born in the void as well. Mind the weather when you are angry, dear.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 24 (draft)'),
+(9101300, 25, 0, 'The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 25 (draft)'),
+(9101300, 26, 0, 'Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 26 (draft)'),
+(9101300, 27, 0, 'A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 27 (draft)'),
+(9101300, 28, 0, 'Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 28 (draft)'),
+(9101300, 29, 0, 'In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 29 (draft)'),
+(9101300, 30, 0, 'The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 30 (draft)'),
+(9101300, 31, 0, 'The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 31 (draft)'),
+(9101300, 32, 0, 'Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 32 (draft)'),
+(9101300, 33, 0, 'The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 33 (draft)'),
+(9101300, 34, 0, 'The tauren children race the striders across the plains, and the striders let them win. Mostly.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 34 (draft)'),
+(9101300, 35, 0, 'In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 35 (draft)'),
+(9101300, 36, 0, 'The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 36 (draft)'),
+(9101300, 37, 0, 'A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 37 (draft)'),
+(9101300, 38, 0, 'The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 38 (draft)'),
+(9101300, 39, 0, 'The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 39 (draft)'),
+(9101300, 40, 0, 'The trolls of Zul''Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 40 (draft)'),
+(9101300, 41, 0, 'Every dragon was a whelp once, and every whelp thinks it is a dragon already. Eat the little ones of every flight, and you will wear their colours.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 41 (draft)'),
+(9101300, 42, 0, 'The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by your heartbeat, and a candle only shows you its mouth.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 42 (draft)'),
+(9101300, 43, 0, 'The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles are very good at keeping what they bite.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 43 (draft)'),
+(9101300, 44, 0, 'Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 44 (draft)'),
+(9101300, 45, 0, 'That shape has no story yet. Eat a little more of the world, and the world will write you one.', 12, 0, 100, 1, 0, 0, 0, 0, 'Hagatha 45 (draft)'),
 (9101301, 16, 0, 'Fluffy! Actually fluffy this time! Can I brush you? No? I''m brushing you.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 16 (draft)'),
 (9101301, 17, 0, 'Look at those legs! You could outrun Hagatha''s temper. Almost.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 17 (draft)'),
 (9101301, 18, 0, 'Ooh, wings! Don''t fly near the candles, Snack. We''ve talked about the candles.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 18 (draft)'),
@@ -317,9 +326,10 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (9101301, 21, 0, 'You''re all sparkly and wrong-looking. I love it. Don''t touch the cauldron.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 21 (draft)'),
 (9101301, 22, 0, 'Ew. EW! You smell like a cave. A good cave! But a cave.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 22 (draft)'),
 (9101301, 23, 0, 'A shell! Can I live in it? No? Can I knock? Hello in there!', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 23 (draft)'),
-(9101301, 24, 0, 'Sssso fancy! Sorry. I had to.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 24 (draft)'),
-(9101301, 25, 0, 'A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don''t bite it.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 25 (draft)'),
-(9101301, 26, 0, 'Bramble! Out from behind the cauldron, you''re going with Snack! Take your good boots. And the bucket. No, not that bucket.', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 26 (draft)');
+(9101301, 24, 0, 'A DRAGON! A real one! Can I ride you? Can I name you? Can I name you Sir Flaps?', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 24 (draft)'),
+(9101301, 25, 0, 'Sssso fancy! Sorry. I had to.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 25 (draft)'),
+(9101301, 26, 0, 'A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don''t bite it.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 26 (draft)'),
+(9101301, 27, 0, 'Bramble! Out from behind the cauldron, you''re going with Snack! Take your good boots. And the bucket. No, not that bucket.', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 27 (draft)');
 
 -- --- gossip: the text depends on who asks; training only for a Devourer whose cage is open ---------------
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES

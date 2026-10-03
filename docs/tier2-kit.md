@@ -27,6 +27,9 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 32 | Spikeshell | Snapjaw | 35 | 900 | spiked tank |
 | 33 | Borer | devouring (family 42) | 13 | - | burrowing ambusher |
 | 34 | Deep Borer | Borer | 40 | 1000 | burrowing bruiser |
+| 35 | Whelp | devouring | 18 | - | fire-breathing skirmisher |
+| 36 | Proto-Drake | Whelp | 35 | 1000 | drake bruiser |
+| 37 | Storm Dragon | Proto-Drake | 55 | 1400 | storm caster |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
@@ -458,3 +461,65 @@ Changes against the canvas card, and why:
 
 - A larger copy of the rock worm (its own displays: one look cannot belong to two forms).
 - Quake (level 43) replaces the pick's "tunnel line" (a damaging line needs a script); the Jormungar step comes later with the stock Northrend jormungar.
+
+### Whelp (shape 35, devoured: 24 kinds of creature)
+Look: a retail model, base 994138 (`Black Whelp`); its other colourings come with the shape: 994144 `White Whelp`, 994151 `Proto-Whelp Green`, 994153 `Proto-Whelp White`, 994154 `Proto-Whelp Dark`. The creature's own look (creature 441, display 387, `Black Dragon Whelp`) comes with it too. Any one task:
+Colourings to earn, each from devouring its creature: 994139 `Red Whelp`, 994140 `Green Whelp`, 994141 `Blue Whelp`, 994142 `Bronze Whelp`, 994143 `Netherwing Whelp`, 994145 `Ley Whelp`, 994146 `Chromatic Whelp`, 994147 `Armored Whelp`, 994148 `Cobalt Whelp`, 994149 `Nightmare Whelp`, 994150 `Proto-Whelp Red`, 994152 `Proto-Whelp Yellow`.
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102190 | 1 | Whelp Form | Take the shape of a whelp you have devoured: Whelp Bite, Wing Flap, Flame Breath and Dragon's Blood; Tiny Roar opens at level 24. All shapes share one cooldown. |
+| 9102191 | 1 | Whelp Bite | Bite with needle teeth: weapon damage plus $s1. Generates 10 Anima. |cffb87830Whelp form|r |
+| 9102192 | 1 | Wing Flap | Beat your little wings: enemies in front of you within 10 yards are blown back. |cffb87830Whelp form|r |
+| 9102193 | 1 | Dragon's Blood | Fire answers you: your Fire damage is increased by 5%. |cffb87830Whelp form|r |
+| 9102194 | 1 | Flame Breath | Breathe fire on the enemies in front of you within 10 yards: $s1 Fire damage. |cffb87830Whelp form|r |
+| 9102195 | 24 | Tiny Roar | A roar far bigger than you: enemies within 8 yards flee for 3 sec. |cffb87830Whelp form|r |
+
+Changes against the canvas card, and why:
+
+- The form review's line 4, on the owner's ready models: the Dragonflight whelp (9 flights), the armored Cataclysm whelp, the Nightmare whelp and the proto-whelp.
+- Whelps are Dragonkin without a family, so each whelp of the world is named: the Black Dragon Whelps of Redridge (17-18) give the form, and every other whelp gives its flight's colouring (red in the Wetlands, green in the Swamp of Sorrows, the Nightmare Whelp in the Sunken Temple, the Corrupted Whelps of Blackwing Lair, the Netherwing, Ley and Proto-Whelps ...).
+
+### Proto-Drake (shape 36, grows out of the Whelp)
+Look: a retail model, base 994158 (`Proto-Drake Red`); its other colourings come with the shape: 994155 `Proto-Drake Brown`, 994156 `Proto-Drake Grey`, 994157 `Proto-Drake Pale`, 994159 `Proto-Drake Yellow`, 994160 `Proto-Drake Storm`, 994161 `Proto-Drake Fire Blue`, 994162 `Proto-Drake Fire Dark`. The creature's own look (creature 0, display 994158, `Proto-Drake Red`) comes with it too. Any one task:
+
+- Devour 30 dragonkin as a Whelp
+- Deal 15,000 damage as a Whelp
+- Devour Nal'taszar, the rare drake of Stonetalon
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102200 | 1 | Proto-Drake Form | Take the shape of the proto-drake, grown out of your whelp: Rending Bite, Wing Buffet, Fire Breath and Proto Hide; Tail Sweep opens at level 43. All shapes share one cooldown. |
+| 9102201 | 1 | Rending Bite | Tear into the enemy: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 15 Anima. |cffb87830Proto-Drake form|r |
+| 9102202 | 1 | Wing Buffet | Buffet the enemies in front of you within 10 yards: 60% weapon damage, and they are blown back. |cffb87830Proto-Drake form|r |
+| 9102203 | 1 | Proto Hide | Your armor is increased by 15%, and magic hurts you 10% less. |cffb87830Proto-Drake form|r |
+| 9102204 | 1 | Fire Breath | Breathe fire on the enemies in front of you within 15 yards: $s1 Fire damage. |cffb87830Proto-Drake form|r |
+| 9102205 | 43 | Tail Sweep | Sweep your tail through the enemies behind you within 10 yards: 70% weapon damage, and they are knocked back. |cffb87830Proto-Drake form|r |
+
+Changes against the canvas card, and why:
+
+- The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, not the 20-yard drakes of the Howling Fjord.
+- One breath (Fire) for every colouring: "the colouring picks the element" would need a script; later.
+- Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).
+
+### Storm Dragon (shape 37, grows out of the Proto-Drake)
+Look: creature 0, display 994163 (skin `Void Storm Dragon`). Any one task:
+
+- Devour 25 dragonkin as a Proto-Drake
+- Breathe fire 80 times (Fire Breath)
+- Devour Narillasanz (Alterac Mountains)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102210 | 1 | Storm Dragon Form | Take the shape of the storm dragon, grown out of your proto-drake: Storm Claw, Lightning Lance, Void Breath and Void-Touched Storm; Thunderous Roar opens at level 60. All shapes share one cooldown. |
+| 9102211 | 1 | Storm Claw | Claws crackling with lightning: weapon damage plus $s1, and $s2 Nature damage. Generates 15 Anima. |cffb87830Storm Dragon form|r |
+| 9102212 | 1 | Lightning Lance | Hurl lightning at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima. |cffb87830Storm Dragon form|r |
+| 9102213 | 1 | Void-Touched Storm | Your spells strike critically 5% more often, and all damage hurts you 5% less. |cffb87830Storm Dragon form|r |
+| 9102214 | 1 | Void Breath | Breathe the void on the enemies in front of you within 15 yards: $s1 Shadow damage. |cffb87830Storm Dragon form|r |
+| 9102215 | 60 | Thunderous Roar | Roar like the storm: $s1 Nature damage to enemies within 8 yards, and they are stunned for 2 sec. |cffb87830Storm Dragon form|r |
+
+Changes against the canvas card, and why:
+
+- The retail void storm dragon (one look, its textures are built in), about 9 yards long.
+- Void Breath is a Shadow cone (the Devourer's void), Lightning Lance its ranged spell.
