@@ -18,6 +18,10 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 23 | Royal Blue Flutterer | Moth | 12 | 500 | sleep and root controller |
 | 24 | Void Terror | Warp Stalker | 16 | 600 | shadow damage-over-time controller |
 | 25 | Viper | devouring (family 35) | 18 | - | ranged poisoner |
+| 26 | Baby Wind Serpent | Viper | 28 | 800 | lightning caster |
+| 27 | Baby Eagle | devouring (family 26) | 5 | - | diving skirmisher |
+| 28 | Baby Komodo | devouring (family 6) | 9 | - | festering brawler |
+| 29 | Komodo Dragon | Baby Komodo | 30 | 800 | festering tank |
 
 ### Greater Plainstrider (shape 16, grows out of the Plainstrider)
 Look: creature 3244, display 178 (skin `Greater Plainstrider`). Any one task:
@@ -256,3 +260,83 @@ Changes against the canvas card, and why:
 - Sand Slither keeps the model's Submerge and Emerge (stock spells that play them: Submerge Visual, Emerge).
 - Shed opens at level 20 as an ability, as the pick proposed, instead of being a passive.
 - Venom Spit grows with attack power (12% on the hit, 3% a tick), so it keeps up past level 20.
+
+### Baby Wind Serpent (shape 26, grows out of the Viper)
+Look: a retail model, base 994055 (`Wind Serpent Green`); its other colourings come with the shape: 994059 `Wind Serpent Yellow`, 994056 `Wind Serpent Pink`, 994057 `Wind Serpent Purple`, 994058 `Wind Serpent White`. The creature's own look (creature 3247, display 994055, `Wind Serpent Green`) comes with it too. Any one task:
+
+- Devour 25 wind serpents as a Viper
+- Spit venom 60 times (Venom Spit)
+- Devour Mutanus the Devourer (Wailing Caverns)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102100 | 1 | Baby Wind Serpent Form | Take the shape of the baby wind serpent, grown out of your viper: Lightning Breath, Chain Lightning, Cyclone Gust and Static Charge; Squall opens at level 34. All shapes share one cooldown. |
+| 9102101 | 1 | Lightning Breath | Breathe lightning at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima. |cffb87830Baby Wind Serpent form|r |
+| 9102102 | 1 | Chain Lightning | Lightning leaps from an enemy to up to 2 more nearby: $s1 Nature damage to each. |cffb87830Baby Wind Serpent form|r |
+| 9102103 | 1 | Static Charge | Your chance to strike critically with spells is increased by 5%, and a critical strike gives back 5 Anima. |cffb87830Baby Wind Serpent form|r |
+| 9102104 | 1 | Cyclone Gust | Beat up a gust of wind: enemies within 8 yards are blown back and move 30% slower for 4 sec. |cffb87830Baby Wind Serpent form|r |
+| 9102105 | 34 | Squall | Call a squall up to 30 yards away: for 6 sec, enemies under it take $s1 Nature damage every second and move 30% slower. |cffb87830Baby Wind Serpent form|r |
+| 9102106 | 1 | Static Charge | (cast by the kit)  |
+
+Changes against the canvas card, and why:
+
+- The owner's pick (2026-10-03, "babywindserpent after viper (magelike)"): the Viper's tier 2 is a caster, in place of the Twin-Fang.
+- Its damage grows with attack power (the Devourer has no spell power): 25% on Lightning Breath, 20% on Chain Lightning, 4% a second in the Squall.
+- Tasks: devour wind serpents (the Thunderhawks of the Barrens, 18-24, are the first), or the Viper's Venom Spit 60 times, or Mutanus the Devourer.
+
+### Baby Eagle (shape 27, devoured: any creature of family 26)
+Look: a retail model, base 994061 (`Eagle Brown`); its other colourings come with the shape: 994060 `Eagle Blue`, 994062 `Eagle Burgundy`, 994063 `Eagle Grey`, 994064 `Eagle Orange`, 994065 `Eagle Red`. The creature's own look (creature 1995, display 994061, `Eagle Brown`) comes with it too. Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102110 | 1 | Baby Eagle Form | Take the shape of a baby eagle you have devoured: Talon Strike, Dive, Wing Gust and Keen Eyes; Piercing Cry opens at level 20. All shapes share one cooldown. |
+| 9102111 | 1 | Talon Strike | Rake the enemy with your talons: weapon damage plus $s1. Generates 10 Anima. |cffb87830Baby Eagle form|r |
+| 9102112 | 1 | Dive | Dive at an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 10 Anima. |cffb87830Baby Eagle form|r |
+| 9102113 | 1 | Keen Eyes | Your chance to strike critically is increased by 3%. |cffb87830Baby Eagle form|r |
+| 9102114 | 1 | Wing Gust | Beat your wings: enemies within 6 yards are blown back. |cffb87830Baby Eagle form|r |
+| 9102115 | 20 | Piercing Cry | A cry that cuts to the bone: enemies within 8 yards attack 10% slower for 10 sec. |cffb87830Baby Eagle form|r |
+
+Changes against the canvas card, and why:
+
+- The owner's pick (2026-10-03, "babyeagle"): the Amani baby eagle model. Any creature of the Bird of Prey family gives it (owls, hawks, eagles); the first are Teldrassil's Strigid Owls (5-6).
+- Favourite food: critters and snakes.
+
+### Baby Komodo (shape 28, devoured: any creature of family 6)
+Look: a retail model, base 994070 (`Komodo Green`); its other colourings come with the shape: 994066 `Komodo Black`, 994067 `Komodo Blue`, 994068 `Komodo Brown`, 994069 `Komodo Dark Blue`, 994071 `Komodo Gila Orange`, 994072 `Komodo Gila Yellow`, 994073 `Komodo Grey`, 994074 `Komodo Bright Green`, 994075 `Komodo Orange`, 994076 `Komodo Purple`, 994077 `Komodo Red`, 994078 `Komodo Teal`, 994079 `Komodo White`, 994080 `Komodo Yellow`. The creature's own look (creature 3110, display 994070, `Komodo Green`) comes with it too. Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102120 | 1 | Baby Komodo Form | Take the shape of a baby komodo you have devoured: Septic Bite, Ankle Snap, Tail Whip and Thick Scales; Bask opens at level 20. All shapes share one cooldown. |
+| 9102121 | 1 | Septic Bite | A filthy bite: weapon damage plus $s1, and the wound festers for $o2 Nature damage over 12 sec. Generates 10 Anima. |cffb87830Baby Komodo form|r |
+| 9102122 | 1 | Ankle Snap | Snap at the enemy's ankles: weapon damage plus $s1, and it moves 50% slower for 6 sec. |cffb87830Baby Komodo form|r |
+| 9102123 | 1 | Thick Scales | Your armor is increased by 10%. |cffb87830Baby Komodo form|r |
+| 9102124 | 1 | Tail Whip | Whip your tail around: 70% weapon damage to every enemy within 8 yards. |cffb87830Baby Komodo form|r |
+| 9102125 | 20 | Bask | Bask and let your hide knit: you regain 15% of your maximum health over 10 sec. |cffb87830Baby Komodo form|r |
+
+Changes against the canvas card, and why:
+
+- The owner's pick (2026-10-03, "komodo"): the baby komodo model. Any creature of the Crocolisk family gives it (the Dreadmaw Crocolisks of Durotar, 9-11, are the first); it grows into the Komodo Dragon.
+
+### Komodo Dragon (shape 29, grows out of the Baby Komodo)
+Look: a retail model, base 994086 (`Komodo Dragon Green`); its other colourings come with the shape: 994081 `Komodo Dragon Barnacled`, 994082 `Komodo Dragon Black`, 994083 `Komodo Dragon Blue`, 994084 `Komodo Dragon Brown`, 994085 `Komodo Dragon Dark Blue`, 994087 `Komodo Dragon Gila Orange`, 994088 `Komodo Dragon Gila Yellow`, 994089 `Komodo Dragon Grey`, 994090 `Komodo Dragon Bright Green`, 994091 `Komodo Dragon Orange`, 994092 `Komodo Dragon Purple`, 994093 `Komodo Dragon Red`, 994094 `Komodo Dragon Stone`, 994095 `Komodo Dragon Teal`, 994096 `Komodo Dragon Yellow`. The creature's own look (creature 2476, display 994086, `Komodo Dragon Green`) comes with it too. Any one task:
+
+- Devour 30 crocolisks as a Baby Komodo
+- Deal 12,000 damage as a Baby Komodo
+- Devour the Large Loch Crocolisk (Loch Modan)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102130 | 1 | Komodo Dragon Form | Take the shape of the komodo dragon, grown out of your baby komodo: Septic Maw, Death Roll, Ambush Lunge and Septic Saliva; Regenerative Hide opens at level 34. All shapes share one cooldown. |
+| 9102131 | 1 | Septic Maw | A deep, filthy bite: weapon damage plus $s1, and the wound festers for $o2 Nature damage over 12 sec. Generates 15 Anima. |cffb87830Komodo Dragon form|r |
+| 9102132 | 1 | Death Roll | Clamp down and roll: 120% weapon damage, and the enemy is stunned for 2 sec. |cffb87830Komodo Dragon form|r |
+| 9102133 | 1 | Septic Saliva | Your bites leave filth in the wound: the enemy receives 25% less healing for 6 sec. |cffb87830Komodo Dragon form|r |
+| 9102134 | 1 | Ambush Lunge | Lunge at an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 10 Anima. |cffb87830Komodo Dragon form|r |
+| 9102135 | 34 | Regenerative Hide | Your hide closes its own wounds: you regain 30% of your maximum health over 10 sec. |cffb87830Komodo Dragon form|r |
+| 9102136 | 1 | Septic Saliva | (cast by the kit) Healing received reduced by 25%. |
+
+Changes against the canvas card, and why:
+
+- The grown komodo model, larger (0.55 against the baby's 0.34).
+- Septic Saliva is the line's anti-heal: every bite leaves 25% less healing for 6 sec.

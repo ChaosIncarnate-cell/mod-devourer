@@ -642,9 +642,188 @@ VIPER = Evolved(
         "Venom Spit grows with attack power (12% on the hit, 3% a tick), so it keeps up past level 20.",
     ])
 
+# --- the owner's picks (2026-10-03): "prepare babyeagle and komodo, and babywindserpent after viper (magelike)" ----
+# Retail models brought in with the model tool, sized to the creatures they stand for (imports.json).
+A_MOD_CRIT_PERCENT, A_MOD_SPELL_CRIT_CHANCE, A_MOD_HEALING_PCT = 52, 57, 118
+FAMILY_CROCOLISK_ = 6                    # (FAMILY_CROCOLISK from start_kit is the same; named for the komodo line)
+FAMILY_BIRD_OF_PREY, FAMILY_WIND_SERPENT = 26, 27
+HIT_CRIT = 0x2
+
+# 26 Baby Wind Serpent (tier 2, the Viper's: a caster)
+BABY_WIND_SERPENT = Evolved(
+    26, "Baby Wind Serpent", 25, "Viper", 3247, 994055, "Wind Serpent Green",
+    (24844, ability({"CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
+                     "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.25, 0),
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 24, "spread": 8, "target": T_ENEMY}, gain(10))}),
+     ("Lightning Breath", "Breathe lightning at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima.",
+      "")),
+    (421, ability({**hunger(20), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_30, "RecoveryTime": 10000,
+                   "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.2, 0),
+                   **effects({"effect": E_SCHOOL_DAMAGE, "amount": 20, "spread": 6, "target": T_ENEMY, "chain": 3})}),
+     ("Chain Lightning", "Lightning leaps from an enemy to up to 2 more nearby: $s1 Nature damage to each.", "")),
+    (25941, gimmick(62, PROC_DONE_SPELL_MAGIC, aura(A_MOD_SPELL_CRIT_CHANCE, 5),
+                    aura(A_PROC_TRIGGER_SPELL, trigger=sid(26, 6))),
+     ("Static Charge", "Your chance to strike critically with spells is increased by 5%, and a critical strike gives "
+      "back 5 Anima.", "")),
+    (61391, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_4S,
+                     "RecoveryTime": 20000, "SchoolMask": SCHOOL_NATURE, "EffectMechanic_2": MECHANIC_SNARE,
+                     **effects({"effect": E_KNOCK_BACK, "amount": 60, "misc": 120, "target": T_SRC_CASTER,
+                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8},
+                               around(A_MOD_DECREASE_SPEED, -30))}),
+     ("Cyclone Gust", "Beat up a gust of wind: enemies within 8 yards are blown back and move 30% slower for 4 sec.",
+      "Movement slowed by 30%.")),
+    (16914, ability({**hunger(25), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_30, "RecoveryTime": 25000,
+                     "DurationIndex": DUR_6S, "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0, 0.04),
+                     "ChannelInterruptFlags": 0, "AttributesEx": 0,
+                     **effects({"effect": E_PERSISTENT_AREA_AURA, "aura": A_PERIODIC_DAMAGE, "amount": 8,
+                                "period": 1000, "target": T_DEST_TARGET_ANY, "radius": RADIUS_8},
+                               {"effect": E_PERSISTENT_AREA_AURA, "aura": A_MOD_DECREASE_SPEED, "amount": -30,
+                                "target": T_DEST_TARGET_ANY, "radius": RADIUS_8})}),
+     ("Squall", "Call a squall up to 30 yards away: for 6 sec, enemies under it take $s1 Nature damage every second "
+      "and move 30% slower.", "In the squall.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_ELEMENTAL, 8), (0, 3)],
+    SERPENT_FOOD, 28, 800,
+    [(DEVOUR_FAMILY, FAMILY_WIND_SERPENT, 25, "Devour 25 wind serpents as a Viper", ""),
+     (SPELL_CAST, sid(25, 1), 60, "Spit venom 60 times (Venom Spit)", ""),
+     (DEVOUR_ENTRY, 3654, 1, "Devour Mutanus the Devourer (Wailing Caverns)", "")],
+    extra=[(6, 24844, helper({"RangeIndex": RANGE_SELF, "DurationIndex": 0, "SpellVisualID_1": 0,
+                              **effects(gain(5))}),
+            ("Static Charge", "", ""))],
+    procs=[(3, PROC_DONE_SPELL_MAGIC, 1, HIT_CRIT, 0, 0, 100)],
+    looks=[(994055, "Wind Serpent Green"), (994059, "Wind Serpent Yellow"), (994056, "Wind Serpent Pink"),
+           (994057, "Wind Serpent Purple"), (994058, "Wind Serpent White")],
+    later_level=34,
+    role="lightning caster",
+    changes=[
+        "The owner's pick (2026-10-03, \"babywindserpent after viper (magelike)\"): the Viper's tier 2 is a caster, "
+        "in place of the Twin-Fang.",
+        "Its damage grows with attack power (the Devourer has no spell power): 25% on Lightning Breath, 20% on Chain "
+        "Lightning, 4% a second in the Squall.",
+        "Tasks: devour wind serpents (the Thunderhawks of the Barrens, 18-24, are the first), or the Viper's Venom "
+        "Spit 60 times, or Mutanus the Devourer.",
+    ])
+
+# 27 Baby Eagle (devoured: any bird of prey, from the Strigid Owls of Teldrassil, 5-6, to the Fjord Hawks)
+BABY_EAGLE = Evolved(
+    27, "Baby Eagle", 0, "", 1995, 994061, "Eagle Brown",
+    (50541, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": 0, **effects(hit(5), gain(10))}),
+     ("Talon Strike", "Rake the enemy with your talons: weapon damage plus $s1. Generates 10 Anima.", "")),
+    (*charge(20000, CHARGE_STUN, 10),
+     ("Dive", "Dive at an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. "
+      "Generates 10 Anima.", "")),
+    (25941, gimmick(168, 0, aura(A_MOD_CRIT_PERCENT, 3)),
+     ("Keen Eyes", "Your chance to strike critically is increased by 3%.", "")),
+    (61391, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": 0,
+                     "RecoveryTime": 20000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects({"effect": E_KNOCK_BACK, "amount": 50, "misc": 100, "target": T_SRC_CASTER,
+                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_6})}),
+     ("Wing Gust", "Beat your wings: enemies within 6 yards are blown back.", "")),
+    (24423, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
+                     "RecoveryTime": 20000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects(around(A_MOD_MELEE_HASTE, -10))}),
+     ("Piercing Cry", "A cry that cuts to the bone: enemies within 8 yards attack 10% slower for 10 sec.",
+      "Attack speed slowed by 10%.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_CRITTER, 10), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, FAMILY_SERPENT, "", "Snakes")],
+    5, 0, [], family=FAMILY_BIRD_OF_PREY,
+    looks=[(994061, "Eagle Brown"), (994060, "Eagle Blue"), (994062, "Eagle Burgundy"), (994063, "Eagle Grey"),
+           (994064, "Eagle Orange"), (994065, "Eagle Red")],
+    role="diving skirmisher",
+    changes=[
+        "The owner's pick (2026-10-03, \"babyeagle\"): the Amani baby eagle model. Any creature of the Bird of Prey "
+        "family gives it (owls, hawks, eagles); the first are Teldrassil's Strigid Owls (5-6).",
+        "Favourite food: critters and snakes.",
+    ])
+
+# 28 Baby Komodo (devoured: any crocolisk, from Durotar's Dreadmaw Crocolisks, 9-11) -> 29 Komodo Dragon
+BABY_KOMODO = Evolved(
+    28, "Baby Komodo", 0, "", 3110, 994070, "Komodo Green",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_12S, "_bonus": (0, 0, 0, 0.02),
+                     **effects(hit(5), aura(A_PERIODIC_DAMAGE, 3, target=T_ENEMY, period=3000), gain(10))}),
+     ("Septic Bite", "A filthy bite: weapon damage plus $s1, and the wound festers for $o2 Nature damage over 12 sec. "
+      "Generates 10 Anima.", "Festering: $s2 Nature damage every 3 sec.")),
+    (3604, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 10000, "SchoolMask": SCHOOL_PHYSICAL,
+                    "DurationIndex": DUR_6S, "EffectMechanic_2": MECHANIC_SNARE,
+                    **effects(hit(3), aura(A_MOD_DECREASE_SPEED, -50, target=T_ENEMY))}),
+     ("Ankle Snap", "Snap at the enemy's ankles: weapon damage plus $s1, and it moves 50% slower for 6 sec.",
+      "Movement slowed by 50%.")),
+    (25941, gimmick(1581, 0, aura(A_MOD_RESISTANCE_PCT, 10, 1)),
+     ("Thick Scales", "Your armor is increased by 10%.", "")),
+    (49966, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 10000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 70, "target": T_SRC_CASTER,
+                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
+     ("Tail Whip", "Whip your tail around: 70% weapon damage to every enemy within 8 yards.", "")),
+    (774, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
+                   "RecoveryTime": 45000, "SchoolMask": SCHOOL_NATURE, "CastingTimeIndex": CAST_INSTANT,
+                   **effects(aura(A_OBS_MOD_HEALTH, 3, period=2000))}),
+     ("Bask", "Bask and let your hide knit: you regain 15% of your maximum health over 10 sec.",
+      "Regaining 3% health every 2 sec.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 6), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, FAMILY_BOAR, "", "")],
+    9, 0, [], family=FAMILY_CROCOLISK_,
+    looks=[(994070, "Komodo Green"), (994066, "Komodo Black"), (994067, "Komodo Blue"), (994068, "Komodo Brown"),
+           (994069, "Komodo Dark Blue"), (994071, "Komodo Gila Orange"), (994072, "Komodo Gila Yellow"),
+           (994073, "Komodo Grey"), (994074, "Komodo Bright Green"), (994075, "Komodo Orange"),
+           (994076, "Komodo Purple"), (994077, "Komodo Red"), (994078, "Komodo Teal"), (994079, "Komodo White"),
+           (994080, "Komodo Yellow")],
+    role="festering brawler",
+    changes=[
+        "The owner's pick (2026-10-03, \"komodo\"): the baby komodo model. Any creature of the Crocolisk family gives "
+        "it (the Dreadmaw Crocolisks of Durotar, 9-11, are the first); it grows into the Komodo Dragon.",
+    ])
+
+KOMODO_DRAGON = Evolved(
+    29, "Komodo Dragon", 28, "Baby Komodo", 2476, 994086, "Komodo Dragon Green",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_12S, "_bonus": (0, 0, 0, 0.03),
+                     **effects(hit(9), aura(A_PERIODIC_DAMAGE, 6, target=T_ENEMY, period=3000), gain(15))}),
+     ("Septic Maw", "A deep, filthy bite: weapon damage plus $s1, and the wound festers for $o2 Nature damage over "
+      "12 sec. Generates 15 Anima.", "Festering: $s2 Nature damage every 3 sec.")),
+    (12809, ability({**hunger(20), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 20000, "DurationIndex": DUR_2S,
+                     "SchoolMask": SCHOOL_PHYSICAL, "EffectMechanic_2": MECHANIC_STUN,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 120, "target": T_ENEMY},
+                               aura(A_MOD_STUN, target=T_ENEMY))}),
+     ("Death Roll", "Clamp down and roll: 120% weapon damage, and the enemy is stunned for 2 sec.", "Stunned.")),
+    (25941, gimmick(1581, PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE, aura(A_PROC_TRIGGER_SPELL, trigger=sid(29, 6))),
+     ("Septic Saliva", "Your bites leave filth in the wound: the enemy receives 25% less healing for 6 sec.", "")),
+    (*charge(20000, CHARGE_STUN, 10),
+     ("Ambush Lunge", "Lunge at an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for "
+      "1.5 sec. Generates 10 Anima.", "")),
+    (774, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
+                   "RecoveryTime": 60000, "SchoolMask": SCHOOL_NATURE, "CastingTimeIndex": CAST_INSTANT,
+                   **effects(aura(A_OBS_MOD_HEALTH, 6, period=2000))}),
+     ("Regenerative Hide", "Your hide closes its own wounds: you regain 30% of your maximum health over 10 sec.",
+      "Regaining 6% health every 2 sec.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 8), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, FAMILY_BOAR, "", "")],
+    30, 800,
+    [(DEVOUR_FAMILY, FAMILY_CROCOLISK_, 30, "Devour 30 crocolisks as a Baby Komodo", ""),
+     (DEAL_DAMAGE, 0, 12000, "Deal 12,000 damage as a Baby Komodo", ""),
+     (DEVOUR_ENTRY, 2476, 1, "Devour the Large Loch Crocolisk (Loch Modan)", "")],
+    extra=[(6, 3604, helper({"RangeIndex": RANGE_ANYWHERE, "DurationIndex": DUR_6S, "SchoolMask": SCHOOL_NATURE,
+                             **effects(aura(A_MOD_HEALING_PCT, -25, target=T_ENEMY))}),
+            ("Septic Saliva", "", "Healing received reduced by 25%."))],
+    procs=[(3, PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE, 1, 0, 0, 0, 100)],
+    looks=[(994086, "Komodo Dragon Green"), (994081, "Komodo Dragon Barnacled"), (994082, "Komodo Dragon Black"),
+           (994083, "Komodo Dragon Blue"), (994084, "Komodo Dragon Brown"), (994085, "Komodo Dragon Dark Blue"),
+           (994087, "Komodo Dragon Gila Orange"), (994088, "Komodo Dragon Gila Yellow"),
+           (994089, "Komodo Dragon Grey"), (994090, "Komodo Dragon Bright Green"), (994091, "Komodo Dragon Orange"),
+           (994092, "Komodo Dragon Purple"), (994093, "Komodo Dragon Red"), (994094, "Komodo Dragon Stone"),
+           (994095, "Komodo Dragon Teal"), (994096, "Komodo Dragon Yellow")],
+    later_level=34,
+    role="festering tank",
+    changes=[
+        "The grown komodo model, larger (0.55 against the baby's 0.34).",
+        "Septic Saliva is the line's anti-heal: every bite leaves 25% less healing for 6 sec.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
-         ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER]
+         ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
+         KOMODO_DRAGON]
 
 
 class Growth:

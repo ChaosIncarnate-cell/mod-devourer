@@ -246,6 +246,10 @@ MOLT_TALES = {
         "empty.",
     23: "The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about.",
     24: "Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to.",
+    26: "A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind "
+        "serpents clearing their throats.",
+    29: "On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little "
+        "horror. It heals inside the lizard.",
 }
 HAGATHA_MOLT_FIRST = 8
 for i, molt in enumerate(evolved_kit.MOLTS):
@@ -280,6 +284,10 @@ SHAPE_TALES = {
     15: "The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there.",
     25: "The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in "
         "the dark are the worst kind.",
+    27: "The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose "
+        "heart it wants.",
+    28: "Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the "
+        "bite does the rest.",
 }
 NO_TALE = "That shape has no story yet. Eat a little more of the world, and the world will write you one."
 HAGATHA_SHAPE_FIRST = HAGATHA_MOLT_FIRST + len(evolved_kit.MOLTS)
@@ -294,12 +302,13 @@ HAGATHA_TALE_OF = {**{molt.shape: HAGATHA_MOLT_FIRST + i for i, molt in enumerat
 WREN_REACTIONS = [  # (line, shapes)
     ("Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you.", (5, 7, 9, 17, 18, 19)),
     ("Look at those legs! You could outrun {hagatha}'s temper. Almost.", (10, 16)),
-    ("Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles.", (8, 23)),
+    ("Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles.", (8, 23, 27)),
     ("Upside down, please, that's how I like my bats. No? Fine. Rightside up.", (11, 21)),
     ("My toad! Hello, my toad! Did you eat any bugs? Of course you did.", (14, 15)),
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20)),
-    ("Sssso fancy! Sorry. I had to.", (1, 3, 25)),
+    ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
+    ("A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it.", (28, 29)),
 ]
 WREN_REACTION_FIRST = 16
 for i, (line, _) in enumerate(WREN_REACTIONS):
