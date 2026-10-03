@@ -246,9 +246,6 @@ MOLT_TALES = {
         "empty.",
     23: "The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about.",
     24: "Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to.",
-    26: "Two heads, one hunger. In the Barrens they say the second head is the one that remembers every grudge.",
-    1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
-       "my little horror: as something that would not stop eating.",
 }
 HAGATHA_MOLT_FIRST = 8
 for i, molt in enumerate(evolved_kit.MOLTS):
@@ -302,7 +299,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("My toad! Hello, my toad! Did you eat any bugs? Of course you did.", (14, 15)),
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20)),
-    ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
+    ("Sssso fancy! Sorry. I had to.", (1, 3, 25)),
 ]
 WREN_REACTION_FIRST = 16
 for i, (line, _) in enumerate(WREN_REACTIONS):

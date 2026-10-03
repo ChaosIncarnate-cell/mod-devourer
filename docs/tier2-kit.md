@@ -18,14 +18,6 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 23 | Royal Blue Flutterer | Moth | 12 | 500 | sleep and root controller |
 | 24 | Void Terror | Warp Stalker | 16 | 600 | shadow damage-over-time controller |
 | 25 | Viper | devouring (family 35) | 18 | - | ranged poisoner |
-| 26 | Twin-Fang Serpent | Viper | 30 | 800 | poison controller and ambusher |
-| 1 | Sethrak | Twin-Fang Serpent | 44 | 1400 | (an older form) |
-
-### Sethrak (shape 1, now also grows out of the Twin-Fang Serpent, quest 9101320)
-
-- Devour 20 Sandfury trolls or sand beasts as a Twin-Fang
-- Entrance 50 enemies (Hypnotic Sway)
-- Devour Gahz'rilla (Zul'Farrak)
 
 ### Greater Plainstrider (shape 16, grows out of the Plainstrider)
 Look: creature 3244, display 178 (skin `Greater Plainstrider`). Any one task:
@@ -264,27 +256,3 @@ Changes against the canvas card, and why:
 - Sand Slither keeps the model's Submerge and Emerge (stock spells that play them: Submerge Visual, Emerge).
 - Shed opens at level 20 as an ability, as the pick proposed, instead of being a passive.
 - Venom Spit grows with attack power (12% on the hit, 3% a tick), so it keeps up past level 20.
-
-### Twin-Fang Serpent (shape 26, grows out of the Viper)
-Look: a retail model, base 991040 (`Twin-Fang Purple`); its other colourings come with the shape: 991045 `Twin-Fang Teal`. The creature's own look (creature 0, display 991040, `Twin-Fang Purple`) comes with it too. Any one task:
-
-- Devour 30 serpents or naga as a Viper
-- Spit venom 60 times (Venom Spit)
-- Devour Mutanus the Devourer (Wailing Caverns)
-
-| Spell | Level | Name | What it does |
-|---|---|---|---|
-| 9102100 | 1 | Twin-Fang Serpent Form | Take the shape of the twin-fang serpent, grown out of your viper: Twin Bite, Hypnotic Sway, Burrowing Ambush and Second Head; Venom Pool opens at level 34. All shapes share one cooldown. |
-| 9102101 | 1 | Twin Bite | Both heads bite: twice 60% weapon damage, and your venom on the enemy lasts 3 sec longer. Generates 15 Anima. |cffb87830Twin-Fang Serpent form|r |
-| 9102102 | 1 | Hypnotic Sway | Sway both heads before an enemy within 20 yards: it stands entranced for 4 sec. Any damage wakes it. |cffb87830Twin-Fang Serpent form|r |
-| 9102103 | 1 | Second Head | Every third Twin Bite, the second head bites again on its own: another Twin Bite at half strength. |cffb87830Twin-Fang Serpent form|r |
-| 9102104 | 1 | Burrowing Ambush | Dive under the ground and burst up beneath an enemy within 20 yards: it takes Physical damage and is thrown into the air. |cffb87830Twin-Fang Serpent form|r |
-| 9102105 | 34 | Venom Pool | Spit a pool of venom up to 25 yards away: for 6 sec, enemies in it take $s1 Nature damage every second and move 40% slower. |cffb87830Twin-Fang Serpent form|r |
-| 9102106 | 1 | Burrowing Ambush | (cast by the kit)  |
-
-Changes against the canvas card, and why:
-
-- The Twinfangs model is the one the Vashnik's Rising Serpents wear (displays 991040 purple, 991045 teal): no new import, the shape scales it down (0.42).
-- Second Head repeats Twin Bite only (every third, at half strength): repeating the crowd control too would chain it.
-- Burrowing Ambush comes up behind the enemy (the Shadowstep destination) and throws it up with the Emerge animation.
-- Venom Pool opens at level 34 (the form itself opens at 30).

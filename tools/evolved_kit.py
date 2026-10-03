@@ -642,66 +642,9 @@ VIPER = Evolved(
         "Venom Spit grows with attack power (12% on the hit, 3% a tick), so it keeps up past level 20.",
     ])
 
-# 26 Twin-Fang Serpent (tier 2, the Viper's; wears the Twinfangs model the Vashnik's Rising Serpents already use)
-TWIN_FANG = Evolved(
-    26, "Twin-Fang Serpent", 25, "Viper", 0, 991040, "Twin-Fang Purple",
-    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
-                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 60, "target": T_ENEMY},
-                               {"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 60, "target": T_ENEMY}, gain(15))}),
-     ("Twin Bite", "Both heads bite: twice 60% weapon damage, and your venom on the enemy lasts 3 sec longer. "
-      "Generates 15 Anima.", "")),
-    (2637, ability({**hunger(15), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_20, "RecoveryTime": 25000,
-                    "DurationIndex": DUR_4S, "Mechanic": MECHANIC_DISORIENTED, "TargetCreatureType": 0,
-                    "SchoolMask": SCHOOL_NATURE, "AuraInterruptFlags": AURA_INTERRUPT_DAMAGE,
-                    **effects(aura(A_MOD_STUN, target=T_ENEMY))}),
-     ("Hypnotic Sway", "Sway both heads before an enemy within 20 yards: it stands entranced for 4 sec. Any damage "
-      "wakes it.", "Entranced.")),
-    (25941, gimmick(1987, 0, aura(A_DUMMY)),
-     ("Second Head", "Every third Twin Bite, the second head bites again on its own: another Twin Bite at half "
-      "strength.", "")),
-    (66947, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "CastingTimeIndex": CAST_INSTANT,
-                     "RangeIndex": RANGE_20, "RecoveryTime": 20000, "DurationIndex": 0, "SchoolMask": SCHOOL_PHYSICAL,
-                     **effects({"effect": E_TELEPORT_UNITS, "target": T_CASTER, "targetB": T_DEST_TARGET_BACK,
-                                "radius": 7},
-                               {"effect": E_TRIGGER_SPELL, "target": T_ENEMY, "trigger": sid(26, 6)},
-                               {"effect": E_TRIGGER_SPELL, "target": T_CASTER, "trigger": sid(25, 6)})}),
-     ("Burrowing Ambush", "Dive under the ground and burst up beneath an enemy within 20 yards: it takes Physical "
-      "damage and is thrown into the air.", "")),
-    (37615, ability({**hunger(15), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_25, "RecoveryTime": 20000,
-                     "DurationIndex": DUR_6S, "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0, 0.03),
-                     **effects({"effect": E_PERSISTENT_AREA_AURA, "aura": A_PERIODIC_DAMAGE, "amount": 6,
-                                "period": 1000, "target": T_DEST_TARGET_ANY, "radius": RADIUS_8},
-                               {"effect": E_PERSISTENT_AREA_AURA, "aura": A_MOD_DECREASE_SPEED, "amount": -40,
-                                "target": T_DEST_TARGET_ANY, "radius": RADIUS_8})}),
-     ("Venom Pool", "Spit a pool of venom up to 25 yards away: for 6 sec, enemies in it take $s1 Nature damage every "
-      "second and move 40% slower.", "Poisoned and slowed.")),
-    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 10), (CREATURE_TYPE_CRITTER, 6), (0, 3)],
-    SERPENT_FOOD, 30, 800,
-    [(DEVOUR_NAME, 0, 30, "Devour 30 serpents or naga as a Viper", SERPENTS),
-     (SPELL_CAST, sid(25, 1), 60, "Spit venom 60 times (Venom Spit)", ""),
-     (DEVOUR_ENTRY, 3654, 1, "Devour Mutanus the Devourer (Wailing Caverns)", "")],
-    extra=[(6, 6343, helper({"RangeIndex": RANGE_ANYWHERE, "DurationIndex": 0, "SchoolMask": SCHOOL_PHYSICAL,
-                             "_bonus": (0, 0, 0.15, 0),
-                             **effects({"effect": E_SCHOOL_DAMAGE, "amount": 20, "spread": 8, "target": T_ENEMY},
-                                       {"effect": E_KNOCK_BACK, "amount": 120, "misc": 0, "target": T_ENEMY})}),
-            ("Burrowing Ambush", "", ""))],
-    scripts=[(1, "spell_devourer_twin_bite")],
-    looks=[(991040, "Twin-Fang Purple"), (991045, "Twin-Fang Teal")],
-    later_level=34, scale=0.42,
-    role="poison controller and ambusher",
-    changes=[
-        "The Twinfangs model is the one the Vashnik's Rising Serpents wear (displays 991040 purple, 991045 teal): no new "
-        "import, the shape scales it down (0.42).",
-        "Second Head repeats Twin Bite only (every third, at half strength): repeating the crowd control too would "
-        "chain it.",
-        "Burrowing Ambush comes up behind the enemy (the Shadowstep destination) and throws it up with the Emerge "
-        "animation.",
-        "Venom Pool opens at level 34 (the form itself opens at 30).",
-    ])
-
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
-         ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, TWIN_FANG]
+         ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER]
 
 
 class Growth:
@@ -713,13 +656,7 @@ class Growth:
         self.quest = 0
 
 
-EXTRA_GROWTH = [
-    Growth(26, "Twin-Fang Serpent", 1, "Sethrak", 44, 1400,
-           [(DEVOUR_NAME, 0, 20, "Devour 20 Sandfury trolls or sand beasts as a Twin-Fang",
-             "sandfury|basilisk|dune|sand "),
-            (SPELL_CAST, sid(26, 2), 50, "Entrance 50 enemies (Hypnotic Sway)", ""),
-            (DEVOUR_ENTRY, 7273, 1, "Devour Gahz'rilla (Zul'Farrak)", "")]),
-]
+EXTRA_GROWTH = []                        # (owner, 2026-10-03: no Twin-Fang, so no step into the Sethrak yet)
 
 # Task 018: every evolution of this file gets a molt quest, in this order (tools/witch_sisters.py builds them).
 MOLTS = [f for f in FORMS if f.parent] + EXTRA_GROWTH
@@ -812,7 +749,7 @@ def main() -> int:
     sql = [
         "-- Generated by tools/evolved_kit.py (task 017). Do not edit by hand: change the script and run it again.",
         f"-- The evolved forms and new lines: spells {FIRST}-{LAST}, shapes {lo}-{hi}, their evolutions (and the ones",
-        "-- into older shapes, e.g. the Twin-Fang into the Sethrak).",
+        "-- into older shapes).",
         "-- Safe to run again; removed by uninstall/world.sql.",
         "-- Note: 2026_09_30_04_devourer_world.sql clears devourer_evolution(_task) when it runs; run this file after it.",
         "",
