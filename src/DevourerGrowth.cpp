@@ -20,9 +20,11 @@
 #include "Creature.h"
 #include "CreatureTextMgr.h"
 #include "DatabaseEnv.h"
+#include "Item.h"
 #include "ObjectMgr.h"
 #include "Player.h"
 #include "QuestDef.h"
+#include "Random.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
 #include <algorithm>
@@ -159,6 +161,50 @@ namespace Devourer
         TaskEvent(player, TaskDevourName, meal->GetCreatureType(), 1, meal->GetName());
         TaskEvent(player, TaskDevourFamily, meal->GetCreatureTemplate()->family);
         TaskEvent(player, TaskDevourEntry, meal->GetEntry());
+        CheckEvolution(player);
+    }
+
+    // --- task 019 C: Wren's daily chores -----------------------------------------------------------------------
+
+    uint8 Mgr::TierOf(uint32 shapeId) const
+    {
+        uint8 tier = 1;
+        for (; tier < 3; ++tier)
+        {
+            auto parent = std::find_if(_evolutions.begin(), _evolutions.end(),
+                [shapeId](Evolution const& evo) { return evo.To == shapeId; });
+            if (parent == _evolutions.end())
+                break;
+            shapeId = parent->From;
+        }
+        return tier;
+    }
+
+    // Every meal in a form of the right tier may leave the chore's reagent (only while its quest is in the log, and
+    // while more are needed): "an item that only drops for a Devourer wearing a form of that tier".
+    void Mgr::ChoreDrop(Player* player)
+    {
+        uint8 const tier = TierOf(Get(player).Worn);
+        uint32 const quest = Sisters::QuestChoreFirst + tier - 1;
+        uint32 const item = Sisters::ItemChoreFirst + tier - 1;
+        if (!Get(player).Worn || player->GetQuestStatus(quest) != QUEST_STATUS_INCOMPLETE ||
+            player->GetItemCount(item, true) >= Sisters::ChoreCount || urand(1, 100) > Sisters::ChoreChance)
+            return;
+        ItemTemplate const* reagent = sObjectMgr->GetItemTemplate(item);
+        if (reagent && player->AddItem(item, 1))
+            Tell(player, "Something in that meal is worth keeping: " + reagent->Name1 + ".");
+    }
+
+    void Mgr::ChoreReward(Player* player, uint8 tier)
+    {
+        Shape const* worn = FindShape(Get(player).Worn);
+        if (!worn || tier < 1 || tier > 3)
+            return;
+        uint32 const gained = Sisters::ChoreBp[tier - 1];
+        uint32& bp = Get(player).Bio[worn->Id];
+        bp += gained;
+        Get(player).GrowthDirty = true;
+        Tell(player, "+" + std::to_string(gained) + " BP, from Wren (" + worn->Name + ": " + std::to_string(bp) + " BP)");
         CheckEvolution(player);
     }
 

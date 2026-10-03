@@ -24,6 +24,12 @@ namespace Devourer::Sisters
     constexpr uint32_t QuestApprentice = 9101305;   // task 018: the companion joins
     constexpr uint32_t QuestMoltFirst = 9101310;   // task 018: one per evolved form, in order
     constexpr uint32_t QuestMoltLast = 9101330;
+    constexpr uint32_t QuestChoreFirst = 9101391;   // task 019: Wren's daily chores, one per tier
+    constexpr uint32_t QuestChoreLast = 9101393;
+    constexpr uint32_t ItemChoreFirst = 9100110;   // their reagents, in the same order
+    constexpr uint32_t ChoreCount = 3;            // reagents a chore asks for
+    constexpr uint32_t ChoreChance = 40;          // % of meals in the right tier that leave one
+    constexpr uint32_t ChoreBp[] = { 60, 150, 300 };   // Bio Points per tier
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;

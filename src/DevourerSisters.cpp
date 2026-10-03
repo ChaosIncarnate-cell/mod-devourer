@@ -679,6 +679,8 @@ struct npc_devourer_witch_sister : public CreatureAI
             if (!config.Companion.empty())
                 ChatHandler(player->GetSession()).ParseCommands(".playerbots bot add " + config.Companion);
         }
+        else if (id >= QuestChoreFirst && id <= QuestChoreLast)
+            sDevourer.ChoreReward(player, uint8(id - QuestChoreFirst + 1));        // task 019: a daily chore, Bio Points
         else if (id >= QuestMoltFirst && id <= QuestMoltLast && me->GetEntry() == NpcWren)
         {
             // Task 018: Wren peels the old body, the new one crawls out, Hagatha tells its tale.

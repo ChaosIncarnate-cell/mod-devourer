@@ -12,7 +12,7 @@ DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR
 DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9101099 OR `SpellId`  BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_bonus_data`   WHERE `entry`    BETWEEN 9102000 AND 9102999;   -- task 017: attack power scaling
-DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101);
+DELETE FROM `item_template`      WHERE `entry` IN (9100100, 9100101) OR `entry` BETWEEN 9100110 AND 9100119;   -- 9100110+: Wren's chore reagents (task 019)
 
 -- --- creatures, spawns and looks (2026_09_30_03, _04) ------------------------------------------------------------
 -- 9101300-9101399 and spawns 9910200-9910299: the witch sisters in the In-Between and what goes with them
@@ -97,4 +97,5 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
     '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
     '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql',
-    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql');
+    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql',
+    '2026_10_03_01_devourer_void_egg.sql');

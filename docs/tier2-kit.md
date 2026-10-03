@@ -500,13 +500,17 @@ Look: a retail model, base 994158 (`Proto-Drake Red`); its other colourings come
 | 9102201 | 1 | Rending Bite | Tear into the enemy: weapon damage plus $s1, and it bleeds for $o2 over 9 sec. Generates 15 Anima. |cffb87830Proto-Drake form|r |
 | 9102202 | 1 | Wing Buffet | Buffet the enemies in front of you within 10 yards: 60% weapon damage, and they are blown back. |cffb87830Proto-Drake form|r |
 | 9102203 | 1 | Proto Hide | Your armor is increased by 15%, and magic hurts you 10% less. |cffb87830Proto-Drake form|r |
-| 9102204 | 1 | Fire Breath | Breathe fire on the enemies in front of you within 15 yards: $s1 Fire damage. |cffb87830Proto-Drake form|r |
+| 9102204 | 1 | Fire Breath | Breathe on the enemies in front of you within 15 yards: $s1 damage, and the colouring you wear picks the element: Fire (red), Nature (earth looks), Nature and a 3 sec slow (storm look) or Frost and a 5 sec slow (blue fire looks). |cffb87830Proto-Drake form|r |
 | 9102205 | 43 | Tail Sweep | Sweep your tail through the enemies behind you within 10 yards: 70% weapon damage, and they are knocked back. |cffb87830Proto-Drake form|r |
+| 9102206 | 1 | Fire Breath | (cast by the kit)  |
+| 9102207 | 1 | Earth Breath | (cast by the kit)  |
+| 9102208 | 1 | Storm Breath | (cast by the kit) Movement slowed by 20%. |
+| 9102209 | 1 | Frost Breath | (cast by the kit) Movement slowed by 30%. |
 
 Changes against the canvas card, and why:
 
 - The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, not the 20-yard drakes of the Howling Fjord.
-- One breath (Fire) for every colouring: "the colouring picks the element" would need a script; later.
+- The colouring picks the breath's element (task 019, src/DevourerVoid.cpp): the red look breathes Fire, the earth looks (994155-994157, 994159) Nature, the storm look (994160) Nature with a short slow, the blue fire looks (994161-994162) Frost with a slow. The breath's script casts the helper spells (slots 6-9) on every enemy it hits.
 - Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).
 
 ### Storm Dragon (shape 37, grows out of the Proto-Drake)
@@ -599,7 +603,7 @@ Look: creature 17887, display 994176 (skin `Voidling`). Any one task:
 | 9102250 | 1 | Voidling Form | Take the shape of a voidling you have devoured: Void Nibble, Phase Shift, Void Spit and Hungry Void; Void Tendrils opens at level 20. All shapes share one cooldown. |
 | 9102251 | 1 | Void Nibble | Nibble at the enemy with a mouth that should not be there: weapon damage plus $s1. Generates 10 Anima. |cffb87830Voidling form|r |
 | 9102252 | 1 | Phase Shift | Slip halfway out of the world for 2 sec: 50% faster, and nothing can strike you. |cffb87830Voidling form|r |
-| 9102253 | 1 | Hungry Void | The void in you is hungry too: your Shadow damage is increased by 5%. |cffb87830Voidling form|r |
+| 9102253 | 1 | Hungry Void | The void in you is hungry too: your Shadow damage is increased by 5%. Void Eggs: a kill leaves an egg that hatches a voidling a few seconds later (two eggs as a Brood Devourer); this holds for the whole line. |cffb87830Voidling form|r |
 | 9102254 | 1 | Void Spit | Spit a gob of void at an enemy up to 25 yards away: $s1 Shadow damage. Generates 10 Anima. |cffb87830Voidling form|r |
 | 9102255 | 20 | Void Tendrils | Tendrils of void hold every enemy within 8 yards in place for 3 sec. |cffb87830Voidling form|r |
 
@@ -607,7 +611,7 @@ Changes against the canvas card, and why:
 
 - The form review's line 7, its own Brood-themed branch: the retail baby voidwalker. The Void Critters of Bloodmyst Isle (3) give it, and so do the Void Anomalies there and the Voidspawn of Outland.
 - A Brood Devourer's hatchlings are voidlings in every step of this line (devourer_shape.brood_display).
-- The pick's void eggs and growing voidlings need module code: later.
+- The pick's Void Eggs are module code (src/DevourerVoid.cpp, task 019): a kill in any shape of the line leaves a void egg (creature 9101103) that hatches a voidling after 3 sec, two eggs for a Brood Devourer. The voidling is the Brood's own hatchling, so its limits, despawn and AI are unchanged (8 at most).
 
 ### Voidcreeper (shape 42, grows out of the Voidling)
 Look: a retail model, base 994177 (`Voidcreeper Blue`); its other colourings come with the shape: 994178 `Voidcreeper Red`, 994179 `Voidcreeper Yellow`. The creature's own look (creature 0, display 994177, `Voidcreeper Blue`) comes with it too. Any one task:
@@ -621,13 +625,15 @@ Look: a retail model, base 994177 (`Voidcreeper Blue`); its other colourings com
 | 9102260 | 1 | Voidcreeper Form | Take the shape of the voidcreeper, grown out of your voidling: Creeper Fang, Burrow, Ambush from Below and Brood Bond; Void Web opens at level 28. All shapes share one cooldown. |
 | 9102261 | 1 | Creeper Fang | Sink void-wet fangs into the enemy: weapon damage plus $s1, and $o2 Shadow damage over 12 sec. Generates 15 Anima. |cffb87830Voidcreeper form|r |
 | 9102262 | 1 | Burrow | Sink into the ground for up to 6 sec: 30% faster, and nothing can strike you. Using any ability brings you up. |cffb87830Voidcreeper form|r |
-| 9102263 | 1 | Brood Bond | The brood is one body: you take 5% less damage and deal 5% more. |cffb87830Voidcreeper form|r |
+| 9102263 | 1 | Brood Bond | The brood is one body: you take 5% less damage and deal 5% more. Feed the Swarm: voidlings near a kill devour the corpse and grow, up to 3 times. |cffb87830Voidcreeper form|r |
 | 9102264 | 1 | Ambush from Below | Only from under the ground: burst up and throw every enemy within 6 yards into the air for 90% weapon damage. |cffb87830Voidcreeper form|r |
 | 9102265 | 28 | Void Web | Spray void webbing: enemies in front of you within 10 yards cannot move for 3 sec. |cffb87830Voidcreeper form|r |
+| 9102266 | 1 | Fed Voidling | (cast by the kit) Fed: damage increased by 15% for each step. |
 
 Changes against the canvas card, and why:
 
 - The retail voidcreeper (three colourings); Burrow and Ambush from Below work like the Borer's.
+- Feed the Swarm (task 019, src/DevourerVoid.cpp; the Broodmother has it too): the voidling nearest to a kill comes to eat the corpse and grows a step (Fed Voidling, slot 6: +15% damage and 15% size, 3 steps at most).
 
 ### Voidcreeper Broodmother (shape 43, grows out of the Voidcreeper)
 Look: a retail model, base 994174 (`Broodmother Blue`); its other colourings come with the shape: 994175 `Broodmother Orange`. The creature's own look (creature 0, display 994174, `Broodmother Blue`) comes with it too. Any one task:
@@ -638,14 +644,16 @@ Look: a retail model, base 994174 (`Broodmother Blue`); its other colourings com
 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
-| 9102270 | 1 | Voidcreeper Broodmother Form | Take the shape of the voidcreeper broodmother, grown out of your voidcreeper: Rending Mandibles, Burrow, Brood Eruption and Broodmother's Carapace; Call the Swarm opens at level 48. All shapes share one cooldown. |
+| 9102270 | 1 | Voidcreeper Broodmother Form | Take the shape of the voidcreeper broodmother, grown out of your voidcreeper: Rending Mandibles, Burrow, Brood Eruption and Broodmother's Carapace; Broodmother's Call opens at level 48. All shapes share one cooldown. |
 | 9102271 | 1 | Rending Mandibles | Tear with mandibles of void: weapon damage plus $s1, and $o2 Shadow damage over 12 sec. Generates 15 Anima. |cffb87830Voidcreeper Broodmother form|r |
 | 9102272 | 1 | Burrow | Sink into the ground for up to 6 sec: 40% faster, and nothing can strike you. Using any ability brings you up. |cffb87830Voidcreeper Broodmother form|r |
-| 9102273 | 1 | Broodmother's Carapace | Your armor is increased by 20%, and you regain 1% of your maximum health every 3 sec. |cffb87830Voidcreeper Broodmother form|r |
+| 9102273 | 1 | Broodmother's Carapace | Your armor is increased by 20%, and you regain 1% of your maximum health every 3 sec. Your voidlings feed on corpses and grow, as in Feed the Swarm. |cffb87830Voidcreeper Broodmother form|r |
 | 9102274 | 1 | Brood Eruption | Only from under the ground: burst up and throw every enemy within 6 yards into the air for 120% weapon damage. |cffb87830Voidcreeper Broodmother form|r |
-| 9102275 | 48 | Call the Swarm | A swarm of voidlings boils out of the ground up to 30 yards away: for 6 sec, enemies there take $s1 Shadow damage every second. |cffb87830Voidcreeper Broodmother form|r |
+| 9102275 | 48 | Broodmother's Call | Call every voidling to your target for 15 sec (up to 3 hatch if you have fewer): they fixate on it, and a voidling that dies bursts for Shadow damage around it. A swarm also boils out of the ground up to 30 yards away: for 6 sec, enemies there take $s1 Shadow damage every second. |cffb87830Voidcreeper Broodmother form|r |
+| 9102276 | 1 | Broodmother's Call | (cast by the kit) Fixated on the Broodmother's target; bursts when it dies. |
+| 9102277 | 1 | Brood Burst | (cast by the kit)  |
 
 Changes against the canvas card, and why:
 
 - The retail vicious voidcreeper with its saddle hidden (model tool, Parts), two colourings.
-- Broodmother's Call (voidlings that fixate and explode) needs module code: Call the Swarm stands in for it.
+- Broodmother's Call (task 019, src/DevourerVoid.cpp) is Call the Swarm with the voidlings' part: it hatches voidlings up to 3, marks every voidling for 15 sec (slot 6: it keeps to the Broodmother's target) and a marked voidling that dies bursts (Brood Burst, slot 7: 35-45 Shadow damage plus 25% attack power to every enemy within 8 yards). The swarm that boils out of the ground stays.
