@@ -16,7 +16,7 @@ Hagatha through a course of witch-fires. Three races, each unlocking the next.
 
 | Quest | Course | Hagatha's pace | Reward |
 |---|---|---|---|
-| 9101360 Wren's Derby (from Wren in the In-Between, after Wren's Apprentice, level 20) | ~780 yd loop toward Lushwater Oasis | 8.5 yd/s | Apprentice Riding, Wren's Saddle, Wren's Racing Goggles, 25 silver |
+| 9101360 Wren's Derby (from Wren in the In-Between, after Wren's Apprentice, level 20) | ~780 yd loop toward Lushwater Oasis | 8.5 yd/s | Apprentice Riding, the Primal Tallstrider form, Wren's Racing Goggles, 25 silver |
 | 9101361 Hagatha Wants a Rematch | ~1270 yd, through the oasis shallows | 9.5 yd/s | Hagatha's Bristle Cloak, Hagatha's Sour Toffee x3, 5 silver |
 | 9101362 The Last Lap | ~1450 yd, the full course (about two minutes) | 10.3 yd/s | Bramble's Lucky Beetle, Reins of Hagatha's Kakapo, 10 silver |
 
@@ -36,7 +36,9 @@ The race body runs 11.2 yd/s (60%, an apprentice mount), so a clean run wins and
 5. Win: reach the last fire before Hagatha, rider still aboard. Lose: Hagatha first, rider gone, more than 250 yd off
    course, death, or leaving the map. Either way the body, the saddle and the speed come off, the old form comes back,
    and the race can be tried again right away.
-6. Turn in to Wren at the line. Race 1 also teaches Apprentice Riding (33388) and Wren's Saddle (when it exists).
+6. Turn in to Wren at the line. Race 1 also teaches Apprentice Riding (33388) and unlocks the Primal Tallstrider tier-2
+   form (the Devourer thread's form, with colourings, saddled and unsaddled; owner: "ofc it is supposed to be a form").
+   Wren's Saddle (spell 9103000) was dropped.
 
 ## Files
 

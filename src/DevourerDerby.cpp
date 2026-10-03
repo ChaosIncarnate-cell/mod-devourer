@@ -28,7 +28,6 @@
 #include "Player.h"
 #include "PlayerScript.h"
 #include "ScriptedGossip.h"
-#include "SpellMgr.h"
 #include "TemporarySummon.h"
 #include "Vehicle.h"
 #include "WorldPacket.h"
@@ -315,11 +314,12 @@ struct npc_devourer_derby_wren : public CreatureAI
     {
         if (quest->GetQuestId() != QuestDerby)
             return;
-        // Race 1 opens riding: Apprentice Riding, and Wren's Saddle (the Derby Beast as the Devourer's own mount).
+        // Race 1 opens riding (Apprentice Riding), and the body Wren gave it stays: the Primal Tallstrider form
+        // (owner, 2026-10-03: "ofc it is supposed to be a form").
         if (!player->HasSpell(SpellApprenticeRiding))
             player->learnSpell(SpellApprenticeRiding);
-        if (SpellWrensSaddle && sSpellMgr->GetSpellInfo(SpellWrensSaddle) && !player->HasSpell(SpellWrensSaddle))
-            player->learnSpell(SpellWrensSaddle);
+        if (ShapePrimalTallstrider)
+            sDevourer.Unlock(player, ShapePrimalTallstrider, 0, false);
     }
 
     void Start(Player* player)

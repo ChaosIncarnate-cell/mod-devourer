@@ -4,8 +4,9 @@
 --
 -- Needs, from other threads (the quests still load without them, the server only logs the missing parts):
 --   Items and balance: reward items 9104000-9104004 (goggles, cloak, beetle, toffee, Kakapo reins).
---   Devourer thread: display 994203 (the Derby Beast, Primal Tallstrider with its saddle) and spell 9103000 (Wren's
---   Saddle), both from task/017 (commit 246372d) and patch-Z v11.
+--   Devourer thread: display 994203 (the Derby Beast, Primal Tallstrider with its saddle; task/017 commit 246372d,
+--   patch-Z v11), and the shape id of the Primal Tallstrider tier-2 form that race 1 unlocks. (Wren's Saddle,
+--   spell 9103000, was dropped: owner, "ofc it is supposed to be a form".)
 --   The sisters' SQL must keep to 9101300-9101359 (tools/witch_sisters.py Q_LAST, commit b55066f on task/017).
 
 DELETE FROM `creature` WHERE `guid` BETWEEN 9910300 AND 9910349;
@@ -105,7 +106,7 @@ INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`,
 (9101362, 1, 1, 'The whole course, Snack. Every fire.', 0);
 
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
-(9101360, 4, 'WE WON! Hagatha, the cauldron is yours! Both hands!$B$BSnack, you were magnificent. And you know what that means: you can ride now. Real riding, on real mounts. And when you want to carry a friend, you know the saddle trick. Bramble, stop waving, it''s over.', 0),
+(9101360, 4, 'WE WON! Hagatha, the cauldron is yours! Both hands!$B$BSnack, you were magnificent. And you know what that means: you can ride now. Real riding, on real mounts. And that bird body? Keep it. It suits you. Bramble, stop waving, it''s over.', 0),
 (9101361, 4, 'Two for two! Listen. Hear that muttering? That''s Hagatha. It''s the best sound in the world.$B$BHere, something warm for the road, and some of her toffee. Don''t eat it all at once. Don''t ask what''s in it.', 0),
 (9101362, 4, 'THREE! A bet''s a bet, Hagatha. Hand over the bird.$B$BShe''s yours, Snack. Feed her twice a day and never at midnight. And Bramble gets the beetle, because she says it''s lucky and I''m not arguing with her today.', 0);
 
