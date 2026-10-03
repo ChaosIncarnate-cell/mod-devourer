@@ -250,6 +250,8 @@ MOLT_TALES = {
         "serpents clearing their throats.",
     1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
        "my little horror: as something that would not stop eating.",
+    43: "A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer.",
+    42: "Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family.",
     40: "When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells "
         "them. Now you can ask.",
     39: "The moonkin pray to Elune with their whole feathered hearts. She has never asked them to stop eating "
@@ -301,6 +303,7 @@ SHAPE_TALES = {
         "the dark are the worst kind.",
     27: "The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose "
         "heart it wants.",
+    41: "A voidling is a hole in the world that learned to be hungry. Sounds like someone I know.",
     38: "An owl sees what hides in the dark and says nothing. Learn the second part, little horror.",
     35: "Every dragon was a whelp once, and every whelp thinks it is a dragon already. Eat the little ones of every "
         "flight, and you will wear their colours.",
@@ -330,6 +333,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20, 33, 34)),
     ("A shell! Can I live in it? No? Can I knock? Hello in there!", (31, 32)),
+    ("Is it... wriggling? Inside you? Oh no. Oh, I love it.", (41, 42, 43)),
     ("Hoo! Hoo! ... Sorry. Does it hurt when I hoot? It hurts my sister.", (38, 39, 40)),
     ("A DRAGON! A real one! Can I ride you? Can I name you? Can I name you Sir Flaps?", (35, 36, 37)),
     ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),

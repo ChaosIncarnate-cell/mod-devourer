@@ -108,7 +108,7 @@ class Evolved:
 
     def __init__(self, shape, name, parent, parent_name, creature, display, skin, one, two, gimmick, four, five,
                  diet, food, level, bp, tasks, extra=(), procs=(), scripts=(), changes=(), role="", looks=(),
-                 family=0, later_level=20, scale=1, quest=0, sources=(), earned=()):
+                 family=0, later_level=20, scale=1, quest=0, sources=(), earned=(), brood=0):
         assert bool(parent) != bool(family or sources), f"{name}: grows out of a parent, or is devoured"
         self.family = family              # a line's first form: any creature of this family gives it
         self.later_level = later_level    # the level the fifth ability opens at
@@ -133,6 +133,7 @@ class Evolved:
         # Creatures that give the form without a family of their own (the Dragonkin whelps): [(entry, colouring
         # display, 0 = the base look)]; `earned` are the colourings only those creatures give (devourer_skin.free 0).
         self.sources = list(sources)
+        self.brood = brood                # a Brood Devourer's hatchlings while it wears this shape (0 = `display`)
         self.earned = list(earned)
 
     @property
@@ -1319,11 +1320,124 @@ MOONTOUCHED_OWLBEAST = Evolved(
         "The canvas's tier 3. The retail owlbear model (five colourings) in place of the old upright owlbeast.",
     ])
 
+# --- the form review's line 7 (owner: "Voidcreeper make its own branch, and brood themed") -----------------------
+# 41 Voidling -> 42 Voidcreeper -> 43 Voidcreeper Broodmother. A Brood Devourer's hatchlings are voidlings in every
+# step; the creepers burrow and erupt like the borers (the same Burrow script).
+CREATURE_TYPE_DEMON_ = 3
+VOIDLING_LOOK = 994176
+VOID_NAMES = "void|nether|voidwalker|voidspawn|voidcaller|voidwraith"
+VOID_DIET = [(CREATURE_TYPE_DEMON_, 12), (CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 8), (0, 3)]
+VOID_FOOD = [(CREATURE_TYPE_DEMON_, 0, "", ""), (0, 0, "void", "Void creatures"), (0, 0, "nether", "Nether creatures")]
+
+
+def shadow_bite(points, dot, anima, duration=DUR_12S):
+    return ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_SHADOW,
+                    "DurationIndex": duration, "_bonus": (0, 0, 0, 0.02),
+                    **effects(hit(points), aura(A_PERIODIC_DAMAGE, dot, target=T_ENEMY, period=3000), gain(anima))})
+
+
+VOIDLING = Evolved(
+    41, "Voidling", 0, "", 17887, VOIDLING_LOOK, "Voidling",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": 0, **effects(hit(4), gain(10))}),
+     ("Void Nibble", "Nibble at the enemy with a mouth that should not be there: weapon damage plus $s1. Generates "
+      "10 Anima.", "")),
+    (1850, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": DUR_2S, "RecoveryTime": 20000, "CastingTimeIndex": CAST_INSTANT,
+                    **effects(aura(A_MOD_INCREASE_SPEED, 50), aura(A_MOD_UNATTACKABLE))}),
+     ("Phase Shift", "Slip halfway out of the world for 2 sec: 50% faster, and nothing can strike you.",
+      "Out of phase.")),
+    (25941, gimmick(213, 0, aura(A_MOD_DAMAGE_PCT_DONE, 5, SCHOOL_SHADOW)),
+     ("Hungry Void", "The void in you is hungry too: your Shadow damage is increased by 5%.", "")),
+    (7588, ability({"CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_25, "RecoveryTime": 4000,
+                    "SchoolMask": SCHOOL_SHADOW, "_bonus": (0, 0, 0.12, 0),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 14, "spread": 4, "target": T_ENEMY}, gain(10))}),
+     ("Void Spit", "Spit a gob of void at an enemy up to 25 yards away: $s1 Shadow damage. Generates 10 Anima.", "")),
+    (50245, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": DUR_3S, "RecoveryTime": 25000, "Mechanic": MECHANIC_ROOT,
+                     "SchoolMask": SCHOOL_SHADOW, **effects(around(A_MOD_ROOT, radius=RADIUS_8))}),
+     ("Void Tendrils", "Tendrils of void hold every enemy within 8 yards in place for 3 sec.", "Held by the void.")),
+    VOID_DIET, VOID_FOOD, 5, 0, [],
+    sources=[(17887, 0), (17550, 0), (17981, 0)],
+    role="void imp",
+    changes=[
+        "The form review's line 7, its own Brood-themed branch: the retail baby voidwalker. The Void Critters of "
+        "Bloodmyst Isle (3) give it, and so do the Void Anomalies there and the Voidspawn of Outland.",
+        "A Brood Devourer's hatchlings are voidlings in every step of this line (devourer_shape.brood_display).",
+        "The pick's void eggs and growing voidlings need module code: later.",
+    ])
+
+VOIDCREEPER = Evolved(
+    42, "Voidcreeper", 41, "Voidling", 0, 994177, "Voidcreeper Blue",
+    (17253, shadow_bite(7, 4, 15),
+     ("Creeper Fang", "Sink void-wet fangs into the enemy: weapon damage plus $s1, and $o2 Shadow damage over "
+      "12 sec. Generates 15 Anima.", "$s2 Shadow damage every 3 sec.")),
+    (*burrow(42, 15000, 30),
+     ("Burrow", "Sink into the ground for up to 6 sec: 30% faster, and nothing can strike you. Using any ability "
+      "brings you up.", "Under the ground.")),
+    (25941, gimmick(213, 0, aura(A_DMG_TAKEN_PCT, -5, SCHOOL_ALL), aura(A_MOD_DAMAGE_PCT_DONE, 5, SCHOOL_ALL)),
+     ("Brood Bond", "The brood is one body: you take 5% less damage and deal 5% more.", "")),
+    (*erupt(42, 90, 6000),
+     ("Ambush from Below", "Only from under the ground: burst up and throw every enemy within 6 yards into the air "
+      "for 90% weapon damage.", "")),
+    (50245, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": DUR_3S, "RecoveryTime": 20000, "Mechanic": MECHANIC_ROOT,
+                     "SchoolMask": SCHOOL_SHADOW,
+                     **effects(aura(A_MOD_ROOT, target=T_CONE_ENEMY, radius=RADIUS_10))}),
+     ("Void Web", "Spray void webbing: enemies in front of you within 10 yards cannot move for 3 sec.", "Webbed.")),
+    VOID_DIET, VOID_FOOD, 20, 700,
+    [(DEVOUR_NAME, 0, 25, "Devour 25 void creatures as a Voidling", VOID_NAMES),
+     (SPELL_CAST, sid(41, 4), 60, "Spit void 60 times (Void Spit)", ""),
+     (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")],
+    scripts=[(2, "spell_devourer_burrow")],
+    looks=[(994177, "Voidcreeper Blue"), (994178, "Voidcreeper Red"), (994179, "Voidcreeper Yellow")],
+    brood=VOIDLING_LOOK,
+    later_level=28,
+    role="void ambusher",
+    changes=[
+        "The retail voidcreeper (three colourings); Burrow and Ambush from Below work like the Borer's.",
+    ])
+
+VOIDCREEPER_BROODMOTHER = Evolved(
+    43, "Voidcreeper Broodmother", 42, "Voidcreeper", 0, 994174, "Broodmother Blue",
+    (17253, shadow_bite(11, 7, 15),
+     ("Rending Mandibles", "Tear with mandibles of void: weapon damage plus $s1, and $o2 Shadow damage over 12 sec. "
+      "Generates 15 Anima.", "$s2 Shadow damage every 3 sec.")),
+    (*burrow(43, 12000, 40),
+     ("Burrow", "Sink into the ground for up to 6 sec: 40% faster, and nothing can strike you. Using any ability "
+      "brings you up.", "Under the ground.")),
+    (25941, gimmick(1581, 0, aura(A_MOD_RESISTANCE_PCT, 20, 1), aura(A_OBS_MOD_HEALTH, 1, period=3000)),
+     ("Broodmother's Carapace", "Your armor is increased by 20%, and you regain 1% of your maximum health every "
+      "3 sec.", "")),
+    (*erupt(43, 120, 6000),
+     ("Brood Eruption", "Only from under the ground: burst up and throw every enemy within 6 yards into the air for "
+      "120% weapon damage.", "")),
+    (16914, ability({**hunger(25), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_30, "RecoveryTime": 30000,
+                     "DurationIndex": DUR_6S, "SchoolMask": SCHOOL_SHADOW, "_bonus": (0, 0, 0, 0.05),
+                     "ChannelInterruptFlags": 0, "AttributesEx": 0,
+                     **effects({"effect": E_PERSISTENT_AREA_AURA, "aura": A_PERIODIC_DAMAGE, "amount": 12,
+                                "period": 1000, "target": T_DEST_TARGET_ANY, "radius": RADIUS_8})}),
+     ("Call the Swarm", "A swarm of voidlings boils out of the ground up to 30 yards away: for 6 sec, enemies there "
+      "take $s1 Shadow damage every second.", "In the swarm.")),
+    VOID_DIET, VOID_FOOD, 40, 1200,
+    [(DEVOUR_NAME, 0, 30, "Devour 30 void creatures as a Voidcreeper", VOID_NAMES),
+     (TAKE_DAMAGE, 0, 20000, "Weather 20,000 damage as a Voidcreeper", ""),
+     (DEVOUR_ENTRY, 2337, 1, "Devour a Dark Strand Voidcaller (Ashenvale)", "")],
+    scripts=[(2, "spell_devourer_burrow")],
+    looks=[(994174, "Broodmother Blue"), (994175, "Broodmother Orange")],
+    brood=VOIDLING_LOOK,
+    later_level=48,
+    role="brood tank",
+    changes=[
+        "The retail vicious voidcreeper with its saddle hidden (model tool, Parts), two colourings.",
+        "Broodmother's Call (voidlings that fixate and explode) needs module code: Call the Swarm stands in for it.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
          KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER, WHELP, PROTO_DRAKE, STORM_DRAGON,
-         OWL, MOONKIN, MOONTOUCHED_OWLBEAST]
+         OWL, MOONKIN, MOONTOUCHED_OWLBEAST, VOIDLING, VOIDCREEPER, VOIDCREEPER_BROODMOTHER]
 
 
 class Growth:
@@ -1478,7 +1592,7 @@ def main() -> int:
         "INSERT INTO `devourer_shape` (`shape_id`, `name`, `form_spell`, `display_id`, `scale`, `spell_1`, `spell_2`,"
         " `spell_3`, `spell_4`, `passive`, `brood_display`) VALUES",
         ",\n".join(f"({f.shape}, {q(f.name)}, {f.base}, {f.look}, {f.scale}, {f.base + 1}, {f.base + 2}, {f.base + 4},"
-                   f" {f.base + 5}, {f.base + 3}, {f.display})" for f in FORMS) + ";",
+                   f" {f.base + 5}, {f.base + 3}, {f.brood or f.display})" for f in FORMS) + ";",
         "-- A new line's first form is devoured: any creature of its family gives it (each look a colouring).",
         f"DELETE FROM `devourer_shape_family` WHERE `shape_id` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_shape_family` (`family`, `shape_id`) VALUES",

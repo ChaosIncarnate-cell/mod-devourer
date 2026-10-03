@@ -33,6 +33,9 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 38 | Owl | devouring | 5 | - | night hunter |
 | 39 | Moonkin | Owl | 20 | 700 | moon caster |
 | 40 | Moontouched Owlbeast | Moonkin | 45 | 1200 | moon bruiser |
+| 41 | Voidling | devouring | 5 | - | void imp |
+| 42 | Voidcreeper | Voidling | 20 | 700 | void ambusher |
+| 43 | Voidcreeper Broodmother | Voidcreeper | 40 | 1200 | brood tank |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
@@ -586,3 +589,63 @@ Look: a retail model, base 994169 (`Owlbeast Brown`); its other colourings come 
 Changes against the canvas card, and why:
 
 - The canvas's tier 3. The retail owlbear model (five colourings) in place of the old upright owlbeast.
+
+### Voidling (shape 41, devoured: 3 kinds of creature)
+Look: creature 17887, display 994176 (skin `Voidling`). Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102250 | 1 | Voidling Form | Take the shape of a voidling you have devoured: Void Nibble, Phase Shift, Void Spit and Hungry Void; Void Tendrils opens at level 20. All shapes share one cooldown. |
+| 9102251 | 1 | Void Nibble | Nibble at the enemy with a mouth that should not be there: weapon damage plus $s1. Generates 10 Anima. |cffb87830Voidling form|r |
+| 9102252 | 1 | Phase Shift | Slip halfway out of the world for 2 sec: 50% faster, and nothing can strike you. |cffb87830Voidling form|r |
+| 9102253 | 1 | Hungry Void | The void in you is hungry too: your Shadow damage is increased by 5%. |cffb87830Voidling form|r |
+| 9102254 | 1 | Void Spit | Spit a gob of void at an enemy up to 25 yards away: $s1 Shadow damage. Generates 10 Anima. |cffb87830Voidling form|r |
+| 9102255 | 20 | Void Tendrils | Tendrils of void hold every enemy within 8 yards in place for 3 sec. |cffb87830Voidling form|r |
+
+Changes against the canvas card, and why:
+
+- The form review's line 7, its own Brood-themed branch: the retail baby voidwalker. The Void Critters of Bloodmyst Isle (3) give it, and so do the Void Anomalies there and the Voidspawn of Outland.
+- A Brood Devourer's hatchlings are voidlings in every step of this line (devourer_shape.brood_display).
+- The pick's void eggs and growing voidlings need module code: later.
+
+### Voidcreeper (shape 42, grows out of the Voidling)
+Look: a retail model, base 994177 (`Voidcreeper Blue`); its other colourings come with the shape: 994178 `Voidcreeper Red`, 994179 `Voidcreeper Yellow`. The creature's own look (creature 0, display 994177, `Voidcreeper Blue`) comes with it too. Any one task:
+
+- Devour 25 void creatures as a Voidling
+- Spit void 60 times (Void Spit)
+- Devour a Void Anomaly (Bloodmyst Isle)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102260 | 1 | Voidcreeper Form | Take the shape of the voidcreeper, grown out of your voidling: Creeper Fang, Burrow, Ambush from Below and Brood Bond; Void Web opens at level 28. All shapes share one cooldown. |
+| 9102261 | 1 | Creeper Fang | Sink void-wet fangs into the enemy: weapon damage plus $s1, and $o2 Shadow damage over 12 sec. Generates 15 Anima. |cffb87830Voidcreeper form|r |
+| 9102262 | 1 | Burrow | Sink into the ground for up to 6 sec: 30% faster, and nothing can strike you. Using any ability brings you up. |cffb87830Voidcreeper form|r |
+| 9102263 | 1 | Brood Bond | The brood is one body: you take 5% less damage and deal 5% more. |cffb87830Voidcreeper form|r |
+| 9102264 | 1 | Ambush from Below | Only from under the ground: burst up and throw every enemy within 6 yards into the air for 90% weapon damage. |cffb87830Voidcreeper form|r |
+| 9102265 | 28 | Void Web | Spray void webbing: enemies in front of you within 10 yards cannot move for 3 sec. |cffb87830Voidcreeper form|r |
+
+Changes against the canvas card, and why:
+
+- The retail voidcreeper (three colourings); Burrow and Ambush from Below work like the Borer's.
+
+### Voidcreeper Broodmother (shape 43, grows out of the Voidcreeper)
+Look: a retail model, base 994174 (`Broodmother Blue`); its other colourings come with the shape: 994175 `Broodmother Orange`. The creature's own look (creature 0, display 994174, `Broodmother Blue`) comes with it too. Any one task:
+
+- Devour 30 void creatures as a Voidcreeper
+- Weather 20,000 damage as a Voidcreeper
+- Devour a Dark Strand Voidcaller (Ashenvale)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102270 | 1 | Voidcreeper Broodmother Form | Take the shape of the voidcreeper broodmother, grown out of your voidcreeper: Rending Mandibles, Burrow, Brood Eruption and Broodmother's Carapace; Call the Swarm opens at level 48. All shapes share one cooldown. |
+| 9102271 | 1 | Rending Mandibles | Tear with mandibles of void: weapon damage plus $s1, and $o2 Shadow damage over 12 sec. Generates 15 Anima. |cffb87830Voidcreeper Broodmother form|r |
+| 9102272 | 1 | Burrow | Sink into the ground for up to 6 sec: 40% faster, and nothing can strike you. Using any ability brings you up. |cffb87830Voidcreeper Broodmother form|r |
+| 9102273 | 1 | Broodmother's Carapace | Your armor is increased by 20%, and you regain 1% of your maximum health every 3 sec. |cffb87830Voidcreeper Broodmother form|r |
+| 9102274 | 1 | Brood Eruption | Only from under the ground: burst up and throw every enemy within 6 yards into the air for 120% weapon damage. |cffb87830Voidcreeper Broodmother form|r |
+| 9102275 | 48 | Call the Swarm | A swarm of voidlings boils out of the ground up to 30 yards away: for 6 sec, enemies there take $s1 Shadow damage every second. |cffb87830Voidcreeper Broodmother form|r |
+
+Changes against the canvas card, and why:
+
+- The retail vicious voidcreeper with its saddle hidden (model tool, Parts), two colourings.
+- Broodmother's Call (voidlings that fixate and explode) needs module code: Call the Swarm stands in for it.
