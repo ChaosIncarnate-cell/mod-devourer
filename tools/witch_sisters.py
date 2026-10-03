@@ -250,6 +250,7 @@ MOLT_TALES = {
         "serpents clearing their throats.",
     1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
        "my little horror: as something that would not stop eating.",
+    44: "Some dragons sleep so long under the mountains that the mountain moves in. When they wake up, they keep it.",
     43: "A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer.",
     42: "Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family.",
     40: "When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells "
@@ -335,7 +336,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("A shell! Can I live in it? No? Can I knock? Hello in there!", (31, 32)),
     ("Is it... wriggling? Inside you? Oh no. Oh, I love it.", (41, 42, 43)),
     ("Hoo! Hoo! ... Sorry. Does it hurt when I hoot? It hurts my sister.", (38, 39, 40)),
-    ("A DRAGON! A real one! Can I ride you? Can I name you? Can I name you Sir Flaps?", (35, 36, 37)),
+    ("A DRAGON! A real one! Can I ride you? Can I name you? Can I name you Sir Flaps?", (35, 36, 37, 44)),
     ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
     ("A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it.", (28, 29, 30)),
 ]

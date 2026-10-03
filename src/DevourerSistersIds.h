@@ -23,7 +23,7 @@ namespace Devourer::Sisters
     constexpr uint32_t QuestPests = 9101304;
     constexpr uint32_t QuestApprentice = 9101305;   // task 018: the companion joins
     constexpr uint32_t QuestMoltFirst = 9101310;   // task 018: one per evolved form, in order
-    constexpr uint32_t QuestMoltLast = 9101330;
+    constexpr uint32_t QuestMoltLast = 9101331;
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
@@ -64,28 +64,28 @@ namespace Devourer::Sisters
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
         WrenMolt = 14, WrenMoltReady = 15, HagathaMoltFirst = 8,   // task 018 (+ the quest's index)
-        HagathaNoTale = 51, WrenApprentice = 29,
+        HagathaNoTale = 52, WrenApprentice = 29,
     };
 
     // Task 018: Hagatha's tale of a shape ("Tell me about the shape I wear"), Wren's word on a shape she sees.
     struct ShapeLine { uint32_t Shape; uint8_t Group; };
     constexpr ShapeLine HagathaShapeTales[] =
     {
-        { 1, 29 },
-        { 2, 30 },
-        { 3, 31 },
-        { 4, 32 },
-        { 5, 33 },
-        { 6, 34 },
-        { 7, 35 },
-        { 8, 36 },
-        { 9, 37 },
-        { 10, 38 },
-        { 11, 39 },
-        { 12, 40 },
+        { 1, 30 },
+        { 2, 31 },
+        { 3, 32 },
+        { 4, 33 },
+        { 5, 34 },
+        { 6, 35 },
+        { 7, 36 },
+        { 8, 37 },
+        { 9, 38 },
+        { 10, 39 },
+        { 11, 40 },
+        { 12, 41 },
         { 13, 2 },
-        { 14, 41 },
-        { 15, 42 },
+        { 14, 42 },
+        { 15, 43 },
         { 16, 8 },
         { 17, 9 },
         { 18, 10 },
@@ -95,25 +95,26 @@ namespace Devourer::Sisters
         { 22, 14 },
         { 23, 15 },
         { 24, 16 },
-        { 25, 43 },
+        { 25, 44 },
         { 26, 17 },
-        { 27, 44 },
-        { 28, 50 },
+        { 27, 45 },
+        { 28, 51 },
         { 29, 18 },
         { 30, 20 },
-        { 31, 49 },
+        { 31, 50 },
         { 32, 19 },
-        { 33, 48 },
+        { 33, 49 },
         { 34, 21 },
-        { 35, 47 },
+        { 35, 48 },
         { 36, 23 },
         { 37, 24 },
-        { 38, 46 },
+        { 38, 47 },
         { 39, 25 },
         { 40, 26 },
-        { 41, 45 },
+        { 41, 46 },
         { 42, 27 },
         { 43, 28 },
+        { 44, 29 },
     };
     constexpr ShapeLine WrenShapeReactions[] =
     {
@@ -160,6 +161,7 @@ namespace Devourer::Sisters
         { 41, 24 },
         { 42, 24 },
         { 43, 24 },
+        { 44, 26 },
     };
 }
 

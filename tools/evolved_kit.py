@@ -1132,7 +1132,7 @@ WHELP = Evolved(
     ])
 
 PROTO_DRAKE = Evolved(
-    36, "Proto-Drake", 35, "Whelp", 0, 994158, "Proto-Drake Red",
+    36, "Proto-Drake", 35, "Whelp", 0, 994160, "Proto-Drake Storm",
     (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
                      "DurationIndex": sk.DUR_9S, "EffectMechanic_2": MECHANIC_BLEED,
                      **effects(hit(9), bleed(5), gain(15))}),
@@ -1164,14 +1164,12 @@ PROTO_DRAKE = Evolved(
     [(DEVOUR_NAME, 0, 30, "Devour 30 dragonkin as a Whelp", "whelp|drake|dragon|wyrm|scalebane|dragonspawn"),
      (DEAL_DAMAGE, 0, 15000, "Deal 15,000 damage as a Whelp", ""),
      (DEVOUR_ENTRY, 4066, 1, "Devour Nal'taszar, the rare drake of Stonetalon", "")],
-    looks=[(994158, "Proto-Drake Red"), (994155, "Proto-Drake Brown"), (994156, "Proto-Drake Grey"),
-           (994157, "Proto-Drake Pale"), (994159, "Proto-Drake Yellow"), (994160, "Proto-Drake Storm"),
-           (994161, "Proto-Drake Fire Blue"), (994162, "Proto-Drake Fire Dark")],
+    looks=[(994160, "Proto-Drake Storm"), (994161, "Proto-Drake Fire Blue"), (994162, "Proto-Drake Fire Dark")],
     later_level=43,
     role="drake bruiser",
     changes=[
-        "The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, "
-        "not the 20-yard drakes of the Howling Fjord.",
+        "The retail air and fire proto-drakes, about 7 yards long: a big mount's size, not the 20-yard drakes of the "
+        "Howling Fjord. The earth drake is its own branch (the Earthen Proto-Drake).",
         "One breath (Fire) for every colouring: \"the colouring picks the element\" would need a script; later.",
         "Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).",
     ])
@@ -1434,11 +1432,52 @@ VOIDCREEPER_BROODMOTHER = Evolved(
         "Broodmother's Call (voidlings that fixate and explode) needs module code: Call the Swarm stands in for it.",
     ])
 
+# 44 Earthen Proto-Drake: the Whelp's second branch at 35, an earth elemental drake (owner, 2026-10-03: "good model
+# protodragonearth, but with effect issues, branch earth elemental"). Its glow overlays are hidden in the model
+# tool (Parts 8-9: the retail lava shader draws them as solid yellow in our client).
+A_SCHOOL_ABSORB_ = 69
+EARTHEN_PROTO_DRAKE = Evolved(
+    44, "Earthen Proto-Drake", 35, "Whelp", 0, 994155, "Earthen Drake Brown",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_10S,
+                     **effects(hit(9), aura(A_MOD_DECREASE_SPEED, -30, target=T_ENEMY), gain(15))}),
+     ("Stone Bite", "Bite with jaws of stone: weapon damage plus $s1, and the enemy moves 30% slower for 10 sec. "
+      "Generates 15 Anima.", "Movement slowed by 30%.")),
+    (871, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                   "DurationIndex": DUR_10S, "RecoveryTime": 30000, "SchoolMask": SCHOOL_NATURE,
+                   **effects(aura(A_SCHOOL_ABSORB_, 300, SCHOOL_ALL))}),
+     ("Earthen Wall", "Raise a skin of stone: absorbs $s1 damage for 10 sec.", "Absorbs damage.")),
+    (25941, gimmick(1581, 0, aura(A_MOD_RESISTANCE_PCT, 20, 1), aura(A_DMG_TAKEN_PCT, -10, SCHOOL_NATURE)),
+     ("Living Stone", "Your armor is increased by 20%, and Nature hurts you 10% less.", "")),
+    (*breath(16094, SCHOOL_NATURE, 26, 8, 10000, 20, 0.25, RADIUS_15, DurationIndex=DUR_6S),
+     ("Gravel Breath", "Breathe a storm of gravel on the enemies in front of you within 15 yards: $s1 Nature damage.",
+      "")),
+    (6343, ability({**hunger(25), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": DUR_2S, "RecoveryTime": 40000, "Mechanic": MECHANIC_STUN,
+                    "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.2, 0),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 30, "spread": 10, "target": T_SRC_CASTER,
+                               "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8}, around(A_MOD_STUN, radius=RADIUS_8))}),
+     ("Earthquake", "Stamp the ground: $s1 Nature damage to enemies within 8 yards, and they are stunned for 2 sec.",
+      "Stunned.")),
+    DRAGON_DIET, DRAGON_FOOD, 35, 1000,
+    [(DEVOUR_NAME, 0, 25, "Devour 25 earth elementals as a Whelp", "rock|stone|earth|gravel|boulder|crag|golem"),
+     (TAKE_DAMAGE, 0, 15000, "Weather 15,000 damage as a Whelp", ""),
+     (DEVOUR_ENTRY, 2258, 1, "Devour the Stone Fury (Alterac Mountains)", "")],
+    looks=[(994155, "Earthen Drake Brown"), (994156, "Earthen Drake Grey"), (994157, "Earthen Drake Pale"),
+           (994158, "Earthen Drake Red"), (994159, "Earthen Drake Yellow")],
+    later_level=43,
+    role="stone tank",
+    changes=[
+        "The Whelp's second branch: the retail earth proto-drake as an earth elemental, five colourings; its glow "
+        "overlays hidden (they drew as solid yellow).",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
          KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER, WHELP, PROTO_DRAKE, STORM_DRAGON,
-         OWL, MOONKIN, MOONTOUCHED_OWLBEAST, VOIDLING, VOIDCREEPER, VOIDCREEPER_BROODMOTHER]
+         OWL, MOONKIN, MOONTOUCHED_OWLBEAST, VOIDLING, VOIDCREEPER, VOIDCREEPER_BROODMOTHER,
+         EARTHEN_PROTO_DRAKE]
 
 
 class Growth:

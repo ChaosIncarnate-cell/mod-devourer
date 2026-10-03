@@ -36,6 +36,7 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 41 | Voidling | devouring | 5 | - | void imp |
 | 42 | Voidcreeper | Voidling | 20 | 700 | void ambusher |
 | 43 | Voidcreeper Broodmother | Voidcreeper | 40 | 1200 | brood tank |
+| 44 | Earthen Proto-Drake | Whelp | 35 | 1000 | stone tank |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
@@ -488,7 +489,7 @@ Changes against the canvas card, and why:
 - Whelps are Dragonkin without a family, so each whelp of the world is named: the Black Dragon Whelps of Redridge (17-18) give the form, and every other whelp gives its flight's colouring (red in the Wetlands, green in the Swamp of Sorrows, the Nightmare Whelp in the Sunken Temple, the Corrupted Whelps of Blackwing Lair, the Netherwing, Ley and Proto-Whelps ...).
 
 ### Proto-Drake (shape 36, grows out of the Whelp)
-Look: a retail model, base 994158 (`Proto-Drake Red`); its other colourings come with the shape: 994155 `Proto-Drake Brown`, 994156 `Proto-Drake Grey`, 994157 `Proto-Drake Pale`, 994159 `Proto-Drake Yellow`, 994160 `Proto-Drake Storm`, 994161 `Proto-Drake Fire Blue`, 994162 `Proto-Drake Fire Dark`. The creature's own look (creature 0, display 994158, `Proto-Drake Red`) comes with it too. Any one task:
+Look: a retail model, base 994160 (`Proto-Drake Storm`); its other colourings come with the shape: 994161 `Proto-Drake Fire Blue`, 994162 `Proto-Drake Fire Dark`. The creature's own look (creature 0, display 994160, `Proto-Drake Storm`) comes with it too. Any one task:
 
 - Devour 30 dragonkin as a Whelp
 - Deal 15,000 damage as a Whelp
@@ -505,7 +506,7 @@ Look: a retail model, base 994158 (`Proto-Drake Red`); its other colourings come
 
 Changes against the canvas card, and why:
 
-- The retail proto-drakes (earth, air and fire models) as one form, about 7 yards long: a big mount's size, not the 20-yard drakes of the Howling Fjord.
+- The retail air and fire proto-drakes, about 7 yards long: a big mount's size, not the 20-yard drakes of the Howling Fjord. The earth drake is its own branch (the Earthen Proto-Drake).
 - One breath (Fire) for every colouring: "the colouring picks the element" would need a script; later.
 - Tail Sweep hits the cone behind the drake (spell_custom_attr 0x2).
 
@@ -649,3 +650,23 @@ Changes against the canvas card, and why:
 
 - The retail vicious voidcreeper with its saddle hidden (model tool, Parts), two colourings.
 - Broodmother's Call (voidlings that fixate and explode) needs module code: Call the Swarm stands in for it.
+
+### Earthen Proto-Drake (shape 44, grows out of the Whelp)
+Look: a retail model, base 994155 (`Earthen Drake Brown`); its other colourings come with the shape: 994156 `Earthen Drake Grey`, 994157 `Earthen Drake Pale`, 994158 `Earthen Drake Red`, 994159 `Earthen Drake Yellow`. The creature's own look (creature 0, display 994155, `Earthen Drake Brown`) comes with it too. Any one task:
+
+- Devour 25 earth elementals as a Whelp
+- Weather 15,000 damage as a Whelp
+- Devour the Stone Fury (Alterac Mountains)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102280 | 1 | Earthen Proto-Drake Form | Take the shape of the earthen proto-drake, grown out of your whelp: Stone Bite, Earthen Wall, Gravel Breath and Living Stone; Earthquake opens at level 43. All shapes share one cooldown. |
+| 9102281 | 1 | Stone Bite | Bite with jaws of stone: weapon damage plus $s1, and the enemy moves 30% slower for 10 sec. Generates 15 Anima. |cffb87830Earthen Proto-Drake form|r |
+| 9102282 | 1 | Earthen Wall | Raise a skin of stone: absorbs $s1 damage for 10 sec. |cffb87830Earthen Proto-Drake form|r |
+| 9102283 | 1 | Living Stone | Your armor is increased by 20%, and Nature hurts you 10% less. |cffb87830Earthen Proto-Drake form|r |
+| 9102284 | 1 | Gravel Breath | Breathe a storm of gravel on the enemies in front of you within 15 yards: $s1 Nature damage. |cffb87830Earthen Proto-Drake form|r |
+| 9102285 | 43 | Earthquake | Stamp the ground: $s1 Nature damage to enemies within 8 yards, and they are stunned for 2 sec. |cffb87830Earthen Proto-Drake form|r |
+
+Changes against the canvas card, and why:
+
+- The Whelp's second branch: the retail earth proto-drake as an earth elemental, five colourings; its glow overlays hidden (they drew as solid yellow).
