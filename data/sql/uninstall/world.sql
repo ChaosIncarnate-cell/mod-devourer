@@ -86,6 +86,11 @@ DELETE `t` FROM `gtchancetomeleecritbase_dbc` AS `t` LEFT JOIN `devourer_backup_
 DELETE `t` FROM `gtchancetospellcritbase_dbc` AS `t` LEFT JOIN `devourer_backup_gt` AS `b` ON `b`.`tbl` = 'gtchancetospellcritbase_dbc' AND `b`.`ID` = `t`.`ID` WHERE `t`.`ID` = 9 AND `b`.`ID` IS NULL;
 DELETE `t` FROM `gtoctclasscombatratingscalar_dbc` AS `t` LEFT JOIN `devourer_backup_gt` AS `b` ON `b`.`tbl` = 'gtoctclasscombatratingscalar_dbc' AND `b`.`ID` = `t`.`ID` WHERE `t`.`ID` BETWEEN 289 AND 320 AND `b`.`ID` IS NULL;
 
+-- --- task 020: the race rewards (Items and balance: items 9104000-9104004, spell 9104050) ---------------------------
+DELETE FROM `item_template` WHERE `entry` BETWEEN 9104000 AND 9104004;
+DELETE FROM `spell_dbc` WHERE `ID` = 9104050;
+DELETE FROM `skilllineability_dbc` WHERE `ID` = 9104050;
+
 -- --- task 020: Wren's Derby (ids 9101360-9101379, spawns 9910300-9910349) ---------------------------------------
 DELETE FROM `creature` WHERE `guid` BETWEEN 9910300 AND 9910349;
 DELETE FROM `creature_template_addon` WHERE `entry` BETWEEN 9101360 AND 9101379;
@@ -114,4 +119,5 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
     '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
     '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql',
-    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql', '2026_10_03_20_devourer_derby.sql');
+    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql', '2026_10_03_20_devourer_derby.sql',
+    '2026_10_03_21_devourer_derby_items.sql');
