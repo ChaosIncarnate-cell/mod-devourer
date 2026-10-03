@@ -1,111 +1,62 @@
-# 020 — Wren's Derby: the witch race quest (concept for approval)
+# 020 — Wren's Derby: the witch races
 
-Status: concept, waiting for the owner's yes (2026-10-03). Builds on task 018 C and D (Bramble already joins through
-"Wren's Apprentice", 9101305). Nothing here is built yet.
+Status: built on branch `quests` (2026-10-03), not installed, not tested. Builds on task 018 C and D (Bramble joins
+through "Wren's Apprentice", 9101305).
 
-## The story in one breath
+Owner's decisions (2026-10-03): rematch okay, "dont make it too gigantic"; no Bio Points, "reward actual things that
+are like quests"; level 20, unlocks riding; "pick a level around level 20 zone"; Hagatha rides a mount, "not a broom";
+"we are doing 3 races, that give the suggested items, and last win will give the mount of hagatha"; Derby Beast:
+Primal Tallstrider; "Kakapo will be the mount".
 
-Wren has bet Hagatha that her "pet" can outrun Hagatha's broom. Hagatha took the bet. Wren turns the Devourer into a
-big two-seat beast, Bramble climbs on its back to "navigate", and the three race across the Mulgore plains.
+## The story
 
-## Quests (IDs 9101360+)
+Wren bet Hagatha that her "pet" outruns Hagatha's Kakapo. At the starting line in the Barrens Wren turns the Devourer
+into the Derby Beast, a saddled bird, its companion (Bramble, or any party member) climbs on its back, and they race
+Hagatha through a course of witch-fires. Three races, each unlocking the next.
 
-### 9101360 Wren's Derby (from Wren, In-Between; needs Wren's Apprentice done, level 20+)
-
-> Snack! Big news. I told Hagatha you could beat her broom in a race. She laughed. She laughed for a LONG time. So now
-> it's a bet, and if we lose I have to clean the cauldron. With my hands. / Go to the plains of Mulgore, south of
-> Bloodhoof. I'll meet you at the starting line. Bring Bramble, she knows the way. She says she does.
-
-Objective: *Win Wren's Derby with Bramble on your back.*
-
-1. At the starting line (Mulgore, the open grass south of Bloodhoof) Wren and Hagatha wait, Hagatha on her broom.
-   The Devourer talks to Wren: "Ready to race".
-2. Wren chants and the Devourer becomes the **Derby Beast**, a big beast with a seat on its back. Bramble hops on
-   ("I'm the navigator! Left! No, the other left!").
-3. Countdown 3, 2, 1. Eight glowing checkpoints across the plains (a ring of witch-fire marks each one). Hagatha flies
-   the same course on her broom at a set pace.
-4. Win: reach the last checkpoint before Hagatha with Bramble still on your back. Lose (Hagatha first, Bramble falls
-   off, or you leave the course): Wren sighs, you can try again right away.
-5. The Derby Beast lasts until the finish, then you are your normal shape again.
-
-Not done yet: *Hagatha is already polishing her broom. Go on, Snack, back to the line!*
-
-Handed in (to Wren, at the finish): *WE WON! Hagatha, the cauldron is yours! Both hands! / Snack, you were magnificent.
-Bramble, stop waving, it's over.* Hagatha: *The broom is old. Next year, little horror.*
-
-**Rewards** (owner, 2026-10-03: "dont reward bio points, reward actual things that are like quests"): experience,
-silver, **Wren's Saddle** (the Derby Beast spell, see below) and a choice of one level-20 green:
-- *Wren's Racing Goggles* (cloth head, Intellect and Stamina)
-- *Hagatha's Bristle Cloak* (cloak, Agility and Stamina)
-- *Bramble's Lucky Beetle* (neck, Strength and Stamina; "it might still be alive")
-
-Wren's Saddle: a spell that lets the Devourer become the Derby Beast anywhere outdoors and carry one party member on
-its back (a two-seat mount that is you).
-
-### 9101361 Rematch! (repeatable, from Wren at the starting line, after 9101360)
-
-> Hagatha wants a rematch. She ALWAYS wants a rematch.
-
-Same race, Hagatha a little faster each time you win; reward: silver and a stack of *Hagatha's Sour Toffee* (food, a short run-speed buff). Owner (2026-10-03): "rematch is okay, dont make it too gigantic": the course stays short, about two minutes, and the beast stays normal mount size. Your best time is remembered and Wren
-tells you when you beat it.
-
-## How it works (for the build)
-
-- **The Derby Beast** is the player's own body as a mount: a transform to the beast model plus the stock "player is
-  a vehicle" aura with a stock two-seat vehicle, so the passenger sits on the beast's back. Bramble is put on the
-  seat by the script. The server core already supports both; first job of the build is to try it in game.
-- **The beast's look needs your approval first** (render + concept). Candidates from models the client already has,
-  with a back seat that fits: a mammoth, a kodo, or a big riding wolf. I will render the picks for you.
-- **Course:** 8 invisible checkpoint markers with a witch-fire ring visual, Hagatha on waypoints, Wren as a race copy
-  at the start/finish. New creatures, gossip and texts all inside 9101360-9101379, in a new script file
-  (`DevourerDerby.cpp`), so the sisters' script is not touched.
-- **On screen:** checkpoint count and timer through the stock world-state counters (no client change). Optional
-  later: a `wxl-race` WarcraftXL extension (arrow to the next checkpoint, standings), reusable for other races. That
-  one goes into the client, so it needs your yes separately.
-- **Any party member** can ride instead of Bramble on Rematch; the first race needs Bramble.
-
-## To decide
-
-1. The beast: mammoth, kodo or wolf (renders follow).
-2. Course place: Mulgore plains (proposed) or somewhere else.
-3. Wren's Saddle as a permanent reward: yes or no.
-
-The reward items (goggles, cloak, beetle, toffee) are designed, balanced and implemented by the Items and balance
-thread; the quest only references their item IDs once they exist. Wren's Saddle stays with the quest.
-
-## Owner, 2026-10-03: higher level, unlocks riding
-
-"lets set it higher for the level, and let us be able to unlock mount or riding skill." Proposal: the Derby opens at
-level 20 (where 3.3.5 Apprentice Riding starts). Winning teaches Apprentice Riding for free, and Wren's Saddle is the
-Devourer's first mount (the Derby Beast, two seats). Because Mulgore is a level 1-10 zone, the course moves to the open
-savanna of the Northern Barrens around the Crossroads (level 10-25), still short (about two minutes). Riding and
-mount items go through the Items and balance thread.
-
-## Build note: the seat
-
-Model scouting (2026-10-03): no candidate model has the stock passenger attachments 13/14. Because the player *is*
-the beast, the plan is a transform to the chosen model plus aura 296 (set vehicle id) with **vehicle 102**, which has
-one passenger seat on attachment 0 (the saddle point). That works with every candidate (Primal Tallstrider, Ardenweald
-Toad, Amani Pangolin, Rocket Turtle, Broodmother shrunk to about a third) with no model edit and no client change.
-Vehicle 102: one seat, 1541, on attachment 0, offset (0.15, 0, -0.08), flags 0x0200840F (no CAN_CONTROL,
-CAN_ENTER_OR_EXIT). Primal Tallstrider (Creature\Tallstriderprimalmount) has its saddle at attachment 0 = (-0.29, 0, 2.36).
-Still to check while building: which creature uses vehicle 102 in the DB, and how Bramble's ride pose looks in game.
-Renders: Z:\ChromaticawBots\Parrot\renders\derby-beast\.
-
-## Owner, 2026-10-03: three races, Hagatha's mount for the last win
-
-"give Hagatha also a mount she is using for the race, we are doing 3 races, that give the suggested items, and last
-win will give the mount of hagatha." This replaces the single Derby + Rematch:
-
-| Quest | Race | Hagatha | Reward |
+| Quest | Course | Hagatha's pace | Reward |
 |---|---|---|---|
-| 9101360 Wren's Derby | short loop south of the Crossroads | easy pace | Apprentice Riding, Wren's Saddle, Wren's Racing Goggles, 25 silver |
-| 9101361 Hagatha Wants a Rematch | longer loop, a jump over the creek | faster | Hagatha's Bristle Cloak, Hagatha's Sour Toffee x3 |
-| 9101362 The Last Lap | the full course, about two minutes | her best | Bramble's Lucky Beetle and **Hagatha's mount** |
+| 9101360 Wren's Derby (from Wren in the In-Between, after Wren's Apprentice, level 20) | ~780 yd loop toward Lushwater Oasis | 8.5 yd/s | Apprentice Riding, Wren's Saddle, Wren's Racing Goggles, 25 silver |
+| 9101361 Hagatha Wants a Rematch | ~1270 yd, through the oasis shallows | 9.5 yd/s | Hagatha's Bristle Cloak, Hagatha's Sour Toffee x3, 5 silver |
+| 9101362 The Last Lap | ~1450 yd, the full course (about two minutes) | 10.3 yd/s | Bramble's Lucky Beetle, Reins of Hagatha's Kakapo, 10 silver |
 
-Each race unlocks the next. Hagatha rides all three on her own mount (owner: "no not a broom, something different"; options asked: Raven Lord, Ardenweald moth, dream stag), so the reward is the mount the player raced against
-all along. The items, the mount's reins and their balance belong to the Items and balance thread.
+The race body runs 11.2 yd/s (60%, an apprentice mount), so a clean run wins and a sloppy one loses.
 
-Place (owner: "pick a level around level 20 zone"): the Barrens, on the open savanna between the Crossroads and
-Lushwater Oasis, where the wildlife is about level 17-22. The start line stays outside the town so the Crossroads
-guards don't get involved.
+## How a race goes
+
+1. Wren (9101360) waits at the starting line on the savanna west of the Crossroads (-796, -2636, map 1).
+   Gossip: "I'm ready. Let's race!" (needs one of the race quests taken, the Devourer within 40 yd of the line, out
+   of combat, and a party member within 30 yd to ride; Bramble is preferred).
+2. Hagatha (9101361) appears beside it on her Kakapo; only this Devourer sees her. Wren's flash: the Devourer's form
+   is taken off, it gets the Derby Beast's look (creature 9101362's model), a saddle seat (vehicle 102) and +60% speed
+   (stock hidden aura 22590 with its amount set). The rider is put on the seat. Bramble: "I'm the navigator!"
+3. Countdown (rooted): "On your marks", 3, 2, 1, GO. The witch-fires appear (gameobject 9101360), the minimap flag
+   points to the next one, and Hagatha rides the course.
+4. Each fire: "Checkpoint N of M". The last fire is the starting line.
+5. Win: reach the last fire before Hagatha, rider still aboard. Lose: Hagatha first, rider gone, more than 250 yd off
+   course, death, or leaving the map. Either way the body, the saddle and the speed come off, the old form comes back,
+   and the race can be tried again right away.
+6. Turn in to Wren at the line. Race 1 also teaches Apprentice Riding (33388) and Wren's Saddle (when it exists).
+
+## Files
+
+- `src/DevourerDerby.cpp`, `src/DevourerDerbyIds.h` (courses, paces, lines), registered in the loader.
+- `data/sql/db-world/2026_10_03_20_devourer_derby.sql` and its rows in `data/sql/uninstall/world.sql`.
+- Ids: quests, creatures, gossip, npc_text, gameobjects 9101360-9101379; spawn guids 9910300-9910349.
+
+## Waiting on other threads
+
+- **Devourer thread:** the Derby Beast display (Primal Tallstrider, `Creature\Tallstriderprimalmount`, saddle part
+  shown; its own display, not the Devourer's look) to put on creature 9101362 (until then it uses the Greater
+  Plainstrider). The **Wren's Saddle** spell (a spell id, client and server rows): 1.5 s cast, outdoors, cancelled
+  like a mount; effects: transform to creature 9101362 (aura 56), set vehicle id 102 (aura 296), +60% run speed
+  (aura 31). Then set `SpellWrensSaddle` in DevourerDerbyIds.h. Also: build, install the SQL, restart.
+  The sisters' SQL must keep to 9101300-9101359 (commit b55066f on task/017), or it deletes these quests.
+- **Items and balance:** item rows 9104000 goggles, 9104001 cloak, 9104002 beetle, 9104003 toffee, 9104004 Kakapo
+  reins (ids assumed, to confirm).
+
+## To check in game
+
+- The rider sits on the saddle (vehicle 102, attachment 0) and Bramble (a playerbot) stays on.
+- Hagatha's paces against a real run; the checkpoints' ground heights; the oasis water on race 2.
+- The old form comes back after the race.
