@@ -104,13 +104,13 @@ INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES
 -- The gimmicks that answer to hits (Cooldown = their rest, Chance = how often).
 DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN 9102000 AND 9102999;
 INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`, `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`, `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES
-(9102003, 0, 0, 0, 0, 0, 40, 0, 2, 16, 0, 0, 100, 6000, 0),
+(9102003, 0, 0, 0, 0, 0, 40, 0, 0, 16, 0, 0, 100, 6000, 0),
 (9102013, 0, 0, 0, 0, 0, 20, 1, 2, 0, 0, 0, 100, 4000, 0),
-(9102023, 0, 0, 0, 0, 0, 40, 1, 2, 0, 0, 0, 100, 0, 0),
+(9102023, 0, 0, 0, 0, 0, 40, 1, 0, 0, 0, 0, 100, 0, 0),
 (9102037, 0, 0, 0, 0, 0, 65556, 1, 2, 0, 0, 0, 100, 0, 1),
-(9102043, 0, 0, 0, 0, 0, 40, 1, 2, 0, 0, 0, 20, 0, 0),
+(9102043, 0, 0, 0, 0, 0, 40, 1, 0, 0, 0, 0, 20, 0, 0),
 (9102063, 0, 0, 0, 0, 0, 65540, 1, 2, 0, 0, 0, 100, 6000, 0),
-(9102073, 0, 0, 0, 0, 0, 40, 0, 2, 0, 0, 0, 20, 8000, 0);
+(9102073, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 20, 8000, 0);
 
 -- Shapes 16-24: spell_3 is the fourth ability, spell_4 the fifth (opens at level 20, its spell level).
 DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 16 AND 24;

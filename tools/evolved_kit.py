@@ -66,6 +66,7 @@ RADIUS_12 = 32
 T_DEST_TARGET_ANY, T_DEST_AREA_ENEMY = 53, 16
 AURA_INTERRUPT_DAMAGE = 0x2              # breaks when the victim takes damage (gouge, sleep)
 PROC_HIT_CRIT = 0x2
+DONE_PROCS = PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE | PROC_DONE_SPELL_MAGIC   # the phase mask only counts for these
 CREATURE_TYPE_DEMON, CREATURE_TYPE_UNDEAD, CREATURE_TYPE_HUMANOID = 3, 6, 7
 FAMILY_BEAR = 4
 SKILL_TAG = "|cffb87830{} form|r"        # like the starting forms: each ability says which shape it belongs to
@@ -679,7 +680,7 @@ def main() -> int:
         "INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`,"
         " `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`,"
         " `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES",
-        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, 2, {hits}, 0, 0, {chance}, {cd}, {charges})"
+        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, {2 if flags & DONE_PROCS else 0}, {hits}, 0, 0, {chance}, {cd}, {charges})"
                    for s, flags, types, hits, cd, charges, chance in procs) + ";",
         "",
         f"-- Shapes {lo}-{hi}: spell_3 is the fourth ability, spell_4 the fifth (opens at level 20, its spell level).",
