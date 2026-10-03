@@ -600,8 +600,7 @@ FORMS = [
          looks=[(994015, "Primal Pink"), (994012, "Primal Black"), (994013, "Primal Blue"), (994014, "Primal Green"),
                 (994016, "Primal Red"), (994017, "Primal White"), (994180, "Hawkstrider Black"),
                 (994181, "Hawkstrider Blue"), (994182, "Hawkstrider Green"), (994183, "Hawkstrider Purple"),
-                (994184, "Hawkstrider Red"), (994185, "Hawkstrider White"), (994198, "Primal Strider Black"),
-                (994199, "Primal Strider Blue"), (994200, "Primal Strider Green")]),
+                (994184, "Hawkstrider Red"), (994185, "Hawkstrider White")]),
     Form(11, "Bat", "Deathknell", 1512, 4732, 1579, [], [(1, 10), (6, 10), (0, 3)], "Duskbat",
          (24423, ability({"Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
                          "RecoveryTime": 8000, "SchoolMask": SCHOOL_NATURE,
@@ -618,8 +617,7 @@ FORMS = [
          (A_MOD_HIT_CHANCE, 2, 0, ("Echolocation", "Your chance to hit is increased by 2%.", "")),
          ("Sonic Burst", "Night Swarm"),
          looks=[(994025, "Vampire Purple"), (994024, "Vampire Green"), (994026, "Vampire Red"),
-                (994027, "Vampire Stone"), (994195, "Giant Bat Green"), (994196, "Giant Bat Purple"),
-                (994197, "Giant Bat Red")]),
+                (994027, "Vampire Stone")]),
     WARP,
     BILETOAD,
     GIANT_MARSH_FROG,
@@ -636,8 +634,7 @@ FORMS = [
          (A_DMG_TAKEN_PCT, -3, SCHOOL_MAGIC_ALL, ("Mana Sheath", "Magic damage taken reduced by 3%.", "")),
          ("Mana Tap", "Arcane Coil"),
          looks=[(994018, "Wyrm Blue"), (994019, "Wyrm Green"), (994020, "Wyrm Purple"), (994021, "Wyrm Red"),
-                (994022, "Wyrm Void"), (994023, "Wyrm White"), (994201, "Great Wyrm Arcane"),
-                (994202, "Great Wyrm Cosmic")]),
+                (994022, "Wyrm Void"), (994023, "Wyrm White")]),
 ]
 
 # The frog line's scripts (src/DevourerFrogs.cpp).

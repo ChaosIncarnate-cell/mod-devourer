@@ -140,7 +140,7 @@ Changes against the canvas card (task 009), and why:
 - Barbed Bristles answers melee hits only ("physical damage" from a level-1 enemy is melee).
 
 ### Plainstrider (shape 10, Camp Narache)
-Look (task 017): a retail model, base 994015 (`Primal Pink`); its other colourings come with the shape: 994012 `Primal Black`, 994013 `Primal Blue`, 994014 `Primal Green`, 994016 `Primal Red`, 994017 `Primal White`, 994180 `Hawkstrider Black`, 994181 `Hawkstrider Blue`, 994182 `Hawkstrider Green`, 994183 `Hawkstrider Purple`, 994184 `Hawkstrider Red`, 994185 `Hawkstrider White`, 994198 `Primal Strider Black`, 994199 `Primal Strider Blue`, 994200 `Primal Strider Green`. The old look 1219 (`Plainstrider`) comes with it too.
+Look (task 017): a retail model, base 994015 (`Primal Pink`); its other colourings come with the shape: 994012 `Primal Black`, 994013 `Primal Blue`, 994014 `Primal Green`, 994016 `Primal Red`, 994017 `Primal White`, 994180 `Hawkstrider Black`, 994181 `Hawkstrider Blue`, 994182 `Hawkstrider Green`, 994183 `Hawkstrider Purple`, 994184 `Hawkstrider Red`, 994185 `Hawkstrider White`. The old look 1219 (`Plainstrider`) comes with it too.
 Devour **any creature of the Tallstrider family** (e.g. 2955 for the base look 1219, skin `Plainstrider`); each look is a colouring. Favourite food: .
 Named colourings kept from task 007: 2956 → 1220 (`Tallstrider`).
 
@@ -154,7 +154,7 @@ Named colourings kept from task 007: 2956 → 1220 (`Tallstrider`).
 | 9100965 | 20 | Stampede (placeholder) | Placeholder Plainstrider ability (level 20): not designed yet.$B$B|cffb87830Plainstrider form|r |
 
 ### Bat (shape 11, Deathknell)
-Look (task 017): a retail model, base 994025 (`Vampire Purple`); its other colourings come with the shape: 994024 `Vampire Green`, 994026 `Vampire Red`, 994027 `Vampire Stone`, 994195 `Giant Bat Green`, 994196 `Giant Bat Purple`, 994197 `Giant Bat Red`. The old look 4732 (`Duskbat`) comes with it too.
+Look (task 017): a retail model, base 994025 (`Vampire Purple`); its other colourings come with the shape: 994024 `Vampire Green`, 994026 `Vampire Red`, 994027 `Vampire Stone`. The old look 4732 (`Duskbat`) comes with it too.
 Devour **1512** for the base look (4732, skin `Duskbat`).
 
 | Spell | Level | Name | What it does |
@@ -220,7 +220,7 @@ Changes against the canvas card (task 009), and why:
 - Inflate keeps the card's 4,000 absorb: a lot at level 14-20, for the owner to tune.
 
 ### Mana Wyrm (shape 12, Sunstrider Isle)
-Look (task 017): a retail model, base 994018 (`Wyrm Blue`); its other colourings come with the shape: 994019 `Wyrm Green`, 994020 `Wyrm Purple`, 994021 `Wyrm Red`, 994022 `Wyrm Void`, 994023 `Wyrm White`, 994201 `Great Wyrm Arcane`, 994202 `Great Wyrm Cosmic`. The old look 16217 (`Wyrm`) comes with it too.
+Look (task 017): a retail model, base 994018 (`Wyrm Blue`); its other colourings come with the shape: 994019 `Wyrm Green`, 994020 `Wyrm Purple`, 994021 `Wyrm Red`, 994022 `Wyrm Void`, 994023 `Wyrm White`. The old look 16217 (`Wyrm`) comes with it too.
 Devour **15274** for the base look (16217, skin `Wyrm`).
 
 | Spell | Level | Name | What it does |
