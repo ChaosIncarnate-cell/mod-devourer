@@ -91,3 +91,17 @@ Vehicle 102: one seat, 1541, on attachment 0, offset (0.15, 0, -0.08), flags 0x0
 CAN_ENTER_OR_EXIT). Primal Tallstrider (Creature\Tallstriderprimalmount) has its saddle at attachment 0 = (-0.29, 0, 2.36).
 Still to check while building: which creature uses vehicle 102 in the DB, and how Bramble's ride pose looks in game.
 Renders: Z:\ChromaticawBots\Parrot\renders\derby-beast\.
+
+## Owner, 2026-10-03: three races, Hagatha's mount for the last win
+
+"give Hagatha also a mount she is using for the race, we are doing 3 races, that give the suggested items, and last
+win will give the mount of hagatha." This replaces the single Derby + Rematch:
+
+| Quest | Race | Hagatha | Reward |
+|---|---|---|---|
+| 9101360 Wren's Derby | short loop by the Crossroads | easy pace | Apprentice Riding, Wren's Saddle, Wren's Racing Goggles, 25 silver |
+| 9101361 Hagatha Wants a Rematch | longer loop, a jump over the creek | faster | Hagatha's Bristle Cloak, Hagatha's Sour Toffee x3 |
+| 9101362 The Last Lap | the full course, about two minutes | her best | Bramble's Lucky Beetle and **Hagatha's broom** as a mount |
+
+Each race unlocks the next. Hagatha flies all three on her broom, so the reward is the mount the player raced against
+all along. The items, the broom's reins and their balance belong to the Items and balance thread.
