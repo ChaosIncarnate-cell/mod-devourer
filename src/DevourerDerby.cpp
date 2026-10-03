@@ -314,12 +314,9 @@ struct npc_devourer_derby_wren : public CreatureAI
     {
         if (quest->GetQuestId() != QuestDerby)
             return;
-        // Race 1 opens riding (Apprentice Riding), and the body Wren gave it stays: the Primal Tallstrider form
-        // (owner, 2026-10-03: "ofc it is supposed to be a form").
+        // Race 1 opens riding: Apprentice Riding.
         if (!player->HasSpell(SpellApprenticeRiding))
             player->learnSpell(SpellApprenticeRiding);
-        if (ShapePrimalTallstrider)
-            sDevourer.Unlock(player, ShapePrimalTallstrider, 0, false);
     }
 
     void Start(Player* player)
@@ -364,6 +361,10 @@ struct npc_devourer_derby_wren : public CreatureAI
         me->HandleEmoteCommand(EMOTE_ONESHOT_SPELL_CAST_OMNI);
         player->CastSpell(player, VisualTransform, true);
         PutOnBeast(player, race);
+        // The body Wren gives it is its own from now on, won or lost: the Primal Tallstrider form (owner, 2026-10-03:
+        // "it does not matter if winning or loosing there, it gets unlocked, with the transformation").
+        if (ShapePrimalTallstrider)
+            sDevourer.Unlock(player, ShapePrimalTallstrider, 0, false);
         rider->EnterVehicle(player, 0);
         Talk(WrenTransform, player);
         if (IsCompanion(rider))

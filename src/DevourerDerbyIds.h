@@ -24,7 +24,7 @@ namespace Devourer::Derby
     constexpr uint32_t DisplayKakapo = 980033;     // creature 9301049, the race 3 prize (owner: "Kakapo will be the mount")
     constexpr uint32_t VisualTransform = 24085;    // the sisters' transform flash
     constexpr uint32_t PoiIcon = 7;                // the minimap flag pointing to the next checkpoint
-    constexpr uint32_t ShapePrimalTallstrider = 0; // race 1 unlocks this tier-2 form; 0 until the Devourer thread has its id
+    constexpr uint32_t ShapePrimalTallstrider = 0; // Wren's transformation unlocks this tier-2 form; 0 until the Devourer thread has its id
 
     constexpr float StartX = -800.0f, StartY = -2640.0f, StartZ = 92.0f;   // the Barrens, west of the Crossroads
     constexpr float CheckpointRadius = 10.0f;
