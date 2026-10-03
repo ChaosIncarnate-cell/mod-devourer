@@ -157,7 +157,8 @@ BASE = [
         **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY | ATTR0_CANT_CANCEL, "AttributesEx": 0,
         "AttributesEx2": 0, "CastingTimeIndex": CAST_INSTANT, "DurationIndex": DUR_INFINITE, "RangeIndex": RANGE_SELF,
         "RecoveryTime": 0, "StartRecoveryCategory": 0, "StartRecoveryTime": 0, "InterruptFlags": 0,
-        "AuraInterruptFlags": 0, **effects(aura(A_MOD_SPEED_ALWAYS, 15))},
+        "AuraInterruptFlags": 0, "SpellVisualID_1": 0, "SpellVisualID_2": 0,    # task 016: no Sprint visual
+        **effects(aura(A_MOD_SPEED_ALWAYS, 15))},
      ("Shape's Stride", "Every shape runs 15% faster.", "Movement speed increased by 15%.")),
     (SNIFF, 1, 0, 1494, {                                            # Track Beasts' icon; the module scans and marks
         **CLEAN, **NO_MECHANICS, "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "AttributesEx2": 0,
