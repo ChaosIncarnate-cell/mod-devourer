@@ -783,7 +783,8 @@ INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `
 (35, 44, 1000, 35, 1, 9101331),
 (27, 16, 500, 12, 1, 9101332),
 (28, 24, 600, 16, 1, 9101333),
-(12, 24, 600, 16, 1, 9101334);
+(12, 24, 600, 16, 1, 9101334),
+(27, 26, 800, 28, 1, 9101335);
 -- The name lists of the devour-by-name tasks need more room than the frog line's 100 characters.
 ALTER TABLE `devourer_evolution_task` MODIFY COLUMN `name_part` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'kind 5: the meal''s name holds one of these (|-separated)';
 DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN 16 AND 44 OR `to_shape` IN (1);
@@ -862,4 +863,7 @@ INSERT INTO `devourer_evolution_task` (`from_shape`, `to_shape`, `task_id`, `kin
 (28, 24, 3, 8, 17550, 1, 'Devour a Void Anomaly (Bloodmyst Isle)', ''),
 (12, 24, 1, 5, 0, 20, 'Devour 20 void or arcane creatures as a Mana Wyrm', 'void|nether|voidwalker|mana|arcane'),
 (12, 24, 2, 9, 9100981, 50, 'Cast Arcane Bolt 50 times', ''),
-(12, 24, 3, 8, 17550, 1, 'Devour a Void Anomaly (Bloodmyst Isle)', '');
+(12, 24, 3, 8, 17550, 1, 'Devour a Void Anomaly (Bloodmyst Isle)', ''),
+(27, 26, 1, 7, 27, 25, 'Devour 25 wind serpents as a Baby Eagle', ''),
+(27, 26, 2, 9, 9102114, 40, 'Beat up 40 Wing Gusts', ''),
+(27, 26, 3, 8, 3249, 1, 'Devour a Greater Thunderhawk (the Barrens)', '');

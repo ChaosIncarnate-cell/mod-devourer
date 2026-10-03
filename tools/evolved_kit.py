@@ -1514,6 +1514,11 @@ EXTRA_GROWTH += [
              "void|nether|voidwalker|mana|arcane"),
             (SPELL_CAST, sk.sid(12, 1), 50, "Cast Arcane Bolt 50 times", ""),
             (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")]),
+    # owner, 2026-10-03: "we can have wind serpent go from viper, or a bird like creature?"
+    Growth(27, "Baby Eagle", 26, "Baby Wind Serpent", 28, 800,
+           [(DEVOUR_FAMILY, FAMILY_WIND_SERPENT, 25, "Devour 25 wind serpents as a Baby Eagle", ""),
+            (SPELL_CAST, sid(27, 4), 40, "Beat up 40 Wing Gusts", ""),
+            (DEVOUR_ENTRY, 3249, 1, "Devour a Greater Thunderhawk (the Barrens)", "")]),
 ]
 EXTRA_GROWTH[0].quest = 9101324          # the Sethrak's molt quest, given before the dragons came (keep it)
 

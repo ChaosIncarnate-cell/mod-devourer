@@ -41,6 +41,7 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 16 | Greater Plainstrider | Baby Eagle | 12 | 500 | (an older form) |
 | 24 | Void Terror | Baby Komodo | 16 | 600 | (an older form) |
 | 24 | Void Terror | Mana Wyrm | 16 | 600 | (an older form) |
+| 26 | Baby Wind Serpent | Baby Eagle | 28 | 800 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
 
@@ -65,6 +66,12 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 - Devour 20 void or arcane creatures as a Mana Wyrm
 - Cast Arcane Bolt 50 times
 - Devour a Void Anomaly (Bloodmyst Isle)
+
+### Baby Wind Serpent (shape 26, now also grows out of the Baby Eagle, quest 9101335)
+
+- Devour 25 wind serpents as a Baby Eagle
+- Beat up 40 Wing Gusts
+- Devour a Greater Thunderhawk (the Barrens)
 
 ### Greater Plainstrider (shape 16, grows out of the Plainstrider)
 Look: creature 3244, display 178 (skin `Greater Plainstrider`). Any one task:
