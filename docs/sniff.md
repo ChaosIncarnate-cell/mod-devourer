@@ -19,8 +19,9 @@ triggers are never marked. Living creatures and corpses are both marked.
 - (c) **chosen**: works with the stock client, no exe change, and the data is exact. The client addon already
   exists (`tools/client/lua/DevourerMenu.lua`, prefix `DVR`), so nothing new is packed into the MPQ.
 
-Limits of (c), on purpose: the marks sit on **nameplates** (the player turns them on with `V`; "show enemy names")
-and on the **target frame**, and they are matched by creature **name**. Two creatures with the same name get the
+Limits of (c), on purpose: the marks sit on **nameplates**, on the **target frame** and in a small **Sniff list** (task 016)
+that always shows what was found, since corpses have no nameplate. Nameplates of enemies are switched on while Sniff is
+on and put back when it ends. The marks are matched by creature **name**. Two creatures with the same name get the
 same mark even if only one of them gives a new colouring (the star wins over the triangle). Nameplates only
 exist for creatures the client currently draws.
 

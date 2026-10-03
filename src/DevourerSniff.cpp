@@ -22,7 +22,9 @@
 #include "Creature.h"
 #include "GridNotifiers.h"
 #include "GridNotifiersImpl.h"
+#include "Log.h"
 #include "Player.h"
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -101,6 +103,8 @@ namespace Devourer
                 list.push_back(name);
         }
 
+        LOG_DEBUG("module", "mod-devourer: Sniff scan for {}: {} creatures in range, {} new, {} favourite",
+            player->GetName(), around.size(), fresh.size(), favourite.size());
         SendAddon(player, "Q");
         for (auto const& [kind, list] : { std::pair<char, std::vector<std::string> const&>{ 'N', fresh },
                                           std::pair<char, std::vector<std::string> const&>{ 'F', favourite } })

@@ -712,16 +712,23 @@ local function Split(text, sep)
 	return out;
 end
 
--- --- Sniff (task 013) ----------------------------------------------------------------------------------
+-- --- Sniff (task 013, reworked in task 016) -------------------------------------------------------------
 -- While the Sniff aura is on, the server sends the names of nearby creatures worth eating every few seconds
 -- (Mgr::SniffScan): kind N = would give a new shape or colouring, kind F = the worn shape's favourite food.
--- The marks are drawn on the nameplates (turn them on with V) and on the target frame, by name: a gold star
--- for N, a green triangle for F. They expire by themselves when the server stops refreshing them.
+-- Task 016: the marks no longer depend on nameplates alone. A small "Sniff" list always shows what was found (a
+-- gold star for N, a green triangle for F; corpses have no nameplate, so the list is the sure way), the marks
+-- also sit on the target frame and on nameplates, and the nameplates of enemies are switched on while Sniff
+-- is on (and back as they were when it is off). Marks expire by themselves when the server stops refreshing them.
 local SNIFF_ICON = "Interface\\TargetingFrame\\UI-RaidTargetingIcons";
 local SNIFF_COORDS = { N = { 0, 0.25, 0, 0.25 }, F = { 0.75, 1, 0, 0.25 } };      -- star, triangle
+local SNIFF_MARKUP = {
+	N = "|T" .. SNIFF_ICON .. ":14:14:0:0:256:256:0:64:0:64|t",
+	F = "|T" .. SNIFF_ICON .. ":14:14:0:0:256:256:192:256:0:64|t",
+};
 local SNIFF_EXPIRE = 10;
 local sniffMarks, sniffPending, sniffStamp = {}, nil, 0;
 local nameplates, nameplateCount = {}, 0;
+local sniffOn, platesWere = false, nil;
 
 local function SniffKind(name)
 	if ( name and sniffMarks[name] and GetTime() - sniffStamp < SNIFF_EXPIRE ) then
@@ -738,19 +745,40 @@ local function SetMark(texture, kind)
 	end
 end
 
+-- A 3.3.5a nameplate is an unnamed child of WorldFrame. Its regions (border, name, level ...) sit on the frame itself
+-- or on one child frame, depending on the build, so both are searched; the first region is not always the border.
+local function PlateRegions(frame)
+	local list = { frame:GetRegions() };
+	for _, child in ipairs({ frame:GetChildren() }) do
+		for _, region in ipairs({ child:GetRegions() }) do
+			table.insert(list, region);
+		end
+	end
+	return list;
+end
+
 local function IsNameplate(frame)
-	if ( frame:GetName() ) then
+	if ( frame:GetName() or frame:GetObjectType() ~= "Frame" ) then
 		return false;
 	end
-	local region = frame:GetRegions();
-	return region and region.GetObjectType and region:GetObjectType() == "Texture"
-		and region:GetTexture() == "Interface\\Tooltips\\Nameplate-Border";
+	for _, region in ipairs(PlateRegions(frame)) do
+		if ( region.GetObjectType and region:GetObjectType() == "Texture" ) then
+			local texture = region:GetTexture();
+			if ( texture and string.find(texture, "Nameplate", 1, true) ) then
+				return true;
+			end
+		end
+	end
+	return false;
 end
 
 local function NameplateName(plate)
-	for _, region in ipairs({ plate:GetRegions() }) do
-		if ( region:GetObjectType() == "FontString" ) then
-			return region:GetText();
+	for _, region in ipairs(PlateRegions(plate)) do
+		if ( region.GetObjectType and region:GetObjectType() == "FontString" ) then
+			local text = region:GetText();
+			if ( text and text ~= "" and not tonumber(text) ) then    -- the level is a number
+				return text;
+			end
 		end
 	end
 end
@@ -774,6 +802,70 @@ targetMark:SetHeight(26);
 targetMark:SetPoint("LEFT", TargetFrame, "TOPRIGHT", -10, -30);
 targetMark:Hide();
 
+-- The list: always visible while Sniff is on, so the player sees at once that it works.
+local sniffPanel = CreateFrame("Frame", "DevourerSniffPanel", UIParent);
+sniffPanel:SetWidth(190);
+sniffPanel:SetHeight(40);
+sniffPanel:SetPoint("TOP", UIParent, "TOP", 0, -140);
+sniffPanel:SetFrameStrata("MEDIUM");
+sniffPanel:SetBackdrop({
+	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+	tile = true, tileSize = 16, edgeSize = 12,
+	insets = { left = 3, right = 3, top = 3, bottom = 3 },
+});
+sniffPanel:SetBackdropColor(0, 0, 0, 0.7);
+sniffPanel:SetMovable(true);
+sniffPanel:EnableMouse(true);
+sniffPanel:RegisterForDrag("LeftButton");
+sniffPanel:SetScript("OnDragStart", sniffPanel.StartMoving);
+sniffPanel:SetScript("OnDragStop", sniffPanel.StopMovingOrSizing);
+sniffPanel.text = sniffPanel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall");
+sniffPanel.text:SetPoint("TOPLEFT", 8, -8);
+sniffPanel.text:SetJustifyH("LEFT");
+sniffPanel:Hide();
+
+local function ShowSniffList()
+	local lines = { "|cffd8b3ffSniff|r" };
+	local count = 0;
+	for name, kind in pairs(sniffMarks) do
+		if ( count < 8 ) then
+			table.insert(lines, SNIFF_MARKUP[kind] .. " " .. name);
+		end
+		count = count + 1;
+	end
+	if ( count == 0 ) then
+		table.insert(lines, "|cff999999Nothing new within range.|r");
+	elseif ( count > 8 ) then
+		table.insert(lines, "|cff999999... and " .. (count - 8) .. " more|r");
+	end
+	sniffPanel.text:SetText(table.concat(lines, "\n"));
+	sniffPanel:SetHeight(16 + 12 * table.getn(lines));
+	sniffPanel:Show();
+end
+
+local function SniffSwitch(on)
+	if ( on == sniffOn ) then
+		return;
+	end
+	sniffOn = on;
+	if ( on ) then
+		-- Enemy nameplates carry the marks of living creatures; turned on here, put back when Sniff ends.
+		platesWere = GetCVar("nameplateShowEnemies");
+		if ( platesWere ~= "1" ) then
+			SetCVar("nameplateShowEnemies", "1");
+		else
+			platesWere = nil;
+		end
+	else
+		if ( platesWere ) then
+			SetCVar("nameplateShowEnemies", platesWere);
+			platesWere = nil;
+		end
+		sniffPanel:Hide();
+	end
+end
+
 local sniffClock = 0;
 local sniffFrame = CreateFrame("Frame");
 sniffFrame:SetScript("OnUpdate", function(self, elapsed)
@@ -782,6 +874,9 @@ sniffFrame:SetScript("OnUpdate", function(self, elapsed)
 		return;
 	end
 	sniffClock = 0;
+	if ( sniffOn and GetTime() - sniffStamp >= SNIFF_EXPIRE ) then
+		SniffSwitch(false);                          -- the server stopped talking (logout, aura lost): tidy up
+	end
 	local children = WorldFrame:GetNumChildren();
 	if ( children ~= nameplateCount ) then
 		nameplateCount = children;
@@ -806,8 +901,11 @@ local function SniffMessage(message)
 	local kind = string.sub(message, 1, 1);
 	if ( kind == "Z" ) then
 		sniffMarks, sniffPending = {}, nil;
+		SniffSwitch(false);
 	elseif ( kind == "Q" ) then
 		sniffPending = {};
+		sniffStamp = GetTime();                      -- the server is alive: no expiry yet
+		SniffSwitch(true);
 	elseif ( kind == "P" and sniffPending ) then
 		-- P:<N or F>:<name>|<name>|...
 		local mark, list = string.match(message, "^P:(%a):(.*)$");
@@ -820,6 +918,7 @@ local function SniffMessage(message)
 		end
 	elseif ( kind == "R" and sniffPending ) then
 		sniffMarks, sniffPending, sniffStamp = sniffPending, nil, GetTime();
+		ShowSniffList();
 	end
 end
 
