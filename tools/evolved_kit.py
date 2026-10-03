@@ -108,7 +108,7 @@ class Evolved:
 
     def __init__(self, shape, name, parent, parent_name, creature, display, skin, one, two, gimmick, four, five,
                  diet, food, level, bp, tasks, extra=(), procs=(), scripts=(), changes=(), role="", looks=(),
-                 family=0, later_level=20, scale=1):
+                 family=0, later_level=20, scale=1, quest=0):
         assert bool(parent) != bool(family), f"{name}: grows out of a parent, or is devoured from a family"
         self.family = family              # a line's first form: any creature of this family gives it
         self.later_level = later_level    # the level the fifth ability opens at
@@ -126,7 +126,7 @@ class Evolved:
         self.changes = list(changes)
         self.role = role
         self.base = sid(shape, 0)
-        self.quest = 0                    # task 018: its molt quest (set below, in FORMS order)
+        self.quest = quest                # task 018: its molt quest (0 = the next free one, in MOLTS order)
         # Retail models brought in with the model tool (tools/modeltool, imports.json): [(display, colouring name)],
         # the first is the base look. They come with the shape (devourer_skin.free), so does the creature's own look.
         self.looks = list(looks)
@@ -820,10 +820,59 @@ KOMODO_DRAGON = Evolved(
         "Septic Saliva is the line's anti-heal: every bite leaves 25% less healing for 6 sec.",
     ])
 
+# 30 Water Salamander (the Biletoad's second branch; owner, 2026-10-03: "b1 Good second branch very good")
+E_HEAL = 10
+A_WATER_BREATHING, A_MOD_SWIM_SPEED, A_MECHANIC_IMMUNITY = 82, 30, 77
+SCHOOL_FIRE = 4
+WATER_SALAMANDER = Evolved(
+    30, "Water Salamander", 14, "Biletoad", 0, 994122, "Salamander Green",
+    (34889, ability({"RangeIndex": RANGE_25, "RecoveryTime": 3000, "SchoolMask": SCHOOL_FIRE, "DurationIndex": 0,
+                     "_bonus": (0, 0, 0.15, 0),
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 16, "spread": 6, "target": T_ENEMY}, gain(10))}),
+     ("Steam Spit", "Spit scalding steam at an enemy up to 25 yards away: $s1 Fire damage, half again as much if it "
+      "stands in water. Generates 10 Anima.", "")),
+    (36398, ability({**hunger(10), "RangeIndex": RANGE_20, "RecoveryTime": 12000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": DUR_4S, "EffectMechanic_2": MECHANIC_SNARE,
+                     **effects({"effect": E_PULL_TOWARDS, "misc": 200, "target": T_ENEMY},
+                               aura(A_MOD_DECREASE_SPEED, -40, target=T_ENEMY))}),
+     ("Undertow", "Drag an enemy up to 20 yards away to you like a current: it moves 40% slower for 4 sec.",
+      "Movement slowed by 40%.")),
+    (25941, gimmick(1924, 0, aura(A_WATER_BREATHING), aura(A_MOD_SWIM_SPEED, 60)),
+     ("Amphibious", "You breathe under water and swim 60% faster.", "")),
+    (52127, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S,
+                     "RecoveryTime": 30000, "SchoolMask": SCHOOL_NATURE,
+                     **effects(aura(A_MECHANIC_IMMUNITY, 0, MECHANIC_SNARE), aura(A_MECHANIC_IMMUNITY, 0, MECHANIC_ROOT))}),
+     ("Slick Skin", "Your skin turns slick: for 6 sec nothing can slow or root you.", "Cannot be slowed or rooted.")),
+    (11113, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 15000, "SchoolMask": SCHOOL_FIRE, "_bonus": (0, 0, 0.12, 0),
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 14, "spread": 6, "target": T_SRC_CASTER,
+                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8},
+                               {"effect": E_KNOCK_BACK, "amount": 50, "misc": 80, "target": T_SRC_CASTER,
+                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
+     ("Scalding Burst", "Boil off a burst of steam: $s1 Fire damage to enemies within 8 yards, and they are blown "
+      "back.", "")),
+    [(CREATURE_TYPE_CRITTER, 10), (CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 6), (0, 3)],
+    sk.INSECTS, 14, 550,
+    [(DEVOUR_NAME, 0, 25, "Devour 25 water creatures as a Biletoad",
+      "murloc|naga|crab|turtle|eel|makrura|crocolisk|fish|snapjaw|tide|water"),
+     (SPELL_CAST, 9101011, 40, "Spit 40 poison darts (Poison Dart Spit)", ""),
+     (DEVOUR_ENTRY, 391, 1, "Devour Old Murk-Eye (Westfall)", "")],
+    scripts=[(1, "spell_devourer_steam_spit")],
+    looks=[(994122, "Salamander Green"), (994121, "Salamander Blue"), (994123, "Salamander Orange"),
+           (994124, "Salamander Pink"), (994125, "Salamander Purple")],
+    quest=9101322,
+    role="water skirmisher",
+    changes=[
+        "The Biletoad's second branch (the canvas's 2B), beside the Giant Marsh Frog: both can be grown, each with "
+        "its own tasks and molt quest. Buying the second one with Bio Points in the menu comes later.",
+        "Slick Skin makes you unable to be slowed or rooted for 6 sec (the pick's \"-30% from snares\" was unclear).",
+        "Steam Spit's \"extra on wet enemies\": half again as much on an enemy standing or swimming in water.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
-         KOMODO_DRAGON]
+         KOMODO_DRAGON, WATER_SALAMANDER]
 
 
 class Growth:
@@ -846,8 +895,15 @@ EXTRA_GROWTH = [
 
 # Task 018: every evolution of this file gets a molt quest, in this order (tools/witch_sisters.py builds them).
 MOLTS = [f for f in FORMS if f.parent] + EXTRA_GROWTH
-for _i, _m in enumerate(MOLTS):
-    _m.quest = MOLT_QUEST_FIRST + _i
+_taken = {m.quest for m in MOLTS if m.quest}
+_next = MOLT_QUEST_FIRST
+for _m in MOLTS:                         # quests already given keep their ids (they may sit in quest logs)
+    while not _m.quest:
+        if _next not in _taken:
+            _m.quest = _next
+        _next += 1
+MOLTS.sort(key=lambda m: m.quest)
+assert [m.quest for m in MOLTS] == list(range(MOLT_QUEST_FIRST, MOLT_QUEST_FIRST + len(MOLTS))), "molt quests must be in one run"
 
 
 def form_spells(f: Evolved, dbc):

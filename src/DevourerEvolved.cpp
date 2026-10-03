@@ -11,6 +11,7 @@
  *   Void Terror           Gravitational Shadows   Nether Bolt's ticks stack a slow; at 10 the enemy collapses
  *   Viper                 Sand Slither            under the ground for 2 sec, then up behind the target (Emerge)
  *                         Cold Blood              its venom ticks 20% harder on slowed or rooted enemies (ColdBlood)
+ *   Water Salamander      Steam Spit              half again as much on an enemy in water
  * The Shadowclaw's opener lives in DevourerForms.cpp (spell_devourer_phase_prowl); the Rockjaw Backbreaker's and the
  * Royal Blue Flutterer's gimmicks are plain procs (spell_proc), no script.
  */
@@ -271,6 +272,24 @@ class spell_devourer_sand_slither : public AuraScript
     }
 };
 
+// Water Salamander: Steam Spit hits half again as hard on an enemy standing or swimming in water.
+class spell_devourer_steam_spit : public SpellScript
+{
+    PrepareSpellScript(spell_devourer_steam_spit);
+
+    void Scald()
+    {
+        if (Unit* target = GetHitUnit())
+            if (target->IsInWater())
+                SetHitDamage(GetHitDamage() * 3 / 2);
+    }
+
+    void Register() override
+    {
+        OnHit += SpellHitFn(spell_devourer_steam_spit::Scald);
+    }
+};
+
 namespace Devourer
 {
     // Viper: Cold Blood. Called for every tick of damage over time (devourer_unit).
@@ -287,6 +306,7 @@ namespace Devourer
 void AddSC_devourer_evolved()
 {
     RegisterSpellScript(spell_devourer_sand_slither);
+    RegisterSpellScript(spell_devourer_steam_spit);
     RegisterSpellScript(spell_devourer_gale_flurry);
     RegisterSpellScript(spell_devourer_hamstring_cripple);
     RegisterSpellScript(spell_devourer_kinetic_tremor);

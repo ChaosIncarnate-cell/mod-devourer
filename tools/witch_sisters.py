@@ -250,6 +250,8 @@ MOLT_TALES = {
         "serpents clearing their throats.",
     1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
        "my little horror: as something that would not stop eating.",
+    30: "Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do "
+        "not let it near my cauldron.",
     29: "On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little "
         "horror. It heals inside the lizard.",
 }
@@ -310,7 +312,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20)),
     ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
-    ("A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it.", (28, 29)),
+    ("A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it.", (28, 29, 30)),
 ]
 WREN_REACTION_FIRST = 16
 for i, (line, _) in enumerate(WREN_REACTIONS):

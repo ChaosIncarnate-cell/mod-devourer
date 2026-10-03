@@ -22,6 +22,7 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 27 | Baby Eagle | devouring (family 26) | 5 | - | diving skirmisher |
 | 28 | Baby Komodo | devouring (family 6) | 9 | - | festering brawler |
 | 29 | Komodo Dragon | Baby Komodo | 30 | 800 | festering tank |
+| 30 | Water Salamander | Biletoad | 14 | 550 | water skirmisher |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101321)
@@ -347,3 +348,25 @@ Changes against the canvas card, and why:
 
 - The grown komodo model, larger (0.55 against the baby's 0.34).
 - Septic Saliva is the line's anti-heal: every bite leaves 25% less healing for 6 sec.
+
+### Water Salamander (shape 30, grows out of the Biletoad)
+Look: a retail model, base 994122 (`Salamander Green`); its other colourings come with the shape: 994121 `Salamander Blue`, 994123 `Salamander Orange`, 994124 `Salamander Pink`, 994125 `Salamander Purple`. The creature's own look (creature 0, display 994122, `Salamander Green`) comes with it too. Any one task:
+
+- Devour 25 water creatures as a Biletoad
+- Spit 40 poison darts (Poison Dart Spit)
+- Devour Old Murk-Eye (Westfall)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102140 | 1 | Water Salamander Form | Take the shape of the water salamander, grown out of your biletoad: Steam Spit, Undertow, Slick Skin and Amphibious; Scalding Burst opens at level 20. All shapes share one cooldown. |
+| 9102141 | 1 | Steam Spit | Spit scalding steam at an enemy up to 25 yards away: $s1 Fire damage, half again as much if it stands in water. Generates 10 Anima. |cffb87830Water Salamander form|r |
+| 9102142 | 1 | Undertow | Drag an enemy up to 20 yards away to you like a current: it moves 40% slower for 4 sec. |cffb87830Water Salamander form|r |
+| 9102143 | 1 | Amphibious | You breathe under water and swim 60% faster. |cffb87830Water Salamander form|r |
+| 9102144 | 1 | Slick Skin | Your skin turns slick: for 6 sec nothing can slow or root you. |cffb87830Water Salamander form|r |
+| 9102145 | 20 | Scalding Burst | Boil off a burst of steam: $s1 Fire damage to enemies within 8 yards, and they are blown back. |cffb87830Water Salamander form|r |
+
+Changes against the canvas card, and why:
+
+- The Biletoad's second branch (the canvas's 2B), beside the Giant Marsh Frog: both can be grown, each with its own tasks and molt quest. Buying the second one with Bio Points in the menu comes later.
+- Slick Skin makes you unable to be slowed or rooted for 6 sec (the pick's "-30% from snares" was unclear).
+- Steam Spit's "extra on wet enemies": half again as much on an enemy standing or swimming in water.
