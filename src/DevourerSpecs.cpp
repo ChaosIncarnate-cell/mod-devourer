@@ -774,7 +774,7 @@ namespace Devourer
 
     // Task 015: Many Faces, Form of Many (longer echoes, two casts), Mimic's Eye, Borrowed Voice, Flicker Shape, Mirror
     // Hunger, Skin Hoard, Hollow Shell (a second, smaller echo) and Thousand Skins (an echo out of combat, three at most).
-    void Mgr::SpawnEcho(Player* player, Shape const& shape, bool small, bool force)
+    void Mgr::SpawnEcho(Player* player, Shape const& shape, bool smallEcho, bool force)
     {
         State& state = Get(player);
         uint32 const now = getMSTime();
@@ -786,7 +786,7 @@ namespace Devourer
 
         bool const many = Active(state.ManyUntil, now);
         uint32 const duration = (many ? 14000u : EchoDuration) + 2000u * Rank(player, TalManyFaces);
-        float const share = small ? 0.5f : 1.0f;
+        float const share = smallEcho ? 0.5f : 1.0f;
         float const power = (1.0f + 0.10f * Rank(player, TalMimicsEye)) * share;
         TempSummon* echo = player->SummonCreature(NpcEcho, player->GetPosition(), TEMPSUMMON_TIMED_DESPAWN, duration,
             0, sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
@@ -794,7 +794,7 @@ namespace Devourer
             return;
 
         Dress(echo, player, ShownDisplay(player, shape), 0.25f * share, 1.5f * power, 2.2f * power);
-        if (small)
+        if (smallEcho)
             echo->SetObjectScale(echo->GetObjectScale() * 0.7f);
         echo->AddAura(SpellGhostVisual, echo);
         Engage(echo, player);
@@ -818,7 +818,7 @@ namespace Devourer
                 }, Milliseconds(1000));
             }
         }
-        if (small)
+        if (smallEcho)
             return;
 
         if (uint8 const r = Rank(player, TalFlickerShape))

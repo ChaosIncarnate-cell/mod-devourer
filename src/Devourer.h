@@ -285,7 +285,7 @@ namespace Devourer
         [[nodiscard]] bool IsOwnHatchling(Player* player, Unit* unit) const;
         void Cannibalize(Player* player, Creature* hatchling);
         void OnCreatureDeath(Creature* victim, Unit* killer);
-        void SpawnEcho(Player* player, Shape const& shape, bool small = false, bool force = false);
+        void SpawnEcho(Player* player, Shape const& shape, bool smallEcho = false, bool force = false);
         void OnSerpentsRisen(Player* player);
         [[nodiscard]] std::list<Creature*> RisenSerpents(Player* player) const;   // ChaosCore0.2
         void OnAutoAttackHit(Player* player);                                     // ChaosCore0.2: Hunger per swing
