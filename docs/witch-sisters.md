@@ -14,31 +14,30 @@ Map **35** (`StormwindPrison`, unused, not instanced): the round hall of the old
 | creature 9910200 | Hagatha Hollowmoor (9101300) | -100.4, 153.4, -40.11 |
 | creature 9910201 | Wren Hollowmoor (9101301) | -95.6, 153.4, -40.11 |
 | creature 9910202 | the void under the cage (9101303) | the cage |
-| gameobject 9910200 | Ritual Rune Circle (9101309) | -98.0, 150.0, -40.23 |
-| gameobject 9910201 | Bubbling Cauldron (9101302) | -98.0, 157.0, -39.93 |
-| gameobject 9910202 | Hagatha's Lantern (9101303) | -101.9, 155.0, -40.03 |
-| gameobject 9910203 | Book of Monster Tales (9101305) | -102.7, 152.6, -40.15 |
-| gameobject 9910204 | Bookshelf (9101304) | -105.5, 160.5, -40.21 |
-| gameobject 9910205 | Skull Pile (9101306) | -103.5, 157.5, -40.02 |
-| gameobject 9910206 | Ritual Candle (9101310) | -95.23, 151.15, -40.28 |
-| gameobject 9910207 | Ritual Candle (9101310) | -100.77, 151.15, -40.28 |
-| gameobject 9910208 | Ritual Candle (9101310) | -100.77, 148.85, -40.28 |
-| gameobject 9910209 | Ritual Candle (9101310) | -99.15, 147.23, -40.28 |
-| gameobject 9910210 | Ritual Candle (9101310) | -96.85, 147.23, -40.28 |
-| gameobject 9910211 | Ritual Candle (9101310) | -95.23, 148.85, -40.28 |
-| gameobject 9910212 | Ritual Standing Stone (9101312) | -98.0, 154.5, -40.28 |
-| gameobject 9910213 | Ritual Standing Stone (9101312) | -102.5, 150.0, -40.28 |
-| gameobject 9910214 | Ritual Brazier (9101311) | -101.18, 146.82, -40.28 |
-| gameobject 9910215 | Ritual Standing Stone (9101312) | -98.0, 145.5, -40.28 |
-| gameobject 9910216 | Ritual Brazier (9101311) | -94.82, 146.82, -40.28 |
-| gameobject 9910217 | Ritual Standing Stone (9101312) | -93.5, 150.0, -40.28 |
-| gameobject 9910218 | Ritual Book (9101313) | -99.2, 155.6, -40.1 |
-| gameobject 9910219 | Ritual Book (9101313) | -96.8, 155.6, -40.1 |
-| gameobject 9910220 | Wren's Cage (9101301) | -92.0, 157.0, -39.93 |
-| gameobject 9910221 | Wren's Cage (9101301) | -108.0, 160.0, -40.12 |
-| gameobject 9910222 | Wren's Cage (9101301) | -88.0, 160.0, -40.11 |
-| gameobject 9910223 | Wren's Cage (9101301) | -108.0, 140.0, -40.31 |
-| gameobject 9910224 | Wren's Cage (9101301) | -88.0, 140.0, -40.24 |
+| gameobject 9910200 | Bubbling Cauldron (9101302) | -98.0, 157.0, -39.93 |
+| gameobject 9910201 | Hagatha's Lantern (9101303) | -101.9, 155.0, -40.03 |
+| gameobject 9910202 | Book of Monster Tales (9101305) | -102.7, 152.6, -40.15 |
+| gameobject 9910203 | Bookshelf (9101304) | -105.5, 160.5, -40.21 |
+| gameobject 9910204 | Skull Pile (9101306) | -103.5, 157.5, -40.02 |
+| gameobject 9910205 | Ritual Candle (9101310) | -95.23, 151.15, -40.28 |
+| gameobject 9910206 | Ritual Candle (9101310) | -100.77, 151.15, -40.28 |
+| gameobject 9910207 | Ritual Candle (9101310) | -100.77, 148.85, -40.28 |
+| gameobject 9910208 | Ritual Candle (9101310) | -99.15, 147.23, -40.28 |
+| gameobject 9910209 | Ritual Candle (9101310) | -96.85, 147.23, -40.28 |
+| gameobject 9910210 | Ritual Candle (9101310) | -95.23, 148.85, -40.28 |
+| gameobject 9910211 | Ritual Standing Stone (9101312) | -98.0, 154.5, -40.28 |
+| gameobject 9910212 | Ritual Standing Stone (9101312) | -102.5, 150.0, -40.28 |
+| gameobject 9910213 | Ritual Brazier (9101311) | -101.18, 146.82, -40.28 |
+| gameobject 9910214 | Ritual Standing Stone (9101312) | -98.0, 145.5, -40.28 |
+| gameobject 9910215 | Ritual Brazier (9101311) | -94.82, 146.82, -40.28 |
+| gameobject 9910216 | Ritual Standing Stone (9101312) | -93.5, 150.0, -40.28 |
+| gameobject 9910217 | Ritual Book (9101313) | -99.2, 155.6, -40.1 |
+| gameobject 9910218 | Ritual Book (9101313) | -96.8, 155.6, -40.1 |
+| gameobject 9910219 | Wren's Cage (9101301) | -92.0, 157.0, -39.93 |
+| gameobject 9910220 | Wren's Cage (9101301) | -108.0, 160.0, -40.12 |
+| gameobject 9910221 | Wren's Cage (9101301) | -88.0, 160.0, -40.11 |
+| gameobject 9910222 | Wren's Cage (9101301) | -108.0, 140.0, -40.31 |
+| gameobject 9910223 | Wren's Cage (9101301) | -88.0, 140.0, -40.24 |
 
 The Devourer's own cage (9101300, display 4154) is summoned by the module for each Devourer, and opens when the third chore is handed in.
 

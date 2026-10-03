@@ -80,7 +80,9 @@ VOID_SPAWN = (9910202, CAGE[0], CAGE[1], CAGE[2])
 
 # Task 014: the ritual area. These displays are stock 3.3.5a GameObjectDisplayInfo ids picked WITHOUT a client to
 # look at: the owner checks each in game (README of PR) and changes the number here, then runs this script again.
-RUNE_DISPLAY = 7881        # a flat glowing rune ring (like the warlock's summoning ring); fallbacks: 3171, 5651
+# Task 016: the rune circle object (9101309, display 7881) is gone: it showed as a big blue crystal in the middle that
+# the player got stuck on. The circle is the Void Zone visual under the cage now, shown smaller (VOID_SCALE).
+VOID_SCALE = 0.6
 BRAZIER_DISPLAY = 197      # standing brazier (the most used "Brazier"; 1291 does not exist in this client)
 STONE_DISPLAY = 7017       # "Glyph Inscribed Obelisk", a rune-carved standing stone (1431 does not exist)
 CHANNEL = 40671            # stock channelled beam the sisters hold on the Devourer; fallbacks: 59551, 31725
@@ -95,7 +97,6 @@ GO_TEMPLATES = [
     (9101304, 5, 187, "Bookshelf", 1.0, 0),
     (9101305, 5, 107, "Book of Monster Tales", 1.0, 0),
     (9101306, 5, 6328, "Skull Pile", 1.0, 0),
-    (9101309, 5, RUNE_DISPLAY, "Ritual Rune Circle", 1.0, 0),   # task 014: glowing runes (was display 465, a dark disc)
     (9101310, 5, 4152, "Ritual Candle", 1.0, 0),
     (9101311, 5, BRAZIER_DISPLAY, "Ritual Brazier", 1.0, 0),
     (9101312, 5, STONE_DISPLAY, "Ritual Standing Stone", 1.0, 0),
@@ -119,7 +120,6 @@ RITUAL_SPAWNS += [(9101313, -99.2, 155.6, -40.1, None), (9101313, -96.8, 155.6, 
 # nothing stands within 2 yards of a sister (the ring would put a brazier in Hagatha)
 RITUAL_SPAWNS = [r for r in RITUAL_SPAWNS if all(math.hypot(r[1] - sx, r[2] - sy) >= 2.0 for sx, sy in ((-100.4, 153.4), (-95.6, 153.4)))]
 GO_SPAWNS = [  # (entry, x, y, z, orientation or None = facing the cage)
-    (9101309, CAGE[0], CAGE[1], round(CAGE[2] + 0.05, 2), 0.0),      # the circle the ritual pulls the Devourer into
     (9101302, -98.0, 157.0, -39.93, None),                  # the cauldron behind the sisters
     (9101303, -101.9, 155.0, -40.03, None),                 # Hagatha's lantern of trapped anima
     (9101305, -102.7, 152.6, -40.15, None),
@@ -434,7 +434,8 @@ def build_sql() -> str:
         "  -- OLDWorld Trigger",
         f"UPDATE `devourer_tmp_ct` SET `entry` = {NPC_VOID}, `name` = 'The In-Between', `subname` = NULL,"
         " `faction` = 35, `npcflag` = 0,",
-        "    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0;",
+        f"    `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0,"
+        f" `scale` = {VOID_SCALE};",
         "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
         f"UPDATE `devourer_tmp_ct` SET `entry` = {CREDIT_DEVOURED}, `name` = 'Snack devoured';",
         "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
