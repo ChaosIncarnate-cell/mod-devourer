@@ -10,7 +10,7 @@ big two-seat beast, Bramble climbs on its back to "navigate", and the three race
 
 ## Quests (IDs 9101360+)
 
-### 9101360 Wren's Derby (from Wren, In-Between; needs Wren's Apprentice done, level 10+)
+### 9101360 Wren's Derby (from Wren, In-Between; needs Wren's Apprentice done, level 20+)
 
 > Snack! Big news. I told Hagatha you could beat her broom in a race. She laughed. She laughed for a LONG time. So now
 > it's a bet, and if we lose I have to clean the cauldron. With my hands. / Go to the plains of Mulgore, south of
@@ -34,7 +34,7 @@ Handed in (to Wren, at the finish): *WE WON! Hagatha, the cauldron is yours! Bot
 Bramble, stop waving, it's over.* Hagatha: *The broom is old. Next year, little horror.*
 
 **Rewards** (owner, 2026-10-03: "dont reward bio points, reward actual things that are like quests"): experience,
-silver, **Wren's Saddle** (the Derby Beast spell, see below) and a choice of one level-10 green:
+silver, **Wren's Saddle** (the Derby Beast spell, see below) and a choice of one level-20 green:
 - *Wren's Racing Goggles* (cloth head, Intellect and Stamina)
 - *Hagatha's Bristle Cloak* (cloak, Agility and Stamina)
 - *Bramble's Lucky Beetle* (neck, Strength and Stamina; "it might still be alive")
@@ -72,3 +72,11 @@ tells you when you beat it.
 
 The reward items (goggles, cloak, beetle, toffee) are designed, balanced and implemented by the Items and balance
 thread; the quest only references their item IDs once they exist. Wren's Saddle stays with the quest.
+
+## Owner, 2026-10-03: higher level, unlocks riding
+
+"lets set it higher for the level, and let us be able to unlock mount or riding skill." Proposal: the Derby opens at
+level 20 (where 3.3.5 Apprentice Riding starts). Winning teaches Apprentice Riding for free, and Wren's Saddle is the
+Devourer's first mount (the Derby Beast, two seats). Because Mulgore is a level 1-10 zone, the course moves to the open
+savanna of the Northern Barrens around the Crossroads (level 10-25), still short (about two minutes). Riding and
+mount items go through the Items and balance thread.
