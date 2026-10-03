@@ -52,3 +52,13 @@ that, and maybe add some nice interactions." So:
   with each other. Pick 3-4 that are cheap to build and list them in the PR so the owner can say yes/no.
 - The specs stay: Brood's hatchlings are separate from the pet.
 Then do Step 2 as described above.
+
+## Step 2 built (2026-10-03)
+Status: built in a cloud session, **untested in game** (the PR text says what to test).
+- `tools/placeholders.py` is now the one source for the 90 talents, the nine spec abilities and 18 helper spells
+  (`docs/talents.md` lists each one and how it works; `src/DevourerTalentIds.h`, SQL 07 are generated).
+- `src/DevourerTalents.cpp`: the rank reader, the perks worked out every second (three hidden auras), Devourer's
+  Hide (Last Supper, Fat Reserves, the roar, Slow Chew), the spec abilities and active talents, the Brood talents.
+  `DevourerSpecs.cpp` / `DevourerMgr.cpp`: the Glutton and Skinchanger talents inside the existing meal, echo and shift code.
+- Concentrate is gone; the pet (`docs/pet.md`, `src/DevourerPet.cpp`) with four interactions. No core change.
+- Anima costs: see `docs/talents.md` (spec abilities 25-60, active talents 15-25) and the PR text.
