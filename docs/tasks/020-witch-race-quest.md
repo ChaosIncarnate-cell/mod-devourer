@@ -40,7 +40,7 @@ Derby Beast anywhere outdoors and carry one party member on its back (a two-seat
 
 > Hagatha wants a rematch. She ALWAYS wants a rematch.
 
-Same race, Hagatha a little faster each time you win; small Bio Points reward. Your best time is remembered and Wren
+Same race, Hagatha a little faster each time you win; small Bio Points reward. Owner (2026-10-03): "rematch is okay, dont make it too gigantic": the course stays short, about two minutes, and the beast stays normal mount size. Your best time is remembered and Wren
 tells you when you beat it.
 
 ## How it works (for the build)
