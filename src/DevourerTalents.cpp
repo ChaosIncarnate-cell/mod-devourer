@@ -704,6 +704,7 @@ namespace Devourer
                 }
                 break;
             case SpellFeedTheYoung:
+            {
                 player->ModifyHealth(-int32(std::min<uint32>(player->CountPctFromMaxHealth(15), uint32(player->GetHealth()) - 1)));
                 bool first = true;
                 for (Creature* hatchling : Mine(player, NpcHatchling, BroodReach))
@@ -715,6 +716,7 @@ namespace Devourer
                     first = false;
                 }
                 break;
+            }
             case SpellBroodSwarm:
             {
                 uint32 const life = 20000 + 3000 * Rank(player, TalCrawlingMass) + 4000 * Rank(player, TalSwarmTide);
