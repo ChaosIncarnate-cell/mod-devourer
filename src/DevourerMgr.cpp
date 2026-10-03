@@ -391,6 +391,14 @@ namespace Devourer
 
     // --- devouring ----------------------------------------------------------------------------------------
 
+    void Mgr::RememberKill(State& state, ObjectGuid guid)
+    {
+        constexpr size_t MaxKills = 200;
+        state.Kills.push_back(guid);
+        while (state.Kills.size() > MaxKills)
+            state.Kills.pop_front();
+    }
+
     bool Mgr::CanDevour(Player* player, Creature* corpse, std::string& why) const
     {
         if (!corpse || corpse->IsAlive())
@@ -404,7 +412,9 @@ namespace Devourer
             why = "Nothing is left of it to eat.";
             return false;
         }
-        if (_requireLooted && !corpse->isTappedBy(player) && !corpse->hasLootRecipient())
+        bool const ownKill = itr != _states.end() &&
+            std::find(itr->second.Kills.begin(), itr->second.Kills.end(), corpse->GetGUID()) != itr->second.Kills.end();
+        if (_requireLooted && !ownKill && !corpse->isTappedBy(player) && !corpse->hasLootRecipient())
         {
             why = "You must have slain it yourself.";
             return false;

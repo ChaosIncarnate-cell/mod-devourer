@@ -27,6 +27,7 @@
 #include "ObjectGuid.h"
 #include "DevourerTalentIds.h"
 #include <array>
+#include <deque>
 #include <functional>
 #include <list>
 #include <map>
@@ -191,6 +192,7 @@ namespace Devourer
         uint32 SyncedSpec = 0xFFFFFFFF;
         uint8 SyncedLevel = 0;                   // spec abilities also open by level (placeholders at 20/40/60)
         std::set<ObjectGuid> Eaten;              // corpses already fed on (they stay for their loot)
+        std::deque<ObjectGuid> Kills;            // task 016: the last kills of the Devourer, its pet, hatchlings and echoes
         std::map<uint32, uint32> Bio;            // shape id -> Bio Points earned while worn
         std::map<std::pair<uint32, uint32>, uint32> Tasks;   // (evolved shape, task id) -> progress
         bool GrowthDirty = false;
@@ -268,6 +270,7 @@ namespace Devourer
         [[nodiscard]] std::vector<Shape const*> AllShapes() const;
 
         // --- devouring ---------------------------------------------------------------------------------
+        static void RememberKill(State& state, ObjectGuid guid);
         bool CanDevour(Player* player, Creature* corpse, std::string& why) const;
         void Devour(Player* player, Creature* corpse);
         bool Unlock(Player* player, uint32 shapeId, uint32 display, bool shiftNow, bool quiet = false);

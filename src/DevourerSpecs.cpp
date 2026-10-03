@@ -716,6 +716,7 @@ namespace Devourer
             OnPetKill(mother, victim);                   // task 015: the pet's kills feed Anima
 
         State& state = Get(mother);
+        RememberKill(state, victim->GetGUID());          // task 016: the pet's kills count as its own
         if (state.Eaten.count(victim->GetGUID()))
             return;
 
