@@ -100,7 +100,7 @@ namespace Devourer
         }
     }
 
-    void Mgr::GainBio(Player* player, Creature const* meal)
+    void Mgr::GainBio(Player* player, Creature const* meal, float factor)
     {
         if (!meal || !IsDevourer(player))
             return;
@@ -125,19 +125,24 @@ namespace Devourer
             bool const favourite = gained && IsFavouriteFood(worn->Id, meal);
             if (favourite)
                 gained *= 2;
+            if (factor != 1.0f)                      // task 015: a shared meal (the pet's share), a bonus on top
+                gained = uint32(gained * factor);
             if (gained)
             {
                 uint32& bp = state.Bio[worn->Id];
                 bp += gained;
                 state.GrowthDirty = true;
                 std::ostringstream text;
-                text << "+" << gained << " BP" << (favourite ? ", a favourite meal" : "") << " (" << worn->Name
+                text << "+" << gained << " BP" << (factor != 1.0f ? ", a shared meal" : favourite ? ", a favourite meal" : "")
+                     << " (" << worn->Name
                      << ": " << bp << " BP)";
                 Tell(player, text.str());
             }
-            else
+            else if (factor == 1.0f)
                 Tell(player, "Your " + worn->Name + " body gains nothing from that meal.");
         }
+        if (factor != 1.0f)
+            return;                                  // a bonus share: the tasks and evolution counted the meal once
 
         TaskEvent(player, TaskDevourRarity, Rarity(meal));
         TaskEvent(player, TaskDevourType, meal->GetCreatureType());

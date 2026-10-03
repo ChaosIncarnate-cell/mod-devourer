@@ -40,7 +40,7 @@ namespace Devourer
         _classId = uint8(sConfigMgr->GetOption<uint32>("Devourer.ClassId", 10));
         _requireLooted = sConfigMgr->GetOption<bool>("Devourer.RequireLooted", true);
         _hungerPerMeal = sConfigMgr->GetOption<uint32>("Devourer.HungerPerMeal", 30);
-        _hungerPerSwing = sConfigMgr->GetOption<uint32>("Devourer.HungerPerSwing", 2);
+        _hungerPerSwing = sConfigMgr->GetOption<uint32>("Devourer.HungerPerSwing", 3);
         _shiftCooldown = sConfigMgr->GetOption<uint32>("Devourer.ShiftCooldown", 8000);
         _skinchangerShiftCooldown = sConfigMgr->GetOption<uint32>("Devourer.SkinchangerShiftCooldown", 3000);
         _shapeBarSlot = uint8(std::min<uint32>(sConfigMgr->GetOption<uint32>("Devourer.ShapeBarSlot", 60), 140));
@@ -421,7 +421,7 @@ namespace Devourer
         if (corpse->loot.isLooted())
             corpse->DespawnOrUnsummon(1500ms);
         player->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
-        player->ModifyPower(POWER_RAGE, int32(_hungerPerMeal * 10));
+        OnMeal(player, corpse, false);                   // task 015: the Anima, what talents add, the pet's share
         FeedGlutton(player, corpse);
         EatShape(player, corpse, "You devour " + name + ".");
         if (player->HasSpell(SpellTalentFeast))          // ChaosCore0.3: Feast eats every corpse around it too
@@ -547,8 +547,11 @@ namespace Devourer
     // ChaosCore0.2: auto-attacks slowly fill Hunger.
     void Mgr::OnAutoAttackHit(Player* player)
     {
-        if (_hungerPerSwing && IsDevourer(player))
+        if (!IsDevourer(player))
+            return;
+        if (_hungerPerSwing)
             player->ModifyPower(POWER_RAGE, int32(_hungerPerSwing * 10));
+        OnAnimaFromSwing(player);                        // task 015: Iron Maw, Chewing Cud
     }
 
     void Mgr::OnFormRemoved(Player* player, uint32 formSpell)
@@ -564,6 +567,7 @@ namespace Devourer
         RevokeKit(player, state);
         player->RestoreDisplayId();
         player->RecalculateObjectScale();
+        OnShapeLeft(player, *shape);                     // task 015: remembered for Stolen Instinct, Restless Form
         if (player->IsAlive() && SpecOf(player) == SpecSkinchanger)
             SpawnEcho(player, *shape);
         // Death keeps the wish (the shape comes back on resurrection); anything else returns to the Devourer.
@@ -577,15 +581,10 @@ namespace Devourer
 
     void Mgr::AfterShift(Player* player, uint32 formSpell)
     {
-        // One cooldown for every shape: the spell's category cools all of them down, a Skinchanger's recovers
-        // faster.
-        if (SpecOf(player) != SpecSkinchanger || _skinchangerShiftCooldown >= _shiftCooldown)
-            return;
-        int32 const faster = -int32(_shiftCooldown - _skinchangerShiftCooldown);
-        for (auto const& [id, shape] : _shapes)
-            if (player->HasSpell(shape.FormSpell))
-                player->ModifySpellCooldown(shape.FormSpell, faster);
-        (void)formSpell;
+        // The cooldown that follows (a Skinchanger's is shorter, and talents shorten it further) and what a shift
+        // brings: Mgr::OnShift (task 015).
+        if (Shape const* shape = ShapeByFormSpell(formSpell))
+            OnShift(player, *shape);
     }
 
     // 2026-10-03: form abilities are learned once (when the shape is owned and the level allows) and stay in the
@@ -802,10 +801,12 @@ namespace Devourer
         if (!player->HasSpell(SpellDevour) && !player->HasSpell(SpellDevourQuick) && sSpellMgr->GetSpellInfo(SpellDevour))
             player->learnSpell(SpellDevour);
         SyncTalentSpells(player);                        // ChaosCore0.3: Quick Devour takes Devour's place
-        // The base kit (2026-09-30): Rush, Concentrate and the Anima passive, for new and older characters alike.
-        for (uint32 spellId : { SpellRush, SpellConcentrate, SpellAnima })
+        // The base kit (2026-09-30): Rush and the Anima passive, for new and older characters alike. Task 015: the
+        // hunter's pet spells instead of Concentrate (older characters lose Concentrate here).
+        for (uint32 spellId : { SpellRush, SpellAnima })
             if (!player->HasSpell(spellId) && sSpellMgr->GetSpellInfo(spellId))
                 player->learnSpell(spellId);
+        TeachPet(player);
         // Task 008: the class skill that gives the Devourer its own spellbook tab. New characters get it from
         // playercreateinfo_skills, older ones here (nothing happens while its SkillRaceClassInfo row is missing).
         if (!player->HasSkill(SkillDevourer))

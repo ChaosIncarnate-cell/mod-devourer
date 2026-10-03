@@ -608,7 +608,7 @@ class spell_devourer_rush : public SpellScript
     void Run(SpellEffIndex /*effIndex*/)
     {
         if (Player* player = GetCaster()->ToPlayer())
-            sDevourer.Overrun(player, SpellRushHit, false);
+            sDevourer.Overrun(player, SpellRushHit, false);              // Wandering Skin: further, and an echo
     }
 
     void Register() override
@@ -733,7 +733,9 @@ public:
     {
         bool const asWarrior = unitClass == CLASS_WARRIOR && context == CLASS_CONTEXT_STATS;
         bool const asRogue = unitClass == CLASS_ROGUE && context == CLASS_CONTEXT_EQUIP_ARMOR_CLASS;
-        if (!asWarrior && !asRogue)
+        // Task 015: a Devourer tames and keeps a pet like a hunter (the core's own pet code asks this question).
+        bool const asHunterPet = unitClass == CLASS_HUNTER && context == CLASS_CONTEXT_PET;
+        if (!asWarrior && !asRogue && !asHunterPet)
             return std::nullopt;
         if (!sDevourer.IsDevourer(player))
             return std::nullopt;
@@ -763,6 +765,12 @@ public:
         if (Player* player = attacker ? attacker->ToPlayer() : nullptr)
             if (damage)
                 sDevourer.OnAutoAttackHit(player);
+        // Task 015: what a hatchling's bite brings (Nest Web, Young Teeth, Nest Scent).
+        if (damage && attacker && attacker->GetEntry() == NpcHatchling)
+            if (Creature* hatchling = attacker->ToCreature())
+                if (Player* mother = hatchling->GetCharmerOrOwnerPlayerOrPlayerItself())
+                    if (sDevourer.IsDevourer(mother))
+                        sDevourer.OnHatchlingHit(mother, hatchling, target, damage);
     }
 
     void ModifySpellDamageTaken(Unit* target, Unit* /*attacker*/, int32& damage, SpellInfo const* spellInfo) override
@@ -898,6 +906,7 @@ void AddSC_devourer()
     RegisterSpellAndAuraScriptPair(spell_devourer_devour, spell_devourer_devour_aura);
     RegisterSpellAndAuraScriptPair(spell_devourer_form, spell_devourer_form_aura);
     RegisterSpellScript(spell_devourer_unlock);
+    // spell_devourer_spec and spell_devourer_hide: src/DevourerTalents.cpp (task 015)
     RegisterSpellScript(spell_devourer_devour_whole);
     RegisterSpellScript(spell_devourer_hatch_brood);
     RegisterSpellScript(spell_devourer_berserker_roar);

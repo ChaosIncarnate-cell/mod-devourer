@@ -4,8 +4,9 @@
  *
  * Class 10 (CLASS_DEVOURER, see core-patch/; the id is Devourer.ClassId). The Devourer devours slain creatures
  * to unlock their shapes, then shifts between them. Every shape brings four abilities and a passive, learned while it is worn.
- * Anima (the rage bar; called Hunger before 2026-09-30) is the only resource: shifting into a shape costs it,
- * Concentrate gathers it, and it does not drain away out of combat. All shapes share one shift cooldown.
+ * Anima (the rage bar; called Hunger before 2026-09-30) is the only resource: strong abilities, spec abilities and
+ * active talents cost it; devouring, its own blows and its pet's kills gather it (Concentrate is gone, task 015); it
+ * does not drain away out of combat. All shapes share one shift cooldown.
  *
  * Data:
  *   world      devourer_shape          one row per shape: its form spell, base display, kit, passive
@@ -24,7 +25,9 @@
 
 #include "Define.h"
 #include "ObjectGuid.h"
+#include "DevourerTalentIds.h"
 #include <array>
+#include <functional>
 #include <list>
 #include <map>
 #include <set>
@@ -36,6 +39,9 @@ class Creature;
 class Unit;
 class Player;
 class Spell;
+class DamageInfo;
+class SpellInfo;
+class Aura;
 
 namespace Devourer
 {
@@ -52,9 +58,21 @@ namespace Devourer
     // The base kit every Devourer has from level 1 (tools/start_kit.py, 2026_09_30_08).
     constexpr uint32 SpellRush = 9100990;         // no target needed: the module runs 20 yards straight ahead
     constexpr uint32 SpellRushHit = 9100991;      // what Rush does to an enemy in its path
-    constexpr uint32 SpellConcentrate = 9100992;  // gathers Anima
+    // 9100992 was Concentrate (task 015: removed, the pet replaced it; TeachBasics takes it from older characters)
+    constexpr uint32 SpellConcentrateOld = 9100992;
     constexpr uint32 SpellAnima = 9100993;        // hidden passive: Anima does not drain away out of combat
     constexpr uint32 SkillDevourer = 900;         // class skill line: the Devourer's spellbook tab (task 008, 2026_09_30_09)
+    // Task 015: the hunter's pet spells (stock 3.3.5a). The Devourer answers "hunter" to CLASS_CONTEXT_PET, so the core's
+    // own pet code does the rest (tame, call, dismiss, revive, feed, the pet bar, the stable).
+    constexpr uint32 SpellTameBeast = 1515;
+    constexpr uint32 SpellCallPet = 883;
+    constexpr uint32 SpellDismissPet = 2641;
+    constexpr uint32 SpellRevivePet = 982;
+    constexpr uint32 SpellMendPet = 136;
+    constexpr uint32 SpellFeedPet = 6991;
+    constexpr uint32 SpellBeastLore = 1462;
+    constexpr uint32 PetSpells[] = { SpellTameBeast, SpellCallPet, SpellDismissPet, SpellRevivePet, SpellMendPet,
+                                     SpellFeedPet, SpellBeastLore };
     constexpr char const* MenuPrefix = "DVR";     // addon messages for the shape menu (client: DevourerMenu.lua)
 
     // Task 009, starter forms batch 1 (tools/start_kit.py, 2026_09_30_08): the spells the module's scripts use.
@@ -182,7 +200,37 @@ namespace Devourer
 
         // Task 009 (runtime only)
         bool CocoonUsed = false;                         // Moth: Cocoon Metamorphosis, once per fight
+
+        // Task 015 (runtime only; times are getMSTime() values)
+        uint32 PerkTimer = 0;                            // ms until the talent auras are worked out again
+        uint32 ShiftAt = 0;                              // the last shift
+        uint32 LastLeftShape = 0;                        // the shape left last (Stolen Instinct, Echo Flesh)
+        std::map<uint32, uint32> LeftAt;                 // shape id -> when it was left (Restless Form)
+        std::vector<std::pair<uint32, uint32>> Recent;   // (shape id, when) shapes worn lately (Unfixed Nature)
+        uint32 ArmourUntil = 0, DamageUntil = 0, SpeedUntil = 0, HasteUntil = 0, DodgeUntil = 0;   // after a shift
+        uint32 ShedReady = 0;                            // Shed Skin
+        uint32 ManyUntil = 0;                            // Form of Many
+        uint32 WornFacesUntil = 0;                       // Worn Faces
+        uint32 NestGuardUntil = 0;                       // Nest Guard
+        uint32 ChallengeUntil = 0;                       // Devouring Challenge
+        std::set<ObjectGuid> ChallengeFed;               // enemies that already fed the Devourer in that roar
+        uint32 FatReady = 0;                             // Fat Reserves
+        uint32 LastSupperReady = 0;
+        uint32 WrathUntil = 0;                           // Mother's Wrath
+        uint8 WrathStacks = 0;
+        uint32 BloodMilkUntil = 0;
+        uint32 HatchCount = 0;                           // Many Mouths: every second Hatch Brood
+        uint32 LastMealSpell = 0;                        // Grand Appetite: the meal buff before this one
+        ObjectGuid PetSeen;                              // the pet the size hint was last set on
+        float PetScale = 0.0f;
+        uint32 QueenTimer = 0;
     };
+
+    // A time that has been set and has not come yet (getMSTime() wraps, so the difference is compared).
+    inline bool Active(uint32 until, uint32 now)
+    {
+        return until && int32(until - now) > 0;
+    }
 
     constexpr uint8 NotOnBar = 255;                      // the player took that ability off the bars
 
@@ -221,11 +269,13 @@ namespace Devourer
         bool CanDevourWhole(Player* player, Unit* target, std::string& why) const;
         void DevourWhole(Player* player, Creature* victim);
         void FeedGlutton(Player* player, Creature const* meal);
-        void OnBroodHatched(Player* player);
+        void OnBroodHatched(Player* player, bool fromSpell = true);
+        void TuneHatchling(Player* player, Creature* hatchling, float healthShare, float minDmg, float maxDmg,
+                           bool swarm);                                            // task 015: the Brood talents
         [[nodiscard]] bool IsOwnHatchling(Player* player, Unit* unit) const;
         void Cannibalize(Player* player, Creature* hatchling);
         void OnCreatureDeath(Creature* victim, Unit* killer);
-        void SpawnEcho(Player* player, Shape const& shape);
+        void SpawnEcho(Player* player, Shape const& shape, bool small = false, bool force = false);
         void OnSerpentsRisen(Player* player);
         [[nodiscard]] std::list<Creature*> RisenSerpents(Player* player) const;   // ChaosCore0.2
         void OnAutoAttackHit(Player* player);                                     // ChaosCore0.2: Hunger per swing
@@ -245,7 +295,7 @@ namespace Devourer
 
         // --- ChaosCore0.3: the Baby Berserker -------------------------------------------------------------
         void OverrunWindup(Player* player);
-        void Overrun(Player* player, uint32 hitSpell = 0, bool chase = true);   // Rush: its own hit, no chase
+        void Overrun(Player* player, uint32 hitSpell = 0, bool chase = true, float extra = 0.0f);   // Rush: its own hit, no chase
         void GnawBite(Unit* caster, Unit* target);
         void VoidFrenzy(Player* player, Unit* target);
 
@@ -253,10 +303,37 @@ namespace Devourer
         void CallPups(Player* player, Unit* target);                   // Wolf: Pack Prowess
         bool TryCocoon(Player* player, uint32 damage, uint32& absorb);  // Moth: Cocoon Metamorphosis
 
+        // --- task 015: talents, spec abilities, the pet (src/DevourerTalents.cpp, src/DevourerPet.cpp) --------
+        [[nodiscard]] uint8 Rank(Player const* player, TalentRef talent) const;      // 0 = not learned
+        void UpdatePerks(Player* player, State& state, uint32 diff);                  // every second
+        void OnShift(Player* player, Shape const& shape);                             // after a shift (AfterShift)
+        void OnShapeLeft(Player* player, Shape const& shape);
+        void OnMeal(Player* player, Creature const* meal, bool whole);                // Anima, heals, shared meals
+        void OnHitTaken(Player* player, DamageInfo& damage, uint32& absorb);          // Devourer's Hide (an absorb)
+        [[nodiscard]] bool CanCastSpec(Player* player, SpellInfo const* spell, Unit* target, std::string& why);
+        void CastSpec(Player* player, SpellInfo const* spell, Unit* target);          // spec abilities, active talents
+        void OnHatchlingHit(Player* mother, Creature* hatchling, Unit* victim, uint32 damage);
+        void OnHatchlingDeath(Player* mother, Creature* hatchling);
+        void SyncBrood(Player* player, State& state);                                 // leash, Queen of the Brood
+        void SyncPet(Player* player, State& state);                                   // the pet's size hint
+        void OnAnimaFromSwing(Player* player);
+        [[nodiscard]] uint8 GorgedStacks(Player const* player) const;
+        [[nodiscard]] uint8 GorgedCap(Player const* player) const;
+        [[nodiscard]] std::list<Creature*> Mine(Player* player, uint32 entry, float range = 60.0f) const;
+        void StunFor(Player* player, Unit* target, uint32 ms);
+        void CastScaled(Unit* caster, Unit* target, uint32 spellId, float factor, ObjectGuid original = ObjectGuid::Empty);
+        void GainAnima(Player* player, uint32 points);
+        void Defer(Player* player, std::function<void()> fn);                         // runs a moment later, safely
+        [[nodiscard]] bool IsBeastShape(uint32 shapeId) const;
+        void TeachPet(Player* player);                                                // the hunter's pet spells
+        void OnPetKill(Player* player, Creature* victim);                             // the pet's kills feed Anima
+        void PetShareMeal(Player* player, Creature const* meal, bool big);            // the pet eats with you
+        void PetPlay(Player* player);                                                 // the pet and the hatchlings
+
         // --- growth (Bio Points and evolution) ---------------------------------------------------------
         void LoadGrowthData();
         [[nodiscard]] static uint32 Rarity(Creature const* creature);
-        void GainBio(Player* player, Creature const* meal);
+        void GainBio(Player* player, Creature const* meal, float factor = 1.0f);   // factor != 1: a bonus share
         void TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount = 1, std::string const& name = {});
         void CheckEvolution(Player* player);
         void SaveGrowth(Player* player);
@@ -313,7 +390,7 @@ namespace Devourer
         uint8 _classId = 10;
         bool _requireLooted = true;
         uint32 _hungerPerMeal = 30;
-        uint32 _hungerPerSwing = 2;              // ChaosCore0.2: Hunger per auto-attack hit (0 = off)
+        uint32 _hungerPerSwing = 3;              // ChaosCore0.2: Hunger per auto-attack hit (0 = off); 3 since task 015
         uint32 _shiftCooldown = 8000;
         uint32 _skinchangerShiftCooldown = 3000;
         uint8 _shapeBarSlot = 60;                // first action button for the kit, 0 = leave the bars alone
