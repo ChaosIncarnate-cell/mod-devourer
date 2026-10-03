@@ -22,6 +22,13 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 27 | Baby Eagle | devouring (family 26) | 5 | - | diving skirmisher |
 | 28 | Baby Komodo | devouring (family 6) | 9 | - | festering brawler |
 | 29 | Komodo Dragon | Baby Komodo | 30 | 800 | festering tank |
+| 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
+
+### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101321)
+
+- Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent
+- Breathe lightning 80 times (Lightning Breath)
+- Devour Gahz'rilla (Zul'Farrak)
 
 ### Greater Plainstrider (shape 16, grows out of the Plainstrider)
 Look: creature 3244, display 178 (skin `Greater Plainstrider`). Any one task:

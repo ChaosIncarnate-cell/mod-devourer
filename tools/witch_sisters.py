@@ -248,6 +248,8 @@ MOLT_TALES = {
     24: "Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to.",
     26: "A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind "
         "serpents clearing their throats.",
+    1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
+       "my little horror: as something that would not stop eating.",
     29: "On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little "
         "horror. It heals inside the lizard.",
 }

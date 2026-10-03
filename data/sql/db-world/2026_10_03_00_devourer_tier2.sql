@@ -362,7 +362,7 @@ SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_evolution` ADD
 PREPARE devourer_stmt FROM @devourer_sql;
 EXECUTE devourer_stmt;
 DEALLOCATE PREPARE devourer_stmt;
-DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN 16 AND 29;
+DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN 16 AND 29 OR `to_shape` IN (1);
 INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`, `quest`) VALUES
 (10, 16, 500, 12, 1, 9101310),
 (5, 17, 550, 14, 1, 9101311),
@@ -374,10 +374,11 @@ INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `
 (8, 23, 500, 12, 1, 9101317),
 (13, 24, 600, 16, 1, 9101318),
 (25, 26, 800, 28, 1, 9101319),
-(28, 29, 800, 30, 1, 9101320);
+(28, 29, 800, 30, 1, 9101320),
+(26, 1, 1400, 44, 1, 9101321);
 -- The name lists of the devour-by-name tasks need more room than the frog line's 100 characters.
 ALTER TABLE `devourer_evolution_task` MODIFY COLUMN `name_part` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'kind 5: the meal''s name holds one of these (|-separated)';
-DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN 16 AND 29;
+DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN 16 AND 29 OR `to_shape` IN (1);
 INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`) VALUES
 (16, 1, 4, 1, 25, 'Devour 25 beasts as a Plainstrider', ''),
 (16, 2, 9, 9100961, 40, 'Kick 40 times with Hind Kick', ''),
@@ -411,4 +412,7 @@ INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `
 (26, 3, 8, 3654, 1, 'Devour Mutanus the Devourer (Wailing Caverns)', ''),
 (29, 1, 7, 6, 30, 'Devour 30 crocolisks as a Baby Komodo', ''),
 (29, 2, 10, 0, 12000, 'Deal 12,000 damage as a Baby Komodo', ''),
-(29, 3, 8, 2476, 1, 'Devour the Large Loch Crocolisk (Loch Modan)', '');
+(29, 3, 8, 2476, 1, 'Devour the Large Loch Crocolisk (Loch Modan)', ''),
+(1, 1, 5, 0, 20, 'Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent', 'sandfury|basilisk|dune|sand '),
+(1, 2, 9, 9102101, 80, 'Breathe lightning 80 times (Lightning Breath)', ''),
+(1, 3, 8, 7273, 1, 'Devour Gahz''rilla (Zul''Farrak)', '');

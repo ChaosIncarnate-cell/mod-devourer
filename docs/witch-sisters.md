@@ -113,6 +113,7 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101318 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
 | 9101319 | The Molt: Baby Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
 | 9101320 | The Molt: Komodo Dragon | On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little horror. It heals inside the lizard. |
+| 9101321 | The Molt: Sethrak | Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, my little horror: as something that would not stop eating. |
 
 ## Lines (creature_text)
 
@@ -153,24 +154,25 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 16 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
 | Hagatha | 17 | the Baby Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
 | Hagatha | 18 | the Komodo Dragon molt | On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little horror. It heals inside the lizard. | draft |
-| Hagatha | 19 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
-| Hagatha | 20 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
-| Hagatha | 21 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
-| Hagatha | 22 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
-| Hagatha | 23 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
-| Hagatha | 24 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
-| Hagatha | 25 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
-| Hagatha | 26 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
-| Hagatha | 27 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
-| Hagatha | 28 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
-| Hagatha | 29 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
-| Hagatha | 30 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
-| Hagatha | 31 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
-| Hagatha | 32 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
-| Hagatha | 33 | the tale of shape 25 | The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind. | draft |
-| Hagatha | 34 | the tale of shape 27 | The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants. | draft |
-| Hagatha | 35 | the tale of shape 28 | Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest. | draft |
-| Hagatha | 36 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
+| Hagatha | 19 | the Sethrak molt | Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, my little horror: as something that would not stop eating. | draft |
+| Hagatha | 20 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
+| Hagatha | 21 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
+| Hagatha | 22 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
+| Hagatha | 23 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
+| Hagatha | 24 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
+| Hagatha | 25 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
+| Hagatha | 26 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
+| Hagatha | 27 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
+| Hagatha | 28 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
+| Hagatha | 29 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
+| Hagatha | 30 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
+| Hagatha | 31 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
+| Hagatha | 32 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
+| Hagatha | 33 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
+| Hagatha | 34 | the tale of shape 25 | The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind. | draft |
+| Hagatha | 35 | the tale of shape 27 | The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants. | draft |
+| Hagatha | 36 | the tale of shape 28 | Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest. | draft |
+| Hagatha | 37 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
 | Wren | 16 | back in shape 5, 7, 9, 17, 18, 19 | Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you. | draft |
 | Wren | 17 | back in shape 10, 16 | Look at those legs! You could outrun Hagatha's temper. Almost. | draft |
 | Wren | 18 | back in shape 8, 23, 27 | Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles. | draft |

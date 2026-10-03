@@ -23,7 +23,7 @@ namespace Devourer::Sisters
     constexpr uint32_t QuestPests = 9101304;
     constexpr uint32_t QuestApprentice = 9101305;   // task 018: the companion joins
     constexpr uint32_t QuestMoltFirst = 9101310;   // task 018: one per evolved form, in order
-    constexpr uint32_t QuestMoltLast = 9101320;
+    constexpr uint32_t QuestMoltLast = 9101321;
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
@@ -64,28 +64,28 @@ namespace Devourer::Sisters
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
         WrenMolt = 14, WrenMoltReady = 15, HagathaMoltFirst = 8,   // task 018 (+ the quest's index)
-        HagathaNoTale = 36, WrenApprentice = 25,
+        HagathaNoTale = 37, WrenApprentice = 25,
     };
 
     // Task 018: Hagatha's tale of a shape ("Tell me about the shape I wear"), Wren's word on a shape she sees.
     struct ShapeLine { uint32_t Shape; uint8_t Group; };
     constexpr ShapeLine HagathaShapeTales[] =
     {
-        { 1, 19 },
-        { 2, 20 },
-        { 3, 21 },
-        { 4, 22 },
-        { 5, 23 },
-        { 6, 24 },
-        { 7, 25 },
-        { 8, 26 },
-        { 9, 27 },
-        { 10, 28 },
-        { 11, 29 },
-        { 12, 30 },
+        { 1, 20 },
+        { 2, 21 },
+        { 3, 22 },
+        { 4, 23 },
+        { 5, 24 },
+        { 6, 25 },
+        { 7, 26 },
+        { 8, 27 },
+        { 9, 28 },
+        { 10, 29 },
+        { 11, 30 },
+        { 12, 31 },
         { 13, 2 },
-        { 14, 31 },
-        { 15, 32 },
+        { 14, 32 },
+        { 15, 33 },
         { 16, 8 },
         { 17, 9 },
         { 18, 10 },
@@ -95,10 +95,10 @@ namespace Devourer::Sisters
         { 22, 14 },
         { 23, 15 },
         { 24, 16 },
-        { 25, 33 },
+        { 25, 34 },
         { 26, 17 },
-        { 27, 34 },
-        { 28, 35 },
+        { 27, 35 },
+        { 28, 36 },
         { 29, 18 },
     };
     constexpr ShapeLine WrenShapeReactions[] =

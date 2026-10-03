@@ -835,7 +835,14 @@ class Growth:
         self.quest = 0
 
 
-EXTRA_GROWTH = []                        # (owner, 2026-10-03: no Twin-Fang, so no step into the Sethrak yet)
+# Owner, 2026-10-03: "Viper -> wind serpent -> Sethrak -> xxx" (a fourth step later).
+EXTRA_GROWTH = [
+    Growth(26, "Baby Wind Serpent", 1, "Sethrak", 44, 1400,
+           [(DEVOUR_NAME, 0, 20, "Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent",
+             "sandfury|basilisk|dune|sand "),
+            (SPELL_CAST, sid(26, 1), 80, "Breathe lightning 80 times (Lightning Breath)", ""),
+            (DEVOUR_ENTRY, 7273, 1, "Devour Gahz'rilla (Zul'Farrak)", "")]),
+]
 
 # Task 018: every evolution of this file gets a molt quest, in this order (tools/witch_sisters.py builds them).
 MOLTS = [f for f in FORMS if f.parent] + EXTRA_GROWTH
