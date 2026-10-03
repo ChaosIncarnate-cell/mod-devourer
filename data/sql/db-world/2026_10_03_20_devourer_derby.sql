@@ -4,8 +4,8 @@
 --
 -- Needs, from other threads (the quests still load without them, the server only logs the missing parts):
 --   Items and balance: reward items 9104000-9104004 (goggles, cloak, beetle, toffee, Kakapo reins).
---   Devourer thread: the Derby Beast's own display (Primal Tallstrider with its saddle shown) for creature 9101362,
---   and the Wren's Saddle spell (DevourerDerbyIds.h SpellWrensSaddle).
+--   Devourer thread: display 994203 (the Derby Beast, Primal Tallstrider with its saddle) and spell 9103000 (Wren's
+--   Saddle), both from task/017 (commit 246372d) and patch-Z v11.
 --   The sisters' SQL must keep to 9101300-9101359 (tools/witch_sisters.py Q_LAST, commit b55066f on task/017).
 
 DELETE FROM `creature` WHERE `guid` BETWEEN 9910300 AND 9910349;
@@ -26,7 +26,8 @@ DELETE FROM `npc_text` WHERE `ID` BETWEEN 9101360 AND 9101379;
 
 -- --- creatures --------------------------------------------------------------------------------------------------
 -- Copies of stock creatures, like the sisters' (Wren: Windfury Wind Witch 2963; Hagatha: Myranda the Hag 11872;
--- the Derby Beast: Greater Plainstrider 3244 until the Devourer thread's Primal Tallstrider display exists).
+-- the Derby Beast: a Greater Plainstrider 3244 copy wearing display 994203, the Primal Tallstrider with its saddle,
+-- made by the Devourer thread for this race; it is in patch-Z v11).
 DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
 CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 2963;
 UPDATE `devourer_tmp_ct` SET `entry` = 9101360, `name` = 'Wren Hollowmoor', `subname` = 'Derby Bookmaker',
@@ -53,8 +54,10 @@ DROP TEMPORARY TABLE `devourer_tmp_ct`;
 
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`)
 SELECT `m`.`entry`, 0, `ctm`.`CreatureDisplayID`, `ctm`.`DisplayScale`, 1, 0 FROM (
-    SELECT 9101360 AS `entry`, 2963 AS `looks` UNION ALL SELECT 9101361, 11872 UNION ALL SELECT 9101362, 3244
+    SELECT 9101360 AS `entry`, 2963 AS `looks` UNION ALL SELECT 9101361, 11872
 ) AS `m` JOIN `creature_template_model` AS `ctm` ON `ctm`.`CreatureID` = `m`.`looks` AND `ctm`.`Idx` = 0;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES
+(9101362, 0, 994203, 1, 1, 0);
 
 -- Hagatha rides the Kakapo (creature 9301049's look, display 980033; owner: "Kakapo will be the mount").
 INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `visibilityDistanceType`, `auras`) VALUES

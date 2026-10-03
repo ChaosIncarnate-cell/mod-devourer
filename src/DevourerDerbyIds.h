@@ -24,7 +24,7 @@ namespace Devourer::Derby
     constexpr uint32_t DisplayKakapo = 980033;     // creature 9301049, the race 3 prize (owner: "Kakapo will be the mount")
     constexpr uint32_t VisualTransform = 24085;    // the sisters' transform flash
     constexpr uint32_t PoiIcon = 7;                // the minimap flag pointing to the next checkpoint
-    constexpr uint32_t SpellWrensSaddle = 0;       // the race 1 reward; 0 until the Devourer thread adds the spell (asked)
+    constexpr uint32_t SpellWrensSaddle = 9103000; // the race 1 reward (tools/derby_saddle.py, task/017 commit 246372d)
 
     constexpr float StartX = -800.0f, StartY = -2640.0f, StartZ = 92.0f;   // the Barrens, west of the Crossroads
     constexpr float CheckpointRadius = 10.0f;
