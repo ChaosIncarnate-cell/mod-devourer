@@ -140,7 +140,7 @@ Changes against the canvas card (task 009), and why:
 - Barbed Bristles answers melee hits only ("physical damage" from a level-1 enemy is melee).
 
 ### Plainstrider (shape 10, Camp Narache)
-Look (task 017): a retail model, base 994015 (`Primal Pink`); its other colourings come with the shape: 994012 `Primal Black`, 994013 `Primal Blue`, 994014 `Primal Green`, 994016 `Primal Red`, 994017 `Primal White`. The old look 1219 (`Plainstrider`) comes with it too.
+Look (task 017): a retail model, base 994015 (`Primal Pink`); its other colourings come with the shape: 994012 `Primal Black`, 994013 `Primal Blue`, 994014 `Primal Green`, 994016 `Primal Red`, 994017 `Primal White`, 994180 `Hawkstrider Black`, 994181 `Hawkstrider Blue`, 994182 `Hawkstrider Green`, 994183 `Hawkstrider Purple`, 994184 `Hawkstrider Red`, 994185 `Hawkstrider White`. The old look 1219 (`Plainstrider`) comes with it too.
 Devour **any creature of the Tallstrider family** (e.g. 2955 for the base look 1219, skin `Plainstrider`); each look is a colouring. Favourite food: .
 Named colourings kept from task 007: 2956 → 1220 (`Tallstrider`).
 

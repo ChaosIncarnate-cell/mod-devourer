@@ -637,7 +637,8 @@ VIPER = Evolved(
             ("Emerge", "", ""))],
     scripts=[(2, "spell_devourer_sand_slither")],
     looks=[(994052, "Rock Viper"), (994054, "Rock Viper Yellow"), (994051, "Rock Viper Blue"),
-           (994053, "Rock Viper Red")],
+           (994053, "Rock Viper Red"), (994186, "Baby Snake Green"), (994187, "Baby Snake Purple"),
+           (994188, "Baby Snake White"), (994189, "Baby Snake Yellow")],
     role="ranged poisoner",
     changes=[
         "A new line from the form review (2026-10-03, \"Devourer Form Picks\"): devoured from any creature of the "

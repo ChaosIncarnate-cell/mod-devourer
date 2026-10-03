@@ -596,7 +596,9 @@ FORMS = [
          (A_MOD_INCREASE_SPEED, 8, 0, ("Long Legs", "Your movement speed is increased by 8%.", "")),
          ("Peck", "Stampede"), family=FAMILY_TALLSTRIDER,    # 2026-10-03: every strider, each look a colouring
          looks=[(994015, "Primal Pink"), (994012, "Primal Black"), (994013, "Primal Blue"), (994014, "Primal Green"),
-                (994016, "Primal Red"), (994017, "Primal White")]),
+                (994016, "Primal Red"), (994017, "Primal White"), (994180, "Hawkstrider Black"),
+                (994181, "Hawkstrider Blue"), (994182, "Hawkstrider Green"), (994183, "Hawkstrider Purple"),
+                (994184, "Hawkstrider Red"), (994185, "Hawkstrider White")]),
     Form(11, "Bat", "Deathknell", 1512, 4732, 1579, [], [(1, 10), (6, 10), (0, 3)], "Duskbat",
          (24423, ability({"Attributes": ATTR0_ABILITY, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_10S,
                          "RecoveryTime": 8000, "SchoolMask": SCHOOL_NATURE,

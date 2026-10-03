@@ -262,7 +262,7 @@ Changes against the canvas card, and why:
 - Task "Devour 25 Voidwalkers" accepts void creatures by name (void, nether, ethereal); "Land 40 Blink Strikes" counts the Warp Stalker's Warp; "Deal 15,000 Shadow dmg" counts any damage: the Warp Stalker's kit is physical.
 
 ### Viper (shape 25, devoured: any creature of family 35)
-Look: a retail model, base 994052 (`Rock Viper`); its other colourings come with the shape: 994054 `Rock Viper Yellow`, 994051 `Rock Viper Blue`, 994053 `Rock Viper Red`. The creature's own look (creature 5755, display 994052, `Rock Viper`) comes with it too. Any one task:
+Look: a retail model, base 994052 (`Rock Viper`); its other colourings come with the shape: 994054 `Rock Viper Yellow`, 994051 `Rock Viper Blue`, 994053 `Rock Viper Red`, 994186 `Baby Snake Green`, 994187 `Baby Snake Purple`, 994188 `Baby Snake White`, 994189 `Baby Snake Yellow`. The creature's own look (creature 5755, display 994052, `Rock Viper`) comes with it too. Any one task:
 
 
 | Spell | Level | Name | What it does |
