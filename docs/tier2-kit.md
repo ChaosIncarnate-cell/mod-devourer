@@ -30,6 +30,9 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 35 | Whelp | devouring | 18 | - | fire-breathing skirmisher |
 | 36 | Proto-Drake | Whelp | 35 | 1000 | drake bruiser |
 | 37 | Storm Dragon | Proto-Drake | 55 | 1400 | storm caster |
+| 38 | Owl | devouring | 5 | - | night hunter |
+| 39 | Moonkin | Owl | 20 | 700 | moon caster |
+| 40 | Moontouched Owlbeast | Moonkin | 45 | 1200 | moon bruiser |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
@@ -314,7 +317,7 @@ Look: a retail model, base 994061 (`Eagle Brown`); its other colourings come wit
 
 Changes against the canvas card, and why:
 
-- The owner's pick (2026-10-03, "babyeagle"): the Amani baby eagle model. Any creature of the Bird of Prey family gives it (owls, hawks, eagles); the first are Teldrassil's Strigid Owls (5-6).
+- The owner's pick (2026-10-03, "babyeagle"): the Amani baby eagle model. Any creature of the Bird of Prey family gives it (hawks and eagles; the owls give the Owl since the owl line came).
 - Favourite food: critters and snakes.
 
 ### Baby Komodo (shape 28, devoured: any creature of family 6)
@@ -523,3 +526,63 @@ Changes against the canvas card, and why:
 
 - The retail void storm dragon (one look, its textures are built in), about 9 yards long.
 - Void Breath is a Shadow cone (the Devourer's void), Lightning Lance its ranged spell.
+
+### Owl (shape 38, devoured: 7 kinds of creature)
+Look: creature 1995, display 10832 (skin `Strigid Owl`). Any one task:
+Colourings to earn, each from devouring its creature: 6299 `Hawk Owl`, 4877 `Ironbeak Owl`, 6212 `Winterspring Owl`, 10831 `Shadowwing Owl`, 20293 `Skethyl Owl`.
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102220 | 1 | Owl Form | Take the shape of a owl you have devoured: Talon Rake, Silent Wings, Screech and Night Eyes; Swoop opens at level 20. All shapes share one cooldown. |
+| 9102221 | 1 | Talon Rake | Rake the enemy with your talons: weapon damage plus $s1. Generates 10 Anima. |cffb87830Owl form|r |
+| 9102222 | 1 | Silent Wings | Glide without a sound: 40% faster for 6 sec. |cffb87830Owl form|r |
+| 9102223 | 1 | Night Eyes | Nothing hides from an owl: you see stealthed enemies more easily, and your chance to strike critically is increased by 2%. |cffb87830Owl form|r |
+| 9102224 | 1 | Screech | A screech in the night: enemies within 8 yards deal 10% less damage for 10 sec. |cffb87830Owl form|r |
+| 9102225 | 20 | Swoop | Swoop at an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 10 Anima. |cffb87830Owl form|r |
+
+Changes against the canvas card, and why:
+
+- The canvas's line (Strigid Owl -> Moonkin -> Moontouched Owlbeast). Owls are named creatures here: the Strigid Owls of Teldrassil (5-6) give the form, the other owls of the world their own colouring.
+- The game's owl model (no retail owl was exported); the Moonkin and the Owlbeast are retail models.
+
+### Moonkin (shape 39, grows out of the Owl)
+Look: a retail model, base 994164 (`Moonkin Violet`); its other colourings come with the shape: 994165 `Moonkin Dusk`, 994166 `Moonkin Dawn`, 994167 `Moonkin Moss`, 994168 `Moonkin Ash`. The creature's own look (creature 10158, display 994164, `Moonkin Violet`) comes with it too. Any one task:
+
+- Devour 25 owls, owlkin or moonkin as an Owl
+- Screech 40 times
+- Devour the Moonkin Oracle (Darkshore)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102230 | 1 | Moonkin Form | Take the shape of the moonkin, grown out of your owl: Wrath, Moonfire, Starsurge and Moonkin Aura; Typhoon opens at level 26. All shapes share one cooldown. |
+| 9102231 | 1 | Wrath | Hurl the wrath of the wild at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima. |cffb87830Moonkin form|r |
+| 9102232 | 1 | Moonfire | Burn an enemy with moonlight: $s1 Arcane damage, and $o2 more over 12 sec. |cffb87830Moonkin form|r |
+| 9102233 | 1 | Moonkin Aura | The moon looks after its own: your spells strike critically 5% more often, and your armor is increased by 20%. |cffb87830Moonkin form|r |
+| 9102234 | 1 | Starsurge | Call a star down on an enemy up to 30 yards away: $s1 Arcane damage. |cffb87830Moonkin form|r |
+| 9102235 | 26 | Typhoon | A gale in front of you: enemies within 15 yards take $s1 Nature damage and are blown back. |cffb87830Moonkin form|r |
+
+Changes against the canvas card, and why:
+
+- Tindral's moonkin from the owner's exports, with its five colourings (body and eyes paired).
+- A caster like the Baby Wind Serpent: its numbers grow with attack power.
+
+### Moontouched Owlbeast (shape 40, grows out of the Moonkin)
+Look: a retail model, base 994169 (`Owlbeast Brown`); its other colourings come with the shape: 994170 `Owlbeast Black`, 994171 `Owlbeast Blue`, 994172 `Owlbeast Green`, 994173 `Owlbeast White`. The creature's own look (creature 7453, display 994169, `Owlbeast Brown`) comes with it too. Any one task:
+
+- Devour 30 owlbeasts, wildkin or moonkin as a Moonkin
+- Cast Wrath 100 times
+- Devour a Moontouched Owlbeast (Winterspring)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102240 | 1 | Moontouched Owlbeast Form | Take the shape of the moontouched owlbeast, grown out of your moonkin: Moonclaw, Lunar Roar, Swipe and Moontouched Hide; Moonlit Mend opens at level 52. All shapes share one cooldown. |
+| 9102241 | 1 | Moonclaw | A heavy, moonlit swipe: weapon damage plus $s1. Generates 15 Anima. |cffb87830Moontouched Owlbeast form|r |
+| 9102242 | 1 | Lunar Roar | Roar at the moon: enemies within 8 yards attack 15% slower for 10 sec. |cffb87830Moontouched Owlbeast form|r |
+| 9102243 | 1 | Moontouched Hide | Your armor is increased by 25%, and you regain 1% of your maximum health every 3 sec. |cffb87830Moontouched Owlbeast form|r |
+| 9102244 | 1 | Swipe | Swipe at everything around you: 70% weapon damage to every enemy within 8 yards. |cffb87830Moontouched Owlbeast form|r |
+| 9102245 | 52 | Moonlit Mend | Let the moon close your wounds: you are healed for 25% of your maximum health. |cffb87830Moontouched Owlbeast form|r |
+
+Changes against the canvas card, and why:
+
+- The canvas's tier 3. The retail owlbear model (five colourings) in place of the old upright owlbeast.

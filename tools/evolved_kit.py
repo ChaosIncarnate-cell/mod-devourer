@@ -736,7 +736,7 @@ BABY_EAGLE = Evolved(
     role="diving skirmisher",
     changes=[
         "The owner's pick (2026-10-03, \"babyeagle\"): the Amani baby eagle model. Any creature of the Bird of Prey "
-        "family gives it (owls, hawks, eagles); the first are Teldrassil's Strigid Owls (5-6).",
+        "family gives it (hawks and eagles; the owls give the Owl since the owl line came).",
         "Favourite food: critters and snakes.",
     ])
 
@@ -1209,10 +1209,121 @@ STORM_DRAGON = Evolved(
         "Void Breath is a Shadow cone (the Devourer's void), Lightning Lance its ranged spell.",
     ])
 
+# --- the form review's line 5 (owner: "5. good"): Owl -> Moonkin -> Moontouched Owlbeast, the canvas's line -------
+# Owls are Birds of Prey like the Baby Eagle's hawks: they are named here (sources), so they give the Owl instead.
+OWL_FOOD = [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "rat", "Rats"), (0, 0, "mouse", "Mice"),
+            (0, 0, "squirrel", "Squirrels"), (0, 0, "rabbit", "Rabbits")]
+
+OWL = Evolved(
+    38, "Owl", 0, "", 1995, 10832, "Strigid Owl",
+    (50541, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": 0, **effects(hit(4), gain(10))}),
+     ("Talon Rake", "Rake the enemy with your talons: weapon damage plus $s1. Generates 10 Anima.", "")),
+    (1850, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_6S,
+                    "RecoveryTime": 25000, "CastingTimeIndex": CAST_INSTANT, **effects(aura(A_MOD_INCREASE_SPEED, 40))}),
+     ("Silent Wings", "Glide without a sound: 40% faster for 6 sec.", "40% faster.")),
+    (25941, gimmick(1579, 0, aura(A_MOD_STEALTH_DETECT, 30), aura(A_MOD_CRIT_PERCENT, 2)),
+     ("Night Eyes", "Nothing hides from an owl: you see stealthed enemies more easily, and your chance to strike "
+      "critically is increased by 2%.", "")),
+    (24423, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": DUR_10S, "RecoveryTime": 20000, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects(around(A_MOD_DAMAGE_PCT_DONE, -10, SCHOOL_ALL))}),
+     ("Screech", "A screech in the night: enemies within 8 yards deal 10% less damage for 10 sec.",
+      "Damage dealt reduced by 10%.")),
+    (*charge(20000, CHARGE_STUN, 10),
+     ("Swoop", "Swoop at an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. "
+      "Generates 10 Anima.", "")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_CRITTER, 10), (0, 3)], OWL_FOOD, 5, 0, [],
+    sources=[(1995, 0), (7553, 0), (7555, 6299), (7097, 4877), (7455, 6212), (22265, 10831), (21450, 20293)],
+    earned=[(6299, "Hawk Owl"), (4877, "Ironbeak Owl"), (6212, "Winterspring Owl"), (10831, "Shadowwing Owl"),
+            (20293, "Skethyl Owl")],
+    role="night hunter",
+    changes=[
+        "The canvas's line (Strigid Owl -> Moonkin -> Moontouched Owlbeast). Owls are named creatures here: the "
+        "Strigid Owls of Teldrassil (5-6) give the form, the other owls of the world their own colouring.",
+        "The game's owl model (no retail owl was exported); the Moonkin and the Owlbeast are retail models.",
+    ])
+
+MOONKIN = Evolved(
+    39, "Moonkin", 38, "Owl", 10158, 994164, "Moonkin Violet",
+    (5176, ability({"CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
+                    "SchoolMask": SCHOOL_NATURE, "_bonus": (0, 0, 0.25, 0),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 20, "spread": 6, "target": T_ENEMY}, gain(10))}),
+     ("Wrath", "Hurl the wrath of the wild at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima.",
+      "")),
+    (8921, ability({**hunger(10), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_30, "RecoveryTime": 6000,
+                    "SchoolMask": SCHOOL_ARCANE, "DurationIndex": DUR_12S, "_bonus": (0, 0, 0.12, 0.03),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 12, "spread": 4, "target": T_ENEMY},
+                              aura(A_PERIODIC_DAMAGE, 4, target=T_ENEMY, period=3000))}),
+     ("Moonfire", "Burn an enemy with moonlight: $s1 Arcane damage, and $o2 more over 12 sec.",
+      "$s2 Arcane damage every 3 sec.")),
+    (25941, gimmick(111, 0, aura(A_MOD_SPELL_CRIT_CHANCE, 5), aura(A_MOD_RESISTANCE_PCT, 20, 1)),
+     ("Moonkin Aura", "The moon looks after its own: your spells strike critically 5% more often, and your armor is "
+      "increased by 20%.", "")),
+    (2912, ability({**hunger(25), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_30, "RecoveryTime": 10000,
+                    "SchoolMask": SCHOOL_ARCANE, "_bonus": (0, 0, 0.35, 0),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 32, "spread": 10, "target": T_ENEMY})}),
+     ("Starsurge", "Call a star down on an enemy up to 30 yards away: $s1 Arcane damage.", "")),
+    (50516, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 20000, "SchoolMask": SCHOOL_NATURE,
+                     "CastingTimeIndex": CAST_INSTANT, "_bonus": (0, 0, 0.15, 0),
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 18, "spread": 6, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_15},
+                               {"effect": E_KNOCK_BACK, "amount": 80, "misc": 60, "target": T_CONE_ENEMY,
+                                "radius": RADIUS_15})}),
+     ("Typhoon", "A gale in front of you: enemies within 15 yards take $s1 Nature damage and are blown back.", "")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 6), (0, 3)], OWL_FOOD, 20, 700,
+    [(DEVOUR_NAME, 0, 25, "Devour 25 owls, owlkin or moonkin as an Owl", "owl|moonkin|wildkin"),
+     (SPELL_CAST, sid(38, 4), 40, "Screech 40 times", ""),
+     (DEVOUR_ENTRY, 10157, 1, "Devour the Moonkin Oracle (Darkshore)", "")],
+    looks=[(994164, "Moonkin Violet"), (994165, "Moonkin Dusk"), (994166, "Moonkin Dawn"), (994167, "Moonkin Moss"),
+           (994168, "Moonkin Ash")],
+    later_level=26,
+    role="moon caster",
+    changes=[
+        "Tindral's moonkin from the owner's exports, with its five colourings (body and eyes paired).",
+        "A caster like the Baby Wind Serpent: its numbers grow with attack power.",
+    ])
+
+MOONTOUCHED_OWLBEAST = Evolved(
+    40, "Moontouched Owlbeast", 39, "Moonkin", 7453, 994169, "Owlbeast Brown",
+    (6807, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
+                    "DurationIndex": 0, **effects(hit(10), gain(15))}),
+     ("Moonclaw", "A heavy, moonlit swipe: weapon damage plus $s1. Generates 15 Anima.", "")),
+    (99, ability({**hunger(10), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                  "DurationIndex": DUR_10S, "RecoveryTime": 15000, "SchoolMask": SCHOOL_PHYSICAL,
+                  **effects(around(A_MOD_MELEE_HASTE, -15))}),
+     ("Lunar Roar", "Roar at the moon: enemies within 8 yards attack 15% slower for 10 sec.",
+      "Attack speed slowed by 15%.")),
+    (25941, gimmick(1562, 0, aura(A_MOD_RESISTANCE_PCT, 25, 1), aura(A_OBS_MOD_HEALTH, 1, period=3000)),
+     ("Moontouched Hide", "Your armor is increased by 25%, and you regain 1% of your maximum health every 3 sec.",
+      "")),
+    (779, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                   "DurationIndex": 0, "RecoveryTime": 8000, "SchoolMask": SCHOOL_PHYSICAL,
+                   **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 70, "target": T_SRC_CASTER,
+                              "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
+     ("Swipe", "Swipe at everything around you: 70% weapon damage to every enemy within 8 yards.", "")),
+    (22842, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": 0, "RecoveryTime": 60000, "SchoolMask": SCHOOL_ARCANE,
+                     **effects({"effect": E_HEAL_PCT, "amount": 25, "target": T_CASTER})}),
+     ("Moonlit Mend", "Let the moon close your wounds: you are healed for 25% of your maximum health.", "")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 8), (0, 3)], OWL_FOOD, 45, 1200,
+    [(DEVOUR_NAME, 0, 30, "Devour 30 owlbeasts, wildkin or moonkin as a Moonkin", "owlbeast|wildkin|moonkin"),
+     (SPELL_CAST, sid(39, 1), 100, "Cast Wrath 100 times", ""),
+     (DEVOUR_ENTRY, 7453, 1, "Devour a Moontouched Owlbeast (Winterspring)", "")],
+    looks=[(994169, "Owlbeast Brown"), (994170, "Owlbeast Black"), (994171, "Owlbeast Blue"),
+           (994172, "Owlbeast Green"), (994173, "Owlbeast White")],
+    later_level=52,
+    role="moon bruiser",
+    changes=[
+        "The canvas's tier 3. The retail owlbear model (five colourings) in place of the old upright owlbeast.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
-         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER, WHELP, PROTO_DRAKE, STORM_DRAGON]
+         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL, BORER, DEEP_BORER, WHELP, PROTO_DRAKE, STORM_DRAGON,
+         OWL, MOONKIN, MOONTOUCHED_OWLBEAST]
 
 
 class Growth:

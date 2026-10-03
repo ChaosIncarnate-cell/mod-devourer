@@ -250,6 +250,10 @@ MOLT_TALES = {
         "serpents clearing their throats.",
     1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
        "my little horror: as something that would not stop eating.",
+    40: "When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells "
+        "them. Now you can ask.",
+    39: "The moonkin pray to Elune with their whole feathered hearts. She has never asked them to stop eating "
+        "people, I notice.",
     37: "Storm dragons were born in the sky over the sea, and the sea never forgave them. This one was born in the "
         "void as well. Mind the weather when you are angry, dear.",
     36: "Proto-drakes are what dragons were before the Titans tidied them. Wild, hungry, and proud of it. You will "
@@ -297,6 +301,7 @@ SHAPE_TALES = {
         "the dark are the worst kind.",
     27: "The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose "
         "heart it wants.",
+    38: "An owl sees what hides in the dark and says nothing. Learn the second part, little horror.",
     35: "Every dragon was a whelp once, and every whelp thinks it is a dragon already. Eat the little ones of every "
         "flight, and you will wear their colours.",
     33: "The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by "
@@ -325,6 +330,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20, 33, 34)),
     ("A shell! Can I live in it? No? Can I knock? Hello in there!", (31, 32)),
+    ("Hoo! Hoo! ... Sorry. Does it hurt when I hoot? It hurts my sister.", (38, 39, 40)),
     ("A DRAGON! A real one! Can I ride you? Can I name you? Can I name you Sir Flaps?", (35, 36, 37)),
     ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
     ("A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it.", (28, 29, 30)),
