@@ -27,9 +27,10 @@ Put the scripts in `src/DevourerEvolved.cpp` (or a new `src/DevourerVoid.cpp` re
 
 ## B. Proto-Drake (shape 36): the colouring picks the breath
 
-Fire Breath (`sid(36, 4)`) uses Fire for every colouring today. Make the worn colouring pick the element: earth
-looks (994155-994157, 994159) Nature, the storm look (994160) Nature with a short slow, the blue fire looks
-(994161-994162) Frost with a slow, the red look (994158) Fire. A spell script on the breath that reads the
+Fire Breath (`sid(36, 4)`) uses Fire for every colouring today. Make the worn colouring pick the element: the storm
+look (994160) Nature with a short slow, the blue fire looks (994161-994162) Frost with a slow, the base look Fire.
+Update (2026-10-03): the earth looks 994155-994159 left the Proto-Drake for the new Earthen Proto-Drake (shape 44),
+so they are not part of this mapping any more. A spell script on the breath that reads the
 player's current display and casts one of four helper spells (slots 6-9) is enough.
 
 ## C. Witch chores part 2 (task 018 B, last bullet)
