@@ -7,8 +7,7 @@
 -- out of the build); otherwise the next worldserver start installs it again.
 
 -- --- spells and items (2026_09_30_02, _07, _08; 9102000-9102999 the evolved forms, 2026_10_03_00) ---------------------
-DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9101099 OR `ID`       BETWEEN 9102000 AND 9102999
-    OR `ID` = 9103000;   -- Wren's Saddle (tools/derby_saddle.py)
+DELETE FROM `spell_dbc`          WHERE `ID`       BETWEEN 9100000 AND 9101099 OR `ID`       BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_script_names` WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_custom_attr`  WHERE `spell_id` BETWEEN 9100000 AND 9101099 OR `spell_id` BETWEEN 9102000 AND 9102999;
 DELETE FROM `spell_proc`         WHERE `SpellId`  BETWEEN 9100000 AND 9101099 OR `SpellId`  BETWEEN 9102000 AND 9102999;
