@@ -86,6 +86,23 @@ DELETE `t` FROM `gtchancetomeleecritbase_dbc` AS `t` LEFT JOIN `devourer_backup_
 DELETE `t` FROM `gtchancetospellcritbase_dbc` AS `t` LEFT JOIN `devourer_backup_gt` AS `b` ON `b`.`tbl` = 'gtchancetospellcritbase_dbc' AND `b`.`ID` = `t`.`ID` WHERE `t`.`ID` = 9 AND `b`.`ID` IS NULL;
 DELETE `t` FROM `gtoctclasscombatratingscalar_dbc` AS `t` LEFT JOIN `devourer_backup_gt` AS `b` ON `b`.`tbl` = 'gtoctclasscombatratingscalar_dbc' AND `b`.`ID` = `t`.`ID` WHERE `t`.`ID` BETWEEN 289 AND 320 AND `b`.`ID` IS NULL;
 
+-- --- task 020: Wren's Derby (ids 9101360-9101379, spawns 9910300-9910349) ---------------------------------------
+DELETE FROM `creature` WHERE `guid` BETWEEN 9910300 AND 9910349;
+DELETE FROM `creature_template_addon` WHERE `entry` BETWEEN 9101360 AND 9101379;
+DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `creature_template` WHERE `entry` BETWEEN 9101360 AND 9101379;
+DELETE FROM `creature_text` WHERE `CreatureID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9101360 AND 9101379;
+DELETE FROM `creature_queststarter` WHERE `quest` BETWEEN 9101360 AND 9101379;
+DELETE FROM `creature_questender` WHERE `quest` BETWEEN 9101360 AND 9101379;
+DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `quest_template` WHERE `ID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `gossip_menu_option` WHERE `MenuID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `gossip_menu` WHERE `MenuID` BETWEEN 9101360 AND 9101379;
+DELETE FROM `npc_text` WHERE `ID` BETWEEN 9101360 AND 9101379;
+
 -- --- the module's own tables, last -------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `devourer_evolution_task`, `devourer_evolution`, `devourer_diet`, `devourer_skin`,
     `devourer_shape_source`, `devourer_shape`, `devourer_backup_gt`, `devourer_client_rows`,
@@ -97,4 +114,4 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_05_devourer_class_dbc.generated.sql', '2026_09_30_06_devourer_coa_looks.generated.sql',
     '2026_09_30_07_devourer_placeholders.sql', '2026_09_30_08_devourer_start.sql',
     '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql',
-    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql');
+    '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql', '2026_10_03_20_devourer_derby.sql');
