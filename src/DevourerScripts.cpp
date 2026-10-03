@@ -205,6 +205,11 @@ class spell_devourer_hatch_brood : public SpellScript
 {
     PrepareSpellScript(spell_devourer_hatch_brood);
 
+    void NoDefaultSummon(SpellEffIndex effIndex)
+    {
+        PreventHitDefaultEffect(effIndex);               // task 016: OnBroodHatched summons them (pet slot untouched)
+    }
+
     void Hatched()
     {
         if (Player* player = GetCaster()->ToPlayer())
@@ -213,6 +218,7 @@ class spell_devourer_hatch_brood : public SpellScript
 
     void Register() override
     {
+        OnEffectHit += SpellEffectFn(spell_devourer_hatch_brood::NoDefaultSummon, EFFECT_0, SPELL_EFFECT_SUMMON);
         AfterCast += SpellCastFn(spell_devourer_hatch_brood::Hatched);
     }
 };

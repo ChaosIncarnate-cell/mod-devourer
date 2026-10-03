@@ -36,12 +36,17 @@
 
 namespace Devourer
 {
+    SummonPropertiesEntry const* GuardianProperties()
+    {
+        static SummonPropertiesEntry const properties = { 0, SUMMON_CATEGORY_ALLY, 0, SUMMON_TYPE_GUARDIAN, 0, 0 };
+        return &properties;
+    }
+
     namespace
     {
         constexpr uint32 SyncInterval = 3000;
         constexpr uint32 EchoDuration = 8000;
         constexpr uint32 PupDuration = 6000;             // task 009: Pack Prowess
-        constexpr uint32 SummonGuardianProperties = 61;
         constexpr float BroodReach = 40.0f;
         constexpr uint8 DevourWholeLevelGap = 5;
         constexpr float DevourWholeHealthPct = 25.0f;
@@ -650,17 +655,18 @@ namespace Devourer
 
         if (fromSpell)
         {
+            // The spell's own summon effect is stopped (spell_devourer_hatch_brood): its DBC summon properties are
+            // of category pet, which dismissed the hunter-like pet. The two young of the spell are made here.
             ++state.HatchCount;
             uint32 extra = Rank(player, TalSwollenSac);
             if (state.HatchCount % 2 == 0)
                 extra += Rank(player, TalManyMouths);
             uint32 const life = 20000 + 2000u * Rank(player, TalSwellingBrood);
-            for (uint32 i = 0; i < extra; ++i)
+            for (uint32 i = 0; i < 2 + extra; ++i)
             {
                 Position pos = player->GetPosition();
                 player->MovePositionToFirstCollision(pos, 2.0f, 0.6f + float(i) * 1.2f);
-                player->SummonCreature(NpcHatchling, pos, TEMPSUMMON_TIMED_DESPAWN, life, 0,
-                    sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
+                player->SummonCreature(NpcHatchling, pos, TEMPSUMMON_TIMED_DESPAWN, life, 0, GuardianProperties());
             }
         }
 
@@ -751,7 +757,11 @@ namespace Devourer
 
         state.Eaten.insert(victim->GetGUID());
         eater->GetMotionMaster()->MovePoint(0, victim->GetPositionX(), victim->GetPositionY(), victim->GetPositionZ());
-        eater->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
+        if (getMSTimeDiff(state.BroodEmoteAt, getMSTime()) > 1500)   // task 016: several at once played their sounds over each other
+        {
+            state.BroodEmoteAt = getMSTime();
+            eater->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
+        }
         GainAnima(mother, 10 + Rank(mother, TalNursingHunger));      // task 015: Nursing Hunger
         mother->ModifyHealth(int32(mother->CountPctFromMaxHealth(3)));
         if (uint8 const r = Rank(mother, TalHungryYoung))            // Hungry Young: it mends
@@ -790,7 +800,7 @@ namespace Devourer
         float const share = smallEcho ? 0.5f : 1.0f;
         float const power = (1.0f + 0.10f * Rank(player, TalMimicsEye)) * share;
         TempSummon* echo = player->SummonCreature(NpcEcho, player->GetPosition(), TEMPSUMMON_TIMED_DESPAWN, duration,
-            0, sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
+            0, GuardianProperties());
         if (!echo)
             return;
 
@@ -859,7 +869,7 @@ namespace Devourer
             Position pos = player->GetPosition();
             player->MovePositionToFirstCollision(pos, 1.5f, i ? float(M_PI) / 2 : -float(M_PI) / 2);
             TempSummon* pup = player->SummonCreature(NpcEcho, pos, TEMPSUMMON_TIMED_DESPAWN, PupDuration, 0,
-                sSummonPropertiesStore.LookupEntry(SummonGuardianProperties));
+                GuardianProperties());
             if (!pup)
                 continue;
             Dress(pup, player, display, 0.10f, 0.4f, 0.6f);

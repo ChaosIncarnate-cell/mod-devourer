@@ -45,7 +45,6 @@ namespace Devourer
 {
     namespace
     {
-        constexpr uint32 SummonGuardianProperties = 61;
         constexpr float ChallengeReach = 10.0f;
         constexpr float EggburstReach = 5.0f;
         constexpr float BroodReach = 40.0f;
@@ -543,7 +542,7 @@ namespace Devourer
             {
                 Position pos = hatchling->GetPosition();
                 if (TempSummon* young = mother->SummonCreature(NpcHatchling, pos, TEMPSUMMON_TIMED_DESPAWN, HatchlingLife, 0,
-                        sSummonPropertiesStore.LookupEntry(SummonGuardianProperties)))
+                        GuardianProperties()))
                 {
                     OnBroodHatched(mother, false);       // dresses the new hatchling like the others
                     (void)young;
@@ -575,7 +574,7 @@ namespace Devourer
             Position pos = player->GetPosition();
             player->MovePositionToFirstCollision(pos, 2.0f, 2.0f);
             if (player->SummonCreature(NpcHatchling, pos, TEMPSUMMON_TIMED_DESPAWN, HatchlingLife, 0,
-                    sSummonPropertiesStore.LookupEntry(SummonGuardianProperties)))
+                    GuardianProperties()))
                 OnBroodHatched(player, false);
         }
         (void)state;
@@ -706,11 +705,14 @@ namespace Devourer
                 break;
             case SpellFeedTheYoung:
                 player->ModifyHealth(-int32(std::min<uint32>(player->CountPctFromMaxHealth(15), uint32(player->GetHealth()) - 1)));
+                bool first = true;
                 for (Creature* hatchling : Mine(player, NpcHatchling, BroodReach))
                 {
                     hatchling->ModifyHealth(int32(hatchling->CountPctFromMaxHealth(25)));
                     hatchling->CastSpell(hatchling, SpellFedYoung, true);
-                    hatchling->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
+                    if (first)                               // task 016: one eats loudly, the rest in silence
+                        hatchling->HandleEmoteCommand(EMOTE_ONESHOT_EAT_NO_SHEATHE);
+                    first = false;
                 }
                 break;
             case SpellBroodSwarm:
@@ -722,7 +724,7 @@ namespace Devourer
                     Position pos = player->GetPosition();
                     player->MovePositionToFirstCollision(pos, 2.5f, float(i) * float(M_PI) / 3.0f);
                     if (TempSummon* young = player->SummonCreature(NpcHatchling, pos, TEMPSUMMON_TIMED_DESPAWN, life, 0,
-                            sSummonPropertiesStore.LookupEntry(SummonGuardianProperties)))
+                            GuardianProperties()))
                         made.push_back(young);
                 }
                 OnBroodHatched(player, false);           // dresses the new ones in the worn shape's kin

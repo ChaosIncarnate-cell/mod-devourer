@@ -44,8 +44,14 @@ class DamageInfo;
 class SpellInfo;
 class Aura;
 
+struct SummonPropertiesEntry;
+
 namespace Devourer
 {
+    // Task 016: the properties every summon of this module uses (hatchlings, echoes, pups): a guardian that is NOT of
+    // category pet, so it never takes the pet slot (Unit::SetMinion dismisses the hunter-like pet for those).
+    SummonPropertiesEntry const* GuardianProperties();
+
     constexpr uint8 KitSize = 4;
     constexpr uint32 ItemSethrakIdol = 9100100;   // teaches the first shape until it can be devoured in the world
     constexpr uint32 NpcHatchling = 9101100;      // Brood hatchling (guardian from Hatch Brood)
@@ -214,6 +220,7 @@ namespace Devourer
         // Task 013 (runtime only)
         uint32 SniffTimer = 0;                           // ms until the next scan while Sniff is on
         // Task 015 (runtime only; times are getMSTime() values)
+        uint32 BroodEmoteAt = 0;                         // task 016: getMSTime() of the last hatchling eating emote
         uint32 PerkTimer = 0;                            // ms until the talent auras are worked out again
         uint32 ShiftAt = 0;                              // the last shift
         uint32 LastLeftShape = 0;                        // the shape left last (Stolen Instinct, Echo Flesh)

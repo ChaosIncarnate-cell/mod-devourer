@@ -95,8 +95,10 @@ namespace Devourer
         if (!pet || !pet->IsAlive())
             return;
         pet->HandleEmoteCommand(EMOTE_ONESHOT_CHEER);
-        for (Creature* hatchling : Mine(player, NpcHatchling, 30.0f))
-            hatchling->HandleEmoteCommand(EMOTE_ONESHOT_CHEER);
+        // Task 016: one hatchling cheers for the whole brood (several at once played their sounds on top of each other).
+        std::list<Creature*> brood = Mine(player, NpcHatchling, 30.0f);
+        if (!brood.empty())
+            brood.front()->HandleEmoteCommand(EMOTE_ONESHOT_CHEER);
     }
 
     // The pet takes on a hint of the worn shape's size: a quarter of the way there, never under 0.9 or over 1.3.
