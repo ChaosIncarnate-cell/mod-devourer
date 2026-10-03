@@ -250,6 +250,7 @@ MOLT_TALES = {
         "serpents clearing their throats.",
     1: "Every serpent that sheds long enough stands up one day and starts to pray. The sand people began like you, "
        "my little horror: as something that would not stop eating.",
+    32: "Old turtles grow spikes because the world kept biting them. You will understand that, little horror.",
     30: "Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do "
         "not let it near my cauldron.",
     29: "On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little "
@@ -290,6 +291,8 @@ SHAPE_TALES = {
         "the dark are the worst kind.",
     27: "The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose "
         "heart it wants.",
+    31: "The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles "
+        "are very good at keeping what they bite.",
     28: "Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the "
         "bite does the rest.",
 }
@@ -311,6 +314,7 @@ WREN_REACTIONS = [  # (line, shapes)
     ("My toad! Hello, my toad! Did you eat any bugs? Of course you did.", (14, 15)),
     ("You're all sparkly and wrong-looking. I love it. Don't touch the cauldron.", (2, 4, 12, 13, 22, 24)),
     ("Ew. EW! You smell like a cave. A good cave! But a cave.", (6, 20)),
+    ("A shell! Can I live in it? No? Can I knock? Hello in there!", (31, 32)),
     ("Sssso fancy! Sorry. I had to.", (1, 3, 25, 26)),
     ("A lizard! Do you want a warm rock? I keep a warm rock for lizards. Don't bite it.", (28, 29, 30)),
 ]

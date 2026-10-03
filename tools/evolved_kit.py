@@ -869,10 +869,97 @@ WATER_SALAMANDER = Evolved(
         "Steam Spit's \"extra on wet enemies\": half again as much on an enemy standing or swimming in water.",
     ])
 
+# 31 Snapjaw -> 32 Spikeshell (owner, 2026-10-03: "Snapjaw -> Spikeshell (think about other model)": the primal turtle,
+# then the giant dragon turtle, whose spikes are in the model)
+A_MOD_PACIFY = 25
+FAMILY_TURTLE = 21
+SNAPJAW = Evolved(
+    31, "Snapjaw", 0, "", 3461, 994129, "Primal Turtle Green",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": DUR_10S,
+                     **effects(hit(5), aura(A_MOD_MELEE_HASTE, -10, target=T_ENEMY), gain(10))}),
+     ("Snap", "Snap your jaws shut on the enemy: weapon damage plus $s1, and it attacks 10% slower for 10 sec. "
+      "Generates 10 Anima.", "Attack speed slowed by 10%.")),
+    (871, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_4S,
+                   "RecoveryTime": 25000, "SchoolMask": SCHOOL_PHYSICAL,
+                   **effects(aura(A_DMG_TAKEN_PCT, -60, SCHOOL_ALL), aura(A_MOD_ROOT), aura(A_MOD_PACIFY))}),
+     ("Withdraw", "Pull into your shell for 4 sec: damage taken reduced by 60%, but you cannot move or attack.",
+      "In the shell: damage taken reduced by 60%.")),
+    (25941, gimmick(1581, 0, aura(A_MOD_RESISTANCE_PCT, 15, 1), aura(A_DMG_TAKEN_PCT, -5, SCHOOL_MAGIC_ALL)),
+     ("Hard Shell", "Your armor is increased by 15%, and magic hurts you 5% less.", "")),
+    (1680, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": 0, "RecoveryTime": 12000, "SchoolMask": SCHOOL_PHYSICAL,
+                    "CastingTimeIndex": CAST_INSTANT,
+                    **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 60, "target": T_SRC_CASTER,
+                               "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
+     ("Shell Spin", "Spin in your shell: 60% weapon damage to every enemy within 8 yards.", "")),
+    (*charge(20000, sid(31, 6), 10),
+     ("Tidal Surge", "Surge at an enemy 8 to 25 yards away like a wave, even in the middle of a fight, and knock it "
+      "back. Generates 10 Anima.", "")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_CRITTER, 8), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "crab", "Crabs"), (0, 0, "fish", "Fish")],
+    15, 0, [], family=FAMILY_TURTLE,
+    extra=[(6, 6343, helper({"RangeIndex": RANGE_ANYWHERE, "DurationIndex": 0, "SchoolMask": SCHOOL_PHYSICAL,
+                             **effects({"effect": E_KNOCK_BACK, "amount": 60, "misc": 120, "target": T_ENEMY})}),
+            ("Tidal Surge", "", ""))],
+    looks=[(994129, "Primal Turtle Green"), (994126, "Primal Turtle Blue"), (994127, "Primal Turtle Brown"),
+           (994128, "Primal Turtle Dark"), (994130, "Primal Turtle Red")],
+    role="shell tank",
+    changes=[
+        "The pick's first turtle: any creature of the Turtle family gives it (the Oasis Snapjaws of the Barrens, 15, "
+        "first); the primal turtle model.",
+        "Withdraw lasts its 4 sec (no second press to end it early).",
+        "Hard Shell is armor and a little less magic damage: \"deflect from the front\" has no partial chance in this "
+        "core (Deterrence's deflect is all or nothing).",
+        "Tidal Surge is the fifth ability (level 20): a charge that knocks back.",
+    ])
+
+SPIKESHELL = Evolved(
+    32, "Spikeshell", 31, "Snapjaw", 0, 994131, "Dragon Turtle",
+    (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
+                     "DurationIndex": DUR_10S,
+                     **effects(hit(9), aura(A_MOD_MELEE_HASTE, -15, target=T_ENEMY), gain(15))}),
+     ("Spiked Snap", "Snap with a spiked beak: weapon damage plus $s1, and the enemy attacks 15% slower for 10 sec. "
+      "Generates 15 Anima.", "Attack speed slowed by 15%.")),
+    (50245, ability({**hunger(15), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 18000, "DurationIndex": DUR_3S,
+                     "Mechanic": MECHANIC_ROOT, "SchoolMask": SCHOOL_PHYSICAL,
+                     **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 80, "target": T_ENEMY},
+                               aura(A_MOD_ROOT, target=T_ENEMY))}),
+     ("Snapping Lock", "Bite and hold: 80% weapon damage, and the enemy cannot move for 3 sec.", "Held fast.")),
+    (25941, gimmick(1581, 0, aura(A_OBS_MOD_HEALTH, 1, period=3000)),
+     ("Barnacled", "Barnacles and old scars close your wounds: you regain 1% of your maximum health every 3 sec.",
+      "")),
+    (6343, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                    "DurationIndex": DUR_8S, "RecoveryTime": 20000, "SchoolMask": SCHOOL_NATURE,
+                    **effects({"effect": E_WEAPON_PERCENT_DAMAGE, "amount": 70, "target": T_SRC_CASTER,
+                               "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8},
+                              aura(A_DAMAGE_SHIELD, 12, SCHOOL_NATURE_INDEX))}),
+     ("Spike Burst", "Spikes burst from your shell: 70% weapon damage to enemies within 8 yards, and for 8 sec melee "
+      "attackers take $s2 Nature damage.", "Spiked: attackers take $s2 Nature damage.")),
+    (871, ability({"Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF, "DurationIndex": DUR_5S,
+                   "RecoveryTime": 40000, "SchoolMask": SCHOOL_PHYSICAL,
+                   **effects(aura(A_DMG_TAKEN_PCT, -70, SCHOOL_ALL), aura(A_MOD_ROOT), aura(A_MOD_PACIFY))}),
+     ("Fortress Shell", "Lock yourself in for 5 sec: damage taken reduced by 70%, but you cannot move or attack.",
+      "In the shell: damage taken reduced by 70%.")),
+    [(CREATURE_TYPE_BEAST, 10), (CREATURE_TYPE_HUMANOID, 6), (0, 3)],
+    [(CREATURE_TYPE_CRITTER, 0, "", ""), (0, 0, "crab", "Crabs"), (0, 0, "fish", "Fish")],
+    35, 900,
+    [(DEVOUR_NAME, 0, 30, "Devour 30 turtles or crabs as a Snapjaw", "turtle|snapjaw|tortoise|crab|crawler|shell"),
+     (TAKE_DAMAGE, 0, 15000, "Weather 15,000 damage as a Snapjaw", ""),
+     (DEVOUR_ENTRY, 7977, 1, "Devour Gammerita (The Hinterlands)", "")],
+    later_level=38,
+    role="spiked tank",
+    changes=[
+        "The giant dragon turtle model (one look: its textures are built in).",
+        "Barnacled is a slow heal all the time (the pick's \"Withdraw heals 2% a second\" would need a script on "
+        "Withdraw; the steady heal does the same job for a tank).",
+        "Fortress Shell is the stronger Withdraw, at level 38.",
+    ])
+
 # The forms of this file, in molt-quest order (the tier-2 forms keep the quest ids they were given first).
 FORMS = [GREATER_PLAINSTRIDER, BLOODSNOUT_WORG, RAGING_AGAMAR, SHADOWCLAW, ROCKJAW_BACKBREAKER, VAMPIRIC_DUSKBAT,
          ARCANE_WRAITH, ROYAL_BLUE_FLUTTERER, VOID_TERROR, VIPER, BABY_WIND_SERPENT, BABY_EAGLE, BABY_KOMODO,
-         KOMODO_DRAGON, WATER_SALAMANDER]
+         KOMODO_DRAGON, WATER_SALAMANDER, SNAPJAW, SPIKESHELL]
 
 
 class Growth:

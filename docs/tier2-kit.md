@@ -23,9 +23,11 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 28 | Baby Komodo | devouring (family 6) | 9 | - | festering brawler |
 | 29 | Komodo Dragon | Baby Komodo | 30 | 800 | festering tank |
 | 30 | Water Salamander | Biletoad | 14 | 550 | water skirmisher |
+| 31 | Snapjaw | devouring (family 21) | 15 | - | shell tank |
+| 32 | Spikeshell | Snapjaw | 35 | 900 | spiked tank |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
 
-### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101321)
+### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101323)
 
 - Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent
 - Breathe lightning 80 times (Lightning Breath)
@@ -370,3 +372,46 @@ Changes against the canvas card, and why:
 - The Biletoad's second branch (the canvas's 2B), beside the Giant Marsh Frog: both can be grown, each with its own tasks and molt quest. Buying the second one with Bio Points in the menu comes later.
 - Slick Skin makes you unable to be slowed or rooted for 6 sec (the pick's "-30% from snares" was unclear).
 - Steam Spit's "extra on wet enemies": half again as much on an enemy standing or swimming in water.
+
+### Snapjaw (shape 31, devoured: any creature of family 21)
+Look: a retail model, base 994129 (`Primal Turtle Green`); its other colourings come with the shape: 994126 `Primal Turtle Blue`, 994127 `Primal Turtle Brown`, 994128 `Primal Turtle Dark`, 994130 `Primal Turtle Red`. The creature's own look (creature 3461, display 994129, `Primal Turtle Green`) comes with it too. Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102150 | 1 | Snapjaw Form | Take the shape of a snapjaw you have devoured: Snap, Withdraw, Shell Spin and Hard Shell; Tidal Surge opens at level 20. All shapes share one cooldown. |
+| 9102151 | 1 | Snap | Snap your jaws shut on the enemy: weapon damage plus $s1, and it attacks 10% slower for 10 sec. Generates 10 Anima. |cffb87830Snapjaw form|r |
+| 9102152 | 1 | Withdraw | Pull into your shell for 4 sec: damage taken reduced by 60%, but you cannot move or attack. |cffb87830Snapjaw form|r |
+| 9102153 | 1 | Hard Shell | Your armor is increased by 15%, and magic hurts you 5% less. |cffb87830Snapjaw form|r |
+| 9102154 | 1 | Shell Spin | Spin in your shell: 60% weapon damage to every enemy within 8 yards. |cffb87830Snapjaw form|r |
+| 9102155 | 20 | Tidal Surge | Surge at an enemy 8 to 25 yards away like a wave, even in the middle of a fight, and knock it back. Generates 10 Anima. |cffb87830Snapjaw form|r |
+| 9102156 | 1 | Tidal Surge | (cast by the kit)  |
+
+Changes against the canvas card, and why:
+
+- The pick's first turtle: any creature of the Turtle family gives it (the Oasis Snapjaws of the Barrens, 15, first); the primal turtle model.
+- Withdraw lasts its 4 sec (no second press to end it early).
+- Hard Shell is armor and a little less magic damage: "deflect from the front" has no partial chance in this core (Deterrence's deflect is all or nothing).
+- Tidal Surge is the fifth ability (level 20): a charge that knocks back.
+
+### Spikeshell (shape 32, grows out of the Snapjaw)
+Look: creature 0, display 994131 (skin `Dragon Turtle`). Any one task:
+
+- Devour 30 turtles or crabs as a Snapjaw
+- Weather 15,000 damage as a Snapjaw
+- Devour Gammerita (The Hinterlands)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102160 | 1 | Spikeshell Form | Take the shape of the spikeshell, grown out of your snapjaw: Spiked Snap, Snapping Lock, Spike Burst and Barnacled; Fortress Shell opens at level 38. All shapes share one cooldown. |
+| 9102161 | 1 | Spiked Snap | Snap with a spiked beak: weapon damage plus $s1, and the enemy attacks 15% slower for 10 sec. Generates 15 Anima. |cffb87830Spikeshell form|r |
+| 9102162 | 1 | Snapping Lock | Bite and hold: 80% weapon damage, and the enemy cannot move for 3 sec. |cffb87830Spikeshell form|r |
+| 9102163 | 1 | Barnacled | Barnacles and old scars close your wounds: you regain 1% of your maximum health every 3 sec. |cffb87830Spikeshell form|r |
+| 9102164 | 1 | Spike Burst | Spikes burst from your shell: 70% weapon damage to enemies within 8 yards, and for 8 sec melee attackers take $s2 Nature damage. |cffb87830Spikeshell form|r |
+| 9102165 | 38 | Fortress Shell | Lock yourself in for 5 sec: damage taken reduced by 70%, but you cannot move or attack. |cffb87830Spikeshell form|r |
+
+Changes against the canvas card, and why:
+
+- The giant dragon turtle model (one look: its textures are built in).
+- Barnacled is a slow heal all the time (the pick's "Withdraw heals 2% a second" would need a script on Withdraw; the steady heal does the same job for a tank).
+- Fortress Shell is the stronger Withdraw, at level 38.
