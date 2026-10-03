@@ -99,9 +99,13 @@ win will give the mount of hagatha." This replaces the single Derby + Rematch:
 
 | Quest | Race | Hagatha | Reward |
 |---|---|---|---|
-| 9101360 Wren's Derby | short loop by the Crossroads | easy pace | Apprentice Riding, Wren's Saddle, Wren's Racing Goggles, 25 silver |
+| 9101360 Wren's Derby | short loop south of the Crossroads | easy pace | Apprentice Riding, Wren's Saddle, Wren's Racing Goggles, 25 silver |
 | 9101361 Hagatha Wants a Rematch | longer loop, a jump over the creek | faster | Hagatha's Bristle Cloak, Hagatha's Sour Toffee x3 |
 | 9101362 The Last Lap | the full course, about two minutes | her best | Bramble's Lucky Beetle and **Hagatha's broom** as a mount |
 
 Each race unlocks the next. Hagatha flies all three on her broom, so the reward is the mount the player raced against
 all along. The items, the broom's reins and their balance belong to the Items and balance thread.
+
+Place (owner: "pick a level around level 20 zone"): the Barrens, on the open savanna between the Crossroads and
+Lushwater Oasis, where the wildlife is about level 17-22. The start line stays outside the town so the Crossroads
+guards don't get involved.
