@@ -28,6 +28,7 @@ DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9101301 AND 9101399;
 DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9101301 AND 9101399;
 DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9101301 AND 9101399;
 DELETE FROM `quest_template` WHERE `ID` BETWEEN 9101301 AND 9101399;
+DELETE FROM `item_template` WHERE `entry` BETWEEN 9100110 AND 9100119;
 DELETE FROM `gossip_menu_option` WHERE `MenuID` IN (9101300, 9101301);
 DELETE FROM `gossip_menu` WHERE `MenuID` IN (9101300, 9101301);
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN (9101300, 9101301);
@@ -265,6 +266,32 @@ INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`)
 (9101330, 1, 'There you are! Look how it bulges. Lie down in the circle, Snack, and don''t wriggle. Hagatha, the bucket!', 0);
 INSERT INTO `creature_questender` (`id`, `quest`) VALUES
 (9101301, 9101310), (9101301, 9101311), (9101301, 9101312), (9101301, 9101313), (9101301, 9101314), (9101301, 9101315), (9101301, 9101316), (9101301, 9101317), (9101301, 9101318), (9101301, 9101319), (9101301, 9101320), (9101301, 9101321), (9101301, 9101322), (9101301, 9101323), (9101301, 9101324), (9101301, 9101325), (9101301, 9101326), (9101301, 9101327), (9101301, 9101328), (9101301, 9101329), (9101301, 9101330);
+
+-- --- the daily chores (task 019): a reagent only a form of the right tier leaves (Mgr::ChoreDrop), Bio Points ---
+INSERT INTO `item_template` (`entry`, `class`, `subclass`, `name`, `displayid`, `Quality`, `Flags`, `BuyCount`, `AllowableClass`, `AllowableRace`, `ItemLevel`, `RequiredLevel`, `stackable`, `bonding`, `description`) VALUES
+(9100110, 12, 0, 'Gristle of the Hunt', 34955, 1, 0, 1, 512, -1, 1, 1, 6, 4, 'Wren swears it is a reagent. Only a beast-body can tell it from the rest of the meal.'),
+(9100111, 12, 0, 'Molted Husk Flake', 34955, 1, 0, 1, 512, -1, 1, 1, 6, 4, 'A flake of a body outgrown. Wren needs the ones a grown-out form leaves behind.'),
+(9100112, 12, 0, 'Heartstring of the Great', 34955, 1, 0, 1, 512, -1, 1, 1, 6, 4, 'A thread of sinew from something that has grown all the way. Only the greatest bodies leave it.');
+INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredItemId1`, `RequiredItemCount1`, `VerifiedBuild`) VALUES
+(9101391, 2, 5, 5, 0, 0, 0, 3, 4096, 0, 'A Pinch of Gristle', 'Bring Wren 3 Gristle of the Hunt, left when you eat in a starter form. (Daily)', 'Snack, I''m out of gristle! The proper kind, the kind a first body picks out of its teeth. Only a young shape can fetch it: the older ones are far too refined, they swallow it whole.$B$BEat a few things as you are, I mean as one of your first shapes, and bring me what''s left over. I''ll pay in Bio Points. I''ve been saving them in a jar.', '', 'Return to Wren Hollowmoor.', 9100110, 3, 0),
+(9101392, 2, 12, 12, 0, 0, 0, 4, 4096, 0, 'Husks for Wren', 'Bring Wren 3 Molted Husk Flakes, left when you eat in a form that has grown out of another. (Daily)', 'Snack! You''ve molted, which means you''re properly interesting now, and I need husk flakes for my potions. They only fall off a body that has grown out of an older one. Not a first body, not a last one. The in-between ones!$B$BEat in a grown-out form, and bring me the flakes.', '', 'Return to Wren Hollowmoor.', 9100111, 3, 0),
+(9101393, 2, 40, 40, 0, 0, 0, 5, 4096, 0, 'The Greatest Thread', 'Bring Wren 3 Heartstrings of the Great, left when you eat in the last form of a line. (Daily)', 'Snack, the great forms leave a thread behind when they eat. Heartstrings, I call them. I need three for a very large knot.$B$BOnly a form at the end of its line can fetch one: the last step of a long molt. Eat as the greatest you are, and bring them home.', '', 'Return to Wren Hollowmoor.', 9100112, 3, 0);
+INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
+(9101391, 512, 9101303),
+(9101392, 512, 9101303),
+(9101393, 512, 9101303);
+INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`, `VerifiedBuild`) VALUES
+(9101391, 1, 1, 'Not yet three? Keep chewing, Snack. Chew with your first face.', 0),
+(9101392, 1, 1, 'I can smell your first body. Or your last one. Change into the middle one, Snack!', 0),
+(9101393, 1, 1, 'Three heartstrings, Snack. From the biggest body you''ve got.', 0);
+INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
+(9101391, 1, 'Gristle! Beautiful, disgusting gristle! Here, a jar of points. Don''t tell Hagatha which jar.', 0),
+(9101392, 1, 'Flakes! Ooh, they crunch! Here: Bio Points, for the middle child of all my pets.', 0),
+(9101393, 1, 'Heartstrings! You really are a big one. I''m very proud. And a little scared. Bio Points for you!', 0);
+INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
+(9101301, 9101391), (9101301, 9101392), (9101301, 9101393);
+INSERT INTO `creature_questender` (`id`, `quest`) VALUES
+(9101301, 9101391), (9101301, 9101392), (9101301, 9101393);
 
 -- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------
 INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES

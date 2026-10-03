@@ -23,7 +23,9 @@ Ids (all removed by data/sql/uninstall/world.sql and characters.sql):
   creature (spawns)      9910200-9910202
   gameobject_template    9101300-9101309      gameobject (spawns) 9910200-9910229
   quest                  9101301-9101305 (9101305: Wren's apprentice, task 018), 9101310-9101399 the molt quests (task 018: one per evolution that has one,
-                         tools/evolved_kit.py gives each evolution its quest id)
+                         tools/evolved_kit.py gives each evolution its quest id), 9101391-9101393 Wren's daily
+                         chores (task 019: one per tier of form)
+  item_template          9100110-9100112 the reagents of those chores (9100100-9100101 are the idols)
   gossip_menu / npc_text 9101300-9101301 / 9101300-9101305 (conditions on the same menus)
   creature_default_trainer: both sisters -> trainer 9101200 (its spells: tools/start_kit.py)
 """
@@ -60,6 +62,15 @@ Q_FEEDING, Q_TRICK, Q_TALE, Q_PESTS = 9101301, 9101302, 9101303, 9101304
 Q_APPRENTICE = 9101305                              # task 018: Wren sends her apprentice along (the companion)
 COMPANION = "Bramble"                               # the default of Devourer.WitchCompanion (the bot's name)
 Q_FIRST, Q_LAST = 9101301, 9101399                   # every quest of the sisters (molt quests: 9101310+)
+# Task 019 C (task 018 B's last bullet: "a small repeatable chore per tier"): Wren's daily chores, one per tier of form
+# (1 = a starter form, 2 = a form grown out of one, 3 = grown out of that). Each wants a reagent that only comes out of
+# a meal eaten in a form of that tier (module: Mgr::ChoreDrop), the reward is Bio Points for the worn form
+# (module: Mgr::ChoreReward). The ids sit at the top of the range, the molt quests fill it from below.
+Q_CHORE_FIRST = 9101391
+ITEM_CHORE_FIRST, ITEM_CHORE_LAST = 9100110, 9100119
+CHORE_COUNT = 3                                      # reagents each chore asks for
+CHORE_CHANCE = 40                                    # % of meals (in the right tier) that leave one
+CHORE_BP = (60, 150, 300)                            # Bio Points per tier
 MENU_HAGATHA, MENU_WREN = 9101300, 9101301
 TRAINER = 9101200                                    # tools/start_kit.py: the class trainer and what it teaches
 CLASS_MASK = 512                                     # class 10
@@ -443,6 +454,46 @@ MOLT_QUESTS = [
     for molt in evolved_kit.MOLTS]
 assert all(Q_FIRST <= qd["id"] <= Q_LAST for qd in MOLT_QUESTS)
 
+# Task 019 C: the daily chores. Nobody but Wren offers them, once the circle has let the Devourer go (like the molt
+# quests). The reagent's icon is a placeholder (the idols' display): the owner picks better ones.
+REAGENT_DISPLAY = 34955
+CHORES = [
+    dict(tier=1, level=5, xp=3, item="Gristle of the Hunt",
+         flavour="Wren swears it is a reagent. Only a beast-body can tell it from the rest of the meal.",
+         title="A Pinch of Gristle",
+         log="Bring {wren} 3 Gristle of the Hunt, left when you eat in a starter form. (Daily)",
+         details="Snack, I'm out of gristle! The proper kind, the kind a first body picks out of its teeth. Only a "
+                 "young shape can fetch it: the older ones are far too refined, they swallow it whole.$B$BEat a "
+                 "few things as you are, I mean as one of your first shapes, and bring me what's left over. I'll "
+                 "pay in Bio Points. I've been saving them in a jar.",
+         incomplete="Not yet three? Keep chewing, Snack. Chew with your first face.",
+         reward="Gristle! Beautiful, disgusting gristle! Here, a jar of points. Don't tell {hagatha} which jar."),
+    dict(tier=2, level=12, xp=4, item="Molted Husk Flake",
+         flavour="A flake of a body outgrown. Wren needs the ones a grown-out form leaves behind.",
+         title="Husks for {wren}",
+         log="Bring {wren} 3 Molted Husk Flakes, left when you eat in a form that has grown out of another. (Daily)",
+         details="Snack! You've molted, which means you're properly interesting now, and I need husk flakes for my "
+                 "potions. They only fall off a body that has grown out of an older one. Not a first body, not a "
+                 "last one. The in-between ones!$B$BEat in a grown-out form, and bring me the flakes.",
+         incomplete="I can smell your first body. Or your last one. Change into the middle one, Snack!",
+         reward="Flakes! Ooh, they crunch! Here: Bio Points, for the middle child of all my pets."),
+    dict(tier=3, level=40, xp=5, item="Heartstring of the Great",
+         flavour="A thread of sinew from something that has grown all the way. Only the greatest bodies leave it.",
+         title="The Greatest Thread",
+         log="Bring {wren} 3 Heartstrings of the Great, left when you eat in the last form of a line. (Daily)",
+         details="Snack, the great forms leave a thread behind when they eat. Heartstrings, I call them. I need three "
+                 "for a very large knot.$B$BOnly a form at the end of its line can fetch one: the last step of a "
+                 "long molt. Eat as the greatest you are, and bring them home.",
+         incomplete="Three heartstrings, Snack. From the biggest body you've got.",
+         reward="Heartstrings! You really are a big one. I'm very proud. And a little scared. Bio Points for you!"),
+]
+for _i, _c in enumerate(CHORES):
+    _c.update(id=Q_CHORE_FIRST + _i, item_id=ITEM_CHORE_FIRST + _i, bp=CHORE_BP[_i],
+              complete="Return to {Wren}.")
+assert Q_CHORE_FIRST + len(CHORES) - 1 <= Q_LAST
+assert max(qd["id"] for qd in MOLT_QUESTS) < Q_CHORE_FIRST, "the molt quests ran into the daily chores' ids"
+assert ITEM_CHORE_FIRST + len(CHORES) - 1 <= ITEM_CHORE_LAST
+
 OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, action menu, who sees it)]
     # who: "trained" = a Devourer whose cage is open, "tale" = a Devourer on the third task
     MENU_HAGATHA: [
@@ -487,6 +538,7 @@ def cond(menu_type, group, entry, ctype, value, negative, comment, else_group=0)
 
 
 CONDITION_QUESTREWARDED, CONDITION_QUESTTAKEN, CONDITION_CLASS = 8, 9, 15
+QUEST_FLAG_DAILY = 0x1000
 
 
 def build_sql() -> str:
@@ -521,6 +573,7 @@ def build_sql() -> str:
         f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
         f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
         f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
+        f"DELETE FROM `item_template` WHERE `entry` BETWEEN {ITEM_CHORE_FIRST} AND {ITEM_CHORE_LAST};",
         f"DELETE FROM `gossip_menu_option` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
         f"DELETE FROM `gossip_menu` WHERE `MenuID` IN ({MENU_HAGATHA}, {MENU_WREN});",
         f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (14, 15) AND `SourceGroup` IN ({MENU_HAGATHA},"
@@ -693,6 +746,33 @@ def build_sql() -> str:
           ", ".join(f"({qd['ender']}, {qd['id']})" for qd in MOLT_QUESTS) + ";",
           ""]
 
+    # task 019: the daily chores (Wren gives and takes them; the reagents drop by the module's hook)
+    s += ["-- --- the daily chores (task 019): a reagent only a form of the right tier leaves (Mgr::ChoreDrop), Bio Points ---",
+          "INSERT INTO `item_template` (`entry`, `class`, `subclass`, `name`, `displayid`, `Quality`, `Flags`,"
+          " `BuyCount`, `AllowableClass`, `AllowableRace`, `ItemLevel`, `RequiredLevel`, `stackable`, `bonding`,"
+          " `description`) VALUES",
+          ",\n".join(f"({c['item_id']}, 12, 0, {q(c['item'])}, {REAGENT_DISPLAY}, 1, 0, 1, {CLASS_MASK}, -1, 1, 1,"
+                     f" {CHORE_COUNT * 2}, 4, {q(c['flavour'])})" for c in CHORES) + ";",
+          "INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`,"
+          " `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`,"
+          " `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredItemId1`, `RequiredItemCount1`,"
+          " `VerifiedBuild`) VALUES",
+          ",\n".join(f"({c['id']}, 2, {c['level']}, {c['level']}, 0, 0, 0, {c['xp']}, {QUEST_FLAG_DAILY}, 0,"
+                     f" {q(f(c['title']))}, {q(f(c['log']))}, {q(f(c['details']))}, '', {q(f(c['complete']))},"
+                     f" {c['item_id']}, {CHORE_COUNT}, 0)" for c in CHORES) + ";",
+          "INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES",
+          ",\n".join(f"({c['id']}, {CLASS_MASK}, {Q_TALE})" for c in CHORES) + ";",
+          "INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`,"
+          " `VerifiedBuild`) VALUES",
+          ",\n".join(f"({c['id']}, 1, 1, {q(f(c['incomplete']))}, 0)" for c in CHORES) + ";",
+          "INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES",
+          ",\n".join(f"({c['id']}, 1, {q(f(c['reward']))}, 0)" for c in CHORES) + ";",
+          "INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES",
+          ", ".join(f"({NPC_WREN}, {c['id']})" for c in CHORES) + ";",
+          "INSERT INTO `creature_questender` (`id`, `quest`) VALUES",
+          ", ".join(f"({NPC_WREN}, {c['id']})" for c in CHORES) + ";",
+          ""]
+
     # texts
     s += ["-- --- what they say (creature_text; the module calls the groups at the right moments) ---------------------",
           "INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`,"
@@ -762,6 +842,12 @@ def build_header() -> str:
         f"    constexpr uint32_t QuestApprentice = {Q_APPRENTICE};   // task 018: the companion joins",
         f"    constexpr uint32_t QuestMoltFirst = {MOLT_QUESTS[0]['id']};   // task 018: one per evolved form, in order",
         f"    constexpr uint32_t QuestMoltLast = {MOLT_QUESTS[-1]['id']};",
+        f"    constexpr uint32_t QuestChoreFirst = {CHORES[0]['id']};   // task 019: Wren's daily chores, one per tier",
+        f"    constexpr uint32_t QuestChoreLast = {CHORES[-1]['id']};",
+        f"    constexpr uint32_t ItemChoreFirst = {ITEM_CHORE_FIRST};   // their reagents, in the same order",
+        f"    constexpr uint32_t ChoreCount = {CHORE_COUNT};            // reagents a chore asks for",
+        f"    constexpr uint32_t ChoreChance = {CHORE_CHANCE};          // % of meals in the right tier that leave one",
+        f"    constexpr uint32_t ChoreBp[] = {{ {', '.join(map(str, CHORE_BP))} }};   // Bio Points per tier",
         f"    constexpr uint32_t MenuHagatha = {MENU_HAGATHA};",
         f"    constexpr uint32_t MenuWren = {MENU_WREN};",
         f"    constexpr uint32_t OptionTale = {OPT_TALE};",
@@ -863,6 +949,15 @@ def build_md() -> str:
            "evolution: she peels the old body, Hagatha tells the tale of the new one. The earlier form stays.", "",
            "| Quest | Title | Hagatha's tale |", "|---|---|---|"]
     md += [f"| {qd['id']} | {f(qd['title'])} | {MOLT_TALES[qd['shape']]} |" for qd in MOLT_QUESTS]
+    md += ["", "## The daily chores (task 019)", "",
+           "Three daily quests at Wren, one per tier of form (1 = a starter form, 2 = a form grown out of one, 3 = "
+           "grown out of that), open once the circle has let the Devourer go. Each asks for "
+           f"{CHORE_COUNT} of a reagent that only comes out of a meal eaten in a form of that tier: each meal in the "
+           f"right tier leaves one with a {CHORE_CHANCE}% chance (`Mgr::ChoreDrop`, only while the quest is in the "
+           "log). Handing it in gives Bio Points to the form worn (`Mgr::ChoreReward`).", "",
+           "| Quest | Tier | Level | Title | Reagent (item) | Bio Points |", "|---|---|---|---|---|---|"]
+    md += [f"| {c['id']} | {c['tier']} | {c['level']} | {f(c['title'])} | {c['item']} ({c['item_id']}) | {c['bp']} |"
+           for c in CHORES]
     md += ["", "## Lines (creature_text)", "", "| Who | Group | When | Line | |", "|---|---|---|---|---|"]
     when = {(NPC_WREN, 0): "the ritual takes hold (whisper)", (NPC_HAGATHA, 0): "asleep in the cage",
             (NPC_WREN, 1): "it wakes", (NPC_HAGATHA, 1): "", (NPC_WREN, 2): "before the spell",

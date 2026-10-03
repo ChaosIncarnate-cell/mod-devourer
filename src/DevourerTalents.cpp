@@ -383,6 +383,7 @@ namespace Devourer
     void Mgr::OnMeal(Player* player, Creature const* meal, bool whole)
     {
         GainAnima(player, _hungerPerMeal + 2u * Rank(player, TalDeepHunger));
+        ChoreDrop(player);                               // task 019: Wren's daily chores
         if (uint8 r = Rank(player, TalRavenousGuard))
             if (player->GetHealthPct() < 50.0f)
                 player->ModifyHealth(int32(player->CountPctFromMaxHealth(5 * r)));

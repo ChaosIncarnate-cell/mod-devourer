@@ -124,6 +124,16 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101329 | The Molt: Voidcreeper | Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family. |
 | 9101330 | The Molt: Voidcreeper Broodmother | A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer. |
 
+## The daily chores (task 019)
+
+Three daily quests at Wren, one per tier of form (1 = a starter form, 2 = a form grown out of one, 3 = grown out of that), open once the circle has let the Devourer go. Each asks for 3 of a reagent that only comes out of a meal eaten in a form of that tier: each meal in the right tier leaves one with a 40% chance (`Mgr::ChoreDrop`, only while the quest is in the log). Handing it in gives Bio Points to the form worn (`Mgr::ChoreReward`).
+
+| Quest | Tier | Level | Title | Reagent (item) | Bio Points |
+|---|---|---|---|---|---|
+| 9101391 | 1 | 5 | A Pinch of Gristle | Gristle of the Hunt (9100110) | 60 |
+| 9101392 | 2 | 12 | Husks for Wren | Molted Husk Flake (9100111) | 150 |
+| 9101393 | 3 | 40 | The Greatest Thread | Heartstring of the Great (9100112) | 300 |
+
 ## Lines (creature_text)
 
 | Who | Group | When | Line | |

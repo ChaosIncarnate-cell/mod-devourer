@@ -384,6 +384,11 @@ namespace Devourer
         void GainBio(Player* player, Creature const* meal, float factor = 1.0f);   // factor != 1: a bonus share
         void TaskEvent(Player* player, uint8 kind, uint32 value, uint32 amount = 1, std::string const& name = {});
         void CheckEvolution(Player* player);
+        // Task 019 C: Wren's daily chores (tools/witch_sisters.py). The tier of a form: 1 = a starter form, 2 = grown out
+        // of one, 3 = grown out of that (evolution table, from to_shape back to the line's first form).
+        [[nodiscard]] uint8 TierOf(uint32 shapeId) const;
+        void ChoreDrop(Player* player);                             // a meal in a form of the chore's tier may leave its reagent
+        void ChoreReward(Player* player, uint8 tier);               // handed in: Bio Points for the worn form
         void Evolve(Player* player, Evolution const& evo);          // the old body tears open, the new one is put on
         bool OfferMolt(Player* player, Evolution const& evo);       // task 018: true = waiting for its molt quest
         bool Molt(Player* player, uint32 questId);                  // task 018: a molt quest handed in to Wren
