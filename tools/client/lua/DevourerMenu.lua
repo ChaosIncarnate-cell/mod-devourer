@@ -5,7 +5,9 @@
 --   Shapes   every shape there is: the ones the Devourer has eaten can be clicked to take them (with a button
 --            for the colouring); the others are greyed out. GMs and admins get "Unlock all".
 --   Gallery  every shape: how to get it (which creature, where it lives, what it grows out of), its favourite
---            food and all its abilities (the game's own tooltips).
+--            food, all its abilities (the game's own tooltips), its Bio Points and what the next growth needs, every
+--            colouring it has (worn ones usable, the others greyed with how to get them) and, once the shape is
+--            unlocked, a 3D preview of it and of each colouring (locked shapes show a question mark).
 -- The server sends everything as addon messages (prefix DVR, see Mgr::SendMenu in src/DevourerMgr.cpp); the menu
 -- asks for it with ".devour menu" at login. Anima is the rage bar: for a Devourer it is drawn purple.
 --
@@ -17,8 +19,10 @@ local MAX_SHAPES = 16;
 local ROW_HEIGHT = 26;
 local ANIMA_COLOR = { r = 0.58, g = 0.29, b = 0.95 };
 
-local catalog, pendingCatalog = {}, nil;   -- every shape: { id, spell, food, kit = {}, passive, hints = {} }
-local owned, pendingOwned = {}, nil;       -- shape id -> { worn, wearing, skins = {} }
+local catalog, pendingCatalog = {}, nil;   -- every shape: { id, spell, food, kit = {}, passive, hints = {}, display,
+                                           --   colours = { {display, name} }, evos = { {to, bp, level, any, tasks} } }
+local owned, pendingOwned = {}, nil;       -- shape id -> { worn, wearing, skins = {}, bp, progress = { ["to:task"] = n } }
+local previewColour = nil;                 -- the gallery's colouring (display id), nil = the base one
 local isGM = false;
 local animaCost = 0;
 local dirty = false;
@@ -99,11 +103,15 @@ local function ShowTab(which)
 		return;
 	end
 	if ( which == "gallery" ) then
+		menu:SetWidth(580);
+		menu:SetHeight(460);
 		shapesPanel:Hide();
 		galleryPanel:Show();
 	else
+		menu:SetWidth(340);
 		galleryPanel:Hide();
 		shapesPanel:Show();
+		menu:SetHeight(menu.shapesHeight or 330);
 	end
 	for name, tab in pairs(tabs) do
 		if ( name == which ) then
@@ -141,6 +149,8 @@ for i = 1, MAX_SHAPES do
 	r.name = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall");
 	r.name:SetPoint("LEFT", r.icon, "RIGHT", 6, 0);
 	r.name:SetJustifyH("LEFT");
+	r.bp = r:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall");
+	r.bp:SetPoint("RIGHT", -4, 0);
 	r.worn = r:CreateTexture(nil, "BACKGROUND");
 	r.worn:SetAllPoints();
 	r.worn:SetTexture(ANIMA_COLOR.r, ANIMA_COLOR.g, ANIMA_COLOR.b, 0.25);
@@ -262,7 +272,195 @@ for i = 1, 5 do
 	abilities[i] = a;
 end
 
-local function ShowDetail()
+-- Bio Points and the next growth (every growth a shape has, with the task progress of an owned shape).
+local growthHead = Section(abilities[1], "Bio Points and growth");
+local dGrowth = detail:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall");
+dGrowth:SetPoint("TOPLEFT", growthHead, "BOTTOMLEFT", 0, -3);
+dGrowth:SetWidth(200);
+dGrowth:SetJustifyH("LEFT");
+growthHead:ClearAllPoints();
+growthHead:SetPoint("TOPLEFT", abilities[1], "BOTTOMLEFT", 0, -10);
+
+-- The 3D preview (a silhouette while the shape is locked) and the shape's colourings below it.
+local COLOUR_ROWS = 6;
+local model = CreateFrame("PlayerModel", "DevourerMenuModel", detail);
+model:SetWidth(170);
+model:SetHeight(170);
+model:SetPoint("TOPRIGHT", 0, 0);
+local modelBack = model:CreateTexture(nil, "BACKGROUND");
+modelBack:SetAllPoints();
+modelBack:SetTexture(0, 0, 0, 0.45);
+local unknown = detail:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge");
+unknown:SetPoint("CENTER", model, "CENTER", 0, 0);
+unknown:SetText("?");
+unknown:SetTextColor(0.35, 0.35, 0.35);
+local unknownIcon = detail:CreateTexture(nil, "ARTWORK");
+unknownIcon:SetWidth(96);
+unknownIcon:SetHeight(96);
+unknownIcon:SetPoint("CENTER", model, "CENTER", 0, 0);
+unknownIcon:SetVertexColor(0, 0, 0);
+
+local colourHead = detail:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall");
+colourHead:SetPoint("TOPLEFT", model, "BOTTOMLEFT", 0, -6);
+colourHead:SetText("Colourings");
+local colourRows = {};
+local colourScroll = CreateFrame("ScrollFrame", "DevourerMenuColourScroll", detail, "FauxScrollFrameTemplate");
+colourScroll:SetPoint("TOPLEFT", colourHead, "BOTTOMLEFT", 0, -2);
+colourScroll:SetWidth(150);
+colourScroll:SetHeight(COLOUR_ROWS * 16);
+local wearButton = CreateFrame("Button", nil, detail, "UIPanelButtonTemplate");
+wearButton:SetWidth(100);
+wearButton:SetHeight(20);
+wearButton:SetPoint("TOPLEFT", colourScroll, "BOTTOMLEFT", 0, -6);
+wearButton:SetText("Wear colouring");
+wearButton:SetScript("OnClick", function(self)
+	if ( self.skin ) then
+		Server("skin " .. self.skin);
+	end
+end);
+local colourInfo = detail:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall");
+colourInfo:SetPoint("TOPLEFT", wearButton, "BOTTOMLEFT", 0, -4);
+colourInfo:SetWidth(170);
+colourInfo:SetJustifyH("LEFT");
+
+local ShowDetail;
+
+-- How to get a colouring: the server's hint line "Colouring <name>: Devour ..." for it.
+local function ColourHow(shape, name)
+	for _, hint in ipairs(shape.hints) do
+		local text = string.match(hint, "^Colouring " .. string.gsub(name, "%p", "%%%0") .. ": (.*)$");
+		if ( text ) then
+			return text;
+		end
+	end
+	return "Devour a creature of this kind that wears it.";
+end
+
+local function ColourOwned(id, name)
+	local mine = owned[id];
+	if ( not mine ) then
+		return false;
+	end
+	for _, skin in ipairs(mine.skins) do
+		if ( skin == name ) then
+			return true;
+		end
+	end
+	return false;
+end
+
+local function UpdateColours()
+	local shape = selected and catalog[selected];
+	local colours = shape and shape.colours or {};
+	FauxScrollFrame_Update(colourScroll, #colours, COLOUR_ROWS, 16);
+	local offset = FauxScrollFrame_GetOffset(colourScroll);
+	for i, row in ipairs(colourRows) do
+		local c = colours[i + offset];
+		if ( c ) then
+			row.colour = c;
+			row.text:SetText(c.name);
+			local have = ColourOwned(shape.id, c.name);
+			if ( have ) then
+				row.text:SetTextColor(1, 1, 1);
+			else
+				row.text:SetTextColor(0.5, 0.5, 0.5);
+			end
+			if ( previewColour == c.display or (not previewColour and c.display == shape.display) ) then
+				row.mark:Show();
+			else
+				row.mark:Hide();
+			end
+			row:Show();
+		else
+			row.colour = nil;
+			row:Hide();
+		end
+	end
+end
+
+for i = 1, COLOUR_ROWS do
+	local row = CreateFrame("Button", nil, detail);
+	row:SetWidth(140);
+	row:SetHeight(16);
+	row:SetPoint("TOPLEFT", colourScroll, "TOPLEFT", 0, -(i - 1) * 16);
+	row.text = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall");
+	row.text:SetPoint("LEFT", 2, 0);
+	row.text:SetJustifyH("LEFT");
+	row.mark = row:CreateTexture(nil, "BACKGROUND");
+	row.mark:SetAllPoints();
+	row.mark:SetTexture(ANIMA_COLOR.r, ANIMA_COLOR.g, ANIMA_COLOR.b, 0.3);
+	row.mark:Hide();
+	row:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD");
+	row:SetScript("OnClick", function(self)
+		if ( self.colour ) then
+			previewColour = self.colour.display;
+			ShowDetail();
+		end
+	end);
+	colourRows[i] = row;
+end
+colourScroll:SetScript("OnVerticalScroll", function(self, offset)
+	FauxScrollFrame_OnVerticalScroll(self, offset, 16, UpdateColours);
+end);
+
+-- The preview: SetDisplayInfo where the client has it, SetCreature as the way back. A failure leaves the question mark.
+local function ShowModel(display)
+	local ok = false;
+	if ( display and display > 0 ) then
+		model:ClearModel();
+		if ( model.SetDisplayInfo ) then
+			ok = pcall(model.SetDisplayInfo, model, display);
+		end
+		if ( model.SetModelScale ) then
+			model:SetModelScale(1);
+		end
+	end
+	if ( ok ) then
+		model:Show();
+	else
+		model:Hide();
+	end
+	return ok;
+end
+
+local function GrowthLines(shape)
+	local mine = owned[shape.id];
+	local lines = {};
+	if ( mine ) then
+		table.insert(lines, "Bio Points now: " .. (mine.bp or 0));
+	else
+		table.insert(lines, "Not eaten yet: it earns Bio Points while worn.");
+	end
+	if ( #shape.evos == 0 ) then
+		table.insert(lines, "It does not grow into another shape.");
+	end
+	for _, evo in ipairs(shape.evos) do
+		local to = catalog[evo.to];
+		local name = to and ShapeName(to.spell) or "?";
+		if ( owned[evo.to] ) then
+			table.insert(lines, "Grew into " .. name .. ".");
+		else
+			local bp = mine and (mine.bp or 0) or 0;
+			local text = "Grows into " .. name .. ": " .. bp .. "/" .. evo.bp .. " BP";
+			if ( UnitLevel("player") < evo.level ) then
+				text = text .. ", level " .. evo.level;
+			elseif ( evo.level > 1 ) then
+				text = text .. ", level " .. evo.level .. " ok";
+			end
+			table.insert(lines, text);
+			if ( #evo.tasks > 0 ) then
+				table.insert(lines, evo.any and #evo.tasks > 1 and "Any one task:" or "Tasks:");
+			end
+			for _, task in ipairs(evo.tasks) do
+				local done = mine and mine.progress[evo.to .. ":" .. task.id] or 0;
+				table.insert(lines, "  " .. task.text .. " " .. math.min(done, task.count) .. "/" .. task.count);
+			end
+		end
+	end
+	return table.concat(lines, "\n");
+end
+
+function ShowDetail()
 	local shape = selected and catalog[selected];
 	for _, b in ipairs(list) do
 		if ( b.shape and b.shape == selected ) then
@@ -306,11 +504,61 @@ local function ShowDetail()
 			a:Hide();
 		end
 	end
+	dGrowth:SetText(GrowthLines(shape));
+
+	-- Preview: only for a shape the Devourer has eaten.
+	local have = owned[shape.id];
+	local display = shape.display;
+	local picked = false;
+	for _, c in ipairs(shape.colours) do
+		if ( c.display == previewColour ) then
+			picked = c;
+		end
+	end
+	if ( picked ) then
+		display = picked.display;
+	else
+		previewColour = nil;
+	end
+	if ( have and ShowModel(display) ) then
+		unknown:Hide();
+		unknownIcon:Hide();
+	else
+		model:Hide();
+		unknownIcon:SetTexture(icon);
+		unknownIcon:Show();
+		unknown:SetText(have and "" or "?");
+		unknown:Show();
+	end
+	UpdateColours();
+	local c = picked or shape.colours[1];
+	wearButton.skin = nil;
+	if ( c and have ) then
+		if ( ColourOwned(shape.id, c.name) ) then
+			colourInfo:SetText(c.name .. (have.wearing == c.name and " (worn)" or ""));
+			wearButton.skin = c.name;
+			if ( have.wearing == c.name ) then
+				wearButton:Disable();
+			else
+				wearButton:Enable();
+			end
+		else
+			colourInfo:SetText("|cff999999" .. c.name .. ": " .. ColourHow(shape, c.name) .. "|r");
+			wearButton:Disable();
+		end
+	elseif ( c ) then
+		colourInfo:SetText("|cff999999" .. c.name .. ": unlock the shape first.|r");
+		wearButton:Disable();
+	else
+		colourInfo:SetText("");
+		wearButton:Disable();
+	end
 end
 
 for _, b in ipairs(list) do
 	b:SetScript("OnClick", function(self)
 		selected = self.shape;
+		previewColour = nil;
 		ShowDetail();
 	end);
 end
@@ -345,9 +593,10 @@ local function Refresh()
 			r.spellId = shape.spell;
 			r.icon:SetTexture(icon);
 			r.name:SetText(ShapeName(shape.spell));
+			r.bp:SetText(mine and ((mine.bp or 0) .. " BP") or "");
 			if ( mine ) then
 				r:SetAttribute("spell", name);
-				r.extra = animaCost > 0 and ("Costs " .. animaCost .. " Anima.") or nil;
+				r.extra = (animaCost > 0 and ("Costs " .. animaCost .. " Anima.\n") or "") .. GrowthLines(shape);
 				r.icon:SetDesaturated(false);
 				r.name:SetTextColor(1, 1, 1);
 				if ( mine.worn ) then
@@ -365,7 +614,7 @@ local function Refresh()
 				r.colour:Show();
 			else
 				r:SetAttribute("spell", nil);
-				r.extra = "Not eaten yet.";
+				r.extra = "Not eaten yet. See the Gallery for how to get it.";
 				r.icon:SetDesaturated(true);
 				r.name:SetTextColor(0.5, 0.5, 0.5);
 				r.worn:Hide();
@@ -409,7 +658,10 @@ local function Refresh()
 	end
 	ShowDetail();
 
-	menu:SetHeight(math.max(120 + count * ROW_HEIGHT + (isGM and 28 or 0), 330));
+	menu.shapesHeight = math.max(120 + count * ROW_HEIGHT + (isGM and 28 or 0), 330);
+	if ( shapesPanel:IsShown() ) then
+		menu:SetHeight(menu.shapesHeight);
+	end
 end
 
 -- --- the button that opens it -----------------------------------------------------------------------------
@@ -438,6 +690,7 @@ local function ToggleMenu()
 	else
 		Refresh();
 		menu:Show();
+		Server("menu");   -- fresh Bio Points
 	end
 end
 
@@ -475,7 +728,7 @@ local function OnMessage(message)
 				table.insert(kit, tonumber(s));
 			end
 			pendingCatalog[id] = { id = id, spell = tonumber(f[3]), food = f[4] or "", kit = kit,
-				passive = tonumber(f[6]) or 0, hints = {} };
+				passive = tonumber(f[6]) or 0, hints = {}, display = 0, colours = {}, evos = {} };
 		end
 	elseif ( kind == "H" and pendingCatalog ) then
 		-- H:<shape>:<text> (the text may hold colons)
@@ -484,6 +737,58 @@ local function OnMessage(message)
 		if ( shape ) then
 			table.insert(shape.hints, text);
 		end
+	elseif ( kind == "D" and pendingCatalog ) then
+		-- D:<shape>:<base display>
+		local id, display = string.match(message, "^D:(%d+):(%d+)$");
+		local shape = id and pendingCatalog[tonumber(id)];
+		if ( shape ) then
+			shape.display = tonumber(display);
+		end
+	elseif ( kind == "Q" and pendingCatalog ) then
+		-- Q:<shape>:<display>|<name>,<display>|<name>,...
+		local id, rest = string.match(message, "^Q:(%d+):(.*)$");
+		local shape = id and pendingCatalog[tonumber(id)];
+		if ( shape ) then
+			for _, entry in ipairs(Split(rest, ",")) do
+				local display, name = string.match(entry, "^(%d+)|(.*)$");
+				if ( display ) then
+					table.insert(shape.colours, { display = tonumber(display), name = name });
+				end
+			end
+		end
+	elseif ( kind == "V" and pendingCatalog ) then
+		-- V:<from>:<to>:<BP>:<level>:<any task>
+		local from, to, bp, level, any = string.match(message, "^V:(%d+):(%d+):(%d+):(%d+):(%d)$");
+		local shape = from and pendingCatalog[tonumber(from)];
+		if ( shape ) then
+			table.insert(shape.evos, { to = tonumber(to), bp = tonumber(bp), level = tonumber(level), any = any == "1",
+				tasks = {} });
+		end
+	elseif ( kind == "T" and pendingCatalog ) then
+		-- T:<from>:<to>:<task id>:<count>:<text>
+		local from, to, task, count, text = string.match(message, "^T:(%d+):(%d+):(%d+):(%d+):(.*)$");
+		local shape = from and pendingCatalog[tonumber(from)];
+		if ( shape ) then
+			for _, evo in ipairs(shape.evos) do
+				if ( evo.to == tonumber(to) ) then
+					table.insert(evo.tasks, { id = tonumber(task), count = tonumber(count), text = text });
+				end
+			end
+		end
+	elseif ( kind == "P" and pendingOwned ) then
+		-- P:<shape>:<Bio Points>
+		local id, bp = string.match(message, "^P:(%d+):(%d+)$");
+		local mine = id and pendingOwned[tonumber(id)];
+		if ( mine ) then
+			mine.bp = tonumber(bp);
+		end
+	elseif ( kind == "U" and pendingOwned ) then
+		-- U:<from>:<to>:<task id>:<progress>
+		local from, to, task, done = string.match(message, "^U:(%d+):(%d+):(%d+):(%d+)$");
+		local mine = from and pendingOwned[tonumber(from)];
+		if ( mine ) then
+			mine.progress[to .. ":" .. task] = tonumber(done);
+		end
 	elseif ( kind == "B" ) then
 		pendingOwned = {};
 	elseif ( kind == "S" and pendingOwned ) then
@@ -491,7 +796,8 @@ local function OnMessage(message)
 		local f = Split(message, ":");
 		local id = tonumber(f[2]);
 		if ( id ) then
-			pendingOwned[id] = { worn = f[4] == "1", wearing = f[5] or "", skins = Split(f[6], ",") };
+			pendingOwned[id] = { worn = f[4] == "1", wearing = f[5] or "", skins = Split(f[6], ","),
+				bp = 0, progress = {} };
 		end
 	elseif ( kind == "K" and pendingOwned ) then
 		-- K:<shape>:<colouring>,<colouring>,... (more colourings of an owned shape; a kind can have dozens)

@@ -1019,10 +1019,16 @@ namespace Devourer
     //   A:<1 = may unlock all (GM)>
     //   G:<shape>:<form spell>:<favourite food>:<ability>,<ability>,...:<passive>   every shape there is
     //   H:<shape>:<text>                                   how to get it, one line each
+    //   D:<shape>:<base display>                           for the 3D preview (task 012)
+    //   Q:<shape>:<display>|<name>,<display>|<name>,...    every colouring of it, base first, as many lines as needed
+    //   V:<from>:<to>:<BP>:<level>:<any task 0/1>          what it takes to grow into the next shape
+    //   T:<from>:<to>:<task id>:<count>:<text>             one of its tasks
     // Then, always (also whenever a shape is gained, worn, left or recoloured):
     //   B                                                  the owned list begins
     //   S:<shape>:<form spell>:<worn 0/1>:<colouring worn>:<base colouring>   one owned shape
     //   K:<shape>:<colouring>,<colouring>,...              its other colourings, as many lines as needed
+    //   P:<shape>:<Bio Points>                             an owned shape's Bio Points (task 012)
+    //   U:<from>:<to>:<task id>:<progress>                 an owned shape's task progress
     //   E:<Anima per shift>                                done
     void Mgr::SendMenu(Player* player, bool catalog)
     {
@@ -1052,6 +1058,40 @@ namespace Devourer
                     }
                 line << ':' << shape.Passive;
                 send(line.str());
+                send("D:" + std::to_string(id) + ":" + std::to_string(shape.Display));
+                // Every colouring the shape has, the base one first (names cleaned of the separators).
+                auto clean = [](std::string text)
+                {
+                    std::replace_if(text.begin(), text.end(), [](char ch) { return ch == ':' || ch == ',' || ch == '|'; }, ' ');
+                    return text;
+                };
+                std::string const qHead = "Q:" + std::to_string(id) + ":";
+                std::string qChunk;
+                auto addSkin = [&](uint32 display)
+                {
+                    std::string const entry = std::to_string(display) + "|" + clean(SkinName(display));
+                    if (!qChunk.empty() && qHead.size() + qChunk.size() + 1 + entry.size() > 240)
+                    {
+                        send(qHead + qChunk);
+                        qChunk.clear();
+                    }
+                    qChunk += (qChunk.empty() ? "" : ",") + entry;
+                };
+                addSkin(shape.Display);
+                for (auto const& [display, skin] : _skins)
+                    if (skin.ShapeId == id && display != shape.Display)
+                        addSkin(display);
+                send(qHead + qChunk);
+                for (Evolution const& evo : _evolutions)
+                {
+                    if (evo.From != id)
+                        continue;
+                    send("V:" + std::to_string(evo.From) + ":" + std::to_string(evo.To) + ":" + std::to_string(evo.Bp) + ":" +
+                        std::to_string(evo.MinLevel) + ":" + (evo.AnyTask ? "1" : "0"));
+                    for (EvolutionTask const& task : evo.Tasks)
+                        send("T:" + std::to_string(evo.From) + ":" + std::to_string(evo.To) + ":" + std::to_string(task.Id) + ":" +
+                            std::to_string(task.Count) + ":" + task.Text);
+                }
                 auto hints = _hints.find(id);
                 if (hints != _hints.end())
                     for (std::string const& hint : hints->second)
@@ -1070,6 +1110,16 @@ namespace Devourer
             line << "S:" << id << ':' << shape->FormSpell << ':' << (state.Worn == id ? 1 : 0) << ':'
                  << SkinName(ShownDisplay(player, *shape)) << ':' << SkinName(shape->Display);
             send(line.str());
+            auto bio = state.Bio.find(id);
+            send("P:" + std::to_string(id) + ":" + std::to_string(bio != state.Bio.end() ? bio->second : 0));
+            for (Evolution const& evo : _evolutions)
+                if (evo.From == id)
+                    for (EvolutionTask const& task : evo.Tasks)
+                    {
+                        auto progress = state.Tasks.find({ evo.To, task.Id });
+                        send("U:" + std::to_string(evo.From) + ":" + std::to_string(evo.To) + ":" + std::to_string(task.Id) +
+                            ":" + std::to_string(progress != state.Tasks.end() ? progress->second : 0));
+                    }
             // The colourings follow in as many K:<shape>:<colouring>,... lines as they need (a kind of creature can
             // have dozens; one message holds 255 bytes).
             std::string const head = "K:" + std::to_string(id) + ":";
