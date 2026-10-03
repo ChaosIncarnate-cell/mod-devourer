@@ -230,6 +230,8 @@ INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `
 (12, 22, 550, 14, 1, 9101316),
 (8, 23, 500, 12, 1, 9101317),
 (13, 24, 600, 16, 1, 9101318);
+-- The name lists of the devour-by-name tasks need more room than the frog line's 100 characters.
+ALTER TABLE `devourer_evolution_task` MODIFY COLUMN `name_part` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'kind 5: the meal''s name holds one of these (|-separated)';
 DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN 16 AND 24;
 INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`) VALUES
 (16, 1, 4, 1, 25, 'Devour 25 beasts as a Plainstrider', ''),

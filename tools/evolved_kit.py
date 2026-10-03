@@ -718,6 +718,9 @@ def main() -> int:
         f"DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`, `quest`) VALUES",
         ",\n".join(f"({f.parent}, {f.shape}, {f.bp}, {f.level}, 1, {f.quest})" for f in FORMS) + ";",
+        "-- The name lists of the devour-by-name tasks need more room than the frog line's 100 characters.",
+        "ALTER TABLE `devourer_evolution_task` MODIFY COLUMN `name_part` VARCHAR(255) NOT NULL DEFAULT '' COMMENT "
+        "'kind 5: the meal''s name holds one of these (|-separated)';",
         f"DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN {lo} AND {hi};",
         "INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`)"
         " VALUES",
