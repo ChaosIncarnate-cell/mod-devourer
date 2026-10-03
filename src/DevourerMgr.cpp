@@ -352,12 +352,22 @@ namespace Devourer
             } while (result->NextRow());
         }
         if (QueryResult result = CharacterDatabase.Query(
-                "SELECT to_shape, task_id, progress FROM character_devourer_task WHERE guid = {}", guid))
+                "SELECT from_shape, to_shape, task_id, progress FROM character_devourer_task WHERE guid = {} "
+                "ORDER BY from_shape", guid))
         {
             do
             {
                 Field* f = result->Fetch();
-                state.Tasks[{ f[0].Get<uint32>(), f[1].Get<uint32>() }] = f[2].Get<uint32>();
+                uint32 from = f[0].Get<uint32>();
+                uint32 const to = f[1].Get<uint32>();
+                if (!from)                               // progress from before the roads: the road that existed then
+                    for (Evolution const& evo : _evolutions)
+                        if (evo.To == to)
+                        {
+                            from = evo.From;
+                            break;
+                        }
+                state.Tasks[{ Road(from, to), f[2].Get<uint32>() }] = f[3].Get<uint32>();
             } while (result->NextRow());
         }
         if (QueryResult result = CharacterDatabase.Query(
@@ -1153,7 +1163,7 @@ namespace Devourer
                 if (evo.From == id)
                     for (EvolutionTask const& task : evo.Tasks)
                     {
-                        auto progress = state.Tasks.find({ evo.To, task.Id });
+                        auto progress = state.Tasks.find({ Road(evo.From, evo.To), task.Id });
                         send("U:" + std::to_string(evo.From) + ":" + std::to_string(evo.To) + ":" + std::to_string(task.Id) +
                             ":" + std::to_string(progress != state.Tasks.end() ? progress->second : 0));
                     }

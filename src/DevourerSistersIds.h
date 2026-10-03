@@ -23,7 +23,7 @@ namespace Devourer::Sisters
     constexpr uint32_t QuestPests = 9101304;
     constexpr uint32_t QuestApprentice = 9101305;   // task 018: the companion joins
     constexpr uint32_t QuestMoltFirst = 9101310;   // task 018: one per evolved form, in order
-    constexpr uint32_t QuestMoltLast = 9101331;
+    constexpr uint32_t QuestMoltLast = 9101334;
     constexpr uint32_t MenuHagatha = 9101300;
     constexpr uint32_t MenuWren = 9101301;
     constexpr uint32_t OptionTale = 3;
@@ -64,29 +64,29 @@ namespace Devourer::Sisters
         HagathaHush = 0, HagathaAnother = 1, HagathaBerserker = 2, HagathaTale1 = 3, HagathaTale2 = 4,
         HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,
         WrenMolt = 14, WrenMoltReady = 15, HagathaMoltFirst = 8,   // task 018 (+ the quest's index)
-        HagathaNoTale = 52, WrenApprentice = 29,
+        HagathaNoTale = 55, WrenApprentice = 29,
     };
 
     // Task 018: Hagatha's tale of a shape ("Tell me about the shape I wear"), Wren's word on a shape she sees.
     struct ShapeLine { uint32_t Shape; uint8_t Group; };
     constexpr ShapeLine HagathaShapeTales[] =
     {
-        { 1, 30 },
-        { 2, 31 },
-        { 3, 32 },
-        { 4, 33 },
-        { 5, 34 },
-        { 6, 35 },
-        { 7, 36 },
-        { 8, 37 },
-        { 9, 38 },
-        { 10, 39 },
-        { 11, 40 },
-        { 12, 41 },
+        { 1, 33 },
+        { 2, 34 },
+        { 3, 35 },
+        { 4, 36 },
+        { 5, 37 },
+        { 6, 38 },
+        { 7, 39 },
+        { 8, 40 },
+        { 9, 41 },
+        { 10, 42 },
+        { 11, 43 },
+        { 12, 44 },
         { 13, 2 },
-        { 14, 42 },
-        { 15, 43 },
-        { 16, 8 },
+        { 14, 45 },
+        { 15, 46 },
+        { 16, 30 },
         { 17, 9 },
         { 18, 10 },
         { 19, 11 },
@@ -94,24 +94,24 @@ namespace Devourer::Sisters
         { 21, 13 },
         { 22, 14 },
         { 23, 15 },
-        { 24, 16 },
-        { 25, 44 },
+        { 24, 32 },
+        { 25, 47 },
         { 26, 17 },
-        { 27, 45 },
-        { 28, 51 },
+        { 27, 48 },
+        { 28, 54 },
         { 29, 18 },
         { 30, 20 },
-        { 31, 50 },
+        { 31, 53 },
         { 32, 19 },
-        { 33, 49 },
+        { 33, 52 },
         { 34, 21 },
-        { 35, 48 },
+        { 35, 51 },
         { 36, 23 },
         { 37, 24 },
-        { 38, 47 },
+        { 38, 50 },
         { 39, 25 },
         { 40, 26 },
-        { 41, 46 },
+        { 41, 49 },
         { 42, 27 },
         { 43, 28 },
         { 44, 29 },

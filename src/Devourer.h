@@ -181,6 +181,10 @@ namespace Devourer
         std::vector<std::string> Names;          // TaskDevourName: lower-case name parts
     };
 
+    // Multi-branch evolution (owner, 2026-10-03): several forms may grow into the same form, each road with its own
+    // Bio Points, level, tasks and task progress; a road is its (from, to) pair.
+    inline uint32 Road(uint32 from, uint32 to) { return (from << 16) | to; }
+
     struct Evolution
     {
         uint32 From = 0;
@@ -215,7 +219,7 @@ namespace Devourer
         std::set<ObjectGuid> Eaten;              // corpses already fed on (they stay for their loot)
         std::deque<ObjectGuid> Kills;            // task 016: the last kills of the Devourer, its pet, hatchlings and echoes
         std::map<uint32, uint32> Bio;            // shape id -> Bio Points earned while worn
-        std::map<std::pair<uint32, uint32>, uint32> Tasks;   // (evolved shape, task id) -> progress
+        std::map<std::pair<uint32, uint32>, uint32> Tasks;   // (Road(from, to), task id) -> progress
         bool GrowthDirty = false;
 
         // Hotbar (Copus55, 2026-09-28): where the player keeps each shape's abilities, saved per shape.

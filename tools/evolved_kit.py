@@ -1498,6 +1498,23 @@ EXTRA_GROWTH = [
             (DEVOUR_ENTRY, 7273, 1, "Devour Gahz'rilla (Zul'Farrak)", "")]),
 ]
 
+# Multi-branch evolution (owner, 2026-10-03, "Baby eagle may become greater plainstrider", "void stalker can come from
+# baby komodo. Or mana wyrm can become warp stalker"; the tiers stay: tier 1 -> tier 2 at the target's own level).
+EXTRA_GROWTH += [
+    Growth(27, "Baby Eagle", 16, "Greater Plainstrider", 12, 500,
+           [(DEVOUR_FAMILY, FAMILY_BIRD_OF_PREY, 20, "Devour 20 hawks or eagles as a Baby Eagle", ""),
+            (SPELL_CAST, sid(27, 2), 30, "Dive 30 times", ""),
+            (DEVOUR_ENTRY, 3247, 1, "Devour a Thunderhawk Hatchling (the Barrens)", "")]),
+    Growth(28, "Baby Komodo", 24, "Void Terror", 16, 600,
+           [(DEVOUR_NAME, 0, 20, "Devour 20 void creatures as a Baby Komodo", "void|nether|voidwalker|voidspawn"),
+            (DEAL_DAMAGE, 0, 8000, "Deal 8,000 damage as a Baby Komodo", ""),
+            (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")]),
+    Growth(12, "Mana Wyrm", 24, "Void Terror", 16, 600,
+           [(DEVOUR_NAME, 0, 20, "Devour 20 void or arcane creatures as a Mana Wyrm",
+             "void|nether|voidwalker|mana|arcane"),
+            (SPELL_CAST, sk.sid(12, 1), 50, "Cast Arcane Bolt 50 times", ""),
+            (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")]),
+]
 EXTRA_GROWTH[0].quest = 9101324          # the Sethrak's molt quest, given before the dragons came (keep it)
 
 # Task 018: every evolution of this file gets a molt quest, in this order (tools/witch_sisters.py builds them).
@@ -1669,6 +1686,22 @@ def main() -> int:
         "PREPARE devourer_stmt FROM @devourer_sql;",
         "EXECUTE devourer_stmt;",
         "DEALLOCATE PREPARE devourer_stmt;",
+        "-- Multi-branch evolution (owner, 2026-10-03): several forms can grow into the same form; a road is (from, to).",
+        "SET @devourer_col := (SELECT COUNT(*) FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = DATABASE()",
+        "    AND TABLE_NAME = 'devourer_evolution' AND CONSTRAINT_NAME = 'PRIMARY' AND COLUMN_NAME = 'from_shape');",
+        "SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_evolution` DROP PRIMARY KEY, ADD PRIMARY KEY "
+        "(`from_shape`, `to_shape`)', 'DO 0');",
+        "PREPARE devourer_stmt FROM @devourer_sql;",
+        "EXECUTE devourer_stmt;",
+        "DEALLOCATE PREPARE devourer_stmt;",
+        "SET @devourer_col := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE()",
+        "    AND TABLE_NAME = 'devourer_evolution_task' AND COLUMN_NAME = 'from_shape');",
+        "SET @devourer_sql := IF(@devourer_col = 0, 'ALTER TABLE `devourer_evolution_task` ADD COLUMN `from_shape` INT "
+        "UNSIGNED NOT NULL DEFAULT 0 COMMENT ''the road''''s form; 0 = every road into to_shape'' FIRST, DROP PRIMARY KEY, "
+        "ADD PRIMARY KEY (`from_shape`, `to_shape`, `task_id`)', 'DO 0');",
+        "PREPARE devourer_stmt FROM @devourer_sql;",
+        "EXECUTE devourer_stmt;",
+        "DEALLOCATE PREPARE devourer_stmt;",
         f"DELETE FROM `devourer_evolution` WHERE `to_shape` BETWEEN {lo} AND {hi}{other_sql};",
         "INSERT INTO `devourer_evolution` (`from_shape`, `to_shape`, `bp`, `min_level`, `any_task`, `quest`) VALUES",
         ",\n".join(f"({m.parent}, {m.shape}, {m.bp}, {m.level}, 1, {m.quest})" for m in MOLTS) + ";",
@@ -1676,9 +1709,9 @@ def main() -> int:
         "ALTER TABLE `devourer_evolution_task` MODIFY COLUMN `name_part` VARCHAR(255) NOT NULL DEFAULT '' COMMENT "
         "'kind 5: the meal''s name holds one of these (|-separated)';",
         f"DELETE FROM `devourer_evolution_task` WHERE `to_shape` BETWEEN {lo} AND {hi}{other_sql};",
-        "INSERT INTO `devourer_evolution_task` (`to_shape`, `task_id`, `kind`, `value`, `count`, `text`, `name_part`)"
-        " VALUES",
-        ",\n".join(f"({m.shape}, {i}, {kind}, {value}, {count}, {q(text)}, {q(parts)})"
+        "INSERT INTO `devourer_evolution_task` (`from_shape`, `to_shape`, `task_id`, `kind`, `value`, `count`, `text`,"
+        " `name_part`) VALUES",
+        ",\n".join(f"({m.parent}, {m.shape}, {i}, {kind}, {value}, {count}, {q(text)}, {q(parts)})"
                    for m in MOLTS for i, (kind, value, count, text, parts) in enumerate(m.tasks, 1)) + ";",
         "",
     ]

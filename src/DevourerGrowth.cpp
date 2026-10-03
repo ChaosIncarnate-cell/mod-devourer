@@ -64,20 +64,21 @@ namespace Devourer
         }
 
         if (QueryResult result = WorldDatabase.Query(
-                "SELECT to_shape, task_id, kind, value, count, text, name_part FROM devourer_evolution_task "
+                "SELECT from_shape, to_shape, task_id, kind, value, count, text, name_part FROM devourer_evolution_task "
                 "ORDER BY task_id"))
         {
             do
             {
                 Field* f = result->Fetch();
                 EvolutionTask task;
-                uint32 const to = f[0].Get<uint32>();
-                task.Id = f[1].Get<uint32>();
-                task.Kind = f[2].Get<uint8>();
-                task.Value = f[3].Get<uint32>();
-                task.Count = std::max<uint32>(1, f[4].Get<uint32>());
-                task.Text = f[5].Get<std::string>();
-                std::string parts = f[6].Get<std::string>();
+                uint32 const from = f[0].Get<uint32>();      // 0: every road into `to` (rows from before the roads)
+                uint32 const to = f[1].Get<uint32>();
+                task.Id = f[2].Get<uint32>();
+                task.Kind = f[3].Get<uint8>();
+                task.Value = f[4].Get<uint32>();
+                task.Count = std::max<uint32>(1, f[5].Get<uint32>());
+                task.Text = f[6].Get<std::string>();
+                std::string parts = f[7].Get<std::string>();
                 std::transform(parts.begin(), parts.end(), parts.begin(), ::tolower);
                 for (size_t start = 0; start <= parts.size();)
                 {
@@ -87,7 +88,7 @@ namespace Devourer
                     start = end + 1;
                 }
                 for (Evolution& evo : _evolutions)
-                    if (evo.To == to)
+                    if (evo.To == to && (!from || evo.From == from))
                         evo.Tasks.push_back(task);
             } while (result->NextRow());
         }
@@ -206,7 +207,7 @@ namespace Devourer
                 }
                 if (!matches)
                     continue;
-                uint32& progress = state.Tasks[{ evo.To, task.Id }];
+                uint32& progress = state.Tasks[{ Road(evo.From, evo.To), task.Id }];
                 if (progress >= task.Count)
                     continue;
                 progress = std::min(task.Count, progress + amount);
@@ -235,7 +236,7 @@ namespace Devourer
             bool done = !evo.AnyTask || evo.Tasks.empty();
             for (EvolutionTask const& task : evo.Tasks)
             {
-                bool const finished = state.Tasks[{ evo.To, task.Id }] >= task.Count;
+                bool const finished = state.Tasks[{ Road(evo.From, evo.To), task.Id }] >= task.Count;
                 if (evo.AnyTask && finished)
                     done = true;
                 else if (!evo.AnyTask && !finished)
@@ -328,8 +329,8 @@ namespace Devourer
                 guid, shapeId, bp);
         for (auto const& [key, progress] : state.Tasks)
             CharacterDatabase.Execute(
-                "REPLACE INTO character_devourer_task (guid, to_shape, task_id, progress) VALUES ({}, {}, {}, {})",
-                guid, key.first, key.second, progress);
+                "REPLACE INTO character_devourer_task (guid, from_shape, to_shape, task_id, progress) "
+                "VALUES ({}, {}, {}, {}, {})", guid, key.first >> 16, key.first & 0xFFFF, key.second, progress);
         state.GrowthDirty = false;
     }
 
@@ -355,7 +356,7 @@ namespace Devourer
             if (evo.AnyTask && evo.Tasks.size() > 1)
                 text << "; any one of";
             for (EvolutionTask const& task : evo.Tasks)
-                text << "; " << task.Text << " " << std::min(task.Count, state.Tasks[{ evo.To, task.Id }]) << "/"
+                text << "; " << task.Text << " " << std::min(task.Count, state.Tasks[{ Road(evo.From, evo.To), task.Id }]) << "/"
                      << task.Count;
         }
         if (text.str().empty() && state.Bio.count(shapeId))

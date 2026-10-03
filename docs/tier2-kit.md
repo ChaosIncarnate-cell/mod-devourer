@@ -38,12 +38,33 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 43 | Voidcreeper Broodmother | Voidcreeper | 40 | 1200 | brood tank |
 | 44 | Earthen Proto-Drake | Whelp | 35 | 1000 | stone tank |
 | 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
+| 16 | Greater Plainstrider | Baby Eagle | 12 | 500 | (an older form) |
+| 24 | Void Terror | Baby Komodo | 16 | 600 | (an older form) |
+| 24 | Void Terror | Mana Wyrm | 16 | 600 | (an older form) |
 
 ### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
 
 - Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent
 - Breathe lightning 80 times (Lightning Breath)
 - Devour Gahz'rilla (Zul'Farrak)
+
+### Greater Plainstrider (shape 16, now also grows out of the Baby Eagle, quest 9101332)
+
+- Devour 20 hawks or eagles as a Baby Eagle
+- Dive 30 times
+- Devour a Thunderhawk Hatchling (the Barrens)
+
+### Void Terror (shape 24, now also grows out of the Baby Komodo, quest 9101333)
+
+- Devour 20 void creatures as a Baby Komodo
+- Deal 8,000 damage as a Baby Komodo
+- Devour a Void Anomaly (Bloodmyst Isle)
+
+### Void Terror (shape 24, now also grows out of the Mana Wyrm, quest 9101334)
+
+- Devour 20 void or arcane creatures as a Mana Wyrm
+- Cast Arcane Bolt 50 times
+- Devour a Void Anomaly (Bloodmyst Isle)
 
 ### Greater Plainstrider (shape 16, grows out of the Plainstrider)
 Look: creature 3244, display 178 (skin `Greater Plainstrider`). Any one task:
