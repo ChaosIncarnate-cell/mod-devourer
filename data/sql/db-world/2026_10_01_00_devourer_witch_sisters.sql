@@ -46,7 +46,7 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9101300, `name` = 'Hagatha Hollowmoor', `
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9101301, `name` = 'Wren Hollowmoor', `gossip_menu_id` = 9101301;
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` = 9101300;  -- Hagatha buys (owner, 2026-10-03)
+UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` IN (9101300, 9101301);  -- Hagatha buys (owner, 2026-10-03); Wren sells mounts (task 018: their npc_vendor rows belong to the mounts SQL, data/sql/custom/db_world/2026_10_03_10_mounts_adding.sql; this file never touches them)
 -- A vendor window only opens with something on sale: plain food and water (the owner may pick other wares).
 DELETE FROM `npc_vendor` WHERE `entry` = 9101300;
 INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`, `VerifiedBuild`) VALUES
@@ -171,26 +171,30 @@ INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `Ques
 (9101301, 2, 5, 5, 0, 0, 9101302, 4, 0, 0, 'Feeding Time', 'Kill 3 of Wren''s snacks and devour one of them.', 'Fluffy! No, Snack. Project #9! You''ll answer to all of them, I''ve decided.$B$BFirst chore on the list: feeding time! I keep the snacks in the little cages, see? Squeaky ones. I toss them into your circle, you catch them. And don''t just bite them. EAT one. Properly, the way you do. I want to watch!', '', 'Return to Wren Hollowmoor.', 9101302, 9101310, 3, 1, '', 'Snack devoured', '', '', 0),
 (9101302, 2, 5, 5, 0, 0, 0, 4, 0, 0, 'A Trick for Wren', 'Roar at Wren Hollowmoor.', 'Every good pet knows a trick. The toad knows ''sit''. The other toad knows ''sit'' too, but louder.$B$BYou, Fluffy, are going to ROAR. Big and scary, right at me. Go on! I''ll pretend to be frightened. I''m very good at it.', '', 'Return to Wren Hollowmoor.', 9101311, 0, 1, 0, 'Roar at Wren', '', '', '', 0),
 (9101303, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'What the Dark Remembers', 'Ask Hagatha Hollowmoor for the tale of the hungry thing, and listen to its end.', 'My sister teaches you tricks. I will teach you what you are.$B$BEvery village has a story about something that came out of the dark and ate until it became something else. Sit, hungry thing. Ask me for the tale, and listen to the end of it. The ones who do not listen end up in it.', '', 'Return to Hagatha Hollowmoor.', 9101312, 0, 1, 0, 'Hear Hagatha''s tale', '', '', '', 0),
-(9101304, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'Pests in the Cells', 'Devour every anima-fat pest around Wren''s cages. Some of them can only be reached with your tongue.', 'Snack, I have a teeny problem. The bugs I test my spells on? They got out. All of them. They crawled off around the cells and found Hagatha''s store of anima, and they''ve been feasting on it, and now they MULTIPLY. Every time I catch one and squash it, there are more! I can''t cage the anima that comes flowing out of them.$B$BBut an ancient horror like you is made for exactly this. Just eat them. They might not be tasty... hmm, maybe you''ll learn to like them. Here, I''ll help you with it. Hold still!', '', 'Return to Wren Hollowmoor.', 9101315, 0, 10, 0, 'Anima pest devoured', '', '', '', 0);
+(9101304, 2, 5, 5, 0, 0, 0, 5, 0, 0, 'Pests in the Cells', 'Devour every anima-fat pest around Wren''s cages. Some of them can only be reached with your tongue.', 'Snack, I have a teeny problem. The bugs I test my spells on? They got out. All of them. They crawled off around the cells and found Hagatha''s store of anima, and they''ve been feasting on it, and now they MULTIPLY. Every time I catch one and squash it, there are more! I can''t cage the anima that comes flowing out of them.$B$BBut an ancient horror like you is made for exactly this. Just eat them. They might not be tasty... hmm, maybe you''ll learn to like them. Here, I''ll help you with it. Hold still!', '', 'Return to Wren Hollowmoor.', 9101315, 0, 10, 0, 'Anima pest devoured', '', '', '', 0),
+(9101305, 2, 5, 5, 0, 0, 0, 3, 0, 0, 'Wren''s Apprentice', 'Let Wren introduce her apprentice, and take her with you into the world.', 'Snack, meet Bramble! She''s my apprentice. Well, SHE says she''s my apprentice. I say she''s a gnome who followed a cat into the In-Between and never found the way out again.$B$BShe wants to see the world, and you need somebody to tell you which mushrooms not to eat. Take her with you! Bring her back with all her fingers.', '', 'Return to Wren Hollowmoor.', 0, 0, 0, 0, '', '', '', '', 0);
 INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
 (9101301, 512, 0),
 (9101302, 512, 9101301),
 (9101303, 512, 9101302),
-(9101304, 512, 9101303);
+(9101304, 512, 9101303),
+(9101305, 512, 9101303);
 INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`, `VerifiedBuild`) VALUES
 (9101301, 1, 1, 'Still squeaking in there? Somebody''s not done.', 0),
 (9101302, 1, 1, 'I''m waiting! Rooooar. Like that, but you.', 0),
 (9101303, 1, 1, 'The tale is not finished with you yet.', 0),
-(9101304, 1, 1, 'I can still hear crunching, and it isn''t you. Keep eating!', 0);
+(9101304, 1, 1, 'I can still hear crunching, and it isn''t you. Keep eating!', 0),
+(9101305, 1, 1, 'Well? She''s right there, pretending to be a coat stand.', 0);
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
 (9101301, 1, 'Crunchy! Hagatha, did you see? It ate it whole! Well. Mostly whole.$B$BGold star, Snack. Next chore!', 0),
 (9101302, 1, 'Eek! Ha! Oh, that was GOOD. That goes on the list of things you''re good at. It''s a short list. It''s a new list!$B$BNow go and sit nicely for Hagatha. She''s been dying to frighten you back.', 0),
 (9101303, 1, 'Now you know the shape beneath all your shapes. Remember it when you wear someone else''s.$B$BWren, break the circle. Our little horror has lessons to carry into the world, and it will come back to us for more.', 0),
-(9101304, 1, 'All of them? ALL of them? Oh, you lovely, horrible thing. Hagatha''s anima is safe and nothing is multiplying any more.$B$BKeep the frog. It suits you.', 0);
+(9101304, 1, 'All of them? ALL of them? Oh, you lovely, horrible thing. Hagatha''s anima is safe and nothing is multiplying any more.$B$BKeep the frog. It suits you.', 0),
+(9101305, 1, 'There! Now you''re a pack. A very small, very odd pack.$B$BBramble, don''t let Snack eat you. Snack, don''t let her set you on fire. Again.', 0);
 INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
-(9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304);
+(9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304), (9101301, 9101305);
 INSERT INTO `creature_questender` (`id`, `quest`) VALUES
-(9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304);
+(9101301, 9101301), (9101301, 9101302), (9101300, 9101303), (9101301, 9101304), (9101301, 9101305);
 
 -- --- the molt quests (task 018): the module hands one out when a form is ready to evolve; Wren takes it ---
 INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `VerifiedBuild`) VALUES
@@ -283,7 +287,8 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (9101301, 20, 0, 'My toad! Hello, my toad! Did you eat any bugs? Of course you did.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 20 (draft)'),
 (9101301, 21, 0, 'You''re all sparkly and wrong-looking. I love it. Don''t touch the cauldron.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 21 (draft)'),
 (9101301, 22, 0, 'Ew. EW! You smell like a cave. A good cave! But a cave.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 22 (draft)'),
-(9101301, 23, 0, 'Sssso fancy! Sorry. I had to.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 23 (draft)');
+(9101301, 23, 0, 'Sssso fancy! Sorry. I had to.', 12, 0, 100, 11, 0, 0, 0, 0, 'Wren 23 (draft)'),
+(9101301, 24, 0, 'Bramble! Out from behind the cauldron, you''re going with Snack! Take your good boots. And the bucket. No, not that bucket.', 12, 0, 100, 5, 0, 0, 0, 0, 'Wren 24 (draft)');
 
 -- --- gossip: the text depends on who asks; training only for a Devourer whose cage is open ---------------
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES
@@ -311,7 +316,8 @@ INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionTex
 (9101301, 0, 3, 'I require training.', 0, 5, 16, 0, 0, 0, 0, '', 0, 0),
 (9101301, 1, 0, 'I wish to unlearn my talents.', 62295, 16, 16, 4461, 0, 0, 0, '', 0, 0),
 (9101301, 2, 0, 'I wish to know about Dual Talent Specialization.', 33762, 20, 1, 10371, 0, 0, 0, '', 0, 0),
-(9101301, 4, 0, 'Send me back to where you found me.', 0, 1, 1, 0, 0, 0, 0, '', 0, 0);
+(9101301, 4, 0, 'Send me back to where you found me.', 0, 1, 1, 0, 0, 0, 0, '', 0, 0),
+(9101301, 7, 1, 'Show me the mounts you made.', 0, 3, 128, 0, 0, 0, 0, '', 0, 0);
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
 (14, 9101300, 9101300, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Hagatha: a caged Devourer'),
 (14, 9101300, 9101300, 0, 0, 8, 0, 9101303, 0, 0, 1, 0, 0, '', 'Hagatha: a caged Devourer'),
@@ -344,4 +350,6 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 9101301, 2, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Wren: I wish to know about Dual Talent Specialization. (Devourer)'),
 (15, 9101301, 2, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Wren: I wish to know about Dual Talent Specialization. (cage open)'),
 (15, 9101301, 4, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Wren: Send me back to where you found me. (Devourer)'),
-(15, 9101301, 4, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Wren: Send me back to where you found me. (cage open)');
+(15, 9101301, 4, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Wren: Send me back to where you found me. (cage open)'),
+(15, 9101301, 7, 0, 0, 15, 0, 512, 0, 0, 0, 0, 0, '', 'Wren: Show me the mounts you made. (Devourer)'),
+(15, 9101301, 7, 0, 0, 8, 0, 9101303, 0, 0, 0, 0, 0, '', 'Wren: Show me the mounts you made. (cage open)');

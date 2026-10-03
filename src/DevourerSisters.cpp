@@ -42,6 +42,7 @@
 #include <cmath>
 #include <iterator>
 #include <set>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -69,6 +70,7 @@ namespace
         bool Enabled = true;
         uint8 Level = 5;
         uint32 ReturnCooldown = 1800;            // seconds between two .inbetween
+        std::string Companion = "Bramble";       // task 018: Wren's apprentice (Devourer.WitchCompanion)
     } config;
 
     // One stay in the In-Between, runtime only: what is saved is the quest log and character_devourer_inbetween.
@@ -669,6 +671,14 @@ struct npc_devourer_witch_sister : public CreatureAI
         uint32 const id = quest->GetQuestId();
         if (id == QuestTale)
             OpenCage(player);
+        else if (id == QuestApprentice)
+        {
+            // Task 018: Wren's apprentice joins. She is a character of the Devourer's own account, logged in as its
+            // playerbot through playerbots' own command (no link to mod-playerbots here: without it, nothing happens).
+            Talk(WrenApprentice, player);
+            if (!config.Companion.empty())
+                ChatHandler(player->GetSession()).ParseCommands(".playerbots bot add " + config.Companion);
+        }
         else if (id >= QuestMoltFirst && id <= QuestMoltLast && me->GetEntry() == NpcWren)
         {
             // Task 018: Wren peels the old body, the new one crawls out, Hagatha tells its tale.
@@ -735,6 +745,7 @@ public:
         config.Enabled = sConfigMgr->GetOption<bool>("Devourer.InBetween.Enable", true);
         config.Level = uint8(std::clamp<uint32>(sConfigMgr->GetOption<uint32>("Devourer.InBetween.Level", 5), 1, 80));
         config.ReturnCooldown = sConfigMgr->GetOption<uint32>("Devourer.InBetween.ReturnCooldown", 1800);
+        config.Companion = sConfigMgr->GetOption<std::string>("Devourer.WitchCompanion", "Bramble");
     }
 };
 

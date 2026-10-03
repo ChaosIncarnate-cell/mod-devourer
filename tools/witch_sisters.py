@@ -22,7 +22,7 @@ Ids (all removed by data/sql/uninstall/world.sql and characters.sql):
                          9101313-9101314 the anima pests of Wren's fourth chore, 9101315 its credit
   creature (spawns)      9910200-9910202
   gameobject_template    9101300-9101309      gameobject (spawns) 9910200-9910229
-  quest                  9101301-9101304, 9101310-9101399 the molt quests (task 018: one per evolution that has one,
+  quest                  9101301-9101305 (9101305: Wren's apprentice, task 018), 9101310-9101399 the molt quests (task 018: one per evolution that has one,
                          tools/evolved_kit.py gives each evolution its quest id)
   gossip_menu / npc_text 9101300-9101301 / 9101300-9101305 (conditions on the same menus)
   creature_default_trainer: both sisters -> trainer 9101200 (its spells: tools/start_kit.py)
@@ -57,6 +57,8 @@ SPAWN_FIRST, SPAWN_LAST = 9910200, 9910299
 GO_FIRST, GO_LAST = 9101300, 9101399
 GO_CAGE = 9101300                                   # the Devourer's own cage: summoned per player, opens at the end
 Q_FEEDING, Q_TRICK, Q_TALE, Q_PESTS = 9101301, 9101302, 9101303, 9101304
+Q_APPRENTICE = 9101305                              # task 018: Wren sends her apprentice along (the companion)
+COMPANION = "Bramble"                               # the default of Devourer.WitchCompanion (the bot's name)
 Q_FIRST, Q_LAST = 9101301, 9101399                   # every quest of the sisters (molt quests: 9101310+)
 MENU_HAGATHA, MENU_WREN = 9101300, 9101301
 TRAINER = 9101200                                    # tools/start_kit.py: the class trainer and what it teaches
@@ -66,6 +68,7 @@ SCRIPT = "npc_devourer_witch_sister"
 # Options the module answers (gossip_menu_option.OptionID); the rest the core handles.
 OPT_TRAIN, OPT_UNLEARN, OPT_DUALSPEC, OPT_TALE, OPT_BACK, OPT_VENDOR = 0, 1, 2, 3, 4, 5
 OPT_SHAPE_TALE = 6                                  # task 018: Hagatha tells the tale of the worn shape
+OPT_MOUNTS = 7                                      # Wren sells the mounts the Skrill thread made (its own vendor rows)
 
 # --- the In-Between ----------------------------------------------------------------------------------------------
 MAP = 35
@@ -301,6 +304,11 @@ for i, (line, _) in enumerate(WREN_REACTIONS):
     TEXTS.append((NPC_WREN, WREN_REACTION_FIRST + i, line, EMOTE_LAUGH, DRAFT))
 WREN_REACTION_OF = {shape: WREN_REACTION_FIRST + i for i, (_, shapes) in enumerate(WREN_REACTIONS) for shape in shapes}
 
+# Task 018 D: Wren's apprentice joins the Devourer (the quest is handed in).
+WREN_APPRENTICE = WREN_REACTION_FIRST + len(WREN_REACTIONS)
+TEXTS.append((NPC_WREN, WREN_APPRENTICE, "Bramble! Out from behind the cauldron, you're going with Snack! Take your "
+              "good boots. And the bucket. No, not that bucket.", EMOTE_EXCLAMATION, DRAFT))
+
 # npc_text: (id, text, draft). Shown on the sisters' gossip; conditions pick one.
 NPC_TEXTS = [
     (9101300, "Sit still, hungry thing. The circle is for your sake, not ours.", DRAFT),
@@ -365,6 +373,19 @@ QUESTS = [
          reward="All of them? ALL of them? Oh, you lovely, horrible thing. {hagatha}'s anima is safe and nothing is "
                 "multiplying any more.$B$BKeep the frog. It suits you.",
          complete="Return to {Wren}."),
+    # Task 018 D (owner, 2026-10-03: "a bot character that is connected to the witches"): Wren's apprentice.
+    dict(id=Q_APPRENTICE, giver=NPC_WREN, ender=NPC_WREN, prev=Q_TALE, next=0, xp=3,
+         title="{wren}'s Apprentice",
+         log="Let {wren} introduce her apprentice, and take her with you into the world.",
+         details=f"Snack, meet {COMPANION}! She's my apprentice. Well, SHE says she's my apprentice. I say she's a gnome "
+                 "who followed a cat into the In-Between and never found the way out again.$B$BShe wants to see the "
+                 "world, and you need somebody to tell you which mushrooms not to eat. Take her with you! Bring her "
+                 "back with all her fingers.",
+         objectives=[],
+         incomplete="Well? She's right there, pretending to be a coat stand.",
+         reward=f"There! Now you're a pack. A very small, very odd pack.$B$B{COMPANION}, don't let Snack eat you. "
+                "Snack, don't let her set you on fire. Again.",
+         complete="Return to {Wren}."),
 ]
 
 # Task 018: the molt quests. Nobody offers them: the module puts one in the log, done, the moment a form has
@@ -398,6 +419,7 @@ OPTIONS = {  # menu -> [(OptionID, icon, text, broadcast text, type, npcflag, ac
         (OPT_UNLEARN, 0, "I wish to unlearn my talents.", 62295, 16, 16, 4461, "trained"),
         (OPT_DUALSPEC, 0, "I wish to know about Dual Talent Specialization.", 33762, 20, 1, 10371, "trained"),
         (OPT_BACK, 0, "Send me back to where you found me.", 0, 1, 1, 0, "trained"),
+        (OPT_MOUNTS, 1, "Show me the mounts you made.", 0, 3, 128, 0, "trained"),   # the Skrill thread's wares
     ],
 }
 
@@ -480,8 +502,9 @@ def build_sql() -> str:
         s.append(f"UPDATE `devourer_tmp_ct` SET `entry` = {entry}, `name` = {q(name)}, `gossip_menu_id` = {menu};")
         s.append("INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;")
     s += [
-        f"UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` = {NPC_HAGATHA};"
-        "  -- Hagatha buys (owner, 2026-10-03)",
+        f"UPDATE `creature_template` SET `npcflag` = `npcflag` | 128 WHERE `entry` IN ({NPC_HAGATHA}, {NPC_WREN});"
+        "  -- Hagatha buys (owner, 2026-10-03); Wren sells mounts (task 018: their npc_vendor rows belong to the"
+        " mounts SQL, data/sql/custom/db_world/2026_10_03_10_mounts_adding.sql; this file never touches them)",
         "-- A vendor window only opens with something on sale: plain food and water (the owner may pick other wares).",
         f"DELETE FROM `npc_vendor` WHERE `entry` = {NPC_HAGATHA};",
         "INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`, `VerifiedBuild`) VALUES",
@@ -696,6 +719,7 @@ def build_header() -> str:
         f"    constexpr uint32_t QuestTrick = {Q_TRICK};",
         f"    constexpr uint32_t QuestTale = {Q_TALE};",
         f"    constexpr uint32_t QuestPests = {Q_PESTS};",
+        f"    constexpr uint32_t QuestApprentice = {Q_APPRENTICE};   // task 018: the companion joins",
         f"    constexpr uint32_t QuestMoltFirst = {MOLT_QUESTS[0]['id']};   // task 018: one per evolved form, in order",
         f"    constexpr uint32_t QuestMoltLast = {MOLT_QUESTS[-1]['id']};",
         f"    constexpr uint32_t MenuHagatha = {MENU_HAGATHA};",
@@ -730,7 +754,7 @@ def build_header() -> str:
         "        HagathaTale3 = 5, HagathaTale4 = 6, HagathaCageOpen = 7,",
         f"        WrenMolt = {WREN_MOLT}, WrenMoltReady = {WREN_MOLT_READY}, HagathaMoltFirst = {HAGATHA_MOLT_FIRST},"
         "   // task 018 (+ the quest's index)",
-        f"        HagathaNoTale = {HAGATHA_NO_TALE},",
+        f"        HagathaNoTale = {HAGATHA_NO_TALE}, WrenApprentice = {WREN_APPRENTICE},",
         "    };",
         "",
         "    // Task 018: Hagatha's tale of a shape (\"Tell me about the shape I wear\"), Wren's word on a shape she sees.",
@@ -809,6 +833,7 @@ def build_md() -> str:
             (NPC_WREN, 9): "strayed from the cage", (NPC_WREN, 10): "came back with .inbetween",
             (NPC_WREN, WREN_MOLT): "a molt quest handed in", (NPC_WREN, WREN_MOLT_READY): "a form is ready (whisper)",
             (NPC_HAGATHA, HAGATHA_NO_TALE): "a shape with no tale yet",
+            (NPC_WREN, WREN_APPRENTICE): "her apprentice joins the Devourer",
             **{(NPC_HAGATHA, g): f"the tale of shape {s}" for s, g in HAGATHA_TALE_OF.items() if g >= HAGATHA_SHAPE_FIRST},
             **{(NPC_WREN, WREN_REACTION_FIRST + i): "back in shape " + ", ".join(map(str, shapes))
                for i, (_, shapes) in enumerate(WREN_REACTIONS)},

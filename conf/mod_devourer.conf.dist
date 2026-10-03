@@ -78,3 +78,11 @@ Devourer.InBetween.Level = 5
 #        Default:     1800
 
 Devourer.InBetween.ReturnCooldown = 1800
+
+#    Devourer.WitchCompanion
+#        Description: Wren's apprentice (task 018): the name of a character on the Devourer's own account that joins
+#                     as its playerbot when Wren's quest "Wren's Apprentice" is handed in (playerbots' command
+#                     .playerbots bot add <name>). Empty = the quest gives no companion.
+#        Default:     Bramble
+
+Devourer.WitchCompanion = "Bramble"

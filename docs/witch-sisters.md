@@ -87,6 +87,15 @@ The Devourer's own cage (9101300, display 4154) is summoned by the module for ea
 *Not done yet:* I can still hear crunching, and it isn't you. Keep eating!  
 *Handed in:* All of them? ALL of them? Oh, you lovely, horrible thing. Hagatha's anima is safe and nothing is multiplying any more. / Keep the frog. It suits you.
 
+### 9101305 Wren's Apprentice (Wren Hollowmoor)
+
+*Objective:* Let Wren introduce her apprentice, and take her with you into the world.
+
+> Snack, meet Bramble! She's my apprentice. Well, SHE says she's my apprentice. I say she's a gnome who followed a cat into the In-Between and never found the way out again. / She wants to see the world, and you need somebody to tell you which mushrooms not to eat. Take her with you! Bring her back with all her fingers.
+
+*Not done yet:* Well? She's right there, pretending to be a coat stand.  
+*Handed in:* There! Now you're a pack. A very small, very odd pack. / Bramble, don't let Snack eat you. Snack, don't let her set you on fire. Again.
+
 ## The molt quests (task 018)
 
 When a form has everything its evolution needs (Bio Points, level, any one task), the module puts its molt quest in the log, already done, and Wren calls from afar. Handing it in to Wren in the In-Between is the evolution: she peels the old body, Hagatha tells the tale of the new one. The earlier form stays.
@@ -163,6 +172,7 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Wren | 21 | back in shape 2, 4, 12, 13, 22, 24 | You're all sparkly and wrong-looking. I love it. Don't touch the cauldron. | draft |
 | Wren | 22 | back in shape 6, 20 | Ew. EW! You smell like a cave. A good cave! But a cave. | draft |
 | Wren | 23 | back in shape 1, 3 | Sssso fancy! Sorry. I had to. | draft |
+| Wren | 24 | her apprentice joins the Devourer | Bramble! Out from behind the cauldron, you're going with Snack! Take your good boots. And the bucket. No, not that bucket. | draft |
 
 ## Gossip texts
 
