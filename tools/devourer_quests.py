@@ -107,6 +107,16 @@ def slay(count, text, entries=(), family=0, ctype=0, elite=False, any_kill=False
                any_kill=any_kill, shapes=tuple(shapes))
 
 
+EMOTE_PET, EMOTE_ROAR, EMOTE_HUG, EMOTE_WAVE, EMOTE_DANCE, EMOTE_KISS, EMOTE_BOW, EMOTE_CHEER = (
+    410, 75, 56, 101, 34, 58, 17, 21)
+
+
+def emote(count, text, emote_id, entries=(), family=0, ctype=0, shapes=()):
+    """Do a text emote (/pet, /roar, ...) at a creature that fits; each creature counts once."""
+    return Obj("emote", count, text, emote=emote_id, entries=tuple(entries), family=family, ctype=ctype,
+               elite=False, shapes=tuple(shapes))
+
+
 def visit(text, map_id, x, y, radius=25.0):
     return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius)
 
@@ -190,14 +200,15 @@ def giver_ref(who):
 def place(who):
     if isinstance(who, Lantern):
         return f"Hagatha's Lantern ({who.where}, {who.region})"
-    return {HAGATHA: "Hagatha Hollowmoor in the In-Between", WREN: "Wren Hollowmoor in the In-Between"}[who]
+    return {HAGATHA: "Hagatha Hollowmoor in the In-Between", WREN: "Wren Hollowmoor in the In-Between",
+            9101360: "Wren Hollowmoor at the Derby's starting line, west of the Crossroads"}[who]
 
 
 def assign_credits(book):
     nxt = CREDIT_FIRST
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
-            if obj.kind in ("devour", "slay", "visit", "touch"):
+            if obj.kind in ("devour", "slay", "visit", "touch", "emote"):
                 obj.credit = nxt
                 nxt += 1
                 assert nxt <= CREDIT_LAST + 1
@@ -237,9 +248,10 @@ def credit_rules(book):
     rules = []
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
-            if obj.kind not in ("devour", "slay"):
+            if obj.kind not in ("devour", "slay", "emote"):
                 continue
-            event = "EventMeal" if obj.kind == "devour" else "EventKill"
+            event = {"devour": "EventMeal", "slay": "EventKill", "emote": "EventEmote"}[obj.kind]
+            emote_id = obj.kw.get("emote", 0)
             shapes = list(obj.kw.get("shapes", ()))[:4]
             shapes += [0] * (4 - len(shapes))
             filters = []
@@ -255,7 +267,7 @@ def credit_rules(book):
                 filters.append(("FilterAny", 0))
             assert filters, (quest.title, obj.text)
             for name, value in filters:
-                rules.append((quest.id, obj.credit, event, name, value, shapes, quest.title, obj.text))
+                rules.append((quest.id, obj.credit, event, name, value, emote_id, shapes, quest.title, obj.text))
     return rules
 
 
@@ -270,18 +282,19 @@ def write_header(book):
         "",
         "namespace Devourer::Quests",
         "{",
-        "    enum Event : uint8_t { EventMeal = 1, EventKill = 2 };",
+        "    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3 };",
         "    enum Filter : uint8_t { FilterEntry = 1, FilterFamily = 2, FilterType = 3, FilterElite = 4, FilterAny = 5 };",
         "",
-        "    // An event (a meal, a kill) that fits gives the credit of one quest objective, while the quest is open.",
+        "    // An event (a meal, a kill, an emote at a creature) that fits gives the credit of one quest objective,",
+        "    // while the quest is open. Emote: the text emote (TEXT_EMOTE_*), 0 for meals and kills.",
         "    struct CreditRule { uint32_t Quest; uint32_t Credit; uint8_t Event; uint8_t Filter; uint32_t Value;"
-        " uint32_t Shapes[4]; };",
+        " uint32_t Emote; uint32_t Shapes[4]; };",
         "    constexpr CreditRule CreditRules[] =",
         "    {",
     ]
-    for qid, credit, event, name, value, shapes, title, text in rules:
-        out.append(f"        {{ {qid}, {credit}, {event}, {name}, {value}, {{ {', '.join(map(str, shapes))} }} }},"
-                   f"   // {title}: {text}")
+    for qid, credit, event, name, value, emote_id, shapes, title, text in rules:
+        out.append(f"        {{ {qid}, {credit}, {event}, {name}, {value}, {emote_id},"
+                   f" {{ {', '.join(map(str, shapes))} }} }},   // {title}: {text}")
     out += [
         "    };",
         "",

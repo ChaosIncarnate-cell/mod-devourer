@@ -62,20 +62,28 @@ namespace
         }
     }
 
+    constexpr float EmoteRange = 15.0f;          // yards: close enough to pet
+
+    // Creatures an emote objective has already counted, per Devourer and credit (each animal counts once).
+    std::unordered_map<ObjectGuid::LowType, std::set<std::pair<uint32, ObjectGuid>>> emoted;
+
     // Every rule of this event that fits gives its credit once (two rules may share a credit: "this or that").
-    void Credit(Player* player, Creature* creature, uint8 event)
+    void Credit(Player* player, Creature* creature, uint8 event, uint32 textEmote = 0)
     {
         if (!sDevourer.IsDevourer(player) || !creature)
             return;
         std::set<uint32> given;
         for (CreditRule const& rule : CreditRules)
         {
-            if (rule.Event != event || given.count(rule.Credit))
+            if (rule.Event != event || given.count(rule.Credit) || rule.Emote != textEmote)
                 continue;
             if (player->GetQuestStatus(rule.Quest) != QUEST_STATUS_INCOMPLETE)
                 continue;
             if (!Matches(creature, rule) || !Wears(player, rule))
                 continue;
+            if (event == EventEmote && !emoted[player->GetGUID().GetCounter()].insert({ rule.Credit,
+                creature->GetGUID() }).second)
+                continue;                         // this one was petted already
             player->KilledMonsterCredit(rule.Credit);
             given.insert(rule.Credit);
         }
@@ -117,6 +125,15 @@ public:
         Credit(owner, killed, EventKill);
     }
 
+    void OnPlayerTextEmote(Player* player, uint32 textEmote, uint32 /*emoteNum*/, ObjectGuid guid) override
+    {
+        if (!guid.IsCreature() || !sDevourer.IsDevourer(player))
+            return;
+        Creature* target = ObjectAccessor::GetCreature(*player, guid);
+        if (target && target->IsAlive() && player->IsWithinDist(target, EmoteRange))
+            Credit(player, target, EventEmote, textEmote);
+    }
+
     void OnPlayerUpdate(Player* player, uint32 diff) override
     {
         if (!sDevourer.IsDevourer(player))
@@ -134,6 +151,7 @@ public:
     void OnPlayerLogout(Player* player) override
     {
         visitTimers.erase(player->GetGUID().GetCounter());
+        emoted.erase(player->GetGUID().GetCounter());
     }
 
 private:

@@ -21,6 +21,9 @@ T_BEAST, T_DRAGON, T_DEMON, T_ELEMENTAL, T_GIANT, T_UNDEAD, T_HUMANOID = 1, 2, 3
 # Zones (AreaTable ids), for the quest log headers
 Z_ELWYNN, Z_DUNMOROGH, Z_TELDRASSIL, Z_AZUREMYST, Z_DUROTAR, Z_MULGORE, Z_TIRISFAL, Z_EVERSONG = (
     12, 1, 141, 3524, 14, 215, 85, 3430)
+Z_WESTFALL, Z_LOCHMODAN, Z_DARKSHORE, Z_BLOODMYST, Z_BARRENS, Z_SILVERPINE, Z_GHOSTLANDS = (
+    40, 38, 148, 3525, 17, 130, 3433)
+DERBY_WREN = 9101360                          # Wren at the Derby's starting line (task 020)
 
 LANTERN_OPEN = "The lantern's flame leans toward you, and "
 
@@ -33,7 +36,13 @@ def breadcrumb(book, qid, title, level, giver, ender, races, text, reward_text, 
 
 
 def build(book):
-    home(book)
+    import devourer_quests_teens
+    import devourer_quests_twenties
+    finales = home(book)
+    teens = devourer_quests_teens.teens(book, finales)
+    twenties = devourer_quests_twenties.twenties(book, teens)
+    import devourer_quests_thirties
+    thirties = devourer_quests_thirties.thirties(book, twenties)
 
 
 # --- Homecoming: a lantern in every home region (levels 6-11) --------------------------------------------------------
@@ -69,14 +78,16 @@ def home(book):
             "every meal is a lesson.",
             f"Hagatha sends the Devourer home, to her lantern in {lantern.region}.", prev=9101305)
 
-    elwynn_quests(book, elwynn)
-    dunmorogh_quests(book, dunmorogh)
-    teldrassil_quests(book, teldrassil)
-    azuremyst_quests(book, azuremyst)
-    durotar_quests(book, durotar)
-    mulgore_quests(book, mulgore)
-    tirisfal_quests(book, tirisfal)
-    eversong_quests(book, eversong)
+    return {
+        "elwynn": (elwynn, elwynn_quests(book, elwynn)),
+        "dunmorogh": (dunmorogh, dunmorogh_quests(book, dunmorogh)),
+        "teldrassil": (teldrassil, teldrassil_quests(book, teldrassil)),
+        "azuremyst": (azuremyst, azuremyst_quests(book, azuremyst)),
+        "durotar": (durotar, durotar_quests(book, durotar)),
+        "mulgore": (mulgore, mulgore_quests(book, mulgore)),
+        "tirisfal": (tirisfal, tirisfal_quests(book, tirisfal)),
+        "eversong": (eversong, eversong_quests(book, eversong)),
+    }
 
 
 def elwynn_quests(book, lantern):

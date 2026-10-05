@@ -26,7 +26,34 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconNa
 (9105005, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
 (9105006, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
 (9105007, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
-(9105100, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105062, '', 'go_devourer_quest_object', 0);
+(9105008, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105009, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105010, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105011, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105012, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105013, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105014, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105015, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105016, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105017, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105018, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105019, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105020, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105021, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105022, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105023, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105024, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105025, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105026, 2, 6038, 'Hagatha''s Lantern', '', '', '', 1.4, 0, 0, '', '', 0),
+(9105100, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105062, '', 'go_devourer_quest_object', 0),
+(9105101, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105113, '', 'go_devourer_quest_object', 0),
+(9105102, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105123, '', 'go_devourer_quest_object', 0),
+(9105103, 10, 4152, 'Unlit Grave Candle', '', '', '', 1.0, 0, 9105171, '', 'go_devourer_quest_object', 0),
+(9105104, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105173, '', 'go_devourer_quest_object', 0),
+(9105105, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105213, '', 'go_devourer_quest_object', 0),
+(9105106, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105246, '', 'go_devourer_quest_object', 0),
+(9105107, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105252, '', 'go_devourer_quest_object', 0),
+(9105108, 10, 216, 'Hagatha''s Bait', '', '', '', 0.7, 0, 9105253, '', 'go_devourer_quest_object', 0);
 
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `Comment`) VALUES
 (9920000, 9105000, 0, 1, 1, -9620.0, -560.0, 54.44, 2.4, 0, 0, 0.932039, 0.362358, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, south-east of Crystal Lake'),
@@ -37,7 +64,37 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `positi
 (9920005, 9105005, 1, 1, 1, -2100.0, -900.0, -1.06, 2.0, 0, 0, 0.841471, 0.540302, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the plains north-east of Bloodhoof'),
 (9920006, 9105006, 0, 1, 1, 2500.0, 600.0, 30.68, 4.4, 0, 0, 0.808496, -0.588501, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the glades north-west of Brill'),
 (9920007, 9105007, 530, 1, 1, 8900.0, -6600.0, 33.61, 1.6, 0, 0, 0.717356, 0.696707, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the woods west of the Dead Scar'),
-(9920008, 9105100, 1, 1, 1, -1740.0, -545.0, -10.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait');
+(9920008, 9105008, 0, 1, 1, -10800.0, 1100.0, 39.36, 5.6, 0, 0, 0.334988, -0.942222, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the plains south-west of Sentinel Hill'),
+(9920009, 9105009, 0, 1, 1, -5600.0, -3200.0, 325.16, 0.4, 0, 0, 0.198669, 0.980067, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, Grizzlepaw Ridge, south of Thelsamar'),
+(9920010, 9105010, 1, 1, 1, 6300.0, 150.0, 33.71, 2.9, 0, 0, 0.992713, 0.120503, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the hills south of Auberdine'),
+(9920011, 9105011, 530, 1, 1, -2300.0, -11900.0, 25.92, 1.0, 0, 0, 0.479426, 0.877583, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the red woods north of Blood Watch'),
+(9920012, 9105012, 1, 1, 1, -780.0, -2680.0, 92.04, 2.2, 0, 0, 0.891207, 0.453596, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, beside Wren''s Derby, west of the Crossroads'),
+(9920013, 9105013, 0, 1, 1, 500.0, 1200.0, 87.17, 4.0, 0, 0, 0.909297, -0.416147, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the pines south of the Sepulcher'),
+(9920014, 9105014, 530, 1, 1, 7400.0, -6900.0, 51.34, 3.3, 0, 0, 0.996865, -0.079121, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, Sungraze Peak, south-west of Tranquillien'),
+(9920015, 9105015, 0, 1, 1, -10450.0, 100.0, 38.57, 2.5, 0, 0, 0.948985, 0.315322, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the edge of Raven Hill Cemetery'),
+(9920016, 9105016, 0, 1, 1, -3300.0, -2400.0, 22.64, 1.4, 0, 0, 0.644218, 0.764842, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the marsh north of Thelgen Rock'),
+(9920017, 9105017, 1, 1, 1, 2400.0, -1000.0, 99.85, 0.3, 0, 0, 0.149438, 0.988771, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the woods south-east of Astranaar'),
+(9920018, 9105018, 0, 1, 1, -200.0, -1100.0, 36.99, 5.2, 0, 0, 0.515501, -0.856889, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the hills south-east of Tarren Mill'),
+(9920019, 9105019, 1, 1, 1, 1700.0, 650.0, 194.97, 3.8, 0, 0, 0.9463, -0.32329, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the high pass north-east of Mirkfallon Lake'),
+(9920020, 9105020, 1, 1, 1, -5000.0, -1800.0, -57.74, 4.6, 0, 0, 0.745705, -0.666276, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the canyon floor below Darkcloud Pinnacle'),
+(9920021, 9105021, 0, 1, 1, -11700.0, -450.0, 21.02, 4.9, 0, 0, 0.637765, -0.770231, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the jungle south-east of Nesingwary''s camp'),
+(9920022, 9105022, 1, 1, 1, -2900.0, -3300.0, 31.69, 3.6, 0, 0, 0.973848, -0.227202, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the marsh north-east of Brackenwall'),
+(9920023, 9105023, 0, 1, 1, 500.0, -650.0, 167.4, 2.0, 0, 0, 0.841471, 0.540302, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, Gallows'' Corner, on the road through the mountains'),
+(9920024, 9105024, 1, 1, 1, -7400.0, -3400.0, 14.1, 5.5, 0, 0, 0.381661, -0.924302, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the dunes south-west of Gadgetzan'),
+(9920025, 9105025, 1, 1, 1, -4600.0, 700.0, 48.23, 1.1, 0, 0, 0.522687, 0.852525, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the forest south-west of Camp Mojache'),
+(9920026, 9105026, 0, 1, 1, 150.0, -2900.0, 112.45, 2.7, 0, 0, 0.975723, 0.219007, 300, 255, 1, 'mod-devourer: Hagatha''s Lantern, the hills south-east of Aerie Peak'),
+(9920027, 9105100, 1, 1, 1, -1740.0, -545.0, -10.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920028, 9105101, 0, 1, 1, -5145.0, -3650.0, 303.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920029, 9105102, 1, 1, 1, 6560.0, 310.0, 31.22, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920030, 9105103, 0, 1, 1, -10560.0, 250.0, 29.96, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Unlit Grave Candle'),
+(9920031, 9105103, 0, 1, 1, -10520.0, 330.0, 28.74, 1.0, 0, 0, 0.479426, 0.877583, 60, 255, 1, 'mod-devourer: Unlit Grave Candle'),
+(9920032, 9105103, 0, 1, 1, -10480.0, 250.0, 30.8, 2.0, 0, 0, 0.841471, 0.540302, 60, 255, 1, 'mod-devourer: Unlit Grave Candle'),
+(9920033, 9105103, 0, 1, 1, -10540.0, 290.0, 30.24, 3.0, 0, 0, 0.997495, 0.070737, 60, 255, 1, 'mod-devourer: Unlit Grave Candle'),
+(9920034, 9105104, 0, 1, 1, -10185.0, -55.0, 27.81, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920035, 9105105, 1, 1, 1, 2530.0, 1985.0, 415.74, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920036, 9105106, 1, 1, 1, -4238.0, -2896.0, 34.2, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920037, 9105107, 0, 1, 1, 674.3, -997.6, 164.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
+(9920038, 9105108, 0, 1, 1, 305.2, -1265.5, 50.36, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait');
 
 -- --- credits: one per objective the core cannot count by itself (never spawned) -----------------------
 DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
@@ -105,6 +162,194 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9105429, `name` = 'Crazed Dragonhawk devo
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9105430, `name` = 'Wretched devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105431, `name` = 'Coyote devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105432, `name` = 'Goretusk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105433, `name` = 'Fleshripper devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105434, `name` = 'Longshore murloc devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105435, `name` = 'Old Murk-Eye devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105436, `name` = 'Stonesplinter trogg devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105437, `name` = 'Black bear devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105438, `name` = 'Mountain boar devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105439, `name` = 'Loch Crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105440, `name` = 'Large Loch Crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105441, `name` = 'Moonstalker devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105442, `name` = 'Thistle bear devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105443, `name` = 'Foreststrider devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105444, `name` = 'Moonkin devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105445, `name` = 'Moonkin Oracle devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105446, `name` = 'Shadowclaw devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105447, `name` = 'Bloodmyst Hatchling devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105448, `name` = 'Royal Blue Flutterer devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105449, `name` = 'Void Anomaly devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105450, `name` = 'Veridian whelp devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105451, `name` = 'Barrens plainstrider devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105452, `name` = 'Razormane quilboar devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105453, `name` = 'Sunscale raptor devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105454, `name` = 'Hecklefang hyena devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105455, `name` = 'Thunderhawk Hatchling devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105456, `name` = 'Worg devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105457, `name` = 'Moonrage gnoll devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105458, `name` = 'Bloodsnout Worg devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105459, `name` = 'Rot Hide devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105460, `name` = 'Ghostclaw lynx devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105461, `name` = 'Mistbat devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105462, `name` = 'Arcane Devourer devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105463, `name` = 'Mana Shifter devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105464, `name` = 'Spindleweb spider devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105465, `name` = 'Dire wolf devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105466, `name` = 'Grave candle lit';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105467, `name` = 'Young Black Ravager devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105468, `name` = 'Black Widow Hatchling devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105469, `name` = 'Lupos devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105470, `name` = 'Young Wetlands Crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105471, `name` = 'Wetlands Crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105472, `name` = 'Wetlands raptor devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105473, `name` = 'Wetlands whelp devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105474, `name` = 'Flamesnorting Whelp devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105475, `name` = 'Giant Wetlands Crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105476, `name` = 'Ghostpaw devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105477, `name` = 'Shadowhorn stag devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105478, `name` = 'Ashenvale bear devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105479, `name` = 'Satyr devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105480, `name` = 'Dark Strand Voidcaller devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105481, `name` = 'Gray bear devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105482, `name` = 'Moss creeper devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105483, `name` = 'Mountain lion devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105484, `name` = 'Snapjaw devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105485, `name` = 'Deepmoss spider devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105486, `name` = 'Pridewing devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105487, `name` = 'Charred Vale basilisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105488, `name` = 'Nal''taszar devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105489, `name` = 'Pesterhide hyena devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105490, `name` = 'Cloud serpent devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105491, `name` = 'Sparkleshell turtle devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105492, `name` = 'Shimmering Flats scorpid devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105493, `name` = 'Saltstone basilisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105494, `name` = 'Young jungle cat devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105495, `name` = 'Stranglethorn crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105496, `name` = 'Gorilla devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105497, `name` = 'Water creature slain as a toad';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105498, `name` = 'Shadowmaw Panther devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105499, `name` = 'Drywallow crocolisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105500, `name` = 'Mudrock Spikeshell devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105501, `name` = 'Noxious wind serpent devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105502, `name` = 'Mirefin murloc devoured as a toad';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105503, `name` = 'Searing whelp devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105504, `name` = 'Swamp ooze devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105505, `name` = 'Oozeworm devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105506, `name` = 'Alterac mountain lion devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105507, `name` = 'Elemental Slave devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105508, `name` = 'Stone Fury devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105509, `name` = 'Narillasanz devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105510, `name` = 'Blisterpaw hyena devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105511, `name` = 'Glasshide basilisk devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105512, `name` = 'Sandfury troll devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105513, `name` = 'Roc devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105514, `name` = 'Tanaris turtle devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105515, `name` = 'Longtooth wolf devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105516, `name` = 'Ironfur bear devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105517, `name` = 'Frayfeather hippogryph devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105518, `name` = 'Sprite Darter devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105519, `name` = 'Groddoc ape devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105520, `name` = 'Silvermane wolf devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105521, `name` = 'Hinterlands owlbeast devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105522, `name` = 'Saltwater Snapjaw devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105523, `name` = 'Jade Ooze devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105524, `name` = 'Gammerita devoured';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES
 (9105400, 0, 11686, 1, 1, 0),
@@ -137,7 +382,101 @@ INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`,
 (9105427, 0, 11686, 1, 1, 0),
 (9105428, 0, 11686, 1, 1, 0),
 (9105429, 0, 11686, 1, 1, 0),
-(9105430, 0, 11686, 1, 1, 0);
+(9105430, 0, 11686, 1, 1, 0),
+(9105431, 0, 11686, 1, 1, 0),
+(9105432, 0, 11686, 1, 1, 0),
+(9105433, 0, 11686, 1, 1, 0),
+(9105434, 0, 11686, 1, 1, 0),
+(9105435, 0, 11686, 1, 1, 0),
+(9105436, 0, 11686, 1, 1, 0),
+(9105437, 0, 11686, 1, 1, 0),
+(9105438, 0, 11686, 1, 1, 0),
+(9105439, 0, 11686, 1, 1, 0),
+(9105440, 0, 11686, 1, 1, 0),
+(9105441, 0, 11686, 1, 1, 0),
+(9105442, 0, 11686, 1, 1, 0),
+(9105443, 0, 11686, 1, 1, 0),
+(9105444, 0, 11686, 1, 1, 0),
+(9105445, 0, 11686, 1, 1, 0),
+(9105446, 0, 11686, 1, 1, 0),
+(9105447, 0, 11686, 1, 1, 0),
+(9105448, 0, 11686, 1, 1, 0),
+(9105449, 0, 11686, 1, 1, 0),
+(9105450, 0, 11686, 1, 1, 0),
+(9105451, 0, 11686, 1, 1, 0),
+(9105452, 0, 11686, 1, 1, 0),
+(9105453, 0, 11686, 1, 1, 0),
+(9105454, 0, 11686, 1, 1, 0),
+(9105455, 0, 11686, 1, 1, 0),
+(9105456, 0, 11686, 1, 1, 0),
+(9105457, 0, 11686, 1, 1, 0),
+(9105458, 0, 11686, 1, 1, 0),
+(9105459, 0, 11686, 1, 1, 0),
+(9105460, 0, 11686, 1, 1, 0),
+(9105461, 0, 11686, 1, 1, 0),
+(9105462, 0, 11686, 1, 1, 0),
+(9105463, 0, 11686, 1, 1, 0),
+(9105464, 0, 11686, 1, 1, 0),
+(9105465, 0, 11686, 1, 1, 0),
+(9105466, 0, 11686, 1, 1, 0),
+(9105467, 0, 11686, 1, 1, 0),
+(9105468, 0, 11686, 1, 1, 0),
+(9105469, 0, 11686, 1, 1, 0),
+(9105470, 0, 11686, 1, 1, 0),
+(9105471, 0, 11686, 1, 1, 0),
+(9105472, 0, 11686, 1, 1, 0),
+(9105473, 0, 11686, 1, 1, 0),
+(9105474, 0, 11686, 1, 1, 0),
+(9105475, 0, 11686, 1, 1, 0),
+(9105476, 0, 11686, 1, 1, 0),
+(9105477, 0, 11686, 1, 1, 0),
+(9105478, 0, 11686, 1, 1, 0),
+(9105479, 0, 11686, 1, 1, 0),
+(9105480, 0, 11686, 1, 1, 0),
+(9105481, 0, 11686, 1, 1, 0),
+(9105482, 0, 11686, 1, 1, 0),
+(9105483, 0, 11686, 1, 1, 0),
+(9105484, 0, 11686, 1, 1, 0),
+(9105485, 0, 11686, 1, 1, 0),
+(9105486, 0, 11686, 1, 1, 0),
+(9105487, 0, 11686, 1, 1, 0),
+(9105488, 0, 11686, 1, 1, 0),
+(9105489, 0, 11686, 1, 1, 0),
+(9105490, 0, 11686, 1, 1, 0),
+(9105491, 0, 11686, 1, 1, 0),
+(9105492, 0, 11686, 1, 1, 0),
+(9105493, 0, 11686, 1, 1, 0),
+(9105494, 0, 11686, 1, 1, 0),
+(9105495, 0, 11686, 1, 1, 0),
+(9105496, 0, 11686, 1, 1, 0),
+(9105497, 0, 11686, 1, 1, 0),
+(9105498, 0, 11686, 1, 1, 0),
+(9105499, 0, 11686, 1, 1, 0),
+(9105500, 0, 11686, 1, 1, 0),
+(9105501, 0, 11686, 1, 1, 0),
+(9105502, 0, 11686, 1, 1, 0),
+(9105503, 0, 11686, 1, 1, 0),
+(9105504, 0, 11686, 1, 1, 0),
+(9105505, 0, 11686, 1, 1, 0),
+(9105506, 0, 11686, 1, 1, 0),
+(9105507, 0, 11686, 1, 1, 0),
+(9105508, 0, 11686, 1, 1, 0),
+(9105509, 0, 11686, 1, 1, 0),
+(9105510, 0, 11686, 1, 1, 0),
+(9105511, 0, 11686, 1, 1, 0),
+(9105512, 0, 11686, 1, 1, 0),
+(9105513, 0, 11686, 1, 1, 0),
+(9105514, 0, 11686, 1, 1, 0),
+(9105515, 0, 11686, 1, 1, 0),
+(9105516, 0, 11686, 1, 1, 0),
+(9105517, 0, 11686, 1, 1, 0),
+(9105518, 0, 11686, 1, 1, 0),
+(9105519, 0, 11686, 1, 1, 0),
+(9105520, 0, 11686, 1, 1, 0),
+(9105521, 0, 11686, 1, 1, 0),
+(9105522, 0, 11686, 1, 1, 0),
+(9105523, 0, 11686, 1, 1, 0),
+(9105524, 0, 11686, 1, 1, 0);
 
 -- --- the quests -------------------------------------------------------------------------------------
 INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardXPDifficulty`, `RewardMoney`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredNpcOrGo1`, `RequiredNpcOrGoCount1`, `RequiredNpcOrGo2`, `RequiredNpcOrGoCount2`, `RequiredNpcOrGo3`, `RequiredNpcOrGoCount3`, `RequiredNpcOrGo4`, `RequiredNpcOrGoCount4`, `RequiredItemId1`, `RequiredItemCount1`, `RequiredItemId2`, `RequiredItemCount2`, `RequiredItemId3`, `RequiredItemCount3`, `RequiredItemId4`, `RequiredItemCount4`, `RewardItem1`, `RewardAmount1`, `RewardItem2`, `RewardAmount2`, `RewardItem3`, `RewardAmount3`, `RewardItem4`, `RewardAmount4`, `RewardChoiceItemID1`, `RewardChoiceItemQuantity1`, `RewardChoiceItemID2`, `RewardChoiceItemQuantity2`, `RewardChoiceItemID3`, `RewardChoiceItemQuantity3`, `RewardChoiceItemID4`, `RewardChoiceItemQuantity4`, `RewardChoiceItemID5`, `RewardChoiceItemQuantity5`, `RewardChoiceItemID6`, `RewardChoiceItemQuantity6`, `ObjectiveText1`, `ObjectiveText2`, `ObjectiveText3`, `ObjectiveText4`, `VerifiedBuild`) VALUES
@@ -152,27 +491,136 @@ INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `Ques
 (9105010, 2, 6, 6, 12, 0, 5, 216, 0, 0, 'The Wolves of Elwynn', 'Devour 6 wolves in Elwynn Forest.', 'The lantern''s flame leans toward you, and Hagatha''s voice comes with it, dry as old paper:$B$BThe wolf was the first shape you wore outside the ritual, and you wore it badly. A wolf is not teeth, little horror. A wolf is the pack it runs with. The forests of Elwynn are full of them, mangy and grey and hungry.$B$BEat six of them. Not to kill them, to know them. Then come back and tell me what they tasted of.', '', 'Return to Hagatha''s Lantern (south-east of Crystal Lake, Elwynn Forest).', 9105400, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3511, 1, 23404, 1, 2218, 1, 0, 0, 0, 0, 0, 0, 'Elwynn wolf devoured', '', '', '', 0),
 (9105011, 2, 8, 7, 12, 0, 5, 384, 0, 0, 'Wren''s Picnic', 'Devour a Rockhide Boar, a Young Forest Bear and a forest spider in Elwynn Forest.', 'The lantern''s flame leans toward you, and Wren''s voice tumbles out of it, all at once:$B$BSnack! Picnic! I''m packing a basket, a pretend basket, because I can''t come, so you''re eating for both of us. List! One boar, the rocky kind, with the grumpy face. One bear, a young one, they''re softer. And one spider. Don''t make that face, spiders are crunchy and good for you.$B$BEat them all and tell me which one was best. I''m writing it down!', '', 'Return to Hagatha''s Lantern (south-east of Crystal Lake, Elwynn Forest).', 9105401, 1, 9105402, 1, 9105403, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6085, 1, 5617, 1, 3440, 1, 0, 0, 0, 0, 0, 0, 'Rockhide Boar devoured', 'Young Forest Bear devoured', 'Forest or Mine Spider devoured', '', 0),
 (9105012, 2, 10, 9, 12, 0, 6, 900, 0, 0, 'Hogger''s Last Supper', 'Devour Hogger at Forest''s Edge in Elwynn Forest.', 'The lantern''s flame leans toward you, and the old voice turns slow, the way it does before a tale:$B$BThe Riverpaw gnolls tell of one of their own who ate so much that the pack could not feed him any more, so they left him at the edge of the forest, and he ate the edge of the forest instead. They call him Hogger. The farmers call him worse.$B$BHe has been the hungriest thing in Elwynn for a long time. Go to Forest''s Edge in the south-west and show him that he is not.', '', 'Return to Hagatha''s Lantern (south-east of Crystal Lake, Elwynn Forest).', 9105404, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1436, 1, 1302, 1, 3581, 1, 0, 0, 0, 0, 0, 0, 'Hogger devoured', '', '', '', 0),
+(9105013, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in Westfall', 'Find Hagatha''s Lantern: the plains south-west of Sentinel Hill, Westfall.', 'You have eaten what Elwynn Forest had to teach, little horror. The plains west of it are full of hungry things that got there first.$B$BI have hung another lantern in Westfall, the plains south-west of Sentinel Hill. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the plains south-west of Sentinel Hill, Westfall).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105020, 2, 7, 6, 1, 0, 5, 294, 0, 0, 'The Cold Pantry', 'Devour a Snow Leopard, an Ice Claw Bear and a Winter Wolf in Dun Morogh.', 'The lantern''s flame leans toward you, and Wren''s voice crackles through the frost on the glass:$B$BSnack, it''s SO cold where you are. Cold is good for meat, everybody knows that, it keeps. Dun Morogh is basically a big cold pantry. I want you to taste the pantry. One snow leopard, one of the big ice-clawed bears, and one winter wolf.$B$BChew properly. Frozen things crack your teeth if you''re greedy.', '', 'Return to Hagatha''s Lantern (the hills east of Kharanos, Dun Morogh).', 9105405, 1, 9105406, 1, 9105407, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23404, 1, 6085, 1, 2218, 1, 0, 0, 0, 0, 0, 0, 'Snow Leopard devoured', 'Ice Claw Bear devoured', 'Winter Wolf devoured', '', 0),
 (9105021, 2, 8, 7, 1, 0, 5, 384, 0, 0, 'Stone in the Belly', 'Devour 6 Rockjaw troggs in Dun Morogh.', 'The lantern''s flame leans toward you, and Hagatha speaks, slow and low:$B$BThe trogg is a strange thing to wear, little horror. It came out of the stone and never forgot it; its skin is half rock, its hunger is all of it. The Rockjaw troggs dig in Gol''Bolar Quarry, south-east of here, and around the lake beyond.$B$BEat six of them. You will feel the stone settle in your belly. That weight is the beginning of the trogg''s strength.', '', 'Return to Hagatha''s Lantern (the hills east of Kharanos, Dun Morogh).', 9105408, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5617, 1, 26051, 1, 4974, 1, 0, 0, 0, 0, 0, 0, 'Rockjaw trogg devoured', '', '', '', 0),
 (9105022, 2, 11, 10, 1, 0, 6, 1089, 0, 0, 'The Backbreaker', 'Devour a Rockjaw Backbreaker at Helm''s Bed Lake in Dun Morogh.', 'The lantern''s flame leans toward you, and the flame sinks low, and Hagatha tells it:$B$BThe dwarves tell of a trogg that gnawed on a stone giant''s toe. It never stopped growing harder. Neither did its hunger. Its children still dig at Helm''s Bed Lake, the biggest of the Rockjaw, the ones the dwarves call Backbreakers.$B$BEat one. One is enough to show you what your troggs could become.', '', 'Return to Hagatha''s Lantern (the hills east of Kharanos, Dun Morogh).', 9105409, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2036, 1, 1436, 1, 3570, 1, 0, 0, 0, 0, 0, 0, 'Rockjaw Backbreaker devoured', '', '', '', 0),
+(9105023, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in Loch Modan', 'Find Hagatha''s Lantern: Grizzlepaw Ridge, south of Thelsamar, Loch Modan.', 'You have eaten what Dun Morogh had to teach, little horror. Beyond the tunnel the troggs dig deeper and the crocolisks grow longer.$B$BI have hung another lantern in Loch Modan, Grizzlepaw Ridge, south of Thelsamar. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (Grizzlepaw Ridge, south of Thelsamar, Loch Modan).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105030, 2, 6, 6, 141, 0, 5, 216, 0, 0, 'Moonlit Teeth', 'Devour 6 nightsabers in Teldrassil.', 'The lantern''s flame leans toward you, and Hagatha''s voice is soft as moss:$B$BThe nightsaber hunts by moonlight and is never seen until it wants to be. The elves love them. That is the trouble with being loved, little horror: you stop being careful.$B$BEat six of the great cats of Teldrassil. Learn how quiet a hunter can be.', '', 'Return to Hagatha''s Lantern (the woods south-east of Dolanaar, Teldrassil).', 9105410, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23405, 1, 26020, 1, 4974, 1, 0, 0, 0, 0, 0, 0, 'Nightsaber devoured', '', '', '', 0),
 (9105031, 2, 7, 7, 141, 0, 5, 294, 0, 0, 'Pellets and Feathers', 'Devour 5 Strigid owls in Teldrassil.', 'The lantern''s flame leans toward you, and Wren''s voice hoots out of it:$B$BHoo! That''s an owl. I do a good owl. Snack, the owls up there, the strigid ones, they swallow mice whole and then they cough up the bones in a little ball. Isn''t that WONDERFUL? You do the same thing but bigger.$B$BEat five of them. If you''re lucky you''ll get their shape too, and then you can hoot back at me.', '', 'Return to Hagatha''s Lantern (the woods south-east of Dolanaar, Teldrassil).', 9105411, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6215, 1, 23404, 1, 3511, 1, 0, 0, 0, 0, 0, 0, 'Strigid owl devoured', '', '', '', 0),
 (9105032, 2, 11, 10, 141, 0, 6, 1089, 0, 0, 'The Queen of Webs', 'Devour Lady Sathrah in the Oracle Glade, Teldrassil.', 'The lantern''s flame leans toward you, and Hagatha''s tale comes thin and careful, like thread:$B$BIn the Oracle Glade in the north of the island there is a spider the elves call Lady Sathrah. She eats what the glade''s guardians let fall, and they let a great deal fall. She has grown fat on their kindness and thinks herself a queen.$B$BThere are no queens to a Devourer, little horror. Only meals with longer names.', '', 'Return to Hagatha''s Lantern (the woods south-east of Dolanaar, Teldrassil).', 9105412, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1302, 1, 5327, 1, 3581, 1, 0, 0, 0, 0, 0, 0, 'Lady Sathrah devoured', '', '', '', 0),
+(9105033, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in Darkshore', 'Find Hagatha''s Lantern: the hills south of Auberdine, Darkshore.', 'You have eaten what Teldrassil had to teach, little horror. Across the water the cats grow black and the owls grow wise.$B$BI have hung another lantern in Darkshore, the hills south of Auberdine. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the hills south of Auberdine, Darkshore).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105040, 2, 6, 6, 3524, 0, 5, 216, 0, 0, 'Long Legs on the Isle', 'Devour 5 timberstriders on Azuremyst Isle.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe timberstriders of this island are cousins of the plainstriders of Mulgore; the draenei did not bring them, they were here before the crash, picking at the moss. A strider is legs and a beak and a great deal of running away.$B$BEat five. If their shape is not yours yet, it will be.', '', 'Return to Hagatha''s Lantern (Moongraze Woods, Azuremyst Isle).', 9105413, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26018, 1, 24439, 1, 4974, 1, 0, 0, 0, 0, 0, 0, 'Timberstrider devoured', '', '', '', 0),
 (9105041, 2, 8, 7, 3524, 0, 5, 384, 0, 0, 'Root Tea', 'Devour 6 Root Trappers and 4 Moongraze deer on Azuremyst Isle.', 'The lantern''s flame leans toward you, and Wren''s voice, muffled, like she has her head in a cupboard:$B$BSnack! I''m out of roots. For tea. Root tea. The roots on your island WALK, which is rude, but it also means you can catch them. Eat six of the root trappers and I''ll brew from whatever''s left in your mouth. Don''t ask how.$B$BAnd four of the moongraze deer while you''re there. For biscuits.', '', 'Return to Hagatha''s Lantern (Moongraze Woods, Azuremyst Isle).', 9105414, 6, 9105415, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26024, 1, 26020, 1, 24343, 1, 0, 0, 0, 0, 0, 0, 'Root Trapper devoured', 'Moongraze deer devoured', '', '', 0),
 (9105042, 2, 10, 9, 3524, 0, 6, 900, 0, 0, 'The Moonwing Owlbeasts', 'Devour 3 owlbeasts at the Moonwing Den on Silvermyst Isle.', 'The lantern''s flame leans toward you, and the flame turns the colour of a bruise, and Hagatha tells it:$B$BWhen the draenei ship fell, its broken crystals poisoned the island''s owlbeasts. They gather in the Moonwing Den on Silvermyst Isle, south-west of here, raving. Madness has a taste, little horror. It is sharp, and it stays.$B$BEat three of them. One day you will meet owlbeasts that the moon touched instead of the crystals, and you will know the difference.', '', 'Return to Hagatha''s Lantern (Moongraze Woods, Azuremyst Isle).', 9105416, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26021, 1, 28159, 1, 26052, 1, 0, 0, 0, 0, 0, 0, 'Moonwing owlbeast devoured', '', '', '', 0),
+(9105043, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in Bloodmyst Isle', 'Find Hagatha''s Lantern: the red woods north of Blood Watch, Bloodmyst Isle.', 'You have eaten what Azuremyst Isle had to teach, little horror. North of you the island bleeds, and its beasts have drunk it.$B$BI have hung another lantern in Bloodmyst Isle, the red woods north of Blood Watch. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the red woods north of Blood Watch, Bloodmyst Isle).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105050, 2, 6, 6, 14, 0, 5, 216, 0, 0, 'Tusk and Gristle', 'Devour 6 mottled boars in Durotar.', 'The lantern''s flame leans toward you, and Hagatha''s voice is dry as the dust around it:$B$BThe boar of Durotar eats thorns and stones and anything the orcs leave behind, and it charges at whatever moves. It is not clever. It does not need to be. Some hungers are like that.$B$BEat six of the mottled boars. Taste how little a boar needs to think.', '', 'Return to Hagatha''s Lantern (the scrub west of Razor Hill, Durotar).', 9105417, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24439, 1, 26051, 1, 4947, 1, 0, 0, 0, 0, 0, 0, 'Mottled boar devoured', '', '', '', 0),
 (9105051, 2, 8, 7, 14, 0, 5, 384, 0, 0, 'Scales and Stings', 'Devour 4 Bloodtalon raptors and 4 scorpids in Durotar.', 'The lantern''s flame leans toward you, and Wren''s voice, delighted:$B$BSnack, your desert has the BEST snacks. Raptors! Scorpids! Scorpids are like little crabs that hate you. Eat four raptors and four scorpids and tell me which ones bite back harder.$B$BI bet scorpids. I''ve got a whole jar of bets on scorpids.', '', 'Return to Hagatha''s Lantern (the scrub west of Razor Hill, Durotar).', 9105418, 4, 9105419, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5617, 1, 23404, 1, 2218, 1, 0, 0, 0, 0, 0, 0, 'Bloodtalon raptor devoured', 'Durotar scorpid devoured', '', '', 0),
 (9105052, 2, 10, 9, 14, 0, 6, 900, 0, 0, 'The Dreadmaw', 'Devour 2 Dreadmaw Crocolisks on the Southfury River in Durotar.', 'The lantern''s flame leans toward you, and Hagatha tells it slow:$B$BThe crocolisks of the Southfury River lie still for days, and the orcs who water their wolves there forget they are there, and then one day they remember. The Dreadmaw, they call them. A thing that waits that long is a thing that is very sure of its hunger.$B$BEat two of them, on the river north of here. Their shape will lie in you like they lie in the water.', '', 'Return to Hagatha''s Lantern (the scrub west of Razor Hill, Durotar).', 9105420, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1436, 1, 28159, 1, 3570, 1, 0, 0, 0, 0, 0, 0, 'Dreadmaw Crocolisk devoured', '', '', '', 0),
+(9105053, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in The Barrens', 'Find Hagatha''s Lantern: beside Wren''s Derby, west of the Crossroads, The Barrens.', 'You have eaten what Durotar had to teach, little horror. West of you the grass goes on for ever, and so does what lives in it.$B$BI have hung another lantern in The Barrens, beside Wren''s Derby, west of the Crossroads. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (beside Wren''s Derby, west of the Crossroads, The Barrens).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105060, 2, 6, 6, 215, 0, 5, 216, 0, 0, 'Legs of the Plains', 'Devour 6 plainstriders in Mulgore.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe tauren say the plainstrider was the Earth Mother''s first runner, sent to carry news across Mulgore before there were tauren to hear it. It still runs, little horror, and it still has no news.$B$BEat six of the grown ones, the adults and the elders.', '', 'Return to Hagatha''s Lantern (the plains north-east of Bloodhoof, Mulgore).', 9105421, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24439, 1, 26018, 1, 4948, 1, 0, 0, 0, 0, 0, 0, 'Plainstrider devoured', '', '', '', 0),
 (9105061, 2, 8, 7, 215, 0, 5, 384, 0, 0, 'The Prairie''s Teeth', 'Devour 4 prairie wolves and 3 flatland cougars in Mulgore.', 'The lantern''s flame leans toward you, and Wren''s voice, breathless:$B$BSnack, I was reading about Mulgore and it says there are WOLVES and COUGARS and nobody told me. You could have a wolf shape AND a cat shape. Like hats! Eat four prairie wolves and three of the flatland cougars and you''ll have the whole hat stand.$B$BI''m making you a hat stand. A real one. Hagatha says no.', '', 'Return to Hagatha''s Lantern (the plains north-east of Bloodhoof, Mulgore).', 9105422, 4, 9105423, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5617, 1, 23404, 1, 2218, 1, 0, 0, 0, 0, 0, 0, 'Prairie wolf devoured', 'Flatland cougar devoured', '', '', 0),
 (9105062, 2, 10, 9, 215, 0, 6, 900, 0, 0, 'Mazzranache', 'Devour Mazzranache in Mulgore. Hagatha''s Bait, on the Golden Plains, will call it.', 'The lantern''s flame leans toward you, and the flame flickers, and Hagatha tells it:$B$BThe Bloodhoof hunters speak of Mazzranache, a beast of the plains with no herd and no name of its own; they gave it one so they could curse it. It wanders, and it does not come when called. Except by me.$B$BI have left a bait in the grass of the Golden Plains, north-east of Bloodhoof. Touch it, and Mazzranache will come for it. Then eat it. Your striders will remember the taste when they grow.', '', 'Return to Hagatha''s Lantern (the plains north-east of Bloodhoof, Mulgore).', 9105424, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26021, 1, 1436, 1, 26052, 1, 0, 0, 0, 0, 0, 0, 'Mazzranache devoured', '', '', '', 0),
+(9105063, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in The Barrens', 'Find Hagatha''s Lantern: beside Wren''s Derby, west of the Crossroads, The Barrens.', 'You have eaten what Mulgore had to teach, little horror. East of the mesas the grass goes on for ever, and so does what lives in it.$B$BI have hung another lantern in The Barrens, beside Wren''s Derby, west of the Crossroads. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (beside Wren''s Derby, west of the Crossroads, The Barrens).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105070, 2, 6, 6, 85, 0, 5, 216, 0, 0, 'Wings in the Gloom', 'Devour 6 duskbats in Tirisfal Glades.', 'The lantern''s flame leans toward you, and Hagatha''s voice is almost fond:$B$BThe duskbats of Tirisfal grew fat on what the plague left behind. They are blind, little horror, and they need nothing else. They hear your heart. They hear its hunger.$B$BEat six of them, the greater ones and the vampiric ones. Learn to hear like they do.', '', 'Return to Hagatha''s Lantern (the glades north-west of Brill, Tirisfal Glades).', 9105425, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26020, 1, 4974, 1, 23405, 1, 0, 0, 0, 0, 0, 0, 'Duskbat devoured', '', '', '', 0),
 (9105071, 2, 8, 7, 85, 0, 5, 384, 0, 0, 'Hounds of the Glade', 'Devour 6 darkhounds in Tirisfal Glades.', 'The lantern''s flame leans toward you, and Wren''s voice, unusually serious:$B$BSnack, the darkhounds in your glades aren''t dogs. They''re something from the other side of the dark that LOOKS like dogs, which is worse. Hagatha says demons taste like burnt sugar. I want to know if that''s true.$B$BEat six of the cursed and ravenous ones and tell me. For science.', '', 'Return to Hagatha''s Lantern (the glades north-west of Brill, Tirisfal Glades).', 9105426, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5617, 1, 6215, 1, 23404, 1, 0, 0, 0, 0, 0, 0, 'Darkhound devoured', '', '', '', 0),
 (9105072, 2, 10, 9, 85, 0, 6, 900, 0, 0, 'The Scarlet Table', 'Devour 5 of the Scarlet Crusade in Tirisfal Glades.', 'The lantern''s flame leans toward you, and Hagatha''s tale comes cold:$B$BThe Scarlet Crusade came to Tirisfal to burn the dead. They have burned a great many things that were not dead yet. They are very sure of themselves, little horror, and sureness is a flavour. It goes well with fear.$B$BEat five of them, at their farms and their watch posts around the glades. A bat that drinks the Scarlet''s blood grows into something the Scarlet have nightmares about.', '', 'Return to Hagatha''s Lantern (the glades north-west of Brill, Tirisfal Glades).', 9105427, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1302, 1, 5327, 1, 3581, 1, 0, 0, 0, 0, 0, 0, 'Scarlet crusader devoured', '', '', '', 0),
+(9105073, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in Silverpine Forest', 'Find Hagatha''s Lantern: the pines south of the Sepulcher, Silverpine Forest.', 'You have eaten what Tirisfal Glades had to teach, little horror. South of you the worgs howl under the pines.$B$BI have hung another lantern in Silverpine Forest, the pines south of the Sepulcher. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the pines south of the Sepulcher, Silverpine Forest).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
 (9105080, 2, 6, 6, 3430, 0, 5, 216, 0, 0, 'Spilled Magic', 'Devour 6 mana stalkers or manawraiths at the West Sanctum in Eversong Woods.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the flame hums:$B$BWhen the elves spill their magic, something always laps it up. In the West Sanctum the spill has grown legs: mana stalkers and manawraiths, little whirlwinds of leftover spell. Your mana wyrm would love them.$B$BEat six. Taste what the elves threw away.', '', 'Return to Hagatha''s Lantern (the woods west of the Dead Scar, Eversong Woods).', 9105428, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28149, 1, 24439, 1, 4974, 1, 0, 0, 0, 0, 0, 0, 'Spilled magic devoured', '', '', '', 0),
 (9105081, 2, 8, 7, 3430, 0, 5, 384, 0, 0, 'Dragonhawk Down', 'Devour 6 Crazed Dragonhawks in Eversong Woods.', 'The lantern''s flame leans toward you, and Wren''s voice, very fast:$B$BSnack, the elves have DRAGONHAWKS. Little dragons that are also hawks. That''s two snacks in one! The crazed ones are flapping around everywhere and the elves want them gone, so nobody will mind.$B$BEat six. Is it chicken? Tell me if it''s chicken.', '', 'Return to Hagatha''s Lantern (the woods west of the Dead Scar, Eversong Woods).', 9105429, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28147, 1, 5617, 1, 2218, 1, 0, 0, 0, 0, 0, 0, 'Crazed Dragonhawk devoured', '', '', '', 0),
-(9105082, 2, 10, 9, 3430, 0, 6, 900, 0, 0, 'The Wretched Feast', 'Devour 6 Wretched in Eversong Woods.', 'The lantern''s flame leans toward you, and Hagatha''s voice is sad and not at all sorry:$B$BThe Wretched were elves who could not stop drinking magic, and now magic is all they are hungry for. They are like you, little horror, except they never learned to be anything else. They haunt Sunsail Anchorage and the shore to the west.$B$BEat six. It is a mercy, of a kind. And a wyrm that eats the Wretched grows into a wraith of pure spell.', '', 'Return to Hagatha''s Lantern (the woods west of the Dead Scar, Eversong Woods).', 9105430, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28142, 1, 28157, 1, 3581, 1, 0, 0, 0, 0, 0, 0, 'Wretched devoured', '', '', '', 0);
+(9105082, 2, 10, 9, 3430, 0, 6, 900, 0, 0, 'The Wretched Feast', 'Devour 6 Wretched in Eversong Woods.', 'The lantern''s flame leans toward you, and Hagatha''s voice is sad and not at all sorry:$B$BThe Wretched were elves who could not stop drinking magic, and now magic is all they are hungry for. They are like you, little horror, except they never learned to be anything else. They haunt Sunsail Anchorage and the shore to the west.$B$BEat six. It is a mercy, of a kind. And a wyrm that eats the Wretched grows into a wraith of pure spell.', '', 'Return to Hagatha''s Lantern (the woods west of the Dead Scar, Eversong Woods).', 9105430, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28142, 1, 28157, 1, 3581, 1, 0, 0, 0, 0, 0, 0, 'Wretched devoured', '', '', '', 0),
+(9105083, 2, 11, 11, 0, 0, 2, 290, 0, 0, 'A Lantern in Ghostlands', 'Find Hagatha''s Lantern: Sungraze Peak, south-west of Tranquillien, Ghostlands.', 'You have eaten what Eversong Woods had to teach, little horror. South of you the woods are dead, and the dead are hungry.$B$BI have hung another lantern in Ghostlands, Sungraze Peak, south-west of Tranquillien. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (Sungraze Peak, south-west of Tranquillien, Ghostlands).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105100, 2, 12, 11, 40, 0, 5, 864, 0, 0, 'Coyote Supper', 'Devour 6 coyotes in Westfall.', 'The lantern''s flame leans toward you, and Hagatha''s voice drifts out over the dry grass:$B$BThe coyotes of Westfall live on what the farmers left when they fled. They are thin, little horror, and thinness is a kind of hunger that has learned to wait.$B$BEat six of them, the runners and the pack leaders. A wolf that has eaten coyote learns to wait as well.', '', 'Return to Hagatha''s Lantern (the plains south-west of Sentinel Hill, Westfall).', 9105431, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5299, 1, 1306, 1, 2908, 1, 0, 0, 0, 0, 0, 0, 'Coyote devoured', '', '', '', 0),
+(9105101, 2, 14, 12, 40, 0, 5, 1176, 0, 0, 'Goretusk Gristle', 'Devour 5 goretusks and 3 fleshrippers in Westfall.', 'The lantern''s flame leans toward you, and Wren''s voice, munching something:$B$BMmf. Snack! Westfall''s famous for its stew. Goretusk stew! The farmers used to make it before they all ran off. I want to make it, but I can''t catch a goretusk from in here, so you have to eat the goretusks and I''ll make stew in my imagination.$B$BFive goretusks. And three of the fleshrippers, the vultures, because every stew needs a bit of bird.', '', 'Return to Hagatha''s Lantern (the plains south-west of Sentinel Hill, Westfall).', 9105432, 5, 9105433, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1310, 1, 5609, 1, 5757, 1, 0, 0, 0, 0, 0, 0, 'Goretusk devoured', 'Fleshripper devoured', '', '', 0),
+(9105102, 2, 15, 14, 40, 0, 5, 1350, 0, 0, 'Longshore Murlocs', 'Devour 6 murlocs along the Longshore in Westfall.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the flame smells of the sea:$B$BThe murlocs of the Longshore gurgle and breed and gurgle. They are not clever, little horror, but they are wet, and a toad that eats them grows fat and slippery and strange. Your toad would like that.$B$BEat six of them, anywhere along the coast.', '', 'Return to Hagatha''s Lantern (the plains south-west of Sentinel Hill, Westfall).', 9105434, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26023, 1, 6480, 1, 5279, 1, 0, 0, 0, 0, 0, 0, 'Longshore murloc devoured', '', '', '', 0),
+(9105103, 2, 18, 16, 40, 0, 6, 2916, 0, 0, 'Old Murk-Eye', 'Devour Old Murk-Eye at the southern end of the Longshore in Westfall.', 'The lantern''s flame leans toward you, and Hagatha tells it low, like a secret:$B$BAt the far south of the Longshore there is a murloc so old that his eye has gone milky, and the other murlocs bring him fish so he will not eat them instead. Old Murk-Eye, the sailors call him. He has been eating the coast for longer than Westfall has had farms.$B$BEat him, little horror. Toads stay in the swamp; the salamander is the one that crawled out and liked it. Old Murk-Eye will teach your toad to crawl.', '', 'Return to Hagatha''s Lantern (the plains south-west of Sentinel Hill, Westfall).', 9105435, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3431, 1, 17694, 1, 1264, 1, 0, 0, 0, 0, 0, 0, 'Old Murk-Eye devoured', '', '', '', 0),
+(9105109, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Duskwood', 'Find Hagatha''s Lantern: the edge of Raven Hill Cemetery, Duskwood.', 'You have eaten what Westfall had to teach, little horror. East of the farms the woods go dark and stay dark.$B$BI have hung another lantern in Duskwood, the edge of Raven Hill Cemetery. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the edge of Raven Hill Cemetery, Duskwood).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105110, 2, 13, 12, 38, 0, 5, 1014, 0, 0, 'Stonesplinter Bones', 'Devour 6 Stonesplinter troggs in Loch Modan.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe Stonesplinter troggs of the valley south of here dig because digging is all they remember. Their bones are half stone already. A trogg that eats them grows harder in the back, where the blows land.$B$BEat six of them in Stonesplinter Valley.', '', 'Return to Hagatha''s Lantern (Grizzlepaw Ridge, south of Thelsamar, Loch Modan).', 9105436, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5629, 1, 24351, 1, 22998, 1, 0, 0, 0, 0, 0, 0, 'Stonesplinter trogg devoured', '', '', '', 0),
+(9105111, 2, 14, 12, 38, 0, 5, 1176, 0, 0, 'Bear Fat and Boar Bristle', 'Devour 4 black bears and 4 mountain boars in Loch Modan.', 'The lantern''s flame leans toward you, and Wren, half singing:$B$BBear fat for the cauldron, boar bristle for the brush! Snack, Hagatha''s out of both and she''s being VERY grumpy about it. The loch is full of black bears and mountain boars.$B$BEat four bears and four boars and I''ll scrape what I need off your shadow. Don''t ask.', '', 'Return to Hagatha''s Lantern (Grizzlepaw Ridge, south of Thelsamar, Loch Modan).', 9105437, 4, 9105438, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1310, 1, 5351, 1, 2908, 1, 0, 0, 0, 0, 0, 0, 'Black bear devoured', 'Mountain boar devoured', '', '', 0),
+(9105112, 2, 16, 14, 38, 0, 5, 1536, 0, 0, 'The Loch''s Teeth', 'Devour 4 Loch Crocolisks in Loch Modan.', 'The lantern''s flame leans toward you, and Hagatha''s voice goes still as water:$B$BThe crocolisks of the loch lie along the shore like logs, and the dwarves who fish there have learned to count the logs. Eat four of them, little horror. Their shape is the beginning of a long road: the komodo, and after the komodo, the dragon of the southern islands.', '', 'Return to Hagatha''s Lantern (Grizzlepaw Ridge, south of Thelsamar, Loch Modan).', 9105439, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3585, 1, 26023, 1, 5757, 1, 0, 0, 0, 0, 0, 0, 'Loch Crocolisk devoured', '', '', '', 0),
+(9105113, 2, 22, 20, 38, 0, 6, 4356, 0, 0, 'The Large Loch Crocolisk', 'Devour the Large Loch Crocolisk in Loch Modan. Hagatha''s Bait, on the eastern shore of the loch, will call it.', 'The lantern''s flame leans toward you, and Hagatha tells it slowly, and you can hear her smile:$B$BThe dwarves of Thelsamar tell their children of a crocolisk in the loch so big it once ate a boat. The children do not believe it. The boat''s owner does. It surfaces only once in a long while, and then it goes back down.$B$BI have left a bait on the eastern shore of the loch. Touch it, and it will come up for you. Eat it. A komodo that has eaten the Large Loch Crocolisk is ready to become a dragon.', '', 'Return to Hagatha''s Lantern (Grizzlepaw Ridge, south of Thelsamar, Loch Modan).', 9105440, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6670, 1, 16659, 1, 6093, 1, 0, 0, 0, 0, 0, 0, 'Large Loch Crocolisk devoured', '', '', '', 0),
+(9105119, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Wetlands', 'Find Hagatha''s Lantern: the marsh north of Thelgen Rock, Wetlands.', 'You have eaten what Loch Modan had to teach, little horror. North of the tunnel the land turns to marsh, and the marsh has teeth.$B$BI have hung another lantern in Wetlands, the marsh north of Thelgen Rock. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the marsh north of Thelgen Rock, Wetlands).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105120, 2, 12, 11, 148, 0, 5, 864, 0, 0, 'Moonstalkers', 'Devour 6 moonstalkers in Darkshore.', 'The lantern''s flame leans toward you, and Hagatha speaks under her breath:$B$BThe moonstalkers of Darkshore are the nightsaber''s darker cousins. The night elves left this coast to them when they left everything else. Eat six of them, little horror, the runts and the grown ones. A saber needs to know the dark it hunts in.', '', 'Return to Hagatha''s Lantern (the hills south of Auberdine, Darkshore).', 9105441, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5299, 1, 22998, 1, 5279, 1, 0, 0, 0, 0, 0, 0, 'Moonstalker devoured', '', '', '', 0),
+(9105121, 2, 14, 12, 148, 0, 5, 1176, 0, 0, 'Thistle and Stride', 'Devour 4 thistle bears and 4 foreststriders in Darkshore.', 'The lantern''s flame leans toward you, and Wren''s voice, bouncing:$B$BSnack! Two things. One: the bears in Darkshore are called THISTLE bears, which means they''re prickly, which means they''re a challenge. Two: the striders have long legs and long legs are tasty.$B$BFour bears, four striders. I''m keeping score!', '', 'Return to Hagatha''s Lantern (the hills south of Auberdine, Darkshore).', 9105442, 4, 9105443, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1306, 1, 1310, 1, 24351, 1, 0, 0, 0, 0, 0, 0, 'Thistle bear devoured', 'Foreststrider devoured', '', '', 0),
+(9105122, 2, 15, 13, 148, 0, 5, 1350, 0, 0, 'The Moonkin of Darkshore', 'Devour 4 moonkin and the Moonkin Oracle in Darkshore.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the flame goes silver:$B$BAn owl that eats enough moonlight stands up one night and becomes a moonkin. Darkshore''s moonkin went mad when the coast went dark, and their oracle most of all. They wander the woods east of Auberdine, raving at the trees.$B$BEat four of them, and their oracle. Your owl is waiting to stand up.', '', 'Return to Hagatha''s Lantern (the hills south of Auberdine, Darkshore).', 9105444, 4, 9105445, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26023, 1, 3585, 1, 2908, 1, 0, 0, 0, 0, 0, 0, 'Moonkin devoured', 'Moonkin Oracle devoured', '', '', 0),
+(9105123, 2, 16, 14, 148, 0, 6, 2304, 0, 0, 'Shadowclaw', 'Devour Shadowclaw in Darkshore. Hagatha''s Bait, in the woods north-east of Auberdine, will call it.', 'The lantern''s flame leans toward you, and Hagatha''s voice drops to almost nothing:$B$BOn Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Shadowclaw. It walks the woods north-east of Auberdine and comes when it pleases, which is rarely.$B$BIt will come for my bait. I left it in the woods north-east of the town. Touch it, then eat what comes. Mind your voice near it.', '', 'Return to Hagatha''s Lantern (the hills south of Auberdine, Darkshore).', 9105446, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3741, 1, 17694, 1, 3431, 1, 0, 0, 0, 0, 0, 0, 'Shadowclaw devoured', '', '', '', 0),
+(9105129, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Ashenvale', 'Find Hagatha''s Lantern: the woods south-east of Astranaar, Ashenvale.', 'You have eaten what Darkshore had to teach, little horror. South of you the forest is old and full of things that remember.$B$BI have hung another lantern in Ashenvale, the woods south-east of Astranaar. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the woods south-east of Astranaar, Ashenvale).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105130, 2, 12, 11, 3525, 0, 5, 864, 0, 0, 'Ravager Hatchlings', 'Devour 6 Bloodmyst Hatchlings on Bloodmyst Isle.', 'The lantern''s flame leans toward you, and Wren, horrified and delighted:$B$BSnack, the red island has RAVAGERS. Babies! All claws and no manners. They fell out of the ship with everything else and they''ve been eating the island ever since. That''s YOUR job.$B$BEat six of the hatchlings before they grow up and get ideas.', '', 'Return to Hagatha''s Lantern (the red woods north of Blood Watch, Bloodmyst Isle).', 9105447, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26023, 1, 23408, 1, 2908, 1, 0, 0, 0, 0, 0, 0, 'Bloodmyst Hatchling devoured', '', '', '', 0),
+(9105131, 2, 15, 13, 3525, 0, 5, 1350, 0, 0, 'Blue Wings', 'Devour 4 Royal Blue Flutterers on Bloodmyst Isle.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the flame turns blue:$B$BThe draenei say the bluest moths dream for the ones they put to sleep. The royal blue flutterers of this island are the bluest of all; they drift over the north of it, along the Bloodwash. Never ask them what they dream about.$B$BEat four. Your moth will dream bluer.', '', 'Return to Hagatha''s Lantern (the red woods north of Blood Watch, Bloodmyst Isle).', 9105448, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22998, 1, 5351, 1, 5757, 1, 0, 0, 0, 0, 0, 0, 'Royal Blue Flutterer devoured', '', '', '', 0),
+(9105132, 2, 16, 15, 3525, 0, 5, 1536, 0, 0, 'The Warp Piston', 'Devour 3 Void Anomalies at the Warp Piston on Bloodmyst Isle.', 'The lantern''s flame leans toward you, and Hagatha''s voice comes wrong, as if from far away:$B$BWhere the ship''s engine broke open, at the Warp Piston in the north-east, the world has thinned to a rag. Things come through. Void anomalies, the draenei call them: little tears that learned to move.$B$BEat three of them, little horror. You were born from the dark between; you will find they taste of home.', '', 'Return to Hagatha''s Lantern (the red woods north of Blood Watch, Bloodmyst Isle).', 9105449, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3585, 1, 1306, 1, 24351, 1, 0, 0, 0, 0, 0, 0, 'Void Anomaly devoured', '', '', '', 0),
+(9105133, 2, 17, 15, 3525, 0, 6, 2601, 0, 0, 'Wyrmscar', 'Devour 5 veridian whelps or broodlings on Wyrmscar Island, Bloodmyst Isle.', 'The lantern''s flame leans toward you, and Wren, whispering for once:$B$BSnack, on Wyrmscar Island in the south-west there are dragons. DEAD dragons. Well, undead. Bony little whelps that the blood elves are poking with spells. Hagatha says a whelp is a whelp even when it''s mostly bones.$B$BEat five of the veridian whelps and broodlings. Bones are good for your teeth!', '', 'Return to Hagatha''s Lantern (the red woods north of Blood Watch, Bloodmyst Isle).', 9105450, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3741, 1, 16990, 1, 1264, 1, 0, 0, 0, 0, 0, 0, 'Veridian whelp devoured', '', '', '', 0),
+(9105139, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Ashenvale', 'Find Hagatha''s Lantern: the woods south-east of Astranaar, Ashenvale.', 'You have eaten what Bloodmyst Isle had to teach, little horror. Take the boat west; the forest of Ashenvale is old and full of things that remember.$B$BI have hung another lantern in Ashenvale, the woods south-east of Astranaar. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the woods south-east of Astranaar, Ashenvale).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105140, 2, 12, 11, 17, 0, 5, 864, 0, 0, 'Fleeting Legs', 'Devour 6 plainstriders in the Barrens.', 'The lantern''s flame leans toward you, and Hagatha''s voice rolls over the grass:$B$BIn Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. Its children are here: the greater plainstriders, the fleeting ones, the ornery ones.$B$BEat six of them, little horror. Your strider has more running in it than it knows.', '', 'Return to Hagatha''s Lantern (beside Wren''s Derby, west of the Crossroads, The Barrens).', 9105451, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1306, 1, 5299, 1, 5279, 1, 0, 0, 0, 0, 0, 0, 'Barrens plainstrider devoured', '', '', '', 0),
+(9105141, 2, 15, 13, 17, 0, 5, 1350, 0, 0, 'Quilboar Bacon', 'Devour 6 Razormane quilboar in the Barrens.', 'The lantern''s flame leans toward you, and Wren''s voice, scandalised:$B$BSnack, the quilboar of Thorn Hill are throwing rocks at the caravans AND they smell. That''s two crimes. The punishment is being eaten.$B$BEat six of the Razormane. The quilboar say a boar struck often enough forgets how to fall. Let''s find out!', '', 'Return to Hagatha''s Lantern (beside Wren''s Derby, west of the Crossroads, The Barrens).', 9105452, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1310, 1, 5609, 1, 24351, 1, 0, 0, 0, 0, 0, 0, 'Razormane quilboar devoured', '', '', '', 0),
+(9105142, 2, 17, 15, 17, 0, 5, 1734, 0, 0, 'Teeth of the Savannah', 'Devour 4 sunscale raptors and 3 hecklefang hyenas in the Barrens.', 'The lantern''s flame leans toward you, and Wren, keeping count on her fingers:$B$BRaptors, Snack! The sunscale ones, with the pretty colours. And the hyenas, the hecklefangs, because they laugh at everything and it''s RUDE. Four raptors and three hyenas.$B$BIf one of them laughs at you, eat that one first.', '', 'Return to Hagatha''s Lantern (beside Wren''s Derby, west of the Crossroads, The Barrens).', 9105453, 4, 9105454, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3741, 1, 26023, 1, 5757, 1, 0, 0, 0, 0, 0, 0, 'Sunscale raptor devoured', 'Hecklefang hyena devoured', '', '', 0),
+(9105143, 2, 19, 17, 17, 0, 6, 3249, 0, 0, 'The Thunderhawk Nests', 'Devour a Thunderhawk Hatchling in the southern Barrens.', 'The lantern''s flame leans toward you, and Hagatha tells it, and thunder rumbles somewhere in the flame:$B$BThe tauren say the thunder is only the wind serpents clearing their throats. Their young nest in the south, around Agama''gor and beyond, the thunderhawk hatchlings. A strider that eats one learns how the wind feels from above; a snake that eats one starts to grow wings.$B$BEat one, little horror. Then Wren has something for you.', '', 'Return to Hagatha''s Lantern (beside Wren''s Derby, west of the Crossroads, The Barrens).', 9105455, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6670, 1, 17694, 1, 6093, 1, 0, 0, 0, 0, 0, 0, 'Thunderhawk Hatchling devoured', '', '', '', 0),
+(9105144, 2, 20, 20, 17, 0, 2, 960, 0, 0, 'Wren''s Starting Line', 'Speak with Wren Hollowmoor at the Derby''s starting line, west of the Crossroads.', 'The lantern''s flame leans toward you, and Wren''s voice, so excited it squeaks:$B$BSnack! SNACK. Come to the starting line, right next to the lantern, by the road west of the Crossroads. I''m there! Well, a bit of me is there. Enough of me to start a race. I''ll explain when you get here.$B$BBring Bramble!', '', 'Return to Wren Hollowmoor at the Derby''s starting line, west of the Crossroads.', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105149, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Stonetalon Mountains', 'Find Hagatha''s Lantern: the high pass north-east of Mirkfallon Lake, Stonetalon Mountains.', 'You have eaten what The Barrens had to teach, little horror. West of the Barrens the mountains climb into the clouds, and so do the wyverns.$B$BI have hung another lantern in Stonetalon Mountains, the high pass north-east of Mirkfallon Lake. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the high pass north-east of Mirkfallon Lake, Stonetalon Mountains).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105150, 2, 12, 11, 130, 0, 5, 864, 0, 0, 'Worg Meat', 'Devour 6 worgs in Silverpine Forest.', 'The lantern''s flame leans toward you, and Hagatha speaks, and somewhere a wolf howls:$B$BThe worgs of Silverpine are wolves that remember something older. Their eyes are too clever. Eat six of them, little horror, the plain worgs and the mottled ones. A wolf that has eaten worg starts to remember too.', '', 'Return to Hagatha''s Lantern (the pines south of the Sepulcher, Silverpine Forest).', 9105456, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1306, 1, 5299, 1, 2908, 1, 0, 0, 0, 0, 0, 0, 'Worg devoured', '', '', '', 0),
+(9105151, 2, 14, 12, 130, 0, 5, 1176, 0, 0, 'Moonrage', 'Devour 5 Moonrage gnolls in Silverpine Forest.', 'The lantern''s flame leans toward you, and Wren, outraged:$B$BSnack, the Moonrage gnolls howl at the moon all night and I can hear it from HERE. In the In-Between. Through a lantern. That''s how loud they are.$B$BEat five of them so I can sleep. Please. I''m so tired.', '', 'Return to Hagatha''s Lantern (the pines south of the Sepulcher, Silverpine Forest).', 9105457, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1310, 1, 5609, 1, 24351, 1, 0, 0, 0, 0, 0, 0, 'Moonrage gnoll devoured', '', '', '', 0),
+(9105152, 2, 17, 15, 130, 0, 5, 1734, 0, 0, 'Bloodsnout', 'Devour 4 Bloodsnout Worgs along the Greymane Wall in Silverpine Forest.', 'The lantern''s flame leans toward you, and Hagatha tells it, and the flame runs red:$B$BEvery pack has one that runs behind the others. Not out of fear, little horror. It is choosing which leg to take first. Along the Greymane Wall, in the south, those ones have become a pack of their own: the bloodsnout worgs.$B$BEat four. Your wolf will know its own future when it tastes it.', '', 'Return to Hagatha''s Lantern (the pines south of the Sepulcher, Silverpine Forest).', 9105458, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3585, 1, 26023, 1, 5757, 1, 0, 0, 0, 0, 0, 0, 'Bloodsnout Worg devoured', '', '', '', 0),
+(9105153, 2, 18, 16, 130, 0, 6, 2916, 0, 0, 'Fenris Isle', 'Devour 5 Rot Hide gnolls on Fenris Isle in Silverpine Forest.', 'The lantern''s flame leans toward you, and Hagatha''s voice turns sharp:$B$BOn Fenris Isle, in the lake, the Rot Hide gnolls dig up the dead and eat them. Somebody has to eat the Rot Hides, little horror; that is how the world stays tidy.$B$BEat five of them. The dead they ate are a long way down, but a bat that drinks from them learns to drink from anything.', '', 'Return to Hagatha''s Lantern (the pines south of the Sepulcher, Silverpine Forest).', 9105459, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3741, 1, 17694, 1, 1264, 1, 0, 0, 0, 0, 0, 0, 'Rot Hide devoured', '', '', '', 0),
+(9105159, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Hillsbrad Foothills', 'Find Hagatha''s Lantern: the hills south-east of Tarren Mill, Hillsbrad Foothills.', 'You have eaten what Silverpine Forest had to teach, little horror. South of the pines the hills roll down to the sea, and the bears roll with them.$B$BI have hung another lantern in Hillsbrad Foothills, the hills south-east of Tarren Mill. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the hills south-east of Tarren Mill, Hillsbrad Foothills).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105160, 2, 12, 11, 3433, 0, 5, 864, 0, 0, 'Ghostclaw', 'Devour 6 Ghostclaw lynxes in the Ghostlands.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the flame goes pale:$B$BThe lynxes of the Ghostlands starve, because the Scourge ate everything first. A starving cat is the most honest hunter there is. Eat six of them, little horror, the starving ones and the ghostclaws.', '', 'Return to Hagatha''s Lantern (Sungraze Peak, south-west of Tranquillien, Ghostlands).', 9105460, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22998, 1, 5299, 1, 5279, 1, 0, 0, 0, 0, 0, 0, 'Ghostclaw lynx devoured', '', '', '', 0),
+(9105161, 2, 14, 12, 3433, 0, 5, 1176, 0, 0, 'Mistbats', 'Devour 6 mistbats in the Ghostlands.', 'The lantern''s flame leans toward you, and Hagatha, almost fond:$B$BIn Tirisfal the bats grew fat on what the plague left behind. Here they are the same, only paler. The mistbats, and the vampiric ones that learned to drink. Eat six of them. A bat that drinks enough grows into something that drinks you.', '', 'Return to Hagatha''s Lantern (Sungraze Peak, south-west of Tranquillien, Ghostlands).', 9105461, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1306, 1, 6480, 1, 24351, 1, 0, 0, 0, 0, 0, 0, 'Mistbat devoured', '', '', '', 0),
+(9105162, 2, 13, 12, 3433, 0, 5, 1014, 0, 0, 'Arcane Devourers', 'Devour 4 Arcane Devourers and 3 Mana Shifters at the Sanctum of the Moon in the Ghostlands.', 'The lantern''s flame leans toward you, and Hagatha, amused:$B$BAround the Sanctum of the Moon there are things the elves call arcane devourers. Devourers! As if a little ball of spilled magic knew what the word means. And mana shifters, who are worse at it.$B$BEat four of the devourers and three of the shifters, little horror. Show them what the word means.', '', 'Return to Hagatha''s Lantern (Sungraze Peak, south-west of Tranquillien, Ghostlands).', 9105462, 4, 9105463, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3585, 1, 26023, 1, 2908, 1, 0, 0, 0, 0, 0, 0, 'Arcane Devourer devoured', 'Mana Shifter devoured', '', '', 0),
+(9105163, 2, 17, 15, 3433, 0, 6, 2601, 0, 0, 'Spindleweb', 'Devour 5 spindleweb spiders in the Ghostlands.', 'The lantern''s flame leans toward you, and Wren, from very far back in the lantern:$B$BSnack I''m not coming closer to the glass because your spiders are THIS big. The spindlewebs! They''re everywhere down there. Hagatha says spiders are good for you. Hagatha is not the one who has to look at them.$B$BEat five. Quickly. Don''t describe them to me.', '', 'Return to Hagatha''s Lantern (Sungraze Peak, south-west of Tranquillien, Ghostlands).', 9105464, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3741, 1, 16990, 1, 1264, 1, 0, 0, 0, 0, 0, 0, 'Spindleweb spider devoured', '', '', '', 0),
+(9105169, 2, 20, 20, 0, 0, 2, 960, 0, 0, 'A Lantern in Hillsbrad Foothills', 'Find Hagatha''s Lantern: the hills south-east of Tarren Mill, Hillsbrad Foothills.', 'You have eaten what Ghostlands had to teach, little horror. Go south, through the Plaguelands if you must, to the green hills of Hillsbrad.$B$BI have hung another lantern in Hillsbrad Foothills, the hills south-east of Tarren Mill. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the hills south-east of Tarren Mill, Hillsbrad Foothills).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105170, 2, 20, 19, 10, 0, 5, 2400, 0, 0, 'Dire Wolves', 'Devour 6 dire wolves in Duskwood.', 'The lantern''s flame leans toward you, and Hagatha''s voice, pleased with the dark:$B$BDuskwood was a forest once, little horror, before the night came and would not leave. The wolves stayed. They starved, and then they went mad, and now they are dire. Eat six of the starving ones and the rabid ones along the Darkened Bank. A wolf that has eaten madness does not go mad itself. It learns to use it.', '', 'Return to Hagatha''s Lantern (the edge of Raven Hill Cemetery, Duskwood).', 9105465, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17005, 1, 5355, 1, 15464, 1, 0, 0, 0, 0, 0, 0, 'Dire wolf devoured', '', '', '', 0),
+(9105171, 2, 22, 20, 10, 0, 5, 2904, 0, 0, 'Candles for the Thin Places', 'Light 4 Unlit Grave Candles in Raven Hill Cemetery, Duskwood.', 'The lantern''s flame leans toward you, and Hagatha''s voice turns careful:$B$BRaven Hill Cemetery is a thin place, little horror. The world is worn there, like cloth at the elbow, and things push through from the other side. I have left four candles among the graves. Light them for me; touch each one and the flame will know my hand through yours.$B$BDo not mind the dead. They mind you more.', '', 'Return to Hagatha''s Lantern (the edge of Raven Hill Cemetery, Duskwood).', 9105466, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16659, 1, 6752, 1, 6748, 1, 0, 0, 0, 0, 0, 0, 'Grave candle lit', '', '', '', 0),
+(9105172, 2, 24, 22, 10, 0, 5, 3456, 0, 0, 'Ravagers and Widows', 'Devour 4 Young Black Ravagers and 3 Black Widow Hatchlings in Duskwood.', 'The lantern''s flame leans toward you, and Wren, whispering because it''s spooky:$B$BSnack, the woods round you have black ravagers. They''re wolves that are also, I think, nightmares? And black widow hatchlings, which are SPIDERS, which are babies, which is somehow worse.$B$BEat four ravagers and three hatchlings. I''ll keep the lantern turned up so you can see.', '', 'Return to Hagatha''s Lantern (the edge of Raven Hill Cemetery, Duskwood).', 9105467, 4, 9105468, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10653, 1, 6719, 1, 6093, 1, 0, 0, 0, 0, 0, 0, 'Young Black Ravager devoured', 'Black Widow Hatchling devoured', '', '', 0),
+(9105173, 2, 25, 23, 10, 0, 6, 5625, 0, 0, 'Lupos', 'Devour Lupos in Duskwood. Hagatha''s Bait, on the Darkened Bank, will call it.', 'The lantern''s flame leans toward you, and Hagatha tells it, and the flame goes pale as a ghost:$B$BThere is a wolf in Duskwood that the night does not touch. It shines. The hunters of Darkshire call it Lupos, and they say it was the first wolf to die when the night came, and it did not notice. It walks the Darkened Bank in the north and is almost never seen.$B$BI left a bait on the bank. Touch it. When Lupos comes, eat a wolf that does not know it is dead.', '', 'Return to Hagatha''s Lantern (the edge of Raven Hill Cemetery, Duskwood).', 9105469, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304855, 1, 0, 0, 0, 0, 0, 0, 6745, 1, 3754, 1, 24118, 1, 0, 0, 0, 0, 0, 0, 'Lupos devoured', '', '', '', 0),
+(9105179, 2, 30, 30, 0, 0, 2, 2160, 0, 0, 'A Lantern in Stranglethorn Vale', 'Find Hagatha''s Lantern: the jungle south-east of Nesingwary''s camp, Stranglethorn Vale.', 'You have eaten what Duskwood had to teach, little horror. South of the dark woods the jungle begins, and everything in it is green and hungry.$B$BI have hung another lantern in Stranglethorn Vale, the jungle south-east of Nesingwary''s camp. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the jungle south-east of Nesingwary''s camp, Stranglethorn Vale).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105180, 2, 21, 20, 11, 0, 5, 2646, 0, 0, 'Young Crocolisks', 'Devour 6 Young Wetlands Crocolisks and 2 Wetlands Crocolisks.', 'The lantern''s flame leans toward you, and Hagatha''s voice, wet and low:$B$BThe Wetlands are a nursery for crocolisks, little horror. The young ones crowd the shallows and wait to grow. Eat six of the young and two of the grown. A komodo grows on patience, and the young are all patience and no teeth yet.', '', 'Return to Hagatha''s Lantern (the marsh north of Thelgen Rock, Wetlands).', 9105470, 6, 9105471, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17005, 1, 2033, 1, 5322, 1, 0, 0, 0, 0, 0, 0, 'Young Wetlands Crocolisk devoured', 'Wetlands Crocolisk devoured', '', '', 0),
+(9105181, 2, 24, 22, 11, 0, 5, 3456, 0, 0, 'Raptors of the Highlands', 'Devour 5 Wetlands raptors.', 'The lantern''s flame leans toward you, and Wren, breathless:$B$BSnack, I counted the raptors in the Wetlands. I got to forty and a frog jumped on the lantern and I lost count. There are LOTS. Mottled ones in the marsh and highland ones in the hills.$B$BEat five and I''ll start counting again from thirty-five.', '', 'Return to Hagatha''s Lantern (the marsh north of Thelgen Rock, Wetlands).', 9105472, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7751, 1, 6719, 1, 6749, 1, 0, 0, 0, 0, 0, 0, 'Wetlands raptor devoured', '', '', '', 0),
+(9105182, 2, 25, 23, 11, 0, 5, 3750, 0, 0, 'Whelps of the Green Belt', 'Devour 6 whelps in the Wetlands.', 'The lantern''s flame leans toward you, and Hagatha''s voice warms, as if over a fire:$B$BIn the hills of the Green Belt, east of here, the red dragons lost some of their children. Lost whelps, red whelps, crimson whelps: little dragons with nobody to tell them what they are.$B$BEat six, little horror. If the whelp''s shape is not yours yet, it will be. And a whelp is the beginning of everything with wings and fire.', '', 'Return to Hagatha''s Lantern (the marsh north of Thelgen Rock, Wetlands).', 9105473, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3754, 1, 2953, 1, 24119, 1, 0, 0, 0, 0, 0, 0, 'Wetlands whelp devoured', '', '', '', 0),
+(9105183, 2, 27, 25, 11, 0, 6, 6561, 0, 0, 'Flamesnorting', 'Devour 3 Flamesnorting Whelps and 2 Giant Wetlands Crocolisks.', 'The lantern''s flame leans toward you, and Wren, giggling:$B$BSnack, there are whelps that SNORT FIRE. On purpose! Like little kettles! Flamesnorting whelps, out east past the others. And Hagatha says the giant crocolisks down in Sundown Marsh are as old as she is, which I told her is impossible, and she threw a spoon at me.$B$BEat three snorty whelps and two giant crocs. For me and the spoon.', '', 'Return to Hagatha''s Lantern (the marsh north of Thelgen Rock, Wetlands).', 9105474, 3, 9105475, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304918, 1, 0, 0, 0, 0, 0, 0, 9699, 1, 10653, 1, 6748, 1, 0, 0, 0, 0, 0, 0, 'Flamesnorting Whelp devoured', 'Giant Wetlands Crocolisk devoured', '', '', 0),
+(9105189, 2, 33, 33, 0, 0, 2, 2613, 0, 0, 'A Lantern in Dustwallow Marsh', 'Find Hagatha''s Lantern: the marsh north-east of Brackenwall, Dustwallow Marsh.', 'You have eaten what Wetlands had to teach, little horror. Take the ship from Menethil to Theramore; the marsh beyond it is older than the Wetlands and wetter.$B$BI have hung another lantern in Dustwallow Marsh, the marsh north-east of Brackenwall. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105190, 2, 20, 19, 331, 0, 5, 2400, 0, 0, 'Ghostpaw', 'Devour 6 Ghostpaw wolves in Ashenvale.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the leaves seem to listen:$B$BThe wolves of Ashenvale are called ghostpaws, because they walk so softly the night elves thought them spirits. They are not spirits, little horror. They are only quiet. Eat six of them and learn the difference.', '', 'Return to Hagatha''s Lantern (the woods south-east of Astranaar, Ashenvale).', 9105476, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6670, 1, 15462, 1, 1264, 1, 0, 0, 0, 0, 0, 0, 'Ghostpaw devoured', '', '', '', 0),
+(9105191, 2, 23, 21, 331, 0, 5, 3174, 0, 0, 'Antler and Fur', 'Devour 4 shadowhorn stags and 4 Ashenvale bears.', 'The lantern''s flame leans toward you, and Wren, enthusiastic:$B$BSnack! Ashenvale has the prettiest deer. Shadowhorn stags! I''d love one as a pet, but Hagatha says no pets bigger than the cauldron. So you eat them and I''ll draw one from memory. Four stags. And four bears, because bears are cuddly and I can''t have one of those either.', '', 'Return to Hagatha''s Lantern (the woods south-east of Astranaar, Ashenvale).', 9105477, 4, 9105478, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7751, 1, 5355, 1, 6749, 1, 0, 0, 0, 0, 0, 0, 'Shadowhorn stag devoured', 'Ashenvale bear devoured', '', '', 0),
+(9105192, 2, 27, 25, 331, 0, 5, 4374, 0, 0, 'Satyr Horns', 'Devour 5 Felmusk or Bleakheart satyrs in Ashenvale.', 'The lantern''s flame leans toward you, and Hagatha''s voice hardens:$B$BThe satyrs were night elves once. They sold their shape for power, little horror, and got horns for it. A bad bargain; you would never make a bad bargain for a shape. They gather at Night Run and Satyrnaar in the east of the forest.$B$BEat five of them. A cat that eats satyrs learns to hunt in silence, the way they never could.', '', 'Return to Hagatha''s Lantern (the woods south-east of Astranaar, Ashenvale).', 9105479, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2953, 1, 3754, 1, 24118, 1, 0, 0, 0, 0, 0, 0, 'Satyr devoured', '', '', '', 0),
+(9105193, 2, 28, 26, 331, 0, 6, 7056, 0, 0, 'The Voidcallers of Althalaxx', 'Devour 3 Dark Strand Voidcallers at the Tower of Althalaxx in Darkshore.', 'The lantern''s flame leans toward you, and Hagatha speaks, and the flame shrinks away from something:$B$BNorth of here, in Darkshore, the Twilight''s followers call the void at the Tower of Althalaxx. The dark strand voidcallers, they name themselves. Fools who knock on a door and do not wonder what will open it.$B$BEat three of them, little horror. A voidcreeper that has eaten the ones who call the void becomes the mother of what answers.', '', 'Return to Hagatha''s Lantern (the woods south-east of Astranaar, Ashenvale).', 9105480, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304841, 1, 0, 0, 0, 0, 0, 0, 6745, 1, 9687, 1, 6748, 1, 0, 0, 0, 0, 0, 0, 'Dark Strand Voidcaller devoured', '', '', '', 0),
+(9105199, 2, 33, 33, 0, 0, 2, 2613, 0, 0, 'A Lantern in Dustwallow Marsh', 'Find Hagatha''s Lantern: the marsh north-east of Brackenwall, Dustwallow Marsh.', 'You have eaten what Ashenvale had to teach, little horror. Go south, through the Barrens, to the marsh on the eastern coast.$B$BI have hung another lantern in Dustwallow Marsh, the marsh north-east of Brackenwall. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105200, 2, 21, 20, 267, 0, 5, 2646, 0, 0, 'Gray Bears', 'Devour 6 gray bears in Hillsbrad Foothills.', 'The lantern''s flame leans toward you, and Hagatha, mild:$B$BThe gray bears of Hillsbrad are old and slow and very, very strong. Eat six of them, little horror. Not every lesson is about speed.', '', 'Return to Hagatha''s Lantern (the hills south-east of Tarren Mill, Hillsbrad Foothills).', 9105481, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17005, 1, 6668, 1, 5322, 1, 0, 0, 0, 0, 0, 0, 'Gray bear devoured', '', '', '', 0),
+(9105201, 2, 24, 22, 267, 0, 5, 3456, 0, 0, 'Moss Creepers', 'Devour 6 moss creepers in Hillsbrad Foothills.', 'The lantern''s flame leans toward you, and Wren, horrified:$B$BSnack, the spiders there are covered in MOSS. They''re growing a garden on their backs. That''s MY thing. I grow gardens. Eat six of the moss creepers before they start growing herbs.', '', 'Return to Hagatha''s Lantern (the hills south-east of Tarren Mill, Hillsbrad Foothills).', 9105482, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10653, 1, 16659, 1, 6749, 1, 0, 0, 0, 0, 0, 0, 'Moss creeper devoured', '', '', '', 0),
+(9105202, 2, 26, 24, 267, 0, 5, 4056, 0, 0, 'Mountain Lions', 'Devour 5 mountain lions in Hillsbrad Foothills.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe mountain lions came down from Alterac when the ogres took the mountains. They are starving, little horror, and starving cats are honest hunters. Eat five of them, the starving ones and the feral ones in the south.', '', 'Return to Hagatha''s Lantern (the hills south-east of Tarren Mill, Hillsbrad Foothills).', 9105483, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304816, 1, 0, 0, 0, 0, 0, 0, 2953, 1, 3754, 1, 24118, 1, 0, 0, 0, 0, 0, 0, 'Mountain lion devoured', '', '', '', 0),
+(9105203, 2, 30, 28, 267, 0, 6, 8100, 0, 0, 'Snapjaws of Lordamere', 'Devour 4 Snapjaws on the shore of Lordamere Lake.', 'The lantern''s flame leans toward you, and Hagatha, slow as a turtle:$B$BAlong the shore of Lordamere Lake, to the north, the snapjaws lie in the sun. Old turtles, little horror, with jaws that close and do not open again. Eat four of them. If the turtle''s shape is not yours yet, it will be, and turtles live a very long time.', '', 'Return to Hagatha''s Lantern (the hills south-east of Tarren Mill, Hillsbrad Foothills).', 9105484, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4107, 1, 33249, 1, 33267, 1, 0, 0, 0, 0, 0, 0, 'Snapjaw devoured', '', '', '', 0),
+(9105209, 2, 31, 31, 0, 0, 2, 2306, 0, 0, 'A Lantern in Alterac Mountains', 'Find Hagatha''s Lantern: Gallows'' Corner, on the road through the mountains, Alterac Mountains.', 'You have eaten what Hillsbrad Foothills had to teach, little horror. Above the hills the mountains are full of things the ogres left alive.$B$BI have hung another lantern in Alterac Mountains, Gallows'' Corner, on the road through the mountains. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (Gallows'' Corner, on the road through the mountains, Alterac Mountains).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105210, 2, 20, 19, 406, 0, 5, 2400, 0, 0, 'Deepmoss', 'Devour 6 Deepmoss spiders in Stonetalon Mountains.', 'The lantern''s flame leans toward you, and Wren, from under a blanket:$B$BSnack, the spiders in the Windshear Crag are called DEEPMOSS and they SPIT. I''m hiding until you''ve eaten six of them. I''ve got biscuits under here. I''ll save you one.', '', 'Return to Hagatha''s Lantern (the high pass north-east of Mirkfallon Lake, Stonetalon Mountains).', 9105485, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6670, 1, 2033, 1, 15464, 1, 0, 0, 0, 0, 0, 0, 'Deepmoss spider devoured', '', '', '', 0),
+(9105211, 2, 23, 21, 406, 0, 5, 3174, 0, 0, 'Pridewings', 'Devour 5 pridewings in Stonetalon Mountains.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe pridewings of Stonetalon are wyverns, little horror: lion, bat and scorpion, stitched together by a world that could not make up its mind. They nest around Mirkfallon Lake. Eat five of them. A thing that is three things at once is a good lesson for a thing like you.', '', 'Return to Hagatha''s Lantern (the high pass north-east of Mirkfallon Lake, Stonetalon Mountains).', 9105486, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6752, 1, 6719, 1, 24119, 1, 0, 0, 0, 0, 0, 0, 'Pridewing devoured', '', '', '', 0),
+(9105212, 2, 26, 24, 406, 0, 5, 4056, 0, 0, 'Charred Basilisks', 'Devour 4 basilisks in the Charred Vale, Stonetalon Mountains.', 'The lantern''s flame leans toward you, and Wren, chewing:$B$BSnack, the basilisks in the Charred Vale got cooked when the forest burned. They''re still walking around, but they''re CRISPY. Crispy basilisk! Eat four for me. Tell me if they''re crispy all the way through.', '', 'Return to Hagatha''s Lantern (the high pass north-east of Mirkfallon Lake, Stonetalon Mountains).', 9105487, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9699, 1, 7751, 1, 6748, 1, 0, 0, 0, 0, 0, 0, 'Charred Vale basilisk devoured', '', '', '', 0),
+(9105213, 2, 30, 28, 406, 0, 6, 8100, 0, 0, 'Nal''taszar', 'Devour Nal''taszar on Stonetalon Peak. Hagatha''s Bait, near the summit, will call it.', 'The lantern''s flame leans toward you, and Hagatha''s voice grows teeth:$B$BHigh on Stonetalon Peak a drake makes its lair: Nal''taszar, a wild thing of the old flights, too proud to serve and too old to die. It comes down from the peak once in a long while.$B$BI left a bait near the summit, in the north of the mountains. Touch it, and Nal''taszar will come down for it. Eat it, little horror. A whelp that has eaten a wild drake remembers what dragons were before anyone tamed them.', '', 'Return to Hagatha''s Lantern (the high pass north-east of Mirkfallon Lake, Stonetalon Mountains).', 9105488, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4107, 1, 15456, 1, 33268, 1, 0, 0, 0, 0, 0, 0, 'Nal''taszar devoured', '', '', '', 0),
+(9105219, 2, 28, 28, 0, 0, 2, 1881, 0, 0, 'A Lantern in Thousand Needles', 'Find Hagatha''s Lantern: the canyon floor below Darkcloud Pinnacle, Thousand Needles.', 'You have eaten what Stonetalon Mountains had to teach, little horror. East of the mountains the land drops into a canyon full of stone needles.$B$BI have hung another lantern in Thousand Needles, the canyon floor below Darkcloud Pinnacle. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the canyon floor below Darkcloud Pinnacle, Thousand Needles).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105220, 2, 26, 25, 400, 0, 5, 4056, 0, 0, 'Pesterhide', 'Devour 6 Pesterhide hyenas in Thousand Needles.', 'The lantern''s flame leans toward you, and Wren, annoyed:$B$BSnack, the hyenas down there are called PESTERHIDE. They named themselves after what they do! They follow travellers and laugh at them. Eat six. Nobody laughs at my Snack.', '', 'Return to Hagatha''s Lantern (the canyon floor below Darkcloud Pinnacle, Thousand Needles).', 9105489, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9699, 1, 6752, 1, 6093, 1, 0, 0, 0, 0, 0, 0, 'Pesterhide hyena devoured', '', '', '', 0),
+(9105221, 2, 27, 26, 400, 0, 5, 4374, 0, 0, 'Cloud Serpents', 'Devour 5 cloud serpents in Thousand Needles.', 'The lantern''s flame leans toward you, and Hagatha, and somewhere in the flame the wind howls:$B$BA snake that swallows enough storms grows wings to carry them. The cloud serpents of the Needles are what that looks like, little horror. They coil around the spires. Eat five of them. Your snake, or your eagle, will learn what it is to be both at once.', '', 'Return to Hagatha''s Lantern (the canyon floor below Darkcloud Pinnacle, Thousand Needles).', 9105490, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3754, 1, 9687, 1, 24119, 1, 0, 0, 0, 0, 0, 0, 'Cloud serpent devoured', '', '', '', 0),
+(9105222, 2, 31, 29, 400, 0, 5, 5766, 0, 0, 'Sparkleshell', 'Devour 5 Sparkleshell turtles on the Shimmering Flats.', 'The lantern''s flame leans toward you, and Wren, delighted:$B$BSnack! The turtles on the Shimmering Flats SPARKLE. Sparkleshell tortoises and snappers! Hagatha says sparkly things are bad luck to eat. I say she''s jealous because her cauldron doesn''t sparkle.$B$BEat five. Find out who''s right.', '', 'Return to Hagatha''s Lantern (the canyon floor below Darkcloud Pinnacle, Thousand Needles).', 9105491, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33249, 1, 33250, 1, 4978, 1, 0, 0, 0, 0, 0, 0, 'Sparkleshell turtle devoured', '', '', '', 0),
+(9105223, 2, 33, 31, 400, 0, 6, 9801, 0, 0, 'The Shimmering Flats', 'Devour 4 scorpids and 2 saltstone basilisks on the Shimmering Flats.', 'The lantern''s flame leans toward you, and Hagatha speaks, dry as the salt:$B$BOn the Shimmering Flats the scorpids grow as big as carts, and the goblins race their machines over the bones of the ones the scorpids caught. Eat four of the reavers and terrors, little horror, and two of the saltstone basilisks that stare at nothing. The salt keeps them; it will keep you.', '', 'Return to Hagatha''s Lantern (the canyon floor below Darkcloud Pinnacle, Thousand Needles).', 9105492, 4, 9105493, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33243, 1, 4108, 1, 33261, 1, 0, 0, 0, 0, 0, 0, 'Shimmering Flats scorpid devoured', 'Saltstone basilisk devoured', '', '', 0),
+(9105229, 2, 35, 35, 0, 0, 2, 2940, 0, 0, 'A Lantern in Dustwallow Marsh', 'Find Hagatha''s Lantern: the marsh north-east of Brackenwall, Dustwallow Marsh.', 'You have eaten what Thousand Needles had to teach, little horror. North-east of the canyon the land turns to marsh, and the marsh has a worm I want you to meet.$B$BI have hung another lantern in Dustwallow Marsh, the marsh north-east of Brackenwall. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105230, 2, 31, 30, 33, 0, 5, 5766, 0, 0, 'Young Hunters of the Vale', 'Devour 6 young tigers or panthers in Stranglethorn Vale.', 'The lantern''s flame leans toward you, and Hagatha''s voice, heavy with the heat:$B$BIn Stranglethorn the cats grow up fast or not at all. Young tigers, young panthers, all teeth and no patience. Eat six of them, little horror. Your saber will learn what it is to be hunted while it hunts.', '', 'Return to Hagatha''s Lantern (the jungle south-east of Nesingwary''s camp, Stranglethorn Vale).', 9105494, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33237, 1, 4108, 1, 33263, 1, 0, 0, 0, 0, 0, 0, 'Young jungle cat devoured', '', '', '', 0),
+(9105231, 2, 33, 31, 33, 0, 5, 6534, 0, 0, 'Crocolisks of the Vale', 'Devour 5 crocolisks in Stranglethorn Vale.', 'The lantern''s flame leans toward you, and Hagatha, slow as a river:$B$BThe river crocolisks of the vale, and the snapjaws, and the saltwater ones on the coast. A komodo that has eaten its way along a whole river is ready for the southern islands, little horror, where the lizards grow as big as dragons.$B$BEat five.', '', 'Return to Hagatha''s Lantern (the jungle south-east of Nesingwary''s camp, Stranglethorn Vale).', 9105495, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33241, 1, 6727, 1, 4511, 1, 0, 0, 0, 0, 0, 0, 'Stranglethorn crocolisk devoured', '', '', '', 0),
+(9105232, 2, 34, 32, 33, 0, 5, 6936, 0, 0, 'Mistvale Gorillas', 'Devour 4 gorillas in Stranglethorn Vale.', 'The lantern''s flame leans toward you, and Wren, howling with laughter:$B$BSnack, there are GORILLAS. They beat their chests and they throw things! I threw a spoon at Hagatha once and she said it was undignified. Gorillas are undignified too, so it''s fine.$B$BEat four. Beat your chest first. For me.', '', 'Return to Hagatha''s Lantern (the jungle south-east of Nesingwary''s camp, Stranglethorn Vale).', 9105496, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10748, 1, 4114, 1, 9520, 1, 0, 0, 0, 0, 0, 0, 'Gorilla devoured', '', '', '', 0),
+(9105233, 2, 35, 33, 33, 0, 5, 7350, 0, 0, 'The Spiteful Frogs', 'As a Biletoad, Giant Marsh Frog or Water Salamander, slay 8 crocolisks, sharptooth frenzies or water elementals in Stranglethorn Vale.', 'The lantern''s flame leans toward you, and Wren, very excited, for a toad:$B$BSnack, you''re a TOAD! Or you can be one. That means you can do the toad thing: sit in the river looking innocent and then EAT. The vale''s rivers are full of crocolisks and frenzies and little water elementals that think they''re the scariest thing in the water.$B$BShow them. As a toad, or a frog, or your salamander, slay eight of them. I''ll send you a friend for it.', '', 'Return to Hagatha''s Lantern (the jungle south-east of Nesingwary''s camp, Stranglethorn Vale).', 9105497, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304919, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Water creature slain as a toad', '', '', '', 0),
+(9105234, 2, 38, 36, 33, 0, 6, 12996, 0, 0, 'Shadowmaw', 'Devour 3 Shadowmaw Panthers in southern Stranglethorn Vale.', 'The lantern''s flame leans toward you, and Hagatha tells it, and the flame goes black at its heart:$B$BIn the south of the vale, where the trolls built their temples, there are panthers so dark the trolls named them for the mouth of the night: shadowmaw. The trolls are gone. The shadowmaws are not.$B$BEat three of them, little horror. A saber that has eaten the night''s mouth hunts in it.', '', 'Return to Hagatha''s Lantern (the jungle south-east of Nesingwary''s camp, Stranglethorn Vale).', 9105498, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304079, 1, 0, 0, 0, 0, 0, 0, 9630, 1, 6788, 1, 10703, 1, 0, 0, 0, 0, 0, 0, 'Shadowmaw Panther devoured', '', '', '', 0),
+(9105239, 2, 41, 41, 0, 0, 2, 4034, 0, 0, 'A Lantern in The Hinterlands', 'Find Hagatha''s Lantern: the hills south-east of Aerie Peak, The Hinterlands.', 'You have eaten what Stranglethorn Vale had to teach, little horror. North, past the Wetlands, the hills grow wild and the owlbeasts forget the moon.$B$BI have hung another lantern in The Hinterlands, the hills south-east of Aerie Peak. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105240, 2, 35, 34, 15, 0, 5, 7350, 0, 0, 'Drywallow', 'Devour 6 Drywallow crocolisks in Dustwallow Marsh.', 'The lantern''s flame leans toward you, and Hagatha, satisfied:$B$BThe crocolisks of Dustwallow are called drywallow, because even here they find the driest mud to lie in. Strange, proud beasts. Eat six of them, little horror. Your komodo will learn to be proud of its own mud.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105499, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4108, 1, 4109, 1, 9680, 1, 0, 0, 0, 0, 0, 0, 'Drywallow crocolisk devoured', '', '', '', 0),
+(9105241, 2, 36, 35, 15, 0, 5, 7776, 0, 0, 'Spikeshell', 'Devour 5 Mudrock Spikeshells on the Dreadmurk Shore in Dustwallow Marsh.', 'The lantern''s flame leans toward you, and Hagatha tells it, slow as a shell:$B$BOld turtles grow spikes because the world kept biting them. You will understand that, little horror. On the Dreadmurk Shore the mudrock spikeshells have been bitten so often they are more spike than turtle.$B$BEat five. Your snapjaw is waiting to grow its spikes.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105500, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33237, 1, 4430, 1, 4511, 1, 0, 0, 0, 0, 0, 0, 'Mudrock Spikeshell devoured', '', '', '', 0),
+(9105242, 2, 37, 35, 15, 0, 5, 8214, 0, 0, 'Noxious Wings', 'Devour 4 noxious wind serpents in Dustwallow Marsh.', 'The lantern''s flame leans toward you, and Wren, holding her nose:$B$BSnack, the wind serpents in the marsh are NOXIOUS. That''s their actual name. Flayers and reavers and shredders, and they smell like old soup. Eat four. Hold your nose. Can you hold your nose? Depends what you''re wearing, I suppose.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105501, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10748, 1, 6727, 1, 33263, 1, 0, 0, 0, 0, 0, 0, 'Noxious wind serpent devoured', '', '', '', 0),
+(9105243, 2, 37, 35, 15, 0, 5, 8214, 0, 0, 'The Gulper''s Grin', 'As a Biletoad, Giant Marsh Frog or Water Salamander, devour 6 Mirefin murlocs in Dustwallow Marsh.', 'The lantern''s flame leans toward you, and Wren, plotting:$B$BToad Snack. Toady Snack. The murlocs on the Dreadmurk Shore keep stealing frogspawn from the marsh and I need you to have a WORD with them. As a toad. A big hungry toad with a big hungry grin.$B$BEat six Mirefin murlocs while you''re wearing your toad, or your frog, or the salamander. There''s a gulper in it for you.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105502, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304917, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Mirefin murloc devoured as a toad', '', '', '', 0),
+(9105244, 2, 39, 37, 15, 0, 5, 9126, 0, 0, 'Searing Whelps', 'Devour 5 searing hatchlings or whelps in southern Dustwallow Marsh.', 'The lantern''s flame leans toward you, and Hagatha, low:$B$BIn the Dragonmurk and the Wyrmbog in the south of the marsh, the black dragonflight keeps a nursery. Searing hatchlings, searing whelps. Their mother is a very great and very wicked dragon, and she will not notice a few gone. Eat five, little horror. Your whelp needs the black''s fire as much as the red''s.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105503, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9631, 1, 4549, 1, 11856, 1, 0, 0, 0, 0, 0, 0, 'Searing whelp devoured', '', '', '', 0),
+(9105245, 2, 40, 38, 15, 0, 5, 9600, 0, 0, 'Swamp Oozes', 'Devour 5 swamp oozes near Beezil''s Wreck in Dustwallow Marsh.', 'The lantern''s flame leans toward you, and Wren, fascinated:$B$BSnack, near the crashed zeppelin there are OOZES. Acidic ones and bubbling ones. They''re like soup that walks. I''ve always wanted to know what walking soup tastes like.$B$BEat five. Tell me everything.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105504, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9632, 1, 17778, 1, 10703, 1, 0, 0, 0, 0, 0, 0, 'Swamp ooze devoured', '', '', '', 0),
+(9105246, 2, 40, 38, 15, 0, 6, 14400, 0, 0, 'The Oozeworm', 'Devour the Oozeworm in the Dragonmurk, Dustwallow Marsh. Hagatha''s Bait, in the Dragonmurk, will call it.', 'The lantern''s flame leans toward you, and Hagatha tells it, and the flame shrinks:$B$BIn the Dragonmurk there is a worm so swollen with ooze that it no longer remembers being a worm. The goblins call it the Oozeworm, when they are brave enough to call it anything. It comes up rarely and goes down slowly.$B$BI left a bait in the Dragonmurk. Touch it. Eat what rises. A borer that has eaten the Oozeworm will dig deeper than any worm has dug.', '', 'Return to Hagatha''s Lantern (the marsh north-east of Brackenwall, Dustwallow Marsh).', 9105505, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304817, 1, 0, 0, 0, 0, 0, 0, 17776, 1, 9647, 1, 4549, 1, 0, 0, 0, 0, 0, 0, 'Oozeworm devoured', '', '', '', 0),
+(9105248, 2, 41, 41, 0, 0, 2, 4034, 0, 0, 'A Lantern in Tanaris', 'Find Hagatha''s Lantern: the dunes south-west of Gadgetzan, Tanaris.', 'You have eaten what Dustwallow Marsh had to teach, little horror. South of the marsh the land dries into sand, and the sand is full of teeth.$B$BI have hung another lantern in Tanaris, the dunes south-west of Gadgetzan. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the dunes south-west of Gadgetzan, Tanaris).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105249, 2, 41, 41, 0, 0, 2, 4034, 0, 0, 'A Lantern in Feralas', 'Find Hagatha''s Lantern: the forest south-west of Camp Mojache, Feralas.', 'You have eaten what Dustwallow Marsh had to teach, little horror. West of the Barrens the forests of Feralas grow taller than anything you have eaten.$B$BI have hung another lantern in Feralas, the forest south-west of Camp Mojache. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the forest south-west of Camp Mojache, Feralas).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105250, 2, 33, 31, 36, 0, 5, 6534, 0, 0, 'Mountain Lions of Alterac', 'Devour 5 mountain lions in the Alterac Mountains.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe lions of Alterac are bigger than their cousins in the foothills; the ogres eat everything smaller. The hulking ones especially. Eat five of them, little horror, and taste a cat that has learned to be big.', '', 'Return to Hagatha''s Lantern (Gallows'' Corner, on the road through the mountains, Alterac Mountains).', 9105506, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33243, 1, 33250, 1, 33268, 1, 0, 0, 0, 0, 0, 0, 'Alterac mountain lion devoured', '', '', '', 0),
+(9105251, 2, 34, 32, 36, 0, 5, 6936, 0, 0, 'Elemental Slaves', 'Devour 4 Elemental Slaves at the Dalaran Crater in the Alterac Mountains.', 'The lantern''s flame leans toward you, and Wren, angry on someone else''s behalf:$B$BSnack, in the crater where Dalaran used to be, the wizards left elementals TIED UP. Slaves! Of rock and water and whatever! That''s horrible. Hagatha says the kindest thing is to eat them, which is a very Hagatha kind of kindness.$B$BEat four. Kindly.', '', 'Return to Hagatha''s Lantern (Gallows'' Corner, on the road through the mountains, Alterac Mountains).', 9105507, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15456, 1, 33261, 1, 4978, 1, 0, 0, 0, 0, 0, 0, 'Elemental Slave devoured', '', '', '', 0),
+(9105252, 2, 37, 35, 36, 0, 6, 12321, 0, 0, 'The Stone Fury', 'Devour the Stone Fury at Strahnbrad. Hagatha''s Bait, at the edge of the town, will call it.', 'The lantern''s flame leans toward you, and Hagatha tells it, and the flame grinds like rock:$B$BWhen the Syndicate took Strahnbrad, a spirit of the mountain rose against them and never lay back down. The Stone Fury, the villagers called it. It wanders the town now, angry at everything, and is gone again for days.$B$BI left a bait at the edge of Strahnbrad. Touch it. Eat the fury of a mountain, little horror. A whelp that has eaten stone grows into an earthen drake.', '', 'Return to Hagatha''s Lantern (Gallows'' Corner, on the road through the mountains, Alterac Mountains).', 9105508, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10702, 1, 9705, 1, 9520, 1, 0, 0, 0, 0, 0, 0, 'Stone Fury devoured', '', '', '', 0),
+(9105253, 2, 45, 43, 36, 0, 7, 24300, 0, 0, 'Narillasanz', 'Devour Narillasanz on Chillwind Point in the Alterac Mountains. Hagatha''s Bait, on the point, will call it.', 'The lantern''s flame leans toward you, and Hagatha''s voice, very quiet, the way she speaks of dangerous things:$B$BOn Chillwind Point, above the lake, a red drake has made its home. Narillasanz. Old enough to remember the orcs who rode its kin, strong enough that the ogres leave it alone. Come back to me when you are strong enough too.$B$BI left a bait on the point. Touch it, and it will come. Eat it, little horror, and your drake will be ready to ride the storm.', '', 'Return to Hagatha''s Lantern (Gallows'' Corner, on the road through the mountains, Alterac Mountains).', 9105509, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19127, 1, 15822, 1, 11863, 1, 0, 0, 0, 0, 0, 0, 'Narillasanz devoured', '', '', '', 0),
+(9105259, 2, 41, 41, 0, 0, 2, 4034, 0, 0, 'A Lantern in The Hinterlands', 'Find Hagatha''s Lantern: the hills south-east of Aerie Peak, The Hinterlands.', 'You have eaten what Alterac Mountains had to teach, little horror. East of the mountains the Hinterlands grow wild and the owlbeasts forget the moon.$B$BI have hung another lantern in The Hinterlands, the hills south-east of Aerie Peak. Go to it. The beasts there are bigger, and so are the tales.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', '', 0),
+(9105260, 2, 42, 41, 440, 0, 5, 10584, 0, 0, 'Blisterpaw', 'Devour 6 Blisterpaw hyenas in Tanaris.', 'The lantern''s flame leans toward you, and Wren, fanning herself:$B$BSnack, it''s so HOT there the hyenas have blisters on their paws. Blisterpaws! Poor things. Well, they''re also horrible. Eat six. They''ll be glad to get off the sand.', '', 'Return to Hagatha''s Lantern (the dunes south-west of Gadgetzan, Tanaris).', 9105510, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9630, 1, 17778, 1, 11856, 1, 0, 0, 0, 0, 0, 0, 'Blisterpaw hyena devoured', '', '', '', 0),
+(9105261, 2, 44, 42, 440, 0, 5, 11616, 0, 0, 'Glasshide', 'Devour 5 glasshide basilisks in Tanaris.', 'The lantern''s flame leans toward you, and Hagatha speaks, dry as the dunes:$B$BThe basilisks of the Abyssal Sands ate so much sand their hides turned to glass. Glasshides, the goblins call them, and do not look into their eyes. Eat five of them, little horror. A meal that was once a beach.', '', 'Return to Hagatha''s Lantern (the dunes south-west of Gadgetzan, Tanaris).', 9105511, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19041, 1, 17776, 1, 11863, 1, 0, 0, 0, 0, 0, 0, 'Glasshide basilisk devoured', '', '', '', 0),
+(9105262, 2, 44, 42, 440, 0, 5, 11616, 0, 0, 'The Sandfury', 'Devour 6 Sandfury trolls at Sandsorrow Watch in Tanaris.', 'The lantern''s flame leans toward you, and Hagatha tells it, and sand hisses in the flame:$B$BThe Sandfury trolls of Zul''Farrak keep a watch at Sandsorrow, north of here, and pray to a great hydra in their city. Every serpent that sheds long enough stands up one day and starts to pray, little horror. The sand people began like you.$B$BEat six of the Sandfury. Your serpent will remember what praying tastes like.', '', 'Return to Hagatha''s Lantern (the dunes south-west of Gadgetzan, Tanaris).', 9105512, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10745, 1, 9657, 1, 11120, 1, 0, 0, 0, 0, 0, 0, 'Sandfury troll devoured', '', '', '', 0),
+(9105263, 2, 45, 43, 440, 0, 5, 12150, 0, 0, 'Rocs', 'Devour 4 rocs in Tanaris.', 'The lantern''s flame leans toward you, and Wren, gasping:$B$BSnack, the birds in the desert are as big as HOUSES. Rocs! Fire rocs! Hagatha says an eagle that eats a roc grows into something the sky is afraid of. I''m afraid of it already and it doesn''t exist yet.$B$BEat four rocs.', '', 'Return to Hagatha''s Lantern (the dunes south-west of Gadgetzan, Tanaris).', 9105513, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15822, 1, 19127, 1, 15703, 1, 0, 0, 0, 0, 0, 0, 'Roc devoured', '', '', '', 0),
+(9105264, 2, 48, 46, 440, 0, 6, 20736, 0, 0, 'Surf and Steel', 'Devour 5 Steeljaw Snappers or Surf Gliders on the beaches of Tanaris.', 'The lantern''s flame leans toward you, and Hagatha, pleased:$B$BOn the beaches of Tanaris the turtles are as old as the sea. Steeljaw snappers on the northern beach, surf gliders on Land''s End in the south. Eat five, little horror. Your spikeshell has a long way still to grow, and turtles are never in a hurry.', '', 'Return to Hagatha''s Lantern (the dunes south-west of Gadgetzan, Tanaris).', 9105514, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22274, 1, 20255, 1, 9651, 1, 0, 0, 0, 0, 0, 0, 'Tanaris turtle devoured', '', '', '', 0),
+(9105270, 2, 41, 40, 357, 0, 5, 10086, 0, 0, 'Longtooth', 'Devour 6 Longtooth wolves in Feralas.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BIn Feralas the wolves have teeth too long for their mouths. Longtooth, the hunters call them. A wolf that eats its longtooth cousins learns to bite deeper. Eat six.', '', 'Return to Hagatha''s Lantern (the forest south-west of Camp Mojache, Feralas).', 9105515, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9633, 1, 9631, 1, 10703, 1, 0, 0, 0, 0, 0, 0, 'Longtooth wolf devoured', '', '', '', 0),
+(9105271, 2, 43, 41, 357, 0, 5, 11094, 0, 0, 'Ironfur', 'Devour 5 Ironfur bears in Feralas.', 'The lantern''s flame leans toward you, and Wren, impressed:$B$BSnack, the bears in Feralas have fur like IRON. Ironfur bears! Can you imagine brushing that? I''d break the brush. Hagatha says a bear with iron fur is a bear that''s been hit a lot. Eat five and see if it''s true.', '', 'Return to Hagatha''s Lantern (the forest south-west of Camp Mojache, Feralas).', 9105516, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19042, 1, 9647, 1, 4549, 1, 0, 0, 0, 0, 0, 0, 'Ironfur bear devoured', '', '', '', 0),
+(9105272, 2, 45, 43, 357, 0, 5, 12150, 0, 0, 'Frayfeather', 'Devour 4 Frayfeather hippogryphs in Feralas.', 'The lantern''s flame leans toward you, and Hagatha, thoughtful:$B$BOn the Frayfeather Highlands live the hippogryphs, half bird, half stag. Their feathers fray at the ends from flying too long. An eagle that eats one learns to fly longer than its feathers last. Eat four, little horror.', '', 'Return to Hagatha''s Lantern (the forest south-west of Camp Mojache, Feralas).', 9105517, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17776, 1, 9657, 1, 11120, 1, 0, 0, 0, 0, 0, 0, 'Frayfeather hippogryph devoured', '', '', '', 0),
+(9105273, 2, 45, 43, 357, 0, 5, 12150, 0, 0, 'Sprite Darters', 'Devour 4 Sprite Darters in Feralas.', 'The lantern''s flame leans toward you, and Wren, giggling:$B$BSnack! Fairy dragons! Sprite darters! They''re tiny and colourful and they blink in and out like soap bubbles. Hagatha says they''re dragons, technically, so they count for your whelp. I say they''re adorable, so they count for me.$B$BEat four. Adorably.', '', 'Return to Hagatha''s Lantern (the forest south-west of Camp Mojache, Feralas).', 9105518, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10745, 1, 15703, 1, 11863, 1, 0, 0, 0, 0, 0, 0, 'Sprite Darter devoured', '', '', '', 0),
+(9105274, 2, 47, 45, 357, 0, 6, 19881, 0, 0, 'Groddoc', 'Devour 4 Groddoc apes in Feralas.', 'The lantern''s flame leans toward you, and Hagatha speaks:$B$BThe great apes of Feralas, the groddoc, beat the ground until it shakes. Thunderers, the elves call the biggest. Eat four, little horror. There is strength in them the forest itself respects.', '', 'Return to Hagatha''s Lantern (the forest south-west of Camp Mojache, Feralas).', 9105519, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9652, 1, 19992, 1, 19159, 1, 0, 0, 0, 0, 0, 0, 'Groddoc ape devoured', '', '', '', 0),
+(9105280, 2, 43, 41, 47, 0, 5, 11094, 0, 0, 'Silvermane', 'Devour 6 Silvermane wolves in the Hinterlands.', 'The lantern''s flame leans toward you, and Hagatha, admiring:$B$BThe wolves of the Hinterlands have silver manes, and the dwarves of Aerie Peak make cloaks of them. Eat six, little horror. A wolf that has eaten silver shines a little, even in the dark.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 9105520, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9632, 1, 17778, 1, 11856, 1, 0, 0, 0, 0, 0, 0, 'Silvermane wolf devoured', '', '', '', 0),
+(9105281, 2, 44, 42, 47, 0, 5, 11616, 0, 0, 'Owlbeasts of the Hinterlands', 'Devour 5 owlbeasts in the Hinterlands.', 'The lantern''s flame leans toward you, and Hagatha''s voice goes silver:$B$BAn owl that eats enough moonlight becomes a moonkin. A moonkin that eats enough of the wild becomes an owlbeast, and then it forgets the moon entirely. The Hinterlands are full of them: vicious, primitive, savage.$B$BEat five. Your moonkin should know what it could forget.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 9105521, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19042, 1, 9647, 1, 11120, 1, 0, 0, 0, 0, 0, 0, 'Hinterlands owlbeast devoured', '', '', '', 0),
+(9105282, 2, 45, 43, 47, 0, 5, 12150, 0, 0, 'Saltwater Snapjaws', 'Devour 5 Saltwater Snapjaws on the Overlook Cliffs in the Hinterlands.', 'The lantern''s flame leans toward you, and Wren, waving:$B$BSnack, on the Overlook Cliffs in the south the turtles are SALTY. Saltwater snapjaws! They live by the sea and they''re grumpy about it. Eat five and tell me if they taste like the sea or like grump.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 9105522, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15822, 1, 10745, 1, 15703, 1, 0, 0, 0, 0, 0, 0, 'Saltwater Snapjaw devoured', '', '', '', 0),
+(9105283, 2, 47, 45, 47, 0, 5, 13254, 0, 0, 'Jade Oozes', 'Devour 5 Jade Oozes at Skulk Rock in the Hinterlands.', 'The lantern''s flame leans toward you, and Wren, collecting jars:$B$BSnack, at Skulk Rock the oozes are GREEN. Jade green! I''m making a collection: the walking soups of the world. Eat five jade oozes and I''ll add them to the list. I have a list. It''s long.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 9105523, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19127, 1, 9657, 1, 11863, 1, 0, 0, 0, 0, 0, 0, 'Jade Ooze devoured', '', '', '', 0),
+(9105284, 2, 48, 46, 47, 0, 6, 20736, 0, 0, 'Gammerita', 'Devour Gammerita on the Overlook Cliffs in the Hinterlands.', 'The lantern''s flame leans toward you, and Hagatha tells it, slow and fond:$B$BOn the Overlook Cliffs there lives a turtle the dwarves named Gammerita, after an aunt who was also very old and very cross. She has been bitten by everything that lives on that coast, and she has outlived all of it.$B$BEat her, little horror. A spikeshell that has eaten Gammerita will outlive you, probably. That is the best thing a shell can do.', '', 'Return to Hagatha''s Lantern (the hills south-east of Aerie Peak, The Hinterlands).', 9105524, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22274, 1, 9652, 1, 19992, 1, 0, 0, 0, 0, 0, 0, 'Gammerita devoured', '', '', '', 0);
 INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
 (9105001, 512, 9101305),
 (9105002, 512, 9101305),
@@ -185,27 +633,136 @@ INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VAL
 (9105010, 512, 0),
 (9105011, 512, 9105010),
 (9105012, 512, 9105011),
+(9105013, 512, 9105012),
 (9105020, 512, 0),
 (9105021, 512, 9105020),
 (9105022, 512, 9105021),
+(9105023, 512, 9105022),
 (9105030, 512, 0),
 (9105031, 512, 9105030),
 (9105032, 512, 9105031),
+(9105033, 512, 9105032),
 (9105040, 512, 0),
 (9105041, 512, 9105040),
 (9105042, 512, 9105041),
+(9105043, 512, 9105042),
 (9105050, 512, 0),
 (9105051, 512, 9105050),
 (9105052, 512, 9105051),
+(9105053, 512, 9105052),
 (9105060, 512, 0),
 (9105061, 512, 9105060),
 (9105062, 512, 9105061),
+(9105063, 512, 9105062),
 (9105070, 512, 0),
 (9105071, 512, 9105070),
 (9105072, 512, 9105071),
+(9105073, 512, 9105072),
 (9105080, 512, 0),
 (9105081, 512, 9105080),
-(9105082, 512, 9105081);
+(9105082, 512, 9105081),
+(9105083, 512, 9105082),
+(9105100, 512, 0),
+(9105101, 512, 9105100),
+(9105102, 512, 9105101),
+(9105103, 512, 9105102),
+(9105109, 512, 9105103),
+(9105110, 512, 0),
+(9105111, 512, 9105110),
+(9105112, 512, 9105111),
+(9105113, 512, 9105112),
+(9105119, 512, 9105113),
+(9105120, 512, 0),
+(9105121, 512, 9105120),
+(9105122, 512, 9105121),
+(9105123, 512, 9105122),
+(9105129, 512, 9105123),
+(9105130, 512, 0),
+(9105131, 512, 9105130),
+(9105132, 512, 9105131),
+(9105133, 512, 9105132),
+(9105139, 512, 9105133),
+(9105140, 512, 0),
+(9105141, 512, 9105140),
+(9105142, 512, 9105141),
+(9105143, 512, 9105142),
+(9105144, 512, 9105143),
+(9105149, 512, 9105143),
+(9105150, 512, 0),
+(9105151, 512, 9105150),
+(9105152, 512, 9105151),
+(9105153, 512, 9105152),
+(9105159, 512, 9105153),
+(9105160, 512, 0),
+(9105161, 512, 9105160),
+(9105162, 512, 9105161),
+(9105163, 512, 9105162),
+(9105169, 512, 9105163),
+(9105170, 512, 0),
+(9105171, 512, 9105170),
+(9105172, 512, 9105171),
+(9105173, 512, 9105172),
+(9105179, 512, 9105173),
+(9105180, 512, 0),
+(9105181, 512, 9105180),
+(9105182, 512, 9105181),
+(9105183, 512, 9105182),
+(9105189, 512, 9105183),
+(9105190, 512, 0),
+(9105191, 512, 9105190),
+(9105192, 512, 9105191),
+(9105193, 512, 9105192),
+(9105199, 512, 9105193),
+(9105200, 512, 0),
+(9105201, 512, 9105200),
+(9105202, 512, 9105201),
+(9105203, 512, 9105202),
+(9105209, 512, 9105203),
+(9105210, 512, 0),
+(9105211, 512, 9105210),
+(9105212, 512, 9105211),
+(9105213, 512, 9105212),
+(9105219, 512, 9105213),
+(9105220, 512, 0),
+(9105221, 512, 9105220),
+(9105222, 512, 9105221),
+(9105223, 512, 9105222),
+(9105229, 512, 9105223),
+(9105230, 512, 0),
+(9105231, 512, 9105230),
+(9105232, 512, 9105231),
+(9105233, 512, 9105230),
+(9105234, 512, 9105232),
+(9105239, 512, 9105234),
+(9105240, 512, 0),
+(9105241, 512, 9105240),
+(9105242, 512, 9105241),
+(9105243, 512, 9105240),
+(9105244, 512, 9105242),
+(9105245, 512, 9105244),
+(9105246, 512, 9105245),
+(9105248, 512, 9105246),
+(9105249, 512, 9105246),
+(9105250, 512, 0),
+(9105251, 512, 9105250),
+(9105252, 512, 9105251),
+(9105253, 512, 9105252),
+(9105259, 512, 9105252),
+(9105260, 512, 0),
+(9105261, 512, 9105260),
+(9105262, 512, 9105260),
+(9105263, 512, 9105261),
+(9105264, 512, 9105262),
+(9105270, 512, 0),
+(9105271, 512, 9105270),
+(9105272, 512, 9105271),
+(9105273, 512, 9105271),
+(9105274, 512, 9105272),
+(9105280, 512, 0),
+(9105281, 512, 9105280),
+(9105282, 512, 9105280),
+(9105283, 512, 9105281),
+(9105284, 512, 9105282);
 INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`, `VerifiedBuild`) VALUES
 (9105001, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105002, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
@@ -218,27 +775,136 @@ INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`,
 (9105010, 1, 1, 'Six wolves, I said. I can count your meals, little horror. I can smell them on you.', 0),
 (9105011, 1, 1, 'The basket''s still pretend-full, Snack. Boar, bear, spider!', 0),
 (9105012, 1, 1, 'Hogger is still the hungriest thing in Elwynn. That should bother you more than it does.', 0),
+(9105013, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105020, 1, 1, 'Pantry''s still full, Snack. Leopard, bear, wolf!', 0),
 (9105021, 1, 1, 'Your belly is still light, little horror. Six troggs.', 0),
 (9105022, 1, 1, 'The Backbreakers still dig, little horror. One of them, I said.', 0),
+(9105023, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105030, 1, 1, 'Six cats. They are quiet, but they are not hidden from you.', 0),
 (9105031, 1, 1, 'Hoo? Hoo hoo? That means ''still five owls'', Snack.', 0),
 (9105032, 1, 1, 'The queen still sits in her web.', 0),
+(9105033, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105040, 1, 1, 'Five striders, little horror. They run, but not far.', 0),
 (9105041, 1, 1, 'No tea yet, Snack. Roots and deer!', 0),
 (9105042, 1, 1, 'Three owlbeasts. Their madness keeps them home; go to them.', 0),
+(9105043, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105050, 1, 1, 'Six boars. They come to you if you stand still long enough.', 0),
 (9105051, 1, 1, 'Four and four, Snack! I need it for my bet.', 0),
 (9105052, 1, 1, 'They are still lying in the river. Go and remind them.', 0),
+(9105053, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105060, 1, 1, 'Six striders. They will not stop running for you.', 0),
 (9105061, 1, 1, 'Hat stand''s still empty, Snack. Wolves and cougars!', 0),
 (9105062, 1, 1, 'Mazzranache still wanders. Touch my bait, little horror; it is there for you.', 0),
+(9105063, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105070, 1, 1, 'Six bats. Listen for them; they are listening for you.', 0),
 (9105071, 1, 1, 'Six hounds, Snack. Science is waiting.', 0),
 (9105072, 1, 1, 'Five crusaders. They are easy to find; they shout.', 0),
+(9105073, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
 (9105080, 1, 1, 'Six of them. The West Sanctum hums with them.', 0),
 (9105081, 1, 1, 'Six dragonhawks, Snack! I need to know about the chicken.', 0),
-(9105082, 1, 1, 'Six of the Wretched. They will not be missed.', 0);
+(9105082, 1, 1, 'Six of the Wretched. They will not be missed.', 0),
+(9105083, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105100, 1, 1, 'Six coyotes. They are thin, but they are there.', 0),
+(9105101, 1, 1, 'Imaginary stew needs real goretusks, Snack.', 0),
+(9105102, 1, 1, 'Six murlocs. Follow the gurgling.', 0),
+(9105103, 1, 1, 'The old one still eats the coast.', 0),
+(9105109, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105110, 1, 1, 'Six troggs. They are still digging.', 0),
+(9105111, 1, 1, 'Still no fat, still no bristle. Hagatha''s still grumpy.', 0),
+(9105112, 1, 1, 'Four of them. Count the logs.', 0),
+(9105113, 1, 1, 'It is still at the bottom of the loch. Touch my bait.', 0),
+(9105119, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105120, 1, 1, 'Six moonstalkers. They are darker than the night, but not darker than you.', 0),
+(9105121, 1, 1, 'Score''s still zero, Snack. Bears and striders!', 0),
+(9105122, 1, 1, 'The moonkin still rave at the trees. And the oracle loudest.', 0),
+(9105123, 1, 1, 'The cat still hunts in silence. Touch my bait, little horror.', 0),
+(9105129, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105130, 1, 1, 'Six hatchlings, Snack. They''re getting ideas.', 0),
+(9105131, 1, 1, 'Four flutterers. They drift; follow them.', 0),
+(9105132, 1, 1, 'Three anomalies. The world is thin there; mind you do not fall through.', 0),
+(9105133, 1, 1, 'Five bony whelps, Snack. Crunch crunch.', 0),
+(9105139, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105140, 1, 1, 'Six striders. They will not stand still for you.', 0),
+(9105141, 1, 1, 'Six quilboar, Snack. They''re still throwing rocks.', 0),
+(9105142, 1, 1, 'Four raptors, three hyenas. Somebody''s still laughing.', 0),
+(9105143, 1, 1, 'The hatchlings still nest in the south.', 0),
+(9105144, 1, 1, 'I''m RIGHT HERE, Snack.', 0),
+(9105149, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105150, 1, 1, 'Six worgs. They watch you from the pines.', 0),
+(9105151, 1, 1, 'Still howling, Snack. Still awake.', 0),
+(9105152, 1, 1, 'Four bloodsnouts. They run behind; you run faster.', 0),
+(9105153, 1, 1, 'Five Rot Hides. The isle is full of them.', 0),
+(9105159, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105160, 1, 1, 'Six cats. They are thin; you will have to be quick.', 0),
+(9105161, 1, 1, 'Six bats. They are in the mist; so are you.', 0),
+(9105162, 1, 1, 'They are still calling themselves devourers.', 0),
+(9105163, 1, 1, 'Are they gone? Don''t tell me what they look like.', 0),
+(9105169, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105170, 1, 1, 'Six wolves. They are easy to find; they want to find you.', 0),
+(9105171, 1, 1, 'Some of my candles are still dark.', 0),
+(9105172, 1, 1, 'Four ravagers, three hatchlings. I''m still whispering, Snack.', 0),
+(9105173, 1, 1, 'The shining wolf still walks. Touch my bait.', 0),
+(9105179, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105180, 1, 1, 'The shallows are still crowded.', 0),
+(9105181, 1, 1, 'Still lots of raptors, Snack.', 0),
+(9105182, 1, 1, 'Six whelps. They are lost; they will not run far.', 0),
+(9105183, 1, 1, 'Three snorters, two giants. The spoon is waiting.', 0),
+(9105189, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105190, 1, 1, 'Six ghostpaws. Quiet things; be quieter.', 0),
+(9105191, 1, 1, 'Four stags, four bears. My drawing''s still blank.', 0),
+(9105192, 1, 1, 'Five satyrs. They are loud; follow the noise.', 0),
+(9105193, 1, 1, 'They are still knocking on the door.', 0),
+(9105199, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105200, 1, 1, 'Six bears. They are slow; do not make me wait longer than they do.', 0),
+(9105201, 1, 1, 'Six creepers, Snack. They''re planting tomatoes, probably.', 0),
+(9105202, 1, 1, 'Five lions. They are hungry too.', 0),
+(9105203, 1, 1, 'Four snapjaws. They will not come to you; turtles never do.', 0),
+(9105209, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105210, 1, 1, 'Still under the blanket, Snack.', 0),
+(9105211, 1, 1, 'Five pridewings. They fly, but they come down to feed.', 0),
+(9105212, 1, 1, 'Four crispy basilisks, Snack.', 0),
+(9105213, 1, 1, 'The drake is still on its peak. Touch my bait.', 0),
+(9105219, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105220, 1, 1, 'Six hyenas. They''re still laughing, Snack.', 0),
+(9105221, 1, 1, 'Five serpents. They coil around the needles.', 0),
+(9105222, 1, 1, 'Five sparkly turtles, Snack.', 0),
+(9105223, 1, 1, 'The scorpids still guard the salt.', 0),
+(9105229, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105230, 1, 1, 'Six young cats. They are everywhere; so is the heat.', 0),
+(9105231, 1, 1, 'Five crocolisks. Follow the river.', 0),
+(9105232, 1, 1, 'Four gorillas, Snack. Chest-beating optional but encouraged.', 0),
+(9105233, 1, 1, 'Eight, Snack. And you have to be a toad when you do it. Those are the rules. I made them up.', 0),
+(9105234, 1, 1, 'The shadowmaws are still in the dark.', 0),
+(9105239, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105240, 1, 1, 'Six drywallows. They lie in the driest mud.', 0),
+(9105241, 1, 1, 'Five spikeshells. Mind your mouth.', 0),
+(9105242, 1, 1, 'Four stinky serpents, Snack.', 0),
+(9105243, 1, 1, 'Six murlocs, Snack, as a toad. They''re still stealing frogspawn.', 0),
+(9105244, 1, 1, 'Five searing whelps. The nursery is in the south.', 0),
+(9105245, 1, 1, 'Five oozes, Snack. The soup is still walking.', 0),
+(9105246, 1, 1, 'The worm is still under the mud. Touch my bait.', 0),
+(9105248, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105249, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105250, 1, 1, 'Five lions. The big ones, mostly.', 0),
+(9105251, 1, 1, 'Four of them, Snack. Kindly.', 0),
+(9105252, 1, 1, 'The fury is still in the mountain. Touch my bait.', 0),
+(9105253, 1, 1, 'The drake still sits on its point. Are you strong enough yet?', 0),
+(9105259, 1, 1, 'The lantern is not lit yet? Then you are not there yet, little horror.', 0),
+(9105260, 1, 1, 'Six blisterpaws, Snack. Their paws still hurt.', 0),
+(9105261, 1, 1, 'Five glasshides. Do not look into their eyes.', 0),
+(9105262, 1, 1, 'Six Sandfury. They are still praying.', 0),
+(9105263, 1, 1, 'Four rocs, Snack. As big as houses!', 0),
+(9105264, 1, 1, 'Five turtles. They are not in a hurry; neither am I.', 0),
+(9105270, 1, 1, 'Six longtooths. Mind their teeth.', 0),
+(9105271, 1, 1, 'Five ironfurs, Snack. Bring a big appetite.', 0),
+(9105272, 1, 1, 'Four hippogryphs. Look up.', 0),
+(9105273, 1, 1, 'Four sprite darters, Snack. Adorably.', 0),
+(9105274, 1, 1, 'Four groddoc. Listen for the thunder.', 0),
+(9105280, 1, 1, 'Six silvermanes. They shine; you will find them.', 0),
+(9105281, 1, 1, 'Five owlbeasts. They have forgotten the moon; do not let them forget you.', 0),
+(9105282, 1, 1, 'Five salty snapjaws, Snack.', 0),
+(9105283, 1, 1, 'Five jade oozes, Snack. For the list.', 0),
+(9105284, 1, 1, 'Gammerita is still cross on her cliffs.', 0);
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
 (9105001, 1, 'There you are. The flame knew you before I did.$B$BSit, hungry thing. Your home is full of meals, and every meal is a lesson.', 0),
 (9105002, 1, 'There you are. The flame knew you before I did.$B$BSit, hungry thing. Your home is full of meals, and every meal is a lesson.', 0),
@@ -251,27 +917,146 @@ INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`)
 (9105010, 1, 'Fear, mostly. And rabbit. That is the taste of a wolf that runs alone.$B$BTake something for your trouble. Old things I have kept, and they will fit a shape like yours better than they fit me.', 0),
 (9105011, 1, 'The spider was best, wasn''t it? I KNEW it. I''m putting a star next to spider.$B$BHagatha says I have to give you something useful and not another pretend basket. Here!', 0),
 (9105012, 1, 'Now you are the hungriest thing in Elwynn. Do not let it go to your head; it is a very small forest.$B$BHere. Wren says these are for heroes. I say they are for whoever ate the hero''s problem.', 0),
+(9105013, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Westfall is hungry too.', 0),
 (9105020, 1, 'Crunchy? Crunchy. I can hear it in your voice.$B$BHere, Hagatha found these in the cellar. They smell like dwarves. Everything in the cellar smells like dwarves.', 0),
 (9105021, 1, 'Heavy, is it? Good. A thing that carries stone inside it does not fall over easily.$B$BTake one of these. Something to wear over the weight.', 0),
 (9105022, 1, 'Now you have tasted what a trogg grows into. Remember it: one day your own stone will crack open and something like that will crawl out.$B$BWear this until then.', 0),
+(9105023, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Loch Modan is hungry too.', 0),
 (9105030, 1, 'Quiet, were they? You were quieter. That is the lesson.$B$BThese were left in my lantern by someone who did not need them any more.', 0),
 (9105031, 1, 'Did you get the shape? Hoot at me. No? Hoot anyway, it''s good practice.$B$BHagatha told me to give you this and to stop hooting. I''ll stop hooting when I''m finished.', 0),
 (9105032, 1, 'A long name, and in the end only a meal. Remember that when you meet names longer than hers.$B$BTake your pick. She had no use for them, and neither do I.', 0),
+(9105033, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Darkshore is hungry too.', 0),
 (9105040, 1, 'Long legs. You will want them one day, when something bigger than you is hungry.$B$BTake one of these.', 0),
 (9105041, 1, 'Mm, earthy. Hagatha says it tastes like a boot. Hagatha has never tasted a boot, she''s guessing.$B$BHere, a biscuit. Well. Not a biscuit. Better than a biscuit.', 0),
 (9105042, 1, 'Sharp, and it stays. Now you know.$B$BThese came out of the wreck. The draenei will not miss them.', 0),
+(9105043, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Bloodmyst Isle is hungry too.', 0),
 (9105050, 1, 'Tough, and not much else. Do not underestimate ''not much else'', little horror.$B$BHere.', 0),
 (9105051, 1, 'Scorpids! I WIN. Hagatha bet raptors. Hagatha has to fold the laundry.$B$BHere''s your share of the winnings.', 0),
 (9105052, 1, 'Patient, wasn''t it? That is a crocolisk''s whole secret. Some day the patience will grow teeth, and then more teeth.$B$BTake this, and go north when you are ready.', 0),
+(9105053, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. The Barrens is hungry too.', 0),
 (9105060, 1, 'Fast. Stringy. Proud of itself for no reason. A good shape to wear when you need to leave.$B$BTake this.', 0),
 (9105061, 1, 'Two new hats! If you didn''t have them already. If you did, then two very full bellies, which is also good.$B$BHagatha said no to the hat stand, so here''s this instead.', 0),
 (9105062, 1, 'A beast with a name it never wanted. Now it has no name at all, only you.$B$BWear this. And when your plainstrider is ready to grow, remember the taste.', 0),
+(9105063, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. The Barrens is hungry too.', 0),
 (9105070, 1, 'Did you hear them? A heartbeat, a wing, a breath. That is how a bat sees.$B$BTake this.', 0),
 (9105071, 1, 'Burnt sugar! She was RIGHT. I hate when she''s right, she does a little smile.$B$BHere, for science.', 0),
 (9105072, 1, 'Sure of themselves to the very end. Now you are sure of something too.$B$BTake this, and when your bat is ready to grow, remember the taste of red.', 0),
+(9105073, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Silverpine Forest is hungry too.', 0),
 (9105080, 1, 'Sweet and thin, like the elves. That is the taste of magic without anyone holding it.$B$BTake this.', 0),
 (9105081, 1, 'Not chicken. ''Spicy hawk.'' I''ll write that down.$B$BHere, for all the flapping.', 0),
-(9105082, 1, 'Hungry things eating hungry things. Do not think about it too long.$B$BTake this, and when your wyrm grows, you will know why I sent you.', 0);
+(9105082, 1, 'Hungry things eating hungry things. Do not think about it too long.$B$BTake this, and when your wyrm grows, you will know why I sent you.', 0),
+(9105083, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Ghostlands is hungry too.', 0),
+(9105100, 1, 'Thin, and patient, and hungry. You have more in common with them than with the farmers.$B$BTake this.', 0),
+(9105101, 1, 'Imaginary stew is DONE. It''s the best stew I''ve never had.$B$BHere''s your bowl. Well. Not a bowl.', 0),
+(9105102, 1, 'Slippery, salty, and loud even on the way down. Your toad will remember.$B$BTake this.', 0),
+(9105103, 1, 'Old, and cold, and finally still. Something in your toad stirred when you swallowed him; I felt it from here.$B$BTake this. You have earned something better than murloc.', 0),
+(9105109, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Duskwood is hungry too.', 0),
+(9105110, 1, 'Hard to chew? Good. Something hard to chew is something hard to kill.$B$BTake this.', 0),
+(9105111, 1, 'Hagatha''s smiling. Well. Her face is doing something.$B$BHere, from both of us.', 0),
+(9105112, 1, 'Your belly is full of patience now. A komodo is only a crocolisk that stopped waiting.$B$BTake this.', 0),
+(9105113, 1, 'A crocolisk that ate a boat, and a Devourer that ate the crocolisk. The children will tell it now.$B$BTake this. And when your komodo is grown enough, it will know what to do.', 0),
+(9105119, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Wetlands is hungry too.', 0),
+(9105120, 1, 'Darker. Quieter. Hungrier. Your cat will be all three one day.$B$BTake this.', 0),
+(9105121, 1, 'Eight points! That''s a record. It''s the only record. Still a record.$B$BPrize!', 0),
+(9105122, 1, 'Moonlight and madness. A heavy meal. Your owl will carry it.$B$BTake this.', 0),
+(9105123, 1, 'Did it scream when it died? No. It had nothing left to scream with.$B$BTake this, and when your saber is ready, you will hunt as quietly as that.', 0),
+(9105129, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Ashenvale is hungry too.', 0),
+(9105130, 1, 'Crunchy babies. That sounds bad when I say it out loud.$B$BHere!', 0),
+(9105131, 1, 'Did you dream? Do not tell me. Some dreams are better swallowed.$B$BTake this.', 0),
+(9105132, 1, 'Home, wasn''t it? Cold and close. Your voidling and your warp stalker will both grow on that taste.$B$BTake this.', 0),
+(9105133, 1, 'Dragon bones! You''ve eaten DRAGON. Well, dragon-ish. I''m telling everyone.$B$BHere''s your prize.', 0),
+(9105139, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Ashenvale is hungry too.', 0),
+(9105140, 1, 'Did you feel the wind? That was the chase. One day you will be the one it is chasing.$B$BTake this.', 0),
+(9105141, 1, 'Justice! Smelly justice.$B$BHagatha says quilboar is good for a boar that wants to grow. Here''s your reward for being a good boar.', 0),
+(9105142, 1, 'Nobody''s laughing now. Except me. I''m laughing because you''re brilliant.$B$BHere!', 0),
+(9105143, 1, 'Did you feel the sky in it? Good.$B$BTake this. And go and see my sister at her starting line; she has been bursting to tell you something for days.', 0),
+(9105144, 1, 'You came! Hagatha thinks her bird can beat you. Her BIRD. Let me tell you about the bet...', 0),
+(9105149, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Stonetalon Mountains is hungry too.', 0),
+(9105150, 1, 'Clever eyes, and now clever in your belly. Your wolf is listening.$B$BTake this.', 0),
+(9105151, 1, 'Silence! Beautiful silence. I''m going to have the best nap.$B$BHere, and goodnight.', 0),
+(9105152, 1, 'Did it taste familiar? It should. That is what your wolf will be.$B$BTake this.', 0),
+(9105153, 1, 'Tidy. I like tidy.$B$BTake this, little horror. You have earned it.', 0),
+(9105159, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Hillsbrad Foothills is hungry too.', 0),
+(9105160, 1, 'Honest hunger. Remember the taste; you will meet the other kind soon enough.$B$BTake this.', 0),
+(9105161, 1, 'Pale and thirsty. Your bat is thirsty too now.$B$BTake this.', 0),
+(9105162, 1, 'Now there is only one Devourer near the Sanctum of the Moon.$B$BTake this. Your wyrm drank well.', 0),
+(9105163, 1, 'Are they gone? Really gone? Okay. Okay. I''m coming back to the glass.$B$BHere. You''re very brave. I''m very brave too, for not screaming.', 0),
+(9105169, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Hillsbrad Foothills is hungry too.', 0),
+(9105170, 1, 'Mad, and hungry, and now part of you. Use it, do not let it use you.$B$BTake this.', 0),
+(9105171, 1, 'Four flames. Now the thin place is watched, and what pushes through will find me waiting.$B$BTake this for your trouble; you walked among the graves for an old woman''s candles.', 0),
+(9105172, 1, 'You did it! I can stop whispering. I''m STILL whispering. It''s a habit now.$B$BHere!', 0),
+(9105173, 1, 'Did it taste of anything? No. It had forgotten how.$B$BWren found something in my pumpkin patch while you were gone, and she says it is yours. Hedgehogs, little horror. Big ones. You can ride them. I do not understand my sister, but take them.', 0),
+(9105179, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Stranglethorn Vale is hungry too.', 0),
+(9105180, 1, 'Patient little things. Now your komodo is patient too.$B$BTake this.', 0),
+(9105181, 1, 'Thirty-five! Thirty-six... no, wait, you ate them, they don''t count. Thirty-five.$B$BHere!', 0),
+(9105182, 1, 'Fire in the belly. Do you feel it? That is the first step of a long road: whelp, drake, storm.$B$BTake this.', 0),
+(9105183, 1, 'Snort! I''m doing the whelp noise. Snort snort.$B$BAnd look what I found in the marsh behind the cauldron: marsh hoppers! Big friendly frogs you can SIT on. One''s yours. I named it. You can rename it, but you shouldn''t.', 0),
+(9105189, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Dustwallow Marsh is hungry too.', 0),
+(9105190, 1, 'Not spirits. Meat. Remember that when the night elves tell you stories.$B$BTake this.', 0),
+(9105191, 1, 'I drew a stag! It looks like a chair. A lovely chair.$B$BHere!', 0),
+(9105192, 1, 'Bitter, wasn''t it? That is the taste of a shape bought cheap.$B$BTake this.', 0),
+(9105193, 1, 'Quiet now, the tower. Your voidcreeper heard every knock.$B$BWren left you a present. She grew snails in the cauldron again, the flowered ones, big enough to ride. Slowly. Take one, and do not let her grow any more.', 0),
+(9105199, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Dustwallow Marsh is hungry too.', 0),
+(9105200, 1, 'Heavy, warm, patient. A good meal for a cold night.$B$BTake this.', 0),
+(9105201, 1, 'No more spider gardens! Mine are the only gardens again.$B$BHere!', 0),
+(9105202, 1, 'Honest hunger, again. You will meet it often.$B$BWren has something for you. She says it is a cat. It is much too big to be a cat. You can ride it.', 0),
+(9105203, 1, 'A shell in the belly. Now, when the world bites you, you will bite back from inside it.$B$BTake this.', 0),
+(9105209, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Alterac Mountains is hungry too.', 0),
+(9105210, 1, 'I''m out! Here''s your biscuit. I ate half. Here''s the other half of a prize, too.', 0),
+(9105211, 1, 'Three things at once. You are a hundred. Never forget which one you are wearing.$B$BTake this.', 0),
+(9105212, 1, 'Crispy all the way through? I KNEW it.$B$BHere, a crispy prize.', 0),
+(9105213, 1, 'Wild and proud, and now yours. Your whelp has tasted the proto-drake it will become.$B$BTake this.', 0),
+(9105219, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Thousand Needles is hungry too.', 0),
+(9105220, 1, 'No more laughing! Except mine. HA.$B$BHere!', 0),
+(9105221, 1, 'Did you taste the storm? It is still in you. Your Baby Wind Serpent will feel it.$B$BTake this.', 0),
+(9105222, 1, 'No bad luck? I WIN. Hagatha''s polishing her cauldron now. Out of spite.$B$BHere!', 0),
+(9105223, 1, 'Salt and venom. A dry meal, but a long-keeping one.$B$BTake this, and go south when you are ready.', 0),
+(9105229, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Dustwallow Marsh is hungry too.', 0),
+(9105230, 1, 'Fast, and foolish, and gone. Your saber is neither now.$B$BTake this.', 0),
+(9105231, 1, 'A whole river in your belly. Your komodo is nearly grown.$B$BTake this.', 0),
+(9105232, 1, 'Did you beat your chest? I did, from here. Hagatha left the room.$B$BHere!', 0),
+(9105233, 1, 'The scariest thing in the water! That''s you.$B$BAnd here''s your friend: a spiteful frog. It''s grumpy. It''s big enough to ride. It doesn''t like anyone, but it''ll like you, because you''re also a frog, sometimes.', 0),
+(9105234, 1, 'Dark, and quiet, and yours.$B$BWren sent you a cat. A large one. A VERY large one, she says, and old, and very fond of its dinner. She calls him Jigglesworth. You can ride him, if he lets you.', 0),
+(9105239, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. The Hinterlands is hungry too.', 0),
+(9105240, 1, 'Proud, and now humble, inside you.$B$BTake this.', 0),
+(9105241, 1, 'Prickly, wasn''t it? That is what being bitten too often tastes like.$B$BTake this.', 0),
+(9105242, 1, 'Phew! Well done. You can breathe again. Can you breathe? Depends what you''re wearing.$B$BHere!', 0),
+(9105243, 1, 'Grin! Big grin! The frogspawn is safe and you are a hero to frogs everywhere.$B$BHere''s a gulper. It''s a frog you can ride, which is the best kind of frog. It grins too.', 0),
+(9105244, 1, 'Black fire in the belly. Your whelp has tasted both colours now.$B$BTake this.', 0),
+(9105245, 1, 'Acidic? Bubbly? Both? I''m writing a whole page.$B$BHere!', 0),
+(9105246, 1, 'Swollen, and slow, and now inside something faster. Your borer will dig.$B$BAnd Wren made something from what the oozes left behind: a sabercat of living slime. Do not ask me how. You can ride it. It is warm.', 0),
+(9105248, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Tanaris is hungry too.', 0),
+(9105249, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. Feralas is hungry too.', 0),
+(9105250, 1, 'Big, and now bigger for being in you.$B$BTake this.', 0),
+(9105251, 1, 'Free! In a very Hagatha way. I''m going to feel weird about this for a while.$B$BHere.', 0),
+(9105252, 1, 'A mountain''s anger, and now yours. Your whelp may grow scales of stone.$B$BTake this.', 0),
+(9105253, 1, 'You were. I knew you would be.$B$BThat was a dragon, little horror. A real one. Your drake has eaten its elder; the storm is waiting for it.$B$BTake this.', 0),
+(9105259, 1, 'You found it. Of course you did; you follow your stomach, and your stomach follows me.$B$BSit. Listen. The Hinterlands is hungry too.', 0),
+(9105260, 1, 'No more sore paws! Well. No more paws. Same thing.$B$BHere!', 0),
+(9105261, 1, 'Crunchy. Like a beach. Your teeth will forgive you.$B$BTake this.', 0),
+(9105262, 1, 'Prayer and sand. Your serpent is closer to standing up.$B$BTake this.', 0),
+(9105263, 1, 'You ate four houses! Bird houses! House birds! I''m too excited.$B$BHere!', 0),
+(9105264, 1, 'Old as the sea. Your shell will be older.$B$BTake this, and go west, into the crater, when you are ready.', 0),
+(9105270, 1, 'Long teeth, short lives. Yours are long enough now.$B$BTake this.', 0),
+(9105271, 1, 'Iron fur in your tummy! You''re basically armoured now.$B$BHere!', 0),
+(9105272, 1, 'Frayed and tired and now part of something that does not tire.$B$BTake this.', 0),
+(9105273, 1, 'Bubbles! Dragon bubbles! Your whelp says thank you.$B$BHere!', 0),
+(9105274, 1, 'The forest shook when they fell. It will not shake when you walk now; it will be still.$B$BTake this.', 0),
+(9105280, 1, 'Silver in your belly. Shine a little.$B$BTake this.', 0),
+(9105281, 1, 'Wild, and moonless. Your moonkin will remember the moon for both of you.$B$BTake this.', 0),
+(9105282, 1, 'Sea AND grump? Both? Amazing.$B$BHere!', 0),
+(9105283, 1, 'Added to the list! The list now has a page about green.$B$BHere!', 0),
+(9105284, 1, 'Old and cross and gone at last. The dwarves will tell it for a hundred years.$B$BTake this.', 0);
 INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES (9101300, 9105001), (9101300, 9105002), (9101300, 9105003), (9101300, 9105004), (9101300, 9105005), (9101300, 9105006), (9101300, 9105007), (9101300, 9105008);
-INSERT INTO `gameobject_queststarter` (`id`, `quest`) VALUES (9105000, 9105010), (9105000, 9105011), (9105000, 9105012), (9105001, 9105020), (9105001, 9105021), (9105001, 9105022), (9105002, 9105030), (9105002, 9105031), (9105002, 9105032), (9105003, 9105040), (9105003, 9105041), (9105003, 9105042), (9105004, 9105050), (9105004, 9105051), (9105004, 9105052), (9105005, 9105060), (9105005, 9105061), (9105005, 9105062), (9105006, 9105070), (9105006, 9105071), (9105006, 9105072), (9105007, 9105080), (9105007, 9105081), (9105007, 9105082);
-INSERT INTO `gameobject_questender` (`id`, `quest`) VALUES (9105000, 9105001), (9105001, 9105002), (9105002, 9105003), (9105003, 9105004), (9105004, 9105005), (9105005, 9105006), (9105006, 9105007), (9105007, 9105008), (9105000, 9105010), (9105000, 9105011), (9105000, 9105012), (9105001, 9105020), (9105001, 9105021), (9105001, 9105022), (9105002, 9105030), (9105002, 9105031), (9105002, 9105032), (9105003, 9105040), (9105003, 9105041), (9105003, 9105042), (9105004, 9105050), (9105004, 9105051), (9105004, 9105052), (9105005, 9105060), (9105005, 9105061), (9105005, 9105062), (9105006, 9105070), (9105006, 9105071), (9105006, 9105072), (9105007, 9105080), (9105007, 9105081), (9105007, 9105082);
+INSERT INTO `gameobject_queststarter` (`id`, `quest`) VALUES (9105000, 9105010), (9105000, 9105011), (9105000, 9105012), (9105000, 9105013), (9105001, 9105020), (9105001, 9105021), (9105001, 9105022), (9105001, 9105023), (9105002, 9105030), (9105002, 9105031), (9105002, 9105032), (9105002, 9105033), (9105003, 9105040), (9105003, 9105041), (9105003, 9105042), (9105003, 9105043), (9105004, 9105050), (9105004, 9105051), (9105004, 9105052), (9105004, 9105053), (9105005, 9105060), (9105005, 9105061), (9105005, 9105062), (9105005, 9105063), (9105006, 9105070), (9105006, 9105071), (9105006, 9105072), (9105006, 9105073), (9105007, 9105080), (9105007, 9105081), (9105007, 9105082), (9105007, 9105083), (9105008, 9105100), (9105008, 9105101), (9105008, 9105102), (9105008, 9105103), (9105008, 9105109), (9105009, 9105110), (9105009, 9105111), (9105009, 9105112), (9105009, 9105113), (9105009, 9105119), (9105010, 9105120), (9105010, 9105121), (9105010, 9105122), (9105010, 9105123), (9105010, 9105129), (9105011, 9105130), (9105011, 9105131), (9105011, 9105132), (9105011, 9105133), (9105011, 9105139), (9105012, 9105140), (9105012, 9105141), (9105012, 9105142), (9105012, 9105143), (9105012, 9105144), (9105012, 9105149), (9105013, 9105150), (9105013, 9105151), (9105013, 9105152), (9105013, 9105153), (9105013, 9105159), (9105014, 9105160), (9105014, 9105161), (9105014, 9105162), (9105014, 9105163), (9105014, 9105169), (9105015, 9105170), (9105015, 9105171), (9105015, 9105172), (9105015, 9105173), (9105015, 9105179), (9105016, 9105180), (9105016, 9105181), (9105016, 9105182), (9105016, 9105183), (9105016, 9105189), (9105017, 9105190), (9105017, 9105191), (9105017, 9105192), (9105017, 9105193), (9105017, 9105199), (9105018, 9105200), (9105018, 9105201), (9105018, 9105202), (9105018, 9105203), (9105018, 9105209), (9105019, 9105210), (9105019, 9105211), (9105019, 9105212), (9105019, 9105213), (9105019, 9105219), (9105020, 9105220), (9105020, 9105221), (9105020, 9105222), (9105020, 9105223), (9105020, 9105229), (9105021, 9105230), (9105021, 9105231), (9105021, 9105232), (9105021, 9105233), (9105021, 9105234), (9105021, 9105239), (9105022, 9105240), (9105022, 9105241), (9105022, 9105242), (9105022, 9105243), (9105022, 9105244), (9105022, 9105245), (9105022, 9105246), (9105022, 9105248), (9105022, 9105249), (9105023, 9105250), (9105023, 9105251), (9105023, 9105252), (9105023, 9105253), (9105023, 9105259), (9105024, 9105260), (9105024, 9105261), (9105024, 9105262), (9105024, 9105263), (9105024, 9105264), (9105025, 9105270), (9105025, 9105271), (9105025, 9105272), (9105025, 9105273), (9105025, 9105274), (9105026, 9105280), (9105026, 9105281), (9105026, 9105282), (9105026, 9105283), (9105026, 9105284);
+INSERT INTO `creature_questender` (`id`, `quest`) VALUES (9101360, 9105144);
+INSERT INTO `gameobject_questender` (`id`, `quest`) VALUES (9105000, 9105001), (9105001, 9105002), (9105002, 9105003), (9105003, 9105004), (9105004, 9105005), (9105005, 9105006), (9105006, 9105007), (9105007, 9105008), (9105000, 9105010), (9105000, 9105011), (9105000, 9105012), (9105008, 9105013), (9105001, 9105020), (9105001, 9105021), (9105001, 9105022), (9105009, 9105023), (9105002, 9105030), (9105002, 9105031), (9105002, 9105032), (9105010, 9105033), (9105003, 9105040), (9105003, 9105041), (9105003, 9105042), (9105011, 9105043), (9105004, 9105050), (9105004, 9105051), (9105004, 9105052), (9105012, 9105053), (9105005, 9105060), (9105005, 9105061), (9105005, 9105062), (9105012, 9105063), (9105006, 9105070), (9105006, 9105071), (9105006, 9105072), (9105013, 9105073), (9105007, 9105080), (9105007, 9105081), (9105007, 9105082), (9105014, 9105083), (9105008, 9105100), (9105008, 9105101), (9105008, 9105102), (9105008, 9105103), (9105015, 9105109), (9105009, 9105110), (9105009, 9105111), (9105009, 9105112), (9105009, 9105113), (9105016, 9105119), (9105010, 9105120), (9105010, 9105121), (9105010, 9105122), (9105010, 9105123), (9105017, 9105129), (9105011, 9105130), (9105011, 9105131), (9105011, 9105132), (9105011, 9105133), (9105017, 9105139), (9105012, 9105140), (9105012, 9105141), (9105012, 9105142), (9105012, 9105143), (9105019, 9105149), (9105013, 9105150), (9105013, 9105151), (9105013, 9105152), (9105013, 9105153), (9105018, 9105159), (9105014, 9105160), (9105014, 9105161), (9105014, 9105162), (9105014, 9105163), (9105018, 9105169), (9105015, 9105170), (9105015, 9105171), (9105015, 9105172), (9105015, 9105173), (9105021, 9105179), (9105016, 9105180), (9105016, 9105181), (9105016, 9105182), (9105016, 9105183), (9105022, 9105189), (9105017, 9105190), (9105017, 9105191), (9105017, 9105192), (9105017, 9105193), (9105022, 9105199), (9105018, 9105200), (9105018, 9105201), (9105018, 9105202), (9105018, 9105203), (9105023, 9105209), (9105019, 9105210), (9105019, 9105211), (9105019, 9105212), (9105019, 9105213), (9105020, 9105219), (9105020, 9105220), (9105020, 9105221), (9105020, 9105222), (9105020, 9105223), (9105022, 9105229), (9105021, 9105230), (9105021, 9105231), (9105021, 9105232), (9105021, 9105233), (9105021, 9105234), (9105026, 9105239), (9105022, 9105240), (9105022, 9105241), (9105022, 9105242), (9105022, 9105243), (9105022, 9105244), (9105022, 9105245), (9105022, 9105246), (9105024, 9105248), (9105025, 9105249), (9105023, 9105250), (9105023, 9105251), (9105023, 9105252), (9105023, 9105253), (9105026, 9105259), (9105024, 9105260), (9105024, 9105261), (9105024, 9105262), (9105024, 9105263), (9105024, 9105264), (9105025, 9105270), (9105025, 9105271), (9105025, 9105272), (9105025, 9105273), (9105025, 9105274), (9105026, 9105280), (9105026, 9105281), (9105026, 9105282), (9105026, 9105283), (9105026, 9105284);
+
+-- Quests for one shape (or its line): offered only to a Devourer that owns it (knows its form spell).
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
+(19, 0, 9105233, 0, 0, 25, 0, 9101010, 0, 0, 0, 0, 0, '', 'mod-devourer: The Spiteful Frogs needs the Biletoad shape'),
+(19, 0, 9105233, 0, 1, 25, 0, 9101020, 0, 0, 0, 0, 0, '', 'mod-devourer: The Spiteful Frogs needs the Giant Marsh Frog shape'),
+(19, 0, 9105233, 0, 2, 25, 0, 9102140, 0, 0, 0, 0, 0, '', 'mod-devourer: The Spiteful Frogs needs the Water Salamander shape'),
+(19, 0, 9105243, 0, 0, 25, 0, 9101010, 0, 0, 0, 0, 0, '', 'mod-devourer: The Gulper''s Grin needs the Biletoad shape'),
+(19, 0, 9105243, 0, 1, 25, 0, 9101020, 0, 0, 0, 0, 0, '', 'mod-devourer: The Gulper''s Grin needs the Giant Marsh Frog shape'),
+(19, 0, 9105243, 0, 2, 25, 0, 9102140, 0, 0, 0, 0, 0, '', 'mod-devourer: The Gulper''s Grin needs the Water Salamander shape');
