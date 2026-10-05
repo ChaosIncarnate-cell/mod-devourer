@@ -5,6 +5,7 @@ void AddSC_devourer_sisters();
 void AddSC_devourer_frogs();
 void AddSC_devourer_evolved();
 void AddSC_devourer_derby();
+void AddSC_devourer_quests();
 
 void Addmod_devourerScripts()
 {
@@ -15,4 +16,5 @@ void Addmod_devourerScripts()
     AddSC_devourer_frogs();
     AddSC_devourer_evolved();
     AddSC_devourer_derby();
+    AddSC_devourer_quests();
 }

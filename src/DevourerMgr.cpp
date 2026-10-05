@@ -4,6 +4,7 @@
  */
 
 #include "Devourer.h"
+#include "DevourerQuests.h"
 #include "DevourerSpellIds.h"
 
 #include "Chat.h"
@@ -482,6 +483,7 @@ namespace Devourer
     void Mgr::EatShape(Player* player, Creature* meal, std::string const& how)
     {
         GainBio(player, meal);
+        Quests::OnMeal(player, meal);                    // task 021: the "devour" objectives of its quests
         Source found;
         Shape const* shape = MealShape(meal, found);
         if (!shape)
