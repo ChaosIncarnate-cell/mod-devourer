@@ -113,7 +113,7 @@ INSERT INTO `creature_template_addon` (`entry`, `path_id`, `mount`, `bytes1`, `b
 INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES
 (9910200, 9101300, 35, 1, 1, -100.4, 153.4, -40.11, 5.3271, 300, 0, 0, 'mod-devourer: Hagatha Hollowmoor'),
 (9910201, 9101301, 35, 1, 1, -95.6, 153.4, -40.11, 4.0977, 300, 0, 0, 'mod-devourer: Wren Hollowmoor'),
-(9910202, 9101303, 35, 1, 1, -98.0, 150.0, -40.28, 0, 300, 0, 0, 'mod-devourer: the void under the cage');
+(9910202, 9101303, 35, 1, 1, -98.0, 150.0, -40.38, 0, 300, 0, 0, 'mod-devourer: the void under the cage');
 
 -- --- game objects: the Devourer's cage (a door: it opens), and the sisters' trappings -------------------------
 INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`, `size`, `AIName`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -141,30 +141,30 @@ INSERT INTO `gameobject_template_addon` (`entry`, `faction`, `flags`, `mingold`,
 (9101312, 0, 0, 0, 0),
 (9101313, 0, 0, 0, 0);
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `Comment`) VALUES
-(9910200, 9101302, 35, 1, 1, -98.0, 157.0, -39.93, 4.7124, 0, 0, 0.707107, -0.707107, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910201, 9101303, 35, 1, 1, -101.9, 155.0, -40.03, 5.3748, 0, 0, 0.43873, -0.898619, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910202, 9101305, 35, 1, 1, -102.7, 152.6, -40.15, 5.7779, 0, 0, 0.249966, -0.968255, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910203, 9101304, 35, 1, 1, -105.5, 160.5, -40.21, 5.3326, 0, 0, 0.457582, -0.889168, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910204, 9101306, 35, 1, 1, -103.5, 157.5, -40.02, 5.3451, 0, 0, 0.452016, -0.89201, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910205, 9101310, 35, 1, 1, -95.23, 151.15, -40.28, 3.5351, 0, 0, 0.980706, -0.195487, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910206, 9101310, 35, 1, 1, -100.77, 151.15, -40.28, 5.8897, 0, 0, 0.195487, -0.980706, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910207, 9101310, 35, 1, 1, -100.77, 148.85, -40.28, 0.3935, 0, 0, 0.195487, 0.980706, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910208, 9101310, 35, 1, 1, -99.15, 147.23, -40.28, 1.1773, 0, 0, 0.555234, 0.831694, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910209, 9101310, 35, 1, 1, -96.85, 147.23, -40.28, 1.9643, 0, 0, 0.831694, 0.555234, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910210, 9101310, 35, 1, 1, -95.23, 148.85, -40.28, 2.7481, 0, 0, 0.980706, 0.195487, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910211, 9101312, 35, 1, 1, -98.0, 154.5, -40.28, 4.7124, 0, 0, 0.707107, -0.707107, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910212, 9101312, 35, 1, 1, -102.5, 150.0, -40.28, 0.0000, 0, 0, 0.0, 1.0, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910213, 9101311, 35, 1, 1, -101.18, 146.82, -40.28, 0.7854, 0, 0, 0.382683, 0.92388, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910214, 9101312, 35, 1, 1, -98.0, 145.5, -40.28, 1.5708, 0, 0, 0.707107, 0.707107, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910215, 9101311, 35, 1, 1, -94.82, 146.82, -40.28, 2.3562, 0, 0, 0.92388, 0.382683, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910216, 9101312, 35, 1, 1, -93.5, 150.0, -40.28, 3.1416, 0, 0, 1.0, 0.0, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910217, 9101313, 35, 1, 1, -99.2, 155.6, -40.1, 4.9235, 0, 0, 0.628678, -0.777666, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910218, 9101313, 35, 1, 1, -96.8, 155.6, -40.1, 4.5013, 0, 0, 0.777666, -0.628678, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910219, 9101301, 35, 1, 1, -92.0, 157.0, -39.93, 4.0038, 0, 0, 0.908513, -0.417857, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910220, 9101301, 35, 1, 1, -108.0, 160.0, -40.12, 5.4978, 0, 0, 0.382683, -0.92388, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910221, 9101301, 35, 1, 1, -88.0, 160.0, -40.11, 3.9270, 0, 0, 0.92388, -0.382683, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910222, 9101301, 35, 1, 1, -108.0, 140.0, -40.31, 0.7854, 0, 0, 0.382683, 0.92388, 300, 0, 1, 'mod-devourer: the In-Between'),
-(9910223, 9101301, 35, 1, 1, -88.0, 140.0, -40.24, 2.3562, 0, 0, 0.92388, 0.382683, 300, 0, 1, 'mod-devourer: the In-Between');
+(9910200, 9101302, 35, 1, 1, -98.0, 157.0, -40.38, 4.7124, 0, 0, 0.707107, -0.707107, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910201, 9101303, 35, 1, 1, -101.9, 155.0, -40.38, 5.3748, 0, 0, 0.43873, -0.898619, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910202, 9101305, 35, 1, 1, -102.7, 152.6, -40.38, 5.7779, 0, 0, 0.249966, -0.968255, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910203, 9101304, 35, 1, 1, -105.5, 160.5, -40.38, 5.3326, 0, 0, 0.457582, -0.889168, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910204, 9101306, 35, 1, 1, -103.5, 157.5, -40.38, 5.3451, 0, 0, 0.452016, -0.89201, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910205, 9101310, 35, 1, 1, -95.23, 151.15, -40.38, 3.5351, 0, 0, 0.980706, -0.195487, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910206, 9101310, 35, 1, 1, -100.77, 151.15, -40.38, 5.8897, 0, 0, 0.195487, -0.980706, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910207, 9101310, 35, 1, 1, -100.77, 148.85, -40.38, 0.3935, 0, 0, 0.195487, 0.980706, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910208, 9101310, 35, 1, 1, -99.15, 147.23, -40.38, 1.1773, 0, 0, 0.555234, 0.831694, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910209, 9101310, 35, 1, 1, -96.85, 147.23, -40.38, 1.9643, 0, 0, 0.831694, 0.555234, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910210, 9101310, 35, 1, 1, -95.23, 148.85, -40.38, 2.7481, 0, 0, 0.980706, 0.195487, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910211, 9101312, 35, 1, 1, -98.0, 154.5, -40.38, 4.7124, 0, 0, 0.707107, -0.707107, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910212, 9101312, 35, 1, 1, -102.5, 150.0, -40.38, 0.0000, 0, 0, 0.0, 1.0, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910213, 9101311, 35, 1, 1, -101.18, 146.82, -40.38, 0.7854, 0, 0, 0.382683, 0.92388, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910214, 9101312, 35, 1, 1, -98.0, 145.5, -40.38, 1.5708, 0, 0, 0.707107, 0.707107, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910215, 9101311, 35, 1, 1, -94.82, 146.82, -40.38, 2.3562, 0, 0, 0.92388, 0.382683, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910216, 9101312, 35, 1, 1, -93.5, 150.0, -40.38, 3.1416, 0, 0, 1.0, 0.0, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910217, 9101313, 35, 1, 1, -99.2, 155.6, -40.38, 4.9235, 0, 0, 0.628678, -0.777666, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910218, 9101313, 35, 1, 1, -96.8, 155.6, -40.38, 4.5013, 0, 0, 0.777666, -0.628678, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910219, 9101301, 35, 1, 1, -92.0, 157.0, -40.38, 4.0038, 0, 0, 0.908513, -0.417857, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910220, 9101301, 35, 1, 1, -108.0, 160.0, -40.38, 5.4978, 0, 0, 0.382683, -0.92388, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910221, 9101301, 35, 1, 1, -88.0, 160.0, -40.38, 3.9270, 0, 0, 0.92388, -0.382683, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910222, 9101301, 35, 1, 1, -108.0, 140.0, -40.38, 0.7854, 0, 0, 0.382683, 0.92388, 300, 0, 1, 'mod-devourer: the In-Between'),
+(9910223, 9101301, 35, 1, 1, -88.0, 140.0, -40.38, 2.3562, 0, 0, 0.92388, 0.382683, 300, 0, 1, 'mod-devourer: the In-Between');
 
 -- --- the three chores (class 10 only; each opens after the one before) ------------------------------------
 INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardNextQuest`, `RewardXPDifficulty`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredNpcOrGo1`, `RequiredNpcOrGo2`, `RequiredNpcOrGoCount1`, `RequiredNpcOrGoCount2`, `ObjectiveText1`, `ObjectiveText2`, `ObjectiveText3`, `ObjectiveText4`, `VerifiedBuild`) VALUES

@@ -30,8 +30,8 @@ namespace Devourer::Sisters
     constexpr uint32_t OptionBack = 4;
     constexpr uint32_t OptionShapeTale = 6;   // task 018
     constexpr uint32_t InBetweenMap = 35;
-    constexpr float CageX = -98.0f, CageY = 150.0f, CageZ = -40.28f, CageO = 1.5708f;
-    constexpr float ArriveX = -98.0f, ArriveY = 143.5f, ArriveZ = -40.21f, ArriveO = 1.5708f;
+    constexpr float CageX = -98.0f, CageY = 150.0f, CageZ = -40.38f, CageO = 1.5708f;
+    constexpr float ArriveX = -98.0f, ArriveY = 143.5f, ArriveZ = -40.38f, ArriveO = 1.5708f;
     constexpr float CageRadius = 2.0f;
     constexpr uint32_t VisualPull = 52233;
     constexpr uint32_t VisualArrive = 61456;
@@ -43,16 +43,16 @@ namespace Devourer::Sisters
     struct PestSpot { float X, Y, Z; bool Perched; };
     constexpr PestSpot PestSpots[] =
     {
-        { -93.63f, 155.1f, -39.93f, false },
-        { -92.0f, 157.0f, -34.93f, true },
-        { -106.23f, 158.23f, -40.12f, false },
-        { -108.0f, 160.0f, -35.12f, true },
-        { -89.77f, 158.23f, -40.11f, false },
-        { -88.0f, 160.0f, -35.11f, true },
-        { -106.23f, 141.77f, -40.31f, false },
-        { -108.0f, 140.0f, -35.31f, true },
-        { -89.77f, 141.77f, -40.24f, false },
-        { -88.0f, 140.0f, -35.24f, true },
+        { -93.63f, 155.1f, -40.38f, false },
+        { -92.0f, 157.0f, -35.38f, true },
+        { -106.23f, 158.23f, -40.38f, false },
+        { -108.0f, 160.0f, -35.38f, true },
+        { -89.77f, 158.23f, -40.38f, false },
+        { -88.0f, 160.0f, -35.38f, true },
+        { -106.23f, 141.77f, -40.38f, false },
+        { -108.0f, 140.0f, -35.38f, true },
+        { -89.77f, 141.77f, -40.38f, false },
+        { -88.0f, 140.0f, -35.38f, true },
     };
 
     // creature_text groups

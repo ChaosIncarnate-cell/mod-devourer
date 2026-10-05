@@ -73,8 +73,11 @@ OPT_MOUNTS = 7                                      # Wren sells the mounts the 
 
 # --- the In-Between ----------------------------------------------------------------------------------------------
 MAP = 35
-CAGE = (-98.0, 150.0, -40.28, math.pi / 2)          # the Devourer wakes here, facing the sisters
-ARRIVE = (-98.0, 143.5, -40.21, math.pi / 2)        # where a freed Devourer comes back to (.inbetween), outside it
+# The hall floor, measured by the terrain thread (2026-10-05): every gameobject and the cage stand on it
+# (the In-Between terrain pass sets these spawns to the same height).
+FLOOR_Z = -40.38
+CAGE = (-98.0, 150.0, FLOOR_Z, math.pi / 2)          # the Devourer wakes here, facing the sisters
+ARRIVE = (-98.0, 143.5, FLOOR_Z, math.pi / 2)        # where a freed Devourer comes back to (.inbetween), outside it
 CAGE_RADIUS = 2.0                                    # yards it may stray from the middle before being put back
 
 
@@ -113,34 +116,34 @@ GO_TEMPLATES = [
     (9101313, 5, 107, "Ritual Book", 1.0, 0),
 ]
 # Task 014: eight candles round the rune circle, four braziers and four standing stones on a ring outside them,
-# two ritual books on the sisters' side. Floor height is the cage's: the hall floor is flat there (-40.28 .. -40.2).
+# two ritual books on the sisters' side, all on the hall floor.
 RITUAL_SPAWNS = []
 for _i in range(8):
     _a = _i * math.pi / 4 + math.pi / 8
     RITUAL_SPAWNS.append((9101310, round(CAGE[0] + 3.0 * math.cos(_a), 2), round(CAGE[1] + 3.0 * math.sin(_a), 2),
-                          -40.28, None))
+                          FLOOR_Z, None))
 for _i in range(4):
     _a = _i * math.pi / 2 + math.pi / 4
     RITUAL_SPAWNS.append((9101311, round(CAGE[0] + RITUAL_RADIUS * math.cos(_a), 2),
-                          round(CAGE[1] + RITUAL_RADIUS * math.sin(_a), 2), -40.28, None))
+                          round(CAGE[1] + RITUAL_RADIUS * math.sin(_a), 2), FLOOR_Z, None))
     _a += math.pi / 4
     RITUAL_SPAWNS.append((9101312, round(CAGE[0] + RITUAL_RADIUS * math.cos(_a), 2),
-                          round(CAGE[1] + RITUAL_RADIUS * math.sin(_a), 2), -40.28, None))
-RITUAL_SPAWNS += [(9101313, -99.2, 155.6, -40.1, None), (9101313, -96.8, 155.6, -40.1, None)]
+                          round(CAGE[1] + RITUAL_RADIUS * math.sin(_a), 2), FLOOR_Z, None))
+RITUAL_SPAWNS += [(9101313, -99.2, 155.6, FLOOR_Z, None), (9101313, -96.8, 155.6, FLOOR_Z, None)]
 # nothing stands within 2 yards of a sister (the ring would put a brazier in Hagatha)
 RITUAL_SPAWNS = [r for r in RITUAL_SPAWNS if all(math.hypot(r[1] - sx, r[2] - sy) >= 2.0 for sx, sy in ((-100.4, 153.4), (-95.6, 153.4)))]
 GO_SPAWNS = [  # (entry, x, y, z, orientation or None = facing the cage)
-    (9101302, -98.0, 157.0, -39.93, None),                  # the cauldron behind the sisters
-    (9101303, -101.9, 155.0, -40.03, None),                 # Hagatha's lantern of trapped anima
-    (9101305, -102.7, 152.6, -40.15, None),
-    (9101304, -105.5, 160.5, -40.21, None),
-    (9101306, -103.5, 157.5, -40.02, None),
+    (9101302, -98.0, 157.0, FLOOR_Z, None),                  # the cauldron behind the sisters
+    (9101303, -101.9, 155.0, FLOOR_Z, None),                 # Hagatha's lantern of trapped anima
+    (9101305, -102.7, 152.6, FLOOR_Z, None),
+    (9101304, -105.5, 160.5, FLOOR_Z, None),
+    (9101306, -103.5, 157.5, FLOOR_Z, None),
     *RITUAL_SPAWNS,
-    (9101301, -92.0, 157.0, -39.93, None),                  # Wren's cages: one beside her, four along the walls
-    (9101301, -108.0, 160.0, -40.12, None),
-    (9101301, -88.0, 160.0, -40.11, None),
-    (9101301, -108.0, 140.0, -40.31, None),
-    (9101301, -88.0, 140.0, -40.24, None),
+    (9101301, -92.0, 157.0, FLOOR_Z, None),                  # Wren's cages: one beside her, four along the walls
+    (9101301, -108.0, 160.0, FLOOR_Z, None),
+    (9101301, -88.0, 160.0, FLOOR_Z, None),
+    (9101301, -108.0, 140.0, FLOOR_Z, None),
+    (9101301, -88.0, 140.0, FLOOR_Z, None),
 ]
 
 # Wren's pests (the fourth chore): by each of her five cages one on the floor (2.5 yards towards the middle of the
