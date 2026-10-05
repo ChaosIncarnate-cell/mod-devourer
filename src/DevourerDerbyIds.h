@@ -38,18 +38,19 @@ namespace Devourer::Derby
         { -860.0f, -2580.0f }, { -950.0f, -2500.0f }, { -1040.0f, -2420.0f }, { -1000.0f, -2340.0f },
         { -920.0f, -2440.0f }, { -850.0f, -2540.0f }, { StartX, StartY },
     };
-    constexpr Point CourseRematch[] =              // about 1270 yards: through the oasis shallows
+    constexpr Point CourseRematch[] =              // about 1160 yards: round the south of Lushwater Oasis
     {
-        { -900.0f, -2540.0f }, { -1020.0f, -2430.0f }, { -1100.0f, -2300.0f }, { -1060.0f, -2160.0f },
-        { -1150.0f, -2230.0f }, { -1180.0f, -2380.0f }, { -1060.0f, -2500.0f }, { -920.0f, -2600.0f },
-        { StartX, StartY },
+        { -900.0f, -2540.0f }, { -1020.0f, -2430.0f }, { -1100.0f, -2300.0f }, { -1150.0f, -2230.0f },
+        { -1180.0f, -2380.0f }, { -1060.0f, -2500.0f }, { -920.0f, -2600.0f }, { StartX, StartY },
     };
-    constexpr Point CourseLastLap[] =              // about 1450 yards: the full course, about two minutes
+    constexpr Point CourseLastLap[] =              // about 1300 yards: the full course, about two minutes
     {
         { -900.0f, -2680.0f }, { -1050.0f, -2600.0f }, { -1180.0f, -2480.0f }, { -1200.0f, -2330.0f },
-        { -1120.0f, -2200.0f }, { -1040.0f, -2120.0f }, { -960.0f, -2250.0f }, { -930.0f, -2400.0f },
+        { -1100.0f, -2300.0f }, { -1010.0f, -2230.0f }, { -960.0f, -2250.0f }, { -930.0f, -2400.0f },
         { -860.0f, -2540.0f }, { StartX, StartY },
     };
+    // (2026-10-05: no checkpoint in the oasis water any more; its bed is 13+ yards down, so the old ones there could
+    // never be reached. Every point and leg checked dry against the server's map files.)
 
     // Hagatha's pace in yards per second. The race body runs 11.2 (7 x 1.6); she leaves room for the turns.
     constexpr float PaceDerby = 8.5f, PaceRematch = 9.5f, PaceLastLap = 10.3f;
