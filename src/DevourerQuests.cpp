@@ -167,15 +167,15 @@ namespace
     }
 
     // Something a quest calls into the world (a lured beast, a swarm, the beast at the end of a trail): only this
-    // Devourer sees it, and it comes for the Devourer.
+    // Devourer sees it, and if it is hostile it comes for the Devourer.
     Creature* Call(Player* player, uint32 entry, float x, float y, float z)
     {
         TempSummon* beast = player->SummonCreature(entry, x, y, z, player->GetAngle(x, y) + float(M_PI),
             TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, SummonLifetime, nullptr, true);
         if (!beast)
             return nullptr;
-        if (beast->AI())
-            beast->AI()->AttackStart(player);
+        if (beast->AI() && beast->IsHostileTo(player))
+            beast->AI()->AttackStart(player);  // a spared one is not hostile: it waits to be found
         called[player->GetGUID().GetCounter()].push_back(beast->GetGUID());
         return beast;
     }
