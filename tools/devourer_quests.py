@@ -20,7 +20,8 @@ HDR_OUT = os.path.join(ROOT, "src", "DevourerQuestsIds.h")
 DOC_OUT = os.path.join(ROOT, "docs", "quests.md")
 
 Q_FIRST, Q_LAST = 9105000, 9105399            # quests
-CREDIT_FIRST, CREDIT_LAST = 9105400, 9105999  # credit creatures (never spawned)
+CREDIT_FIRST, CREDIT_LAST = 9105400, 9105899  # credit creatures (never spawned)
+BEAST_FIRST, BEAST_LAST = 9105900, 9105999    # creature_template: the quests' own creatures (spared ones, ...)
 LANTERN_FIRST, LANTERN_LAST = 9105000, 9105099  # gameobject_template: one lantern per region
 THING_FIRST, THING_LAST = 9105100, 9105199    # gameobject_template: what the witches leave to be touched
 GUID_FIRST, GUID_LAST = 9920000, 9920999      # gameobject spawns
@@ -73,15 +74,32 @@ class Lantern:
             key, region, map_id, x, y, z, o, where)
         self.entry = None
 
+    @property
+    def Region(self):
+        """The region's name at the start of a sentence ("The Barrens")."""
+        return self.region[:1].upper() + self.region[1:]
+
 
 class Thing:
     """Something the witches leave in the world (a goober gameobject that answers for one quest): a token to touch
-    (an objective), or a lure that calls the creature a quest wants (summon = its entry)."""
-    def __init__(self, key, name, display, spawns, size=1.0, summon=0):
-        self.key, self.name, self.display, self.spawns, self.size, self.summon = (
-            key, name, display, spawns, size, summon)
+    (an objective), a lure that calls the creature a quest wants (summon = its entry, count of them), or a campfire
+    that tells a tale (lines, by speaker; companion: Bramble must listen too; reaction: what she says after)."""
+    def __init__(self, key, name, display, spawns, size=1.0, summon=0, count=1, lines=(), speaker="",
+                 companion=False, reaction=""):
+        self.key, self.name, self.display, self.spawns, self.size, self.summon, self.count = (
+            key, name, display, spawns, size, summon, count)
+        self.lines, self.speaker, self.companion, self.reaction = list(lines), speaker, companion, reaction
         self.entry = None
         self.quest = None
+
+
+class Beast:
+    """A creature of the quests' own (a creature_template copy of a stock one, with its own name and maybe look)."""
+    def __init__(self, key, name, clone_of, display=0, scale=1.0, level=None, faction=None, subname="",
+                 passive=False):
+        self.key, self.name, self.clone_of, self.display, self.scale = key, name, clone_of, display, scale
+        self.level, self.faction, self.subname, self.passive = level, faction, subname, passive
+        self.entry = None
 
 
 class Obj:
@@ -95,10 +113,15 @@ def kill(entry, count, text):
     return Obj("kill", count, text, entry=entry)
 
 
-def devour(count, text, entries=(), family=0, ctype=0, elite=False, any_meal=False, shapes=()):
-    """Devour (Mgr::EatShape): any of the entries, a creature family, a creature type, an elite, or anything."""
+FLAG_COMPANION, FLAG_FLEE, FLAG_FAIL, FLAG_FOLLOW = 1, 2, 4, 8
+VISIT_QUIET = 1
+
+
+def devour(count, text, entries=(), family=0, ctype=0, elite=False, any_meal=False, shapes=(), companion=None):
+    """Devour (Mgr::EatShape): any of the entries, a creature family, a creature type, an elite, or anything.
+    companion: a line Bramble says when she watches it happen (then she has to be there for it to count)."""
     return Obj("devour", count, text, entries=tuple(entries), family=family, ctype=ctype, elite=elite,
-               any_meal=any_meal, shapes=tuple(shapes))
+               any_meal=any_meal, shapes=tuple(shapes), companion=companion)
 
 
 def slay(count, text, entries=(), family=0, ctype=0, elite=False, any_kill=False, shapes=()):
@@ -111,14 +134,44 @@ EMOTE_PET, EMOTE_ROAR, EMOTE_HUG, EMOTE_WAVE, EMOTE_DANCE, EMOTE_KISS, EMOTE_BOW
     410, 75, 56, 101, 34, 58, 17, 21)
 
 
-def emote(count, text, emote_id, entries=(), family=0, ctype=0, shapes=()):
-    """Do a text emote (/pet, /roar, ...) at a creature that fits; each creature counts once."""
+def emote(count, text, emote_id, entries=(), family=0, ctype=0, shapes=(), flee=False, follow=False):
+    """Do a text emote (/roar, /pet, ...) at a creature that fits; each creature counts once.
+    flee: it runs away; follow: it trots after the Devourer for a while, then goes home (a spared one)."""
     return Obj("emote", count, text, emote=emote_id, entries=tuple(entries), family=family, ctype=ctype,
+               elite=False, shapes=tuple(shapes), flee=flee, follow=follow)
+
+
+def struck(count, text, entries=(), family=0, ctype=0, shapes=()):
+    """Let a creature that fits use one of its abilities on the Devourer (its trick, learned before the meal)."""
+    return Obj("struck", count, text, entries=tuple(entries), family=family, ctype=ctype, elite=False,
+               shapes=tuple(shapes))
+
+
+def spare(text, entries):
+    """Not an objective in the log: killing one of these fails the quest (the one the Devourer was asked to spare)."""
+    return Obj("spare", 0, text, entries=tuple(entries), family=0, ctype=0, elite=False, shapes=())
+
+
+def ability(count, text, spell, entries=(), family=0, ctype=0, shapes=()):
+    """Use a form's ability (spell id) on a creature that fits; each creature counts once."""
+    return Obj("ability", count, text, spell=spell, entries=tuple(entries), family=family, ctype=ctype,
                elite=False, shapes=tuple(shapes))
 
 
-def visit(text, map_id, x, y, radius=25.0):
-    return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius)
+def visit(text, map_id, x, y, radius=25.0, shapes=(), quiet=False):
+    """Be at a place (maybe in a certain shape; quiet: without being in a fight, i.e. walked in unnoticed)."""
+    return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=quiet)
+
+
+def tale(thing, text):
+    """Sit by a campfire (the thing, with lines) and hear one of the sisters' tales to its end."""
+    return Obj("tale", 1, text, thing=thing)
+
+
+def trail(text, name, map_id, points, summon=0, radius=20.0):
+    """Follow a scent trail with Sniff on, point after point; the last one calls `summon` (if any)."""
+    assert 2 <= len(points) <= 6
+    return Obj("trail", 1, text, name=name, map=map_id, points=list(points), summon=summon, radius=radius)
 
 
 def touch(thing, count, text):
@@ -133,7 +186,7 @@ def item(entry, count, name):
 class Quest:
     def __init__(self, qid, title, level, minlevel, giver, ender, voice, text, log, done, reward_text,
                  objectives=(), prev=None, races=0, needs=(), choices=(), items=(), xp=5, money=None, sort=0,
-                 story="", lures=()):
+                 story="", lures=(), timed=0):
         self.id, self.title, self.level, self.minlevel = qid, title, level, minlevel
         self.giver, self.ender, self.voice = giver, ender, voice
         self.text, self.log, self.done, self.reward_text = text, log, done, reward_text
@@ -142,6 +195,7 @@ class Quest:
         self.choices, self.items = list(choices), list(items)
         self.xp, self.sort, self.story = xp, sort, story
         self.lures = list(lures)
+        self.timed = timed                        # seconds to finish it in (quest_template.TimeAllowed), 0 = none
         self.money = money if money is not None else default_money(level, xp)
 
 
@@ -155,7 +209,7 @@ def default_money(level, xp):
 
 class Book:
     def __init__(self):
-        self.lanterns, self.things, self.quests = [], [], []
+        self.lanterns, self.things, self.quests, self.beasts = [], [], [], []
         self.regions = []                         # (title, intro, [quests]) for the doc
 
     def lantern(self, *args):
@@ -164,6 +218,13 @@ class Book:
         assert lantern.entry <= LANTERN_LAST
         self.lanterns.append(lantern)
         return lantern
+
+    def beast(self, *args, **kw):
+        beast = Beast(*args, **kw)
+        beast.entry = BEAST_FIRST + len(self.beasts)
+        assert beast.entry <= BEAST_LAST
+        self.beasts.append(beast)
+        return beast
 
     def thing(self, *args, **kw):
         thing = Thing(*args, **kw)
@@ -208,11 +269,11 @@ def assign_credits(book):
     nxt = CREDIT_FIRST
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
-            if obj.kind in ("devour", "slay", "visit", "touch", "emote"):
+            if obj.kind in ("devour", "slay", "visit", "touch", "emote", "ability", "trail", "struck", "tale"):
                 obj.credit = nxt
                 nxt += 1
                 assert nxt <= CREDIT_LAST + 1
-            if obj.kind == "touch":
+            if obj.kind in ("touch", "tale"):
                 assert obj.kw["thing"].quest in (None, quest.id), "one quest per thing"
                 assert not obj.kw["thing"].summon, "a lure is not an objective"
                 obj.kw["thing"].quest = quest.id
@@ -225,8 +286,8 @@ def check(book):
     by_id = {quest.id: quest for quest in book.quests}
     for quest in book.quests:
         assert 1 <= quest.minlevel <= quest.level <= 80, quest.title
-        assert len(quest.objectives) <= 4, quest.title
-        kills = [o for o in quest.objectives if o.kind != "item"]
+        assert len([o for o in quest.objectives if o.kind != "spare"]) <= 4, quest.title
+        kills = [o for o in quest.objectives if o.kind not in ("item", "spare")]
         items = [o for o in quest.objectives if o.kind == "item"]
         assert len(kills) <= 4 and len(items) <= 4, quest.title
         assert len(quest.choices) <= 6 and len(quest.items) <= 4, quest.title
@@ -248,10 +309,14 @@ def credit_rules(book):
     rules = []
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
-            if obj.kind not in ("devour", "slay", "emote"):
+            if obj.kind not in ("devour", "slay", "emote", "ability", "struck", "spare"):
                 continue
-            event = {"devour": "EventMeal", "slay": "EventKill", "emote": "EventEmote"}[obj.kind]
-            emote_id = obj.kw.get("emote", 0)
+            event = {"devour": "EventMeal", "slay": "EventKill", "emote": "EventEmote", "ability": "EventSpell",
+                     "struck": "EventStruck", "spare": "EventKill"}[obj.kind]
+            detail = obj.kw.get("emote", 0) or obj.kw.get("spell", 0)
+            flags = ((FLAG_COMPANION if obj.kw.get("companion") else 0) | (FLAG_FLEE if obj.kw.get("flee") else 0)
+                     | (FLAG_FAIL if obj.kind == "spare" else 0) | (FLAG_FOLLOW if obj.kw.get("follow") else 0))
+            line = obj.kw.get("companion") or ""
             shapes = list(obj.kw.get("shapes", ()))[:4]
             shapes += [0] * (4 - len(shapes))
             filters = []
@@ -267,8 +332,13 @@ def credit_rules(book):
                 filters.append(("FilterAny", 0))
             assert filters, (quest.title, obj.text)
             for name, value in filters:
-                rules.append((quest.id, obj.credit, event, name, value, emote_id, shapes, quest.title, obj.text))
+                rules.append((quest.id, obj.credit or 0, event, name, value, detail, flags, shapes, line,
+                              quest.title, obj.text))
     return rules
+
+
+def cstr(text):
+    return '"' + str(text).replace('\\', '\\\\').replace('"', '\\"') + '"'
 
 
 def write_header(book):
@@ -282,24 +352,29 @@ def write_header(book):
         "",
         "namespace Devourer::Quests",
         "{",
-        "    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3 };",
+        "    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3, EventSpell = 4, EventStruck = 5 };",
         "    enum Filter : uint8_t { FilterEntry = 1, FilterFamily = 2, FilterType = 3, FilterElite = 4, FilterAny = 5 };",
+        "    enum Flag : uint8_t { FlagCompanion = 1, FlagFlee = 2, FlagFail = 4, FlagFollow = 8 };",
+        "    enum VisitFlag : uint8_t { VisitQuiet = 1 };",
         "",
-        "    // An event (a meal, a kill, an emote at a creature) that fits gives the credit of one quest objective,",
-        "    // while the quest is open. Emote: the text emote (TEXT_EMOTE_*), 0 for meals and kills.",
+        "    // An event (a meal, a kill, an emote at a creature, an ability on it) that fits gives the credit of one",
+        "    // quest objective, while the quest is open. Detail: the text emote (TEXT_EMOTE_*) or the spell, 0 for meals",
+        "    // and kills. Flags: FlagCompanion (Bramble must watch; she says Line), FlagFlee (the creature runs away),",
+        "    // FlagFail (killing it fails the quest: the one to spare), FlagFollow (it follows the Devourer a while).",
         "    struct CreditRule { uint32_t Quest; uint32_t Credit; uint8_t Event; uint8_t Filter; uint32_t Value;"
-        " uint32_t Emote; uint32_t Shapes[4]; };",
+        " uint32_t Detail; uint8_t Flags; uint32_t Shapes[4]; char const* Line; };",
         "    constexpr CreditRule CreditRules[] =",
         "    {",
     ]
-    for qid, credit, event, name, value, emote_id, shapes, title, text in rules:
-        out.append(f"        {{ {qid}, {credit}, {event}, {name}, {value}, {emote_id},"
-                   f" {{ {', '.join(map(str, shapes))} }} }},   // {title}: {text}")
+    for qid, credit, event, name, value, detail, flags, shapes, line, title, text in rules:
+        out.append(f"        {{ {qid}, {credit}, {event}, {name}, {value}, {detail}, {flags},"
+                   f" {{ {', '.join(map(str, shapes))} }}, {cstr(line)} }},   // {title}: {text}")
     out += [
         "    };",
         "",
-        "    // Being there: within Radius yards of X, Y on Map.",
-        "    struct VisitRule { uint32_t Quest; uint32_t Credit; uint32_t Map; float X, Y, Radius; };",
+        "    // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight).",
+        "    struct VisitRule { uint32_t Quest; uint32_t Credit; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4];"
+        " uint8_t Flags; };",
         "    constexpr VisitRule VisitRules[] =",
         "    {",
     ]
@@ -307,30 +382,71 @@ def write_header(book):
               if obj.kind == "visit"]
     for quest, obj in visits:
         kw = obj.kw
-        out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {kw['x']}f, {kw['y']}f, {kw['radius']}f }},"
+        shapes = list(kw.get("shapes", ()))[:4]
+        shapes += [0] * (4 - len(shapes))
+        out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {kw['x']}f, {kw['y']}f, {kw['radius']}f,"
+                   f" {{ {', '.join(map(str, shapes))} }}, {VISIT_QUIET if kw.get('quiet') else 0} }},"
                    f"   // {quest.title}: {obj.text}")
     if not visits:
-        out.append("        { 0, 0, 0, 0.0f, 0.0f, 0.0f },")
+        out.append("        { 0, 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, 0 },")
     out += [
         "    };",
         "",
-        "    // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Summon.",
-        "    struct UseRule { uint32_t Object; uint32_t Quest; uint32_t Credit; uint32_t Summon; };",
+        "    // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Count x Summon,",
+        "    // a campfire tells Lines (by Speaker) and counts at the end (FlagCompanion: Bramble listens; Reaction).",
+        "    struct UseRule { uint32_t Object; uint32_t Quest; uint32_t Credit; uint32_t Summon; uint32_t Count;"
+        " uint8_t Flags; uint8_t LineCount; char const* const* Lines; char const* Speaker; char const* Reaction; };",
+        "@@TALE_LINES@@",
         "    constexpr UseRule UseRules[] =",
         "    {",
     ]
     touches = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
                if obj.kind == "touch"]
+    tales = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
+             if obj.kind == "tale"]
+    lines_decl = []
+    for quest, obj in tales:
+        thing = obj.kw["thing"]
+        lines_decl.append(f"    constexpr char const* TaleLines{thing.entry}[] = {{ "
+                          + ", ".join(cstr(line) for line in thing.lines) + " };")
     for quest, obj in touches:
-        out.append(f"        {{ {obj.kw['thing'].entry}, {quest.id}, {obj.credit}, 0 }},   // {quest.title}: {obj.text}")
+        out.append(f"        {{ {obj.kw['thing'].entry}, {quest.id}, {obj.credit}, 0, 0, 0, 0, nullptr, \"\", \"\" }},"
+                   f"   // {quest.title}: {obj.text}")
+    for quest, obj in tales:
+        thing = obj.kw["thing"]
+        out.append(f"        {{ {thing.entry}, {quest.id}, {obj.credit}, 0, 0, {FLAG_COMPANION if thing.companion else 0},"
+                   f" {len(thing.lines)}, TaleLines{thing.entry}, {cstr(thing.speaker)}, {cstr(thing.reaction)} }},"
+                   f"   // {quest.title}: {obj.text}")
     lures = [(quest, thing) for quest in sorted(book.quests, key=lambda x: x.id) for thing in quest.lures]
     for quest, thing in lures:
-        out.append(f"        {{ {thing.entry}, {quest.id}, 0, {thing.summon} }},   // {quest.title}: {thing.name}")
-    if not touches and not lures:
-        out.append("        { 0, 0, 0, 0 },")
+        out.append(f"        {{ {thing.entry}, {quest.id}, 0, {thing.summon}, {thing.count}, 0, 0, nullptr, \"\", \"\" }},"
+                   f"   // {quest.title}: {thing.name}")
+    if not touches and not lures and not tales:
+        out.append('        { 0, 0, 0, 0, 0, 0, 0, nullptr, "", "" },')
+    out += [
+        "    };",
+        "",
+        "    // A scent trail: with Sniff on, the Devourer is told the way to the next point; the last one calls Summon.",
+        "    struct TrackPoint { float X, Y; };",
+        "    struct TrackRule { uint32_t Quest; uint32_t Credit; uint32_t Map; uint8_t Count; TrackPoint Points[6];"
+        " float Radius; uint32_t Summon; char const* Name; };",
+        "    constexpr TrackRule TrackRules[] =",
+        "    {",
+    ]
+    trails = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
+              if obj.kind == "trail"]
+    for quest, obj in trails:
+        kw = obj.kw
+        pts = list(kw["points"]) + [(0.0, 0.0)] * (6 - len(kw["points"]))
+        out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {len(kw['points'])}, {{ "
+                   + ", ".join(f"{{ {x}f, {y}f }}" for x, y in pts)
+                   + f" }}, {kw['radius']}f, {kw['summon']}, {cstr(kw['name'])} }},   // {quest.title}")
+    if not trails:
+        out.append('        { 0, 0, 0, 0, { }, 0.0f, 0, "" },')
     out += ["    };", "}", "", "#endif", ""]
+    text = "\n".join(out).replace("@@TALE_LINES@@", "\n".join(lines_decl))
     with open(HDR_OUT, "w", encoding="utf-8", newline="\n") as f:
-        f.write("\n".join(out))
+        f.write(text)
 
 
 def write_sql(book):
@@ -401,6 +517,31 @@ def write_sql(book):
              " `Probability`, `VerifiedBuild`) VALUES")
     o.append(",\n".join(f"({credit}, 0, {INVISIBLE_MODEL}, 1, 1, 0)" for credit, _ in credits) + ";")
 
+    if book.beasts:
+        o += ["", "-- --- the quests' own creatures (copies of stock ones, with their own names) ----------------------------",
+              f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {BEAST_FIRST} AND {BEAST_LAST};",
+              f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {BEAST_FIRST} AND {BEAST_LAST};"]
+        for beast in book.beasts:
+            o.append("DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;")
+            o.append(f"CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = {beast.clone_of};")
+            sets = [f"`entry` = {beast.entry}", f"`name` = {q(beast.name)}", f"`subname` = {q(beast.subname)}",
+                    "`KillCredit1` = 0", "`KillCredit2` = 0", "`lootid` = 0", "`pickpocketloot` = 0", "`skinloot` = 0",
+                    "`AIName` = ''", "`ScriptName` = ''", "`VerifiedBuild` = 0"]
+            if beast.level:
+                sets += [f"`minlevel` = {beast.level}", f"`maxlevel` = {beast.level}"]
+            if beast.faction:
+                sets.append(f"`faction` = {beast.faction}")
+            o.append("UPDATE `devourer_tmp_ct` SET " + ", ".join(sets) + ";")
+            o.append("INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;")
+            o.append("DROP TEMPORARY TABLE `devourer_tmp_ct`;")
+            if beast.display:
+                o.append("INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`,"
+                         f" `Probability`, `VerifiedBuild`) VALUES ({beast.entry}, 0, {beast.display}, {beast.scale}, 1, 0);")
+            else:
+                o.append("INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`,"
+                         " `Probability`, `VerifiedBuild`) SELECT " + str(beast.entry) + ", 0, `CreatureDisplayID`,"
+                         f" `DisplayScale` * {beast.scale}, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = "
+                         f"{beast.clone_of} AND `Idx` = 0;")
     o += ["", "-- --- the quests -------------------------------------------------------------------------------------"]
     cols = ("`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardXPDifficulty`,"
             " `RewardMoney`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`,"
@@ -409,11 +550,11 @@ def write_sql(book):
             + ", ".join(f"`RequiredItemId{i}`, `RequiredItemCount{i}`" for i in range(1, 5)) + ", "
             + ", ".join(f"`RewardItem{i}`, `RewardAmount{i}`" for i in range(1, 5)) + ", "
             + ", ".join(f"`RewardChoiceItemID{i}`, `RewardChoiceItemQuantity{i}`" for i in range(1, 7)) + ", "
-            + ", ".join(f"`ObjectiveText{i}`" for i in range(1, 5)) + ", `VerifiedBuild`")
+            + ", ".join(f"`ObjectiveText{i}`" for i in range(1, 5)) + ", `TimeAllowed`, `VerifiedBuild`")
     o.append(f"INSERT INTO `quest_template` ({cols}) VALUES")
     rows = []
     for quest in quests:
-        npcs = [o2 for o2 in quest.objectives if o2.kind != "item"]
+        npcs = [o2 for o2 in quest.objectives if o2.kind not in ("item", "spare")]
         items = [o2 for o2 in quest.objectives if o2.kind == "item"]
         req = []
         texts = []
@@ -437,7 +578,7 @@ def write_sql(book):
         completion = "Return to " + place(quest.ender) + "."
         values = ([quest.id, 2, quest.level, quest.minlevel, quest.sort, 0, quest.xp, quest.money, 0, quest.races,
                    q(quest.title), q(quest.log), q(quest.text), "''", q(completion)] + req + ireq + rew + cho
-                  + [q(t) for t in texts] + [0])
+                  + [q(t) for t in texts] + [quest.timed, 0])
         rows.append("(" + ", ".join(str(v) for v in values) + ")")
     o.append(",\n".join(rows) + ";")
     o.append("INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES")
@@ -493,7 +634,8 @@ def write_doc(book):
                 "| Lvl | Quest | Story | Objectives | Rewards |", "|---|---|---|---|---|"]
         for quest in quests:
             total += 1
-            objs = "; ".join(f"{o2.text} x{o2.count}" if o2.count > 1 else o2.text for o2 in quest.objectives) or "-"
+            objs = "; ".join(f"{o2.text} x{o2.count}" if o2.count > 1 else o2.text for o2 in quest.objectives
+                             if o2.kind != "spare") or "-"
             rewards = []
             if quest.choices:
                 rewards.append("one of: " + ", ".join(name for _, name in quest.choices))
