@@ -21,7 +21,9 @@ DOC_OUT = os.path.join(ROOT, "docs", "quests.md")
 
 Q_FIRST, Q_LAST = 9105000, 9105399            # quests
 CREDIT_FIRST, CREDIT_LAST = 9105400, 9105899  # credit creatures (never spawned)
-BEAST_FIRST, BEAST_LAST = 9105900, 9105999    # creature_template: the quests' own creatures (spared ones, ...)
+BEAST_FIRST, BEAST_LAST = 9105900, 9105979    # creature_template: the quests' own creatures (spared ones, ...)
+SPEAKER = 9105990                             # creature_template: the lantern's voice (for the LLM companions)
+SPEAKER_GUID_FIRST, SPEAKER_GUID_LAST = 9920500, 9920599   # creature spawns: one speaker at each lantern
 LANTERN_FIRST, LANTERN_LAST = 9105000, 9105099  # gameobject_template: one lantern per region
 THING_FIRST, THING_LAST = 9105100, 9105199    # gameobject_template: what the witches leave to be touched
 GUID_FIRST, GUID_LAST = 9920000, 9920999      # gameobject spawns
@@ -161,6 +163,13 @@ def ability(count, text, spell, entries=(), family=0, ctype=0, shapes=()):
 def visit(text, map_id, x, y, radius=25.0, shapes=(), quiet=False):
     """Be at a place (maybe in a certain shape; quiet: without being in a fight, i.e. walked in unnoticed)."""
     return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=quiet)
+
+
+def among(text, map_id, x, y, entries, shapes, radius=15.0):
+    """Walk to the middle of a pack (x, y) in one of the shapes without starting a fight. While the Devourer wears
+    the shape there, the pack's creatures (entries) take it for one of their own and do not attack."""
+    return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=True,
+               among=tuple(entries))
 
 
 def tale(thing, text):
@@ -426,6 +435,27 @@ def write_header(book):
     out += [
         "    };",
         "",
+        "    // A pack that takes the Devourer for one of its own: within Radius x 3 of X, Y, wearing one of the Shapes,",
+        "    // the Entries there do not attack it (they forget it again when it leaves or changes shape).",
+        "    struct DisguiseRule { uint32_t Quest; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4];"
+        " uint32_t Entries[8]; };",
+        "    constexpr DisguiseRule DisguiseRules[] =",
+        "    {",
+    ]
+    packs = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
+             if obj.kind == "visit" and obj.kw.get("among")]
+    for quest, obj in packs:
+        kw = obj.kw
+        shapes = list(kw["shapes"])[:4] + [0] * (4 - len(kw["shapes"][:4]))
+        entries = list(kw["among"])[:8] + [0] * (8 - len(kw["among"][:8]))
+        out.append(f"        {{ {quest.id}, {kw['map']}, {kw['x']}f, {kw['y']}f, {kw['radius']}f,"
+                   f" {{ {', '.join(map(str, shapes))} }}, {{ {', '.join(map(str, entries))} }} }},"
+                   f"   // {quest.title}")
+    if not packs:
+        out.append("        { 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 } },")
+    out += [
+        "    };",
+        "",
         "    // A scent trail: with Sniff on, the Devourer is told the way to the next point; the last one calls Summon.",
         "    struct TrackPoint { float X, Y; };",
         "    struct TrackRule { uint32_t Quest; uint32_t Credit; uint32_t Map; uint8_t Count; TrackPoint Points[6];"
@@ -502,6 +532,29 @@ def write_sql(book):
             guid += 1
     assert guid <= GUID_LAST + 1
     o.append(",\n".join(rows) + ";")
+
+    o += ["", "-- --- the lantern's voice: an invisible creature at every lantern, for the LLM companions to speak through ---",
+          f"DELETE FROM `creature` WHERE `guid` BETWEEN {SPEAKER_GUID_FIRST} AND {SPEAKER_GUID_LAST};",
+          f"DELETE FROM `creature_template_model` WHERE `CreatureID` = {SPEAKER};",
+          f"DELETE FROM `creature_template` WHERE `entry` = {SPEAKER};",
+          "DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;",
+          f"CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = {TRIGGER_TEMPLATE};",
+          f"UPDATE `devourer_tmp_ct` SET `entry` = {SPEAKER}, `name` = {q('Hagatha' + chr(39) + 's Lantern')},"
+          " `subname` = NULL, `faction` = 35, `npcflag` = 0, `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '',"
+          " `ScriptName` = '', `VerifiedBuild` = 0;",
+          "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
+          "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
+          "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
+          f" `VerifiedBuild`) VALUES ({SPEAKER}, 0, {INVISIBLE_MODEL}, 1, 1, 0);",
+          "INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`,"
+          " `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES"]
+    speakers = []
+    for i, lantern in enumerate(book.lanterns):
+        guid = SPEAKER_GUID_FIRST + i
+        assert guid <= SPEAKER_GUID_LAST
+        speakers.append(f"({guid}, {SPEAKER}, {lantern.map}, 1, 1, {lantern.x}, {lantern.y}, {round(lantern.z + 1.0, 2)},"
+                        f" {lantern.o}, 300, 0, 0, {q('mod-devourer: the voice of Hagatha' + chr(39) + 's Lantern, ' + lantern.where)})")
+    o.append(",\n".join(speakers) + ";")
 
     credits = [(obj.credit, obj.text) for quest in quests for obj in quest.objectives if obj.credit]
     o += ["", "-- --- credits: one per objective the core cannot count by itself (never spawned) -----------------------",

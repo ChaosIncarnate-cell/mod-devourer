@@ -444,6 +444,14 @@ namespace Devourer::Quests
         { 9105108, 9105253, 0, 2447, 1, 0, 0, nullptr, "", "" },   // Narillasanz: Hagatha's Bait
     };
 
+    // A pack that takes the Devourer for one of its own: within Radius x 3 of X, Y, wearing one of the Shapes,
+    // the Entries there do not attack it (they forget it again when it leaves or changes shape).
+    struct DisguiseRule { uint32_t Quest; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4]; uint32_t Entries[8]; };
+    constexpr DisguiseRule DisguiseRules[] =
+    {
+        { 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 } },
+    };
+
     // A scent trail: with Sniff on, the Devourer is told the way to the next point; the last one calls Summon.
     struct TrackPoint { float X, Y; };
     struct TrackRule { uint32_t Quest; uint32_t Credit; uint32_t Map; uint8_t Count; TrackPoint Points[6]; float Radius; uint32_t Summon; char const* Name; };

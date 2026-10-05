@@ -76,6 +76,7 @@ namespace
     std::unordered_map<Key, uint32> tickTimers;
     std::unordered_map<Key, std::vector<ObjectGuid>> called;                    // what a Devourer's objects woke
     std::set<Key> telling;                                                     // a campfire tale is running
+    std::unordered_map<Key, std::set<ObjectGuid>> fooled;                      // pack members that take it for kin
 
     bool Open(Player* player, uint32 quest)
     {
@@ -202,6 +203,53 @@ namespace
         }
     }
 
+    void Forget(Player* player)
+    {
+        auto itr = fooled.find(player->GetGUID().GetCounter());
+        if (itr == fooled.end())
+            return;
+        for (ObjectGuid const& guid : itr->second)
+            if (Creature* creature = ObjectAccessor::GetCreature(*player, guid))
+                if (creature->IsAlive())
+                    creature->SetReactState(REACT_AGGRESSIVE);
+        fooled.erase(itr);
+    }
+
+    // Walk among them: in the right shape, in the middle of the pack, the pack takes the Devourer for one of its own.
+    void Disguise(Player* player)
+    {
+        bool disguised = false;
+        for (DisguiseRule const& rule : DisguiseRules)
+        {
+            if (!rule.Quest || player->GetMapId() != rule.Map || !Open(player, rule.Quest))
+                continue;
+            if (!Wears(player, rule.Shapes) || player->GetExactDist2d(rule.X, rule.Y) > rule.Radius * 3.0f)
+                continue;
+            disguised = true;
+            std::vector<uint32> entries;
+            for (uint32 entry : rule.Entries)
+                if (entry)
+                    entries.push_back(entry);
+            std::list<Creature*> pack;
+            player->GetCreatureListWithEntryInGrid(pack, entries, 40.0f);
+            std::set<ObjectGuid>& kin = fooled[player->GetGUID().GetCounter()];
+            for (Creature* member : pack)
+            {
+                if (!member->IsAlive())
+                    continue;
+                if (member->GetVictim() == player)
+                {
+                    member->CombatStop(true);
+                    member->GetThreatMgr().ClearAllThreat();
+                }
+                member->SetReactState(REACT_PASSIVE);
+                kin.insert(member->GetGUID());
+            }
+        }
+        if (!disguised)
+            Forget(player);
+    }
+
     char const* Direction(float dx, float dy)
     {
         // World x runs north, world y runs west.
@@ -326,6 +374,7 @@ public:
             return;
         }
         timer = TickEvery;
+        Disguise(player);
         Visits(player);
         Trails(player);
     }
@@ -344,6 +393,7 @@ public:
         counted.erase(key);
         trails.erase(key);
         called.erase(key);
+        Forget(player);
     }
 };
 

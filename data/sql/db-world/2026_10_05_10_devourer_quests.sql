@@ -118,6 +118,56 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `positi
 (9920048, 9105107, 0, 1, 1, 674.3, -997.6, 164.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait'),
 (9920049, 9105108, 0, 1, 1, 305.2, -1265.5, 50.36, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Bait');
 
+-- --- the lantern's voice: an invisible creature at every lantern, for the LLM companions to speak through ---
+DELETE FROM `creature` WHERE `guid` BETWEEN 9920500 AND 9920599;
+DELETE FROM `creature_template_model` WHERE `CreatureID` = 9105990;
+DELETE FROM `creature_template` WHERE `entry` = 9105990;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15384;
+UPDATE `devourer_tmp_ct` SET `entry` = 9105990, `name` = 'Hagatha''s Lantern', `subname` = NULL, `faction` = 35, `npcflag` = 0, `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9105990, 0, 11686, 1, 1, 0);
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES
+(9920500, 9105990, 0, 1, 1, -9620.0, -560.0, 55.44, 2.4, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, south-east of Crystal Lake'),
+(9920501, 9105990, 0, 1, 1, -5620.0, -1100.0, 393.25, 1.2, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the hills east of Kharanos'),
+(9920502, 9105990, 1, 1, 1, 9810.0, 840.0, 1305.01, 3.9, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the woods south-east of Dolanaar'),
+(9920503, 9105990, 530, 1, 1, -4050.0, -12000.0, 2.55, 5.1, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, Moongraze Woods'),
+(9920504, 9105990, 1, 1, 1, 300.0, -4500.0, 29.58, 0.7, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the scrub west of Razor Hill'),
+(9920505, 9105990, 1, 1, 1, -2100.0, -900.0, -0.06, 2.0, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the plains north-east of Bloodhoof'),
+(9920506, 9105990, 0, 1, 1, 2500.0, 600.0, 31.68, 4.4, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the glades north-west of Brill'),
+(9920507, 9105990, 530, 1, 1, 8900.0, -6600.0, 34.61, 1.6, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the woods west of the Dead Scar'),
+(9920508, 9105990, 0, 1, 1, -10800.0, 1100.0, 40.36, 5.6, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the plains south-west of Sentinel Hill'),
+(9920509, 9105990, 0, 1, 1, -5600.0, -3200.0, 326.16, 0.4, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, Grizzlepaw Ridge, south of Thelsamar'),
+(9920510, 9105990, 1, 1, 1, 6300.0, 150.0, 34.71, 2.9, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the hills south of Auberdine'),
+(9920511, 9105990, 530, 1, 1, -2300.0, -11900.0, 26.92, 1.0, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the red woods north of Blood Watch'),
+(9920512, 9105990, 1, 1, 1, -780.0, -2680.0, 93.04, 2.2, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, beside Wren''s Derby, west of the Crossroads'),
+(9920513, 9105990, 0, 1, 1, 500.0, 1200.0, 88.17, 4.0, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the pines south of the Sepulcher'),
+(9920514, 9105990, 530, 1, 1, 7400.0, -6900.0, 52.34, 3.3, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, Sungraze Peak, south-west of Tranquillien'),
+(9920515, 9105990, 0, 1, 1, -10450.0, 100.0, 39.57, 2.5, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the edge of Raven Hill Cemetery'),
+(9920516, 9105990, 0, 1, 1, -3300.0, -2400.0, 23.64, 1.4, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the marsh north of Thelgen Rock'),
+(9920517, 9105990, 1, 1, 1, 2400.0, -1000.0, 100.85, 0.3, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the woods south-east of Astranaar'),
+(9920518, 9105990, 0, 1, 1, -200.0, -1100.0, 37.99, 5.2, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the hills south-east of Tarren Mill'),
+(9920519, 9105990, 1, 1, 1, 1700.0, 650.0, 195.97, 3.8, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the high pass north-east of Mirkfallon Lake'),
+(9920520, 9105990, 1, 1, 1, -5000.0, -1800.0, -56.74, 4.6, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the canyon floor below Darkcloud Pinnacle'),
+(9920521, 9105990, 0, 1, 1, -11700.0, -450.0, 22.02, 4.9, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the jungle south-east of Nesingwary''s camp'),
+(9920522, 9105990, 1, 1, 1, -2900.0, -3300.0, 32.69, 3.6, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the marsh north-east of Brackenwall'),
+(9920523, 9105990, 0, 1, 1, 500.0, -650.0, 168.4, 2.0, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, Gallows'' Corner, on the road through the mountains'),
+(9920524, 9105990, 1, 1, 1, -7400.0, -3400.0, 15.1, 5.5, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the dunes south-west of Gadgetzan'),
+(9920525, 9105990, 1, 1, 1, -4600.0, 700.0, 49.23, 1.1, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the forest south-west of Camp Mojache'),
+(9920526, 9105990, 0, 1, 1, 150.0, -2900.0, 113.45, 2.7, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the hills south-east of Aerie Peak'),
+(9920527, 9105990, 1, 1, 1, -6800.0, -1850.0, -271.22, 0.9, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the crater floor north-east of Fire Plume Ridge'),
+(9920528, 9105990, 1, 1, 1, 6500.0, -3500.0, 638.96, 4.2, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the snow below Timbermaw Post'),
+(9920529, 9105990, 0, 1, 1, -8100.0, -1800.0, 134.46, 3.1, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the ash fields below the Pillar of Ash'),
+(9920530, 9105990, 530, 1, 1, -2500.0, 4000.0, -2.81, 2.4, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the forest road between Allerian Stronghold and Stonebreaker Hold'),
+(9920531, 9105990, 530, 1, 1, -2200.0, 6700.0, -1.24, 5.0, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the plains near the Ring of Trials'),
+(9920532, 9105990, 530, 1, 1, 3000.0, 3400.0, 106.28, 1.7, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the waste south of Area 52'),
+(9920533, 9105990, 571, 1, 1, 600.0, -4600.0, 205.51, 3.9, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the hills north of Valgarde'),
+(9920534, 9105990, 571, 1, 1, 3000.0, 5300.0, 62.12, 0.6, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the tundra between Valiance Keep and Warsong Hold'),
+(9920535, 9105990, 571, 1, 1, 3800.0, -3600.0, 232.46, 2.2, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the pines of central Grizzly Hills'),
+(9920536, 9105990, 571, 1, 1, 5300.0, 5200.0, -128.8, 4.4, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the Wildgrowth Mangal'),
+(9920537, 9105990, 571, 1, 1, 6300.0, -1050.0, 415.59, 1.3, 300, 0, 0, 'mod-devourer: the voice of Hagatha''s Lantern, the Snowblind Hills near K3');
+
 -- --- credits: one per objective the core cannot count by itself (never spawned) -----------------------
 DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
 CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 15384;
