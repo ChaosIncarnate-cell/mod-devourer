@@ -43,6 +43,8 @@ def build(book):
     twenties = devourer_quests_twenties.twenties(book, teens)
     import devourer_quests_thirties
     thirties = devourer_quests_thirties.thirties(book, twenties)
+    import devourer_quests_high
+    devourer_quests_high.high(book, thirties)
 
 
 # --- Homecoming: a lantern in every home region (levels 6-11) --------------------------------------------------------

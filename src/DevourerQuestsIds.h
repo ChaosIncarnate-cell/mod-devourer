@@ -297,6 +297,123 @@ namespace Devourer::Quests
         { 9105282, 9105522, EventMeal, FilterEntry, 2505, 0, { 0, 0, 0, 0 } },   // Saltwater Snapjaws: Saltwater Snapjaw devoured
         { 9105283, 9105523, EventMeal, FilterEntry, 2656, 0, { 0, 0, 0, 0 } },   // Jade Oozes: Jade Ooze devoured
         { 9105284, 9105524, EventMeal, FilterEntry, 7977, 0, { 0, 0, 0, 0 } },   // Gammerita: Gammerita devoured
+        { 9105290, 9105525, EventMeal, FilterEntry, 6505, 0, { 0, 0, 0, 0 } },   // Ravasaurs: Ravasaur devoured
+        { 9105290, 9105525, EventMeal, FilterEntry, 6506, 0, { 0, 0, 0, 0 } },   // Ravasaurs: Ravasaur devoured
+        { 9105290, 9105525, EventMeal, FilterEntry, 6507, 0, { 0, 0, 0, 0 } },   // Ravasaurs: Ravasaur devoured
+        { 9105290, 9105525, EventMeal, FilterEntry, 6508, 0, { 0, 0, 0, 0 } },   // Ravasaurs: Ravasaur devoured
+        { 9105291, 9105526, EventMeal, FilterEntry, 9165, 0, { 0, 0, 0, 0 } },   // Pterrordax: Pterrordax devoured
+        { 9105291, 9105526, EventMeal, FilterEntry, 9166, 0, { 0, 0, 0, 0 } },   // Pterrordax: Pterrordax devoured
+        { 9105291, 9105526, EventMeal, FilterEntry, 9167, 0, { 0, 0, 0, 0 } },   // Pterrordax: Pterrordax devoured
+        { 9105292, 9105527, EventMeal, FilterEntry, 6509, 0, { 0, 0, 0, 0 } },   // A Very Hungry Plant: Bloodpetal devoured
+        { 9105292, 9105527, EventMeal, FilterEntry, 6511, 0, { 0, 0, 0, 0 } },   // A Very Hungry Plant: Bloodpetal devoured
+        { 9105292, 9105527, EventMeal, FilterEntry, 6510, 0, { 0, 0, 0, 0 } },   // A Very Hungry Plant: Bloodpetal devoured
+        { 9105292, 9105527, EventMeal, FilterEntry, 6512, 0, { 0, 0, 0, 0 } },   // A Very Hungry Plant: Bloodpetal devoured
+        { 9105293, 9105528, EventMeal, FilterEntry, 6556, 0, { 0, 0, 0, 0 } },   // The Primal Oozes: Un'Goro ooze devoured
+        { 9105293, 9105528, EventMeal, FilterEntry, 6557, 0, { 0, 0, 0, 0 } },   // The Primal Oozes: Un'Goro ooze devoured
+        { 9105293, 9105528, EventMeal, FilterEntry, 6559, 0, { 0, 0, 0, 0 } },   // The Primal Oozes: Un'Goro ooze devoured
+        { 9105294, 9105529, EventKill, FilterEntry, 6551, 0, { 14, 15, 30, 0 } },   // The Arboreal Gulper: Gorishi slain as a toad
+        { 9105294, 9105529, EventKill, FilterEntry, 6552, 0, { 14, 15, 30, 0 } },   // The Arboreal Gulper: Gorishi slain as a toad
+        { 9105294, 9105529, EventKill, FilterEntry, 6553, 0, { 14, 15, 30, 0 } },   // The Arboreal Gulper: Gorishi slain as a toad
+        { 9105295, 9105530, EventMeal, FilterEntry, 9162, 0, { 0, 0, 0, 0 } },   // Diemetradon: Diemetradon devoured
+        { 9105295, 9105530, EventMeal, FilterEntry, 9163, 0, { 0, 0, 0, 0 } },   // Diemetradon: Diemetradon devoured
+        { 9105295, 9105530, EventMeal, FilterEntry, 9164, 0, { 0, 0, 0, 0 } },   // Diemetradon: Diemetradon devoured
+        { 9105296, 9105531, EventMeal, FilterEntry, 6498, 0, { 0, 0, 0, 0 } },   // Devilsaur: Devilsaur devoured
+        { 9105300, 9105532, EventMeal, FilterEntry, 7444, 0, { 0, 0, 0, 0 } },   // Shardtooth: Shardtooth bear devoured
+        { 9105300, 9105532, EventMeal, FilterEntry, 7443, 0, { 0, 0, 0, 0 } },   // Shardtooth: Shardtooth bear devoured
+        { 9105300, 9105532, EventMeal, FilterEntry, 7445, 0, { 0, 0, 0, 0 } },   // Shardtooth: Shardtooth bear devoured
+        { 9105301, 9105533, EventMeal, FilterEntry, 7455, 0, { 0, 0, 0, 0 } },   // Winterspring Owls: Winterspring owl devoured
+        { 9105301, 9105533, EventMeal, FilterEntry, 7456, 0, { 0, 0, 0, 0 } },   // Winterspring Owls: Winterspring owl devoured
+        { 9105302, 9105534, EventMeal, FilterEntry, 7430, 0, { 0, 0, 0, 0 } },   // Frostsabers: Frostsaber devoured
+        { 9105302, 9105534, EventMeal, FilterEntry, 7431, 0, { 0, 0, 0, 0 } },   // Frostsabers: Frostsaber devoured
+        { 9105302, 9105534, EventMeal, FilterEntry, 7433, 0, { 0, 0, 0, 0 } },   // Frostsabers: Frostsaber devoured
+        { 9105302, 9105534, EventMeal, FilterEntry, 7432, 0, { 0, 0, 0, 0 } },   // Frostsabers: Frostsaber devoured
+        { 9105303, 9105535, EventMeal, FilterEntry, 7447, 0, { 0, 0, 0, 0 } },   // Chillwind: Chillwind chimaera devoured
+        { 9105303, 9105535, EventMeal, FilterEntry, 7448, 0, { 0, 0, 0, 0 } },   // Chillwind: Chillwind chimaera devoured
+        { 9105303, 9105535, EventMeal, FilterEntry, 7449, 0, { 0, 0, 0, 0 } },   // Chillwind: Chillwind chimaera devoured
+        { 9105304, 9105536, EventMeal, FilterEntry, 10659, 0, { 0, 0, 0, 0 } },   // Cobalt Whelps: Cobalt whelp devoured
+        { 9105304, 9105536, EventMeal, FilterEntry, 10660, 0, { 0, 0, 0, 0 } },   // Cobalt Whelps: Cobalt whelp devoured
+        { 9105305, 9105537, EventMeal, FilterEntry, 7453, 0, { 0, 0, 0, 0 } },   // The Moon-Touched: Moontouched Owlbeast devoured
+        { 9105310, 9105538, EventMeal, FilterEntry, 9690, 0, { 0, 0, 0, 0 } },   // Ember Worgs: Ember worg devoured
+        { 9105310, 9105538, EventMeal, FilterEntry, 9694, 0, { 0, 0, 0, 0 } },   // Ember Worgs: Ember worg devoured
+        { 9105310, 9105538, EventMeal, FilterEntry, 9697, 0, { 0, 0, 0, 0 } },   // Ember Worgs: Ember worg devoured
+        { 9105310, 9105538, EventMeal, FilterEntry, 7055, 0, { 0, 0, 0, 0 } },   // Ember Worgs: Ember worg devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7047, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7040, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7048, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7049, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7041, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7042, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105539, EventMeal, FilterEntry, 7043, 0, { 0, 0, 0, 0 } },   // Black Broodlings: Black dragonkin devoured
+        { 9105312, 9105540, EventMeal, FilterEntry, 9691, 0, { 0, 0, 0, 0 } },   // Scorpids of the Steppes: Burning Steppes scorpid devoured
+        { 9105312, 9105540, EventMeal, FilterEntry, 9695, 0, { 0, 0, 0, 0 } },   // Scorpids of the Steppes: Burning Steppes scorpid devoured
+        { 9105312, 9105540, EventMeal, FilterEntry, 9698, 0, { 0, 0, 0, 0 } },   // Scorpids of the Steppes: Burning Steppes scorpid devoured
+        { 9105313, 9105541, EventMeal, FilterEntry, 7044, 0, { 0, 0, 0, 0 } },   // Drakes of the Steppes: Black drake devoured
+        { 9105313, 9105541, EventMeal, FilterEntry, 7045, 0, { 0, 0, 0, 0 } },   // Drakes of the Steppes: Black drake devoured
+        { 9105313, 9105541, EventMeal, FilterEntry, 7046, 0, { 0, 0, 0, 0 } },   // Drakes of the Steppes: Black drake devoured
+        { 9105314, 9105542, EventMeal, FilterType, 2, 0, { 36, 44, 0, 0 } },   // The Storm Gathers: Dragonkin devoured as a drake
+        { 9105320, 9105543, EventMeal, FilterEntry, 18476, 0, { 0, 0, 0, 0 } },   // Timber Worgs: Timber worg devoured
+        { 9105320, 9105543, EventMeal, FilterEntry, 18477, 0, { 0, 0, 0, 0 } },   // Timber Worgs: Timber worg devoured
+        { 9105321, 9105544, EventMeal, FilterEntry, 18468, 0, { 0, 0, 0, 0 } },   // Teromoths: Teromoth devoured
+        { 9105321, 9105544, EventMeal, FilterEntry, 18437, 0, { 0, 0, 0, 0 } },   // Teromoths: Teromoth devoured
+        { 9105321, 9105544, EventMeal, FilterEntry, 18469, 0, { 0, 0, 0, 0 } },   // Teromoths: Teromoth devoured
+        { 9105322, 9105545, EventMeal, FilterEntry, 18464, 0, { 0, 0, 0, 0 } },   // Warp Stalkers: Warp stalker devoured
+        { 9105322, 9105545, EventMeal, FilterEntry, 18465, 0, { 0, 0, 0, 0 } },   // Warp Stalkers: Warp stalker devoured
+        { 9105323, 9105546, EventMeal, FilterEntry, 18470, 0, { 0, 0, 0, 0 } },   // The Bone Wastes: Bonelasher devoured
+        { 9105323, 9105547, EventMeal, FilterEntry, 22100, 0, { 0, 0, 0, 0 } },   // The Bone Wastes: Scorpid Bonecrawler devoured
+        { 9105330, 9105548, EventMeal, FilterEntry, 17130, 0, { 0, 0, 0, 0 } },   // Talbuk: Talbuk devoured
+        { 9105330, 9105548, EventMeal, FilterEntry, 17131, 0, { 0, 0, 0, 0 } },   // Talbuk: Talbuk devoured
+        { 9105331, 9105549, EventMeal, FilterEntry, 17128, 0, { 0, 0, 0, 0 } },   // Windrocs: Windroc devoured
+        { 9105331, 9105549, EventMeal, FilterEntry, 18220, 0, { 0, 0, 0, 0 } },   // Windrocs: Windroc devoured
+        { 9105331, 9105549, EventMeal, FilterEntry, 17129, 0, { 0, 0, 0, 0 } },   // Windrocs: Windroc devoured
+        { 9105332, 9105550, EventMeal, FilterEntry, 18205, 0, { 0, 0, 0, 0 } },   // Clefthoof: Clefthoof devoured
+        { 9105332, 9105550, EventMeal, FilterEntry, 17132, 0, { 0, 0, 0, 0 } },   // Clefthoof: Clefthoof devoured
+        { 9105332, 9105550, EventMeal, FilterEntry, 17133, 0, { 0, 0, 0, 0 } },   // Clefthoof: Clefthoof devoured
+        { 9105333, 9105551, EventMeal, FilterEntry, 17981, 0, { 0, 0, 0, 0 } },   // Voidspawn: Voidspawn devoured
+        { 9105340, 9105552, EventMeal, FilterEntry, 18884, 0, { 0, 0, 0, 0 } },   // Warp Chasers: Warp chaser devoured
+        { 9105341, 9105553, EventMeal, FilterEntry, 18879, 0, { 0, 0, 0, 0 } },   // Phase Hunters: Phase hunter devoured
+        { 9105342, 9105554, EventMeal, FilterEntry, 18880, 0, { 0, 0, 0, 0 } },   // Nether Rays: Nether ray devoured
+        { 9105343, 9105555, EventMeal, FilterEntry, 20611, 0, { 0, 0, 0, 0 } },   // Shimmerwings: Shimmerwing Moth devoured
+        { 9105344, 9105556, EventMeal, FilterEntry, 18877, 0, { 0, 0, 0, 0 } },   // Nether Drakes: Nether drake devoured
+        { 9105350, 9105557, EventMeal, FilterEntry, 23690, 0, { 0, 0, 0, 0 } },   // Shoveltusk: Shoveltusk devoured
+        { 9105350, 9105557, EventMeal, FilterEntry, 23691, 0, { 0, 0, 0, 0 } },   // Shoveltusk: Shoveltusk devoured
+        { 9105350, 9105557, EventMeal, FilterEntry, 29479, 0, { 0, 0, 0, 0 } },   // Shoveltusk: Shoveltusk devoured
+        { 9105351, 9105558, EventMeal, FilterEntry, 24747, 0, { 0, 0, 0, 0 } },   // Fjord Hawks: Fjord bird devoured
+        { 9105351, 9105558, EventMeal, FilterEntry, 23693, 0, { 0, 0, 0, 0 } },   // Fjord Hawks: Fjord bird devoured
+        { 9105352, 9105559, EventMeal, FilterEntry, 23688, 0, { 0, 0, 0, 0 } },   // The Ember Clutch: Proto-Whelp devoured
+        { 9105353, 9105560, EventMeal, FilterEntry, 23689, 0, { 0, 0, 0, 0 } },   // Proto-Drakes: Proto-Drake devoured
+        { 9105360, 9105561, EventMeal, FilterEntry, 25487, 0, { 0, 0, 0, 0 } },   // Wooly Rhinos: Wooly rhino devoured
+        { 9105360, 9105561, EventMeal, FilterEntry, 25489, 0, { 0, 0, 0, 0 } },   // Wooly Rhinos: Wooly rhino devoured
+        { 9105361, 9105562, EventMeal, FilterEntry, 25464, 0, { 0, 0, 0, 0 } },   // Bloodspore Moths: Bloodspore Moth devoured
+        { 9105362, 9105563, EventMeal, FilterEntry, 25675, 0, { 0, 0, 0, 0 } },   // Tundra Wolves: Borean wolf devoured
+        { 9105362, 9105563, EventMeal, FilterEntry, 25791, 0, { 0, 0, 0, 0 } },   // Tundra Wolves: Borean wolf devoured
+        { 9105363, 9105564, EventMeal, FilterEntry, 25728, 0, { 0, 0, 0, 0 } },   // Coldarra: Coldarra dragonkin devoured
+        { 9105363, 9105564, EventMeal, FilterEntry, 25722, 0, { 0, 0, 0, 0 } },   // Coldarra: Coldarra dragonkin devoured
+        { 9105363, 9105564, EventMeal, FilterEntry, 25717, 0, { 0, 0, 0, 0 } },   // Coldarra: Coldarra dragonkin devoured
+        { 9105370, 9105565, EventMeal, FilterEntry, 27408, 0, { 0, 0, 0, 0 } },   // Duskhowl: Grizzly Hills wolf devoured
+        { 9105370, 9105565, EventMeal, FilterEntry, 26592, 0, { 0, 0, 0, 0 } },   // Duskhowl: Grizzly Hills wolf devoured
+        { 9105371, 9105566, EventMeal, FilterEntry, 26369, 0, { 0, 0, 0, 0 } },   // Imperial Eagles: Imperial Eagle devoured
+        { 9105372, 9105567, EventMeal, FilterEntry, 26446, 0, { 0, 0, 0, 0 } },   // Ice Serpents: Ice serpent devoured
+        { 9105372, 9105567, EventMeal, FilterEntry, 29693, 0, { 0, 0, 0, 0 } },   // Ice Serpents: Ice serpent devoured
+        { 9105373, 9105568, EventMeal, FilterEntry, 27421, 0, { 0, 0, 0, 0 } },   // Fern Feeders: Fern Feeder Moth devoured
+        { 9105374, 9105569, EventMeal, FilterEntry, 26644, 0, { 0, 0, 0, 0 } },   // Ursoc's Children: Grizzly Hills bear devoured
+        { 9105374, 9105569, EventMeal, FilterEntry, 26706, 0, { 0, 0, 0, 0 } },   // Ursoc's Children: Grizzly Hills bear devoured
+        { 9105380, 9105570, EventMeal, FilterEntry, 28011, 0, { 0, 0, 0, 0 } },   // Emperor Cobras: Emperor Cobra devoured
+        { 9105381, 9105571, EventMeal, FilterEntry, 28002, 0, { 0, 0, 0, 0 } },   // Mangal Crocolisks: Mangal Crocolisk devoured
+        { 9105382, 9105572, EventMeal, FilterEntry, 28001, 0, { 0, 0, 0, 0 } },   // Dreadsabers: Dreadsaber devoured
+        { 9105383, 9105573, EventMeal, FilterEntry, 28098, 0, { 0, 0, 0, 0 } },   // Hardknuckles: Hardknuckle devoured
+        { 9105383, 9105573, EventMeal, FilterEntry, 28096, 0, { 0, 0, 0, 0 } },   // Hardknuckles: Hardknuckle devoured
+        { 9105384, 9105574, EventMeal, FilterEntry, 28378, 0, { 0, 0, 0, 0 } },   // Primordial Drakes: Primordial Drake devoured
+        { 9105390, 9105575, EventMeal, FilterEntry, 29411, 0, { 0, 0, 0, 0 } },   // Crystalweb: Crystalweb spider devoured
+        { 9105390, 9105575, EventMeal, FilterEntry, 29412, 0, { 0, 0, 0, 0 } },   // Crystalweb: Crystalweb spider devoured
+        { 9105391, 9105576, EventMeal, FilterEntry, 29605, 0, { 0, 0, 0, 0 } },   // Jormungar: Jormungar devoured
+        { 9105391, 9105576, EventMeal, FilterEntry, 30291, 0, { 0, 0, 0, 0 } },   // Jormungar: Jormungar devoured
+        { 9105391, 9105576, EventMeal, FilterEntry, 30422, 0, { 0, 0, 0, 0 } },   // Jormungar: Jormungar devoured
+        { 9105391, 9105576, EventMeal, FilterEntry, 29390, 0, { 0, 0, 0, 0 } },   // Jormungar: Jormungar devoured
+        { 9105391, 9105576, EventMeal, FilterEntry, 30148, 0, { 0, 0, 0, 0 } },   // Jormungar: Jormungar devoured
+        { 9105392, 9105577, EventMeal, FilterEntry, 29562, 0, { 0, 0, 0, 0 } },   // Icemaw: Icemaw bear devoured
+        { 9105393, 9105578, EventMeal, FilterEntry, 29753, 0, { 0, 0, 0, 0 } },   // Stormpeak Wyrms: Stormpeak wyrm devoured
+        { 9105393, 9105578, EventMeal, FilterEntry, 29755, 0, { 0, 0, 0, 0 } },   // Stormpeak Wyrms: Stormpeak wyrm devoured
+        { 9105394, 9105579, EventKill, FilterType, 2, 0, { 37, 0, 0, 0 } },   // The Storm Answers: Dragonkin slain as a Storm Dragon
     };
 
     // Being there: within Radius yards of X, Y on Map.
