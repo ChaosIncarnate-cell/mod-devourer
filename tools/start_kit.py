@@ -223,6 +223,8 @@ NOT_THAT_BODY = [
     (19026, "Stabled Raptor (Cat family): a raptor model"),
 ]
 
+# The phase mask only counts for procs on what the Devourer does; taken-only procs keep 0 (the core warns otherwise).
+PROC_DONE = PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE | PROC_DONE_SPELL_MAGIC
 # spell_proc rows of the batch-1 kits: (spell, proc flags, spell type mask, hit mask, cooldown ms, charges)
 PROCS = [
     (sid(5, 3), PROC_DONE_MELEE | PROC_DONE_SPELL_MELEE, 1, 0, 15000, 0),                     # Pack Prowess
@@ -795,7 +797,7 @@ def main() -> int:
         "INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`,"
         " `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`,"
         " `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES",
-        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, 2, {hits}, 0, 0, 100, {cd}, {charges})"
+        ",\n".join(f"({s}, 0, 0, 0, 0, 0, {flags}, {types}, {2 if flags & PROC_DONE else 0}, {hits}, 0, 0, 100, {cd}, {charges})"
                    for s, flags, types, hits, cd, charges in PROCS) + ";",
         "",
         "-- Shapes 5-13: one per starting zone; 14-15 the frog line. spell_3 and spell_4 open at levels 10 and 20 (their spell level).",

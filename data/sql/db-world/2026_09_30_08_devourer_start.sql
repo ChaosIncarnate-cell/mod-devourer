@@ -151,9 +151,9 @@ INSERT INTO `spell_custom_attr` (`spell_id`, `attributes`) VALUES
 DELETE FROM `spell_proc` WHERE `SpellId` BETWEEN 9100900 AND 9101029;
 INSERT INTO `spell_proc` (`SpellId`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`, `SpellFamilyMask2`, `ProcFlags`, `SpellTypeMask`, `SpellPhaseMask`, `HitMask`, `AttributesMask`, `ProcsPerMinute`, `Chance`, `Cooldown`, `Charges`) VALUES
 (9100913, 0, 0, 0, 0, 0, 20, 1, 2, 0, 0, 0, 100, 15000, 0),
-(9100933, 0, 0, 0, 0, 0, 40, 0, 2, 48, 0, 0, 100, 20000, 0),
+(9100933, 0, 0, 0, 0, 0, 40, 0, 0, 48, 0, 0, 100, 20000, 0),
 (9100936, 0, 0, 0, 0, 0, 65556, 1, 2, 0, 0, 0, 100, 0, 1),
-(9100953, 0, 0, 0, 0, 0, 40, 1, 2, 0, 0, 0, 100, 0, 0);
+(9100953, 0, 0, 0, 0, 0, 40, 1, 0, 0, 0, 0, 100, 0, 0);
 
 -- Shapes 5-13: one per starting zone; 14-15 the frog line. spell_3 and spell_4 open at levels 10 and 20 (their spell level).
 DELETE FROM `devourer_shape` WHERE `shape_id` BETWEEN 5 AND 15;
