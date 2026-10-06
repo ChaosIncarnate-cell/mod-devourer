@@ -110,7 +110,7 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101315 | The Molt: Vampiric Duskbat | In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living. |
 | 9101316 | The Molt: Greatwyrm | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. |
 | 9101317 | The Molt: Royal Blue Flutterer | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. |
-| 9101318 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+| 9101318 | The Molt: Thunder Lizard | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
 | 9101319 | The Molt: Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
 | 9101320 | The Molt: Komodo Dragon | On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little horror. It heals inside the lizard. |
 | 9101321 | The Molt: Spikeshell | Old turtles grow spikes because the world kept biting them. You will understand that, little horror. |
@@ -132,8 +132,8 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101337 | The Molt: Kunchong | The mantid raise kunchong the way other folk raise walls: slowly, and never small enough. This one is yours now. Mind the doorways. |
 | 9101338 | The Molt: Stingwing | A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not listen. |
 | 9101339 | The Molt: Greater Plainstrider | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. |
-| 9101340 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
-| 9101341 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+| 9101340 | The Molt: Thunder Lizard | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+| 9101341 | The Molt: Thunder Lizard | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
 | 9101342 | The Molt: Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
 | 9101343 | The Molt: Moontouched Owlbeast | When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells them. Now you can ask. |
 
@@ -173,7 +173,7 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 13 | the Vampiric Duskbat molt | In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living. | draft |
 | Hagatha | 14 | the Greatwyrm molt | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. | draft |
 | Hagatha | 15 | the Royal Blue Flutterer molt | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. | draft |
-| Hagatha | 16 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 16 | the Thunder Lizard molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
 | Hagatha | 17 | the Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
 | Hagatha | 18 | the Komodo Dragon molt | On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little horror. It heals inside the lizard. | draft |
 | Hagatha | 19 | the Spikeshell molt | Old turtles grow spikes because the world kept biting them. You will understand that, little horror. | draft |
@@ -195,8 +195,8 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 35 | the Kunchong molt | The mantid raise kunchong the way other folk raise walls: slowly, and never small enough. This one is yours now. Mind the doorways. | draft |
 | Hagatha | 36 | the Stingwing molt | A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not listen. | draft |
 | Hagatha | 37 | the Greater Plainstrider molt | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. | draft |
-| Hagatha | 38 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
-| Hagatha | 39 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 38 | the Thunder Lizard molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 39 | the Thunder Lizard molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
 | Hagatha | 40 | the Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
 | Hagatha | 41 | the Moontouched Owlbeast molt | When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells them. Now you can ask. | draft |
 | Hagatha | 42 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |

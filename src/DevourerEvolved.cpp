@@ -8,7 +8,7 @@
  *   Raging Agam'ar        Kinetic Tremor          blows taken charge the plating; at 10 charges it bursts
  *   Vampiric Duskbat      Exsanguinating Frenzy   melee hits heal for 10% of the damage per own bleed on the enemy
  *   Arcane Wraith         Spell Devour            attacks tear a magic buff off the enemy and feed on it
- *   Void Terror           Gravitational Shadows   Nether Bolt's ticks stack a slow; at 10 the enemy collapses
+ *   Thunder Lizard        Static Charge           Thunder Spit's ticks stack a slow; at 10 the enemy collapses
  *   Viper                 Sand Slither            under the ground for 2 sec, then up behind the target (Emerge)
  *                         Cold Blood              its venom ticks 20% harder on slowed or rooted enemies (ColdBlood)
  *   Water Salamander      Steam Spit              half again as much on an enemy in water
@@ -217,7 +217,7 @@ class spell_devourer_spell_devour : public AuraScript
     }
 };
 
-// Void Terror: Gravitational Shadows, on Nether Bolt's damage over time. Each tick slows the enemy by 5% more; at 10
+// Thunder Lizard (the Void Terror until 2026-10-06): Static Charge, on Thunder Spit's damage over time. Each tick slows the enemy by 5% more; at 10
 // stacks the slow is gone and the enemy collapses into an anima whirlpool (Shadow damage around it).
 class spell_devourer_gravitational_shadows : public AuraScript
 {

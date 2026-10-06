@@ -16,7 +16,7 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 21 | Vampiric Duskbat | Bat | 14 | 550 | leech and silencer |
 | 22 | Greatwyrm | Mana Wyrm | 14 | 550 | buff-stealing caster |
 | 23 | Royal Blue Flutterer | Moth | 12 | 500 | sleep and root controller |
-| 24 | Void Terror | Warp Stalker | 16 | 600 | shadow damage-over-time controller |
+| 24 | Thunder Lizard | Warp Stalker | 16 | 600 | lightning damage-over-time controller |
 | 25 | Viper | devouring (family 35) | 18 | - | ranged poisoner |
 | 26 | Wind Serpent | Viper | 28 | 800 | lightning caster |
 | 27 | Baby Eagle | devouring (family 26) | 5 | - | diving skirmisher |
@@ -48,8 +48,8 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 53 | Stingwing | Glasswing | 45 | 1200 | venom hunter |
 | 1 | Sethrak | Wind Serpent | 44 | 1400 | (an older form) |
 | 16 | Greater Plainstrider | Baby Eagle | 12 | 500 | (an older form) |
-| 24 | Void Terror | Baby Komodo | 16 | 600 | (an older form) |
-| 24 | Void Terror | Mana Wyrm | 16 | 600 | (an older form) |
+| 24 | Thunder Lizard | Baby Komodo | 16 | 600 | (an older form) |
+| 24 | Thunder Lizard | Mana Wyrm | 16 | 600 | (an older form) |
 | 26 | Wind Serpent | Baby Eagle | 28 | 800 | (an older form) |
 | 40 | Moontouched Owlbeast | Dreambear | 45 | 1200 | (an older form) |
 
@@ -65,15 +65,15 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 - Dive 30 times
 - Devour a Thunderhawk Hatchling (the Barrens)
 
-### Void Terror (shape 24, now also grows out of the Baby Komodo, quest 9101340)
+### Thunder Lizard (shape 24, now also grows out of the Baby Komodo, quest 9101340)
 
-- Devour 20 void creatures as a Baby Komodo
+- Devour 20 thunder lizards, basilisks or kodos as a Baby Komodo
 - Deal 8,000 damage as a Baby Komodo
 - Devour a Void Anomaly (Bloodmyst Isle)
 
-### Void Terror (shape 24, now also grows out of the Mana Wyrm, quest 9101341)
+### Thunder Lizard (shape 24, now also grows out of the Mana Wyrm, quest 9101341)
 
-- Devour 20 void or arcane creatures as a Mana Wyrm
+- Devour 20 storm or arcane creatures as a Mana Wyrm
 - Cast Arcane Bolt 50 times
 - Devour a Void Anomaly (Bloodmyst Isle)
 
@@ -284,26 +284,27 @@ Changes against the canvas card, and why:
 - Starlight Sting is the builder; the Moth's Arcane theme (moonlight) carries on.
 - Task "Trigger Cocoon 5 times" counts the Moth's Cocoon Metamorphosis when it wraps the moth.
 
-### Void Terror (shape 24, grows out of the Warp Stalker)
-Look: creature 19980, display 19368 (skin `Void Terror`). Any one task:
+### Thunder Lizard (shape 24, grows out of the Warp Stalker)
+Look: a retail model, base 994284 (`Thunder Lizard Green`); its other colourings come with the shape: 994285 `Thunder Lizard Black`, 994286 `Thunder Lizard Brown`, 994287 `Thunder Lizard Light`, 994288 `Thunder Lizard Blue`. The creature's own look (creature 19980, display 994284, `Thunder Lizard Green`) comes with it too. Any one task:
 
-- Devour 25 voidwalkers or void creatures
+- Devour 25 storm, lightning or thunder creatures
 - Warp 40 times
 - Deal 15,000 damage as a Warp Stalker
 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
-| 9102080 | 1 | Void Terror Form | Take the shape of the void terror, grown out of your warp stalker: Nether Bolt, Void Singularity, Dark Embrace and Gravitational Shadows; Shadow Drain opens at level 20. All shapes share one cooldown. |
-| 9102081 | 1 | Nether Bolt | Hurl a bolt of nether: $s1 Shadow damage, and $o2 more over 12 sec. Generates 10 Anima. |cffb87830Void Terror form|r |
-| 9102082 | 1 | Void Singularity | Open a singularity: up to 4 enemies within 12 yards are pulled to you and take $s2 Shadow damage. |cffb87830Void Terror form|r |
-| 9102083 | 1 | Gravitational Shadows | Every tick of Nether Bolt slows the enemy by 5%. At 10 ticks it collapses into an anima whirlpool: Shadow damage to every enemy within 8 yards of it. |cffb87830Void Terror form|r |
-| 9102084 | 1 | Dark Embrace | Wrap yourself in darkness: absorbs 300 damage for 10 sec. |cffb87830Void Terror form|r |
-| 9102085 | 20 | Shadow Drain | Drain the enemy's life: $s1 Shadow damage, and you are healed for as much. |cffb87830Void Terror form|r |
-| 9102086 | 1 | Gravitational Shadows | (cast by the kit) Movement slowed by 5% for each stack. |
-| 9102087 | 1 | Anima Whirlpool | (cast by the kit)  |
+| 9102080 | 1 | Thunder Lizard Form | Take the shape of the thunder lizard, grown out of your warp stalker: Thunder Spit, Static Pull, Stormhide and Static Charge; Storm Bite opens at level 20. All shapes share one cooldown. |
+| 9102081 | 1 | Thunder Spit | Spit a ball of lightning: $s1 Nature damage, and $o2 more over 12 sec as it crackles. Generates 10 Anima. |cffb87830Thunder Lizard form|r |
+| 9102082 | 1 | Static Pull | A crackling pull of static: up to 4 enemies within 12 yards are dragged to you and take $s2 Nature damage. |cffb87830Thunder Lizard form|r |
+| 9102083 | 1 | Static Charge | Every crackle of Thunder Spit slows the enemy by 5%. At 10 crackles the charge discharges in a thunderclap: Nature damage to every enemy within 8 yards of it. |cffb87830Thunder Lizard form|r |
+| 9102084 | 1 | Stormhide | Your scales hum with lightning: absorbs 300 damage for 10 sec. |cffb87830Thunder Lizard form|r |
+| 9102085 | 20 | Storm Bite | A bite that arcs: $s1 Nature damage, and you are healed for as much. |cffb87830Thunder Lizard form|r |
+| 9102086 | 1 | Static Charge | (cast by the kit) Movement slowed by 5% for each stack. |
+| 9102087 | 1 | Thunderclap | (cast by the kit)  |
 
 Changes against the canvas card, and why:
 
+- Owner, 2026-10-06 ("replace with Dragon Lizard, creature like"): the Void Terror became the Thunder Lizard, the retail primal thunder lizard in five colours. Same kit, storm-themed (Nature damage) instead of void.
 - Dark Embrace is a shield only (the card's "Shield & blind" were two jobs).
 - Void Singularity pulls up to 4 enemies within 12 yards (the card's 4 foes).
 - Task "Devour 25 Voidwalkers" accepts void creatures by name (void, nether, ethereal); "Land 40 Blink Strikes" counts the Warp Stalker's Warp; "Deal 15,000 Shadow dmg" counts any damage: the Warp Stalker's kit is physical.
