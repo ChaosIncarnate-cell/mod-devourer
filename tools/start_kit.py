@@ -564,7 +564,8 @@ GIANT_MARSH_FROG = Form(
            (994110, "Primal Toad Gold"), (994112, "Primal Toad Orange"), (994113, "Primal Toad Red"),
            (994114, "Ardenweald Toad Black"), (994115, "Ardenweald Toad Blue"),
            (994116, "Ardenweald Toad Dark Blue"), (994117, "Ardenweald Toad Fawn"), (994118, "Ardenweald Toad Teal"),
-           (994119, "Ardenweald Toad Violet"), (994120, "Frogduck")], keep_look=True,
+           (994119, "Ardenweald Toad Violet"), (994120, "Frogduck"), (994290, "Loa Toad Green"),
+           (994291, "Loa Toad Blue"), (994292, "Loa Toad Yellow")], keep_look=True,
     how="Grows out of the **Biletoad** (`devourer_evolution`): 550 Bio Points, level 14, and any one of its three "
         "tasks (devour 30 murlocs or swamp beasts, pull 40 enemies with Tongue Pull, land 25 Swamp Hop knockdowns).",
     changes=[

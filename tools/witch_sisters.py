@@ -257,6 +257,18 @@ MOLT_TALES = {
     44: "Some dragons sleep so long under the mountains that the mountain moves in. When they wake up, they keep it.",
     45: "The primal striders ran before there were roads. Put a saddle on one and it still thinks it is running "
         "away. Hold on tight, whoever sits up there.",
+    47: "A cub that falls asleep in the wrong wood wakes up with a garden on its back. Do not pick the flowers, "
+        "dear. They bite.",
+    48: "The oldest bears stop moving one winter and let the mountain grow over them. The runes are what the "
+        "mountain writes when it thinks nobody is reading.",
+    50: "Feed a grub nothing but shells and it grows a shell of its own, and a horn to settle arguments. Short "
+        "arguments.",
+    51: "Feed a grub nothing but wings and one morning it will not be on the ground. Glass wings, my little "
+        "horror. Do not fly into anything.",
+    52: "The mantid raise kunchong the way other folk raise walls: slowly, and never small enough. This one is "
+        "yours now. Mind the doorways.",
+    53: "A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not "
+        "listen.",
     43: "A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer.",
     42: "Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family.",
     40: "When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells "

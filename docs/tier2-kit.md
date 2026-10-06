@@ -10,15 +10,15 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 |---|---|---|---|---|---|
 | 16 | Greater Plainstrider | Plainstrider | 12 | 500 | bleed skirmisher and disabler |
 | 17 | Bloodsnout Worg | Wolf | 14 | 550 | flanking assassin and crippler |
-| 18 | Raging Agam'ar | Boar | 12 | 500 | stun tank and sunderer |
+| 18 | Armoredon | Boar | 12 | 500 | stun tank and sunderer |
 | 19 | Shadowclaw | Saber | 14 | 550 | ambush assassin and silencer |
 | 20 | Rockjaw Backbreaker | Trogg | 12 | 500 | armored tank and cleaver |
 | 21 | Vampiric Duskbat | Bat | 14 | 550 | leech and silencer |
-| 22 | Arcane Wraith | Mana Wyrm | 14 | 550 | buff-stealing caster |
+| 22 | Greatwyrm | Mana Wyrm | 14 | 550 | buff-stealing caster |
 | 23 | Royal Blue Flutterer | Moth | 12 | 500 | sleep and root controller |
 | 24 | Void Terror | Warp Stalker | 16 | 600 | shadow damage-over-time controller |
 | 25 | Viper | devouring (family 35) | 18 | - | ranged poisoner |
-| 26 | Baby Wind Serpent | Viper | 28 | 800 | lightning caster |
+| 26 | Wind Serpent | Viper | 28 | 800 | lightning caster |
 | 27 | Baby Eagle | devouring (family 26) | 5 | - | diving skirmisher |
 | 28 | Baby Komodo | devouring (family 6) | 9 | - | festering brawler |
 | 29 | Komodo Dragon | Baby Komodo | 30 | 800 | festering tank |
@@ -38,41 +38,56 @@ A tier-2 form is not devoured: it grows out of its line's form (`devourer_evolut
 | 43 | Voidcreeper Broodmother | Voidcreeper | 40 | 1200 | brood tank |
 | 44 | Earthen Proto-Drake | Whelp | 35 | 1000 | stone tank |
 | 45 | Primal Tallstrider | Plainstrider | 20 | 700 | armored runner |
-| 1 | Sethrak | Baby Wind Serpent | 44 | 1400 | (an older form) |
+| 46 | Bear Cub | devouring (family 4) | 5 | - | sturdy little bruiser |
+| 47 | Dreambear | Bear Cub | 20 | 700 | regenerating tank |
+| 48 | Runebear | Dreambear | 45 | 1200 | stone tank |
+| 49 | Grub | devouring (family 41) | 10 | - | slow, fat survivor |
+| 50 | Rhino Beetle | Grub | 20 | 700 | armored charger |
+| 51 | Glasswing | Grub | 20 | 700 | darting skirmisher |
+| 52 | Kunchong | Rhino Beetle | 45 | 1200 | siege tank |
+| 53 | Stingwing | Glasswing | 45 | 1200 | venom hunter |
+| 1 | Sethrak | Wind Serpent | 44 | 1400 | (an older form) |
 | 16 | Greater Plainstrider | Baby Eagle | 12 | 500 | (an older form) |
 | 24 | Void Terror | Baby Komodo | 16 | 600 | (an older form) |
 | 24 | Void Terror | Mana Wyrm | 16 | 600 | (an older form) |
-| 26 | Baby Wind Serpent | Baby Eagle | 28 | 800 | (an older form) |
+| 26 | Wind Serpent | Baby Eagle | 28 | 800 | (an older form) |
+| 40 | Moontouched Owlbeast | Dreambear | 45 | 1200 | (an older form) |
 
-### Sethrak (shape 1, now also grows out of the Baby Wind Serpent, quest 9101324)
+### Sethrak (shape 1, now also grows out of the Wind Serpent, quest 9101324)
 
-- Devour 20 Sandfury trolls or sand beasts as a Baby Wind Serpent
+- Devour 20 Sandfury trolls or sand beasts as a Wind Serpent
 - Breathe lightning 80 times (Lightning Breath)
 - Devour Gahz'rilla (Zul'Farrak)
 
-### Greater Plainstrider (shape 16, now also grows out of the Baby Eagle, quest 9101333)
+### Greater Plainstrider (shape 16, now also grows out of the Baby Eagle, quest 9101339)
 
 - Devour 20 hawks or eagles as a Baby Eagle
 - Dive 30 times
 - Devour a Thunderhawk Hatchling (the Barrens)
 
-### Void Terror (shape 24, now also grows out of the Baby Komodo, quest 9101334)
+### Void Terror (shape 24, now also grows out of the Baby Komodo, quest 9101340)
 
 - Devour 20 void creatures as a Baby Komodo
 - Deal 8,000 damage as a Baby Komodo
 - Devour a Void Anomaly (Bloodmyst Isle)
 
-### Void Terror (shape 24, now also grows out of the Mana Wyrm, quest 9101335)
+### Void Terror (shape 24, now also grows out of the Mana Wyrm, quest 9101341)
 
 - Devour 20 void or arcane creatures as a Mana Wyrm
 - Cast Arcane Bolt 50 times
 - Devour a Void Anomaly (Bloodmyst Isle)
 
-### Baby Wind Serpent (shape 26, now also grows out of the Baby Eagle, quest 9101336)
+### Wind Serpent (shape 26, now also grows out of the Baby Eagle, quest 9101342)
 
 - Devour 25 wind serpents as a Baby Eagle
 - Beat up 40 Wing Gusts
 - Devour a Greater Thunderhawk (the Barrens)
+
+### Moontouched Owlbeast (shape 40, now also grows out of the Dreambear, quest 9101343)
+
+- Devour 30 owlbeasts, wildkin or moonkin as a Dreambear
+- Hibernate 20 times
+- Devour a Moontouched Owlbeast (Winterspring)
 
 ### Greater Plainstrider (shape 16, grows out of the Plainstrider)
 Look: creature 3244, display 178 (skin `Greater Plainstrider`). Any one task:
@@ -122,8 +137,8 @@ Changes against the canvas card, and why:
 - Savage Pounce knocks down like the Boar's Primal Charge (8-25 yards, in combat).
 - Task "Consume 40 bleeds" counts the Wolf's Ravaging Feast (the spell that eats bleeds); "Devour Named Worg Leader" is Fenrus the Devourer (Shadowfang Keep, a worg boss).
 
-### Raging Agam'ar (shape 18, grows out of the Boar)
-Look: creature 4514, display 2453 (skin `Agam'ar`). Any one task:
+### Armoredon (shape 18, grows out of the Boar)
+Look: a retail model, base 994274 (`Armoredon Yellow`); its other colourings come with the shape: 994275 `Armoredon Black`, 994276 `Armoredon Blue`, 994277 `Armoredon Green`, 994278 `Armoredon Ice`, 994279 `Armoredon Red`. The creature's own look (creature 4514, display 994274, `Armoredon Yellow`) comes with it too. Any one task:
 
 - Devour 30 quilboar as a Boar
 - Weather 8,000 damage as a Boar
@@ -131,12 +146,12 @@ Look: creature 4514, display 2453 (skin `Agam'ar`). Any one task:
 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
-| 9102020 | 1 | Raging Agam'ar Form | Take the shape of the raging agam'ar, grown out of your boar: Crushing Gore, Tremor Charge, Spiked Carapace and Kinetic Tremor; Bile Spit opens at level 20. All shapes share one cooldown. |
-| 9102021 | 1 | Crushing Gore | Gore the enemy: weapon damage plus $s1, and its armor is crushed by 5% for 15 sec, up to 3 times. Generates 10 Anima. |cffb87830Raging Agam'ar form|r |
-| 9102022 | 1 | Tremor Charge | Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 2 sec. Generates 15 Anima. |cffb87830Raging Agam'ar form|r |
-| 9102023 | 1 | Kinetic Tremor | Blows you take charge your plating. At 10 charges it bursts: enemies within 8 yards take Physical damage and are knocked down for 1.5 sec. |cffb87830Raging Agam'ar form|r |
-| 9102024 | 1 | Spiked Carapace | Raise your spikes: damage taken reduced by 20% for 9 sec, and melee attackers take $s2 Nature damage. |cffb87830Raging Agam'ar form|r |
-| 9102025 | 20 | Bile Spit | Spit bile at an enemy within 20 yards: $s1 Nature damage, and its movement is slowed by 50% for 6 sec. |cffb87830Raging Agam'ar form|r |
+| 9102020 | 1 | Armoredon Form | Take the shape of the armoredon, grown out of your boar: Crushing Gore, Tremor Charge, Spiked Carapace and Kinetic Tremor; Bile Spit opens at level 20. All shapes share one cooldown. |
+| 9102021 | 1 | Crushing Gore | Gore the enemy: weapon damage plus $s1, and its armor is crushed by 5% for 15 sec, up to 3 times. Generates 10 Anima. |cffb87830Armoredon form|r |
+| 9102022 | 1 | Tremor Charge | Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 2 sec. Generates 15 Anima. |cffb87830Armoredon form|r |
+| 9102023 | 1 | Kinetic Tremor | Blows you take charge your plating. At 10 charges it bursts: enemies within 8 yards take Physical damage and are knocked down for 1.5 sec. |cffb87830Armoredon form|r |
+| 9102024 | 1 | Spiked Carapace | Raise your spikes: damage taken reduced by 20% for 9 sec, and melee attackers take $s2 Nature damage. |cffb87830Armoredon form|r |
+| 9102025 | 20 | Bile Spit | Spit bile at an enemy within 20 yards: $s1 Nature damage, and its movement is slowed by 50% for 6 sec. |cffb87830Armoredon form|r |
 | 9102026 | 1 | Tremor Plating | (cast by the kit) Charged plating. |
 | 9102027 | 1 | Kinetic Tremor | (cast by the kit) Knocked down. |
 | 9102028 | 1 | Tremor Charge | (cast by the kit) Knocked down. |
@@ -147,6 +162,7 @@ Changes against the canvas card, and why:
 - Spiked Carapace is the card's spikes with a short -20% damage taken (the Boar already has the -30% Thick Hide); melee attackers take Nature damage while it lasts.
 - Bile Spit opens at level 20 (ranged slow); Tremor Charge knocks down for 2 sec (the Boar's 1.5).
 - Task "Mitigate 8,000 damage" counts damage taken as a Boar; "Stun 25 with Charge" counts Primal Charges.
+- Owner, 2026-10-06 ("replace with better creature"): the Raging Agam'ar became the Armoredon, the retail primal rhino in six colours. Same kit.
 
 ### Shadowclaw (shape 19, grows out of the Saber)
 Look: a retail model, base 994028 (`Shadowstalker Blue`); its other colourings come with the shape: 994029 `Shadowstalker Bluepink`, 994030 `Shadowstalker Fel`, 994031 `Shadowstalker Purplegreen`, 994032 `Shadowstalker Purpleyellow`, 994033 `Shadowstalker Redblue`, 994034 `Shadowstalker Whiteblue`, 994035 `Shadowstalker Yellowgreen`. The creature's own look (creature 2175, display 3030, `Shadowclaw`) comes with it too. Any one task:
@@ -219,8 +235,8 @@ Changes against the canvas card, and why:
 - Exsanguinate stacks 3 times so the frenzy has bleeds to count.
 - Task "Interrupt 15 spells" became "Drain blood 30 times" (the Bat's Blood Drain): the Bat has no interrupt; "Leech 6,000 health" counts all healing the Devourer does to itself as a Bat.
 
-### Arcane Wraith (shape 22, grows out of the Mana Wyrm)
-Look: creature 15273, display 15438 (skin `Arcane Wraith`). Any one task:
+### Greatwyrm (shape 22, grows out of the Mana Wyrm)
+Look: a retail model, base 994280 (`Greatwyrm Purple`); its other colourings come with the shape: 994281 `Greatwyrm Blue`, 994282 `Greatwyrm Black`, 994283 `Greatwyrm Silver`. The creature's own look (creature 15273, display 994280, `Greatwyrm Purple`) comes with it too. Any one task:
 
 - Deal 5,000 Arcane damage as a Mana Wyrm
 - Devour 25 Wretched or elementals
@@ -228,12 +244,12 @@ Look: creature 15273, display 15438 (skin `Arcane Wraith`). Any one task:
 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
-| 9102060 | 1 | Arcane Wraith Form | Take the shape of the arcane wraith, grown out of your mana wyrm: Nether Torrent, Swallow Spell, Phase Warp and Spell Devour; Arcane Rupture opens at level 20. All shapes share one cooldown. |
-| 9102061 | 1 | Nether Torrent | Pour raw nether at the enemy: $s1 Arcane damage. Generates 5 Anima. |cffb87830Arcane Wraith form|r |
-| 9102062 | 1 | Swallow Spell | Swallow the spell an enemy is casting: it is interrupted and silenced for 2 sec. Generates 20 Anima. |cffb87830Arcane Wraith form|r |
-| 9102063 | 1 | Spell Devour | Your attacks tear one magic buff off the enemy and devour it: your magic damage is increased by 10% for 15 sec, stacking 3 times. Once every 6 sec. |cffb87830Arcane Wraith form|r |
-| 9102064 | 1 | Phase Warp | Warp up to 20 yards forward, slipping out of stuns and roots. |cffb87830Arcane Wraith form|r |
-| 9102065 | 20 | Arcane Rupture | Rupture the arcane in you: $s1 Arcane damage to enemies within 8 yards. |cffb87830Arcane Wraith form|r |
+| 9102060 | 1 | Greatwyrm Form | Take the shape of the greatwyrm, grown out of your mana wyrm: Nether Torrent, Swallow Spell, Phase Warp and Spell Devour; Arcane Rupture opens at level 20. All shapes share one cooldown. |
+| 9102061 | 1 | Nether Torrent | Pour raw nether at the enemy: $s1 Arcane damage. Generates 5 Anima. |cffb87830Greatwyrm form|r |
+| 9102062 | 1 | Swallow Spell | Swallow the spell an enemy is casting: it is interrupted and silenced for 2 sec. Generates 20 Anima. |cffb87830Greatwyrm form|r |
+| 9102063 | 1 | Spell Devour | Your attacks tear one magic buff off the enemy and devour it: your magic damage is increased by 10% for 15 sec, stacking 3 times. Once every 6 sec. |cffb87830Greatwyrm form|r |
+| 9102064 | 1 | Phase Warp | Warp up to 20 yards forward, slipping out of stuns and roots. |cffb87830Greatwyrm form|r |
+| 9102065 | 20 | Arcane Rupture | Rupture the arcane in you: $s1 Arcane damage to enemies within 8 yards. |cffb87830Greatwyrm form|r |
 | 9102066 | 1 | Devoured Magic | (cast by the kit) Magic damage increased by 10% for each stack. |
 
 Changes against the canvas card, and why:
@@ -242,6 +258,7 @@ Changes against the canvas card, and why:
 - The card's ability "Spell Devour (Silence & steal)" is Swallow Spell (interrupt + 2 sec silence + 20 Anima, the Devourer has no mana to steal); the name Spell Devour stays with the gimmick.
 - Phase Warp is a blink without the decoy (one job).
 - Tasks: "Drain 5,000 mana/energy" became "Deal 5,000 Arcane damage" (the Mana Wyrm drains no mana); "Reflect 10 spells" became "Weather 3,000 magic damage" (the Mana Wyrm reflects nothing).
+- Owner, 2026-10-06 ("wrong creature", "ADD mana Wyrm bigger"): the Arcane Wraith became the Greatwyrm, the retail great mana wyrm in four colours. Same kit.
 
 ### Royal Blue Flutterer (shape 23, grows out of the Moth)
 Look: a retail model, base 994008 (`Ardenweald Blue`); its other colourings come with the shape: 994009 `Ardenweald Dark`, 994010 `Ardenweald Mint`, 994011 `Ardenweald Red`. The creature's own look (creature 17350, display 17711, `Royal Blue`) comes with it too. Any one task:
@@ -312,7 +329,7 @@ Changes against the canvas card, and why:
 - Shed opens at level 20 as an ability, as the pick proposed, instead of being a passive.
 - Venom Spit grows with attack power (12% on the hit, 3% a tick), so it keeps up past level 20.
 
-### Baby Wind Serpent (shape 26, grows out of the Viper)
+### Wind Serpent (shape 26, grows out of the Viper)
 Look: a retail model, base 994055 (`Wind Serpent Green`); its other colourings come with the shape: 994059 `Wind Serpent Yellow`, 994056 `Wind Serpent Pink`, 994057 `Wind Serpent Purple`, 994058 `Wind Serpent White`. The creature's own look (creature 3247, display 994055, `Wind Serpent Green`) comes with it too. Any one task:
 
 - Devour 25 wind serpents as a Viper
@@ -321,12 +338,12 @@ Look: a retail model, base 994055 (`Wind Serpent Green`); its other colourings c
 
 | Spell | Level | Name | What it does |
 |---|---|---|---|
-| 9102100 | 1 | Baby Wind Serpent Form | Take the shape of the baby wind serpent, grown out of your viper: Lightning Breath, Chain Lightning, Cyclone Gust and Static Charge; Squall opens at level 34. All shapes share one cooldown. |
-| 9102101 | 1 | Lightning Breath | Breathe lightning at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima. |cffb87830Baby Wind Serpent form|r |
-| 9102102 | 1 | Chain Lightning | Lightning leaps from an enemy to up to 2 more nearby: $s1 Nature damage to each. |cffb87830Baby Wind Serpent form|r |
-| 9102103 | 1 | Static Charge | Your chance to strike critically with spells is increased by 5%, and a critical strike gives back 5 Anima. |cffb87830Baby Wind Serpent form|r |
-| 9102104 | 1 | Cyclone Gust | Beat up a gust of wind: enemies within 8 yards are blown back and move 30% slower for 4 sec. |cffb87830Baby Wind Serpent form|r |
-| 9102105 | 34 | Squall | Call a squall up to 30 yards away: for 6 sec, enemies under it take $s1 Nature damage every second and move 30% slower. |cffb87830Baby Wind Serpent form|r |
+| 9102100 | 1 | Wind Serpent Form | Take the shape of the wind serpent, grown out of your viper: Lightning Breath, Chain Lightning, Cyclone Gust and Static Charge; Squall opens at level 34. All shapes share one cooldown. |
+| 9102101 | 1 | Lightning Breath | Breathe lightning at an enemy up to 30 yards away: $s1 Nature damage. Generates 10 Anima. |cffb87830Wind Serpent form|r |
+| 9102102 | 1 | Chain Lightning | Lightning leaps from an enemy to up to 2 more nearby: $s1 Nature damage to each. |cffb87830Wind Serpent form|r |
+| 9102103 | 1 | Static Charge | Your chance to strike critically with spells is increased by 5%, and a critical strike gives back 5 Anima. |cffb87830Wind Serpent form|r |
+| 9102104 | 1 | Cyclone Gust | Beat up a gust of wind: enemies within 8 yards are blown back and move 30% slower for 4 sec. |cffb87830Wind Serpent form|r |
+| 9102105 | 34 | Squall | Call a squall up to 30 yards away: for 6 sec, enemies under it take $s1 Nature damage every second and move 30% slower. |cffb87830Wind Serpent form|r |
 | 9102106 | 1 | Static Charge | (cast by the kit)  |
 
 Changes against the canvas card, and why:
@@ -598,7 +615,7 @@ Look: a retail model, base 994164 (`Moonkin Violet`); its other colourings come 
 Changes against the canvas card, and why:
 
 - Tindral's moonkin from the owner's exports, with its five colourings (body and eyes paired).
-- A caster like the Baby Wind Serpent: its numbers grow with attack power.
+- A caster like the Wind Serpent: its numbers grow with attack power.
 
 ### Moontouched Owlbeast (shape 40, grows out of the Moonkin)
 Look: a retail model, base 994169 (`Owlbeast Brown`); its other colourings come with the shape: 994170 `Owlbeast Black`, 994171 `Owlbeast Blue`, 994172 `Owlbeast Green`, 994173 `Owlbeast White`. The creature's own look (creature 7453, display 994169, `Owlbeast Brown`) comes with it too. Any one task:
@@ -721,3 +738,162 @@ Changes against the canvas card, and why:
 
 - The owner's form (2026-10-03): the retail primal tallstrider; wild looks unsaddled, the complete mount saddled (a saddled look carries one rider). Also unlocked by Wren's Derby transformation.
 - The wild model has three horn sets; each is its own look (swept, short, ram).
+
+### Bear Cub (shape 46, devoured: any creature of family 4)
+Look: a retail model, base 994235 (`Cub Brown`); its other colourings come with the shape: 994236 `Cub Black`, 994237 `Cub Red`, 994238 `Cub White`. The creature's own look (creature 1186, display 994235, `Cub Brown`) comes with it too. Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102300 | 1 | Bear Cub Form | Take the shape of a bear cub you have devoured: Swipe, Cub Roar, Maul and Thick Fur; Lick Wounds opens at level 20. All shapes share one cooldown. |
+| 9102301 | 1 | Swipe | A clumsy swipe of a small paw: weapon damage plus $s1. Generates 10 Anima. |cffb87830Bear Cub form|r |
+| 9102302 | 1 | Cub Roar | A roar far too big for you: the enemy attacks you for 3 sec. |cffb87830Bear Cub form|r |
+| 9102303 | 1 | Thick Fur | Winter fur that laughs at bites: your armor is increased by 15%. |cffb87830Bear Cub form|r |
+| 9102304 | 1 | Maul | Put your whole weight behind it: weapon damage plus $s1. |cffb87830Bear Cub form|r |
+| 9102305 | 20 | Lick Wounds | Sit down and lick your wounds: you regain 4% of your maximum health every second for 6 sec. |cffb87830Bear Cub form|r |
+
+Changes against the canvas card, and why:
+
+- The owner's bear line (2026-10-06): any creature of the Bear family gives it (Dun Morogh, Elwynn and Teldrassil cubs and bears from 5). The retail primal bear cub, four colours.
+- Cub Roar is a real taunt (the stock Growl effect).
+
+### Dreambear (shape 47, grows out of the Bear Cub)
+Look: a retail model, base 994239 (`Dreambear Green`); its other colourings come with the shape: 994240 `Dreambear Blue`, 994241 `Dreambear Brown`, 994242 `Dreambear Golden`. The creature's own look (creature 1186, display 994239, `Dreambear Green`) comes with it too. Any one task:
+
+- Devour 30 bears as a Bear Cub
+- Roar 40 times (Cub Roar)
+- Devour Mangeclaw or Bjarn (Dun Morogh)
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102310 | 1 | Dreambear Form | Take the shape of the dreambear, grown out of your bear cub: Maul, Hibernate, Overgrowth and Thorned Mane; Swipe opens at level 26. All shapes share one cooldown. |
+| 9102311 | 1 | Maul | A heavy, dreaming paw: weapon damage plus $s1. Generates 15 Anima. |cffb87830Dreambear form|r |
+| 9102312 | 1 | Hibernate | Doze off in the middle of anything: for 8 sec you regain 5% of your maximum health every second and your armor is increased by 30%. |cffb87830Dreambear form|r |
+| 9102313 | 1 | Thorned Mane | Leaves and thorns grow where fur should be: your armor is increased by 15%, and anything that strikes you takes $s2 Nature damage. |cffb87830Dreambear form|r |
+| 9102314 | 1 | Overgrowth | A maul that leaves roots behind: weapon damage plus $s1, and the enemy moves 70% slower for 4 sec. |cffb87830Dreambear form|r |
+| 9102315 | 26 | Swipe | Swipe at everything around you: 70% weapon damage to every enemy within 8 yards. |cffb87830Dreambear form|r |
+
+Changes against the canvas card, and why:
+
+- The cub fell asleep in the Emerald Dream and woke up overgrown: the retail dream bear, a leaf mane in four season colours.
+- Hibernate is Frenzied Regeneration plus armor; Overgrowth slows instead of rooting (a root would need its own break-on-damage script).
+
+### Runebear (shape 48, grows out of the Dreambear)
+Look: a retail model, base 994244 (`Runebear Gold`); its other colourings come with the shape: 994243 `Runebear Ember`, 994245 `Runebear Violet`, 994246 `Runebear Green`. The creature's own look (creature 1186, display 994244, `Runebear Gold`) comes with it too. Any one task:
+
+- Devour 30 elementals as a Dreambear
+- Devour 25 earth or stone creatures as a Dreambear
+- Hibernate 20 times
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102320 | 1 | Runebear Form | Take the shape of the runebear, grown out of your dreambear: Rune Slam, Earthshaker, Rune Burst and Stoneskin; Crack the Crust opens at level 52. All shapes share one cooldown. |
+| 9102321 | 1 | Rune Slam | Slam a stone paw down: weapon damage plus $s1. Generates 15 Anima. |cffb87830Runebear form|r |
+| 9102322 | 1 | Earthshaker | Drop your whole weight: enemies within 8 yards take $s1 damage and are knocked down for 2 sec. |cffb87830Runebear form|r |
+| 9102323 | 1 | Stoneskin | Half of you is rock now: your armor is increased by 35%, and you take 5% less damage. |cffb87830Runebear form|r |
+| 9102324 | 1 | Rune Burst | The runes on your hide flare: enemies within 8 yards take $s1 Arcane damage. |cffb87830Runebear form|r |
+| 9102325 | 52 | Crack the Crust | Shed the stone for a moment: for 8 sec you run 30% faster and deal 15% more damage. |cffb87830Runebear form|r |
+
+Changes against the canvas card, and why:
+
+- The line's tier 3: an ancient bear turned half to stone, runes glowing on its hide and a crest that burns in its colour (the retail rune bear).
+- Rune Burst grows with attack power like the Moonkin's spells.
+
+### Grub (shape 49, devoured: any creature of family 41)
+Look: a retail model, base 994247 (`Grub Green`); its other colourings come with the shape: 994248 `Grub Blue`, 994249 `Grub Red`, 994250 `Grub White`. The creature's own look (creature 3252, display 994247, `Grub Green`) comes with it too. Any one task:
+
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102330 | 1 | Grub Form | Take the shape of a grub you have devoured: Gnaw, Spit Silk, Gorge and Fat Grub; Cocoon opens at level 20. All shapes share one cooldown. |
+| 9102331 | 1 | Gnaw | Gnaw at the enemy with tiny, tireless jaws: weapon damage plus $s1. Generates 10 Anima. |cffb87830Grub form|r |
+| 9102332 | 1 | Spit Silk | Spit a wad of silk at an enemy up to 25 yards away: $s1 Nature damage, and it moves 40% slower for 6 sec. |cffb87830Grub form|r |
+| 9102333 | 1 | Fat Grub | Round and well fed: you regain 1% of your maximum health every 3 sec, and your armor is increased by 10%. |cffb87830Grub form|r |
+| 9102334 | 1 | Gorge | Eat. Just eat: you are healed for 15% of your maximum health. |cffb87830Grub form|r |
+| 9102335 | 20 | Cocoon | Spin a cocoon around yourself: it soaks $s1 damage for 10 sec. |cffb87830Grub form|r |
+
+Changes against the canvas card, and why:
+
+- The owner's insect line (2026-10-06): any creature of the Silithid family gives it (the Barrens' swarmers and creepers from 14). The retail silkworm caterpillar, four colours.
+- Its diet picks the road: armored prey leads to the Rhino Beetle, flyers to the Glasswing (each road has its own tasks).
+
+### Rhino Beetle (shape 50, grows out of the Grub)
+Look: a retail model, base 994251 (`Beetle Brown`); its other colourings come with the shape: 994252 `Beetle Black`, 994253 `Beetle Blue`, 994254 `Beetle Green`, 994255 `Beetle Teal`, 994256 `Beetle Violet`, 994257 `Beetle White`, 994258 `Beetle Yellow`. The creature's own look (creature 3252, display 994251, `Beetle Brown`) comes with it too. Any one task:
+
+- Devour 30 scorpids as a Grub
+- Devour 30 crabs as a Grub
+- Devour 30 turtles as a Grub
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102340 | 1 | Rhino Beetle Form | Take the shape of the rhino beetle, grown out of your grub: Crunch, Horn Toss, Shell Up and Chitin Plates; Bulldoze opens at level 26. All shapes share one cooldown. |
+| 9102341 | 1 | Crunch | Mandibles like shears: weapon damage plus $s1. Generates 15 Anima. |cffb87830Rhino Beetle form|r |
+| 9102342 | 1 | Horn Toss | Get your horn under the enemy and throw it: weapon damage plus $s1, and it is flung away. |cffb87830Rhino Beetle form|r |
+| 9102343 | 1 | Chitin Plates | A shell that turns blades: your armor is increased by 30%. |cffb87830Rhino Beetle form|r |
+| 9102344 | 1 | Shell Up | Pull your legs in and let the shell take it: you take 40% less damage for 8 sec. |cffb87830Rhino Beetle form|r |
+| 9102345 | 26 | Bulldoze | Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 10 Anima. |cffb87830Rhino Beetle form|r |
+
+Changes against the canvas card, and why:
+
+- The armored road: a Grub that ate armored prey (scorpids, crabs or turtles) grows a horn and a shell. The retail rhinoceros beetle, eight colours.
+
+### Glasswing (shape 51, grows out of the Grub)
+Look: a retail model, base 994259 (`Glasswing Green`); its other colourings come with the shape: 994260 `Glasswing Blue`, 994261 `Glasswing Orange`, 994262 `Glasswing Black`, 994263 `Glasswing Yellow`. The creature's own look (creature 11698, display 994259, `Glasswing Green`) comes with it too. Any one task:
+
+- Devour 30 bats as a Grub
+- Devour 30 hawks, eagles or owls as a Grub
+- Devour 30 moths as a Grub
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102350 | 1 | Glasswing Form | Take the shape of the glasswing, grown out of your grub: Needle Bite, Dart, Hover and Wing Shimmer; Glass Sting opens at level 26. All shapes share one cooldown. |
+| 9102351 | 1 | Needle Bite | A quick bite in passing: weapon damage plus $s1. Generates 10 Anima. |cffb87830Glasswing form|r |
+| 9102352 | 1 | Dart | A burst of wings: 80% faster for 3 sec, forwards, sideways or backwards. |cffb87830Glasswing form|r |
+| 9102353 | 1 | Wing Shimmer | Hard to hit, harder to catch: your chance to dodge is increased by 8%, and you move 15% faster. |cffb87830Glasswing form|r |
+| 9102354 | 1 | Hover | Let the wings carry you: for 30 sec you fall slowly and skim over water. |cffb87830Glasswing form|r |
+| 9102355 | 26 | Glass Sting | A sting from a glass-thin tail, up to 20 yards away: $s1 Nature damage, and $o2 more over 12 sec. |cffb87830Glasswing form|r |
+
+Changes against the canvas card, and why:
+
+- The fast road: a Grub that ate flyers (bats, birds of prey or moths) grows glass wings. The retail primal dragonfly, five colours.
+- Hover is slow fall plus water walking; the Devourer cannot fly.
+
+### Kunchong (shape 52, grows out of the Rhino Beetle)
+Look: a retail model, base 994264 (`Kunchong Green`); its other colourings come with the shape: 994265 `Kunchong Blue`, 994266 `Kunchong Red`, 994267 `Kunchong Black`. The creature's own look (creature 3252, display 994264, `Kunchong Green`) comes with it too. Any one task:
+
+- Devour 20 giants, colossi or behemoths as a Rhino Beetle
+- Shell Up 30 times
+- Weather 30,000 damage as a Rhino Beetle
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102360 | 1 | Kunchong Form | Take the shape of the kunchong, grown out of your rhino beetle: Scything Claw, Amber Spit, Earthshatter Stomp and Carapace; Devouring Maw opens at level 52. All shapes share one cooldown. |
+| 9102361 | 1 | Scything Claw | A claw the size of a door: weapon damage plus $s1. Generates 15 Anima. |cffb87830Kunchong form|r |
+| 9102362 | 1 | Amber Spit | Spit hardening amber at an enemy up to 25 yards away: $s1 Nature damage, and it is all but stuck in place for 4 sec. |cffb87830Kunchong form|r |
+| 9102363 | 1 | Carapace | A living siege engine: your armor is increased by 40%, and you take 8% less damage. |cffb87830Kunchong form|r |
+| 9102364 | 1 | Earthshatter Stomp | Bring all six legs down at once: enemies within 8 yards take $s1 damage and are knocked down for 2 sec. |cffb87830Kunchong form|r |
+| 9102365 | 52 | Devouring Maw | Bite deep and swallow: weapon damage plus $s1, and $s2 of what you take heals you. Generates 15 Anima. |cffb87830Kunchong form|r |
+
+Changes against the canvas card, and why:
+
+- The armored road's tier 3: the beetle grew into a mountain of chitin with scything claws (the retail mantid kunchong, four colours).
+
+### Stingwing (shape 53, grows out of the Glasswing)
+Look: a retail model, base 994268 (`Stingwing Amber`); its other colourings come with the shape: 994269 `Stingwing Black`, 994270 `Stingwing Green`, 994271 `Stingwing Red`, 994272 `Stingwing White`, 994273 `Stingwing Yellow`. The creature's own look (creature 11698, display 994268, `Stingwing Amber`) comes with it too. Any one task:
+
+- Sting 100 enemies with Glass Sting
+- Devour 25 wasps as a Glasswing
+- Deal 20,000 damage as a Glasswing
+
+| Spell | Level | Name | What it does |
+|---|---|---|---|
+| 9102370 | 1 | Stingwing Form | Take the shape of the stingwing, grown out of your glasswing: Venom Sting, Buzz, Stinger Barrage and Hunter's Chitin; Dive opens at level 52. All shapes share one cooldown. |
+| 9102371 | 1 | Venom Sting | Sting and twist: weapon damage plus $s1, and the venom deals $o2 over 12 sec, up to 3 times over. Generates 10 Anima. |cffb87830Stingwing form|r |
+| 9102372 | 1 | Buzz | An angry blur of wings: for 6 sec you move 40% faster and your chance to dodge is increased by 20%. |cffb87830Stingwing form|r |
+| 9102373 | 1 | Hunter's Chitin | Plates where the glass was: your armor is increased by 20%, and your chance to strike critically by 3%. |cffb87830Stingwing form|r |
+| 9102374 | 1 | Stinger Barrage | A spray of venom needles in front of you: enemies within 10 yards take $s1 Nature damage. |cffb87830Stingwing form|r |
+| 9102375 | 52 | Dive | Drop onto an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 sec. Generates 10 Anima. |cffb87830Stingwing form|r |
+
+Changes against the canvas card, and why:
+
+- The fast road's tier 3: the dragonfly hardened into a hunting wasp with armor plates and a venom stinger (the retail giant wasp, six colours).

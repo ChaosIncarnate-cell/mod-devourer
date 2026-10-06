@@ -104,14 +104,14 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 |---|---|---|
 | 9101310 | The Molt: Greater Plainstrider | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. |
 | 9101311 | The Molt: Bloodsnout Worg | Every pack has one that runs behind the others. Not out of fear, my little horror. It is choosing which leg to take first. |
-| 9101312 | The Molt: Raging Agam'ar | The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it. |
+| 9101312 | The Molt: Armoredon | The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it. |
 | 9101313 | The Molt: Shadowclaw | On Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Mind your voice near it. |
 | 9101314 | The Molt: Rockjaw Backbreaker | The dwarves tell of a trogg that gnawed on a stone giant's toe. It never stopped growing harder. Neither did its hunger. |
 | 9101315 | The Molt: Vampiric Duskbat | In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living. |
-| 9101316 | The Molt: Arcane Wraith | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. |
+| 9101316 | The Molt: Greatwyrm | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. |
 | 9101317 | The Molt: Royal Blue Flutterer | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. |
 | 9101318 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
-| 9101319 | The Molt: Baby Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
+| 9101319 | The Molt: Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
 | 9101320 | The Molt: Komodo Dragon | On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little horror. It heals inside the lizard. |
 | 9101321 | The Molt: Spikeshell | Old turtles grow spikes because the world kept biting them. You will understand that, little horror. |
 | 9101322 | The Molt: Water Salamander | Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do not let it near my cauldron. |
@@ -125,10 +125,17 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101330 | The Molt: Voidcreeper Broodmother | A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer. |
 | 9101331 | The Molt: Earthen Proto-Drake | Some dragons sleep so long under the mountains that the mountain moves in. When they wake up, they keep it. |
 | 9101332 | The Molt: Primal Tallstrider | The primal striders ran before there were roads. Put a saddle on one and it still thinks it is running away. Hold on tight, whoever sits up there. |
-| 9101333 | The Molt: Greater Plainstrider | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. |
-| 9101334 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
-| 9101335 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
-| 9101336 | The Molt: Baby Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
+| 9101333 | The Molt: Dreambear | A cub that falls asleep in the wrong wood wakes up with a garden on its back. Do not pick the flowers, dear. They bite. |
+| 9101334 | The Molt: Runebear | The oldest bears stop moving one winter and let the mountain grow over them. The runes are what the mountain writes when it thinks nobody is reading. |
+| 9101335 | The Molt: Rhino Beetle | Feed a grub nothing but shells and it grows a shell of its own, and a horn to settle arguments. Short arguments. |
+| 9101336 | The Molt: Glasswing | Feed a grub nothing but wings and one morning it will not be on the ground. Glass wings, my little horror. Do not fly into anything. |
+| 9101337 | The Molt: Kunchong | The mantid raise kunchong the way other folk raise walls: slowly, and never small enough. This one is yours now. Mind the doorways. |
+| 9101338 | The Molt: Stingwing | A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not listen. |
+| 9101339 | The Molt: Greater Plainstrider | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. |
+| 9101340 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+| 9101341 | The Molt: Void Terror | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+| 9101342 | The Molt: Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
+| 9101343 | The Molt: Moontouched Owlbeast | When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells them. Now you can ask. |
 
 ## Lines (creature_text)
 
@@ -160,14 +167,14 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Wren | 15 | a form is ready (whisper) | Snack! I can smell it from here: that body of yours is fit to burst. Come home and let me peel it! | draft |
 | Hagatha | 8 | the Greater Plainstrider molt | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. | draft |
 | Hagatha | 9 | the Bloodsnout Worg molt | Every pack has one that runs behind the others. Not out of fear, my little horror. It is choosing which leg to take first. | draft |
-| Hagatha | 10 | the Raging Agam'ar molt | The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it. | draft |
+| Hagatha | 10 | the Armoredon molt | The quilboar have a word for a boar that has been struck so often it forgot how to fall. They pray to it. | draft |
 | Hagatha | 11 | the Shadowclaw molt | On Darkshore they say a black cat once swallowed a scream, and it has hunted in silence ever since. Mind your voice near it. | draft |
 | Hagatha | 12 | the Rockjaw Backbreaker molt | The dwarves tell of a trogg that gnawed on a stone giant's toe. It never stopped growing harder. Neither did its hunger. | draft |
 | Hagatha | 13 | the Vampiric Duskbat molt | In Tirisfal the bats grew fat on what the plague left behind. Then the plague left nothing, and they came for the living. | draft |
-| Hagatha | 14 | the Arcane Wraith molt | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. | draft |
+| Hagatha | 14 | the Greatwyrm molt | When the elves spill their magic, something always laps it up. That something does not stop when the cup is empty. | draft |
 | Hagatha | 15 | the Royal Blue Flutterer molt | The draenei say the bluest moths dream for the ones they put to sleep. Never ask them what they dream about. | draft |
 | Hagatha | 16 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
-| Hagatha | 17 | the Baby Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
+| Hagatha | 17 | the Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
 | Hagatha | 18 | the Komodo Dragon molt | On the islands of the south they say a bite from the great lizards never heals. They are wrong, my little horror. It heals inside the lizard. | draft |
 | Hagatha | 19 | the Spikeshell molt | Old turtles grow spikes because the world kept biting them. You will understand that, little horror. | draft |
 | Hagatha | 20 | the Water Salamander molt | Toads stay in the swamp. The salamander is the one that crawled into the hot springs and liked it. Do not let it near my cauldron. | draft |
@@ -181,33 +188,40 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 28 | the Voidcreeper Broodmother molt | A broodmother never eats alone, and never shares. She keeps her little ones close, and her food closer. | draft |
 | Hagatha | 29 | the Earthen Proto-Drake molt | Some dragons sleep so long under the mountains that the mountain moves in. When they wake up, they keep it. | draft |
 | Hagatha | 30 | the Primal Tallstrider molt | The primal striders ran before there were roads. Put a saddle on one and it still thinks it is running away. Hold on tight, whoever sits up there. | draft |
-| Hagatha | 31 | the Greater Plainstrider molt | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. | draft |
-| Hagatha | 32 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
-| Hagatha | 33 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
-| Hagatha | 34 | the Baby Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
-| Hagatha | 35 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
-| Hagatha | 36 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
-| Hagatha | 37 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
-| Hagatha | 38 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
-| Hagatha | 39 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
-| Hagatha | 40 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
-| Hagatha | 41 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
-| Hagatha | 42 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
-| Hagatha | 43 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
-| Hagatha | 44 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
-| Hagatha | 45 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
-| Hagatha | 46 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
-| Hagatha | 47 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
-| Hagatha | 48 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
-| Hagatha | 49 | the tale of shape 25 | The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind. | draft |
-| Hagatha | 50 | the tale of shape 27 | The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants. | draft |
-| Hagatha | 51 | the tale of shape 41 | A voidling is a hole in the world that learned to be hungry. Sounds like someone I know. | draft |
-| Hagatha | 52 | the tale of shape 38 | An owl sees what hides in the dark and says nothing. Learn the second part, little horror. | draft |
-| Hagatha | 53 | the tale of shape 35 | Every dragon was a whelp once, and every whelp thinks it is a dragon already. Eat the little ones of every flight, and you will wear their colours. | draft |
-| Hagatha | 54 | the tale of shape 33 | The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by your heartbeat, and a candle only shows you its mouth. | draft |
-| Hagatha | 55 | the tale of shape 31 | The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles are very good at keeping what they bite. | draft |
-| Hagatha | 56 | the tale of shape 28 | Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest. | draft |
-| Hagatha | 57 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
+| Hagatha | 31 | the Dreambear molt | A cub that falls asleep in the wrong wood wakes up with a garden on its back. Do not pick the flowers, dear. They bite. | draft |
+| Hagatha | 32 | the Runebear molt | The oldest bears stop moving one winter and let the mountain grow over them. The runes are what the mountain writes when it thinks nobody is reading. | draft |
+| Hagatha | 33 | the Rhino Beetle molt | Feed a grub nothing but shells and it grows a shell of its own, and a horn to settle arguments. Short arguments. | draft |
+| Hagatha | 34 | the Glasswing molt | Feed a grub nothing but wings and one morning it will not be on the ground. Glass wings, my little horror. Do not fly into anything. | draft |
+| Hagatha | 35 | the Kunchong molt | The mantid raise kunchong the way other folk raise walls: slowly, and never small enough. This one is yours now. Mind the doorways. | draft |
+| Hagatha | 36 | the Stingwing molt | A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not listen. | draft |
+| Hagatha | 37 | the Greater Plainstrider molt | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. | draft |
+| Hagatha | 38 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 39 | the Void Terror molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 40 | the Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
+| Hagatha | 41 | the Moontouched Owlbeast molt | When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells them. Now you can ask. | draft |
+| Hagatha | 42 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
+| Hagatha | 43 | the tale of shape 2 | Some hungers come back from the In-Between with teeth of their own. The berserker is what happens when nothing ever tells them no. | draft |
+| Hagatha | 44 | the tale of shape 3 | A serpent that learned to pray, and a prayer that learned to bite. Its echoes rise from the ground because the ground remembers it. | draft |
+| Hagatha | 45 | the tale of shape 4 | Every terror was small once. This one still squeaks when it is hungry. Enjoy that while it lasts. | draft |
+| Hagatha | 46 | the tale of shape 5 | In Elwynn they tell of a wolf that followed a shepherd for a whole year and never touched a sheep. It was waiting for the shepherd. | draft |
+| Hagatha | 47 | the tale of shape 6 | The troggs came up out of the stone hungry, and they have not been full since. You will understand them better than the dwarves ever did. | draft |
+| Hagatha | 48 | the tale of shape 7 | The night elves say their sabers walk between the moonbeams. They never say what the sabers eat there. | draft |
+| Hagatha | 49 | the tale of shape 8 | Moths fly to the light because they remember the In-Between: the only bright thing they ever saw there was the way out. | draft |
+| Hagatha | 50 | the tale of shape 9 | The orcs say a boar charges because it never learned how to stop. Neither have you, my little horror. | draft |
+| Hagatha | 51 | the tale of shape 10 | The tauren children race the striders across the plains, and the striders let them win. Mostly. | draft |
+| Hagatha | 52 | the tale of shape 11 | In Tirisfal the bats listen at the windows of the dead. They learn the name of everyone who is buried, and they never forget a meal. | draft |
+| Hagatha | 53 | the tale of shape 12 | The elves made a well of magic, and the wyrms came to drink from it. Then the well was gone, and the wyrms were still thirsty. | draft |
+| Hagatha | 54 | the tale of shape 14 | A toad in a cell eats the bugs, the bugs eat the crumbs, and the crumbs were the last prisoner. Everything in here eats something. | draft |
+| Hagatha | 55 | the tale of shape 15 | The swamp folk say a frog that eats enough flies will one day swallow the swamp. You are halfway there. | draft |
+| Hagatha | 56 | the tale of shape 25 | The snakes of the Wailing Caverns drank the sickness of a dreaming druid and grew clever. Clever things in the dark are the worst kind. | draft |
+| Hagatha | 57 | the tale of shape 27 | The trolls of Zul'Aman raised their eagles on the hearts of their enemies. This one has not yet decided whose heart it wants. | draft |
+| Hagatha | 58 | the tale of shape 41 | A voidling is a hole in the world that learned to be hungry. Sounds like someone I know. | draft |
+| Hagatha | 59 | the tale of shape 38 | An owl sees what hides in the dark and says nothing. Learn the second part, little horror. | draft |
+| Hagatha | 60 | the tale of shape 35 | Every dragon was a whelp once, and every whelp thinks it is a dragon already. Eat the little ones of every flight, and you will wear their colours. | draft |
+| Hagatha | 61 | the tale of shape 33 | The kobolds say: you no take candle. They say it because of the worms. In the dark, a worm finds you by your heartbeat, and a candle only shows you its mouth. | draft |
+| Hagatha | 62 | the tale of shape 31 | The sailors say a snapjaw once bit the anchor off a ship and slept with it for a hundred years. Turtles are very good at keeping what they bite. | draft |
+| Hagatha | 63 | the tale of shape 28 | Small lizards learn patience in the mud. They wait, they bite once, and then they simply follow until the bite does the rest. | draft |
+| Hagatha | 64 | a shape with no tale yet | That shape has no story yet. Eat a little more of the world, and the world will write you one. | draft |
 | Wren | 16 | back in shape 5, 7, 9, 17, 18, 19 | Fluffy! Actually fluffy this time! Can I brush you? No? I'm brushing you. | draft |
 | Wren | 17 | back in shape 10, 16, 45 | Look at those legs! You could outrun Hagatha's temper. Almost. | draft |
 | Wren | 18 | back in shape 8, 23, 27 | Ooh, wings! Don't fly near the candles, Snack. We've talked about the candles. | draft |
