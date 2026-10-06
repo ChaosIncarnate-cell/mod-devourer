@@ -44,7 +44,8 @@ def breadcrumb(book, qid, title, level, giver, ender, races, text, reward_text, 
 
 
 def mercy(book, qid, title, level, lantern, beast, points, intro, found, kept, reward, sort, story, prev=None):
-    """One special creature of the region, found by its scent: spare it (/pet it) instead of eating it. It follows
+    """One special creature of the region. The ids are fixed: the mounts thread's grown-beast quests (9308101-9308110)
+    require them (9105034, 9105043, 9105053, 9105063, 9105114, 9105145, 9105224, 9105254, 9105265, 9105392), found by its scent: spare it (/pet it) instead of eating it. It follows
     the Devourer for a while, then goes home; killing it fails the quest. A stock companion pet is the reward."""
     return book.quest(
         qid, title, level, max(1, level - 1), lantern, lantern, "wren", intro,
