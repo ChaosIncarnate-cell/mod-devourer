@@ -450,6 +450,9 @@ def light(book, board):
             qid, title, level, level - 2, board, board, "hagatha", text, log, undone, done,
             objectives=[carry(thing, objtext, IN_BETWEEN, -98.0, 157.0, radius=10.0, seconds=seconds, slow=slow,
                               dips=[(7190.0, 1140.0), (7000.0, 1400.0)] if map_id == 571 else [],
+                              # the mounts thread's "Never Let It Go Out" (criteria asset 9308496): the great lantern
+                              # home without it ever going dark (the phoenix ember of idea 41 is parked for later)
+                              achievement=9308496 if qid == 9109053 else 0,
                               picked="The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.",
                               warning="The soul-lantern dims.", refreshed="The brazier feeds the lantern. It burns brighter.",
                               lost="The soul-lantern has gone out. Pick up another.",

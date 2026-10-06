@@ -309,7 +309,9 @@ namespace
             for (CarryRule const& r : CarryRules)
                 if (r.Quest == questId)
                     rule = &r;
-            if (!rule || !Open(player, questId) || player->GetMapId() != rule->Map)
+            // The carry goes with the Devourer through portals and the Thin Place (the soul-lanterns start in the
+            // Plaguelands and end at the cauldron); it is only delivered on the rule's own map.
+            if (!rule || !Open(player, questId))
             {
                 state = itr->second.erase(state);
                 continue;
@@ -327,19 +329,18 @@ namespace
                 carry.Left -= int32(TickEvery);
                 if (carry.Left <= 0)
                 {
+                    // Gone dark (escaped, cold, blown out): it is lost; the Devourer has to pick up another.
                     carry.Dark = true;
                     player->GetSession()->SendAreaTriggerMessage("{}", rule->Lost);
                     if (rule->Flags & CarryFailLost)
-                    {
                         player->FailQuest(questId);
-                        state = itr->second.erase(state);
-                        continue;
-                    }
+                    state = itr->second.erase(state);
+                    continue;
                 }
                 else if (carry.Left % 30000 < int32(TickEvery) && carry.Left < int32(rule->Seconds * 1000) / 2)
                     player->GetSession()->SendAreaTriggerMessage("{} ({} seconds)", rule->Warning, carry.Left / 1000);
             }
-            if (player->GetExactDist2d(rule->X, rule->Y) <= rule->Radius)
+            if (player->GetMapId() == rule->Map && player->GetExactDist2d(rule->X, rule->Y) <= rule->Radius)
             {
                 player->KilledMonsterCredit(rule->Credit);
                 if (rule->Achievement && !carry.Dark)
