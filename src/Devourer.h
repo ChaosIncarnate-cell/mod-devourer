@@ -56,6 +56,8 @@ namespace Devourer
     // The Primal Tallstrider (shape 45): its saddled looks carry one rider (the Rider's Seat, a vehicle aura).
     constexpr uint32 ShapeSaddledStrider = 45;   // the Derby code names it ShapePrimalTallstrider
     constexpr uint32 SpellRiderSeat = 9102296;
+    constexpr uint32 ShapeGrub = 49;                 // molts inside a silk cocoon (SpellSilkenCocoon)
+    constexpr uint32 SpellSilkenCocoon = 9100946;    // the Moth's Silken Cocoon (start_kit sid(8, 6))
     constexpr uint32 SaddledFirst = 994208, SaddledLast = 994228;
     void SyncSaddle(Player* player, uint32 shapeId, uint32 display);
     void ColdBlood(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spell);

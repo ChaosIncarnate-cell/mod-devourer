@@ -301,8 +301,16 @@ namespace Devourer
     {
         Shape const* from = FindShape(evo.From);
         Shape const* to = FindShape(evo.To);
-        Tell(player, "Your " + from->Name + " body has eaten enough. It tears open, and a " + to->Name +
-            " crawls out.");
+        if (evo.From == ShapeGrub)
+        {
+            // Fun review (2026-10-06): the Grub's molt is visible. It spins a cocoon, and the new body breaks out.
+            player->CastSpell(player, SpellSilkenCocoon, true);
+            Tell(player, "Your Grub body spins itself into silk. The cocoon splits, and a " + to->Name +
+                " crawls out.");
+        }
+        else
+            Tell(player, "Your " + from->Name + " body has eaten enough. It tears open, and a " + to->Name +
+                " crawls out.");
         SaveGrowth(player);
         // ChaosCore0.3: the grown body keeps its colouring - the colouring of the new shape whose young look
         // like the old body (a teal Baby Berserker grows into a teal Berserker).

@@ -1592,8 +1592,9 @@ BEAR_CUB = Evolved(
                     "DurationIndex": DUR_3S, "RecoveryTime": 8000, "SchoolMask": SCHOOL_PHYSICAL,
                     **effects({"effect": E_ATTACK_ME, "target": T_ENEMY})}),
      ("Cub Roar", "A roar far too big for you: the enemy attacks you for 3 sec.", "Taunted.")),
-    (25941, gimmick(1571, 0, aura(A_MOD_RESISTANCE_PCT, 15, 1)),
-     ("Thick Fur", "Winter fur that laughs at bites: your armor is increased by 15%.", "")),
+    (25941, gimmick(1571, 0, aura(A_MOD_DODGE_PERCENT, 6), aura(A_OBS_MOD_HEALTH, 1, period=5000)),
+     ("Rolly-Poly", "Cubs bounce: your chance to dodge is increased by 6%, and you regain 1% of your maximum health "
+      "every 5 sec.", "")),
     (6807, ability({**hunger(10), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
                     "DurationIndex": 0, **effects(hit(8))}),
      ("Maul", "Put your whole weight behind it: weapon damage plus $s1.", "")),
@@ -1620,12 +1621,12 @@ DREAMBEAR = Evolved(
     (22842, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
                      "DurationIndex": DUR_8S, "RecoveryTime": 60000, "SchoolMask": SCHOOL_NATURE,
                      "CastingTimeIndex": CAST_INSTANT,
-                     **effects(aura(A_OBS_MOD_HEALTH, 5, period=1000), aura(A_MOD_RESISTANCE_PCT, 30, 1))}),
-     ("Hibernate", "Doze off in the middle of anything: for 8 sec you regain 5% of your maximum health every second "
-      "and your armor is increased by 30%.", "Dozing.")),
-    (25941, gimmick(1571, 0, aura(A_MOD_RESISTANCE_PCT, 15, 1), aura(A_DAMAGE_SHIELD, 4, SCHOOL_NATURE_INDEX)),
-     ("Thorned Mane", "Leaves and thorns grow where fur should be: your armor is increased by 15%, and anything "
-      "that strikes you takes $s2 Nature damage.", "")),
+                     **effects(aura(A_OBS_MOD_HEALTH, 5, period=1000), aura(A_MOD_STUN))}),
+     ("Hibernate", "Fall asleep on the spot: for 8 sec you cannot act, and you regain 5% of your maximum health "
+      "every second. Wake up rested.", "Hibernating.")),
+    (25941, gimmick(1571, 0, aura(A_DAMAGE_SHIELD, 6, SCHOOL_NATURE_INDEX), aura(A_OBS_MOD_HEALTH, 1, period=3000)),
+     ("Thorned Mane", "Leaves and thorns grow where fur should be: anything that strikes you takes $s1 Nature "
+      "damage, and the blossoms mend you by 1% of your maximum health every 3 sec.", "")),
     (339, ability({**hunger(10), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 12000, "SchoolMask": SCHOOL_NATURE,
                    "DurationIndex": DUR_4S, "EffectMechanic_2": MECHANIC_SNARE,
                    **effects(hit(6), aura(A_MOD_DECREASE_SPEED, -70, target=T_ENEMY))}),
@@ -1643,51 +1644,54 @@ DREAMBEAR = Evolved(
     looks=[(DREAMBEAR_LOOK, "Dreambear Green"), (994240, "Dreambear Blue"), (994241, "Dreambear Brown"),
            (994242, "Dreambear Golden")],
     later_level=26,
-    role="regenerating tank",
+    role="sleeping regenerator",
     changes=[
         "The cub fell asleep in the Emerald Dream and woke up overgrown: the retail dream bear, a leaf mane in four "
         "season colours.",
-        "Hibernate is Frenzied Regeneration plus armor; Overgrowth slows instead of rooting (a root would need its "
-        "own break-on-damage script).",
+        "Hibernate is a real sleep: you cannot act while it heals you (its verb: nobody else naps mid-fight). "
+        "Overgrowth slows instead of rooting (a root would need its own break-on-damage script).",
     ])
 
 RUNEBEAR = Evolved(
     48, "Runebear", 47, "Dreambear", 1186, RUNEBEAR_LOOK, "Runebear Gold",
-    (5211, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 6000, "SchoolMask": SCHOOL_PHYSICAL,
-                    "DurationIndex": 0, **effects(hit(12), gain(15))}),
-     ("Rune Slam", "Slam a stone paw down: weapon damage plus $s1. Generates 15 Anima.", "")),
-    (46968, ability({**hunger(25), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
-                     "DurationIndex": DUR_2S, "RecoveryTime": 30000, "SchoolMask": SCHOOL_PHYSICAL,
-                     "Mechanic": MECHANIC_STUN,
-                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 20, "spread": 8, "target": T_SRC_CASTER,
-                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8},
-                               around(A_MOD_STUN, radius=RADIUS_8))}),
-     ("Earthshaker", "Drop your whole weight: enemies within 8 yards take $s1 damage and are knocked down for 2 "
-      "sec.", "Knocked down.")),
-    (25941, gimmick(1571, 0, aura(A_MOD_RESISTANCE_PCT, 35, 1), aura(A_DMG_TAKEN_PCT, -5, SCHOOL_ALL)),
-     ("Stoneskin", "Half of you is rock now: your armor is increased by 35%, and you take 5% less damage.", "")),
+    (2912, ability({"CastingTimeIndex": CAST_1500, "RangeIndex": RANGE_30, "RecoveryTime": 0,
+                    "SchoolMask": SCHOOL_ARCANE, "DurationIndex": 0, "_bonus": (0, 0, 0.25, 0),
+                    **effects({"effect": E_SCHOOL_DAMAGE, "amount": 22, "spread": 6, "target": T_ENEMY}, gain(10))}),
+     ("Rune Bolt", "Read a rune off your own hide and throw it at an enemy up to 30 yards away: $s1 Arcane damage. "
+      "Generates 10 Anima.", "")),
+    (11426, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": DUR_10S, "RecoveryTime": 30000, "SchoolMask": SCHOOL_ARCANE,
+                     "CastingTimeIndex": CAST_INSTANT, "_bonus": (0.4, 0, 0, 0),
+                     **effects(aura(A_SCHOOL_ABSORB, 60, SCHOOL_MAGIC_ALL), gain(10))}),
+     ("Rune Ward", "The runes drink spells: absorbs $s1 magic damage for 10 sec. Generates 10 Anima.",
+      "Absorbs magic damage.")),
+    (25941, gimmick(1571, 0, aura(A_MOD_SPELL_CRIT_CHANCE, 5), aura(A_DMG_TAKEN_PCT, -10, SCHOOL_MAGIC_ALL)),
+     ("Runes of Warding", "Old words carved into old stone: your spells strike critically 5% more often, and you take "
+      "10% less magic damage.", "")),
     (2912, ability({**hunger(20), "CastingTimeIndex": CAST_INSTANT, "RangeIndex": RANGE_SELF, "RecoveryTime": 12000,
                     "SchoolMask": SCHOOL_ARCANE, "DurationIndex": 0, "_bonus": (0, 0, 0.25, 0),
                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 30, "spread": 10, "target": T_SRC_CASTER,
                                "targetB": T_SRC_AREA_ENEMY, "radius": RADIUS_8})}),
      ("Rune Burst", "The runes on your hide flare: enemies within 8 yards take $s1 Arcane damage.", "")),
-    (1850, ability({**hunger(25), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
-                    "DurationIndex": DUR_8S, "RecoveryTime": 45000, "CastingTimeIndex": CAST_INSTANT,
-                    **effects(aura(A_MOD_INCREASE_SPEED, 30), aura(A_MOD_DAMAGE_PCT_DONE, 15, SCHOOL_ALL))}),
-     ("Crack the Crust", "Shed the stone for a moment: for 8 sec you run 30% faster and deal 15% more damage.",
-      "Unbound.")),
+    (20484, ability({**hunger(25), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
+                     "DurationIndex": DUR_8S, "RecoveryTime": 45000, "CastingTimeIndex": CAST_INSTANT,
+                     **effects(aura(A_MOD_ROOT), aura(A_MOD_DAMAGE_PCT_DONE, 25, SCHOOL_ALL),
+                               aura(A_DMG_TAKEN_PCT, -20, SCHOOL_ALL))}),
+     ("Take Root", "Sink your stone paws into the ground: for 8 sec you cannot move, deal 25% more damage and take "
+      "20% less.", "Rooted in stone.")),
     BEAR_DIET, BEAR_FOOD, 45, 1200,
     [(DEVOUR_TYPE, CREATURE_TYPE_ELEMENTAL, 30, "Devour 30 elementals as a Dreambear", ""),
-     (DEVOUR_NAME, 0, 25, "Devour 25 earth or stone creatures as a Dreambear", "earth|stone|rock|crystal"),
-     (SPELL_CAST, sid(47, 2), 20, "Hibernate 20 times", "")],
+     (SPELL_CAST, sid(47, 2), 20, "Hibernate 20 times", ""),
+     (DEVOUR_ENTRY, 10806, 1, "Devour Ursius (Winterspring)", "")],
     looks=[(RUNEBEAR_LOOK, "Runebear Gold"), (994243, "Runebear Ember"), (994245, "Runebear Violet"),
            (994246, "Runebear Green")],
     later_level=52,
-    role="stone tank",
+    role="rune caster",
     changes=[
         "The line's tier 3: an ancient bear turned half to stone, runes glowing on its hide and a crest that burns "
         "in its colour (the retail rune bear).",
-        "Rune Burst grows with attack power like the Moonkin's spells.",
+        "Fun review (2026-10-06): a caster, not a fourth stone tank. Its verb is Take Root: it plants itself and "
+        "casts from where it stands.",
     ])
 
 GRUB = Evolved(
@@ -1701,9 +1705,8 @@ GRUB = Evolved(
                                aura(A_MOD_DECREASE_SPEED, -40, target=T_ENEMY))}),
      ("Spit Silk", "Spit a wad of silk at an enemy up to 25 yards away: $s1 Nature damage, and it moves 40% slower "
       "for 6 sec.", "Wrapped in silk.")),
-    (25941, gimmick(1137, 0, aura(A_OBS_MOD_HEALTH, 1, period=3000), aura(A_MOD_RESISTANCE_PCT, 10, 1)),
-     ("Fat Grub", "Round and well fed: you regain 1% of your maximum health every 3 sec, and your armor is "
-      "increased by 10%.", "")),
+    (25941, gimmick(1137, 0, aura(A_OBS_MOD_HEALTH, 2, period=3000)),
+     ("Fat Grub", "Round and well fed: you regain 2% of your maximum health every 3 sec.", "")),
     (32906, ability({**hunger(15), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
                      "DurationIndex": 0, "RecoveryTime": 30000, "SchoolMask": SCHOOL_PHYSICAL,
                      **effects({"effect": E_HEAL_PCT, "amount": 15, "target": T_CASTER})}),
@@ -1714,6 +1717,7 @@ GRUB = Evolved(
                      **effects(aura(A_SCHOOL_ABSORB, 40, SCHOOL_ALL))}),
      ("Cocoon", "Spin a cocoon around yourself: it soaks $s1 damage for 10 sec.", "Cocooned.")),
     INSECT_DIET, INSECT_FOOD, 10, 0, [], family=FAMILY_SILITHID,
+    sources=[(16030, 0), (16068, 0), (3443, 0), (12218, 0), (8311, 0), (9498, 0), (15555, 0), (20747, 0)],
     looks=[(GRUB_LOOK, "Grub Green"), (994248, "Grub Blue"), (994249, "Grub Red"), (994250, "Grub White")],
     role="slow, fat survivor",
     changes=[
@@ -1721,6 +1725,8 @@ GRUB = Evolved(
         "and creepers from 14). The retail silkworm caterpillar, four colours.",
         "Its diet picks the road: armored prey leads to the Rhino Beetle, flyers to the Glasswing (each road has its "
         "own tasks).",
+        "Larvae, maggots and grubs give it too (named sources). Its molt happens in a silk cocoon (the Moth's Silken "
+        "Cocoon, Mgr::Evolve).",
     ])
 
 RHINO_BEETLE = Evolved(
@@ -1728,10 +1734,11 @@ RHINO_BEETLE = Evolved(
     (17253, ability({"RangeIndex": RANGE_COMBAT, "RecoveryTime": 5000, "SchoolMask": SCHOOL_PHYSICAL,
                      "DurationIndex": 0, **effects(hit(9), gain(15))}),
      ("Crunch", "Mandibles like shears: weapon damage plus $s1. Generates 15 Anima.", "")),
-    (6572, ability({**hunger(15), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 12000, "SchoolMask": SCHOOL_PHYSICAL,
+    (6572, ability({**hunger(15), "RangeIndex": RANGE_COMBAT, "RecoveryTime": 10000, "SchoolMask": SCHOOL_PHYSICAL,
                     "DurationIndex": 0,
-                    **effects(hit(6), {"effect": E_KNOCK_BACK, "amount": 60, "misc": 40, "target": T_ENEMY})}),
-     ("Horn Toss", "Get your horn under the enemy and throw it: weapon damage plus $s1, and it is flung away.", "")),
+                    **effects(hit(8), {"effect": E_KNOCK_BACK, "amount": 120, "misc": 60, "target": T_ENEMY})}),
+     ("Horn Toss", "Get your horn under the enemy and flip it over your back: weapon damage plus $s1, and it lands "
+      "behind you.", "")),
     (25941, gimmick(1137, 0, aura(A_MOD_RESISTANCE_PCT, 30, 1)),
      ("Chitin Plates", "A shell that turns blades: your armor is increased by 30%.", "")),
     (871, ability({**hunger(20), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
@@ -1739,9 +1746,12 @@ RHINO_BEETLE = Evolved(
                    "CastingTimeIndex": CAST_INSTANT, **effects(aura(A_DMG_TAKEN_PCT, -40, SCHOOL_ALL))}),
      ("Shell Up", "Pull your legs in and let the shell take it: you take 40% less damage for 8 sec.",
       "Shelled up.")),
-    (*charge(20000, CHARGE_STUN, 10),
-     ("Bulldoze", "Charge an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 "
-      "sec. Generates 10 Anima.", "")),
+    (16552, ability({**hunger(10), "RangeIndex": RANGE_25, "RecoveryTime": 15000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_6S, "Mechanic": sk.MECHANIC_DAZE,
+                     **effects({"effect": E_SCHOOL_DAMAGE, "amount": 10, "spread": 4, "target": T_ENEMY},
+                               aura(A_MOD_DECREASE_SPEED, -50, target=T_ENEMY), gain(10))}),
+     ("Dung Ball", "Roll a ball of dung at an enemy up to 25 yards away. It is exactly what it looks like: $s1 Nature "
+      "damage, and the enemy moves 50% slower for 6 sec. Generates 10 Anima.", "Dazed and dirty.")),
     INSECT_DIET, INSECT_FOOD, 20, 700,
     [(DEVOUR_FAMILY, FAMILY_SCORPID, 30, "Devour 30 scorpids as a Grub", ""),
      (DEVOUR_FAMILY, FAMILY_CRAB, 30, "Devour 30 crabs as a Grub", ""),
@@ -1803,8 +1813,9 @@ KUNCHONG = Evolved(
                                aura(A_MOD_DECREASE_SPEED, -90, target=T_ENEMY))}),
      ("Amber Spit", "Spit hardening amber at an enemy up to 25 yards away: $s1 Nature damage, and it is all but "
       "stuck in place for 4 sec.", "Stuck in amber.")),
-    (25941, gimmick(1137, 0, aura(A_MOD_RESISTANCE_PCT, 40, 1), aura(A_DMG_TAKEN_PCT, -8, SCHOOL_ALL)),
-     ("Carapace", "A living siege engine: your armor is increased by 40%, and you take 8% less damage.", "")),
+    (25941, gimmick(1137, 0, aura(A_DMG_TAKEN_PCT, -8, SCHOOL_ALL), aura(A_OBS_MOD_HEALTH, 1, period=2000)),
+     ("Amber Blood", "Thick amber runs in your veins and seals every crack: you take 8% less damage and regain 1% "
+      "of your maximum health every 2 sec.", "")),
     (46968, ability({**hunger(25), "Attributes": ATTR0_ABILITY, "AttributesEx": 0, "RangeIndex": RANGE_SELF,
                      "DurationIndex": DUR_2S, "RecoveryTime": 30000, "SchoolMask": SCHOOL_PHYSICAL,
                      "Mechanic": MECHANIC_STUN, "_bonus": (0, 0, 0.2, 0),
@@ -1820,8 +1831,8 @@ KUNCHONG = Evolved(
       "Generates 15 Anima.", "")),
     INSECT_DIET, INSECT_FOOD, 45, 1200,
     [(DEVOUR_NAME, 0, 20, "Devour 20 giants, colossi or behemoths as a Rhino Beetle", "giant|colossus|behemoth"),
-     (SPELL_CAST, sid(50, 4), 30, "Shell Up 30 times", ""),
-     (TAKE_DAMAGE, 0, 30000, "Weather 30,000 damage as a Rhino Beetle", "")],
+     (SPELL_CAST, sid(50, 2), 40, "Flip 40 enemies with Horn Toss", ""),
+     (DEVOUR_ENTRY, 10041, 1, "Devour the Gorishi Hive Queen (Un'Goro Crater)", "")],
     looks=[(KUNCHONG_LOOK, "Kunchong Green"), (994265, "Kunchong Blue"), (994266, "Kunchong Red"),
            (994267, "Kunchong Black")],
     later_level=52,
@@ -1843,19 +1854,22 @@ STINGWING = Evolved(
                     **effects(aura(A_MOD_INCREASE_SPEED, 40), aura(A_MOD_DODGE_PERCENT, 20))}),
      ("Buzz", "An angry blur of wings: for 6 sec you move 40% faster and your chance to dodge is increased by "
       "20%.", "Buzzing.")),
-    (25941, gimmick(1579, 0, aura(A_MOD_RESISTANCE_PCT, 20, 1), aura(A_MOD_CRIT_PERCENT, 3)),
-     ("Hunter's Chitin", "Plates where the glass was: your armor is increased by 20%, and your chance to strike "
-      "critically by 3%.", "")),
+    (25941, gimmick(1579, 0, aura(A_MOD_MELEE_HASTE, 10), aura(A_MOD_CRIT_PERCENT, 3)),
+     ("Hunter's Wings", "Wings that never rest: you attack 10% faster, and your chance to strike critically is "
+      "increased by 3%.", "")),
     (*breath(16552, SCHOOL_NATURE, 16, 6, 10000, 15, 0.2),
      ("Stinger Barrage", "A spray of venom needles in front of you: enemies within 10 yards take $s1 Nature "
       "damage.", "")),
-    (*charge(20000, CHARGE_STUN, 10),
-     ("Dive", "Drop onto an enemy 8 to 25 yards away, even in the middle of a fight, and knock it down for 1.5 "
-      "sec. Generates 10 Anima.", "")),
+    (16552, ability({**hunger(15), "RangeIndex": RANGE_20, "RecoveryTime": 12000, "SchoolMask": SCHOOL_NATURE,
+                     "DurationIndex": DUR_10S, "EffectMechanic_2": MECHANIC_SNARE, "_bonus": (0, 0, 0, 0.04),
+                     **effects(aura(A_PERIODIC_DAMAGE, 7, target=T_ENEMY, period=2000),
+                               aura(A_MOD_DECREASE_SPEED, -30, target=T_ENEMY))}),
+     ("Venom Sac", "Hang a swelling venom sac on an enemy up to 20 yards away: it drips $o1 Nature damage over "
+      "10 sec, and the weight slows it by 30%.", "A venom sac hangs on you.")),
     INSECT_DIET, INSECT_FOOD, 45, 1200,
     [(SPELL_CAST, sid(51, 5), 100, "Sting 100 enemies with Glass Sting", ""),
      (DEVOUR_FAMILY, FAMILY_WASP, 25, "Devour 25 wasps as a Glasswing", ""),
-     (DEAL_DAMAGE, 0, 20000, "Deal 20,000 damage as a Glasswing", "")],
+     (DEVOUR_NAME, 0, 1, "Devour a Gorishi Stinger (Un'Goro Crater)", "gorishi stinger")],
     looks=[(STINGWING_LOOK, "Stingwing Amber"), (994269, "Stingwing Black"), (994270, "Stingwing Green"),
            (994271, "Stingwing Red"), (994272, "Stingwing White"), (994273, "Stingwing Yellow")],
     later_level=52,
@@ -1903,10 +1917,11 @@ EXTRA_GROWTH += [
            [(DEVOUR_NAME, 0, 20, "Devour 20 thunder lizards, basilisks or kodos as a Baby Komodo", "thunder lizard|basilisk|kodo"),
             (DEAL_DAMAGE, 0, 8000, "Deal 8,000 damage as a Baby Komodo", ""),
             (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")]),
-    Growth(12, "Mana Wyrm", 24, "Thunder Lizard", 16, 600,
-           [(DEVOUR_NAME, 0, 20, "Devour 20 storm or arcane creatures as a Mana Wyrm",
-             "storm|lightning|thunder|mana|arcane"),
-            (SPELL_CAST, sk.sid(12, 1), 50, "Cast Arcane Bolt 50 times", ""),
+    # Fun review (2026-10-06): the void branch keeps a way in from the Warp Stalker now that its tier 2 is the
+    # Thunder Lizard (the Mana Wyrm's crossover went: the Greatwyrm is its arcane tier 2).
+    Growth(13, "Warp Stalker", 42, "Voidcreeper", 20, 700,
+           [(DEVOUR_NAME, 0, 25, "Devour 25 void creatures as a Warp Stalker", "void|nether|voidwalker|voidspawn"),
+            (SPELL_CAST, WARP_STALKER_WARP, 40, "Warp 40 times", ""),
             (DEVOUR_ENTRY, 17550, 1, "Devour a Void Anomaly (Bloodmyst Isle)", "")]),
     # owner, 2026-10-03: "we can have wind serpent go from viper, or a bird like creature?"
     Growth(27, "Baby Eagle", 26, "Wind Serpent", 28, 800,

@@ -133,7 +133,7 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | 9101338 | The Molt: Stingwing | A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not listen. |
 | 9101339 | The Molt: Greater Plainstrider | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. |
 | 9101340 | The Molt: Thunder Lizard | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
-| 9101341 | The Molt: Thunder Lizard | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. |
+| 9101341 | The Molt: Voidcreeper | Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family. |
 | 9101342 | The Molt: Wind Serpent | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. |
 | 9101343 | The Molt: Moontouched Owlbeast | When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells them. Now you can ask. |
 
@@ -196,7 +196,7 @@ When a form has everything its evolution needs (Bio Points, level, any one task)
 | Hagatha | 36 | the Stingwing molt | A wasp is a dragonfly that stopped being polite about it. The stinger is for things that would not listen. | draft |
 | Hagatha | 37 | the Greater Plainstrider molt | In Mulgore they tell of a chick that never stopped running. The wind caught up with it once, and has been chasing it ever since. | draft |
 | Hagatha | 38 | the Thunder Lizard molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
-| Hagatha | 39 | the Thunder Lizard molt | Out where the world thins, the warp stalkers grow until they forget which side of the dark they belong to. | draft |
+| Hagatha | 39 | the Voidcreeper molt | Voidcreepers dig where the world is thin. If you hear scratching under your bed, dear, it is only family. | draft |
 | Hagatha | 40 | the Wind Serpent molt | A snake that swallows enough storms grows wings to carry them. The tauren say the thunder is only the wind serpents clearing their throats. | draft |
 | Hagatha | 41 | the Moontouched Owlbeast molt | When the moon is full, the owlbeasts of Winterspring sit very still and listen. Nobody knows what it tells them. Now you can ask. | draft |
 | Hagatha | 42 | the tale of shape 1 | The sand people of the far south shed their skins to grow wiser. You shed theirs to grow hungrier. They would not approve. | draft |
