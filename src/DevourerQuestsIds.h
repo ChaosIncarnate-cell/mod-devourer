@@ -494,51 +494,6 @@ namespace Devourer::Quests
         { 9109201, 9109562, EventEmote, FilterEntry, 9101301, 129, 0, { 0, 0, 0, 0 }, "" },   // The Gingerbread Steed: Wren shooed from the oven
         { 9109211, 9109566, EventEmote, FilterEntry, 9109941, 90, 0, { 0, 0, 0, 0 }, "" },   // Stare It Down: The egg stared at
         { 9109220, 9109568, EventKill, FilterEntry, 9109942, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Lesson One, Sweeping: Dust bunny swept
-        { 9109250, 9109595, EventEmote, FilterEntry, 9109943, 410, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Hot Coals for Hot Pups: Core hound pup petted
-        { 9109252, 9109599, EventEmote, FilterEntry, 9109944, 17, 0, { 0, 0, 0, 0 }, "" },   // Their Mothers Come Looking: Bowed to the core hound mother
-        { 9109255, 9109602, EventStruck, FilterEntry, 5855, 0, 0, { 0, 0, 0, 0 }, "" },   // Learn the Heat: Burned by a magma elemental
-        { 9109260, 9109604, EventEmote, FilterEntry, 9109945, 410, 0, { 0, 0, 0, 0 }, "" },   // WANTED: The Red Test: The wounded whelp tended
-        { 9109262, 9109606, EventEmote, FilterEntry, 9109946, 87, 0, { 0, 0, 0, 0 }, "" },   // The Green Test: Slept beside the dreaming whelp
-        { 9109270, 9109617, EventStruck, FilterFamily, 3, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Shadra's Ten Bites: Bitten by a spider
-        { 9109273, 9109620, EventEmote, FilterEntry, 25489, 75, 2, { 0, 0, 0, 0 }, "" },   // Out-Roar a Rhino: A wooly rhino out-roared
-        { 9109273, 9109620, EventEmote, FilterEntry, 25487, 75, 2, { 0, 0, 0, 0 }, "" },   // Out-Roar a Rhino: A wooly rhino out-roared
-        { 9109273, 9109620, EventEmote, FilterEntry, 25488, 75, 2, { 0, 0, 0, 0 }, "" },   // Out-Roar a Rhino: A wooly rhino out-roared
-        { 9109291, 9109633, EventEmote, FilterEntry, 9109949, 410, 0, { 0, 0, 0, 0 }, "" },   // The Joust: The harlequin's charger calmed
-        { 9109296, 9109642, EventKill, FilterEntry, 9109950, 0, 0, { 0, 0, 0, 0 }, "" },   // Whack-a-Gnome: A gnome whacked
-        { 9109298, 9109644, EventEmote, FilterEntry, 9109952, 17, 0, { 0, 0, 0, 0 }, "" },   // It Came True: Bowed to the Tiger of Fortune
-        { 9109310, 9109673, EventMeal, FilterEntry, 11698, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Listening to the Hive: A silithid devoured for its scent
-        { 9109310, 9109673, EventMeal, FilterEntry, 11721, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Listening to the Hive: A silithid devoured for its scent
-        { 9109310, 9109673, EventMeal, FilterEntry, 11722, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Listening to the Hive: A silithid devoured for its scent
-        { 9109310, 9109673, EventMeal, FilterEntry, 11723, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Listening to the Hive: A silithid devoured for its scent
-        { 9109310, 9109673, EventMeal, FilterEntry, 11724, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Listening to the Hive: A silithid devoured for its scent
-        { 9109311, 9109677, EventMeal, FilterEntry, 11725, 0, 0, { 0, 0, 0, 0 }, "" },   // Hive'Zora Sings Louder: A Hive'Zora silithid devoured
-        { 9109311, 9109677, EventMeal, FilterEntry, 11726, 0, 0, { 0, 0, 0, 0 }, "" },   // Hive'Zora Sings Louder: A Hive'Zora silithid devoured
-        { 9109311, 9109677, EventMeal, FilterEntry, 11727, 0, 0, { 0, 0, 0, 0 }, "" },   // Hive'Zora Sings Louder: A Hive'Zora silithid devoured
-        { 9109312, 9109681, EventMeal, FilterEntry, 11725, 0, 0, { 0, 0, 0, 0 }, "" },   // Why Is It Singing?: A silithid devoured for its scent
-        { 9109312, 9109681, EventMeal, FilterEntry, 11726, 0, 0, { 0, 0, 0, 0 }, "" },   // Why Is It Singing?: A silithid devoured for its scent
-        { 9109312, 9109681, EventMeal, FilterEntry, 11727, 0, 0, { 0, 0, 0, 0 }, "" },   // Why Is It Singing?: A silithid devoured for its scent
-        { 9109320, 9109684, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // WANTED: The Reflection at Shadowglen: Bowed to the reflection
-        { 9109320, 9109685, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // WANTED: The Reflection at Shadowglen: Danced with the reflection
-        { 9109320, 9109686, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // WANTED: The Reflection at Shadowglen: Knelt to the reflection
-        { 9109321, 9109688, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Auberdine: Bowed to the reflection
-        { 9109321, 9109689, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Auberdine: Danced with the reflection
-        { 9109321, 9109690, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Auberdine: Knelt to the reflection
-        { 9109322, 9109692, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Raynewood Retreat: Bowed to the reflection
-        { 9109322, 9109693, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Raynewood Retreat: Danced with the reflection
-        { 9109322, 9109694, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Raynewood Retreat: Knelt to the reflection
-        { 9109323, 9109696, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Thalanaar: Bowed to the reflection
-        { 9109323, 9109697, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Thalanaar: Danced with the reflection
-        { 9109323, 9109698, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Thalanaar: Knelt to the reflection
-        { 9109324, 9109700, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Nighthaven: Bowed to the reflection
-        { 9109324, 9109701, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Nighthaven: Danced with the reflection
-        { 9109324, 9109702, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Nighthaven: Knelt to the reflection
-        { 9109330, 9109705, EventEmote, FilterEntry, 9109958, 104, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Mummy Duck: A duckling whistled at
-        { 9109331, 9109709, EventEmote, FilterEntry, 9109959, 104, 0, { 0, 0, 0, 0 }, "" },   // The Golden Clutch: A golden duckling whistled at
-        { 9109350, 9109716, EventKill, FilterEntry, 9109960, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: The Shattered Hand Banner: A banner-hungry ogre beaten
-        { 9109351, 9109719, EventKill, FilterEntry, 9109960, 0, 0, { 0, 0, 0, 0 }, "" },   // The Warsong Banner: A banner-hungry ogre beaten
-        { 9109352, 9109722, EventKill, FilterEntry, 9109960, 0, 0, { 0, 0, 0, 0 }, "" },   // The Frostwolf Banner: A banner-hungry ogre beaten
-        { 9109353, 9109725, EventKill, FilterEntry, 9109960, 0, 0, { 0, 0, 0, 0 }, "" },   // The Thunderlord Banner: A banner-hungry ogre beaten
-        { 9109354, 9109727, EventEmote, FilterEntry, 9109961, 75, 0, { 0, 0, 0, 0 }, "" },   // The Alpha: Roared at Fenrir's blood
     };
 
     // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight;
@@ -630,70 +585,6 @@ namespace Devourer::Quests
         { 9109223, 9109575, 35, -33.0f, 150.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Hagatha's Sweepers: Past the gate, watched
         { 9109223, 9109576, 35, -123.0f, 149.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Hagatha's Sweepers: Through the Thin Place, watched
         { 9109234, 9109581, 35, -90.5f, 138.5f, 8.0f, { 0, 0, 0, 0 }, 0, 15, 0, -100000.0f },   // Mister Slow, Grown: Sat with Mister Slow
-        { 9109244, 9109591, 35, -98.0f, 157.0f, 8.0f, { 0, 0, 0, 0 }, 0, 30, 0, -100000.0f },   // Four Jars on a Shelf: Listened to the jars argue
-        { 9109245, 9109592, 1, -7160.0f, -1140.0f, 30.0f, { 0, 0, 0, 0 }, 0, 20, 0, -100000.0f },   // Hot Bath, Cold Bath: Stood in the heat of Fire Plume Ridge
-        { 9109245, 9109593, 1, 6915.4f, -4129.6f, 30.0f, { 0, 0, 0, 0 }, 0, 20, 0, -100000.0f },   // Hot Bath, Cold Bath: Stood in the snow of Winterspring
-        { 9109251, 9109597, 0, -8378.5f, -2748.9f, 30.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // Don't Light the Grass: Walked the pups to Morgan's Vigil
-        { 9109261, 9109605, 1, -8294.5f, -4586.8f, 25.0f, { 0, 0, 0, 0 }, 128, 60, 0, -100000.0f },   // The Bronze Test: Waited one minute, unmoving
-        { 9109262, 9109607, 0, -10425.0f, -395.0f, 15.0f, { 0, 0, 0, 0 }, 128, 30, 0, -100000.0f },   // The Green Test: Stayed by the dream portal
-        { 9109265, 9109611, 530, -5165.2f, 757.3f, 40.0f, { 0, 0, 0, 0 }, 16, 0, 0, -100000.0f },   // Catch It Before the Ground: Back down at the mines with the hatchling
-        { 9109266, 9109612, 571, 3546.0f, 287.0f, 30.0f, { 0, 0, 0, 0 }, 0, 20, 0, 200.0f },   // The Flights Decide: Stood at the top of Wyrmrest while they decided
-        { 9109267, 9109613, 571, 3743.8f, 955.3f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Race the Sky Stalkers: The Ruby Dragonshrine
-        { 9109267, 9109614, 571, 2791.3f, -6.0f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Race the Sky Stalkers: The Emerald Dragonshrine
-        { 9109267, 9109615, 571, 3373.6f, 2584.3f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Race the Sky Stalkers: The Azure Dragonshrine
-        { 9109267, 9109616, 571, 4473.3f, 1655.5f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Race the Sky Stalkers: The Obsidian Dragonshrine
-        { 9109271, 9109618, 0, 2296.0f, 296.0f, 20.0f, { 0, 0, 0, 0 }, 130, 60, 0, -100000.0f },   // Hir'eek's Long Night: Kept still through the bats' night
-        { 9109274, 9109621, 571, 5746.5f, -3608.8f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Altars of Zul'Drak: Har'koa's altar
-        { 9109274, 9109622, 571, 5716.3f, -4369.3f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Altars of Zul'Drak: Quetz'lun's altar
-        { 9109274, 9109623, 571, 6391.7f, -2615.0f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Altars of Zul'Drak: Sseratus's altar
-        { 9109274, 9109624, 571, 6320.9f, -4130.4f, 60.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Altars of Zul'Drak: Mam'toth's altar
-        { 9109280, 9109625, 530, -3307.9f, 291.8f, 30.0f, { 0, 0, 0, 0 }, 16, 0, 0, 100.0f },   // WANTED: The Demon Hunter's Leap: Stood on the cliffs above the Black Temple
-        { 9109280, 9109626, 530, -3559.7f, 637.6f, 40.0f, { 0, 0, 0, 0 }, 16, 0, 0, -100000.0f },   // WANTED: The Demon Hunter's Leap: Landed by the Sanctum of the Stars
-        { 9109290, 9109631, 35, -87.0f, 126.0f, 1.5f, { 0, 0, 0, 0 }, 128, 5, 0, -100000.0f },   // WANTED: Land in the Bucket: Stayed in the bucket for five
-        { 9109295, 9109637, 35, -93.0f, 121.5f, 6.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Old Ride: Round the WANTED board
-        { 9109295, 9109638, 35, -90.5f, 138.5f, 6.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Old Ride: Round the duck pond
-        { 9109295, 9109639, 35, -98.0f, 157.0f, 6.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Old Ride: Round the cauldron
-        { 9109295, 9109640, 35, -123.0f, 149.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Old Ride: Round the Thin Place
-        { 9109300, 9109650, 0, -14281.0f, 552.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // WANTED: The Shredder Tank: Test lap: round the dock
-        { 9109300, 9109651, 0, -14430.2f, 411.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // WANTED: The Shredder Tank: Test lap: past the scrapyard
-        { 9109300, 9109652, 0, -14361.9f, 372.2f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // WANTED: The Shredder Tank: Test lap: up to the bank
-        { 9109301, 9109654, 0, -14281.0f, 552.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Gnome Suits: Test lap: round the dock
-        { 9109301, 9109655, 0, -14430.2f, 411.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Gnome Suits: Test lap: past the scrapyard
-        { 9109301, 9109656, 0, -14361.9f, 372.2f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Gnome Suits: Test lap: up to the bank
-        { 9109302, 9109658, 0, -14281.0f, 552.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Juggernaut: Test lap: round the dock
-        { 9109302, 9109659, 0, -14430.2f, 411.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Juggernaut: Test lap: past the scrapyard
-        { 9109302, 9109660, 0, -14361.9f, 372.2f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // The Juggernaut: Test lap: up to the bank
-        { 9109303, 9109662, 0, -14281.0f, 552.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Three Wonkas: Test lap: round the dock
-        { 9109303, 9109663, 0, -14430.2f, 411.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Three Wonkas: Test lap: past the scrapyard
-        { 9109303, 9109664, 0, -14361.9f, 372.2f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Three Wonkas: Test lap: up to the bank
-        { 9109304, 9109666, 0, -14281.0f, 552.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Three More Wonkas: Test lap: round the dock
-        { 9109304, 9109667, 0, -14430.2f, 411.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Three More Wonkas: Test lap: past the scrapyard
-        { 9109304, 9109668, 0, -14361.9f, 372.2f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Three More Wonkas: Test lap: up to the bank
-        { 9109305, 9109670, 0, -14281.0f, 552.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Meat Wagons: Test lap: round the dock
-        { 9109305, 9109671, 0, -14430.2f, 411.0f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Meat Wagons: Test lap: past the scrapyard
-        { 9109305, 9109672, 0, -14361.9f, 372.2f, 12.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Meat Wagons: Test lap: up to the bank
-        { 9109310, 9109674, 1, -6663.7f, 1069.6f, 15.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // WANTED: Listening to the Hive: The first listening stone, walking
-        { 9109310, 9109675, 1, -6476.1f, 1085.8f, 15.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // WANTED: Listening to the Hive: The second listening stone, walking
-        { 9109310, 9109676, 1, -6580.2f, 794.6f, 15.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // WANTED: Listening to the Hive: The third listening stone, walking
-        { 9109311, 9109678, 1, -7087.8f, 1764.9f, 15.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // Hive'Zora Sings Louder: A listening stone in Hive'Zora, walking
-        { 9109311, 9109679, 1, -7061.7f, 1659.7f, 15.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // Hive'Zora Sings Louder: A deeper stone in Hive'Zora, walking
-        { 9109311, 9109680, 1, -7448.4f, 1404.4f, 20.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // Hive'Zora Sings Louder: The deepest stone in Hive'Zora, walking
-        { 9109312, 9109682, 1, -7448.4f, 1404.4f, 20.0f, { 0, 0, 0, 0 }, 128, 45, 0, -100000.0f },   // Why Is It Singing?: Stood still until the worms answered
-        { 9109320, 9109683, 1, 10709.6f, 762.3f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // WANTED: The Reflection at Shadowglen: At Shadowglen's moonwell at night
-        { 9109321, 9109687, 1, 6410.9f, 467.4f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Auberdine: At Auberdine's moonwell at night
-        { 9109322, 9109691, 1, 2368.1f, -1720.3f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Raynewood Retreat: At Raynewood Retreat's moonwell at night
-        { 9109323, 9109695, 1, -4512.5f, -782.2f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Thalanaar: At Thalanaar's moonwell at night
-        { 9109324, 9109699, 1, 7793.5f, -2446.9f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Nighthaven: At Nighthaven's moonwell at night
-        { 9109325, 9109703, 1, 6915.4f, -4129.6f, 25.0f, { 0, 0, 0, 0 }, 130, 30, 0, -100000.0f },   // Frostsabers Come Down: Stood still at Frostsaber Rock at night
-        { 9109330, 9109706, 35, -98.0f, 157.0f, 6.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // WANTED: Mummy Duck: Walked the ducklings past the cauldron
-        { 9109330, 9109707, 35, -90.5f, 138.5f, 5.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // WANTED: Mummy Duck: Walked them home to the duck pond
-        { 9109331, 9109710, 35, -90.5f, 138.5f, 5.0f, { 0, 0, 0, 0 }, 8, 0, 0, -100000.0f },   // The Golden Clutch: Walked them home to the pond
-        { 9109360, 9109728, 0, -14281.0f, 552.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // WANTED: See Her Off: Saw Bramble off at the dock
-        { 9109361, 9109731, 0, -14281.0f, 552.0f, 30.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Sand, a Big Statue, Angry Bugs: The ship flown home to Booty Bay
-        { 9109362, 9109734, 0, -14281.0f, 552.0f, 30.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Snow, Bones, a Dragon Looking at Me: The ship flown home to Booty Bay
-        { 9109363, 9109737, 0, -14281.0f, 552.0f, 30.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Mushrooms Taller Than Me: The ship flown home to Booty Bay
-        { 9109364, 9109740, 0, -14281.0f, 552.0f, 30.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // I Think One Licked Me: The ship flown home to Booty Bay
-        { 9109365, 9109743, 0, -14281.0f, 552.0f, 30.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },   // Purple, Floating Rocks, Nothing Below: The ship flown home to Booty Bay
     };
 
     // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Count x Summon,
@@ -753,36 +644,6 @@ namespace Devourer::Quests
         { 9109070, 9109232, 9109579, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Autumn Petals: Autumn Petals picked
         { 9109071, 9109233, 9109580, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Winter Petals: Winter Petals picked
         { 9109072, 9109235, 9109582, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Petals From a Volcano: An ember picked at Fire Plume Ridge
-        { 9109074, 9109240, 9109583, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Bottled Fire: The jar for the fire found
-        { 9109076, 9109241, 9109585, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bottled Air: The jar for the air found
-        { 9109078, 9109242, 9109587, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bottled Water: The jar for the water found
-        { 9109080, 9109243, 9109589, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bottled Earth: The jar for the earth found
-        { 9109084, 9109253, 9109600, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Chained Ones: A hound's chain broken
-        { 9109086, 9109260, 9109603, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Red Test: Ruby moss picked
-        { 9109087, 9109264, 9109609, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Blue Memories: A blue memory walked through
-        { 9109088, 9109265, 9109610, 0, 0, 32, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Catch It Before the Ground: The rolling egg caught, on foot
-        { 9109090, 9109281, 9109627, 0, 0, 128, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Hunter's Eyes: A footprint found by eye (no Sniff)
-        { 9109091, 9109282, 9109628, 0, 0, 16, 0, nullptr, "", "", { 7, 19, 0, 0 } },   // The Rogue's Fingers: The key taken from Wren's apron
-        { 9109092, 9109290, 9109630, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Land in the Bucket: Climbed into Wren's bucket
-        { 9109094, 9109292, 9109634, 0, 0, 0, 0, nullptr, "", "", { 46, 47, 48, 0 } },   // Ring the Bell: The strongman's bell rung as a bear
-        { 9109095, 9109293, 9109635, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Find the Chameleon: The chameleon found on a stall
-        { 9109096, 9109294, 9109636, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Ring Toss: A ring on a peg
-        { 9109098, 9109300, 9109649, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Shredder Tank: Parts salvaged
-        { 9109099, 9109301, 9109653, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Gnome Suits: Parts salvaged
-        { 9109100, 9109302, 9109657, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Juggernaut: Parts salvaged
-        { 9109101, 9109303, 9109661, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Three Wonkas: Parts salvaged
-        { 9109102, 9109304, 9109665, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Three More Wonkas: Parts salvaged
-        { 9109103, 9109305, 9109669, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Meat Wagons: Parts salvaged
-        { 9109118, 9109361, 9109729, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Sand, a Big Statue, Angry Bugs: Bramble pulled out of the wreck
-        { 9109119, 9109361, 9109730, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Sand, a Big Statue, Angry Bugs: A leak patched
-        { 9109120, 9109362, 9109732, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Snow, Bones, a Dragon Looking at Me: Bramble pulled out of the wreck
-        { 9109121, 9109362, 9109733, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Snow, Bones, a Dragon Looking at Me: A leak patched
-        { 9109122, 9109363, 9109735, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Mushrooms Taller Than Me: Bramble pulled out of the wreck
-        { 9109123, 9109363, 9109736, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Mushrooms Taller Than Me: A leak patched
-        { 9109124, 9109364, 9109738, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // I Think One Licked Me: Bramble pulled out of the wreck
-        { 9109125, 9109364, 9109739, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // I Think One Licked Me: A leak patched
-        { 9109126, 9109365, 9109741, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Purple, Floating Rocks, Nothing Below: Bramble pulled out of the wreck
-        { 9109127, 9109365, 9109742, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Purple, Floating Rocks, Nothing Below: A leak patched
         { 0, 9105111, 9105451, 0, 0, 1, 8, TaleLines9105101, "Hagatha Hollowmoor", "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"", { 0, 0, 0, 0 } },   // The Boat-Eater: The tale of the Boat-Eater heard
         { 0, 9105131, 9105464, 0, 0, 1, 7, TaleLines9105102, "Hagatha Hollowmoor", "Bramble rubs her eyes. \"I'm keeping my dreams. All of them. Even the one with the soup.\"", { 0, 0, 0, 0 } },   // Other People's Dreams: The tale of the blue moths heard
         { 0, 9105171, 9105494, 0, 0, 1, 7, TaleLines9105103, "Hagatha Hollowmoor", "Bramble pulls her knees up. \"I'll be somewhere else. Somewhere with lamps.\"", { 0, 0, 0, 0 } },   // The Night That Stayed: The tale of the night that stayed heard
@@ -828,17 +689,6 @@ namespace Devourer::Quests
         { 9109062, 9109192, 9109556, 9109940, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Home to Ashenvale: Wren's Flowerpot
         { 9109066, 9109211, 9109564, 9109941, 1, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Stare It Down: A Dead End
         { 9109067, 9109220, 9109567, 9109942, 8, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Lesson One, Sweeping: A Dusty Corner
-        { 9109082, 9109251, 9109596, 9109943, 3, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Don't Light the Grass: The Pups' Den
-        { 9109083, 9109252, 9109598, 9109944, 1, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Their Mothers Come Looking: The Pups' Bed by the Forge
-        { 9109093, 9109291, 9109632, 9109949, 1, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Joust: The Joust Bell
-        { 9109097, 9109296, 9109641, 9109950, 8, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Whack-a-Gnome: The Whack-a-Gnome Board
-        { 9109104, 9109330, 9109704, 9109958, 5, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Mummy Duck: A Nest by the Thin Place
-        { 9109105, 9109331, 9109708, 9109959, 3, 24, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Golden Clutch: A Nest That Glows
-        { 9109110, 9109350, 9109715, 9109960, 4, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Shattered Hand Banner: The Shattered Hand Camp's Empty Pole
-        { 9109112, 9109351, 9109718, 9109960, 4, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Warsong Banner: The Warsong Camp's Empty Pole
-        { 9109114, 9109352, 9109721, 9109960, 4, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Frostwolf Banner: The Frostwolf Camp's Empty Pole
-        { 9109116, 9109353, 9109724, 9109960, 4, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Thunderlord Banner: The Thunderlord Camp's Empty Pole
-        { 9109117, 9109354, 9109726, 9109961, 1, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Alpha: Four Banners, One Pole
     };
 
     // A pack that takes the Devourer for one of its own: within Radius x 3 of X, Y, wearing one of the Shapes,
@@ -907,20 +757,38 @@ namespace Devourer::Quests
         { 9109051, 9109442, 9109026, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 25, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // A Second Lantern: Soul-light delivered
         { 9109052, 9109443, 9109026, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 35, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Argent Lantern: Soul-light delivered
         { 9109053, 9109444, 9109027, 35, -98.0f, 157.0f, 10.0f, 1200, 2, { { 7190.0f, 1140.0f }, { 7000.0f, 1400.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 50, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Great Lantern of Icecrown: The great soul-light delivered
-        { 9109240, 9109584, 9109073, 0, -7142.7f, -1523.5f, 6.0f, 30, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 0, 0, 0, "The fire is in your hands. It is not happy. Run.", "It is burning through.", "It brightens again.", "The fire got away.", "The fire is in the jar." },   // WANTED: Bottled Fire: Fire bottled before it escaped
-        { 9109241, 9109586, 9109075, 1, -6420.0f, 30.0f, 6.0f, 40, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 0, 0, 0, "The air is in your hands. Your feet keep leaving the ground. Run before it lifts you away.", "It is slipping out.", "It brightens again.", "The air got away.", "The air is in the jar." },   // Bottled Air: Air bottled before it escaped
-        { 9109242, 9109588, 9109077, 1, -3129.6f, 2257.5f, 6.0f, 60, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 30, 0, 0, "The water is in your hands, and it is cold, colder, your feet are going numb. Keep walking.", "Your knees are freezing.", "It brightens again.", "The water got away.", "The water is in the jar." },   // Bottled Water: Water bottled before it escaped
-        { 9109243, 9109590, 9109079, 530, -867.5f, 6614.4f, 6.0f, 60, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 50, 0, 0, "The earth is in your hands. It weighs as much as a hill and wants to go back to being one.", "It is pulling you down.", "It brightens again.", "The earth got away.", "The earth is in the jar." },   // Bottled Earth: Earth bottled before it escaped
-        { 9109250, 9109594, 9109081, 0, -7800.0f, -2100.0f, 15.0f, 40, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 0, 0, 0, "You take the coal in your mouth. No hands. It is very, very hot.", "The coal is cooling.", "It brightens again.", "The coal went cold. Get another.", "The pups fall on the coal and crunch it like a biscuit." },   // WANTED: Hot Coals for Hot Pups: A hot coal carried to the pups (no hands)
-        { 9109254, 9109601, 9109085, 0, -7699.6f, -1444.3f, 20.0f, 45, 3, { { -7550.0f, -1260.0f }, { -7600.0f, -1330.0f }, { -7640.0f, -1390.0f }, { 0.0f, 0.0f } }, 10.0f, 0, 9308496, 0, "The ember is barely warm. It is dimming already.", "The ember is going dark. Find lava.", "The ember flares in the lava.", "The ember went dark. It is still there, cold. Pick it up again.", "At the mountain's mouth, the ember rises." },   // Never Let It Go Out: The phoenix ember carried out of the mountain
-        { 9109272, 9109619, 9109089, 0, -12010.5f, -238.9f, 10.0f, 25, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 0, 0, 1, "The lashtails scream and start running. Go!", "They are catching up!", "It brightens again.", "The raptors got there first.", "First! Gonk laughs somewhere." },   // Gonk's Footrace: Gonk's feather raced to the finish
-        { 9109340, 9109711, 9109106, 0, -9413.3f, 154.3f, 15.0f, 40, 2, { { -9330.0f, 360.0f }, { -9380.0f, 260.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 10.0f, 0, 0, 0, "The lantern spirit settles in your hands. The wind is already pulling at it.", "The flame is guttering. Find shelter.", "Sheltered, the flame catches again.", "The wind blew it out. It drifts back to where you found it.", "The elder takes the lantern, and it rises." },   // WANTED: Lantern for the Lost: Elwynn Forest: The lantern spirit brought to Elder Stormbrow
-        { 9109341, 9109712, 9109107, 1, 6292.1f, 530.7f, 15.0f, 40, 1, { { 6360.0f, 500.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 10.0f, 0, 0, 0, "The lantern spirit settles in your hands. The wind is already pulling at it.", "The flame is guttering. Find shelter.", "Sheltered, the flame catches again.", "The wind blew it out. It drifts back to where you found it.", "The elder takes the lantern, and it rises." },   // Lantern for the Lost: Darkshore: The lantern spirit brought to Elder Starweave
-        { 9109342, 9109713, 9109108, 1, 7561.2f, -2206.3f, 15.0f, 30, 2, { { 7470.0f, -2225.0f }, { 7520.0f, -2212.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 10.0f, 0, 0, 0, "The lantern spirit settles in your hands. The wind is already pulling at it.", "The flame is guttering. Find shelter.", "Sheltered, the flame catches again.", "The wind blew it out. It drifts back to where you found it.", "The elder takes the lantern, and it rises." },   // Lantern for the Lost: Moonglade: The lantern spirit brought to the elders' gathering
-        { 9109350, 9109714, 9109109, 530, -66.2f, 3132.8f, 20.0f, 0, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 20, 0, 0, "The Shattered Hand banner is heavy, and the wind snaps it like a drum.", "It is fading.", "It brightens again.", "It is gone dark.", "The banner is home." },   // WANTED: The Shattered Hand Banner: The Shattered Hand banner carried to its camp
-        { 9109351, 9109717, 9109111, 530, -1637.0f, 8569.5f, 20.0f, 0, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 20, 0, 0, "The Warsong banner is heavy, and the wind snaps it like a drum.", "It is fading.", "It brightens again.", "It is gone dark.", "The banner is home." },   // The Warsong Banner: The Warsong banner carried to its camp
-        { 9109352, 9109720, 9109113, 530, -1297.0f, 6949.1f, 20.0f, 0, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 20, 0, 0, "The Frostwolf banner is heavy, and the wind snaps it like a drum.", "It is fading.", "It brightens again.", "It is gone dark.", "The banner is home." },   // The Frostwolf Banner: The Frostwolf banner carried to its camp
-        { 9109353, 9109723, 9109115, 530, 2274.4f, 6133.0f, 20.0f, 0, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 20, 0, 0, "The Thunderlord banner is heavy, and the wind snaps it like a drum.", "It is fading.", "It brightens again.", "It is gone dark.", "The banner is home." },   // The Thunderlord Banner: The Thunderlord banner carried to its camp
+    };
+
+    // A form at turn-in: the shape (if new) and the colouring, as if eaten (Mgr::Unlock).
+    struct FormRule { uint32_t Quest; uint32_t Shape; uint32_t Display; };
+    constexpr FormRule FormRules[] =
+    {
+        { 9109010, 35, 994152 },   // WANTED: a Ravasaur Chick's Egg: Whelp, Proto-Whelp Yellow
+        { 9109011, 35, 994139 },   // Keep It Warm: Whelp, Red Whelp
+        { 9109013, 38, 6299 },   // WANTED: a Gryphon Chick's Egg: Owl, Hawk Owl
+        { 9109014, 38, 4877 },   // Keep It Warm: Owl, Ironbeak Owl
+        { 9109016, 35, 994146 },   // WANTED: a Roc Chick's Egg: Whelp, Chromatic Whelp
+        { 9109017, 35, 994147 },   // Keep It Warm: Whelp, Armored Whelp
+        { 9109030, 6, 606 },   // WANTED: Bones That Remember: Trogg, Rockjaw
+        { 9109031, 5, 31048 },   // WANTED: Wren's Buttons: Wolf, Timber
+        { 9109032, 5, 447 },   // WANTED: The Lost Explorer: Wolf, Scavenger
+        { 9109090, 38, 10832 },   // WANTED: Six Postcards: Owl, Strigid Owl
+        { 9109100, 32, 994131 },   // WANTED: Four Lighthouses: Spikeshell, Dragon Turtle
+        { 9109140, 21, 8808 },   // WANTED: The First Page: Vampiric Duskbat, Vampiric
+        { 9109141, 35, 994149 },   // The Second Page: Whelp, Nightmare Whelp
+        { 9109142, 35, 994145 },   // The Third Page: Whelp, Ley Whelp
+        { 9109143, 13, 20025 },   // The Fourth Page: Warp Stalker, Warp Stalker
+        { 9109144, 38, 10831 },   // The Fifth Page: Owl, Shadowwing Owl
+        { 9109145, 35, 994142 },   // The Sixth Page: Whelp, Bronze Whelp
+        { 9109160, 38, 20293 },   // WANTED: The Knight Without a Horse: Owl, Skethyl Owl
+        { 9109190, 7, 15506 },   // WANTED: A Walk for a Sapling: Saber, Lynx
+        { 9109210, 10, 1220 },   // WANTED: The Giant Egg: Plainstrider, Tallstrider
+        { 9109220, 41, 994176 },   // WANTED: Lesson One, Sweeping: Voidling, Voidling
+        { 9109221, 35, 994141 },   // Lesson Two, Hovering: Whelp, Blue Whelp
+        { 9109230, 9, 8869 },   // WANTED: Spring Petals: Boar, Thistle
+        { 9109231, 35, 994140 },   // Summer Petals: Whelp, Green Whelp
+        { 9109232, 7, 15507 },   // Autumn Petals: Saber, Springpaw
+        { 9109233, 5, 31049 },   // Winter Petals: Wolf, Grey
     };
 
     // A letter after a quest: server mail from Wren, Delay seconds later.
@@ -930,12 +798,6 @@ namespace Devourer::Quests
         { 9109011, "I tried to fly today", "Dear mother. I tried to fly today. I hit a tree. The tree was fine. I am mostly fine. Wren says you will teach me. Please come back soon. Your chick. (P.S. What is a mother?)", 1800 },   // Keep It Warm
         { 9109014, "I tried to fly today", "Dear mother. I tried to fly today. I hit a tree. The tree was fine. I am mostly fine. Wren says you will teach me. Please come back soon. Your chick. (P.S. What is a mother?)", 1800 },   // Keep It Warm
         { 9109017, "I tried to fly today", "Dear mother. I tried to fly today. I hit a tree. The tree was fine. I am mostly fine. Wren says you will teach me. Please come back soon. Your chick. (P.S. What is a mother?)", 1800 },   // Keep It Warm
-        { 9109297, "Your fortune", "Devourer,$B$BThe tiger is waiting on the beach below Booty Bay, where the jungle meets the sea. Go and bow to it.$B$B- Madame Whiskers (a cat)", 3600 },   // The Fortune Teller
-        { 9109360, "Slight problem", "Snack,$B$BSlight problem. Come find me. I can see sand, a big statue and angry bugs.$B$B- Bramble", 300 },   // WANTED: See Her Off
-        { 9109361, "Another slight problem", "Snack,$B$BNew ship. Same problem. Snow. Bones of something enormous. A dragon is looking at me.$B$B- Bramble", 600 },   // Sand, a Big Statue, Angry Bugs
-        { 9109362, "Problem, slight", "Snack,$B$BMushrooms. Taller than me. They glow. Something is singing at me in a language made of mud.$B$B- Bramble", 600 },   // Snow, Bones, a Dragon Looking at Me
-        { 9109363, "Small problem", "Snack,$B$BA waterfall. Dinosaurs. I think one licked me.$B$B- Bramble", 600 },   // Mushrooms Taller Than Me
-        { 9109364, "Problem", "Snack,$B$BPurple. Floating rocks. Nothing below. I don't know how I got here. I think I'm in the Twisting Nether. Somehow.$B$B- Bramble", 600 },   // I Think One Licked Me
     };
 
     // One of the quests' own creatures that talks (npc_devourer_quest_beast): it says Text, offers Options; the
@@ -951,13 +813,6 @@ namespace Devourer::Quests
         { 9109936, 9109172, 9109540, "The Headless Horseman's charger stands by the old stable without its rider; he has lost his head again. It looks at the ghost mare, then at you, and its voice comes out of the pumpkin on its saddle: 'A riddle, for the mare. I have a head but no body, a face but no eyes, and I ride every Hallow's End. What am I?'", 3, { { "A pumpkin.", "'...A pumpkin. Yes. Fine. Keep the mare. Take me too; he never feeds me.'", true }, { "Your rider.", "'He has a BODY. Mostly. Wrong. Come back and try again.'", false }, { "A coin.", "'A coin has no face that rides. Wrong.'", false }, { "", "", false } }, 0 },   // The Horseman's Charger
         { 9109938, 9109183, 9109547, "'ORDERS: DESTROY THE ENEMIES OF THE LEGION. QUERY: ARE YOU AN ENEMY OF THE LEGION?'", 3, { { "The Legion is gone. Your orders are from nobody.", "'...QUERY: WHO GIVES ORDERS NOW? ...NOBODY. THEN I AM... FREE? RECALCULATING. YOU MAY DRIVE.'", true }, { "Yes. Come and get me.", "'COMPLYING.' The reaver's foot comes down very close to you.", false }, { "I am your commander now.", "'YOU ARE NOT ON THE LIST. ERROR.' A warning klaxon sounds.", false }, { "", "", false } }, 0 },   // A Fel Reaver, Still Running Orders
         { 9109939, 9109186, 9109551, "The deathcycle's engine coughs. A little fel light blinks on the dial: 'NO RIDER. NO WAR. NO POINT.'", 3, { { "There is a point. Somewhere to go that is not a war.", "The engine turns over once, twice, and roars. It sounds almost pleased.", true }, { "The Legion is coming back. Start up.", "'LIAR.' The dial goes dark.", false }, { "Please?", "The dial blinks. 'NO.'", false }, { "", "", false } }, 0 },   // A Deathcycle That Will Not Start
-        { 9109947, 9109263, 9109608, "The shadow leans close. 'Power, Devourer. Every shape you will ever want. Only say yes.'", 3, { { "No.", "The shadow flinches, as if no one had ever said it before. It thins and goes out.", true }, { "What would it cost?", "'Nothing. Everything. Does it matter? Say yes.'", false }, { "Yes.", "Something cold settles in your stomach. You feel like you just ate a lie. The shadow laughs.", false }, { "", "", false } }, 0 },   // A Whisper From Grim Batol
-        { 9109948, 9109283, 9109629, "The imp rubs its hands. 'A deal, a deal! Your shadow for a horse. Fair? Fair!'", 3, { { "Read the contract first.", "The small print says 'and your soul, and your hat'. The imp sighs and offers a better deal: a horse for a joke. You tell one. It laughs.", true }, { "Deal!", "Your hat catches fire. 'Ha! Read first, Devourer, always read first!'", false }, { "Eat the imp.", "It hops out of reach and sets your boots on fire.", false }, { "", "", false } }, 0 },   // Snitch the Imp
-        { 9109951, 9109297, 9109643, "The cat looks into your eyes for a long time. 'Choose a card,' she says, which a cat should not be able to say.", 3, { { "The tiger.", "'A tiger waits for you where the jungle meets the sea. Not yet. Later.' She yawns.", true }, { "The fish.", "She eats the card.", false }, { "The empty card.", "'Nothing? Brave. Choose again.'", false }, { "", "", false } }, 0 },   // Madame Whiskers
-        { 9109953, 9109299, 9109645, "Bruk sighs into his tankard. 'Nobody at this Faire appreciates a good stout.'", 2, { { "Give him Wren's 'soup'.", "He sips. 'This is... ale. Good ale. Who brewed this?' He goes looking for Wren. It's a match!", true }, { "Give him a flower.", "He sneezes into his beard.", false }, { "", "", false }, { "", "", false } }, 0 },   // Lonely Bruk
-        { 9109954, 9109299, 9109646, "Grusha looks at the stalls. 'Nobody here can cook. Nobody.'", 2, { { "Point her at Bruk.", "She marches over. Bruk offers her ale. She offers him a stew. They argue about salt. It's a match!", true }, { "Offer her a cooked boot.", "She eats it. She looks sad. Wrong boot.", false }, { "", "", false }, { "", "", false } }, 0 },   // Lonely Grusha
-        { 9109955, 9109299, 9109647, "Tobias rattles quietly. 'Everyone runs when they see me. My jaw falls off when I laugh.'", 2, { { "Introduce him to Madame Whiskers.", "The cat looks at his jaw, decides it is a toy, and adopts him. Hilariously wrong match. Both are delighted.", true }, { "Tell him a joke.", "His jaw falls off. You hand it back. He is mortified.", false }, { "", "", false }, { "", "", false } }, 0 },   // Lonely Tobias
-        { 9109956, 9109299, 9109648, "Rob straightens his helmet. 'I want someone brave. Braver than me. That's not hard.'", 2, { { "Introduce him to Wren.", "Wren takes his hand and drags him to the joust. He screams the whole way. It's a match!", true }, { "Show him your teeth.", "He faints.", false }, { "", "", false }, { "", "", false } }, 0 },   // Lonely Rob
     };
 }
 

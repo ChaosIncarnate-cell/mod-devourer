@@ -643,6 +643,10 @@ public:
     {
         if (!quest || !sDevourer.IsDevourer(player))
             return;
+        // Zack 2026-10-06: every quest gives the Devourer a mount or a form; the forms come here, at turn-in
+        for (FormRule const& rule : FormRules)
+            if (rule.Quest == quest->GetQuestId())
+                sDevourer.Unlock(player, rule.Shape, rule.Display, false, false);
         for (MailRule const& rule : MailRules)
         {
             if (rule.Quest != quest->GetQuestId())

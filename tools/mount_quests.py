@@ -98,6 +98,10 @@ def wanted(book):
                         name="Wren's WANTED Board", display=WANTED_POSTER, size=1.6)
 
 
+# Zack 2026-10-06: ideas 39-58 (mount_quests_c) are for later; they stay written but out of the install.
+LATER = True
+
+
 def build(book):
     board = wanted(book)
     import mount_quests_b
@@ -113,7 +117,53 @@ def build(book):
     lighthouses(book, board)
     peaks(book, board)
     mount_quests_b.build(book, board)
-    mount_quests_c.build(book, board)
+    if not LATER:
+        mount_quests_c.build(book, board)
+    give_forms(book)
+
+
+# Zack 2026-10-06: every quest gives the Devourer something, a mount or a form. The steps that give no mount give a
+# colouring that has to be earned (never one that comes free with its shape), each chosen for the quest's place.
+FORMS = {
+    9109010: (35, "Proto-Whelp Yellow"),   # the ravasaur egg: something else hatched nearby
+    9109011: (35, "Red Whelp"),            # three fires
+    9109013: (38, "Hawk Owl"),             # the gryphon egg below Aerie Peak
+    9109014: (38, "Ironbeak Owl"),         # the Hinterlands' own owls
+    9109016: (35, "Chromatic Whelp"),      # the roc egg in Sholazar
+    9109017: (35, "Armored Whelp"),
+    9109030: (6, "Rockjaw"),               # the Badlands' bones: the troggs dig there too
+    9109031: (5, "Timber"),                # Goldshire: Elwynn's timber wolves
+    9109032: (5, "Scavenger"),             # the desert diary
+    9109090: (38, "Strigid Owl"),          # postcards: owl post
+    9109100: (32, "Dragon Turtle"),        # the lighthouses
+    9109140: (21, "Vampiric"),             # Caer Darrow
+    9109141: (35, "Nightmare Whelp"),      # Karazhan
+    9109142: (35, "Ley Whelp"),            # Dalaran
+    9109143: (13, "Warp Stalker"),         # Shattrath
+    9109144: (38, "Shadowwing Owl"),       # the Scarlet Monastery
+    9109145: (35, "Bronze Whelp"),         # the Hall of Explorers
+    9109160: (38, "Skethyl Owl"),          # the ghost knight's Plaguelands
+    9109190: (7, "Lynx"),                  # the sapling's forest
+    9109210: (10, "Tallstrider"),          # the giant egg ends in Mulgore
+    9109220: (41, "Voidling"),             # dust bunnies from the Thin Place
+    9109221: (35, "Blue Whelp"),           # hovering over the pond
+    9109230: (9, "Thistle"),               # spring, Elwynn
+    9109231: (35, "Green Whelp"),          # summer, Stranglethorn
+    9109232: (7, "Springpaw"),             # autumn, Eversong
+    9109233: (5, "Grey"),                  # winter, Dun Morogh
+}
+
+
+def give_forms(book):
+    from devourer_quests import SHAPES
+    by_id = {quest.id: quest for quest in book.quests}
+    assert len(set(FORMS.values())) == len(FORMS), "a colouring twice"
+    for qid, form in FORMS.items():
+        quest = by_id.get(qid)
+        if not quest:
+            continue
+        quest.form = form
+        quest.story += f" Reward: the {SHAPES[form[0]][0]} form's {form[1]} colouring."
 
 
 # --- 5. A Letter From the Egg ------------------------------------------------------------------------------------------

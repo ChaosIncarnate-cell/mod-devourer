@@ -295,7 +295,7 @@ def item(entry, count, name):
 class Quest:
     def __init__(self, qid, title, level, minlevel, giver, ender, voice, text, log, done, reward_text,
                  objectives=(), prev=None, races=0, needs=(), choices=(), items=(), xp=5, money=None, sort=0,
-                 story="", lures=(), timed=0, event=0, mail=None):
+                 story="", lures=(), timed=0, event=0, mail=None, form=None):
         self.id, self.title, self.level, self.minlevel = qid, title, level, minlevel
         self.giver, self.ender, self.voice = giver, ender, voice
         self.text, self.log, self.done, self.reward_text = text, log, done, reward_text
@@ -308,6 +308,29 @@ class Quest:
         self.event = event                        # game_event id the quest is only offered during (holidays)
         self.mail = mail                          # (subject, body, delay seconds): a letter sent when it completes
         self.money = money if money is not None else default_money(level, xp)
+        self.form = form                          # (shape id, colouring name): a Devourer form given at turn-in
+
+
+def skins():
+    """The named colourings from the module's own install SQL: (shape id, name) -> (display id, free)."""
+    import glob, re
+    out = {}
+    for path in sorted(glob.glob(os.path.join(ROOT, "data", "sql", "db-world", "*.sql"))):
+        with open(path, encoding="utf-8") as f:
+            text = f.read()
+        for m in re.finditer(r"INSERT INTO `devourer_skin` \(([^)]*)\) VALUES(.*?);", text, re.S):
+            free_col = "free" in m.group(1)
+            for row in re.finditer(r"\((\d+),\s*(\d+),\s*'((?:[^']|'')*)',\s*(\d+)(?:,\s*(\d+))?\)", m.group(2)):
+                display, shape, name = int(row.group(1)), int(row.group(2)), row.group(3).replace("''", "'")
+                free = bool(int(row.group(5))) if free_col and row.group(5) else False
+                out[(shape, name)] = (display, free)
+    return out
+
+
+def form_display(form):
+    shape, name = form
+    display, free = skins()[(shape, name)]
+    return display
 
 
 def default_money(level, xp):
@@ -425,6 +448,12 @@ def check(book):
             assert len(obj.text) <= 60, (quest.title, obj.text)
         for text in (quest.text, quest.reward_text):
             assert len(text) < 2000, quest.title
+        if quest.form:
+            assert quest.form[0] in SHAPES, quest.title
+            found = skins().get(tuple(quest.form))
+            assert found and not found[1], (quest.title, quest.form, "not a colouring that has to be earned")
+        if book.block is MOUNTS:
+            assert quest.items or quest.choices or quest.form, (quest.id, quest.title, "gives no mount and no form")
 
 
 def credit_rules(book):
@@ -629,11 +658,20 @@ def write_header(books):
     out += [
         "    };",
         "",
+        "    // A form at turn-in: the shape (if new) and the colouring, as if eaten (Mgr::Unlock).",
+        "    struct FormRule { uint32_t Quest; uint32_t Shape; uint32_t Display; };",
+        "    constexpr FormRule FormRules[] =",
+        "    {",
+        "@@FORMS@@",
+        "    };",
+        "",
         "    // A letter after a quest: server mail from Wren, Delay seconds later.",
         "    struct MailRule { uint32_t Quest; char const* Subject; char const* Body; uint32_t Delay; };",
         "    constexpr MailRule MailRules[] =",
         "    {",
     ]
+    forms = [quest for quest in quests_all if quest.form]
+    out[-2:-2] = []
     mails = [quest for quest in quests_all if quest.mail]
     for quest in mails:
         subject, body, delay = quest.mail
@@ -663,7 +701,9 @@ def write_header(books):
     if not talkers:
         out.append('        { 0, 0, 0, "", 0, { }, 0 },')
     out += ["    };", "}", "", "#endif", ""]
-    text = "\n".join(out).replace("@@TALE_LINES@@", "\n".join(lines_decl))
+    form_rows = [f"        {{ {quest.id}, {quest.form[0]}, {form_display(quest.form)} }},   // {quest.title}: {SHAPES[quest.form[0]][0]},"
+                 f" {quest.form[1]}" for quest in quests_all if quest.form] or ["        { 0, 0, 0 },"]
+    text = "\n".join(out).replace("@@TALE_LINES@@", "\n".join(lines_decl)).replace("@@FORMS@@", "\n".join(form_rows))
     with open(HDR_OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
 
@@ -859,7 +899,7 @@ def write_sql(book):
              " `VerifiedBuild`) VALUES")
     o.append(",\n".join(f"({quest.id}, 1, 1, {q(quest.done)}, 0)" for quest in quests) + ";")
     o.append("INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES")
-    o.append(",\n".join(f"({quest.id}, 1, {q(quest.reward_text)}, 0)" for quest in quests) + ";")
+    o.append(",\n".join(f"({quest.id}, 1, {q(reward_text(quest))}, 0)" for quest in quests) + ";")
 
     for table, side in (("queststarter", "giver"), ("questender", "ender")):
         npc = [(giver_ref(getattr(quest, side))[1], quest.id) for quest in quests
@@ -890,6 +930,14 @@ def write_sql(book):
     o.append("")
     with open(B.sql_out, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(o))
+
+
+def reward_text(quest):
+    if not quest.form:
+        return quest.reward_text
+    shape, name = quest.form
+    return (quest.reward_text + f"$B$B|cffb87830A new form: {SHAPES[shape][0]}, the {name} colouring. "
+            f"Wear it with /devour skin {name}.|r")
 
 
 def money_text(copper):

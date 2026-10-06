@@ -34,6 +34,11 @@ owner's PC (`tools/maps/heights.py`, with `tools/maps/wq.py` for the map files);
 has no height yet. It also flags spots in water and on steep slopes.
 
 ## Changes after review
+- Zack 2026-10-06: **ideas 39-58 are for later**. `mount_quests_c.py` stays written; `LATER = True` in
+  `mount_quests.py` keeps it out of the build (105 quests in the install).
+- Zack 2026-10-06: **every quest gives the Devourer a mount or a form.** The 26 steps without a mount give a colouring
+  that has to be earned (`FORMS` in `mount_quests.py`), unlocked at turn-in through `Mgr::Unlock`; the generator stops
+  if a mount quest gives neither.
 - Idea 7: the mounts thread's finds (2,477 Sniff spots, Wren's turn-ins 9308121-9308133) hand out 13 of idea 7's
   mounts. These quests no longer reward them: two rumour quests (9109030, 9109031) teach the smell and point at the
   finds; the explorer's diary chain keeps the camels, the dunetrekker and the hyena.
