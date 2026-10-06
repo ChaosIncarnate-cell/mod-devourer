@@ -14,7 +14,7 @@ Voices: Hagatha Hollowmoor tells tales ("little horror"); Wren Hollowmoor makes 
 """
 
 from devourer_quests import (HAGATHA, WREN, HUMAN, ORC, DWARF, NIGHTELF, UNDEAD, TAUREN, GNOME, TROLL, BLOODELF,
-                             DRAENEI, LINES, devour, visit, emote, trail, struck, spare, among, EMOTE_PET, EMOTE_ROAR)
+                             DRAENEI, LINES, devour, visit, emote, trail, struck, spare, among, ability, EMOTE_PET, EMOTE_ROAR)
 
 # Creature families and types (creature_template.family / type)
 F_WOLF, F_CAT, F_SPIDER, F_BEAR, F_BOAR, F_CROC, F_CARRION, F_CRAB, F_RAPTOR, F_TALLSTRIDER = 1, 2, 3, 4, 5, 6, 7, 8, 11, 12
@@ -115,8 +115,6 @@ def home(book):
 
 def elwynn_quests(book, lantern):
     s = Z_ELWYNN
-    greymuzzle = book.beast("greymuzzle", "Grey-Muzzle", 1922, level=8, faction=FACTION_SHY, passive=True,
-                            subname="Too Old to Hunt")
     a = book.quest(
         9105010, "The Wolves of Elwynn", 6, 6, lantern, lantern, "hagatha",
         "Hagatha's voice comes out of the lantern, dry as old paper:$B$BThe wolf was the first shape you ever wore, "
@@ -159,26 +157,11 @@ def elwynn_quests(book, lantern):
         prev=b.id, sort=s, xp=6,
         choices=[(1436, "Frontier Britches"), (1302, "Black Whelp Gloves"), (3581, "Serrated Knife")],
         story="Hagatha's tale of Hogger, who ate the edge of the forest. Let him show his tricks, then eat him.")
-    mercy(book, 9105013, "Grey-Muzzle", 8, lantern, greymuzzle,
-          [(-9643, -722), (-9556, -823), (-9536, -940), (-9530, -1060)],
-          "Wren, quiet for once:$B$BSnack, there's an old wolf in the hills east of here. Too old to keep up with "
-          "the pack, so they left him. Hagatha says he smells of wet leaves and rabbit and being alone. Turn on your "
-          "Sniff by the lantern and follow his smell.$B$BAnd Snack? Don't eat this one. Just... pat him. Somebody "
-          "should.",
-          "Did you find him? Follow your nose, Snack. Wet leaves and rabbit.",
-          "You patted him. He followed you a bit, didn't he? Then he went home. Good.$B$BHagatha found a pup in a "
-          "basket by the cauldron this morning and says it's yours, since you're so good with old wolves. I didn't "
-          "ask where it came from. Neither should you.",
-          (12264, "Worg Carrier", 1), s,
-          "Mercy: Sniff out Grey-Muzzle, an old wolf the pack left behind, and pat him instead of eating him. Reward: a "
-          "worg pup companion.", prev=a.id)
     return c
 
 
 def dunmorogh_quests(book, lantern):
     s = Z_DUNMOROGH
-    frostwhisker = book.beast("frostwhisker", "Frostwhisker", 1199, level=6, faction=FACTION_SHY, passive=True,
-                              scale=0.7, subname="Lost in the Snow")
     a = book.quest(
         9105020, "Stone in the Belly", 7, 6, lantern, lantern, "hagatha",
         "Hagatha's voice, slow and low as falling snow:$B$BThe trogg is a strange thing to wear, little horror. It came "
@@ -236,17 +219,6 @@ def dunmorogh_quests(book, lantern):
         objectives=[devour(1, "Rockjaw Backbreaker devoured", entries=[1118])], prev=b.id, sort=s, xp=6,
         choices=[(2036, "Dusty Mining Gloves"), (5327, "Greasy Tinker's Pants"), (1302, "Black Whelp Gloves")],
         story="Hagatha's tale of the trogg that gnawed a giant's toe; the Devourer eats a Rockjaw Backbreaker.")
-    mercy(book, 9105024, "Frostwhisker", 7, lantern, frostwhisker,
-          [(-5650, -893), (-5783, -777), (-5800, -620)],
-          "Wren, hushed:$B$BSnack, a snow leopard kit got lost in the Tundrid Hills, west of the lantern. I can hear it "
-          "crying from HERE. It's very small and very cold and it smells of snow and milk. Sniff it out.$B$BDon't eat "
-          "it. I mean it. Pat it, and it'll find its mother.",
-          "Is it still crying, Snack? Snow and milk. Follow it.",
-          "It found its mother! I heard the purring all the way in the In-Between.$B$BHagatha says a kindness should "
-          "be paid in kind, so here: a kitten of your very own. A white one, for the snow.",
-          (8489, "Cat Carrier (White Kitten)", 1), s,
-          "Mercy: Sniff out a lost snow leopard kit in the Tundrid Hills and pat it home. Reward: a white kitten "
-          "companion.", prev=a.id)
     return c
 
 
@@ -314,18 +286,19 @@ def teldrassil_quests(book, lantern):
           "something ate her. Not you. Probably not you. It smells of moss and milk and moonlight. Sniff it out and pat "
           "it, so it knows not everything with teeth is bad.",
           "Moss and milk and moonlight, Snack. Follow it.",
-          "You patted it! It followed you, didn't it? The elves will find it in the morning and think the moon looked "
-          "after it. Let them.$B$BHere's a cat for you. A black one, for the night.",
-          (8491, "Cat Carrier (Black Tabby)", 1), s,
-          "Mercy: Sniff out an orphaned nightsaber cub and pat it instead of eating it. Reward: a black kitten "
-          "companion.", prev=a.id)
+          "You patted it! It followed you, didn't it? Then it went off into the dark on its own, tail up. Moonpaw "
+          "will remember you, Snack. Cats pretend not to, but they do.$B$BHere's a cub to keep you company until it "
+          "comes back. A white one. It won't replace Moonpaw. Nothing does.",
+          (23712, "White Tiger Cub", 1), s,
+          "Mercy: Sniff out Moonpaw, an orphaned nightsaber cub, and pat it instead of eating it. It comes back grown "
+          "(mounts idea 1). Reward: a tiger cub companion.", prev=a.id)
     return c
 
 
 def azuremyst_quests(book, lantern):
     s = Z_AZUREMYST
-    kit = book.beast("cleankit", "Clean-Furred Kit", 17202, level=6, faction=FACTION_SHY, passive=True, scale=0.6,
-                     subname="Untouched by the Crystals")
+    stiltz = book.beast("stiltz", "Stiltz", 17372, level=6, faction=FACTION_SHY, passive=True, scale=0.5,
+                        subname="Timberstrider Chick")
     a = book.quest(
         9105040, "Long Legs on the Isle", 6, 6, lantern, lantern, "hagatha",
         "Hagatha speaks, and the flame sways like a long neck:$B$BThe timberstriders of this island are cousins of the "
@@ -368,24 +341,26 @@ def azuremyst_quests(book, lantern):
         prev=b.id, sort=s, xp=6,
         choices=[(26021, "Vindicator's Leather Chaps"), (28159, "Undertaker's Gloves"), (26052, "Vindicator's Smasher")],
         story="Hagatha's tale of the crystal-maddened owlbeasts: feel their Moonfire, then eat three.")
-    mercy(book, 9105043, "The Clean-Furred Kit", 7, lantern, kit,
+    mercy(book, 9105043, "Stiltz", 7, lantern, stiltz,
           [(-4180, -11900), (-4257, -11847), (-4320, -11760)],
-          "Wren, worried:$B$BSnack, all the nightstalkers on the island are sick from the crystals. All of them except "
-          "ONE. A little kit south-west of the lantern, and it smells clean, like rain. If anything eats it, there "
-          "won't be any clean ones left.$B$BSniff it out and pat it. Then it'll know where you are if it needs you.",
-          "Rain, Snack. It smells of rain. Follow it.",
-          "The clean one is safe. The draenei will find it, and maybe it'll help them make the others better.$B$B"
-          "Hagatha says you deserve a cat that's clean all the way through. Here's one.",
-          (8490, "Cat Carrier (Siamese)", 1), s,
-          "Mercy: Sniff out the one nightstalker kit the crystals did not touch, and pat it. Reward: a kitten "
-          "companion.", prev=a.id)
+          "Wren, giggling:$B$BSnack, a timberstrider chick hatched with legs too long for it. It keeps running, "
+          "tripping, getting up and running again, in the woods south-west of the lantern. The flock left it behind "
+          "because it couldn't keep up, which is silly, because it's the fastest faller I've ever seen. It smells of "
+          "moss and feathers and getting up again.$B$BSniff it out and pat it. Don't laugh. Well, laugh a bit.",
+          "Moss and feathers and getting up again, Snack.",
+          "It followed you, fell over four times, and then ran off after the flock so fast it caught them. Legs grow "
+          "into themselves. Stiltz will remember you; striders remember whoever didn't laugh.$B$BHere's a chick for "
+          "you. A Mulgore one. Its legs are the right size.",
+          (44980, "Mulgore Hatchling", 1), s,
+          "Mercy: Sniff out Stiltz, a timberstrider chick with legs too long for it, and pat it. It comes back grown "
+          "(mounts idea 1). Reward: a plainstrider hatchling companion.", prev=a.id)
     return c
 
 
 def durotar_quests(book, lantern):
     s = Z_DUROTAR
-    hatchling = book.beast("clutchless", "Clutchless", 3122, level=6, faction=FACTION_SHY, passive=True, scale=0.5,
-                           subname="Bloodtalon Hatchling")
+    clutchless = book.beast("clutchless", "Clutchless", 3122, level=6, faction=FACTION_SHY, passive=True,
+                            scale=0.5, subname="Bloodtalon Hatchling")
     a = book.quest(
         9105050, "Tusk and Gristle", 6, 6, lantern, lantern, "hagatha",
         "Hagatha's voice is dry as the dust around the lantern:$B$BThe boar of Durotar eats thorns and stones and "
@@ -423,24 +398,39 @@ def durotar_quests(book, lantern):
                     devour(2, "Dreadmaw Crocolisk devoured", entries=[3110])], prev=b.id, sort=s, xp=6,
         choices=[(1436, "Frontier Britches"), (28159, "Undertaker's Gloves"), (3570, "Bonegrinding Pestle")],
         story="Hagatha's tale of the patient Dreadmaw crocolisks: feel their bite, then eat two.")
-    mercy(book, 9105053, "Clutchless", 7, lantern, hatchling,
+    mercy(book, 9105053, "Clutchless", 7, lantern, clutchless,
           [(214, -4601), (205, -4698), (140, -4760)],
-          "Wren, urgently:$B$BSnack! A raptor egg hatched in the scrub south-east of the lantern and there's no mother. It's "
-          "tiny and it's hissing at EVERYTHING. It smells of eggshell and dust. Sniff it out.$B$BDon't eat it. It's "
-          "brave. Brave things get patted.",
+          "Wren, urgently:$B$BSnack! A raptor egg hatched in the scrub south-east of the lantern and there's no mother. "
+          "It's tiny and it's hissing at EVERYTHING. It smells of eggshell and dust. Sniff it out.$B$BDon't eat it. "
+          "It's brave. Brave things get patted.",
           "Eggshell and dust, Snack. It's still hissing out there.",
-          "It stopped hissing when you patted it! Then it followed you and fell over its own feet. I love it.$B$B"
-          "Hagatha found another one at the cauldron. It's yours. Don't let it eat Bramble's boots.",
+          "It stopped hissing when you patted it! Then it followed you and fell over its own feet, and then it ran off "
+          "into the scrub to grow up. Clutchless will remember you. Raptors never forget a face they didn't bite.$B$B"
+          "Here's a hatchling to keep for now. Don't let it eat Bramble's boots.",
           (48118, "Leaping Hatchling", 1), s,
-          "Mercy: Sniff out a motherless raptor hatchling and pat it. Reward: a raptor hatchling companion.",
-          prev=a.id)
+          "Mercy: Sniff out Clutchless, a motherless raptor hatchling, and pat it. It comes back grown (mounts idea 1). "
+          "Reward: a raptor hatchling companion.", prev=a.id)
+    book.quest(
+        9105054, "Head Down, Legs Going", 9, 8, lantern, lantern, "hagatha",
+        "Hagatha, dry:$B$BYou wear the boar now, little horror. A boar is not clever, I told you; it does not need to "
+        "be. It puts its head down and its legs go. The Razormane quilboar at the Valley of Trials' edge, south of "
+        "here, think they are the only boars that matter.$B$BWear your boar and charge six of them. Head down. Legs "
+        "going.",
+        "As a Boar, charge 6 Razormane quilboar in Durotar with Primal Charge.",
+        "Six quilboar, little horror, head first.",
+        "Head down, legs going, and six quilboar on their backs. That is the whole boar.$B$BTake this.",
+        objectives=[ability(6, "Quilboar charged as a Boar", 9100952, entries=[3111, 3112, 3113, 3114],
+                            shapes=(9,))],
+        prev=a.id, sort=s, needs=(9,),
+        choices=[(23404, "Padded Running Shoes"), (1436, "Frontier Britches"), (3570, "Bonegrinding Pestle")],
+        story="For a Devourer with the Boar: Primal Charge six Razormane quilboar, head down, legs going.")
     return c
 
 
 def mulgore_quests(book, lantern):
     s = Z_MULGORE
-    pup = book.beast("dusty", "Dusty", 2958, level=5, faction=FACTION_SHY, passive=True, scale=0.55,
-                     subname="Prairie Pup")
+    dusty = book.beast("dusty", "Dusty", 2958, level=5, faction=FACTION_SHY, passive=True, scale=0.55,
+                       subname="Prairie Pup")
     a = book.quest(
         9105060, "Legs of the Plains", 6, 6, lantern, lantern, "hagatha",
         "Hagatha speaks, and the grass in the flame bends:$B$BThe tauren say the plainstrider was the Earth Mother's "
@@ -473,36 +463,34 @@ def mulgore_quests(book, lantern):
         "plains with no herd and no name of its own; they gave it one so they could curse it. It wanders, and no "
         "hunter has found its trail in years.$B$BYou are not a hunter, little horror. You are a nose. Turn on your "
         "Sniff at the lantern and follow its scent north-west, past the broken caravan, to the Golden Plains. At the end of "
-        "the trail it will be waiting. Let it sting you once, so you know its poison. Then eat it.",
-        "Follow Mazzranache's scent with Sniff to the Golden Plains, let it use a trick on you, then devour it.",
+        "the trail it will be waiting. Eat it, and your striders will remember the taste when they grow.",
+        "Follow Mazzranache's scent with Sniff to the Golden Plains, then devour it.",
         "Mazzranache still wanders. Follow your nose, little horror.",
         "A beast with a name it never wanted. Now it has no name at all, only you.$B$BWear this. And when your "
         "plainstrider is ready to grow, remember the taste.",
         objectives=[trail("Mazzranache's trail followed", "Mazzranache", 1,
                           [(-1961, -803), (-1922, -684), (-1839, -611), (-1745, -548)], summon=3068),
-                    struck(1, "Mazzranache's trick felt", entries=[3068]),
                     devour(1, "Mazzranache devoured", entries=[3068])],
         prev=b.id, sort=s, xp=6,
         choices=[(26021, "Vindicator's Leather Chaps"), (1436, "Frontier Britches"), (26052, "Vindicator's Smasher")],
-        story="Follow Mazzranache's scent with Sniff across the plains, feel its poison, and eat the nameless beast.")
-    mercy(book, 9105063, "Dusty", 7, lantern, pup,
+        story="Follow Mazzranache's scent with Sniff across the plains, and eat the nameless beast.")
+    mercy(book, 9105063, "Dusty", 7, lantern, dusty,
           [(-2300, -906), (-2440, -1012), (-2600, -1000)],
           "Wren, smiling:$B$BSnack, there's a prairie wolf pup south of the lantern who keeps trying to howl and only "
           "sneezes. The pack laughs at him. He smells of dust and grass and trying very hard.$B$BSniff him out. Pat "
           "him. Tell him the howl will come.",
           "Dust and grass and trying very hard, Snack.",
-          "He followed you and SNEEZED. Then he howled! A real one, a small one. You did that.$B$BHere's a little "
-          "friend for you, too. It digs. It won't howl, but it'll try.",
-          (10394, "Prairie Dog Whistle", 1), s,
-          "Mercy: Sniff out Dusty, the prairie pup who can only sneeze, and pat him. Reward: a prairie dog "
-          "companion.", prev=a.id)
+          "He followed you and SNEEZED. Then he howled! A real one, a small one. You did that. Then he went off to "
+          "find the pack, howling the whole way. Dusty will remember you; wolves always remember the first howl.$B$B"
+          "Here's a pup to keep you company until he's big. It howls already. Dusty will catch up.",
+          (12264, "Worg Carrier", 1), s,
+          "Mercy: Sniff out Dusty, the prairie pup who can only sneeze, and pat him. He comes back grown (mounts idea "
+          "1). Reward: a worg pup companion.", prev=a.id)
     return c
 
 
 def tirisfal_quests(book, lantern):
     s = Z_TIRISFAL
-    palewing = book.beast("palewing", "Pale Wing", 1553, level=6, faction=FACTION_SHY, passive=True, scale=0.6,
-                          subname="Duskbat Pup")
     a = book.quest(
         9105070, "Wings in the Gloom", 6, 6, lantern, lantern, "hagatha",
         "Hagatha's voice is almost fond:$B$BThe duskbats of Tirisfal grew fat on what the plague left behind. They "
@@ -543,24 +531,11 @@ def tirisfal_quests(book, lantern):
         prev=b.id, sort=s, xp=6,
         choices=[(1302, "Black Whelp Gloves"), (5327, "Greasy Tinker's Pants"), (3581, "Serrated Knife")],
         story="Hagatha's tale of the Scarlet's burning faith: feel a missionary's fire, then eat five crusaders.")
-    mercy(book, 9105073, "Pale Wing", 7, lantern, palewing,
-          [(2440, 732), (2341, 778), (2300, 870)],
-          "Wren, whispering:$B$BSnack, a duskbat pup fell out of its tree by Stillwater Pond, west of the lantern. "
-          "It's white. All the others are brown. They won't let it back up. It smells of pond water and being "
-          "different.$B$BSniff it out and pat it. Being different is fine. Look at you.",
-          "Pond water and being different, Snack.",
-          "It flew! After you patted it, it flew. Not well, but up.$B$BHagatha says the pond gave her this for "
-          "you. It's a cockroach. She says it's a good one. I believe her, mostly.",
-          (10393, "Cockroach", 1), s,
-          "Mercy: Sniff out a white duskbat pup the others won't let back up, and pat it. Reward: a (good) "
-          "cockroach companion.", prev=a.id)
     return c
 
 
 def eversong_quests(book, lantern):
     s = Z_EVERSONG
-    sunwhisker = book.beast("sunwhisker", "Sunwhisker", 15651, level=6, faction=FACTION_SHY, passive=True, scale=0.55,
-                            subname="Springpaw Kit")
     crystal = book.thing("eversong_crystal", "Overflowing Mana Crystal", CRYSTAL, [(530, 8895.0, -6612.0, 32.5, 0.0)],
                          size=0.6, summon=15647, count=4)
     a = book.quest(
@@ -600,14 +575,17 @@ def eversong_quests(book, lantern):
                     devour(6, "Wretched devoured", entries=[15645, 16162, 15644])], prev=b.id, sort=s, xp=6,
         choices=[(28142, "Farstrider's Belt"), (28157, "Black Leather Jerkin"), (3581, "Serrated Knife")],
         story="Hagatha's tale of the Wretched: feel their bitter withdrawal, then eat six.")
-    mercy(book, 9105083, "Sunwhisker", 7, lantern, sunwhisker,
-          [(9051, -6620), (9175, -6562), (9300, -6600)],
-          "Wren, soft:$B$BSnack, a springpaw kit is hiding in the ferns north of the lantern. The Wretched scared its "
-          "family off. It smells of sunlight and fern and being scared. Sniff it out and pat it, gently, and it'll "
-          "know it's safe.",
-          "Sunlight and fern, Snack.",
-          "It's not scared any more. It followed you halfway to the road, then went to look for its family.$B$B"
-          "Here's a kitten that will never have to hide. An orange one, for the sun.",
-          (8487, "Cat Carrier (Orange Tabby)", 1), s,
-          "Mercy: Sniff out a frightened springpaw kit and pat it. Reward: an orange kitten companion.", prev=a.id)
+    book.quest(
+        9105084, "Spit It Back", 9, 8, lantern, lantern, "wren",
+        "Wren, delighted:$B$BSnack, you're a mana wyrm! A little floating squiggle of magic! The Wretched at Sunsail "
+        "Anchorage drank all the magic they could find and they're still thirsty. Give them some back. Wear your "
+        "wyrm and spit arcane bolts at six of them. See how they like it.",
+        "As a Mana Wyrm, hit 6 Wretched in Eversong Woods with Arcane Bolt.",
+        "Six Wretched, Snack, and you have to be the squiggle.",
+        "They did NOT like it. Good. Magic's not for drinking, it's for spitting.$B$BHere!",
+        objectives=[ability(6, "Wretched spat at as a Mana Wyrm", 9100981, entries=[15645, 16162, 15644],
+                            shapes=(12,))],
+        prev=a.id, sort=s, needs=(12,),
+        choices=[(28147, "Tranquillien Scout's Bracers"), (5617, "Vagabond Leggings"), (4947, "Jagged Dagger")],
+        story="For a Devourer with the Mana Wyrm: spit Arcane Bolts at the Wretched as a wyrm.")
     return c

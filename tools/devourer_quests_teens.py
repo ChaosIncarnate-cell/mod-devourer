@@ -1,6 +1,6 @@
 """Task 021: the first lanterns abroad (levels 11-20). Part of tools/devourer_quests_content.py."""
 
-from devourer_quests import devour, visit, emote, trail, struck, among, tale, LINES, EMOTE_PET
+from devourer_quests import devour, visit, emote, trail, struck, among, tale, ability, LINES, EMOTE_PET
 from devourer_quests_content import breadcrumb, mercy, FACTION_SHY
 
 Z_WESTFALL, Z_LOCHMODAN, Z_DARKSHORE, Z_BLOODMYST, Z_BARRENS, Z_SILVERPINE, Z_GHOSTLANDS = (
@@ -74,8 +74,6 @@ def teens(book, homes):
 
 def westfall_quests(book, lantern):
     s = Z_WESTFALL
-    truffle = book.beast("truffle", "Truffle", 454, level=11, faction=FACTION_SHY, passive=True, scale=0.45,
-                         subname="Goretusk Piglet")
     a = book.quest(
         9105100, "Goretusk Stew", 12, 11, lantern, lantern, "wren",
         "Wren's voice, munching something:$B$BMmf. Snack! Westfall's famous for its stew. Goretusk stew! The farmers "
@@ -101,19 +99,6 @@ def westfall_quests(book, lantern):
         prev=a.id, sort=s, needs=LINES["wolf"],
         choices=[(5299, "Gloves of the Moon"), (1306, "Wolfmane Wristguards"), (2908, "Thornblade")],
         story="For a Devourer with the Wolf shape: run with Westfall's coyotes as a cousin from the forest.")
-    mercy(book, 9105104, "The Last Piglet", 13, lantern, truffle,
-          [(-10766, 1173), (-10793, 1257), (-10760, 1330)],
-          "Wren, quietly:$B$BSnack... about the stew. There's a piglet. Out by Stendel's Pond, west of the lantern. "
-          "Its whole family went into the imaginary stew, and it's sitting in the mud on its own. It smells of mud "
-          "and acorns and being the last one.$B$BSniff it out and pat it. Please. I feel terrible. Imaginary stew "
-          "has real consequences.",
-          "Mud and acorns, Snack.",
-          "It followed you right up to the pond and then went rooting for acorns like nothing happened. Pigs are "
-          "very forgiving.$B$BHagatha says I'm not allowed to make stew any more, imaginary or not. Here, it's a "
-          "collar for a piglet of your own. Don't eat it either.",
-          (23007, "Piglet's Collar", 1), s,
-          "Mercy: the last goretusk piglet (its family went into Wren's stew). Pat it. Reward: a piglet companion.",
-          prev=a.id)
     d = book.quest(
         9105103, "Old Murk-Eye", 18, 16, lantern, lantern, "hagatha",
         "Hagatha tells it low, like a secret:$B$BAt the far south of the Longshore there is a murloc so old that his "
@@ -133,6 +118,19 @@ def westfall_quests(book, lantern):
                     devour(1, "Old Murk-Eye devoured", entries=[391])], prev=a.id, sort=s, xp=6,
         choices=[(3431, "Bone-studded Leather"), (17694, "Band of the Fist"), (1264, "Headbasher")],
         story="Sniff out Old Murk-Eye along the coast, catch his infection, and eat him (a Water Salamander task).")
+    book.quest(
+        9105105, "Peck Order", 16, 14, lantern, lantern, "wren",
+        "Wren, bouncing:$B$BSnack, your strider grew! It's got a beak like a PICKAXE now. The Defias are all over "
+        "Westfall robbing farms, and they've never been pecked by anything with a beak like that. Wear your greater "
+        "plainstrider and peck six of them. Properly. Rupturing.",
+        "As a Greater Plainstrider, hit 6 Defias in Westfall with Rupturing Peck.",
+        "Six Defias, Snack. Peck peck.",
+        "Peck ORDER. I've been waiting all day to say that.$B$BHere!",
+        objectives=[ability(6, "Defias pecked as a Greater Plainstrider", 9102001,
+                            entries=[95, 504, 590, 589, 824, 1727, 122, 449], shapes=(16,))],
+        prev=a.id, sort=s, needs=(16,),
+        choices=[(1310, "Smith's Trousers"), (5609, "Steadfast Cinch"), (2908, "Thornblade")],
+        story="For a Devourer with the Greater Plainstrider: Rupturing Peck six Defias.")
     return d
 
 
@@ -174,17 +172,6 @@ def lochmodan_quests(book, lantern):
         objectives=[tale(fire, "The tale of the Boat-Eater heard")], prev=a.id, sort=s, xp=4,
         choices=[(1310, "Smith's Trousers"), (5351, "Bounty Hunter's Ring"), (2908, "Thornblade")],
         story="A campfire tale for the Devourer and Bramble: the crocolisk that grew to fit the loch.")
-    mercy(book, 9105114, "Bumble", 13, lantern, bumble,
-          [(-5655, -3150), (-5700, -3105), (-5745, -3090)],
-          "Wren, worried:$B$BSnack, there's a bear cub up on Grizzlepaw Ridge, west of the lantern, and it's stuck. "
-          "It climbed up after honey and now it's crying because it can't climb down. It smells of honey and bark "
-          "and silly decisions.$B$BSniff it out. Pat it. Show it the way down.",
-          "Honey and bark, Snack. And silly decisions.",
-          "It followed you all the way down! Bears are terrible at climbing down. So am I. I once got stuck in a "
-          "chimney for a day.$B$BHere: a bear cub of your own, a dwarven one. It won't climb anything. Probably.",
-          (44970, "Dun Morogh Cub", 1), s,
-          "Mercy: Sniff out a bear cub stuck on Grizzlepaw Ridge and lead it down. Reward: a bear cub companion.",
-          prev=a.id)
     d = book.quest(
         9105113, "Worth the Climb", 22, 20, lantern, lantern, "hagatha",
         "Hagatha, pleased with herself:$B$BYou heard the tale. Now taste it. Turn on your Sniff by the lantern and "
@@ -200,13 +187,24 @@ def lochmodan_quests(book, lantern):
                     devour(1, "Large Loch Crocolisk devoured", entries=[2476])], prev=b.id, sort=s, xp=6,
         choices=[(6670, "Panther Armor"), (16659, "Deftkin Belt"), (6093, "Orc Crusher")],
         story="Follow the Boat-Eater's scent around the loch, and eat the Large Loch Crocolisk (a Komodo Dragon task).")
+    mercy(book, 9105114, "Bumble", 13, lantern, bumble,
+          [(-5655, -3150), (-5700, -3105), (-5745, -3090)],
+          "Wren, worried:$B$BSnack, there's a bear cub up on Grizzlepaw Ridge, west of the lantern, and it's stuck. "
+          "It climbed up after honey and now it's crying because it can't climb down. It smells of honey and bark "
+          "and silly decisions.$B$BSniff it out. Pat it. Show it the way down.",
+          "Honey and bark, Snack. And silly decisions.",
+          "It followed you all the way down! Bears are terrible at climbing down. So am I. I once got stuck in a "
+          "chimney for a day. Then it lumbered off into the woods to find more honey. Bumble will remember you; "
+          "bears remember whoever got them down.$B$BHere's a cub to keep for now, a dwarven one. It won't climb "
+          "anything. Probably.",
+          (44970, "Dun Morogh Cub", 1), s,
+          "Mercy: Sniff out Bumble, a bear cub stuck on Grizzlepaw Ridge, and lead it down. It comes back grown "
+          "(mounts idea 1). Reward: a bear cub companion.", prev=a.id)
     return d
 
 
 def darkshore_quests(book, lantern):
     s = Z_DARKSHORE
-    pinch = book.beast("pinch", "Pinch", 2234, level=11, faction=FACTION_SHY, passive=True, scale=0.5,
-                       subname="Reef Crawler Hatchling")
     a = book.quest(
         9105120, "Moonstalkers", 12, 11, lantern, lantern, "hagatha",
         "Hagatha speaks under her breath:$B$BThe moonstalkers of Darkshore are the nightsaber's darker cousins. The "
@@ -246,17 +244,6 @@ def darkshore_quests(book, lantern):
                     devour(1, "Moonkin Oracle devoured", entries=[10157])], prev=b.id, sort=s,
         choices=[(26023, "Ravager Hide Gloves"), (3585, "Camouflaged Tunic"), (2908, "Thornblade")],
         story="Hagatha's tale of the mad oracles: feel the oracle's Moonfire, then eat it (a Moonkin task).")
-    mercy(book, 9105124, "Pinch", 12, lantern, pinch,
-          [(6302, 239), (6239, 312), (6240, 400)],
-          "Wren, giggling:$B$BSnack, there's a baby reef crawler on the beach west of the lantern that keeps trying to "
-          "pinch the waves. It thinks it's winning. It smells of salt and seaweed and confidence.$B$BSniff it out and "
-          "pat it. Carefully. It WILL try to pinch you.",
-          "Salt and seaweed and confidence, Snack.",
-          "Did it pinch you? It pinched you. And then it followed you anyway. That's love, for a crab.$B$BHere's a "
-          "crawler of your own. It came from Hagatha's beach. Hagatha doesn't have a beach. Don't ask.",
-          (44983, "Strand Crawler", 1), s,
-          "Mercy: Sniff out a baby reef crawler that pinches the waves, and pat it. Reward: a crawler companion.",
-          prev=a.id)
     d = book.quest(
         9105123, "Shadowclaw", 16, 14, lantern, lantern, "hagatha",
         "Hagatha's voice drops to almost nothing:$B$BOn Darkshore they say a black cat once swallowed a scream, and it "
@@ -278,8 +265,6 @@ def darkshore_quests(book, lantern):
 
 def bloodmyst_quests(book, lantern):
     s = Z_BLOODMYST
-    pip = book.beast("pip", "Pip", 17530, level=11, faction=FACTION_SHY, passive=True, scale=0.35,
-                     subname="Elekk Calf")
     fire = campfire(book, "bloodmyst_fire", lantern, 6.0, 6.0, 25.4, [
         "Come, sit. Bramble, you sit there, where the smoke will not find you.",
         "When the draenei's ship fell, it fell with moths in its belly. Blue ones, from a world that is gone.",
@@ -328,39 +313,54 @@ def bloodmyst_quests(book, lantern):
                     devour(3, "Void Anomaly devoured", entries=[17550])], prev=b.id, sort=s,
         choices=[(3585, "Camouflaged Tunic"), (1306, "Wolfmane Wristguards"), (24351, "Mace of the Hand")],
         story="Stand where the world is thin at the Warp Piston and eat what comes through (a Void line task).")
-    mercy(book, 9105134, "Pip", 13, lantern, pip,
-          [(-2224, -11856), (-2195, -11765), (-2120, -11720)],
-          "Wren, squeaking:$B$BSnack. SNACK. There's a baby elekk in the woods north of the lantern. A BABY ELEKK. "
-          "It's the size of a cauldron and it's lost and it keeps bumping into trees. It smells of hay and trunk and "
-          "bumping into trees.$B$BSniff it out and pat it and if you eat it I will never speak to you again. I mean "
-          "it. Almost.",
-          "Hay and trunk, Snack!",
-          "It FOLLOWED you. Like a duckling. A huge duckling with a trunk. I'm crying.$B$BHagatha got you one too. "
-          "It's pink. She says it's from a festival. I don't think she's ever been to a festival.",
-          (46707, "Pint-Sized Pink Pachyderm", 1), s,
-          "Mercy: Sniff out a lost elekk calf that keeps bumping into trees, and pat it. Reward: a tiny elekk "
-          "companion.", prev=a.id)
     d = book.quest(
         9105133, "Wyrmscar", 17, 15, lantern, lantern, "wren",
         "Wren, whispering for once:$B$BSnack, on Wyrmscar Island in the south-west there are dragons. Well, little "
-        "ones. Veridian whelps and broodlings, and the broodlings SPIT. Poison! Hagatha says let one spit at you, so "
-        "your whelp knows what a grown-up whelp tastes like from the inside.$B$BThen eat five. Bones are good for "
-        "your teeth!",
-        "Let a veridian broodling spit its poison at you, then devour 5 veridian whelps or broodlings on Wyrmscar "
-        "Island.",
-        "Five whelps, Snack. And one spit.",
+        "ones. Bony veridian whelps, still flapping around the bones of the dragon they came from. Hagatha says if "
+        "you eat one, you'll see what it saw last: its mother's bones. Eat one, then go and stand where it "
+        "showed you.$B$BThen eat four more. Bones are good for your teeth!",
+        "Devour a veridian whelp, go where its last memory shows you, then devour 4 more on Wyrmscar Island.",
+        "Did you see the bones? Go and stand there, Snack.",
         "Dragon! You've eaten DRAGON. Well, dragon-ish. I'm telling everyone.$B$BHere's your prize.",
-        objectives=[struck(1, "Broodling poison felt", entries=[17589]),
-                    devour(5, "Veridian whelp devoured", entries=[17588, 17589])], prev=c.id, sort=s, xp=6,
+        objectives=[devour(1, "Veridian whelp devoured (you see great bones)", entries=[17588, 17589]),
+                    visit("The dragon's bones", 530, -1350.0, -12350.0, radius=40.0),
+                    devour(4, "Veridian whelp devoured", entries=[17588, 17589])], prev=c.id, sort=s, xp=6,
         choices=[(3741, "Stomping Boots"), (16990, "Spritekin Cloak"), (1264, "Headbasher")],
-        story="Wren sends the Devourer to Wyrmscar Island: take a broodling's spit, then eat five whelps (Whelp line).")
+        story="Wren sends the Devourer to Wyrmscar Island: eat a whelp, see its mother's bones in its last memory, stand there, eat more (Whelp line).")
+    book.quest(
+        9105135, "Sweet Dreams, Bears", 16, 14, lantern, lantern, "wren",
+        "Wren, whispering:$B$BSnack, your moth is BLUE now. Royal blue! The dream-eating kind! Hagatha says it can "
+        "puff spores that put things to sleep. The bears of Bloodmyst are grumpy from the crystals and they haven't "
+        "slept in months.$B$BWear your flutterer. Puff sleep spores on five bears. Give them a nap. And maybe a dream. "
+        "A nice one.",
+        "As a Royal Blue Flutterer, put 5 Bloodmyst bears to sleep with Sleep Spores.",
+        "Five sleepy bears, Snack. Shh.",
+        "Five bears, snoring. I could hear it through the lantern. Did you give them good dreams? I think you "
+        "did.$B$BHere!",
+        objectives=[ability(5, "Bear put to sleep as a Flutterer", 9102072, entries=[17345, 17347, 17348],
+                            shapes=(23,))],
+        prev=a.id, sort=s, needs=(23,),
+        choices=[(22998, "Ghostclaw Leggings"), (5351, "Bounty Hunter's Ring"), (5757, "Hardwood Cudgel")],
+        story="For a Devourer with the Royal Blue Flutterer: Sleep Spores on five sleepless Bloodmyst bears.")
+    book.quest(
+        9105136, "Spit at the Dark", 17, 15, lantern, lantern, "hagatha",
+        "Hagatha, low:$B$BYou wear the voidling now, little horror: a small piece of the dark between, with a mouth "
+        "that should not be there. At the Warp Piston the void anomalies come through the same tear you did.$B$BWear "
+        "it. Spit at five of them. Let the dark see what came out of it and learned to spit.",
+        "As a Voidling, hit 5 Void Anomalies at the Warp Piston with Void Spit.",
+        "Five anomalies, little horror, spat at properly.",
+        "The dark saw. It will remember you, and that is no bad thing.$B$BTake this.",
+        objectives=[ability(5, "Anomaly spat at as a Voidling", 9102254, entries=[17550], shapes=(41,))],
+        prev=a.id, sort=s, needs=(41,),
+        choices=[(3585, "Camouflaged Tunic"), (1306, "Wolfmane Wristguards"), (24351, "Mace of the Hand")],
+        story="For a Devourer with the Voidling: Void Spit at five anomalies at the Warp Piston.")
     return d
 
 
 def barrens_quests(book, lantern):
     s = Z_BARRENS
-    stripes = book.beast("stripes", "Stripes", 3242, level=12, faction=FACTION_SHY, passive=True, scale=0.5,
-                         subname="Zhevra Foal")
+    littlethunder = book.beast("littlethunder", "Little Thunder", 3234, level=12, faction=FACTION_SHY,
+                               passive=True, scale=0.35, subname="Kodo Calf")
     a = book.quest(
         9105140, "Fleeting Legs", 12, 11, lantern, lantern, "hagatha",
         "Hagatha's voice rolls over the grass:$B$BIn Mulgore they tell of a chick that never stopped running. The "
@@ -391,26 +391,15 @@ def barrens_quests(book, lantern):
         9105142, "Thunder in a Small Lizard", 17, 15, lantern, lantern, "hagatha",
         "Hagatha tells it, and the flame crackles:$B$BThe thunder lizards of the Barrens swallowed a storm once, the "
         "tauren say, and they have been spitting it out a little at a time ever since. The stormsnouts in the south "
-        "throw lightning from their mouths like a cough.$B$BLet one cough on you, little horror. Then eat three. A "
-        "thing that eats lightning learns that the sky is only another kind of meal.",
-        "Let a Stormsnout spit its Lizard Bolt at you, then devour 3 thunder lizards in the Barrens.",
-        "Three lizards, and one cough of lightning.",
+        "throw lightning from their mouths like a cough.$B$BTake your little friend; she has never seen lightning up close, and she should. Eat three where she "
+        "can see. A thing that eats lightning learns that the sky is only another kind of meal.",
+        "With Bramble watching, devour 3 thunder lizards in the Barrens.",
+        "Three lizards, and Bramble has to see.",
         "Your hair is standing up. Do you have hair? Something is standing up.$B$BTake this.",
-        objectives=[struck(1, "Lizard Bolt felt", entries=[3240, 3239, 3238]),
-                    devour(3, "Thunder lizard devoured", entries=[3240, 3239, 3238])], prev=b.id, sort=s,
+        objectives=[devour(3, "Thunder lizard devoured, Bramble watching", entries=[3240, 3239, 3238],
+                           companion="My hair's standing up! Is that supposed to happen? Do it again!")], prev=b.id, sort=s,
         choices=[(3741, "Stomping Boots"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
-        story="Hagatha's tale of the lizards that swallowed a storm: feel their lightning, then eat three.")
-    mercy(book, 9105145, "Stripes", 13, lantern, stripes,
-          [(-702, -2629), (-677, -2532), (-600, -2480)],
-          "Wren, softly:$B$BSnack, a zhevra foal got left behind when its herd ran from the hyenas. It's north of "
-          "the lantern, all legs and stripes and wobbling. It smells of grass and milk and wobbling.$B$BSniff it "
-          "out. Pat it. It'll find its herd; zhevra always do, once they stop being scared.",
-          "Grass and wobbling, Snack.",
-          "It followed you, and then it heard its herd and it RAN. All legs. Nobody laughed at it.$B$BHagatha found "
-          "a tickbird for you. Tickbirds ride on zhevra. You don't have stripes, but it won't mind.",
-          (39896, "Tickbird Hatchling", 1), s,
-          "Mercy: Sniff out a zhevra foal left behind by its herd, and pat it. Reward: a tickbird companion.",
-          prev=a.id)
+        story="Hagatha's tale of the lizards that swallowed a storm: eat three while Bramble watches the lightning.")
     d = book.quest(
         9105143, "The Thunderhawk Nests", 19, 17, lantern, lantern, "hagatha",
         "Hagatha tells it, and thunder rumbles somewhere in the flame:$B$BThe tauren say the thunder is only the "
@@ -438,13 +427,38 @@ def barrens_quests(book, lantern):
         "You came! Hagatha thinks her bird can beat you. Her BIRD. Let me tell you about the bet...",
         prev=d.id, sort=s, xp=2,
         story="Wren calls the Devourer to the Derby's starting line (Wren's Derby, task 020).")
+    mercy(book, 9105145, "Little Thunder", 13, lantern, littlethunder,
+          [(-702, -2629), (-677, -2532), (-600, -2480)],
+          "Wren, softly:$B$BSnack, a kodo calf got left behind when its herd ran from the hyenas. It's north of the "
+          "lantern, all knees and worry, and every time it takes a step the ground goes thump. It smells of dust and "
+          "milk and being frightened.$B$BSniff it out. Pat it. It'll find its herd; kodos always do, once they stop "
+          "being scared.",
+          "Dust and milk and being frightened, Snack.",
+          "It followed you, thump thump thump, and then it heard its herd and it RAN. The ground shook. Nobody laughed "
+          "at it. Little Thunder will remember you; kodos never forget a kindness, it's why they're so slow.$B$BHere's "
+          "something for the road.",
+          (5609, "Steadfast Cinch", 1), s,
+          "Mercy: Sniff out Little Thunder, a kodo calf left behind by its herd, and pat it. It comes back grown "
+          "(mounts idea 1).", prev=a.id)
+    book.quest(
+        9105146, "Quilboar Bacon", 15, 13, lantern, lantern, "wren",
+        "Wren, scandalised:$B$BSnack, the quilboar of Thorn Hill are throwing rocks at the caravans AND they smell. "
+        "That's two crimes. And you're an agam'ar now, which is a boar that's been hit so often it stopped falling "
+        "over. The quilboar say a boar struck often enough forgets how to fall. Let's find out!$B$BWear your agam'ar "
+        "and charge six Razormane. Tremor Charge. The ground should shake.",
+        "As a Raging Agam'ar, charge 6 Razormane quilboar in the Barrens with Tremor Charge.",
+        "Six quilboar, Snack. They're still throwing rocks.",
+        "Justice! Smelly, shaking justice.$B$BHere's your reward for being a good agam'ar.",
+        objectives=[ability(6, "Razormane charged as an Agam'ar", 9102022, entries=[3267, 3268, 3265, 3266, 3269, 3271],
+                            shapes=(18,))],
+        prev=a.id, sort=s, needs=(18,),
+        choices=[(1310, "Smith's Trousers"), (5609, "Steadfast Cinch"), (24351, "Mace of the Hand")],
+        story="For a Devourer with the Raging Agam'ar: Tremor Charge six rock-throwing Razormane quilboar.")
     return d
 
 
 def silverpine_quests(book, lantern):
     s = Z_SILVERPINE
-    lop = book.beast("lop", "Lop", 721, level=11, faction=FACTION_SHY, passive=True, scale=1.2,
-                     subname="Thinks It Is a Worg")
     a = book.quest(
         9105150, "Worg Meat", 12, 11, lantern, lantern, "hagatha",
         "Hagatha speaks, and somewhere a wolf howls:$B$BThe worgs of Silverpine are wolves that remember something "
@@ -484,17 +498,6 @@ def silverpine_quests(book, lantern):
         prev=b.id, sort=s, needs=LINES["wolf"],
         choices=[(3585, "Camouflaged Tunic"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
         story="For a Devourer with the Wolf shape: run behind the Bloodsnout Worgs, the wolf's own future.")
-    mercy(book, 9105154, "Lop", 13, lantern, lop,
-          [(467, 1266), (393, 1295), (360, 1360)],
-          "Wren, trying not to laugh:$B$BSnack. There is a rabbit in the woods north-west of the lantern who thinks "
-          "he's a worg. He growls. He stalks things. He stalked a mushroom for an hour. The real worgs are going to "
-          "eat him any minute. He smells of clover and enormous courage.$B$BSniff him out and pat him before they do.",
-          "Clover and enormous courage, Snack.",
-          "He growled at you. And then he followed you, growling, all the way back. Best worg in Silverpine.$B$B"
-          "Here, a rabbit of your own. This one knows it's a rabbit. Mostly.",
-          (29364, "Brown Rabbit Crate", 1), s,
-          "Mercy: Sniff out Lop, the rabbit who thinks he is a worg, and pat him before the worgs find him. Reward: a "
-          "rabbit companion.", prev=a.id)
     d = book.quest(
         9105153, "Fenris Isle", 18, 16, lantern, lantern, "hagatha",
         "Hagatha's voice turns sharp:$B$BOn Fenris Isle, in the lake, the Rot Hide gnolls dig up the dead and eat "
@@ -508,13 +511,24 @@ def silverpine_quests(book, lantern):
                     devour(5, "Rot Hide devoured", entries=[1939, 1940, 1942, 1943])], prev=c.id, sort=s, xp=6,
         choices=[(3741, "Stomping Boots"), (17694, "Band of the Fist"), (1264, "Headbasher")],
         story="Hagatha keeps the world tidy: feel the grave-robbers' curse, then eat the Rot Hides of Fenris Isle.")
+    book.quest(
+        9105155, "Open a Vein", 16, 14, lantern, lantern, "hagatha",
+        "Hagatha, with something like pride:$B$BYour bat has grown teeth that fit it. The vampiric duskbat drinks, "
+        "little horror; it does not nibble. The Rot Hide gnolls on Fenris Isle are full of the blood of the dead they "
+        "dug up, and nobody will miss it.$B$BWear your duskbat. Open five of them, and drink.",
+        "As a Vampiric Duskbat, open 5 Rot Hide gnolls on Fenris Isle with Exsanguinate.",
+        "Five Rot Hides, little horror, opened properly.",
+        "Old blood, but blood. Your duskbat knows what it is for now.$B$BTake this.",
+        objectives=[ability(5, "Rot Hide opened as a Vampiric Duskbat", 9102051, entries=[1939, 1940, 1942, 1943],
+                            shapes=(21,))],
+        prev=a.id, sort=s, needs=(21,),
+        choices=[(3585, "Camouflaged Tunic"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
+        story="For a Devourer with the Vampiric Duskbat: Exsanguinate five Rot Hides on Fenris Isle.")
     return d
 
 
 def ghostlands_quests(book, lantern):
     s = Z_GHOSTLANDS
-    glimmer = book.beast("glimmer", "Glimmer", 15274, level=11, faction=FACTION_SHY, passive=True, scale=0.7,
-                         subname="The Last Bright Wyrm")
     a = book.quest(
         9105160, "Ghostclaw", 12, 11, lantern, lantern, "hagatha",
         "Hagatha speaks, and the flame goes pale:$B$BThe lynxes of the Ghostlands starve, because the Scourge ate "
@@ -529,28 +543,16 @@ def ghostlands_quests(book, lantern):
     b = book.quest(
         9105162, "What the Word Means", 13, 12, lantern, lantern, "hagatha",
         "Hagatha, amused:$B$BNorth-east of the lantern, by the Sanctum of the Moon, there are things the elves call "
-        "arcane devourers. Devourers! As if a little ball of spilled magic knew what the word means.$B$BLet one try "
-        "to devour you, little horror. It will nibble at your power and think itself very fierce. Then eat four of "
-        "them, and show them what the word means.",
-        "Let an Arcane Devourer try to devour your power, then devour 4 Arcane Devourers in the Ghostlands.",
+        "arcane devourers. Devourers! As if a little ball of spilled magic knew what the word means.$B$BWalk into the "
+        "sanctum quietly, little horror, without a fight at the door, so they get a good look at what is coming. "
+        "Then eat four of them, and show them what the word means.",
+        "Walk into the Sanctum of the Moon without being in a fight, then devour 4 Arcane Devourers there.",
         "They are still calling themselves devourers.",
         "Now there is only one Devourer near the Sanctum of the Moon.$B$BTake this. Your wyrm drank well.",
-        objectives=[struck(1, "Nibbled by a devourer", entries=[16304]),
+        objectives=[visit("Walked into the Sanctum of the Moon", 530, 7478.0, -6406.0, radius=35.0, quiet=True),
                     devour(4, "Arcane Devourer devoured", entries=[16304])], prev=a.id, sort=s,
         choices=[(3585, "Camouflaged Tunic"), (26023, "Ravager Hide Gloves"), (2908, "Thornblade")],
-        story="Hagatha mocks the 'Arcane Devourers': let one nibble, then show them what the word means.")
-    mercy(book, 9105164, "Glimmer", 13, lantern, glimmer,
-          [(7329, -6938), (7300, -7021), (7230, -7060)],
-          "Wren, hopeful:$B$BSnack, there's a mana wyrm in the Ghostlands that the Scourge didn't spoil. Just one. It "
-          "came down from Eversong and got lost, and it's hiding south-west of the lantern, by the Sanctum of the "
-          "Sun. It smells of sunlight and sparkles, which is a very strange thing to smell in a dead forest.$B$BSniff "
-          "it out and pat it. Then it'll know the way home.",
-          "Sunlight and sparkles, Snack.",
-          "It glowed when you patted it! Then it floated after you and went home to Eversong. Good wyrm.$B$BHagatha "
-          "says there's a little one hatched in the cauldron that wants a friend. It's yours.",
-          (29363, "Mana Wyrmling", 1), s,
-          "Mercy: Sniff out the one bright mana wyrm lost in the dead forest, and pat it. Reward: a mana wyrmling "
-          "companion.", prev=a.id)
+        story="Hagatha mocks the 'Arcane Devourers': walk in quietly, then show them what the word means.")
     d = book.quest(
         9105163, "Eyes Shut, Counting", 17, 15, lantern, lantern, "wren",
         "Wren, from very far back in the lantern:$B$BSnack I'm not coming closer to the glass because your spiders "
@@ -565,4 +567,16 @@ def ghostlands_quests(book, lantern):
         xp=6, timed=300,
         choices=[(3741, "Stomping Boots"), (16990, "Spritekin Cloak"), (1264, "Headbasher")],
         story="Wren shuts her eyes and counts to 300; five spindleweb spiders must be gone when she opens them.")
+    book.quest(
+        9105165, "Swallow It Whole", 15, 13, lantern, lantern, "hagatha",
+        "Hagatha, amused again:$B$BYour wyrm grew into a wraith, little horror, and a wraith does not spit magic back. "
+        "It swallows it in the air. The mana shifters at the Sanctum of the Moon cast and cast and never finish a "
+        "thought.$B$BWear your arcane wraith. When one of them starts a spell, swallow it. Five times.",
+        "As an Arcane Wraith, swallow 5 spells cast by Mana Shifters or Arcane Devourers with Swallow Spell.",
+        "Five spells, little horror, swallowed before they land.",
+        "Did they taste of anything? Surprise, mostly. That is the taste of a spell that never finished.$B$BTake this.",
+        objectives=[ability(5, "Spell swallowed as an Arcane Wraith", 9102062, entries=[16310, 16304], shapes=(22,))],
+        prev=a.id, sort=s, needs=(22,),
+        choices=[(22998, "Ghostclaw Leggings"), (5351, "Bounty Hunter's Ring"), (24351, "Mace of the Hand")],
+        story="For a Devourer with the Arcane Wraith: Swallow Spell five of the Sanctum's casters mid-cast.")
     return d

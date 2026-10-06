@@ -1,6 +1,6 @@
 """Task 021: the lanterns of the twenties (levels 20-34). Part of tools/devourer_quests_content.py."""
 
-from devourer_quests import devour, trail, struck, among, tale, LINES
+from devourer_quests import devour, slay, trail, struck, among, visit, tale, ability, LINES
 from devourer_quests_content import mercy, FACTION_SHY
 from devourer_quests_teens import onward, campfire, BAIT
 
@@ -53,8 +53,6 @@ def twenties(book, teens):
 
 def duskwood_quests(book, lantern):
     s = Z_DUSKWOOD
-    stitch = book.beast("stitch", "Stitch", 930, level=20, faction=FACTION_SHY, passive=True, scale=0.6,
-                        subname="Spins Crooked Webs")
     fire = campfire(book, "duskwood_fire", lantern, 6.0, 6.0, 37.0, [
         "Sit close, little horror. Bramble, closer still. Duskwood does not like a small fire.",
         "This was a bright wood once. Elwynn's sister. Deer, and woodcutters, and a road with flowers on it.",
@@ -87,19 +85,6 @@ def duskwood_quests(book, lantern):
         objectives=[tale(fire, "The tale of the night that stayed heard")], prev=a.id, sort=s, xp=4,
         choices=[(16659, "Deftkin Belt"), (6752, "Lancer Boots"), (6748, "Monkey Ring")],
         story="A campfire tale for the Devourer and Bramble: why the night came to Duskwood and never left.")
-    mercy(book, 9105174, "Stitch", 21, lantern, stitch,
-          [(-10500, 165), (-10545, 210), (-10560, 255)],
-          "Wren, in a very small voice:$B$BSnack. There's a spider. A baby black widow in the cemetery south-west of "
-          "the lantern. All the others spin perfect webs and this one spins them CROOKED, so the others chase it off. "
-          "It smells of dust and silk and trying again.$B$BI'm scared of spiders. I'm scared of this one. Sniff it "
-          "out and pat it anyway. For me. I'm practising being brave.",
-          "Dust and silk and trying again, Snack.",
-          "You patted a SPIDER. On purpose. And it followed you like a little crooked shadow. I watched the whole "
-          "time through the lantern and I only screamed twice.$B$BHagatha says anyone who'll pat a spider deserves a "
-          "black cat. Here. It doesn't spin anything.",
-          (8485, "Cat Carrier (Bombay)", 1), s,
-          "Mercy: Sniff out a baby black widow that spins crooked webs, and pat it (Wren is practising being brave). "
-          "Reward: a black cat companion.", prev=a.id)
     d = book.quest(
         9105173, "Lupos", 25, 23, lantern, lantern, "hagatha",
         "Hagatha tells it, and the flame goes pale as a ghost:$B$BThere is a wolf in Duskwood that the night does not "
@@ -120,8 +105,6 @@ def duskwood_quests(book, lantern):
 
 def wetlands_quests(book, lantern):
     s = Z_WETLANDS
-    croaker = book.beast("croaker", "Lord Croaker", 1420, level=20, faction=FACTION_SHY, passive=True, scale=1.6,
-                         subname="King of the Puddle")
     a = book.quest(
         9105180, "Young Crocolisks", 21, 20, lantern, lantern, "hagatha",
         "Hagatha's voice, wet and low:$B$BThe Wetlands are a nursery for crocolisks, little horror. The young ones "
@@ -152,29 +135,15 @@ def wetlands_quests(book, lantern):
     c = book.quest(
         9105182, "Flamesnorting", 25, 23, lantern, lantern, "wren",
         "Wren, giggling:$B$BSnack, there are whelps that SNORT FIRE. On purpose! Like little kettles! The "
-        "flamesnorting whelps, out in the Green Belt with the others. Hagatha says let one snort a fireball at you, "
-        "so you know what a whelp's fire tastes like from the outside, before you taste it from the inside.$B$BThen "
-        "eat four. Snort snort.",
-        "Let a Flamesnorting Whelp throw its fireball at you, then devour 4 whelps in the Wetlands.",
-        "Four whelps and one fireball, Snack.",
-        "Snort! I'm doing the whelp noise. Snort snort. Did it singe you? Hagatha says a little singe is good for "
-        "the soul.$B$BHere!",
-        objectives=[struck(1, "Whelp fire felt", entries=[1044]),
-                    devour(4, "Wetlands whelp devoured", entries=[1042, 1043, 1069, 1044])], prev=a.id, sort=s,
+        "flamesnorting whelps, out in the Green Belt with the others. Bramble says she doesn't believe in whelps that snort fire. Take her! Eat four where she can see, "
+        "and watch her face. Snort snort.",
+        "With Bramble watching, devour 4 flamesnorting whelps in the Wetlands.",
+        "Four whelps, Snack, and Bramble has to see them snort.",
+        "Snort! I'm doing the whelp noise. Snort snort. Bramble believes in them now. She's a little singed.$B$BHere!",
+        objectives=[devour(4, "Flamesnorting Whelp devoured, Bramble watching", entries=[1044],
+                           companion="It SNORTED. Fire! Out of its NOSE. I take it all back.")], prev=a.id, sort=s,
         choices=[(7751, "Vorrel's Boots"), (6719, "Windborne Belt"), (6749, "Tiger Band")],
-        story="Wren's fire-snorting whelps: take a fireball, then eat four (the start of the Whelp line).")
-    mercy(book, 9105184, "Lord Croaker", 22, lantern, croaker,
-          [(-3225, -2355), (-3165, -2340), (-3105, -2295)],
-          "Wren, solemn:$B$BSnack, I must tell you about Lord Croaker. He is a toad. He is the biggest toad in the "
-          "marsh north of the lantern, and he sits on a puddle like a throne, and every crocolisk in the Wetlands "
-          "would like to eat him. He smells of pondweed and importance.$B$BSniff him out. Bow if you like. Then pat "
-          "him. Gently. He is a lord.",
-          "Pondweed and importance, Snack.",
-          "He allowed you to pat him? He ALLOWED it? You've been knighted, Snack. Toad-knighted.$B$BHere: a frog of "
-          "your own. It isn't a lord. Don't tell it.",
-          (11026, "Tree Frog Box", 1), s,
-          "Mercy: Sniff out Lord Croaker, the biggest toad in the marsh, and pat him. Reward: a frog companion.",
-          prev=a.id)
+        story="Wren's fire-snorting whelps: Bramble doesn't believe in them, so she watches you eat four (the start of the Whelp line).")
     d = book.quest(
         9105183, "As Old as Hagatha", 27, 25, lantern, lantern, "wren",
         "Wren, whispering so her sister can't hear:$B$BSnack, Hagatha says the giant crocolisks of Sundown Marsh are "
@@ -195,8 +164,6 @@ def wetlands_quests(book, lantern):
 
 def ashenvale_quests(book, lantern):
     s = Z_ASHENVALE
-    dapple = book.beast("dapple", "Dapple", 3817, level=20, faction=FACTION_SHY, passive=True, scale=0.4,
-                        subname="Shadowhorn Fawn")
     fire = campfire(book, "ashenvale_fire", lantern, -6.0, -6.0, 99.73, [
         "Sit, both of you. The trees here are listening; let them.",
         "Long ago the night elves of this forest were offered a trade. Power, for their shape.",
@@ -231,51 +198,49 @@ def ashenvale_quests(book, lantern):
         story="A campfire tale for the Devourer and Bramble: the night elves who sold their shape and became satyrs.")
     c = book.quest(
         9105192, "Bought Cheap", 27, 25, lantern, lantern, "hagatha",
-        "Hagatha's voice hardens:$B$BThe satyrs gather at Night Run and Satyrnaar in the east of the forest. They will "
-        "curse you and slash at you and stink at you; let them, once. Taste what a shape bought cheap can do.$B$B"
-        "Then eat five of them, little horror. A cat that eats satyrs learns to hunt in silence, the way they never "
-        "could.",
-        "Let a satyr use one of its tricks on you, then devour 5 Felmusk or Bleakheart satyrs in Ashenvale.",
+        "Hagatha's voice hardens:$B$BThe satyrs gather at Night Run and Satyrnaar in the east of the forest. Wear "
+        "your saber, little horror, and hunt them as a cat: five of them, in the shape you kept, against the shape "
+        "they sold. A cat that kills satyrs learns to hunt in silence, the way they never could.",
+        "As a Saber (or what it grew into), slay 5 Felmusk or Bleakheart satyrs in Ashenvale.",
         "Five satyrs. They are loud; follow the noise.",
         "Bitter, wasn't it? That is the taste of a shape bought cheap.$B$BTake this.",
-        objectives=[struck(1, "A satyr's trick felt", entries=[3758, 3759, 3762, 3763, 3770]),
-                    devour(5, "Satyr devoured", entries=[3758, 3763, 3762, 3759, 3765, 3770, 3767, 3771])],
-        prev=b.id, sort=s,
+        objectives=[slay(5, "Satyr slain as a saber", entries=[3758, 3763, 3762, 3759, 3765, 3770, 3767, 3771],
+                         shapes=LINES["saber"])],
+        prev=b.id, sort=s, needs=LINES["saber"],
         choices=[(2953, "Watch Master's Cloak"), (3754, "Shepherd's Gloves"), (24118, "Signet of Argas")],
-        story="After the tale, the satyrs themselves: feel a satyr's trick, then eat five (a Shadowclaw task).")
-    mercy(book, 9105194, "Dapple", 21, lantern, dapple,
-          [(2430, -1110), (2505, -1215), (2565, -1305)],
-          "Wren, melting:$B$BSnack. There is a FAWN. A shadowhorn fawn, all spots and legs, in the woods east of the "
-          "lantern. It lost its mother in the fighting at the Warsong camp and now it follows anything with fur. It "
-          "smells of moss and milk and spots.$B$BSniff it out and pat it. And then let it follow you for a bit. It "
-          "needs to follow something.",
-          "Moss and milk and spots, Snack.",
-          "It followed you! And then it found the herd and ran to them. All spots. I'm not crying, the lantern's "
-          "smoky.$B$BHagatha gave me this for you. It's a salt lick. A fawn comes with it. Don't ask how.",
-          (44841, "Little Fawn's Salt Lick", 1), s,
-          "Mercy: Sniff out a shadowhorn fawn that lost its mother and follows anything with fur, and pat it. Reward: "
-          "a fawn companion.", prev=a.id)
+        story="After the tale, the satyrs themselves: hunt five as a saber (a Shadowclaw task).")
     d = book.quest(
         9105193, "The Voidcallers of Althalaxx", 28, 26, lantern, lantern, "hagatha",
         "Hagatha speaks, and the flame shrinks away from something:$B$BNorth of here, in Darkshore, the Twilight's "
         "followers call the void at the Tower of Althalaxx. The dark strand voidcallers, they name themselves. Fools "
-        "who knock on a door and do not wonder what will open it.$B$BLet one of them throw its shadow at you, little "
-        "horror. You will know the taste; you came from there. Then eat three of them. A voidcreeper that has eaten "
+        "who knock on a door and do not wonder what will open it.$B$BWalk into the tower quietly, little horror, without a fight at the door; let them finish their "
+        "knocking. Then eat three of them. A voidcreeper that has eaten "
         "the ones who call the void becomes the mother of what answers.",
-        "Let a Dark Strand Voidcaller throw its Shadow Bolt at you, then devour 3 of them at the Tower of Althalaxx.",
+        "Walk into the Tower of Althalaxx without being in a fight, then devour 3 Dark Strand Voidcallers there.",
         "They are still knocking on the door.",
         "Quiet now, the tower. Your voidcreeper heard every knock.$B$BTake this.",
-        objectives=[struck(1, "The voidcaller's shadow felt", entries=[2337]),
+        objectives=[visit("Walked into the Tower of Althalaxx", 1, 7197.0, -732.0, radius=35.0, quiet=True),
                     devour(3, "Dark Strand Voidcaller devoured", entries=[2337])], prev=c.id, sort=s, xp=6,
         choices=[(6745, "Swiftrunner Cape"), (9687, "Grappler's Belt"), (6748, "Monkey Ring")],
-        story="The voidcallers of Althalaxx: feel their shadow, then eat three (a Voidcreeper Broodmother task).")
+        story="The voidcallers of Althalaxx: walk in quietly, then eat three (a Voidcreeper Broodmother task).")
+    book.quest(
+        9105195, "Fangs From Below", 27, 25, lantern, lantern, "hagatha",
+        "Hagatha, from somewhere dark:$B$BYour voidling grew legs, little horror, and then more legs. A voidcreeper "
+        "hunts from under the ground, with fangs wet with the dark. The Dark Strand fanatics on the coast north of "
+        "here think they serve the void. Show them what the void grows.$B$BWear your voidcreeper. Sink your fangs "
+        "into five of them.",
+        "As a Voidcreeper, sink Creeper Fangs into 5 Dark Strand fanatics in Darkshore.",
+        "Five fanatics, little horror. Fangs first.",
+        "Did they scream? They always scream when they meet what they pray to.$B$BTake this.",
+        objectives=[ability(5, "Fanatic bitten as a Voidcreeper", 9102261, entries=[2336, 2337], shapes=(42,))],
+        prev=a.id, sort=s, needs=(42,),
+        choices=[(6745, "Swiftrunner Cape"), (9687, "Grappler's Belt"), (6748, "Monkey Ring")],
+        story="For a Devourer with the Voidcreeper: Creeper Fang five Dark Strand fanatics.")
     return d
 
 
 def hillsbrad_quests(book, lantern):
     s = Z_HILLSBRAD
-    clover = book.beast("clover", "Clover", 1933, level=21, faction=FACTION_SHY, passive=True, scale=0.6,
-                        subname="Lost Lamb")
     a = book.quest(
         9105200, "Gray Bears", 21, 20, lantern, lantern, "hagatha",
         "Hagatha, mild:$B$BThe gray bears of Hillsbrad are old and slow and very, very strong. Eat six of them, little "
@@ -286,30 +251,17 @@ def hillsbrad_quests(book, lantern):
         objectives=[devour(6, "Gray bear devoured", entries=[2351, 2354, 2356])], sort=s,
         choices=[(17005, "Boorguard Tunic"), (6668, "Draftsman Boots"), (5322, "Demolition Hammer")],
         story="The lesson: the slow strength of Hillsbrad's old gray bears.")
-    mercy(book, 9105204, "Clover", 22, lantern, clover,
-          [(-285, -1050), (-330, -975), (-405, -900)],
-          "Wren, worried:$B$BSnack, a lamb ran away from the farms when the Syndicate came through, and it's been "
-          "hiding in the hills south-west of the lantern for days. It's too scared to go home. It smells of wool and "
-          "clover and being very far from home.$B$BSniff it out and pat it. Then walk it a little way home. Lambs need "
-          "someone to walk behind.",
-          "Wool and clover, Snack.",
-          "You walked it home! Well, part of the way, and then it ran the rest bleating. That's how lambs say thank "
-          "you.$B$BHere: a lamb of your own. Hagatha says it's from Elwynn. It still bleats the same.",
-          (44974, "Elwynn Lamb", 1), s,
-          "Mercy: Sniff out a lamb hiding in the hills since the Syndicate came, and pat it. Reward: a lamb companion.",
-          prev=a.id)
     c = book.quest(
         9105202, "Honest Claws", 26, 24, lantern, lantern, "hagatha",
         "Hagatha speaks:$B$BThe mountain lions came down from Alterac when the ogres took the mountains. They are "
-        "starving, little horror, and starving cats are honest hunters. Let one of them swipe at you; feel how "
-        "honest a hungry claw is. Then eat five of them, the starving ones and the feral ones in the south.",
-        "Let a mountain lion claw you, then devour 5 mountain lions in Hillsbrad Foothills.",
-        "Five lions. They are hungry too.",
+        "starving, little horror, and starving cats are honest hunters. Wren wants to time you against them; she says a starving cat is the only fair race. Five of them, "
+        "the starving ones and the feral ones in the south, before her candle burns down.",
+        "Devour 5 mountain lions in Hillsbrad Foothills before Wren's candle burns down (5 minutes).",
+        "The candle is out. Wren is lighting another. Five lions.",
         "Honest hunger, again. You will meet it often.$B$BTake this.",
-        objectives=[struck(1, "A lion's claw felt", entries=[2384, 2385]),
-                    devour(5, "Mountain lion devoured", entries=[2384, 2385])], prev=a.id, sort=s,
+        objectives=[devour(5, "Mountain lion devoured", entries=[2384, 2385])], prev=a.id, sort=s, timed=300,
         choices=[(2953, "Watch Master's Cloak"), (3754, "Shepherd's Gloves"), (24118, "Signet of Argas")],
-        story="Hagatha's honest hunters: feel a starving mountain lion's claw, then eat five.")
+        story="Hagatha's honest hunters: five starving mountain lions against Wren's candle (5 minutes).")
     book.quest(
         9105203, "Sunning with the Snapjaws", 30, 28, lantern, lantern, "hagatha",
         "Hagatha, slow as a turtle:$B$BRight by the lantern, along the river, the snapjaws lie in the sun. Old "
@@ -329,8 +281,6 @@ def hillsbrad_quests(book, lantern):
 
 def stonetalon_quests(book, lantern):
     s = Z_STONETALON
-    gust = book.beast("gust", "Gust", 4011, level=21, faction=FACTION_SHY, passive=True, scale=0.4,
-                      subname="Pridewing Cub")
     a = book.quest(
         9105210, "Deepmoss", 20, 19, lantern, lantern, "wren",
         "Wren, from under a blanket:$B$BSnack, the spiders in the Windshear Crag are called DEEPMOSS and they SPIT. "
@@ -344,16 +294,16 @@ def stonetalon_quests(book, lantern):
     b = book.quest(
         9105211, "Three Things at Once", 23, 21, lantern, lantern, "hagatha",
         "Hagatha speaks:$B$BThe pridewings of Stonetalon are wyverns, little horror: lion, bat and scorpion, stitched "
-        "together by a world that could not make up its mind. They nest around Mirkfallon Lake.$B$BLet one sting "
-        "you, so you feel the scorpion in it. Then eat five. A thing that is three things at once is a good lesson "
-        "for a thing like you.",
-        "Let a pridewing sting or swoop at you, then devour 5 pridewings in Stonetalon Mountains.",
+        "together by a world that could not make up its mind. They nest around Mirkfallon Lake.$B$BTake your little "
+        "friend and let her count the three things while you eat five. A thing that is three things at once is a "
+        "good lesson for a thing like you.",
+        "With Bramble watching, devour 5 pridewings in Stonetalon Mountains.",
         "Five pridewings. They fly, but they come down to feed.",
         "Three things at once. You are a hundred. Never forget which one you are wearing.$B$BTake this.",
-        objectives=[struck(1, "The pridewing's sting felt", entries=[4012, 4013, 4014, 4011]),
-                    devour(5, "Pridewing devoured", entries=[4012, 4014, 4013, 4011])], prev=a.id, sort=s,
+        objectives=[devour(5, "Pridewing devoured, Bramble counting", entries=[4012, 4014, 4013, 4011],
+                           companion="Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?")], prev=a.id, sort=s,
         choices=[(6752, "Lancer Boots"), (6719, "Windborne Belt"), (24119, "Band of Argas")],
-        story="Hagatha's lesson of the stitched-together pridewings: feel the scorpion in one, then eat five.")
+        story="Hagatha's lesson of the stitched-together pridewings: Bramble counts the three things while you eat five.")
     c = book.quest(
         9105212, "Crispy All the Way Through", 26, 24, lantern, lantern, "wren",
         "Wren, chewing:$B$BSnack, the basilisks in the Charred Vale got cooked when the forest burned. They're still "
@@ -368,18 +318,6 @@ def stonetalon_quests(book, lantern):
         prev=b.id, sort=s,
         choices=[(9699, "Garrison Cloak"), (7751, "Vorrel's Boots"), (6748, "Monkey Ring")],
         story="Wren needs an expert: eat four burned basilisks while Bramble watches and judges the crispiness.")
-    mercy(book, 9105214, "Gust", 22, lantern, gust,
-          [(1605, 570), (1530, 510), (1500, 480)],
-          "Wren, excited:$B$BSnack, a pridewing cub fell out of its nest by Mirkfallon Lake, south-east of the lantern. "
-          "Its wings are too small. It keeps jumping off rocks and flapping and landing on its face. It smells of "
-          "feathers and fur and stubbornness.$B$BSniff it out and pat it. Don't eat it. It's going to fly one day, I "
-          "can tell.",
-          "Feathers, fur and stubbornness, Snack.",
-          "It followed you, jumping off every rock on the way. Then one jump went a bit further. A BIT. It's going to "
-          "fly!$B$BHagatha has a wyvern cub for you, too. It's from the Barrens. It can't fly either. Yet.",
-          (49663, "Wind Rider Cub", 1), s,
-          "Mercy: Sniff out a pridewing cub that keeps trying to fly off rocks, and pat it. Reward: a wyvern cub "
-          "companion.", prev=a.id)
     d = book.quest(
         9105213, "Nal'taszar", 30, 28, lantern, lantern, "hagatha",
         "Hagatha's voice grows teeth:$B$BHigh on Stonetalon Peak a drake makes its lair: Nal'taszar, a wild thing of "
@@ -396,13 +334,26 @@ def stonetalon_quests(book, lantern):
                     devour(1, "Nal'taszar devoured", entries=[4066])], prev=c.id, sort=s, xp=6,
         choices=[(4107, "Tiger Hunter Gloves"), (15456, "Lightstep Leggings"), (33268, "Bone Dirk")],
         story="Climb Stonetalon Peak on Nal'taszar's scent and eat the wild drake (a Proto-Drake task).")
+    book.quest(
+        9105215, "Long Legs, Loud Boots", 24, 22, lantern, lantern, "wren",
+        "Wren, thrilled:$B$BSnack! The Derby made you a primal tallstrider! Armoured legs! A horn! The Venture Co. in "
+        "the Windshear Crag are cutting down the whole mountain for timber, and the elves are too busy being sad "
+        "about it.$B$BWear your tallstrider and go and kick six of them. Primal kicks. Loud ones.",
+        "As a Primal Tallstrider, kick 6 Venture Co. workers in the Windshear Crag with Primal Kick.",
+        "Six loggers, Snack. KICK.",
+        "Six kicked! I heard the boots from here. The mountain thanks you, probably.$B$BHere!",
+        objectives=[ability(6, "Venture Co. kicked as a Tallstrider", 9102291, entries=[3989, 3988, 3991],
+                            shapes=(45,))],
+        prev=a.id, sort=s, needs=(45,),
+        choices=[(6752, "Lancer Boots"), (6719, "Windborne Belt"), (24119, "Band of Argas")],
+        story="For a Devourer with the Primal Tallstrider: Primal Kick six Venture Co. loggers.")
     return d
 
 
 def needles_quests(book, lantern):
     s = Z_NEEDLES
-    glint = book.beast("glint", "Glint", 4142, level=25, faction=FACTION_SHY, passive=True, scale=0.4,
-                       subname="Sparkleshell Hatchling")
+    giggles = book.beast("giggles", "Giggles", 4248, level=25, faction=FACTION_SHY, passive=True, scale=0.45,
+                         subname="Pesterhide Pup")
     a = book.quest(
         9105220, "Pesterhide", 26, 25, lantern, lantern, "wren",
         "Wren, annoyed:$B$BSnack, the hyenas down there are called PESTERHIDE. They named themselves after what they "
@@ -417,27 +368,17 @@ def needles_quests(book, lantern):
         9105221, "Cloud Serpents", 27, 26, lantern, lantern, "hagatha",
         "Hagatha, and somewhere in the flame the wind howls:$B$BA snake that swallows enough storms grows wings to "
         "carry them. The cloud serpents of the Needles are what that looks like, little horror. They coil around the "
-        "spires and spit lightning at anything that looks up.$B$BLook up. Let one spit at you. Then eat five. Your "
-        "snake, or your eagle, will learn what it is to be both at once.",
-        "Let a cloud serpent strike you with its lightning, then devour 5 cloud serpents in Thousand Needles.",
-        "Five serpents, and one bolt. They coil around the needles.",
+        "spires.$B$BEat one, and you will see the last thing it saw: the canyon it nested in, in the east. Go and "
+        "stand there, where the wind breaks. Then eat four more. Your snake, or your eagle, will learn what it "
+        "is to be both at once.",
+        "Devour a cloud serpent, go to the canyon its last memory shows you, then devour 4 more.",
+        "Did you see the canyon? Go and stand in it.",
         "Did you taste the storm? It is still in you. Your Baby Wind Serpent will feel it.$B$BTake this.",
-        objectives=[struck(1, "A cloud serpent's lightning felt", entries=[4117, 4119]),
-                    devour(5, "Cloud serpent devoured", entries=[4117, 4118, 4119])], prev=a.id, sort=s,
+        objectives=[devour(1, "Cloud serpent devoured (you see a canyon)", entries=[4117, 4118, 4119]),
+                    visit("Windbreak Canyon, where it nested", 1, -5470.0, -2900.0, radius=45.0),
+                    devour(4, "Cloud serpent devoured", entries=[4117, 4118, 4119])], prev=a.id, sort=s,
         choices=[(3754, "Shepherd's Gloves"), (9687, "Grappler's Belt"), (24119, "Band of Argas")],
-        story="Hagatha's tale of the snake that swallowed storms: feel a cloud serpent's lightning, then eat five.")
-    mercy(book, 9105224, "Glint", 27, lantern, glint,
-          [(-5070, -1755), (-5130, -1755), (-5190, -1695)],
-          "Wren, triumphant:$B$BSnack, Hagatha says sparkly things are bad luck. I say she's jealous because her "
-          "cauldron doesn't sparkle. PROOF: a sparkleshell hatchling wandered all the way from the salt flats to the "
-          "canyon south-west of the lantern and it's lost. It smells of salt and sunshine and good luck.$B$BSniff it "
-          "out and pat it. If nothing bad happens to you, I win.",
-          "Salt and sunshine, Snack.",
-          "Nothing bad happened? I WIN. Hagatha's polishing her cauldron now. Out of spite.$B$BHere: a turtle of "
-          "your own. It doesn't sparkle, but it's very lucky. I've decided.",
-          (23002, "Turtle Box", 1), s,
-          "Mercy: Wren's bet with Hagatha. Sniff out a lost sparkleshell hatchling and pat it. Reward: a turtle "
-          "companion.", prev=a.id)
+        story="Hagatha's tale of the snake that swallowed storms: eat one, see the canyon it nested in, go there, eat more.")
     d = book.quest(
         9105223, "The Stare of the Salt", 33, 31, lantern, lantern, "hagatha",
         "Hagatha speaks, dry as the salt:$B$BOn the Shimmering Flats, south-east of here, the saltstone basilisks "
@@ -453,4 +394,31 @@ def needles_quests(book, lantern):
                     devour(4, "Shimmering Flats scorpid devoured", entries=[4140, 4139])], prev=b.id, sort=s, xp=6,
         choices=[(33243, "Skirmisher's Cover"), (4108, "Panther Hunter Leggings"), (33261, "Destroyer's Cloak")],
         story="The salt flats: let a basilisk's stare crystallise you, then eat the basilisks and the great scorpids.")
+    mercy(book, 9105224, "Giggles", 27, lantern, giggles,
+          [(-5070, -1755), (-5130, -1755), (-5190, -1695)],
+          "Wren, trying to stay cross:$B$BSnack, I know I said nobody nips at my Snack. But there's a pesterhide pup "
+          "in the canyon south-west of the lantern that can't laugh yet. It just hiccups. The pack won't take it "
+          "hunting until it can laugh properly. It smells of dust and hiccups.$B$BSniff it out and pat it. Maybe tell "
+          "it a joke.",
+          "Dust and hiccups, Snack.",
+          "You told it a joke? It LAUGHED. A real hyena laugh, with a hiccup in the middle. Then it ran off to show "
+          "the pack. Giggles will remember you; hyenas remember whoever made them laugh first.$B$BHere's something "
+          "for the road. I'd give you a hyena pup, but Hagatha says one laugh in the cauldron room is enough.",
+          (6719, "Windborne Belt", 1), s,
+          "Mercy: Sniff out Giggles, a hyena pup that can only hiccup, and pat it. It comes back grown (mounts idea "
+          "1).", prev=a.id)
+    book.quest(
+        9105225, "Up From Behind", 28, 26, lantern, lantern, "hagatha",
+        "Hagatha, quiet as sand:$B$BYour viper has a trick the Galak centaur have never seen, little horror. It sinks "
+        "into the ground and comes up behind. The Galak hold the eastern canyons, and they always face the way the "
+        "trouble comes from.$B$BWear your viper. Slither under the sand and come up behind five of them. Then do "
+        "what vipers do.",
+        "As a Viper, come up behind 5 Galak centaur in Thousand Needles with Sand Slither.",
+        "Five centaur, little horror, from behind.",
+        "They never saw you. They never do. That is the viper's whole gift.$B$BTake this.",
+        objectives=[ability(5, "Galak slithered up on as a Viper", 9102092,
+                            entries=[4096, 4094, 4093, 4099, 4097, 4095], shapes=(25,))],
+        prev=a.id, sort=s, needs=(25,),
+        choices=[(3754, "Shepherd's Gloves"), (9687, "Grappler's Belt"), (24119, "Band of Argas")],
+        story="For a Devourer with the Viper: Sand Slither up behind five Galak centaur.")
     return d

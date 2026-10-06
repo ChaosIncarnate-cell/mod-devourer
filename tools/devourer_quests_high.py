@@ -1,9 +1,9 @@
 """Task 021: the lanterns of the fifties, Outland and Northrend (levels 49-80). Part of
 tools/devourer_quests_content.py."""
 
-from devourer_quests import devour, slay, LINES
-from devourer_quests_content import LANTERN_OPEN, T_DRAGON
-from devourer_quests_teens import onward
+from devourer_quests import devour, slay, emote, trail, struck, among, visit, tale, ability, LINES
+from devourer_quests_content import mercy, FACTION_SHY, T_DRAGON
+from devourer_quests_teens import onward, campfire
 
 Z_UNGORO, Z_WINTERSPRING, Z_BURNING = 490, 618, 46
 Z_TEROKKAR, Z_NAGRAND, Z_NETHERSTORM = 3519, 3518, 3523
@@ -11,15 +11,7 @@ Z_FJORD, Z_BOREAN, Z_GRIZZLY, Z_SHOLAZAR, Z_STORMPEAKS = 495, 3537, 394, 3711, 6
 TOAD = LINES["toad"]
 DRAKES = (36, 44)                             # Proto-Drake, Earthen Proto-Drake
 STORM_DRAGON = (37,)
-
-# Mounts from the mounts thread (tools/mounts/ascension/new_quests.txt). Ground: riding 75 at level 20; flying:
-# riding 225 at level 60.
-CARNIVARUS = (9304842, "Carnivarus Cutting pouch (one of four)")
-PRISMATIC_SLIMESABER = (9304083, "Prismatic Slimesaber's Reins")
-ARBOREAL_GULPER = (9304656, "Arboreal Gulper")
-MOON_FELINE = (9304078, "Reins of the Moon-Bathed Feline")
-ARDENMOTHS = (9304885, "Ardenmoth pouch (one of three)")
-BUTTERFLIES = (9304813, "Butterfly pouch (one of three, flying)")
+EMOTE_SALUTE = 78
 
 
 def high(book, thirties):
@@ -27,25 +19,26 @@ def high(book, thirties):
                           "the crater floor north-east of Fire Plume Ridge")
     winterspring = book.lantern("winterspring", "Winterspring", 1, 6500.0, -3500.0, 637.96, 4.2,
                                 "the snow below Timbermaw Post")
-    burning = book.lantern("burning", "Burning Steppes", 0, -8100.0, -1800.0, 133.46, 3.1,
+    burning = book.lantern("burning", "the Burning Steppes", 0, -8100.0, -1800.0, 133.46, 3.1,
                            "the ash fields below the Pillar of Ash")
     terokkar = book.lantern("terokkar", "Terokkar Forest", 530, -2500.0, 4000.0, -3.81, 2.4,
                             "the forest road between Allerian Stronghold and Stonebreaker Hold")
     nagrand = book.lantern("nagrand", "Nagrand", 530, -2200.0, 6700.0, -2.24, 5.0, "the plains near the Ring of Trials")
     netherstorm = book.lantern("netherstorm", "Netherstorm", 530, 3000.0, 3400.0, 105.28, 1.7,
                                "the waste south of Area 52")
-    fjord = book.lantern("fjord", "Howling Fjord", 571, 600.0, -4600.0, 204.51, 3.9, "the hills north of Valgarde")
-    borean = book.lantern("borean", "Borean Tundra", 571, 3000.0, 5300.0, 61.12, 0.6,
+    fjord = book.lantern("fjord", "the Howling Fjord", 571, 600.0, -4600.0, 204.51, 3.9, "the hills north of Valgarde")
+    borean = book.lantern("borean", "the Borean Tundra", 571, 3000.0, 5300.0, 61.12, 0.6,
                           "the tundra between Valiance Keep and Warsong Hold")
-    grizzly = book.lantern("grizzly", "Grizzly Hills", 571, 3800.0, -3600.0, 231.46, 2.2, "the pines of central Grizzly Hills")
+    grizzly = book.lantern("grizzly", "the Grizzly Hills", 571, 3800.0, -3600.0, 231.46, 2.2,
+                           "the pines of central Grizzly Hills")
     sholazar = book.lantern("sholazar", "Sholazar Basin", 571, 5300.0, 5200.0, -129.8, 4.4, "the Wildgrowth Mangal")
-    stormpeaks = book.lantern("stormpeaks", "The Storm Peaks", 571, 6300.0, -1050.0, 414.59, 1.3,
+    stormpeaks = book.lantern("stormpeaks", "the Storm Peaks", 571, 6300.0, -1050.0, 414.59, 1.3,
                               "the Snowblind Hills near K3")
 
     book.region("The lanterns of the fifties, Outland and Northrend (levels 49-80)",
-                "Eleven lanterns for the last forms: devilsaurs and oozes in the crater, the moon-touched owlbeasts, "
-                "black dragonkin for the storm, then the warp stalkers and drakes of Outland and the proto-drakes, "
-                "jormungar and storm wyrms of Northrend.")
+                "Eleven lanterns for the last forms: the devilsaur and the moon-touched owlbeasts, black dragonkin for "
+                "the storm, the warp stalkers and nether rays of Outland, and the proto-drakes, jormungar and storm "
+                "wyrms of Northrend. The last lantern ends with both sisters at one campfire.")
 
     def onto(key, qid, level, target, line, source=thirties):
         lantern, finale = source[key]
@@ -99,89 +92,78 @@ def high(book, thirties):
 
 def ungoro_quests(book, lantern):
     s = Z_UNGORO
+    fire = campfire(book, "ungoro_fire", lantern, 6.0, 6.0, -272.22, [
+        "Sit, both of you. Feel how warm the ground is? The world is still being made here.",
+        "Long ago, when there was nothing, there was a pool. Warm, like this, and full of soup.",
+        "The soup did not think. It only wanted. It wanted so much that it grew edges, and the edges grew mouths.",
+        "That was the first hunger. Everything that has ever eaten anything comes from it.",
+        "The oozes in this crater are what is left of that soup. They still only want.",
+        "You come from the dark between, little horror, not from the soup. But you are its grandchild, in a way.",
+        "Every hunger is."],
+        "Bramble stirs the fire with a stick. \"So we're all soup. I knew it. I always felt like soup.\"")
     a = book.quest(
         9105290, "Ravasaurs", 49, 48, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha's voice, and somewhere in the flame something roars:$B$BIn the crater the world is "
-        "young, little horror, and young worlds are hungry. The ravasaurs hunt the marsh in packs. Eat six of them "
-        "and taste a hunger older than any you have met.",
+        "Hagatha's voice, and somewhere in the flame something roars:$B$BIn the crater the world is young, little "
+        "horror, and young worlds are hungry. The ravasaurs hunt the marsh in packs. Eat six of them and taste a "
+        "hunger older than any you have met.",
         "Devour 6 ravasaurs in Un'Goro Crater.",
         "Six ravasaurs. They hunt in packs; so can you.",
         "Old hunger, in a young world. It suits you.$B$BTake this.",
         objectives=[devour(6, "Ravasaur devoured", entries=[6505, 6506, 6507, 6508])], sort=s,
         choices=[(15789, "Deep River Cloak"), (12114, "Nightfall Gloves"), (11120, "Belgrom's Hammer")],
-        story="Hagatha teaches the young world's old hunger: six ravasaurs.")
+        story="The lesson: the young world's old hunger, six ravasaurs.")
     b = book.quest(
-        9105291, "Pterrordax", 51, 49, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, ducking:$B$BSnack, something with LEATHER WINGS just flew past the lantern. In the "
-        "crater! Pterrordax! They're like bats that went to a lot of trouble. Eat five before they dive at me again.",
-        "Devour 5 pterrordax in Un'Goro Crater.",
+        9105291, "Leather Wings", 51, 49, lantern, lantern, "wren",
+        "Wren, ducking:$B$BSnack, something with LEATHER WINGS just flew past the lantern. Pterrordax! They're like "
+        "bats that went to a lot of trouble. They dive and screech and scare people silly. Take Bramble; she needs to see what I'm "
+        "talking about. Eat five before they dive at me again.",
+        "With Bramble watching, devour 5 pterrordax in Un'Goro Crater.",
         "Five pterrordax, Snack. One's circling me right now.",
         "No more diving! I can stand up straight again.$B$BHere!",
-        objectives=[devour(5, "Pterrordax devoured", entries=[9165, 9166, 9167])], prev=a.id, sort=s,
+        objectives=[devour(5, "Pterrordax devoured, Bramble ducking", entries=[9165, 9166, 9167],
+                           companion="DUCK! It's coming back! Why do they have TEETH on their WINGS?")], prev=a.id, sort=s,
         choices=[(11874, "Clouddrift Mantle"), (18411, "Spry Boots"), (18400, "Ring of Living Stone")],
-        story="Wren ducks the pterrordax of the crater.")
-    c = book.quest(
-        9105292, "A Very Hungry Plant", 51, 49, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, giggling:$B$BSnack, the flowers in the crater WALK and they BITE. Bloodpetals! I want "
-        "one for the cauldron garden. Hagatha says no. So here's my plan: you eat six of them, and from what's left "
-        "on your breath I grow a cutting. A big one. A rideable one. Hagatha doesn't have to know.",
-        "Devour 6 bloodpetals in Un'Goro Crater.",
-        "Six bloodpetals, Snack. The plan is in motion.",
-        "It worked! A carnivarus! It bites, but only things you don't like. Hagatha found out. She's not speaking "
-        "to me. Here's your cutting!",
-        objectives=[devour(6, "Bloodpetal devoured", entries=[6509, 6511, 6510, 6512])], prev=a.id, sort=s,
-        items=[(CARNIVARUS[0], CARNIVARUS[1], 1)],
-        story="Wren grows a rideable carnivarus from the bloodpetals the Devourer eats. Reward: a Carnivarus mount.")
+        story="Wren ducks the pterrordax: Bramble ducks while you eat five.")
     d = book.quest(
-        9105293, "The Primal Oozes", 52, 50, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks, curious despite herself:$B$BThe oozes of the crater are the oldest soup in "
-        "the world, little horror: muculent, primal, glutinous. Some say all life crawled out of such a pool. Eat "
-        "five of them, and taste where everything began.",
-        "Devour 5 oozes in Un'Goro Crater.",
-        "Five oozes. They have been waiting since the world began.",
-        "The beginning of everything, and it tastes of nothing much. Most beginnings do.$B$BWren saved what dripped "
-        "off you and made a sabercat of it again, a shining one this time. You can ride it. Do not let her make "
-        "another.",
-        objectives=[devour(5, "Un'Goro ooze devoured", entries=[6556, 6557, 6559])], prev=a.id, sort=s,
-        items=[(PRISMATIC_SLIMESABER[0], PRISMATIC_SLIMESABER[1], 1)],
-        story="Hagatha's oldest soup in the world: the crater's oozes. Reward: the Prismatic Slimesaber.")
+        9105293, "The First Hunger", 52, 50, lantern, lantern, "hagatha",
+        "Hagatha speaks, curious despite herself:$B$BI have lit a fire beside the lantern; the ground is warm enough "
+        "that it hardly needs one. This crater is where hunger began, little horror. Fetch your little friend, sit, "
+        "and I will tell you both where everything comes from.",
+        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
+        "The fire is lit. Sit.",
+        "Soup, she says. She is not wrong.$B$BTake this.",
+        objectives=[tale(fire, "The tale of the first hunger heard")], prev=a.id, sort=s, xp=4,
+        choices=[(15825, "Traphook Jerkin"), (21319, "Gloves of the Pathfinder"), (12066, "Shaleskin Cape")],
+        story="A campfire tale for the Devourer and Bramble: the warm pool where the first hunger began.")
     book.quest(
-        9105294, "The Arboreal Gulper", 52, 50, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, whispering a secret:$B$BToad Snack. In the crater there's a frog that lives in the "
-        "TREES and eats wasps. I want you to be that frog. As your toad, or your frog, or the salamander, catch "
-        "eight of the Gorishi bugs in the south of the crater. Snap! Like that.$B$BThere's a tree frog in it for "
-        "you. A big one.",
+        9105294, "Snap!", 52, 50, lantern, lantern, "wren",
+        "Wren, whispering a secret:$B$BToad Snack. In the crater there's a frog that lives in the TREES and eats "
+        "wasps. I want you to be that frog. As your toad, or your frog, or the salamander, catch eight of the "
+        "Gorishi bugs in the south of the crater. Snap! Like that.",
         "As a Biletoad, Giant Marsh Frog or Water Salamander, slay 8 Gorishi silithid in Un'Goro Crater.",
         "Eight bugs, Snack. Snap snap. As a toad!",
-        "SNAP! You're the best frog in the crater.$B$BHere's your tree frog. It's a gulper that lives in trees, so "
-        "it's very good at climbing on things it shouldn't. You can ride it.",
+        "SNAP! You're the best frog in the crater.$B$BHere, from all the frogs who are scared of wasps.",
         objectives=[slay(8, "Gorishi slain as a toad", entries=[6551, 6552, 6553], shapes=TOAD)],
         prev=a.id, sort=s, needs=TOAD,
-        items=[(ARBOREAL_GULPER[0], ARBOREAL_GULPER[1], 1)],
-        story="For a Devourer with a toad shape: catch the Gorishi bugs as a toad. Reward: the Arboreal Gulper.")
-    e = book.quest(
-        9105295, "Diemetradon", 53, 51, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks:$B$BThe diemetradon wear sails on their backs to catch the sun. Lizards that "
-        "learned to drink light. Your komodo should taste what that is like, little horror. Eat five.",
-        "Devour 5 diemetradon in Un'Goro Crater.",
-        "Five diemetradon. Follow the sails.",
-        "Sunlight in a lizard. Your komodo is warm now.$B$BTake this.",
-        objectives=[devour(5, "Diemetradon devoured", entries=[9162, 9163, 9164])], prev=b.id, sort=s,
-        choices=[(15825, "Traphook Jerkin"), (21319, "Gloves of the Pathfinder"), (12066, "Shaleskin Cape")],
-        story="Hagatha's sun-drinking diemetradon, for a komodo that wants to be warm.")
+        choices=[(15861, "Swiftfoot Treads"), (20649, "Sunprism Pendant"), (12114, "Nightfall Gloves")],
+        story="For a Devourer with a toad shape: catch the Gorishi bugs, as a toad.")
     f = book.quest(
-        9105296, "Devilsaur", 55, 53, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, and the ground in the flame shakes:$B$BThe devilsaur is the biggest hunger "
-        "in the crater, little horror. Everything else in Un'Goro is food to it, and it knows. It does not hide; "
-        "it does not need to. You hear it before you see it, and then you see nothing else.$B$BEat one. Show the "
-        "crater who is hungriest now.",
-        "Devour a Devilsaur in Un'Goro Crater.",
-        "The devilsaur still walks. Listen for it.",
-        "The biggest hunger in the crater, inside the hungriest thing in the world. I am proud of you, little "
-        "horror. Do not tell Wren I said so.$B$BTake this.",
-        objectives=[devour(1, "Devilsaur devoured", entries=[6498])], prev=e.id, sort=s, xp=7,
+        9105296, "You Hear It First", 55, 53, lantern, lantern, "hagatha",
+        "Hagatha tells it, and the ground in the flame shakes:$B$BThe devilsaur is the biggest hunger in the crater, "
+        "little horror. It does not hide; it does not need to. You hear it before you see it, and you smell it before "
+        "you hear it: hot breath and old bones.$B$BTurn on your Sniff by the lantern and follow it south. Let it hit "
+        "you, once, so you know what the biggest hunger feels like. Then eat it, and show the crater who is hungriest "
+        "now.",
+        "Follow the devilsaur's breath with Sniff south of the lantern, let it strike you, then devour a Devilsaur.",
+        "The devilsaur still walks. Listen for it. Smell it first.",
+        "The biggest hunger in the crater, inside the hungriest thing in the world. I am proud of you, little horror. "
+        "Do not tell Wren I said so.$B$BTake this.",
+        objectives=[trail("The devilsaur's breath followed", "a Devilsaur", 1,
+                          [(-6780, -1935), (-6780, -2040), (-6780, -2145), (-6780, -2220)], summon=6498),
+                    struck(1, "The devilsaur's blow felt", entries=[6498]),
+                    devour(1, "Devilsaur devoured", entries=[6498])], prev=d.id, sort=s, xp=7,
         choices=[(20715, "Dunestalker's Boots"), (19106, "Ice Barbed Spear"), (22008, "Darkmantle Spaulders")],
-        story="Hagatha's tale of the devilsaur, the biggest hunger in the crater; the Devourer is bigger.")
+        story="Sniff out the devilsaur, the biggest hunger in the crater, take its blow, and eat it.")
     return f
 
 
@@ -189,72 +171,62 @@ def winterspring_quests(book, lantern):
     s = Z_WINTERSPRING
     a = book.quest(
         9105300, "Shardtooth", 54, 53, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, her breath frosting the glass:$B$BThe bears of Winterspring have teeth like shards "
-        "of ice. Shardtooth, the furbolgs call them, and give them room. Eat six, little horror. Cold meat keeps.",
+        "Hagatha, her breath frosting the glass:$B$BThe bears of Winterspring have teeth like shards of ice. "
+        "Shardtooth, the furbolgs call them, and give them room. Eat six, little horror. Cold meat keeps.",
         "Devour 6 shardtooth bears in Winterspring.",
         "Six shardtooths. They are cold; you will warm them.",
         "Cold, and sharp, and now warm inside you.$B$BTake this.",
         objectives=[devour(6, "Shardtooth bear devoured", entries=[7444, 7443, 7445])], sort=s,
         choices=[(15861, "Swiftfoot Treads"), (20649, "Sunprism Pendant"), (16995, "Duskwing Mantle")],
-        story="Hagatha's ice-toothed bears of Winterspring.")
+        story="The lesson: the ice-toothed bears of Winterspring.")
     b = book.quest(
-        9105301, "Winterspring Owls", 55, 53, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, hooting softly:$B$BHoo. Hoo. Snack, the owls in the snow are WHITE. Winterspring owls "
-        "and the screechers! They're so pretty. Hagatha says your owl should eat its northern cousins before it "
-        "grows up for good. Eat five. Gently. If you can eat gently.",
-        "Devour 5 Winterspring owls in Winterspring.",
-        "Hoo hoo. Still five owls, Snack.",
-        "Hoo! Your owl is very nearly grown. I'm a bit sad. Owls grow up so fast.$B$BHere!",
-        objectives=[devour(5, "Winterspring owl devoured", entries=[7455, 7456])], prev=a.id, sort=s,
-        choices=[(11193, "Blazewind Breastplate"), (18411, "Spry Boots"), (12066, "Shaleskin Cape")],
-        story="Wren's white owls of the snow (the owl line).")
-    c = book.quest(
-        9105302, "Frostsabers", 57, 55, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, quiet as falling snow:$B$BOn Frostsaber Rock the white cats hunt under the moon. "
-        "The night elves ride them, when the cats allow it. Eat five, little horror, the cubs and the grown and the "
-        "huntresses. A saber that has eaten the moon's own cats walks in moonlight.",
-        "Devour 5 frostsabers at Frostsaber Rock in Winterspring.",
-        "Five frostsabers. Look for them under the moon.",
-        "Moonlight and snow. Your saber will remember both.$B$BWren has a cat for you. A moon-bathed one, she says, "
-        "that she found sleeping in the lantern's light. You can ride it. It will not mind.",
-        objectives=[devour(5, "Frostsaber devoured", entries=[7430, 7431, 7433, 7432])], prev=a.id, sort=s,
-        items=[(MOON_FELINE[0], MOON_FELINE[1], 1)],
-        choices=[(15825, "Traphook Jerkin"), (21319, "Gloves of the Pathfinder"), (15708, "Blight Leather Gloves")],
-        story="Hagatha's moon-lit frostsabers. Reward: the Moon-Bathed Feline.")
-    d = book.quest(
-        9105303, "Chillwind", 57, 55, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, impressed:$B$BSnack, the chimaeras in Winterspring have TWO HEADS and they breathe "
-        "COLD. Two heads! Twice the hats! Eat four of the chillwinds. One head each is still eight heads.",
-        "Devour 4 chillwind chimaeras in Winterspring.",
+        9105303, "Twice the Hats", 55, 53, lantern, lantern, "wren",
+        "Wren, impressed:$B$BSnack, the chimaeras in Winterspring have TWO HEADS and they breathe COLD and LIGHTNING. "
+        "Two heads! Twice the hats! Take Bramble and let her count the heads while you eat four of the chillwinds. "
+        "One head each is still eight heads.",
+        "With Bramble counting heads, devour 4 chillwind chimaeras in Winterspring.",
         "Four chimaeras, Snack. Eight heads.",
         "Eight heads! That's a lot of hats I won't be knitting.$B$BHere!",
-        objectives=[devour(4, "Chillwind chimaera devoured", entries=[7447, 7448, 7449])], prev=b.id, sort=s,
+        objectives=[devour(4, "Chimaera devoured, Bramble counting heads", entries=[7447, 7448, 7449],
+                           companion="Two! Four! Six! Eight heads! I'm never going to sleep again.")], prev=a.id, sort=s,
         choices=[(16995, "Duskwing Mantle"), (20649, "Sunprism Pendant"), (18400, "Ring of Living Stone")],
-        story="Wren counts the heads of the two-headed chillwind chimaeras.")
-    e = book.quest(
-        9105304, "Cobalt Whelps", 56, 54, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks:$B$BIn the caves of Mazthoril, south of Everlook, the blue dragonflight keeps "
-        "its young. Cobalt whelps, cobalt broodlings, cold as the caves. Eat five, little horror. Your drake has "
-        "tasted red fire and black; let it taste blue frost.",
-        "Devour 5 cobalt whelps or broodlings in Mazthoril, Winterspring.",
-        "Five cobalt whelps. The caves are cold; mind your step.",
-        "Red, black and now blue. Your drake knows every colour of dragon now.$B$BTake this.",
-        objectives=[devour(5, "Cobalt whelp devoured", entries=[10659, 10660])], prev=a.id, sort=s,
-        choices=[(15861, "Swiftfoot Treads"), (11874, "Clouddrift Mantle"), (12114, "Nightfall Gloves")],
-        story="Hagatha sends the Devourer into the blue dragonflight's caves (the whelp line).")
+        story="Wren counts the heads of the two-headed chimaeras: Bramble counts the heads while you eat four.")
+    book.quest(
+        9105302, "Moonlight Cats", 57, 55, lantern, lantern, "hagatha",
+        "Hagatha, quiet as falling snow:$B$BOn Frostsaber Rock, in the north-east, the white cats hunt under the moon. "
+        "The night elves ride them, when the cats allow it.$B$BWear your saber, little horror, and walk among them on "
+        "the rock. They will take you for a cat from the south who has come home. Walk slowly. Let the moon find "
+        "you.",
+        "Wearing your Saber (or what it grew into), walk among the frostsabers on Frostsaber Rock without starting a "
+        "fight.",
+        "They are waiting under the moon.",
+        "Moonlight and snow. Your saber will remember both, and that the cats of the north let it come home.$B$B"
+        "Take this.",
+        objectives=[among("Walked among the frostsabers", 1, 7720.0, -4336.0, [7430, 7431, 7432, 7433],
+                          LINES["saber"], radius=25.0)],
+        prev=a.id, sort=s, needs=LINES["saber"],
+        choices=[(15825, "Traphook Jerkin"), (21319, "Gloves of the Pathfinder"), (15708, "Blight Leather Gloves")],
+        story="For a Devourer with the Saber shape: walk among the frostsabers of Frostsaber Rock as a cat come home.")
     f = book.quest(
         9105305, "The Moon-Touched", 58, 56, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, and the flame goes white as the moon:$B$BAn owl that eats moonlight becomes "
-        "a moonkin. A moonkin that eats the wild becomes an owlbeast. But here, in the snow, the owlbeasts ate so "
-        "much of the moon that it touched them back. Moontouched, the furbolgs say, and bow their heads.$B$BEat two, "
-        "little horror. Your moonkin has been waiting for this since the first owl you swallowed.",
-        "Devour 2 Moontouched Owlbeasts in Winterspring.",
-        "The moon-touched still wander the snow.",
+        "Hagatha tells it, and the flame goes white as the moon:$B$BAn owl that eats moonlight becomes a moonkin. A "
+        "moonkin that eats the wild becomes an owlbeast. But here, in the snow, the owlbeasts ate so much of the moon "
+        "that it touched them back. Moontouched, the furbolgs say, and bow their heads.$B$BThey smell of snow under "
+        "moonlight, if you can imagine that. Turn on your Sniff and follow it east, all the way to the Hidden Grove. "
+        "Let one call the moon down on you, little horror. Then eat it. Your moonkin has been waiting for this since "
+        "the first owl you swallowed.",
+        "Follow the moontouched scent with Sniff to the Hidden Grove, let a Moontouched Owlbeast cast Moonfire on you, "
+        "then devour it.",
+        "The moon-touched still wander the snow. Follow the moonlight.",
         "The moon, in you. Your moonkin will never forget it now.$B$BTake this. You have come a very long way from "
         "the first owl.",
-        objectives=[devour(2, "Moontouched Owlbeast devoured", entries=[7453])], prev=d.id, sort=s, xp=7,
+        objectives=[trail("The moontouched scent followed", "a Moontouched Owlbeast", 1,
+                          [(6675, -3690), (6810, -3945), (6975, -4200), (7245, -4455), (7500, -4725),
+                           (7695, -4920)], summon=7453),
+                    struck(1, "The moon felt", entries=[7453]),
+                    devour(1, "Moontouched Owlbeast devoured", entries=[7453])], prev=b.id, sort=s, xp=7,
         choices=[(18420, "Bonecrusher"), (21187, "Earthweave Cloak"), (22002, "Darkmantle Belt")],
-        story="Hagatha's tale of the owlbeasts the moon touched back (a Moontouched Owlbeast task).")
+        story="Sniff out a moon-touched owlbeast at the Hidden Grove, feel its moon, and eat it (Moontouched Owlbeast).")
     return f
 
 
@@ -262,55 +234,48 @@ def burning_quests(book, lantern):
     s = Z_BURNING
     a = book.quest(
         9105310, "Ember Worgs", 52, 51, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, her voice crackling like coals:$B$BThe worgs of the Burning Steppes sleep in the "
-        "ash and wake with embers in their fur. Eat five of them, little horror. A wolf that has eaten fire does "
-        "not fear it.",
+        "Hagatha, her voice crackling like coals:$B$BThe worgs of the Burning Steppes sleep in the ash and wake with "
+        "embers in their fur. Eat five of them, little horror. A wolf that has eaten fire does not fear it.",
         "Devour 5 ember worgs in the Burning Steppes.",
         "Five ember worgs. Follow the smoke.",
         "Embers in the belly. Your wolf will not flinch from fire again.$B$BTake this.",
         objectives=[devour(5, "Ember worg devoured", entries=[9690, 9694, 9697, 7055])], sort=s,
         choices=[(15789, "Deep River Cloak"), (12114, "Nightfall Gloves"), (11874, "Clouddrift Mantle")],
-        story="Hagatha's ember-furred worgs of the Burning Steppes.")
+        story="The lesson: the ember-furred worgs of the Burning Steppes.")
     b = book.quest(
         9105311, "Black Broodlings", 53, 51, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks, and the flame darkens:$B$BThe black dragonflight keeps its broods in these "
-        "ash fields: broodlings, dragonspawn, wyrmkin, scalding and flamescaled. Their master is the son of a very "
-        "wicked dragon, and he will not notice a few gone. Eat six of them, little horror. A drake that eats its "
-        "own kind grows into a storm.",
-        "Devour 6 black dragonkin in the Burning Steppes.",
-        "Six of the black brood. They are everywhere here.",
+        "Hagatha speaks, and the flame darkens:$B$BThe black dragonflight keeps its broods in these ash fields: "
+        "broodlings, dragonspawn, wyrmkin, scalding and flamescaled. Wear your whelp, little "
+        "horror, and walk in among the broodlings on the Terror Wing Path; they will take you for a cousin from a "
+        "colder nest. Then eat six of the brood. A drake that eats its own kind grows into a storm.",
+        "Wearing your Whelp (or what it grew into), walk among the black broodlings on the Terror Wing Path, then devour 6 black dragonkin in the Burning Steppes.",
+        "Six of the black brood, after you have walked among them.",
         "Ash and fire and dragon. Your drake is learning what it will become.$B$BTake this.",
-        objectives=[devour(6, "Black dragonkin devoured", entries=[7047, 7040, 7048, 7049, 7041, 7042, 7043])],
-        prev=a.id, sort=s,
+        objectives=[among("Walked among the black brood", 0, -7759.0, -2958.0, [7047, 7048, 7049, 7040],
+                          LINES["whelp"], radius=25.0),
+                    devour(6, "Black dragonkin devoured", entries=[7047, 7040, 7048, 7049, 7041, 7042, 7043])],
+        prev=a.id, sort=s, needs=LINES["whelp"],
         choices=[(11193, "Blazewind Breastplate"), (18411, "Spry Boots"), (18400, "Ring of Living Stone")],
-        story="Hagatha sends the Devourer among the black brood (the whelp line, towards the Storm Dragon).")
-    c = book.quest(
-        9105312, "Scorpids of the Steppes", 54, 52, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, fanning the smoke away:$B$BSnack, the scorpids there have FIRE TAILS. Venomtip and "
-        "deathlash and firetail! Who gave scorpids fire? Nobody needed that. Eat four. Fireproof your tummy.",
-        "Devour 4 scorpids in the Burning Steppes.",
-        "Four fire scorpids, Snack.",
-        "Fireproof tummy achieved!$B$BHere!",
-        objectives=[devour(4, "Burning Steppes scorpid devoured", entries=[9691, 9695, 9698])], prev=a.id, sort=s,
-        choices=[(15825, "Traphook Jerkin"), (12066, "Shaleskin Cape"), (21319, "Gloves of the Pathfinder")],
-        story="Wren fireproofs the Devourer's tummy with fire-tailed scorpids.")
+        story="Hagatha sends the Devourer among the black brood: walk among the broodlings as a cousin, then eat six (towards the storm).")
     d = book.quest(
         9105313, "Drakes of the Steppes", 56, 54, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, slow and grim:$B$BAmong the black brood there are drakes, little horror, "
-        "grown ones with wings: black drakes, scalding drakes, searscale drakes. They are few and proud and they do "
-        "not share the sky.$B$BEat two of them. Your drake should meet its elders before it outgrows them.",
-        "Devour 2 drakes in the Burning Steppes.",
-        "Two drakes. They are few; look to the sky and the high rocks.",
+        "Hagatha tells it, slow and grim:$B$BAmong the black brood there are drakes, little horror, grown ones with "
+        "wings: black drakes, scalding drakes, searscale drakes. They are few and proud and they do not share the "
+        "sky.$B$BEat one, and you will see the last thing it saw: the high path where the drakes nest. Go and stand "
+        "there, among their shadows. Then eat another. Your drake should meet its elders before it outgrows them.",
+        "Devour a drake, go where its last memory shows you, then devour another in the Burning Steppes.",
+        "Did you see the path? Go and stand there.",
         "Elders, eaten. Your drake has nothing left to look up to but the storm.$B$BTake this.",
-        objectives=[devour(2, "Black drake devoured", entries=[7044, 7045, 7046])], prev=b.id, sort=s, xp=6,
+        objectives=[devour(1, "Drake devoured (you see a high path)", entries=[7044, 7045, 7046]),
+                    visit("The Terror Wing Path, where they nest", 0, -7759.0, -2958.0, radius=45.0),
+                    devour(1, "Black drake devoured", entries=[7044, 7045, 7046])], prev=b.id, sort=s, xp=6,
         choices=[(15861, "Swiftfoot Treads"), (16995, "Duskwing Mantle"), (20649, "Sunprism Pendant")],
-        story="Hagatha's tale of the proud black drakes; the Devourer's drake meets its elders.")
+        story="Hagatha's proud black drakes: eat one, see the path it nested on, stand there, eat another.")
     book.quest(
         9105314, "The Storm Gathers", 56, 55, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, and the flame flickers like lightning:$B$BYou wear a drake now, little horror. Good. "
-        "A drake that eats dragonkin while it wears its own wings gathers the storm in its chest. Wear your "
-        "proto-drake, or the earthen one, and eat ten of the black brood. When you breathe out, the sky will "
-        "answer.",
+        "Hagatha, and the flame flickers like lightning:$B$BYou wear a drake now, little horror. Good. A drake that "
+        "eats dragonkin while it wears its own wings gathers the storm in its chest. Wear your proto-drake, or the "
+        "earthen one, and eat ten of the black brood. When you breathe out, the sky will answer.",
         "As a Proto-Drake or Earthen Proto-Drake, devour 10 dragonkin in the Burning Steppes.",
         "Ten, little horror. In your drake's own shape.",
         "Do you feel it, behind your ribs? Thunder. The storm is gathering in you.$B$BTake this.",
@@ -324,55 +289,66 @@ def burning_quests(book, lantern):
 
 def terokkar_quests(book, lantern):
     s = Z_TEROKKAR
+    fire = campfire(book, "terokkar_fire", lantern, 6.0, 6.0, -3.7, [
+        "Sit close. I am further away than ever, little horror; this tale comes down a thread.",
+        "South of here lies a city of the dead. The draenei buried their own there, in the old way.",
+        "Then the world broke, and something hungry came through the cracks and ate the souls before they could leave.",
+        "Now the dead walk there, and the living do not go.",
+        "Some hungers are only hunger. That one was theft.",
+        "You never steal, little horror. You take what is in front of you, and you keep it, and you carry it.",
+        "That is the difference between a Devourer and a thief. Never forget it."],
+        "Bramble shivers and pulls her cloak tight. \"I'm not going south. I'm staying right here, by the soup.\"")
     a = book.quest(
         9105320, "Timber Worgs", 62, 60, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha's voice comes thin, from very far away:$B$BI can barely reach you here, little horror. "
-        "This world is broken; my lantern hangs on a thread. Listen anyway. The worgs of this forest are bigger "
-        "than any in our world, and their alphas bigger still. Eat six.",
+        "Hagatha's voice comes thin, from very far away:$B$BI can barely reach you here, little horror. This world is "
+        "broken; my lantern hangs on a thread. Listen anyway. The worgs of this forest are bigger than any in our "
+        "world, and their alphas bigger still. Eat six.",
         "Devour 6 timber worgs in Terokkar Forest.",
         "Six worgs. I can hear them through the thread.",
         "Bigger worlds, bigger wolves, bigger you.$B$BTake this.",
         objectives=[devour(6, "Timber worg devoured", entries=[18476, 18477])], sort=s,
         choices=[(31788, "Blacksting Gloves"), (25504, "Pilgrim's Belt"), (25499, "Felblood Band")],
-        story="Hagatha's thread-thin voice sends the Devourer after Terokkar's timber worgs.")
-    b = book.quest(
-        9105321, "Teromoths", 63, 61, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, faint but excited:$B$BSnack! Can you hear me? The moths there are ENORMOUS. Teromoths! "
-        "Royal ones! Your moth will be so jealous. Eat five and let it eat the jealousy too.$B$BAnd I'll send you "
-        "something with wings. If the thread holds.",
-        "Devour 5 teromoths in Terokkar Forest.",
-        "Five teromoths, Snack. The thread's still holding.",
-        "Your moth isn't jealous any more! It's FULL.$B$BThe thread held! Here's an ardenmoth. It's a moth you can "
-        "ride. On the ground. It's working on the flying.",
-        objectives=[devour(5, "Teromoth devoured", entries=[18468, 18437, 18469])], prev=a.id, sort=s,
-        items=[(ARDENMOTHS[0], ARDENMOTHS[1], 1)],
-        choices=[(27731, "Vindicator's Cloak"), (25932, "Cenarion Thicket Jerkin"), (27733, "Warden's Ring of Precision")],
-        story="Wren's enormous teromoths (the moth line). Reward: an Ardenmoth mount.")
-    c = book.quest(
-        9105322, "Warp Stalkers", 64, 62, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, and the thread hums:$B$BOut where the world thins, little horror, the warp "
-        "stalkers grow until they forget which side of the dark they belong to. Here, in Terokkar, they blink in and "
-        "out of the forest like candle flames. Eat five of them, the stalkers and the hunters.$B$BYou were born in "
-        "the dark between. So were they, nearly.",
-        "Devour 5 warp stalkers or warp hunters in Terokkar Forest.",
-        "Five of them. They blink; be faster than the blink.",
+        story="The lesson, down a thread: Terokkar's timber worgs.")
+    book.quest(
+        9105322, "Blinking", 64, 62, lantern, lantern, "hagatha",
+        "Hagatha tells it, and the thread hums:$B$BOut where the world thins, little horror, the warp stalkers blink "
+        "in and out of the forest like candle flames. You were born in the dark between. So were they, nearly.$B$B"
+        "Wear your warp stalker and walk among the warp hunters in the south of the forest. They will blink at you, "
+        "and you will blink back, and they will think you are one of them. Learn how they forget which side of the "
+        "dark they belong to.",
+        "Wearing your Warp Stalker (or what it grew into), walk among the warp hunters of Terokkar without starting a "
+        "fight.",
+        "They are blinking in the forest. Go and blink with them.",
         "Dark and cold and familiar. Your warp stalker is ready to forget which side it belongs to.$B$BTake this.",
-        objectives=[devour(5, "Warp stalker devoured", entries=[18464, 18465])], prev=a.id, sort=s,
+        objectives=[among("Blinked among the warp hunters", 530, -2794.0, 4495.0, [18464, 18465],
+                          LINES["warpstalker"], radius=25.0)],
+        prev=a.id, sort=s, needs=LINES["warpstalker"],
         choices=[(27724, "Wild Shoulderpads"), (25487, "Wind Dancer's Pendant"), (25986, "Dreadtusk's Fury")],
-        story="Hagatha's tale of the warp stalkers that forget which side of the dark they belong to (the Void "
-              "Terror line).")
+        story="For a Devourer with the Warp Stalker shape: blink among the warp hunters as one of them (Void Terror).")
+    c = book.quest(
+        9105323, "The Theft of Souls", 64, 62, lantern, lantern, "hagatha",
+        "Hagatha's voice, thin as thread:$B$BI have lit a fire beside the lantern, as well as I can from here. There "
+        "is a city of the dead south of this forest, and you should know why, before you go near it. Bring your "
+        "little friend. I want her to hear this too.",
+        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
+        "The fire is lit. The thread is thin; do not make me wait.",
+        "A Devourer, not a thief. Good.$B$BTake this.",
+        objectives=[tale(fire, "The tale of the city of the dead heard")], prev=a.id, sort=s, xp=4,
+        choices=[(27731, "Vindicator's Cloak"), (25932, "Cenarion Thicket Jerkin"), (27733, "Warden's Ring of Precision")],
+        story="A campfire tale for the Devourer and Bramble: the city of the dead, and why a Devourer is not a thief.")
     d = book.quest(
-        9105323, "The Bone Wastes", 65, 63, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, whispering:$B$BSnack, in the Bone Wastes the birds eat bones and the scorpids crawl "
-        "IN the bones. Bonelashers and bonecrawlers. It's horrible and I love it. Eat four bonelashers and three "
-        "bonecrawlers.",
-        "Devour 4 Bonelashers and 3 Scorpid Bonecrawlers in the Bone Wastes, Terokkar Forest.",
+        9105324, "The Bone Wastes", 65, 63, lantern, lantern, "wren",
+        "Wren, whispering:$B$BSnack, in the Bone Wastes the birds eat bones and the scorpids crawl IN the bones. "
+        "Bonelashers and bonecrawlers. Take Bramble; she collects bones, she says, for science. Eat four bonelashers and three "
+        "bonecrawlers where she can see. Bones bones bones.",
+        "With Bramble watching, devour 4 Bonelashers and 3 Scorpid Bonecrawlers in the Bone Wastes.",
         "Four and three, Snack. Bones bones bones.",
         "Bone appetit! I've been saving that one.$B$BHere!",
-        objectives=[devour(4, "Bonelasher devoured", entries=[18470]),
+        objectives=[devour(4, "Bonelasher devoured, Bramble watching", entries=[18470],
+                           companion="Can I keep the beak? For science. Bone science."),
                     devour(3, "Scorpid Bonecrawler devoured", entries=[22100])], prev=c.id, sort=s, xp=6,
         choices=[(31729, "Heirloom Signet of Valor"), (31471, "T'chali's Kilt"), (31422, "Heavy Elven Dirk")],
-        story="Wren's bone-eating birds and bone-dwelling scorpids of the Bone Wastes.")
+        story="Wren's bone-eating birds and bone-dwelling scorpids: eat them while Bramble collects bones for science.")
     return d
 
 
@@ -380,46 +356,39 @@ def nagrand_quests(book, lantern):
     s = Z_NAGRAND
     a = book.quest(
         9105330, "Talbuk", 65, 64, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, as if the air were sweeter:$B$BNagrand is the only green left in this broken world, "
-        "and the talbuk graze on it as if nothing were wrong. Eat six of them, little horror. Innocence has a taste, "
-        "and you should know it before it is gone.",
+        "Hagatha, as if the air were sweeter:$B$BNagrand is the only green left in this broken world, and the talbuk "
+        "graze on it as if nothing were wrong. Eat six of them, little horror. Innocence has a taste, and you should "
+        "know it before it is gone.",
         "Devour 6 talbuk in Nagrand.",
         "Six talbuk. They graze as if nothing were wrong.",
         "Sweet, wasn't it? Remember it.$B$BTake this.",
         objectives=[devour(6, "Talbuk devoured", entries=[17130, 17131])], sort=s,
         choices=[(31486, "Bear-Strength Harness"), (31482, "Dire Wolf Handler Gloves"), (25927, "Consortium Cloak of the Quick")],
-        story="Hagatha teaches the taste of innocence: the grazing talbuk of Nagrand.")
+        story="The lesson: the taste of innocence, the grazing talbuk of Nagrand.")
     b = book.quest(
         9105331, "Windrocs", 65, 64, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, holding onto her hat:$B$BSnack, the birds in Nagrand are WINDROCS and they're the size "
-        "of a cart. Your eagle would love to be that size. Eat five, and let it dream big.",
-        "Devour 5 windrocs in Nagrand.",
-        "Five windrocs, Snack. Dream big.",
+        "Wren, holding onto her hat:$B$BSnack, the birds in Nagrand are WINDROCS and they're the size of a cart. I'm "
+        "holding onto my hat and counting. Eat five before I lose it. The hat, I mean. Five minutes! Then your eagle "
+        "can dream big.",
+        "Devour 5 windrocs in Nagrand before Wren loses her hat (5 minutes).",
+        "Lost the hat! Found it. Again! Five windrocs.",
         "Big dreams, big bird, big Snack!$B$BHere!",
-        objectives=[devour(5, "Windroc devoured", entries=[17128, 18220, 17129])], prev=a.id, sort=s,
+        objectives=[devour(5, "Windroc devoured", entries=[17128, 18220, 17129])], prev=a.id, sort=s, timed=300,
         choices=[(31419, "Living Grove Shoulderpads"), (31660, "Feralfen Skulker's Belt"), (25926, "Nexus-Stalker's Band")],
-        story="Wren's cart-sized windrocs, for an eagle that dreams big.")
-    c = book.quest(
-        9105332, "Clefthoof", 66, 64, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks:$B$BThe clefthoof are the oldest beasts of this world. They were here before "
-        "the orcs, before the draenei, before the world broke. Eat four, little horror. Old meat, from an old world.",
-        "Devour 4 clefthoof in Nagrand.",
-        "Four clefthoof. They are slow, but they are many.",
-        "Old, and heavy, and patient. A world's worth of patience.$B$BTake this.",
-        objectives=[devour(4, "Clefthoof devoured", entries=[18205, 17132, 17133])], prev=a.id, sort=s,
-        choices=[(31426, "Agile Mountain Bracers"), (25975, "Wolf Hunter's Guise"), (25622, "Staff of the Four Golden Coins")],
-        story="Hagatha's ancient clefthoof of Nagrand.")
+        story="Wren's cart-sized windrocs: five before Wren loses her hat (5 minutes).")
     d = book.quest(
         9105333, "Voidspawn", 66, 64, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, and the thread trembles:$B$BIn the Spirit Fields, in the south, the void leaks "
-        "through and takes shape as it likes: voidspawn, little blots of nothing that hunger. Your voidling began as "
-        "one of these, near enough. Eat five, and let it remember where it came from.",
-        "Devour 5 Voidspawn in the Spirit Fields of Nagrand.",
-        "Five voidspawn. The fields are full of them.",
+        "Hagatha, and the thread trembles:$B$BIn the Spirit Fields, in the south, the void leaks through and takes "
+        "shape as it likes: voidspawn, little blots of nothing that hunger. Your voidling began as one of these, "
+        "near enough. Wear it, little horror, or what it grew into, and kill five of them in that shape. Let it "
+        "remember where it came from.",
+        "As a Voidling (or what it grew into), slay 5 Voidspawn in the Spirit Fields of Nagrand.",
+        "Five voidspawn, in your void's own shape.",
         "Nothing, eaten. It tastes like home, doesn't it?$B$BTake this.",
-        objectives=[devour(5, "Voidspawn devoured", entries=[17981])], prev=c.id, sort=s, xp=6,
+        objectives=[slay(5, "Voidspawn slain as a voidling", entries=[17981], shapes=LINES["void"])],
+        prev=b.id, sort=s, needs=LINES["void"], xp=6,
         choices=[(31820, "Blessed Signet Ring"), (25616, "Tim's Trusty Helmet"), (27749, "Staff of the Wild")],
-        story="Hagatha sends the voidling home: the voidspawn of the Spirit Fields (the void line).")
+        story="Hagatha sends the voidling home: slay five in the void's own shape (the void line).")
     return d
 
 
@@ -427,107 +396,127 @@ def netherstorm_quests(book, lantern):
     s = Z_NETHERSTORM
     a = book.quest(
         9105340, "Warp Chasers", 67, 66, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, from the very edge of hearing:$B$BAt the edge of this world, the warp chasers run "
-        "after whatever the storm throws loose. Eat six of them, little horror. Your warp stalker has nearly "
-        "forgotten which side of the dark it belongs to. Help it forget.",
+        "Hagatha, from the very edge of hearing:$B$BAt the edge of this world, the warp chasers run after whatever "
+        "the storm throws loose. Eat six of them, little horror. Your warp stalker has nearly forgotten which side of "
+        "the dark it belongs to. Help it forget.",
         "Devour 6 warp chasers in Netherstorm.",
         "Six chasers. They chase; you catch.",
         "Forgotten. Good.$B$BTake this.",
         objectives=[devour(6, "Warp chaser devoured", entries=[18884])], sort=s,
         choices=[(30401, "Farahlite Studded Boots"), (31527, "Leafbeard Ring"), (31703, "Nether-Stalker's Blade")],
-        story="Hagatha's warp chasers at the edge of the world (the Void Terror line).")
+        story="The lesson: the warp chasers at the edge of the world (the Void Terror line).")
     b = book.quest(
         9105341, "Phase Hunters", 68, 66, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks:$B$BThe phase hunters slip between this world and the next as easily as you "
-        "slip between shapes, little horror. They are the nearest thing to you in this broken place. Eat five. "
-        "Learn how they slip.",
-        "Devour 5 phase hunters in Netherstorm.",
-        "Five phase hunters. Catch them on this side.",
+        "Hagatha speaks:$B$BThe phase hunters slip between this world and the next as easily as you slip between "
+        "shapes, little horror, Take your little friend; she has never seen anything slip between worlds, and she should, once. "
+        "Eat five where she can see. Learn how they slip.",
+        "With Bramble watching, devour 5 phase hunters in Netherstorm.",
+        "Five phase hunters, and Bramble has to see.",
         "Slippery. Now so are you.$B$BTake this.",
-        objectives=[devour(5, "Phase hunter devoured", entries=[18879])], prev=a.id, sort=s,
+        objectives=[devour(5, "Phase hunter devoured, Bramble watching", entries=[18879],
+                           companion="Where did it GO? It was right there. Now it's in you. I need to sit down.")], prev=a.id, sort=s,
         choices=[(30362, "Energized Helm"), (30384, "Brightdawn Bracers"), (31414, "Wild Wood Staff")],
-        story="Hagatha's phase hunters, who slip between worlds as the Devourer slips between shapes.")
-    c = book.quest(
-        9105342, "Nether Rays", 68, 66, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, dreamy:$B$BSnack, the nether rays FLOAT. They swim in the air like fish that forgot "
-        "about water. I want to float too. Eat four. Maybe you'll float a bit. Then you can teach me.",
-        "Devour 4 nether rays in Netherstorm.",
-        "Four nether rays, Snack. Are you floating yet?",
-        "Not floating? Oh well. You've got four fish-that-forgot-water in you, that's nearly floating.$B$BHere!",
-        objectives=[devour(4, "Nether ray devoured", entries=[18880])], prev=a.id, sort=s,
+        story="Hagatha's phase hunters, who slip between worlds: Bramble watches one slip, then five are eaten.")
+    book.quest(
+        9105343, "Walk In Like You Belong", 68, 66, lantern, lantern, "wren",
+        "Wren, flapping her arms:$B$BSnack, inside the big glass domes there are moths that SHIMMER. The Eco-Dome "
+        "Midrealm, north-east of here. The ethereals guard it and they don't like visitors. So don't be a visitor. "
+        "Walk in like you live there. No fighting at the door. Then eat four shimmerwings. Catching is eating, for "
+        "you.",
+        "Walk into the Eco-Dome Midrealm without being in a fight, then devour 4 Shimmerwing Moths there.",
+        "Four shimmerwings, Snack. And walk in nicely.",
+        "Shimmer shimmer! And nobody even noticed you. You're a natural.$B$BHere!",
+        objectives=[visit("Walked into the dome", 530, 3529.0, 3100.0, radius=40.0, quiet=True),
+                    devour(4, "Shimmerwing Moth devoured", entries=[20611])], prev=a.id, sort=s,
         choices=[(31532, "Supple Leather Boots"), (31790, "Expedition Pendant"), (30277, "Ripfang Paw")],
-        story="Wren wants to float like the nether rays.")
-    d = book.quest(
-        9105343, "Shimmerwings", 68, 66, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, flapping her arms:$B$BSnack, inside the big glass domes there are moths that SHIMMER. "
-        "Shimmerwing moths! Catch four for me. Eat them, I mean. Catching is eating, for you.$B$BIf the thread "
-        "holds, I'll send you wings of your own.",
-        "Devour 4 Shimmerwing Moths in the Eco-Dome Midrealm, Netherstorm.",
-        "Four shimmerwings, Snack.",
-        "Shimmer shimmer! The thread held!$B$BHere: a butterfly you can ride, in the air this time. You'll need your "
-        "flying for it. Don't fly into the storm.",
-        objectives=[devour(4, "Shimmerwing Moth devoured", entries=[20611])], prev=a.id, sort=s,
-        items=[(BUTTERFLIES[0], BUTTERFLIES[1], 1)],
-        story="Wren's shimmering moths in the eco-dome. Reward: a flying butterfly mount.")
+        story="Wren's shimmering moths in the eco-dome: walk in like you belong, then eat four.")
     e = book.quest(
         9105344, "Nether Drakes", 69, 67, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, slow:$B$BOn the Celestial Ridge in the north-east, the nether drakes nest: "
-        "dragons born of a dragon that tore itself apart. Their scales shift like the storm. Eat three, little "
-        "horror. Your drake has eaten every colour of our world; let it eat one from beyond it.",
-        "Devour 3 nether drakes on the Celestial Ridge, Netherstorm.",
+        "Hagatha tells it, slow:$B$BOn the Celestial Ridge in the north-east, the nether drakes nest: dragons born of a "
+        "dragon that tore itself apart. Their scales shift like the storm, and near them the world goes thin as "
+        "paper. Feel it, little horror; stand close enough that their presence presses on you. Then eat three. Your "
+        "drake has eaten every colour of our world; let it eat one from beyond it.",
+        "Feel a nether drake's presence on the Celestial Ridge, then devour 3 nether drakes there.",
         "Three nether drakes. Climb the ridge.",
-        "A colour from beyond the world. Your drake will be strange now. Good.$B$BTake this, and go home, and then "
-        "go north.",
-        objectives=[devour(3, "Nether drake devoured", entries=[18877])], prev=b.id, sort=s, xp=6,
+        "A colour from beyond the world. Your drake will be strange now. Good.$B$BTake this, and go home, and then go "
+        "north.",
+        objectives=[struck(1, "The nether presence felt", entries=[18877]),
+                    devour(3, "Nether drake devoured", entries=[18877])], prev=b.id, sort=s, xp=6,
         choices=[(32869, "Illidari Lord's Tunic"), (32865, "Drake Tamer's Gloves"), (30339, "Protectorate Assassin's Ring")],
-        story="Hagatha's nether drakes of the Celestial Ridge (the whelp line).")
+        story="Hagatha's nether drakes of the Celestial Ridge: feel their presence, then eat three (the whelp line).")
+    book.quest(
+        9105345, "Mother of What Answers", 69, 67, lantern, lantern, "hagatha",
+        "Hagatha, from the very edge:$B$BYou are the broodmother now, little horror: the mother of what answers when "
+        "fools knock on the void's door. The warp chasers at the edge of this world are what came through without "
+        "anyone knocking.$B$BWear your broodmother. Tear six of them with your mandibles, and let the storm see what "
+        "the dark between can grow into.",
+        "As a Voidcreeper Broodmother, tear 6 Warp Chasers in Netherstorm with Rending Mandibles.",
+        "Six chasers, little horror, torn properly.",
+        "The storm saw. It will think twice before it throws anything else loose.$B$BTake this.",
+        objectives=[ability(6, "Warp Chaser torn as a Broodmother", 9102271, entries=[18884], shapes=(43,))],
+        prev=a.id, sort=s, needs=(43,),
+        choices=[(30362, "Energized Helm"), (30384, "Brightdawn Bracers"), (31414, "Wild Wood Staff")],
+        story="For a Devourer with the Voidcreeper Broodmother: Rending Mandibles on six Warp Chasers.")
     return e
 
 
 def fjord_quests(book, lantern):
     s = Z_FJORD
+    fire = campfire(book, "fjord_fire", lantern, 6.0, 6.0, 204.1, [
+        "Ah. I can hear you clearly again. Sit, both of you. This land is cold, but it is ours.",
+        "Before the Titans came, the dragons were wild. No colours, no flights, no names. Just wings and hunger.",
+        "Then the Titans tidied them. Gave them colours and duties and long, proud names.",
+        "Some dragons hid from the tidying. Their children are the proto-drakes, north of here, in the Ember Clutch.",
+        "Wild, hungry, and proud of it. They never got their colours. They never wanted them.",
+        "You never got tidied either, little horror. Nobody will ever give you a colour.",
+        "Good. Stay wild."],
+        "Bramble grins into the fire. \"Wild. I like wild. Wild and with biscuits.\"")
     a = book.quest(
         9105350, "Shoveltusk", 69, 68, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, her voice strong again:$B$BAh. I can hear you clearly. This land is cold, little "
-        "horror, but it is ours. The shoveltusk dig in the snow for moss and do not look up. Eat six of them. Warm "
-        "yourself.",
+        "Hagatha, her voice strong again:$B$BAh. I can hear you clearly. This land is cold, little horror, but it is "
+        "ours. The shoveltusk dig in the snow for moss and do not look up. Eat six of them. Warm yourself.",
         "Devour 6 shoveltusk in the Howling Fjord.",
         "Six shoveltusk. They are digging; dig them up.",
         "Warm now? Good.$B$BTake this.",
         objectives=[devour(6, "Shoveltusk devoured", entries=[23690, 23691, 29479])], sort=s,
         choices=[(37355, "Reinforced Caribou-Hide Chestguard"), (37387, "Charred Treads"), (36879, "Soldier's Spiked Mace")],
-        story="Hagatha warms the Devourer with the shoveltusk of the fjord.")
+        story="The lesson: Hagatha warms the Devourer with the shoveltusk of the fjord.")
     b = book.quest(
-        9105351, "Fjord Hawks", 69, 68, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, squinting at the sky:$B$BSnack, the hawks in the fjord dive straight into the sea and "
-        "come up with fish! Fjord hawks and the big duskwing eagles. Eat five. Your eagle wants to learn to dive.",
-        "Devour 5 fjord hawks or duskwing eagles in the Howling Fjord.",
-        "Five birds, Snack. Watch them dive.",
-        "Splash! Your eagle can dive now. Probably. Don't test it off a cliff.$B$BHere!",
-        objectives=[devour(5, "Fjord bird devoured", entries=[24747, 23693])], prev=a.id, sort=s,
+        9105351, "Untidied", 69, 68, lantern, lantern, "hagatha",
+        "Hagatha, warm as a hearth:$B$BI have lit a fire beside the lantern. Fetch your little friend. Before you go "
+        "to the Ember Clutch, there is a tale about the wild dragons I want you both to hear.",
+        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
+        "The fire is lit. Sit.",
+        "Stay wild. Now go and meet the ones who did.$B$BTake this.",
+        objectives=[tale(fire, "The tale of the untidied dragons heard")], prev=a.id, sort=s, xp=4,
         choices=[(37391, "Rhinohide Mask"), (37383, "Seared Scale Cape"), (37029, "Fin Carver")],
-        story="Wren's diving hawks of the fjord (the eagle line).")
-    c = book.quest(
-        9105352, "The Ember Clutch", 70, 68, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks, warm as a hearth:$B$BProto-drakes are what dragons were before the Titans "
-        "tidied them. Wild, hungry, and proud of it. In the Ember Clutch, in the north of the fjord, their whelps "
-        "hatch in the warm rocks. Eat five of the proto-whelps, little horror. You will fit right in.",
-        "Devour 5 Proto-Whelps in the Ember Clutch, Howling Fjord.",
-        "Five proto-whelps. The clutch is warm; they will not leave it.",
-        "Wild and hungry and proud. You fit right in, as I said.$B$BTake this.",
-        objectives=[devour(5, "Proto-Whelp devoured", entries=[23688])], prev=b.id, sort=s,
+        story="A campfire tale for the Devourer and Bramble: the dragons that hid from the Titans' tidying.")
+    book.quest(
+        9105352, "A Sibling in the Clutch", 70, 68, lantern, lantern, "hagatha",
+        "Hagatha, proud:$B$BIn the Ember Clutch, in the north of the fjord, the proto-whelps hatch in the warm rocks. "
+        "Wear your whelp, or your drake, little horror, and walk into the clutch. They will take you for one more "
+        "sibling, hatched a little late and a little strange. Lie in the warm rocks with them. You will fit right "
+        "in.",
+        "Wearing your Whelp (or what it grew into), walk among the proto-whelps of the Ember Clutch without starting a "
+        "fight.",
+        "The clutch is warm, and waiting for one more.",
+        "Wild and hungry and proud, and they took you in. You fit right in, as I said.$B$BTake this.",
+        objectives=[among("Lay in the clutch", 571, 953.0, -3678.0, [23688, 23689], LINES["whelp"], radius=25.0)],
+        prev=b.id, sort=s, needs=LINES["whelp"],
         choices=[(35914, "Proto-Drake Tooth Spaulders"), (35893, "Coldstone-Inlaid Waistguard"), (35936, "Worg-Fang Talisman")],
-        story="Hagatha's untidied whelps of the Ember Clutch (the Proto-Drake line).")
+        story="For a Devourer with the Whelp shape: lie among the proto-whelps of the Ember Clutch as a late sibling.")
     d = book.quest(
         9105353, "Proto-Drakes", 71, 69, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, proud:$B$BThe grown ones guard the clutch: proto-drakes, little horror, the wild "
-        "dragons of the north. There are not many. Eat two, and let your drake meet what it already is.",
-        "Devour 2 Proto-Drakes at the Ember Clutch, Howling Fjord.",
-        "Two proto-drakes. They guard the clutch.",
+        "Hagatha, proud:$B$BThe grown ones guard the clutch: proto-drakes, little horror, the wild dragons of the "
+        "north. There are not many. Let one breathe on you; feel the fire of a dragon nobody tidied. Then eat two, and "
+        "let your drake meet what it already is.",
+        "Let a Proto-Drake breathe fire or buffet you, then devour 2 Proto-Drakes at the Ember Clutch.",
+        "Two proto-drakes, and one breath. They guard the clutch.",
         "Your drake has met itself and eaten it. That is the most a Devourer can do.$B$BTake this.",
-        objectives=[devour(2, "Proto-Drake devoured", entries=[23689])], prev=c.id, sort=s, xp=6,
+        objectives=[struck(1, "Wild fire felt", entries=[23689]),
+                    devour(2, "Proto-Drake devoured", entries=[23689])], prev=b.id, sort=s, xp=6,
         choices=[(35815, "Bone-Threaded Harness"), (37380, "Whalehunter Leggings"), (36878, "Writhing Longstaff")],
-        story="Hagatha's wild proto-drakes of the Ember Clutch.")
+        story="Hagatha's wild proto-drakes of the Ember Clutch: take the breath, then eat two.")
     return d
 
 
@@ -535,223 +524,243 @@ def borean_quests(book, lantern):
     s = Z_BOREAN
     a = book.quest(
         9105360, "Wooly Rhinos", 69, 68, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha's voice, clear in the cold:$B$BThe rhinos of the tundra wear wool against the wind "
-        "and horns against everything else. Eat five of them, little horror, the matriarchs and the bulls.",
+        "Hagatha's voice, clear in the cold:$B$BThe rhinos of the tundra wear wool against the wind and horns against "
+        "everything else. Eat five of them, little horror, the matriarchs and the bulls.",
         "Devour 5 wooly rhinos in the Borean Tundra.",
         "Five rhinos. They are hard to miss.",
         "Wool and horn. Warm and hard. Both useful here.$B$BTake this.",
         objectives=[devour(5, "Wooly rhino devoured", entries=[25487, 25489])], sort=s,
         choices=[(37356, "Rhinohide Wristwraps"), (37354, "Reinforced Caribou-Hide Boots"), (35830, "Worn Vrykul Smasher")],
-        story="Hagatha's wooly rhinos of the tundra.")
+        story="The lesson: the wooly rhinos of the tundra.")
     b = book.quest(
         9105361, "Bloodspore Moths", 69, 68, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, sneezing:$B$BSnack! The moths on the Bloodspore Plains are covered in SPORES. Achoo! "
-        "Eat five. Your moth will be sneezy, but it'll be fine.",
-        "Devour 5 Bloodspore Moths in the Borean Tundra.",
+        "Wren, sneezing:$B$BSnack! The moths on the Bloodspore Plains are covered in SPORES. Achoo! Take Bramble, "
+        "she's got a cold anyway. Eat five where she can see. Your moth will be sneezy, but it'll be fine.",
+        "With Bramble watching, devour 5 Bloodspore Moths in the Borean Tundra.",
         "Five moths, Snack. Achoo.",
         "Bless you! Bless your moth!$B$BHere!",
-        objectives=[devour(5, "Bloodspore Moth devoured", entries=[25464])], prev=a.id, sort=s,
+        objectives=[devour(5, "Bloodspore Moth devoured, Bramble sneezing", entries=[25464],
+                           companion="Ah... ah... ACHOO. Sorry. ACHOO. Keep going, I'm fine. ACHOO.")], prev=a.id, sort=s,
         choices=[(36885, "Marshwalker Chestpiece"), (37394, "Marshwalker Waistguard"), (35852, "Fullered Coldsteel Dagger")],
-        story="Wren's sneezy spore-covered moths (the moth line).")
-    c = book.quest(
-        9105362, "Tundra Wolves", 70, 68, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks:$B$BThe wolves of the tundra are white and lean; the oil-stained ones near "
-        "the Scalding Pools are black and miserable. Eat five, little horror, of either. A wolf should know how "
-        "the cold feels to its kin.",
-        "Devour 5 tundra or oil-stained wolves in the Borean Tundra.",
-        "Five wolves. The tundra is wide.",
-        "Cold kin, warm belly.$B$BTake this.",
-        objectives=[devour(5, "Borean wolf devoured", entries=[25675, 25791])], prev=a.id, sort=s,
-        choices=[(35877, "Worgskin Shoulders"), (37396, "Whalehunter Gloves"), (37030, "Blubber Grinder")],
-        story="Hagatha's white and oil-stained wolves of the tundra.")
+        story="Wren's sneezy spore-covered moths: Bramble sneezes while you eat five (the moth line).")
     d = book.quest(
         9105363, "Coldarra", 72, 70, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha's voice turns careful:$B$BOn Coldarra, in the west, the blue dragonflight gathers "
-        "its servants: wyrmkin and spellweavers, half dragon and all arrogance. Eat four, little horror. Your drake "
-        "has eaten blue whelps; now let it eat the ones who serve the blue.",
-        "Devour 4 Coldarra wyrmkin or spellweavers on Coldarra, Borean Tundra.",
+        "Hagatha's voice turns careful:$B$BOn Coldarra, in the west, the blue dragonflight gathers its servants: "
+        "wyrmkin and spellweavers, half dragon and all arrogance. Wear your drake, little horror, and kill four of them in "
+        "that shape. Your drake has eaten blue whelps; now let the ones who serve the blue see a drake they do not "
+        "serve.",
+        "As a Whelp (or what it grew into), slay 4 Coldarra wyrmkin or spellweavers on Coldarra, Borean Tundra.",
         "Four of the blue's servants. Coldarra is in the west.",
         "Arrogance, eaten. It tastes like everything else, in the end.$B$BTake this.",
-        objectives=[devour(4, "Coldarra dragonkin devoured", entries=[25728, 25722, 25717])], prev=c.id, sort=s,
-        xp=6,
+        objectives=[slay(4, "Coldarra dragonkin slain as a drake", entries=[25728, 25722, 25717],
+                         shapes=LINES["whelp"])], prev=b.id, sort=s, needs=LINES["whelp"], xp=6,
         choices=[(39023, "Wax-Coated Chestguard"), (39013, "Discoverer's Mitts"), (39113, "Jagged Troll Render")],
-        story="Hagatha sends the Devourer among the blue dragonflight's servants on Coldarra.")
+        story="The blue dragonflight's servants on Coldarra: slay four in your drake's own shape.")
     return d
 
 
 def grizzly_quests(book, lantern):
     s = Z_GRIZZLY
+    fire = campfire(book, "grizzly_fire", lantern, 6.0, 6.0, 233.45, [
+        "Sit, both of you. Listen. Can you hear the hills breathing? That is Ursoc.",
+        "The furbolgs say the great bear sleeps beneath these hills. He fought something terrible once, and won, and lay down.",
+        "He has been asleep so long that pines grew on him.",
+        "His children guard his den. They are not cruel. They are only keeping him safe while he dreams.",
+        "Now the plague has touched some of them, and they have forgotten what they guard.",
+        "When you meet them, little horror, eat them as the great bear would want. Quickly. Without anger.",
+        "And remember him. A thing that is remembered is never quite eaten."],
+        "Bramble is very quiet, then: \"I'll remember him. I'll remember all the bears.\"")
     a = book.quest(
         9105370, "Duskhowl", 72, 71, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, approving:$B$BThese hills are a wolf's country, little horror: duskhowl prowlers, "
-        "graymist hunters, packs that sing to each other across the valleys. Eat six. Let your wolf sing too.",
+        "Hagatha, approving:$B$BThese hills are a wolf's country, little horror: duskhowl prowlers, graymist hunters, "
+        "packs that sing to each other across the valleys. Eat six. Let your wolf sing too.",
         "Devour 6 wolves in the Grizzly Hills.",
         "Six wolves. Follow the singing.",
         "Can you hear it? Your wolf is singing.$B$BTake this.",
         objectives=[devour(6, "Grizzly Hills wolf devoured", entries=[27408, 26592])], sort=s,
         choices=[(39033, "Discarded Miner's Jerkin"), (38748, "Seal of the Slumbering Wolf"), (39017, "Belt of Keen Hearing")],
-        story="Hagatha's singing wolves of the Grizzly Hills.")
+        story="The lesson: the singing wolves of the Grizzly Hills.")
     b = book.quest(
         9105371, "Imperial Eagles", 73, 71, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, saluting:$B$BSnack, the eagles here are IMPERIAL. They act like they own the sky. Eat "
-        "five. Show them who owns the sky now. (It's you. Or Hagatha. Don't tell her I said you.)",
-        "Devour 5 Imperial Eagles in the Grizzly Hills.",
+        "Wren, saluting:$B$BSnack, the eagles here are IMPERIAL. They act like they own the sky. So be polite: salute "
+        "five of them, properly, before you eat them. Manners first. Show them who owns the sky now. (It's you. Or "
+        "Hagatha. Don't tell her I said you.)",
+        "Salute (/salute) 5 Imperial Eagles, then devour 5 Imperial Eagles in the Grizzly Hills.",
         "Five eagles, Snack. They still think they own the sky.",
         "The sky is yours! Shh.$B$BHere!",
-        objectives=[devour(5, "Imperial Eagle devoured", entries=[26369])], prev=a.id, sort=s,
+        objectives=[emote(5, "Imperial Eagle saluted", EMOTE_SALUTE, entries=[26369]),
+                    devour(5, "Imperial Eagle devoured", entries=[26369])], prev=a.id, sort=s,
         choices=[(39018, "Boots of Safe Travel"), (39021, "Ectoplasm Stained Wristguards"), (39015, "Crackpot Spaulders")],
-        story="Wren's imperial eagles that think they own the sky (the eagle line).")
+        story="Wren's imperial eagles that think they own the sky: salute them first, then eat five (the eagle line).")
     c = book.quest(
-        9105372, "Ice Serpents", 73, 71, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, cold and pleased:$B$BA snake that swallows enough storms grows wings. A snake that "
-        "swallows enough winter grows ice. The ice serpents of the troll ruins in the west coil around the old "
-        "stones. Eat four, little horror. Your wind serpent will learn the cold.",
-        "Devour 4 ice serpents in the Grizzly Hills.",
-        "Four ice serpents. They coil around the troll stones.",
-        "Ice and wind. Your serpent has both now.$B$BTake this.",
-        objectives=[devour(4, "Ice serpent devoured", entries=[26446, 29693])], prev=a.id, sort=s,
+        9105372, "The Sleeping Bear", 73, 71, lantern, lantern, "hagatha",
+        "Hagatha tells it, with respect:$B$BI have lit a fire beside the lantern. The bears of these hills have a tale, "
+        "and it should be told before you meet them. Bring your little friend. She will want to hear about the great "
+        "bear.",
+        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
+        "The fire is lit. The hills are breathing. Sit.",
+        "Quickly. Without anger. Remember him.$B$BTake this.",
+        objectives=[tale(fire, "The tale of the sleeping bear heard")], prev=a.id, sort=s, xp=4,
         choices=[(39019, "Iron-Shatter Leggings"), (39029, "Waistguard of Expedient Procurement"), (39109, "Branch of the Roaming Spirit")],
-        story="Hagatha's ice serpents of the troll ruins (the wind serpent line).")
-    d = book.quest(
-        9105373, "Fern Feeders", 73, 71, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, softly:$B$BSnack, the moths here eat ferns. Fern feeder moths! They're the gentlest "
-        "thing I've ever heard of. Eat five. Gently. Your moth will be gentle too. For about a minute.",
-        "Devour 5 Fern Feeder Moths in the Grizzly Hills.",
-        "Five gentle moths, Snack.",
-        "Gentle! For a minute. That's a lot, for you.$B$BHere!",
-        objectives=[devour(5, "Fern Feeder Moth devoured", entries=[27421])], prev=b.id, sort=s,
-        choices=[(39020, "Drakuru's Ghastly Helm"), (39025, "Shackles of Sanity"), (39110, "Staff of Righteous Vengeance")],
-        story="Wren's gentle fern-eating moths (the moth line).")
+        story="A campfire tale for the Devourer and Bramble: Ursoc, the great bear who sleeps beneath the hills.")
     e = book.quest(
         9105374, "Ursoc's Children", 74, 72, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, with respect:$B$BThe furbolgs say Ursoc, the great bear, sleeps beneath "
-        "these hills, and his children guard his den: ursus maulers, and the grizzlies the plague has touched. Eat "
-        "three, little horror. Not to insult him. To remember him.",
-        "Devour 3 bears of Ursoc's Den or infected grizzlies in the Grizzly Hills.",
+        "Hagatha, quiet:$B$BNow go and meet them: the ursus maulers by the den, and the grizzlies the plague has "
+        "touched. Go to the den quietly, little horror, without a fight on the way, so the great bear is not woken. "
+        "Then eat three, quickly and without anger. Not to insult him. To remember him.",
+        "Walk to Ursoc's Den without being in a fight, then devour 3 of Ursoc's bears in the Grizzly Hills.",
         "Three bears. Go carefully near the den.",
         "Remembered. Ursoc will not mind; bears understand hunger.$B$BTake this.",
-        objectives=[devour(3, "Grizzly Hills bear devoured", entries=[26644, 26706])], prev=c.id, sort=s, xp=6,
+        objectives=[visit("Came quietly to Ursoc's Den", 571, 4718.0, -3855.0, radius=35.0, quiet=True),
+                    devour(3, "Grizzly Hills bear devoured", entries=[26644, 26706])], prev=c.id, sort=s, xp=6,
         choices=[(39030, "Patchhide Pants"), (38002, "Honorborn Cloak"), (38171, "Battleworn Magnataur Crusher")],
-        story="Hagatha's tale of Ursoc's children, the bears of the den.")
+        story="After the tale, Ursoc's children: come quietly to the den, then eat three, without anger.")
     return e
 
 
 def sholazar_quests(book, lantern):
     s = Z_SHOLAZAR
     a = book.quest(
-        9105380, "Emperor Cobras", 75, 74, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha's voice, hissing a little:$B$BIn the basin the cobras are emperors, little horror, "
-        "and they know it. Every serpent that sheds long enough stands up one day; these ones are still deciding. "
-        "Eat six. Your viper will learn to rule.",
-        "Devour 6 Emperor Cobras in Sholazar Basin.",
-        "Six cobras. They rule the mangal.",
-        "Emperors, eaten. Your serpent wears a crown now.$B$BTake this.",
-        objectives=[devour(6, "Emperor Cobra devoured", entries=[28011])], sort=s,
-        choices=[(43891, "Jhaeqon's Tunic"), (42804, "Spiked Iceclimber's Boots"), (43915, "Pilot's Knife")],
-        story="Hagatha's emperor cobras (the viper line).")
-    b = book.quest(
         9105381, "Mangal Crocolisks", 75, 74, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, peering:$B$BSnack, the crocodiles in the mangal are GREEN and HUGE and they look like "
-        "logs. Like the ones in Loch Modan, remember? But bigger. Eat five. Your komodo will feel very at home.",
-        "Devour 5 Mangal Crocolisks in Sholazar Basin.",
-        "Five crocolisks, Snack. Count the logs.",
+        "Wren, peering:$B$BSnack, the crocodiles in the mangal are GREEN and HUGE and they look like logs. Like the "
+        "ones in Loch Modan, remember? But bigger. Eat six. Your komodo will feel very at home.",
+        "Devour 6 Mangal Crocolisks in Sholazar Basin.",
+        "Six crocolisks, Snack. Count the logs.",
         "Logs eaten! Your komodo says thank you.$B$BHere!",
-        objectives=[devour(5, "Mangal Crocolisk devoured", entries=[28002])], prev=a.id, sort=s,
+        objectives=[devour(6, "Mangal Crocolisk devoured", entries=[28002])], sort=s,
         choices=[(43906, "Cunning Leather Tunic"), (43894, "Gryphon Hide Moccasins"), (42861, "Jormungar Fang")],
-        story="Wren's log-like crocolisks of the mangal (the komodo line).")
-    c = book.quest(
+        story="The lesson, Wren's way: the log-like crocolisks of the mangal (the komodo line).")
+    b = book.quest(
         9105382, "Dreadsabers", 76, 74, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks:$B$BThe dreadsabers of the basin hunt the hunters; Nesingwary's men are afraid "
-        "of them, and they are not afraid of anything else. Eat five, little horror. Your saber has hunted in the "
+        "Hagatha speaks:$B$BThe dreadsabers of the basin hunt the hunters; Nesingwary's men are afraid of them, and "
+        "they are not afraid of anything else. Wear your saber, little horror, and hunt five of them in that shape. Your saber has hunted in the "
         "dark and in the moonlight; now let it hunt the ones who hunt.",
-        "Devour 5 dreadsabers in Sholazar Basin.",
-        "Five dreadsabers. They hunt the hunters; you hunt them.",
+        "As a Saber (or what it grew into), slay 5 dreadsabers in Sholazar Basin.",
+        "Five dreadsabers, as a saber. They hunt the hunters; you hunt them.",
         "Hunter of hunters. That is what you are.$B$BTake this.",
-        objectives=[devour(5, "Dreadsaber devoured", entries=[28001])], prev=a.id, sort=s,
+        objectives=[slay(5, "Dreadsaber slain as a saber", entries=[28001], shapes=LINES["saber"])],
+        prev=a.id, sort=s, needs=LINES["saber"],
         choices=[(43889, "Hulking Abomination Hide Cloak"), (42812, "The \"D\" Ring"), (42862, "Hyldnir Painbringer")],
-        story="Hagatha's dreadsabers that hunt the hunters (the saber line).")
-    d = book.quest(
-        9105383, "Hardknuckles", 76, 74, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, giggling:$B$BSnack, there are gorillas here called HARDKNUCKLES. That's the best name "
-        "anything has ever had. Eat four. Then I'm naming my spoon Hardknuckle.",
-        "Devour 4 hardknuckle gorillas in Sholazar Basin.",
-        "Four hardknuckles, Snack. My spoon is waiting for its name.",
-        "Spoon Hardknuckle! It's perfect.$B$BHere!",
-        objectives=[devour(4, "Hardknuckle devoured", entries=[28098, 28096])], prev=b.id, sort=s,
+        story="Hagatha's dreadsabers that hunt the hunters: hunt five as a saber (the saber line).")
+    c = book.quest(
+        9105383, "Spoon Hardknuckle", 76, 74, lantern, lantern, "wren",
+        "Wren, with her spoon held high:$B$BSnack, there are gorillas here called HARDKNUCKLES. That's the best name "
+        "anything has ever had. I'm naming my spoon Hardknuckle, and to make it official there has to be a contest. "
+        "When you say yes, I bang the spoon, and you eat four hardknuckles before I've banged it three hundred "
+        "times.$B$BReady? *BANG*",
+        "Devour 4 hardknuckle gorillas in Sholazar Basin before Wren bangs her spoon three hundred times (5 minutes).",
+        "Three hundred bangs! Out of time! I'll start again. *BANG*",
+        "FOUR! Spoon Hardknuckle is official! It's the best spoon in Northrend.$B$BHere!",
+        objectives=[devour(4, "Hardknuckle devoured", entries=[28098, 28096])], prev=a.id, sort=s, timed=300,
         choices=[(39036, "Hulking Horror Tunic"), (39035, "Glacier-walker's Mukluks"), (43890, "Interrogator's Flaming Knuckles")],
-        story="Wren names her spoon after the hardknuckle gorillas.")
+        story="Wren names her spoon after the hardknuckle gorillas: four of them before three hundred bangs (5 minutes).")
     e = book.quest(
-        9105384, "Primordial Drakes", 77, 75, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, and the flame burns very old:$B$BIn the Savage Thicket, in the east of the "
-        "basin, there are drakes from before anyone was keeping count. Primordial, the Oracles call them. Eat three, "
-        "little horror. Your drake has eaten the young and the wild and the broken; let it eat the first.",
-        "Devour 3 Primordial Drakes in the Savage Thicket, Sholazar Basin.",
-        "Three primordial drakes. They are in the east of the basin.",
+        9105385, "The First Dragons", 77, 75, lantern, lantern, "hagatha",
+        "Hagatha tells it, and the flame burns very old:$B$BIn the Savage Thicket, in the east of the basin, there are "
+        "drakes from before anyone was keeping count. Primordial, the Oracles call them. They smell of the beginning "
+        "of the world: green fire and old stone.$B$BTurn on your Sniff by the lantern and follow it east. Eat two, little horror. Your drake has eaten the young and the wild and the broken; let "
+        "it eat the first.",
+        "Follow the primordial scent with Sniff to the Savage Thicket, then devour 2 Primordial Drakes.",
+        "The first dragons still nest in the east. Follow the green fire.",
         "The first dragons, nearly. Your drake has eaten its whole history now.$B$BTake this, and go to the peaks.",
-        objectives=[devour(3, "Primordial Drake devoured", entries=[28378])], prev=c.id, sort=s, xp=6,
+        objectives=[trail("The primordial scent followed", "a Primordial Drake", 571,
+                          [(5445, 5010), (5640, 5010), (5850, 5025), (6045, 4905), (6240, 4905), (6420, 4800)],
+                          summon=28378),
+                    devour(2, "Primordial Drake devoured", entries=[28378])], prev=b.id, sort=s, xp=6,
         choices=[(43924, "Illskar's Greatcloak"), (42874, "Wooly Stompers"), (43929, "Vile's Uglystick")],
-        story="Hagatha's primordial drakes, the first dragons nearly (the whelp line).")
+        story="Sniff out the primordial drakes in the Savage Thicket, and eat two (the whelp line).")
     return e
 
 
 def stormpeaks_quests(book, lantern):
     s = Z_STORMPEAKS
+    snowdrift = book.beast("snowdrift", "Snowdrift", 29562, level=76, faction=FACTION_SHY, passive=True,
+                           scale=0.3, subname="Icemaw Cub")
+    fire = campfire(book, "stormpeaks_fire", lantern, 6.0, 6.0, 414.34, [
+        "Come in, come in. Both of you. Wren, stop poking the fire.",
+        "[Wren] I'm not poking it, I'm encouraging it.",
+        "This is the last lantern, little horror. I hung it at the top of the world on purpose.",
+        "[Wren] I wanted it in a bakery. I was outvoted.",
+        "When Wren found you, you were a shadow in a ritual circle with nothing inside it but hunger.",
+        "[Wren] You ate my sandwich. First thing you ever did. I was so proud.",
+        "Since then you have eaten wolves and whelps and storms, and you have spared what deserved sparing.",
+        "[Wren] And you patted a SPIDER.",
+        "You are not a shadow any more. You are a Devourer. Our Devourer. That is all a witch can hope to make.",
+        "[Wren] Come home for soup sometimes, Snack. Bring Bramble."],
+        "Bramble wipes her eyes on her sleeve. \"I'm not crying. The fire's smoky. Can we have the soup now?\"")
     a = book.quest(
         9105390, "Crystalweb", 77, 76, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, shivering:$B$BSnack, the spiders up there spin webs of CRYSTAL. Like frost on a "
-        "window, but with legs. Eat five. They'll crunch like ice.",
+        "Wren, shivering:$B$BSnack, the spiders up there spin webs of CRYSTAL. Like frost on a window, but with legs. "
+        "Eat five. They'll crunch like ice.",
         "Devour 5 crystalweb spiders in the Storm Peaks.",
         "Five crystal spiders, Snack. Crunch.",
         "Crunch! Like ice! I knew it.$B$BHere!",
         objectives=[devour(5, "Crystalweb spider devoured", entries=[29411, 29412])], sort=s,
         choices=[(43911, "Vile's Poker"), (42864, "Frozen Mood Ring"), (39130, "Corrupter's Shanker")],
-        story="Wren's crystal-webbed spiders of the peaks.")
+        story="The lesson, Wren's way: the crystal-webbed spiders of the peaks.")
     b = book.quest(
         9105391, "Jormungar", 79, 77, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha speaks, and the ground in the flame trembles:$B$BBelow the deepest mine there are "
-        "tunnels no pick ever cut. The deep borers made them, looking for the heart of the world. Here, the "
-        "jormungar dig through the ice the same way, as big as ships. Eat four, little horror. Your borer will "
-        "learn to dig through anything.",
-        "Devour 4 jormungar in the Storm Peaks.",
-        "Four jormungar. Listen for the ice breaking.",
+        "Hagatha speaks, and the ground in the flame trembles:$B$BBelow the deepest mine there are tunnels no pick "
+        "ever cut. The deep borers made them, looking for the heart of the world. Here, the jormungar dig through the "
+        "ice the same way, as big as ships, Wear your borer, little horror, and kill four of them in its shape. It "
+        "will learn to dig through anything.",
+        "As a Borer (or what it grew into), slay 4 jormungar in the Storm Peaks.",
+        "Four jormungar, as a borer. Listen for the ice breaking.",
         "As big as ships, and gone. Your borer will dig to the heart of the world.$B$BTake this.",
-        objectives=[devour(4, "Jormungar devoured", entries=[29605, 30291, 30422, 29390, 30148])], prev=a.id,
-        sort=s,
+        objectives=[slay(4, "Jormungar slain as a borer", entries=[29605, 30291, 30422, 29390, 30148],
+                         shapes=LINES["borer"])], prev=a.id, sort=s, needs=LINES["borer"],
         choices=[(43926, "Signet of Baron Sliver"), (43919, "Curved Assassin's Dagger"), (39036, "Hulking Horror Tunic")],
-        story="Hagatha's tale of the deep borers; the jormungar dig through ice (the borer line).")
-    c = book.quest(
-        9105392, "Icemaw", 79, 77, lantern, lantern, "wren",
-        LANTERN_OPEN + "Wren, impressed:$B$BSnack, the bears up there are ICEMAW bears and the vrykul RIDE them. "
-        "Into battle! On bears! Eat four. Then you can tell the vrykul you're scarier than their bears.",
-        "Devour 4 Icemaw bears in the Storm Peaks.",
-        "Four icemaws, Snack.",
-        "Scarier than bears! I'm putting that on a banner.$B$BHere!",
-        objectives=[devour(4, "Icemaw bear devoured", entries=[29562])], prev=a.id, sort=s,
-        choices=[(43906, "Cunning Leather Tunic"), (42848, "Razor-sharp Icicle"), (43894, "Gryphon Hide Moccasins")],
-        story="Wren's battle bears of the vrykul.")
+        story="Hagatha's tale of the deep borers: slay four as a borer (the borer line).")
     d = book.quest(
         9105393, "Stormpeak Wyrms", 80, 78, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha tells it, and thunder rolls through the flame:$B$BAt the top of the world the storm "
-        "has children: stormpeak wyrms and their hatchlings, dragons of lightning and snow. This is where your drake "
-        "has been going since the first whelp you swallowed, little horror. Eat four.",
-        "Devour 4 stormpeak wyrms or hatchlings in the Storm Peaks.",
-        "Four of the storm's children. Climb.",
+        "Hagatha tells it, and thunder rolls through the flame:$B$BAt the top of the world the storm has children: "
+        "stormpeak wyrms and their hatchlings, dragons of lightning and snow. Their spit freezes, their wings smash. "
+        "Let one strike you, little horror. This is where your drake has been going since the first whelp you "
+        "swallowed. Then eat four.",
+        "Let a stormpeak wyrm or hatchling strike you, then devour 4 of them in the Storm Peaks.",
+        "Four of the storm's children, and one blow. Climb.",
         "Do you hear it? That is the storm, and it is in you.$B$BTake this. You are nearly at the end of my "
-        "lanterns, little horror.",
-        objectives=[devour(4, "Stormpeak wyrm devoured", entries=[29753, 29755])], prev=b.id, sort=s, xp=6,
+        "lanterns, little horror. Come back to the fire when you are ready.",
+        objectives=[struck(1, "The storm's blow felt", entries=[29753, 29755]),
+                    devour(4, "Stormpeak wyrm devoured", entries=[29753, 29755])], prev=b.id, sort=s, xp=6,
         choices=[(43207, "Hardened Tongue Tunic"), (44397, "Handwraps of Preserved History"), (42859, "Thorim's Crusher")],
-        story="Hagatha's storm wyrms at the top of the world (the Storm Dragon line).")
+        story="Hagatha's storm wyrms at the top of the world: take a blow, then eat four (the Storm Dragon line).")
+    f = book.quest(
+        9105395, "The Last Lantern", 80, 78, lantern, lantern, "hagatha",
+        "Both sisters' voices at once, then Hagatha's alone:$B$BWe have lit a fire beside the last lantern, little "
+        "horror. Both of us are here, as much as we can be. Bring your little friend. This is the last tale, and it "
+        "is about you.",
+        "Sit at the Sisters' Campfire by the last lantern with Bramble, and hear the sisters' last tale to its end.",
+        "The fire is lit. We are waiting. Bring her.",
+        "That is all, little horror. That is the whole tale, so far.$B$B[Wren] SO FAR. There'll be more. Here, this "
+        "is from both of us.",
+        objectives=[tale(fire, "The sisters' last tale heard")], prev=d.id, sort=s, xp=7,
+        choices=[(44409, "Headguard of Retaliation"), (44405, "Exotic Leather Tunic"), (42859, "Thorim's Crusher")],
+        story="The end of the lanterns: Hagatha and Wren tell the Devourer and Bramble the tale of the Devourer itself.")
     book.quest(
         9105394, "The Storm Answers", 80, 80, lantern, lantern, "hagatha",
-        LANTERN_OPEN + "Hagatha, very quietly:$B$BYou wear the storm now, little horror. A storm dragon, grown from a "
-        "whelp in a marsh. I remember the whelp. Go and show the peaks what you became: wear your storm dragon and "
-        "slay ten of the dragons and dragonkin of these mountains. Let them see what a Devourer grows into.",
+        "Hagatha, very quietly:$B$BYou wear the storm now, little horror. A storm dragon, grown from a whelp in a "
+        "marsh. I remember the whelp. Go and show the peaks what you became: wear your storm dragon and slay ten of "
+        "the dragons and dragonkin of these mountains. Let them see what a Devourer grows into.",
         "As a Storm Dragon, slay 10 dragonkin in the Storm Peaks.",
         "Ten, little horror. In your storm.",
-        "They saw. The whole sky saw.$B$BI have nothing left to teach you. Take this, and come and sit with us in "
-        "the In-Between some evening. Wren will make soup. Do not eat Wren.",
+        "They saw. The whole sky saw.$B$BI have nothing left to teach you. Take this, and come and sit with us in the "
+        "In-Between some evening. Wren will make soup. Do not eat Wren.",
         objectives=[slay(10, "Dragonkin slain as a Storm Dragon", ctype=T_DRAGON, shapes=STORM_DRAGON)],
         prev=d.id, sort=s, needs=STORM_DRAGON, xp=7,
         choices=[(44409, "Headguard of Retaliation"), (44405, "Exotic Leather Tunic"), (43207, "Hardened Tongue Tunic")],
-        story="For a Devourer with the Storm Dragon: show the peaks what it became. Hagatha's last lantern quest.")
-    return d
+        story="For a Devourer with the Storm Dragon: show the peaks what it became.")
+    mercy(book, 9105392, "Snowdrift", 78, lantern, snowdrift,
+          [(6300, -975), (6300, -885), (6300, -825)],
+          "Wren, outraged:$B$BSnack, the vrykul took an icemaw cub to train as a war-bear, and it ran away, and now it's "
+          "hiding in the snow west of the lantern. It's tiny! It doesn't want to go to war! It smells of snow and fur "
+          "and absolutely not wanting to go to war.$B$BSniff it out and pat it. Then let it follow you somewhere the "
+          "vrykul won't look.",
+          "Snow and fur and no war, Snack.",
+          "It followed you right out of sight of the vrykul and then curled up in a snowdrift and went to sleep. No "
+          "war for that one. Snowdrift will remember you; bears remember whoever let them sleep.$B$BHere's a polar "
+          "cub to keep for now. It's never been to war either. It's only been to Winter Veil.",
+          (22781, "Polar Bear Collar", 1), s,
+          "Mercy: Sniff out Snowdrift, an icemaw cub that ran from the vrykul war-bear pens, and pat it. It comes "
+          "back grown (mounts idea 1). Reward: a polar bear cub companion.", prev=a.id)
+    return f
