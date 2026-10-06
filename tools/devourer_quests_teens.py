@@ -138,7 +138,7 @@ def lochmodan_quests(book, lantern):
     s = Z_LOCHMODAN
     bumble = book.beast("bumble", "Bumble", 1186, level=12, faction=FACTION_SHY, passive=True, scale=0.4,
                         subname="Black Bear Cub")
-    fire = campfire(book, "loch_fire", lantern, 6.0, 6.0, 325.6, [
+    fire = campfire(book, "loch_fire", lantern, 6.0, 6.0, 327.34, [
         "Sit, little horror. You too, Bramble. Closer to the fire; the loch wind bites.",
         "Before the dwarves built the dam, the loch was a valley, and a crocolisk lived in the stream at the bottom.",
         "It was not a big crocolisk. Then the dwarves closed the valley, and the stream became a lake.",
@@ -396,7 +396,7 @@ def barrens_quests(book, lantern):
         "With Bramble watching, devour 3 thunder lizards in the Barrens.",
         "Three lizards, and Bramble has to see.",
         "Your hair is standing up. Do you have hair? Something is standing up.$B$BTake this.",
-        objectives=[devour(3, "Thunder lizard devoured, Bramble watching", entries=[3240, 3239, 3238],
+        objectives=[devour(3, "Thunder lizard devoured, Bramble watching", entries=[3240, 3239],
                            companion="My hair's standing up! Is that supposed to happen? Do it again!")], prev=b.id, sort=s,
         choices=[(3741, "Stomping Boots"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
         story="Hagatha's tale of the lizards that swallowed a storm: eat three while Bramble watches the lightning.")

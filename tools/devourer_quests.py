@@ -469,7 +469,7 @@ def write_header(book):
         kw = obj.kw
         pts = list(kw["points"]) + [(0.0, 0.0)] * (6 - len(kw["points"]))
         out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {len(kw['points'])}, {{ "
-                   + ", ".join(f"{{ {x}f, {y}f }}" for x, y in pts)
+                   + ", ".join(f"{{ {float(x)}f, {float(y)}f }}" for x, y in pts)
                    + f" }}, {kw['radius']}f, {kw['summon']}, {cstr(kw['name'])} }},   // {quest.title}")
     if not trails:
         out.append('        { 0, 0, 0, 0, { }, 0.0f, 0, "" },')

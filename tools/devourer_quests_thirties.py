@@ -429,7 +429,7 @@ def feralas_quests(book, lantern):
 
 def hinterlands_quests(book, lantern, stv, alterac):
     s = Z_HINTERLANDS
-    fire = campfire(book, "hinterlands_fire", lantern, 6.0, 6.0, 112.0, [
+    fire = campfire(book, "hinterlands_fire", lantern, 6.0, 6.0, 111.39, [
         "Sit, both of you. Look up. The moon is big here. It always has been.",
         "An owl that eats enough moonlight stands up one night and becomes a moonkin.",
         "A moonkin that eats enough of the wild forgets the moon. It goes down on all fours again. An owlbeast.",
