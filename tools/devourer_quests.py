@@ -106,11 +106,13 @@ class Thing:
     (an objective), a lure that calls the creature a quest wants (summon = its entry, count of them), or a campfire
     that tells a tale (lines, by speaker; companion: Bramble must listen too; reaction: what she says after)."""
     def __init__(self, key, name, display, spawns, size=1.0, summon=0, count=1, lines=(), speaker="",
-                 companion=False, reaction="", follow=False):
+                 companion=False, reaction="", follow=False, shapes=(), shared=False):
         self.key, self.name, self.display, self.spawns, self.size, self.summon, self.count = (
             key, name, display, spawns, size, summon, count)
         self.lines, self.speaker, self.companion, self.reaction = list(lines), speaker, companion, reaction
         self.follow = follow                      # a lure whose creature stays with the Devourer until the quest ends
+        self.shapes = tuple(shapes)               # a lure that only answers to one of these shapes
+        self.shared = shared                      # several quests use it (no quest on the template; the script picks)
         self.entry = None
         self.quest = None
 
@@ -206,10 +208,10 @@ def among(text, map_id, x, y, entries, shapes, radius=15.0):
                among=tuple(entries))
 
 
-def wake(thing, text):
+def wake(thing, text, night=False, noflying=False):
     """Using a lure counts for the quest (the eggs that crack, the hatch): the lure's creatures come, and the
-    objective is done."""
-    return Obj("wake", 1, text, thing=thing)
+    objective is done. night / noflying: only then."""
+    return Obj("wake", 1, text, thing=thing, night=night, noflying=noflying)
 
 
 def gossip(beast, text):
@@ -353,19 +355,21 @@ def assign_credits(book):
                 nxt += 1
                 assert nxt <= book.block.credit_last + 1
             if obj.kind in ("touch", "tale", "carry"):
-                assert obj.kw["thing"].quest in (None, quest.id), "one quest per thing"
-                assert not obj.kw["thing"].summon, "a lure is not an objective"
-                obj.kw["thing"].quest = quest.id
+                thing = obj.kw["thing"]
+                assert thing.shared or thing.quest in (None, quest.id), "one quest per thing"
+                assert not thing.summon, "a lure is not an objective"
+                thing.quest = thing.quest or quest.id
             if obj.kind == "wake":
-                assert obj.kw["thing"].summon and obj.kw["thing"].quest in (None, quest.id), "one quest per lure"
-                obj.kw["thing"].quest = quest.id
+                thing = obj.kw["thing"]
+                assert thing.summon and (thing.shared or thing.quest in (None, quest.id)), "one quest per lure"
+                thing.quest = thing.quest or quest.id
             if obj.kind == "gossip":
                 beast = obj.kw["beast"]
                 assert beast.gossip, "a gossip objective needs a creature with gossip"
                 beast.gossip_quest, beast.gossip_credit = quest.id, obj.credit
         for thing in quest.lures:
-            assert thing.summon and thing.quest in (None, quest.id), "one quest per lure"
-            thing.quest = quest.id
+            assert thing.summon and (thing.shared or thing.quest in (None, quest.id)), "one quest per lure"
+            thing.quest = thing.quest or quest.id
 
 
 def check(book):
@@ -515,9 +519,12 @@ def write_header(books):
     wakes = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "wake"]
     lures = [(quest, thing, 0) for quest in quests_all for thing in quest.lures]
     lures += [(quest, obj.kw["thing"], obj.credit) for quest, obj in wakes]
+    wake_flags = {(quest.id, obj.kw["thing"].entry): (FLAG_NIGHT if obj.kw.get("night") else 0)
+                  | (FLAG_NOFLYING if obj.kw.get("noflying") else 0) for quest, obj in wakes}
     for quest, thing, credit in lures:
+        flags = (FLAG_FOLLOW if thing.follow else 0) | wake_flags.get((quest.id, thing.entry), 0)
         out.append(f"        {{ {thing.entry}, {quest.id}, {credit}, {thing.summon}, {thing.count},"
-                   f" {FLAG_FOLLOW if thing.follow else 0}, 0, nullptr, \"\", \"\", {{ 0, 0, 0, 0 }} }},"
+                   f" {flags}, 0, nullptr, \"\", \"\", {shapes4(thing.shapes)} }},"
                    f"   // {quest.title}: {thing.name}")
     if not touches and not lures and not tales:
         out.append('        { 0, 0, 0, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },')
@@ -665,7 +672,7 @@ def write_sql(book):
         if thing.lines:                          # a tale is told at any fire (mod-chromatica-extras), not at an object
             continue
         rows.append(f"({thing.entry}, 10, {thing.display}, {q(thing.name)}, '', '', '', {thing.size}, 0,"
-                    f" {thing.quest}, '', 'go_devourer_quest_object', 0)")
+                    f" {0 if thing.shared else thing.quest}, '', 'go_devourer_quest_object', 0)")
     o.append(",\n".join(rows) + ";")
     o += ["", "INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`,"
               " `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`,"
