@@ -56,6 +56,8 @@ namespace Devourer
     // The Primal Tallstrider (shape 45): its saddled looks carry one rider (the Rider's Seat, a vehicle aura).
     constexpr uint32 ShapeSaddledStrider = 45;   // the Derby code names it ShapePrimalTallstrider
     constexpr uint32 SpellRiderSeat = 9102296;
+    // The mounts thread's "Every Shape of the Line" achievement: credited once a Devourer owns every shape of one line.
+    constexpr uint32 SpellCreditWholeLine = 9308495;
     constexpr uint32 ShapeGrub = 49;                 // molts inside a silk cocoon (SpellSilkenCocoon)
     constexpr uint32 SpellSilkenCocoon = 9100946;    // the Moth's Silken Cocoon (start_kit sid(8, 6))
     constexpr uint32 SaddledFirst = 994208, SaddledLast = 994228;
@@ -307,6 +309,7 @@ namespace Devourer
         bool CanDevour(Player* player, Creature* corpse, std::string& why) const;
         void Devour(Player* player, Creature* corpse);
         bool Unlock(Player* player, uint32 shapeId, uint32 display, bool shiftNow, bool quiet = false);
+        void CheckWholeLine(Player* player);    // every shape of one line owned -> achievement credit
         void UnlockAll(Player* player);          // GM: every shape and every colouring
 
         // --- specs -------------------------------------------------------------------------------------

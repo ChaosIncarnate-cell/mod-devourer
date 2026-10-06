@@ -512,6 +512,7 @@ namespace Devourer
         {
             SaveShape(player, shapeId, owned);
             GrantFreeSkins(shapeId, owned);
+            CheckWholeLine(player);
         }
         if (display && display != shape->Display && owned.Skins.insert(display).second)
         {
@@ -533,6 +534,43 @@ namespace Devourer
             player->CastSpell(player, shape->FormSpell, true);
         }
         return true;
+    }
+
+    // A line is a first form (no evolution leads into it) and every form that grows out of it. Owning all of one
+    // line's forms credits the mounts thread's achievement "Every Shape of the Line" (the achievement system keeps
+    // it once; a repeat credit does nothing).
+    void Mgr::CheckWholeLine(Player* player)
+    {
+        State& state = Get(player);
+        std::set<uint32> grown;
+        for (Evolution const& evo : _evolutions)
+            grown.insert(evo.To);
+        for (auto const& entry : _shapes)
+        {
+            uint32 const rootId = entry.first;
+            if (grown.count(rootId) || !state.Shapes.count(rootId))
+                continue;
+            std::set<uint32> line{rootId};
+            std::vector<uint32> open{rootId};
+            while (!open.empty())
+            {
+                uint32 const from = open.back();
+                open.pop_back();
+                for (Evolution const& evo : _evolutions)
+                    if (evo.From == from && line.insert(evo.To).second)
+                        open.push_back(evo.To);
+            }
+            if (line.size() < 2)
+                continue;
+            bool all = true;
+            for (uint32 id : line)
+                all = all && state.Shapes.count(id);
+            if (all)
+            {
+                player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, SpellCreditWholeLine);
+                return;
+            }
+        }
     }
 
     // --- shapes -------------------------------------------------------------------------------------------
