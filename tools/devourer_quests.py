@@ -106,10 +106,11 @@ class Thing:
     (an objective), a lure that calls the creature a quest wants (summon = its entry, count of them), or a campfire
     that tells a tale (lines, by speaker; companion: Bramble must listen too; reaction: what she says after)."""
     def __init__(self, key, name, display, spawns, size=1.0, summon=0, count=1, lines=(), speaker="",
-                 companion=False, reaction=""):
+                 companion=False, reaction="", follow=False):
         self.key, self.name, self.display, self.spawns, self.size, self.summon, self.count = (
             key, name, display, spawns, size, summon, count)
         self.lines, self.speaker, self.companion, self.reaction = list(lines), speaker, companion, reaction
+        self.follow = follow                      # a lure whose creature stays with the Devourer until the quest ends
         self.entry = None
         self.quest = None
 
@@ -121,6 +122,7 @@ class Beast:
         self.key, self.name, self.clone_of, self.display, self.scale = key, name, clone_of, display, scale
         self.level, self.faction, self.subname, self.passive = level, faction, subname, passive
         self.spawns, self.npcflag, self.gossip, self.sound = list(spawns), npcflag, list(gossip), sound
+        self.gossip_quest, self.gossip_credit = 0, 0   # set by the gossip objective that uses it
         self.entry = None
 
 
@@ -135,8 +137,12 @@ def kill(entry, count, text):
     return Obj("kill", count, text, entry=entry)
 
 
-FLAG_COMPANION, FLAG_FLEE, FLAG_FAIL, FLAG_FOLLOW = 1, 2, 4, 8
-VISIT_QUIET = 1
+FLAG_COMPANION, FLAG_FLEE, FLAG_FAIL, FLAG_FOLLOW, FLAG_NIGHT, FLAG_NOFLYING, FLAG_SNIFF, FLAG_NOSNIFF = (
+    1, 2, 4, 8, 16, 32, 64, 128)
+VISIT_QUIET, VISIT_NIGHT, VISIT_DAWN, VISIT_WALKING, VISIT_NOFLYING, VISIT_SNIFF, VISIT_NOSNIFF, VISIT_STILL = (
+    1, 2, 4, 8, 16, 32, 64, 128)
+CARRY_FAIL_LOST = 1
+EVENT_LOOT = 6
 
 
 def devour(count, text, entries=(), family=0, ctype=0, elite=False, any_meal=False, shapes=(), companion=None):
@@ -180,9 +186,17 @@ def ability(count, text, spell, entries=(), family=0, ctype=0, shapes=()):
                elite=False, shapes=tuple(shapes))
 
 
-def visit(text, map_id, x, y, radius=25.0, shapes=(), quiet=False):
-    """Be at a place (maybe in a certain shape; quiet: without being in a fight, i.e. walked in unnoticed)."""
-    return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=quiet)
+def visit(text, map_id, x, y, radius=25.0, shapes=(), quiet=False, night=False, dawn=False, walking=False,
+          noflying=False, sniff=None, stay=0, still=False, achievement=0):
+    """Be at a place (maybe in a certain shape; quiet: without being in a fight, i.e. walked in unnoticed; night /
+    dawn: at that time of day; walking: not running, not mounted; noflying: not on a flying mount; sniff True/False:
+    with Sniff on / off; stay: for that many seconds (still: without moving); achievement: a criteria asset given)."""
+    flags = ((VISIT_QUIET if quiet else 0) | (VISIT_NIGHT if night else 0) | (VISIT_DAWN if dawn else 0)
+             | (VISIT_WALKING if walking else 0) | (VISIT_NOFLYING if noflying else 0)
+             | (VISIT_SNIFF if sniff is True else 0) | (VISIT_NOSNIFF if sniff is False else 0)
+             | (VISIT_STILL if still else 0))
+    return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=quiet, flags=flags,
+               stay=stay, achievement=achievement)
 
 
 def among(text, map_id, x, y, entries, shapes, radius=15.0):
@@ -190,6 +204,17 @@ def among(text, map_id, x, y, entries, shapes, radius=15.0):
     the shape there, the pack's creatures (entries) take it for one of their own and do not attack."""
     return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=True,
                among=tuple(entries))
+
+
+def wake(thing, text):
+    """Using a lure counts for the quest (the eggs that crack, the hatch): the lure's creatures come, and the
+    objective is done."""
+    return Obj("wake", 1, text, thing=thing)
+
+
+def gossip(beast, text):
+    """The right answer to one of the quests' own creatures (its gossip) counts."""
+    return Obj("gossip", 1, text, beast=beast)
 
 
 def tale(thing, text):
@@ -203,8 +228,29 @@ def trail(text, name, map_id, points, summon=0, radius=20.0):
     return Obj("trail", 1, text, name=name, map=map_id, points=list(points), summon=summon, radius=radius)
 
 
-def touch(thing, count, text):
-    return Obj("touch", count, text, thing=thing)
+def touch(thing, count, text, shapes=(), night=False, noflying=False, sniff=None):
+    """Use an object (count of them, if it has several spawns); in a shape, at night, on foot, with Sniff on/off."""
+    flags = ((FLAG_NIGHT if night else 0) | (FLAG_NOFLYING if noflying else 0) | (FLAG_SNIFF if sniff is True else 0)
+             | (FLAG_NOSNIFF if sniff is False else 0))
+    return Obj("touch", count, text, thing=thing, shapes=tuple(shapes), flags=flags)
+
+
+def carry(thing, text, map_id, x, y, radius=12.0, seconds=0, dips=(), dip_radius=8.0, slow=0, achievement=0,
+          fail_lost=False, picked="You pick it up. It does not want to be carried.", warning="It is fading.",
+          refreshed="It brightens again.", lost="It is gone dark.", delivered="Delivered."):
+    """Pick something up at an object (thing) and carry it to a place. seconds: it is lost after that long unless
+    refreshed at a dip (dips: points); slow: run speed lost while carrying (%); achievement: a criteria asset given
+    when it arrives without ever being lost; fail_lost: the quest fails when it is lost."""
+    assert len(dips) <= 4
+    return Obj("carry", 1, text, thing=thing, map=map_id, x=x, y=y, radius=radius, seconds=seconds, dips=list(dips),
+               dip_radius=dip_radius, slow=slow, achievement=achievement, fail_lost=fail_lost, picked=picked,
+               warning=warning, refreshed=refreshed, lost=lost, delivered=delivered)
+
+
+def fish(count, text, near=0, line=""):
+    """A catch from a fishing bobber while the creature (entry; 0: anywhere) is within 25 yards; it emotes line."""
+    return Obj("fish", count, text, entries=(near,) if near else (), family=0, ctype=0, elite=False, shapes=(),
+               any_meal=not near, line=line)
 
 
 def item(entry, count, name):
@@ -301,14 +347,22 @@ def assign_credits(book):
     nxt = book.block.credit_first
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
-            if obj.kind in ("devour", "slay", "visit", "touch", "emote", "ability", "trail", "struck", "tale"):
+            if obj.kind in ("devour", "slay", "visit", "touch", "emote", "ability", "trail", "struck", "tale", "carry",
+                            "fish", "gossip", "wake"):
                 obj.credit = nxt
                 nxt += 1
                 assert nxt <= book.block.credit_last + 1
-            if obj.kind in ("touch", "tale"):
+            if obj.kind in ("touch", "tale", "carry"):
                 assert obj.kw["thing"].quest in (None, quest.id), "one quest per thing"
                 assert not obj.kw["thing"].summon, "a lure is not an objective"
                 obj.kw["thing"].quest = quest.id
+            if obj.kind == "wake":
+                assert obj.kw["thing"].summon and obj.kw["thing"].quest in (None, quest.id), "one quest per lure"
+                obj.kw["thing"].quest = quest.id
+            if obj.kind == "gossip":
+                beast = obj.kw["beast"]
+                assert beast.gossip, "a gossip objective needs a creature with gossip"
+                beast.gossip_quest, beast.gossip_credit = quest.id, obj.credit
         for thing in quest.lures:
             assert thing.summon and thing.quest in (None, quest.id), "one quest per lure"
             thing.quest = quest.id
@@ -341,14 +395,14 @@ def credit_rules(book):
     rules = []
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
-            if obj.kind not in ("devour", "slay", "emote", "ability", "struck", "spare"):
+            if obj.kind not in ("devour", "slay", "emote", "ability", "struck", "spare", "fish"):
                 continue
             event = {"devour": "EventMeal", "slay": "EventKill", "emote": "EventEmote", "ability": "EventSpell",
-                     "struck": "EventStruck", "spare": "EventKill"}[obj.kind]
+                     "struck": "EventStruck", "spare": "EventKill", "fish": "EventLoot"}[obj.kind]
             detail = obj.kw.get("emote", 0) or obj.kw.get("spell", 0)
             flags = ((FLAG_COMPANION if obj.kw.get("companion") else 0) | (FLAG_FLEE if obj.kw.get("flee") else 0)
                      | (FLAG_FAIL if obj.kind == "spare" else 0) | (FLAG_FOLLOW if obj.kw.get("follow") else 0))
-            line = obj.kw.get("companion") or ""
+            line = obj.kw.get("companion") or obj.kw.get("line") or ""
             shapes = list(obj.kw.get("shapes", ()))[:4]
             shapes += [0] * (4 - len(shapes))
             filters = []
@@ -385,10 +439,13 @@ def write_header(books):
         "",
         "namespace Devourer::Quests",
         "{",
-        "    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3, EventSpell = 4, EventStruck = 5 };",
+        "    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3, EventSpell = 4, EventStruck = 5, EventLoot = 6 };",
         "    enum Filter : uint8_t { FilterEntry = 1, FilterFamily = 2, FilterType = 3, FilterElite = 4, FilterAny = 5 };",
-        "    enum Flag : uint8_t { FlagCompanion = 1, FlagFlee = 2, FlagFail = 4, FlagFollow = 8 };",
-        "    enum VisitFlag : uint8_t { VisitQuiet = 1 };",
+        "    enum Flag : uint8_t { FlagCompanion = 1, FlagFlee = 2, FlagFail = 4, FlagFollow = 8, FlagNight = 16, FlagNoFlying = 32,"
+        " FlagSniff = 64, FlagNoSniff = 128 };",
+        "    enum VisitFlag : uint8_t { VisitQuiet = 1, VisitNight = 2, VisitDawn = 4, VisitWalking = 8, VisitNoFlying = 16,"
+        " VisitSniff = 32, VisitNoSniff = 64, VisitStill = 128 };",
+        "    enum CarryFlag : uint8_t { CarryFailLost = 1 };",
         "",
         "    // An event (a meal, a kill, an emote at a creature, an ability on it) that fits gives the credit of one",
         "    // quest objective, while the quest is open. Detail: the text emote (TEXT_EMOTE_*) or the spell, 0 for meals",
@@ -405,9 +462,11 @@ def write_header(books):
     out += [
         "    };",
         "",
-        "    // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight).",
+        "    // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight;",
+        "    // the other flags: at night / at dawn / walking / not flying / with Sniff on or off / standing still), for",
+        "    // Seconds if any; Achievement: a criteria asset (ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET) given with it.",
         "    struct VisitRule { uint32_t Quest; uint32_t Credit; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4];"
-        " uint8_t Flags; };",
+        " uint8_t Flags; uint16_t Seconds; uint32_t Achievement; };",
         "    constexpr VisitRule VisitRules[] =",
         "    {",
     ]
@@ -416,18 +475,21 @@ def write_header(books):
         kw = obj.kw
         shapes = list(kw.get("shapes", ()))[:4]
         shapes += [0] * (4 - len(shapes))
-        out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {kw['x']}f, {kw['y']}f, {kw['radius']}f,"
-                   f" {{ {', '.join(map(str, shapes))} }}, {VISIT_QUIET if kw.get('quiet') else 0} }},"
+        flags = kw.get("flags", VISIT_QUIET if kw.get("quiet") else 0)
+        out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {float(kw['x'])}f, {float(kw['y'])}f, {float(kw['radius'])}f,"
+                   f" {{ {', '.join(map(str, shapes))} }}, {flags}, {kw.get('stay', 0)}, {kw.get('achievement', 0)} }},"
                    f"   // {quest.title}: {obj.text}")
     if not visits:
-        out.append("        { 0, 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, 0 },")
+        out.append("        { 0, 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, 0, 0, 0 },")
     out += [
         "    };",
         "",
         "    // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Count x Summon,",
         "    // a campfire tells Lines (by Speaker) and counts at the end (FlagCompanion: Bramble listens; Reaction).",
+        "    // Flags on a touch: FlagNight / FlagNoFlying / FlagSniff / FlagNoSniff; on a lure: FlagFollow (it stays).",
         "    struct UseRule { uint32_t Object; uint32_t Quest; uint32_t Credit; uint32_t Summon; uint32_t Count;"
-        " uint8_t Flags; uint8_t LineCount; char const* const* Lines; char const* Speaker; char const* Reaction; };",
+        " uint8_t Flags; uint8_t LineCount; char const* const* Lines; char const* Speaker; char const* Reaction;"
+        " uint32_t Shapes[4]; };",
         "@@TALE_LINES@@",
         "    constexpr UseRule UseRules[] =",
         "    {",
@@ -439,20 +501,26 @@ def write_header(books):
         thing = obj.kw["thing"]
         lines_decl.append(f"    constexpr char const* TaleLines{thing.entry}[] = {{ "
                           + ", ".join(cstr(line) for line in thing.lines) + " };")
+    def shapes4(seq):
+        lst = list(seq)[:4]
+        return "{ " + ", ".join(map(str, lst + [0] * (4 - len(lst)))) + " }"
     for quest, obj in touches:
-        out.append(f"        {{ {obj.kw['thing'].entry}, {quest.id}, {obj.credit}, 0, 0, 0, 0, nullptr, \"\", \"\" }},"
-                   f"   // {quest.title}: {obj.text}")
+        out.append(f"        {{ {obj.kw['thing'].entry}, {quest.id}, {obj.credit}, 0, 0, {obj.kw.get('flags', 0)}, 0, nullptr,"
+                   f" \"\", \"\", {shapes4(obj.kw.get('shapes', ()))} }},   // {quest.title}: {obj.text}")
     for quest, obj in tales:
         thing = obj.kw["thing"]
         out.append(f"        {{ 0, {quest.id}, {obj.credit}, 0, 0, {FLAG_COMPANION if thing.companion else 0},"
-                   f" {len(thing.lines)}, TaleLines{thing.entry}, {cstr(thing.speaker)}, {cstr(thing.reaction)} }},"
-                   f"   // {quest.title}: {obj.text}")
-    lures = [(quest, thing) for quest in quests_all for thing in quest.lures]
-    for quest, thing in lures:
-        out.append(f"        {{ {thing.entry}, {quest.id}, 0, {thing.summon}, {thing.count}, 0, 0, nullptr, \"\", \"\" }},"
+                   f" {len(thing.lines)}, TaleLines{thing.entry}, {cstr(thing.speaker)}, {cstr(thing.reaction)},"
+                   f" {{ 0, 0, 0, 0 }} }},   // {quest.title}: {obj.text}")
+    wakes = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "wake"]
+    lures = [(quest, thing, 0) for quest in quests_all for thing in quest.lures]
+    lures += [(quest, obj.kw["thing"], obj.credit) for quest, obj in wakes]
+    for quest, thing, credit in lures:
+        out.append(f"        {{ {thing.entry}, {quest.id}, {credit}, {thing.summon}, {thing.count},"
+                   f" {FLAG_FOLLOW if thing.follow else 0}, 0, nullptr, \"\", \"\", {{ 0, 0, 0, 0 }} }},"
                    f"   // {quest.title}: {thing.name}")
     if not touches and not lures and not tales:
-        out.append('        { 0, 0, 0, 0, 0, 0, 0, nullptr, "", "" },')
+        out.append('        { 0, 0, 0, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },')
     out += [
         "    };",
         "",
@@ -492,6 +560,67 @@ def write_header(books):
                    + f" }}, {kw['radius']}f, {kw['summon']}, {cstr(kw['name'])} }},   // {quest.title}")
     if not trails:
         out.append('        { 0, 0, 0, 0, { }, 0.0f, 0, "" },')
+    out += [
+        "    };",
+        "",
+        "    // Carrying something: picked up at Pick (gameobject entry), delivered within Radius of X, Y on Map. With Seconds",
+        "    // it is lost after that long, unless the Devourer passes one of the Refresh points (within RefreshRadius);",
+        "    // Slow: run speed lost while carrying (%); Achievement: a criteria asset given when it arrives never lost.",
+        "    struct CarryRule { uint32_t Quest; uint32_t Credit; uint32_t Pick; uint32_t Map; float X, Y, Radius;"
+        " uint16_t Seconds; uint8_t RefreshCount; TrackPoint Refresh[4]; float RefreshRadius; uint8_t Slow;"
+        " uint32_t Achievement; uint8_t Flags; char const* PickedUp; char const* Warning; char const* Refreshed;"
+        " char const* Lost; char const* Delivered; };",
+        "    constexpr CarryRule CarryRules[] =",
+        "    {",
+    ]
+    carries = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "carry"]
+    for quest, obj in carries:
+        kw = obj.kw
+        dips = list(kw["dips"]) + [(0.0, 0.0)] * (4 - len(kw["dips"]))
+        out.append(f"        {{ {quest.id}, {obj.credit}, {kw['thing'].entry}, {kw['map']}, {float(kw['x'])}f, {float(kw['y'])}f,"
+                   f" {float(kw['radius'])}f, {kw['seconds']}, {len(kw['dips'])}, {{ "
+                   + ", ".join(f"{{ {float(x)}f, {float(y)}f }}" for x, y in dips)
+                   + f" }}, {float(kw['dip_radius'])}f, {kw['slow']}, {kw['achievement']},"
+                   f" {CARRY_FAIL_LOST if kw['fail_lost'] else 0}, {cstr(kw['picked'])}, {cstr(kw['warning'])},"
+                   f" {cstr(kw['refreshed'])}, {cstr(kw['lost'])}, {cstr(kw['delivered'])} }},   // {quest.title}: {obj.text}")
+    if not carries:
+        out.append('        { 0, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0, 0, { }, 0.0f, 0, 0, 0, "", "", "", "", "" },')
+    out += [
+        "    };",
+        "",
+        "    // A letter after a quest: server mail from Wren, Delay seconds later.",
+        "    struct MailRule { uint32_t Quest; char const* Subject; char const* Body; uint32_t Delay; };",
+        "    constexpr MailRule MailRules[] =",
+        "    {",
+    ]
+    mails = [quest for quest in quests_all if quest.mail]
+    for quest in mails:
+        subject, body, delay = quest.mail
+        out.append(f"        {{ {quest.id}, {cstr(subject)}, {cstr(body)}, {delay} }},   // {quest.title}")
+    if not mails:
+        out.append('        { 0, "", "", 0 },')
+    out += [
+        "    };",
+        "",
+        "    // One of the quests' own creatures that talks (npc_devourer_quest_beast): it says Text, offers Options; the",
+        "    // right one gives Credit (while Quest is open; Quest 0: always), a wrong one casts WrongSpell on the Devourer.",
+        "    struct GossipOption { char const* Label; char const* Reply; bool Right; };",
+        "    struct GossipRule { uint32_t Entry; uint32_t Quest; uint32_t Credit; char const* Text; uint8_t OptionCount;"
+        " GossipOption Options[4]; uint32_t WrongSpell; };",
+        "    constexpr GossipRule GossipRules[] =",
+        "    {",
+    ]
+    talkers = [beast for book in books for beast in book.beasts if beast.gossip]
+    for beast in talkers:
+        text, options, wrong = beast.gossip
+        assert 1 <= len(options) <= 4, beast.name
+        opts = list(options) + [("", "", False)] * (4 - len(options))
+        out.append(f"        {{ {beast.entry}, {getattr(beast, 'gossip_quest', 0)}, {getattr(beast, 'gossip_credit', 0)},"
+                   f" {cstr(text)}, {len(options)}, {{ "
+                   + ", ".join(f"{{ {cstr(label)}, {cstr(reply)}, {'true' if right else 'false'} }}" for label, reply, right in opts)
+                   + f" }}, {wrong} }},   // {beast.name}")
+    if not talkers:
+        out.append('        { 0, 0, 0, "", 0, { }, 0 },')
     out += ["    };", "}", "", "#endif", ""]
     text = "\n".join(out).replace("@@TALE_LINES@@", "\n".join(lines_decl))
     with open(HDR_OUT, "w", encoding="utf-8", newline="\n") as f:

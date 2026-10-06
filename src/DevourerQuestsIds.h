@@ -6,10 +6,11 @@
 
 namespace Devourer::Quests
 {
-    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3, EventSpell = 4, EventStruck = 5 };
+    enum Event : uint8_t { EventMeal = 1, EventKill = 2, EventEmote = 3, EventSpell = 4, EventStruck = 5, EventLoot = 6 };
     enum Filter : uint8_t { FilterEntry = 1, FilterFamily = 2, FilterType = 3, FilterElite = 4, FilterAny = 5 };
-    enum Flag : uint8_t { FlagCompanion = 1, FlagFlee = 2, FlagFail = 4, FlagFollow = 8 };
-    enum VisitFlag : uint8_t { VisitQuiet = 1 };
+    enum Flag : uint8_t { FlagCompanion = 1, FlagFlee = 2, FlagFail = 4, FlagFollow = 8, FlagNight = 16, FlagNoFlying = 32, FlagSniff = 64, FlagNoSniff = 128 };
+    enum VisitFlag : uint8_t { VisitQuiet = 1, VisitNight = 2, VisitDawn = 4, VisitWalking = 8, VisitNoFlying = 16, VisitSniff = 32, VisitNoSniff = 64, VisitStill = 128 };
+    enum CarryFlag : uint8_t { CarryFailLost = 1 };
 
     // An event (a meal, a kill, an emote at a creature, an ability on it) that fits gives the credit of one
     // quest objective, while the quest is open. Detail: the text emote (TEXT_EMOTE_*) or the spell, 0 for meals
@@ -430,38 +431,41 @@ namespace Devourer::Quests
         { 9105394, 9105635, EventKill, FilterType, 2, 0, 0, { 37, 0, 0, 0 }, "" },   // The Storm Answers: Dragonkin slain as a Storm Dragon
     };
 
-    // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight).
-    struct VisitRule { uint32_t Quest; uint32_t Credit; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4]; uint8_t Flags; };
+    // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight;
+    // the other flags: at night / at dawn / walking / not flying / with Sniff on or off / standing still), for
+    // Seconds if any; Achievement: a criteria asset (ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET) given with it.
+    struct VisitRule { uint32_t Quest; uint32_t Credit; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4]; uint8_t Flags; uint16_t Seconds; uint32_t Achievement; };
     constexpr VisitRule VisitRules[] =
     {
-        { 9105021, 9105405, 0, -5816.0f, -1525.0f, 15.0f, { 6, 20, 0, 0 }, 1 },   // One of the Rockjaw: Walked among the Rockjaw
-        { 9105031, 9105410, 1, 9397.0f, 859.0f, 15.0f, { 7, 19, 0, 0 }, 1 },   // Among the Stalkers: Lay down among the stalkers
-        { 9105032, 9105412, 1, 10110.0f, 1170.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // What the Owl Swallowed: The cave the owl saw
-        { 9105101, 9105445, 0, -9686.0f, 930.0f, 25.0f, { 5, 17, 0, 0 }, 1 },   // Running with the Coyotes: Ran with the coyotes
-        { 9105121, 9105458, 1, 6297.0f, 95.0f, 20.0f, { 38, 39, 40, 0 }, 1 },   // A Moonkin Among Moonkin: Stood among the young moonkin
-        { 9105132, 9105465, 530, -1220.0f, -11810.0f, 30.0f, { 0, 0, 0, 0 }, 0 },   // Where the World Is Thin: Stood where the world is thin
-        { 9105133, 9105468, 530, -1350.0f, -12350.0f, 40.0f, { 0, 0, 0, 0 }, 0 },   // Wyrmscar: The dragon's bones
-        { 9105152, 9105484, 0, -574.0f, 1549.0f, 25.0f, { 5, 17, 0, 0 }, 1 },   // Behind the Pack: Ran behind the bloodsnouts
-        { 9105162, 9105489, 530, 7478.0f, -6406.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // What the Word Means: Walked into the Sanctum of the Moon
-        { 9105181, 9105499, 0, -3500.0f, -3100.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // A Whelp Among Whelps: Sat among the lost whelps
-        { 9105193, 9105507, 1, 7197.0f, -732.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // The Voidcallers of Althalaxx: Walked into the Tower of Althalaxx
-        { 9105203, 9105512, 0, -283.0f, -1102.0f, 25.0f, { 31, 32, 0, 0 }, 1 },   // Sunning with the Snapjaws: Sunned with the snapjaws
-        { 9105221, 9105522, 1, -5470.0f, -2900.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // Cloud Serpents: Windbreak Canyon, where it nested
-        { 9105261, 9105555, 1, -10100.0f, -4200.0f, 60.0f, { 0, 0, 0, 0 }, 0 },   // Glasshide: Land's End Beach, which it ate
-        { 9105266, 9105561, 1, -7048.0f, -2818.0f, 20.0f, { 1, 0, 0, 0 }, 1 },   // One of the Sand People: Walked among the Sandfury as a sethrak
-        { 9105272, 9105564, 1, -5640.0f, 1590.0f, 25.0f, { 27, 26, 0, 0 }, 1 },   // Frayfeather: Preened with the frayfeathers
-        { 9105302, 9105582, 1, 7720.0f, -4336.0f, 25.0f, { 7, 19, 0, 0 }, 1 },   // Moonlight Cats: Walked among the frostsabers
-        { 9105311, 9105589, 0, -7759.0f, -2958.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // Black Broodlings: Walked among the black brood
-        { 9105313, 9105592, 0, -7759.0f, -2958.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // Drakes of the Steppes: The Terror Wing Path, where they nest
-        { 9105322, 9105596, 530, -2794.0f, 4495.0f, 25.0f, { 13, 24, 0, 0 }, 1 },   // Blinking: Blinked among the warp hunters
-        { 9105343, 9105605, 530, 3529.0f, 3100.0f, 40.0f, { 0, 0, 0, 0 }, 1 },   // Walk In Like You Belong: Walked into the dome
-        { 9105352, 9105612, 571, 953.0f, -3678.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // A Sibling in the Clutch: Lay in the clutch
-        { 9105374, 9105622, 571, 4718.0f, -3855.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // Ursoc's Children: Came quietly to Ursoc's Den
+        { 9105021, 9105405, 0, -5816.0f, -1525.0f, 15.0f, { 6, 20, 0, 0 }, 1, 0, 0 },   // One of the Rockjaw: Walked among the Rockjaw
+        { 9105031, 9105410, 1, 9397.0f, 859.0f, 15.0f, { 7, 19, 0, 0 }, 1, 0, 0 },   // Among the Stalkers: Lay down among the stalkers
+        { 9105032, 9105412, 1, 10110.0f, 1170.0f, 45.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // What the Owl Swallowed: The cave the owl saw
+        { 9105101, 9105445, 0, -9686.0f, 930.0f, 25.0f, { 5, 17, 0, 0 }, 1, 0, 0 },   // Running with the Coyotes: Ran with the coyotes
+        { 9105121, 9105458, 1, 6297.0f, 95.0f, 20.0f, { 38, 39, 40, 0 }, 1, 0, 0 },   // A Moonkin Among Moonkin: Stood among the young moonkin
+        { 9105132, 9105465, 530, -1220.0f, -11810.0f, 30.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Where the World Is Thin: Stood where the world is thin
+        { 9105133, 9105468, 530, -1350.0f, -12350.0f, 40.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Wyrmscar: The dragon's bones
+        { 9105152, 9105484, 0, -574.0f, 1549.0f, 25.0f, { 5, 17, 0, 0 }, 1, 0, 0 },   // Behind the Pack: Ran behind the bloodsnouts
+        { 9105162, 9105489, 530, 7478.0f, -6406.0f, 35.0f, { 0, 0, 0, 0 }, 1, 0, 0 },   // What the Word Means: Walked into the Sanctum of the Moon
+        { 9105181, 9105499, 0, -3500.0f, -3100.0f, 25.0f, { 35, 36, 37, 44 }, 1, 0, 0 },   // A Whelp Among Whelps: Sat among the lost whelps
+        { 9105193, 9105507, 1, 7197.0f, -732.0f, 35.0f, { 0, 0, 0, 0 }, 1, 0, 0 },   // The Voidcallers of Althalaxx: Walked into the Tower of Althalaxx
+        { 9105203, 9105512, 0, -283.0f, -1102.0f, 25.0f, { 31, 32, 0, 0 }, 1, 0, 0 },   // Sunning with the Snapjaws: Sunned with the snapjaws
+        { 9105221, 9105522, 1, -5470.0f, -2900.0f, 45.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Cloud Serpents: Windbreak Canyon, where it nested
+        { 9105261, 9105555, 1, -10100.0f, -4200.0f, 60.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Glasshide: Land's End Beach, which it ate
+        { 9105266, 9105561, 1, -7048.0f, -2818.0f, 20.0f, { 1, 0, 0, 0 }, 1, 0, 0 },   // One of the Sand People: Walked among the Sandfury as a sethrak
+        { 9105272, 9105564, 1, -5640.0f, 1590.0f, 25.0f, { 27, 26, 0, 0 }, 1, 0, 0 },   // Frayfeather: Preened with the frayfeathers
+        { 9105302, 9105582, 1, 7720.0f, -4336.0f, 25.0f, { 7, 19, 0, 0 }, 1, 0, 0 },   // Moonlight Cats: Walked among the frostsabers
+        { 9105311, 9105589, 0, -7759.0f, -2958.0f, 25.0f, { 35, 36, 37, 44 }, 1, 0, 0 },   // Black Broodlings: Walked among the black brood
+        { 9105313, 9105592, 0, -7759.0f, -2958.0f, 45.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Drakes of the Steppes: The Terror Wing Path, where they nest
+        { 9105322, 9105596, 530, -2794.0f, 4495.0f, 25.0f, { 13, 24, 0, 0 }, 1, 0, 0 },   // Blinking: Blinked among the warp hunters
+        { 9105343, 9105605, 530, 3529.0f, 3100.0f, 40.0f, { 0, 0, 0, 0 }, 1, 0, 0 },   // Walk In Like You Belong: Walked into the dome
+        { 9105352, 9105612, 571, 953.0f, -3678.0f, 25.0f, { 35, 36, 37, 44 }, 1, 0, 0 },   // A Sibling in the Clutch: Lay in the clutch
+        { 9105374, 9105622, 571, 4718.0f, -3855.0f, 35.0f, { 0, 0, 0, 0 }, 1, 0, 0 },   // Ursoc's Children: Came quietly to Ursoc's Den
     };
 
     // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Count x Summon,
     // a campfire tells Lines (by Speaker) and counts at the end (FlagCompanion: Bramble listens; Reaction).
-    struct UseRule { uint32_t Object; uint32_t Quest; uint32_t Credit; uint32_t Summon; uint32_t Count; uint8_t Flags; uint8_t LineCount; char const* const* Lines; char const* Speaker; char const* Reaction; };
+    // Flags on a touch: FlagNight / FlagNoFlying / FlagSniff / FlagNoSniff; on a lure: FlagFollow (it stays).
+    struct UseRule { uint32_t Object; uint32_t Quest; uint32_t Credit; uint32_t Summon; uint32_t Count; uint8_t Flags; uint8_t LineCount; char const* const* Lines; char const* Speaker; char const* Reaction; uint32_t Shapes[4]; };
     constexpr char const* TaleLines9105101[] = { "Sit, little horror. You too, Bramble. Closer to the fire; the loch wind bites.", "Before the dwarves built the dam, the loch was a valley, and a crocolisk lived in the stream at the bottom.", "It was not a big crocolisk. Then the dwarves closed the valley, and the stream became a lake.", "A crocolisk grows to fit its water. That is the whole secret of crocolisks.", "It grew, and it grew, and one morning a dwarf rowed out to fish, and came home without his boat.", "The children of Thelsamar do not believe it. The dwarf does. He still will not row.", "It comes up to the eastern shore, they say, when it smells something worth the climb.", "Remember that, little horror. You smell like something worth the climb." };
     constexpr char const* TaleLines9105102[] = { "Come, sit. Bramble, you sit there, where the smoke will not find you.", "When the draenei's ship fell, it fell with moths in its belly. Blue ones, from a world that is gone.", "They flew out of the wreck into the red woods and found they had nothing to eat but dreams.", "So they ate the dreams of everything that slept here. The bears. The elekk. The draenei children.", "That is why they are so blue, little horror. Blue is the colour of other people's dreams.", "Never let one land on you when you sleep. It will not hurt. You will just wake up a little less.", "And if you eat one... well. Then you will have dreams that are not yours. Some of them are lovely." };
     constexpr char const* TaleLines9105103[] = { "Sit close, little horror. Bramble, closer still. Duskwood does not like a small fire.", "This was a bright wood once. Elwynn's sister. Deer, and woodcutters, and a road with flowers on it.", "Then something old woke under Karazhan, and the night came to look at what had woken it.", "The night looked, and looked, and forgot to leave.", "The woodcutters left instead. The ones who stayed became what lives here now.", "The night is not cruel, you understand. It is only curious, and it has nowhere else to be.", "Like you, little horror. Be curious. But always have somewhere else to be." };
@@ -475,18 +479,18 @@ namespace Devourer::Quests
     constexpr char const* TaleLines9105111[] = { "Come in, come in. Both of you. Wren, stop poking the fire.", "[Wren] I'm not poking it, I'm encouraging it.", "This is the last lantern, little horror. I hung it at the top of the world on purpose.", "[Wren] I wanted it in a bakery. I was outvoted.", "When Wren found you, you were a shadow in a ritual circle with nothing inside it but hunger.", "[Wren] You ate my sandwich. First thing you ever did. I was so proud.", "Since then you have eaten wolves and whelps and storms, and you have spared what deserved sparing.", "[Wren] And you patted a SPIDER.", "You are not a shadow any more. You are a Devourer. Our Devourer. That is all a witch can hope to make.", "[Wren] Come home for soup sometimes, Snack. Bring Bramble." };
     constexpr UseRule UseRules[] =
     {
-        { 0, 9105111, 9105451, 0, 0, 1, 8, TaleLines9105101, "Hagatha Hollowmoor", "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"" },   // The Boat-Eater: The tale of the Boat-Eater heard
-        { 0, 9105131, 9105464, 0, 0, 1, 7, TaleLines9105102, "Hagatha Hollowmoor", "Bramble rubs her eyes. \"I'm keeping my dreams. All of them. Even the one with the soup.\"" },   // Other People's Dreams: The tale of the blue moths heard
-        { 0, 9105171, 9105494, 0, 0, 1, 7, TaleLines9105103, "Hagatha Hollowmoor", "Bramble pulls her knees up. \"I'll be somewhere else. Somewhere with lamps.\"" },   // The Night That Stayed: The tale of the night that stayed heard
-        { 0, 9105191, 9105505, 0, 0, 1, 7, TaleLines9105104, "Hagatha Hollowmoor", "Bramble looks at her own hands for a long moment. \"I like my shape. I'm keeping it.\"" },   // A Shape Is Not a Coat: The tale of the satyrs' bargain heard
-        { 0, 9105245, 9105539, 0, 0, 1, 8, TaleLines9105105, "Hagatha Hollowmoor", "Bramble wrinkles her nose. \"I'm only eating things I choose. Mostly biscuits.\"" },   // Eaten Without Choosing: The tale of the Oozeworm heard
-        { 0, 9105281, 9105568, 0, 0, 1, 7, TaleLines9105106, "Hagatha Hollowmoor", "Bramble grins. \"I remember when you were a frog and fell in the cauldron.\"" },   // The Ones That Forgot the Moon: The tale of the owlbeasts heard
-        { 0, 9105293, 9105576, 0, 0, 1, 7, TaleLines9105107, "Hagatha Hollowmoor", "Bramble stirs the fire with a stick. \"So we're all soup. I knew it. I always felt like soup.\"" },   // The First Hunger: The tale of the first hunger heard
-        { 0, 9105323, 9105597, 0, 0, 1, 7, TaleLines9105108, "Hagatha Hollowmoor", "Bramble shivers and pulls her cloak tight. \"I'm not going south. I'm staying right here, by the soup.\"" },   // The Theft of Souls: The tale of the city of the dead heard
-        { 0, 9105351, 9105611, 0, 0, 1, 7, TaleLines9105109, "Hagatha Hollowmoor", "Bramble grins into the fire. \"Wild. I like wild. Wild and with biscuits.\"" },   // Untidied: The tale of the untidied dragons heard
-        { 0, 9105372, 9105621, 0, 0, 1, 7, TaleLines9105110, "Hagatha Hollowmoor", "Bramble is very quiet, then: \"I'll remember him. I'll remember all the bears.\"" },   // The Sleeping Bear: The tale of the sleeping bear heard
-        { 0, 9105395, 9105636, 0, 0, 1, 10, TaleLines9105111, "Hagatha Hollowmoor", "Bramble wipes her eyes on her sleeve. \"I'm not crying. The fire's smoky. Can we have the soup now?\"" },   // The Last Lantern: The sisters' last tale heard
-        { 9105100, 9105081, 0, 15647, 4, 0, 0, nullptr, "", "" },   // The Overflow: Overflowing Mana Crystal
+        { 0, 9105111, 9105451, 0, 0, 1, 8, TaleLines9105101, "Hagatha Hollowmoor", "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"", { 0, 0, 0, 0 } },   // The Boat-Eater: The tale of the Boat-Eater heard
+        { 0, 9105131, 9105464, 0, 0, 1, 7, TaleLines9105102, "Hagatha Hollowmoor", "Bramble rubs her eyes. \"I'm keeping my dreams. All of them. Even the one with the soup.\"", { 0, 0, 0, 0 } },   // Other People's Dreams: The tale of the blue moths heard
+        { 0, 9105171, 9105494, 0, 0, 1, 7, TaleLines9105103, "Hagatha Hollowmoor", "Bramble pulls her knees up. \"I'll be somewhere else. Somewhere with lamps.\"", { 0, 0, 0, 0 } },   // The Night That Stayed: The tale of the night that stayed heard
+        { 0, 9105191, 9105505, 0, 0, 1, 7, TaleLines9105104, "Hagatha Hollowmoor", "Bramble looks at her own hands for a long moment. \"I like my shape. I'm keeping it.\"", { 0, 0, 0, 0 } },   // A Shape Is Not a Coat: The tale of the satyrs' bargain heard
+        { 0, 9105245, 9105539, 0, 0, 1, 8, TaleLines9105105, "Hagatha Hollowmoor", "Bramble wrinkles her nose. \"I'm only eating things I choose. Mostly biscuits.\"", { 0, 0, 0, 0 } },   // Eaten Without Choosing: The tale of the Oozeworm heard
+        { 0, 9105281, 9105568, 0, 0, 1, 7, TaleLines9105106, "Hagatha Hollowmoor", "Bramble grins. \"I remember when you were a frog and fell in the cauldron.\"", { 0, 0, 0, 0 } },   // The Ones That Forgot the Moon: The tale of the owlbeasts heard
+        { 0, 9105293, 9105576, 0, 0, 1, 7, TaleLines9105107, "Hagatha Hollowmoor", "Bramble stirs the fire with a stick. \"So we're all soup. I knew it. I always felt like soup.\"", { 0, 0, 0, 0 } },   // The First Hunger: The tale of the first hunger heard
+        { 0, 9105323, 9105597, 0, 0, 1, 7, TaleLines9105108, "Hagatha Hollowmoor", "Bramble shivers and pulls her cloak tight. \"I'm not going south. I'm staying right here, by the soup.\"", { 0, 0, 0, 0 } },   // The Theft of Souls: The tale of the city of the dead heard
+        { 0, 9105351, 9105611, 0, 0, 1, 7, TaleLines9105109, "Hagatha Hollowmoor", "Bramble grins into the fire. \"Wild. I like wild. Wild and with biscuits.\"", { 0, 0, 0, 0 } },   // Untidied: The tale of the untidied dragons heard
+        { 0, 9105372, 9105621, 0, 0, 1, 7, TaleLines9105110, "Hagatha Hollowmoor", "Bramble is very quiet, then: \"I'll remember him. I'll remember all the bears.\"", { 0, 0, 0, 0 } },   // The Sleeping Bear: The tale of the sleeping bear heard
+        { 0, 9105395, 9105636, 0, 0, 1, 10, TaleLines9105111, "Hagatha Hollowmoor", "Bramble wipes her eyes on her sleeve. \"I'm not crying. The fire's smoky. Can we have the soup now?\"", { 0, 0, 0, 0 } },   // The Last Lantern: The sisters' last tale heard
+        { 9105100, 9105081, 0, 15647, 4, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Overflow: Overflowing Mana Crystal
     };
 
     // A pack that takes the Devourer for one of its own: within Radius x 3 of X, Y, wearing one of the Shapes,
@@ -541,6 +545,31 @@ namespace Devourer::Quests
         { 9105305, 9105584, 1, 6, { { 6675.0f, -3690.0f }, { 6810.0f, -3945.0f }, { 6975.0f, -4200.0f }, { 7245.0f, -4455.0f }, { 7500.0f, -4725.0f }, { 7695.0f, -4920.0f } }, 20.0f, 7453, "a Moontouched Owlbeast" },   // The Moon-Touched
         { 9105385, 9105627, 571, 6, { { 5445.0f, 5010.0f }, { 5640.0f, 5010.0f }, { 5850.0f, 5025.0f }, { 6045.0f, 4905.0f }, { 6240.0f, 4905.0f }, { 6420.0f, 4800.0f } }, 20.0f, 28378, "a Primordial Drake" },   // The First Dragons
         { 9105392, 9105631, 571, 3, { { 6300.0f, -975.0f }, { 6300.0f, -885.0f }, { 6300.0f, -825.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105909, "Snowdrift" },   // Snowdrift
+    };
+
+    // Carrying something: picked up at Pick (gameobject entry), delivered within Radius of X, Y on Map. With Seconds
+    // it is lost after that long, unless the Devourer passes one of the Refresh points (within RefreshRadius);
+    // Slow: run speed lost while carrying (%); Achievement: a criteria asset given when it arrives never lost.
+    struct CarryRule { uint32_t Quest; uint32_t Credit; uint32_t Pick; uint32_t Map; float X, Y, Radius; uint16_t Seconds; uint8_t RefreshCount; TrackPoint Refresh[4]; float RefreshRadius; uint8_t Slow; uint32_t Achievement; uint8_t Flags; char const* PickedUp; char const* Warning; char const* Refreshed; char const* Lost; char const* Delivered; };
+    constexpr CarryRule CarryRules[] =
+    {
+        { 0, 0, 0, 0, 0.0f, 0.0f, 0.0f, 0, 0, { }, 0.0f, 0, 0, 0, "", "", "", "", "" },
+    };
+
+    // A letter after a quest: server mail from Wren, Delay seconds later.
+    struct MailRule { uint32_t Quest; char const* Subject; char const* Body; uint32_t Delay; };
+    constexpr MailRule MailRules[] =
+    {
+        { 0, "", "", 0 },
+    };
+
+    // One of the quests' own creatures that talks (npc_devourer_quest_beast): it says Text, offers Options; the
+    // right one gives Credit (while Quest is open; Quest 0: always), a wrong one casts WrongSpell on the Devourer.
+    struct GossipOption { char const* Label; char const* Reply; bool Right; };
+    struct GossipRule { uint32_t Entry; uint32_t Quest; uint32_t Credit; char const* Text; uint8_t OptionCount; GossipOption Options[4]; uint32_t WrongSpell; };
+    constexpr GossipRule GossipRules[] =
+    {
+        { 0, 0, 0, "", 0, { }, 0 },
     };
 }
 

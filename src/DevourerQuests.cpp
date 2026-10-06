@@ -22,6 +22,12 @@
 #include "DevourerQuestsIds.h"
 
 #include "AllSpellScript.h"
+#include "CreatureScript.h"
+#include "DatabaseEnv.h"
+#include "GameTime.h"
+#include "Mail.h"
+#include "ScriptedGossip.h"
+#include "Timer.h"
 #include "Chat.h"
 #include "Config.h"
 #include "Creature.h"
@@ -63,6 +69,9 @@ namespace
     constexpr uint32 FleeTime = 8000;            // ms a frightened creature runs
     constexpr uint32 FollowTime = 20;            // seconds a spared creature follows before it goes home
     constexpr uint32 TaleLineEvery = 6000;       // ms between two lines of a campfire tale
+    constexpr float FollowerLeash = 60.0f;       // yards: a staying follower that falls behind is brought back
+    constexpr float FishRange = 25.0f;           // yards: the ottuk close enough to share a fish with
+    constexpr uint32 WrenEntry = 9101301;        // Wren Hollowmoor: the letters come from her
 
     std::string companionName = "Bramble";       // Devourer.WitchCompanion, the same option as the sisters'
 
@@ -81,6 +90,16 @@ namespace
     std::unordered_map<Key, std::vector<ObjectGuid>> called;                    // what a Devourer's objects woke
     std::set<Key> telling;                                                     // a campfire tale is running
     std::unordered_map<Key, uint32> fireside;                                  // fallback: ms sat by a fire with Bramble
+    std::unordered_map<Key, std::unordered_map<uint32, uint32>> staying;       // ms stood still at a visit, by credit
+
+    struct Carry
+    {
+        int32 Left = 0;                           // ms before it goes dark / escapes (0: no timer)
+        bool Dark = false;
+    };
+    std::unordered_map<Key, std::unordered_map<uint32, Carry>> carrying;      // per Devourer, per quest
+    std::unordered_map<Key, std::vector<std::pair<ObjectGuid, uint32>>> followers;   // stay until the quest ends
+    std::unordered_map<Key, uint8> slowedBy;                                    // the slow a carry applied (%)
     std::unordered_map<Key, std::set<ObjectGuid>> fooled;                      // pack members that take it for kin
 
     bool Open(Player* player, uint32 quest)
@@ -97,6 +116,35 @@ namespace
             if (shape && shape == worn)
                 return true;
         return false;
+    }
+
+    uint32 Hour()
+    {
+        tm const lt = Acore::Time::TimeBreakdown(GameTime::GetGameTime().count());
+        return uint32(lt.tm_hour);
+    }
+
+    bool IsNight() { uint32 const h = Hour(); return h >= 21 || h < 6; }
+    bool IsDawn() { uint32 const h = Hour(); return h >= 5 && h < 8; }
+
+    // The conditions a visit or a touch may ask for (VisitFlag / Flag bits shared by both tables).
+    bool Conditions(Player* player, uint8 flags, uint8 night, uint8 dawn, uint8 walking, uint8 noFlying, uint8 sniff,
+                    uint8 noSniff)
+    {
+        if ((flags & night) && !IsNight())
+            return false;
+        if ((flags & dawn) && !IsDawn())
+            return false;
+        if ((flags & walking) && (!player->IsWalking() || player->IsMounted()))
+            return false;
+        if ((flags & noFlying) && (player->IsFlying() || player->HasAuraType(SPELL_AURA_FLY) ||
+                                   player->HasAuraType(SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED)))
+            return false;
+        if ((flags & sniff) && !player->HasAura(SpellSniff))
+            return false;
+        if ((flags & noSniff) && player->HasAura(SpellSniff))
+            return false;
+        return true;
     }
 
     bool Matches(Creature const* creature, CreditRule const& rule)
@@ -215,7 +263,186 @@ namespace
                 continue;
             if ((rule.Flags & VisitQuiet) && player->IsInCombat())
                 continue;                         // it has to walk in unnoticed
+            if (!Conditions(player, rule.Flags, VisitNight, VisitDawn, VisitWalking, VisitNoFlying, VisitSniff, VisitNoSniff))
+                continue;
+            if (rule.Seconds)
+            {
+                // Stay a while: still (the bronze flight's minute) or just there (the hover, the sitting owl).
+                uint32& stayed = staying[player->GetGUID().GetCounter()][rule.Credit];
+                if ((rule.Flags & VisitStill) && player->isMoving())
+                {
+                    stayed = 0;
+                    continue;
+                }
+                stayed += TickEvery;
+                if (stayed < rule.Seconds * 1000)
+                    continue;
+            }
             player->KilledMonsterCredit(rule.Credit);   // the core counts it only while that objective is open
+            if (rule.Achievement)
+                player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, rule.Achievement);
+        }
+        // The ones that need staying: being away resets the count.
+        auto stay = staying.find(player->GetGUID().GetCounter());
+        if (stay != staying.end())
+            for (VisitRule const& rule : VisitRules)
+                if (rule.Seconds && stay->second.count(rule.Credit) &&
+                    (player->GetMapId() != rule.Map || player->GetExactDist2d(rule.X, rule.Y) > rule.Radius))
+                    stay->second.erase(rule.Credit);
+    }
+
+    // Carrying something that does not want to be carried: the ember that dims, the elements that escape, the
+    // soul-lanterns that weigh. Picked up at an object, carried to a place; dips (Refresh points) reset the timer.
+    void Carries(Player* player)
+    {
+        Key const key = player->GetGUID().GetCounter();
+        auto itr = carrying.find(key);
+        if (itr == carrying.end())
+            return;
+        bool slowed = false;
+        for (auto state = itr->second.begin(); state != itr->second.end();)
+        {
+            uint32 const questId = state->first;
+            CarryRule const* rule = nullptr;
+            for (CarryRule const& r : CarryRules)
+                if (r.Quest == questId)
+                    rule = &r;
+            if (!rule || !Open(player, questId) || player->GetMapId() != rule->Map)
+            {
+                state = itr->second.erase(state);
+                continue;
+            }
+            Carry& carry = state->second;
+            if (rule->Seconds && !carry.Dark)
+            {
+                for (uint8 i = 0; i < rule->RefreshCount; ++i)
+                    if (player->GetExactDist2d(rule->Refresh[i].X, rule->Refresh[i].Y) <= rule->RefreshRadius)
+                    {
+                        if (carry.Left < int32(rule->Seconds * 1000) - int32(TickEvery) * 3)
+                            player->GetSession()->SendAreaTriggerMessage("{}", rule->Refreshed);
+                        carry.Left = int32(rule->Seconds * 1000);
+                    }
+                carry.Left -= int32(TickEvery);
+                if (carry.Left <= 0)
+                {
+                    carry.Dark = true;
+                    player->GetSession()->SendAreaTriggerMessage("{}", rule->Lost);
+                    if (rule->Flags & CarryFailLost)
+                    {
+                        player->FailQuest(questId);
+                        state = itr->second.erase(state);
+                        continue;
+                    }
+                }
+                else if (carry.Left % 30000 < int32(TickEvery) && carry.Left < int32(rule->Seconds * 1000) / 2)
+                    player->GetSession()->SendAreaTriggerMessage("{} ({} seconds)", rule->Warning, carry.Left / 1000);
+            }
+            if (player->GetExactDist2d(rule->X, rule->Y) <= rule->Radius)
+            {
+                player->KilledMonsterCredit(rule->Credit);
+                if (rule->Achievement && !carry.Dark)
+                    player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, rule->Achievement);
+                player->GetSession()->SendAreaTriggerMessage("{}", rule->Delivered);
+                state = itr->second.erase(state);
+                continue;
+            }
+            if (rule->Slow)
+                slowed = true;
+            ++state;
+        }
+        if (itr->second.empty())
+            carrying.erase(itr);
+        // The weight: while anything that slows is carried, the Devourer runs slower; dropped, it runs as before.
+        uint8 slow = 0;
+        if (slowed)
+            for (CarryRule const& r : CarryRules)
+                if (r.Slow > slow && carrying[key].count(r.Quest))
+                    slow = r.Slow;
+        uint8& applied = slowedBy[key];
+        if (slow != applied)
+        {
+            applied = slow;
+            player->UpdateSpeed(MOVE_RUN, true);
+            if (slow)
+                player->SetSpeed(MOVE_RUN, player->GetSpeedRate(MOVE_RUN) * (100 - slow) / 100.0f, true);
+        }
+    }
+
+    bool PickUp(Player* player, GameObject* go)
+    {
+        for (CarryRule const& rule : CarryRules)
+        {
+            if (!rule.Quest || rule.Pick != go->GetEntry() || !Open(player, rule.Quest))
+                continue;
+            Carry& carry = carrying[player->GetGUID().GetCounter()][rule.Quest];
+            carry.Left = int32(rule.Seconds * 1000);
+            carry.Dark = false;
+            player->HandleEmoteCommand(EMOTE_ONESHOT_LOOT);
+            player->GetSession()->SendAreaTriggerMessage("{}", rule.PickedUp);
+            return true;
+        }
+        return false;
+    }
+
+    // Followers that stay (the chick, the sapling, the pups, the ducklings): until their quest ends, they walk behind
+    // the Devourer, and if they fall too far behind they catch up.
+    void Followers(Player* player)
+    {
+        Key const key = player->GetGUID().GetCounter();
+        auto itr = followers.find(key);
+        if (itr == followers.end())
+            return;
+        for (auto f = itr->second.begin(); f != itr->second.end();)
+        {
+            Creature* beast = ObjectAccessor::GetCreature(*player, f->first);
+            if (!beast || !beast->IsAlive())
+            {
+                f = itr->second.erase(f);
+                continue;
+            }
+            if (!Open(player, f->second))
+            {
+                beast->DespawnOrUnsummon(Seconds(3));
+                f = itr->second.erase(f);
+                continue;
+            }
+            if (!beast->IsWithinDist(player, FollowerLeash))
+            {
+                beast->NearTeleportTo(player->GetPositionX(), player->GetPositionY(), player->GetPositionZ(),
+                                      player->GetOrientation());
+                beast->GetMotionMaster()->MoveFollow(player, 2.5f, float(M_PI) * 0.75f);
+            }
+            ++f;
+        }
+        if (itr->second.empty())
+            followers.erase(itr);
+    }
+
+    void Follow(Player* player, Creature* beast, uint32 quest)
+    {
+        beast->SetReactState(REACT_PASSIVE);
+        beast->GetMotionMaster()->MoveFollow(player, 2.5f, float(M_PI) * 0.75f);
+        beast->SetRespawnTime(0);
+        if (TempSummon* summon = beast->ToTempSummon())
+            summon->SetTempSummonType(TEMPSUMMON_MANUAL_DESPAWN);
+        followers[player->GetGUID().GetCounter()].push_back({ beast->GetGUID(), quest });
+    }
+
+    // A fish shared with the one watching: a catch from a fishing bobber while the creature the rule names is near.
+    void Fish(Player* player)
+    {
+        std::set<uint32> given;
+        for (CreditRule const& rule : CreditRules)
+        {
+            if (rule.Event != EventLoot || given.count(rule.Credit) || !Open(player, rule.Quest))
+                continue;
+            Creature* watcher = rule.Filter == FilterEntry ? player->FindNearestCreature(rule.Value, FishRange) : nullptr;
+            if (!watcher && rule.Filter == FilterEntry)
+                continue;
+            player->KilledMonsterCredit(rule.Credit);
+            given.insert(rule.Credit);
+            if (watcher && rule.Line && *rule.Line)
+                watcher->TextEmote(rule.Line, player);
         }
     }
 
@@ -393,9 +620,36 @@ public:
         Disguise(player);
         Visits(player);
         Trails(player);
+        Carries(player);
+        Followers(player);
 #ifndef DEVOURER_ONE_CAMPFIRE
         Fireside(player);
 #endif
+    }
+
+    void OnPlayerLootItem(Player* player, Item* /*item*/, uint32 /*count*/, ObjectGuid lootguid) override
+    {
+        if (!lootguid.IsGameObject() || !sDevourer.IsDevourer(player))
+            return;
+        GameObject* bobber = player->GetMap()->GetGameObject(lootguid);
+        if (bobber && bobber->GetGoType() == GAMEOBJECT_TYPE_FISHINGNODE)
+            Fish(player);
+    }
+
+    // A letter after a quest (the chick writes, Bramble sends a crash note): server mail from Wren, after a while.
+    void OnPlayerCompleteQuest(Player* player, Quest const* quest) override
+    {
+        if (!quest || !sDevourer.IsDevourer(player))
+            return;
+        for (MailRule const& rule : MailRules)
+        {
+            if (rule.Quest != quest->GetQuestId())
+                continue;
+            CharacterDatabaseTransaction trans = CharacterDatabase.BeginTransaction();
+            MailDraft(rule.Subject, rule.Body).SendMailTo(trans, MailReceiver(player, player->GetGUID().GetCounter()),
+                MailSender(MAIL_CREATURE, WrenEntry), MAIL_CHECK_MASK_NONE, rule.Delay);
+            CharacterDatabase.CommitTransaction(trans);
+        }
     }
 
     // Fallback without mod-chromatica-extras: sat by a cooking fire or in an inn with Bramble for 15 s, the lantern
@@ -426,9 +680,13 @@ public:
 
     void OnPlayerQuestAbandon(Player* player, uint32 questId) override
     {
-        auto itr = trails.find(player->GetGUID().GetCounter());
+        Key const key = player->GetGUID().GetCounter();
+        auto itr = trails.find(key);
         if (itr != trails.end())
             itr->second.erase(questId);
+        auto c = carrying.find(key);
+        if (c != carrying.end())
+            c->second.erase(questId);
     }
 
     void OnPlayerLogout(Player* player) override
@@ -438,7 +696,63 @@ public:
         counted.erase(key);
         trails.erase(key);
         called.erase(key);
+        staying.erase(key);
+        carrying.erase(key);
+        followers.erase(key);
+        slowedBy.erase(key);
         Forget(player);
+    }
+};
+
+// The quests' own creatures that talk: a riddle, a bargain, a machine's stubborn logic. The right answer counts for
+// the quest; a wrong one may cost something (WrongSpell on the Devourer).
+class npc_devourer_quest_beast : public CreatureScript
+{
+public:
+    npc_devourer_quest_beast() : CreatureScript("npc_devourer_quest_beast") { }
+
+    static GossipRule const* Rule(Player* player, Creature* creature)
+    {
+        for (GossipRule const& rule : GossipRules)
+            if (rule.Entry == creature->GetEntry() && (!rule.Quest || Open(player, rule.Quest)))
+                return &rule;
+        return nullptr;
+    }
+
+    bool OnGossipHello(Player* player, Creature* creature) override
+    {
+        GossipRule const* rule = Rule(player, creature);
+        if (!rule)
+            return false;
+        ClearGossipMenuFor(player);
+        if (rule->Text && *rule->Text)
+            creature->Say(rule->Text, LANG_UNIVERSAL, player);
+        for (uint8 i = 0; i < rule->OptionCount; ++i)
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, rule->Options[i].Label, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + i);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+        return true;
+    }
+
+    bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
+    {
+        GossipRule const* rule = Rule(player, creature);
+        CloseGossipMenuFor(player);
+        if (!rule)
+            return true;
+        uint32 const i = action - GOSSIP_ACTION_INFO_DEF;
+        if (i >= rule->OptionCount)
+            return true;
+        GossipOption const& option = rule->Options[i];
+        if (option.Reply && *option.Reply)
+            creature->Say(option.Reply, LANG_UNIVERSAL, player);
+        if (option.Right)
+        {
+            if (rule->Credit && Open(player, rule->Quest))
+                player->KilledMonsterCredit(rule->Credit);
+        }
+        else if (rule->WrongSpell)
+            creature->CastSpell(player, rule->WrongSpell, true);
+        return true;
     }
 };
 
@@ -456,10 +770,22 @@ public:
 
     bool OnGossipHello(Player* player, GameObject* go) override
     {
+        if (PickUp(player, go))
+            return true;
         for (UseRule const& rule : UseRules)
         {
             if (!rule.Object || rule.Object != go->GetEntry() || !Open(player, rule.Quest))
                 continue;
+            if (!Wears(player, rule.Shapes))
+            {
+                ChatHandler(player->GetSession()).SendNotification("Not in this shape.");
+                return true;
+            }
+            if (!Conditions(player, rule.Flags, FlagNight, 0, 0, FlagNoFlying, FlagSniff, FlagNoSniff))
+            {
+                ChatHandler(player->GetSession()).SendNotification("Not now, not like this.");
+                return true;
+            }
             if (rule.LineCount)
             {
                 Tell(player, go, rule);
@@ -479,8 +805,12 @@ public:
                     float const angle = rule.Count > 1 ? 2.0f * float(M_PI) * i / rule.Count :
                         float(rand_norm()) * 2.0f * float(M_PI);
                     go->MovePositionToFirstCollision(at, rule.Count > 1 ? 10.0f : 6.0f, angle);
-                    Call(player, rule.Summon, at.GetPositionX(), at.GetPositionY(), at.GetPositionZ());
+                    if (Creature* beast = Call(player, rule.Summon, at.GetPositionX(), at.GetPositionY(), at.GetPositionZ()))
+                        if (rule.Flags & FlagFollow)
+                            Follow(player, beast, rule.Quest);
                 }
+                if (rule.Credit)
+                    player->KilledMonsterCredit(rule.Credit);   // waking it counts (the eggs, the hatch)
             }
             else
             {
@@ -627,6 +957,7 @@ void AddSC_devourer_quests()
 {
     new devourer_quests_player();
     new go_devourer_quest_object();
+    new npc_devourer_quest_beast();
     new devourer_quests_spells();
     new devourer_quests_world();
 }
