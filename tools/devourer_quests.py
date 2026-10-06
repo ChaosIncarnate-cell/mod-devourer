@@ -83,6 +83,8 @@ TRIGGER_TEMPLATE = 15384                      # OLDWorld Trigger, the credits ar
 # Races (AllowableRaces bits)
 HUMAN, ORC, DWARF, NIGHTELF, UNDEAD, TAUREN, GNOME, TROLL, BLOODELF, DRAENEI = (
     1, 2, 4, 8, 16, 32, 64, 128, 512, 1024)
+# The races thread's new playable races (2026-10-06, they can be Devourers): race id -> AllowableRaces bit
+RACE_22, RACE_23, RACE_24, RACE_25, RACE_26 = (1 << 21, 1 << 22, 1 << 23, 1 << 24, 1 << 25)
 
 # Filters and events, as in DevourerQuests.cpp
 EVENT_MEAL, EVENT_KILL = 1, 2

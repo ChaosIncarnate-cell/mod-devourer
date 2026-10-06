@@ -14,7 +14,7 @@ Voices: Hagatha Hollowmoor tells tales ("little horror"); Wren Hollowmoor makes 
 """
 
 from devourer_quests import (HAGATHA, WREN, HUMAN, ORC, DWARF, NIGHTELF, UNDEAD, TAUREN, GNOME, TROLL, BLOODELF,
-                             DRAENEI, LINES, devour, visit, emote, trail, struck, spare, among, ability, EMOTE_PET, EMOTE_ROAR)
+                             DRAENEI, RACE_22, RACE_23, RACE_24, RACE_25, RACE_26, LINES, devour, visit, emote, trail, struck, spare, among, ability, EMOTE_PET, EMOTE_ROAR)
 
 # Creature families and types (creature_template.family / type)
 F_WOLF, F_CAT, F_SPIDER, F_BEAR, F_BOAR, F_CROC, F_CARRION, F_CRAB, F_RAPTOR, F_TALLSTRIDER = 1, 2, 3, 4, 5, 6, 7, 8, 11, 12
@@ -86,9 +86,10 @@ def home(book):
                 "from. Each home lantern has one plain lesson, one thing only a Devourer could do there, a named "
                 "beast to finish, and one special creature to find with Sniff and spare.")
 
+    # races 22-26 (races thread) start in Shadowglen (22), the Valley of Trials (23, 25, 26) and Northshire (24)
     homes = (
-        (9105001, HUMAN, elwynn), (9105002, DWARF | GNOME, dunmorogh), (9105003, NIGHTELF, teldrassil),
-        (9105004, DRAENEI, azuremyst), (9105005, ORC | TROLL, durotar), (9105006, TAUREN, mulgore),
+        (9105001, HUMAN | RACE_24, elwynn), (9105002, DWARF | GNOME, dunmorogh), (9105003, NIGHTELF | RACE_22, teldrassil),
+        (9105004, DRAENEI, azuremyst), (9105005, ORC | TROLL | RACE_23 | RACE_25 | RACE_26, durotar), (9105006, TAUREN, mulgore),
         (9105007, UNDEAD, tirisfal), (9105008, BLOODELF, eversong),
     )
     for qid, races, lantern in homes:
