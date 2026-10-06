@@ -30,7 +30,7 @@ starts there; the quests run in the world and end back at the board or at the cr
 Spawns written with z 0.0 take the ground height from `tools/quest_heights.json` ("map x y" -> z). The heights come
 from the server's own map files (terrain), or the nearest stock creature on the same continent when the spot is inside
 a city floor the terrain does not have. The tool that measures them reads the local server data, so it runs on the
-owner's PC (the quests thread keeps it with its scratch tools); the generator stops with a clear message when a spot
+owner's PC (`tools/maps/heights.py`, with `tools/maps/wq.py` for the map files); the generator stops with a clear message when a spot
 has no height yet. It also flags spots in water and on steep slopes.
 
 ## Changes after review
