@@ -34,37 +34,55 @@ INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconNa
 (9109021, 10, 2971, 'Dream Shard', '', '', '', 0.4, 0, 9109022, '', 'go_devourer_quest_object', 0),
 (9109022, 10, 2971, 'Dream Shard', '', '', '', 0.4, 0, 9109023, '', 'go_devourer_quest_object', 0),
 (9109023, 10, 2971, 'Dream Shard', '', '', '', 0.4, 0, 9109024, '', 'go_devourer_quest_object', 0),
-(9109024, 10, 758, 'Buried Bones', '', '', '', 1.0, 0, 9109030, '', 'go_devourer_quest_object', 0),
-(9109025, 10, 210, 'Torn Map Piece', '', '', '', 0.6, 0, 9109031, '', 'go_devourer_quest_object', 0),
-(9109026, 10, 254, 'A Lost Explorer''s Diary', '', '', '', 0.8, 0, 9109032, '', 'go_devourer_quest_object', 0),
-(9109027, 10, 49, 'A Scorpid Nest', '', '', '', 1.0, 0, 9109033, '', 'go_devourer_quest_object', 0),
-(9109028, 10, 451, 'One of Wren''s Buttons', '', '', '', 0.25, 0, 0, '', 'go_devourer_quest_object', 0),
-(9109029, 10, 451, 'One of Wren''s Buttons', '', '', '', 0.25, 0, 0, '', 'go_devourer_quest_object', 0),
-(9109030, 10, 10, 'A Worldforged Relic', '', '', '', 0.8, 0, 9109037, '', 'go_devourer_quest_object', 0),
-(9109031, 10, 210, 'Greater Map Piece', '', '', '', 0.6, 0, 9109039, '', 'go_devourer_quest_object', 0),
-(9109032, 10, 6666, 'Soul-Lantern', '', '', '', 0.8, 0, 0, '', 'go_devourer_quest_object', 0),
-(9109033, 10, 6537, 'Great Soul-Lantern', '', '', '', 1.2, 0, 9109053, '', 'go_devourer_quest_object', 0),
-(9109034, 10, 239, 'Hagatha''s Fly Jar', '', '', '', 0.6, 0, 9109060, '', 'go_devourer_quest_object', 0),
-(9109035, 10, 239, 'Hagatha''s Fly Jar', '', '', '', 0.6, 0, 9109061, '', 'go_devourer_quest_object', 0),
-(9109036, 10, 239, 'Hagatha''s Fly Jar', '', '', '', 0.6, 0, 9109062, '', 'go_devourer_quest_object', 0),
-(9109037, 10, 239, 'A Bowl of Bruised Fruit', '', '', '', 0.6, 0, 9109063, '', 'go_devourer_quest_object', 0),
-(9109038, 10, 239, 'A Dish of Shiny Things', '', '', '', 0.6, 0, 9109064, '', 'go_devourer_quest_object', 0),
-(9109039, 10, 239, 'A Jar of Glowing Motes', '', '', '', 0.6, 0, 9109065, '', 'go_devourer_quest_object', 0),
-(9109040, 10, 239, 'A Saucer of Cream', '', '', '', 0.6, 0, 9109066, '', 'go_devourer_quest_object', 0),
-(9109041, 10, 216, 'Hagatha''s Cauldron (stir)', '', '', '', 0.5, 0, 0, '', 'go_devourer_quest_object', 0),
-(9109042, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109080, '', 'go_devourer_quest_object', 0),
-(9109043, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109081, '', 'go_devourer_quest_object', 0),
-(9109044, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109082, '', 'go_devourer_quest_object', 0),
-(9109045, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109083, '', 'go_devourer_quest_object', 0),
-(9109046, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109084, '', 'go_devourer_quest_object', 0),
-(9109047, 10, 5671, 'A Lighthouse Lamp', '', '', '', 0.7, 0, 0, '', 'go_devourer_quest_object', 0),
-(9109048, 10, 6396, 'The End of the Pier', '', '', '', 0.8, 0, 9109101, '', 'go_devourer_quest_object', 0),
-(9109049, 10, 6396, 'The End of the Pier, Again', '', '', '', 0.8, 0, 9109102, '', 'go_devourer_quest_object', 0),
-(9109050, 10, 4052, 'The Bell of Frosthold', '', '', '', 1.0, 0, 9109110, '', 'go_devourer_quest_object', 0),
-(9109051, 10, 4052, 'The Bell of Dun Niffelem', '', '', '', 1.0, 0, 9109111, '', 'go_devourer_quest_object', 0),
-(9109052, 10, 4052, 'The Bell of Thunderfall', '', '', '', 1.0, 0, 9109112, '', 'go_devourer_quest_object', 0),
-(9109053, 10, 4052, 'The Bell of The Terrace Of The Makers', '', '', '', 1.0, 0, 9109113, '', 'go_devourer_quest_object', 0),
-(9109054, 10, 4052, 'The Four Bells, Again', '', '', '', 1.0, 0, 9109114, '', 'go_devourer_quest_object', 0);
+(9109024, 10, 254, 'A Lost Explorer''s Diary', '', '', '', 0.8, 0, 9109032, '', 'go_devourer_quest_object', 0),
+(9109025, 10, 49, 'A Scorpid Nest', '', '', '', 1.0, 0, 9109033, '', 'go_devourer_quest_object', 0),
+(9109026, 10, 6666, 'Soul-Lantern', '', '', '', 0.8, 0, 0, '', 'go_devourer_quest_object', 0),
+(9109027, 10, 6537, 'Great Soul-Lantern', '', '', '', 1.2, 0, 9109053, '', 'go_devourer_quest_object', 0),
+(9109028, 10, 239, 'Hagatha''s Fly Jar', '', '', '', 0.6, 0, 9109060, '', 'go_devourer_quest_object', 0),
+(9109029, 10, 239, 'Hagatha''s Fly Jar', '', '', '', 0.6, 0, 9109061, '', 'go_devourer_quest_object', 0),
+(9109030, 10, 239, 'Hagatha''s Fly Jar', '', '', '', 0.6, 0, 9109062, '', 'go_devourer_quest_object', 0),
+(9109031, 10, 239, 'A Bowl of Bruised Fruit', '', '', '', 0.6, 0, 9109063, '', 'go_devourer_quest_object', 0),
+(9109032, 10, 239, 'A Dish of Shiny Things', '', '', '', 0.6, 0, 9109064, '', 'go_devourer_quest_object', 0),
+(9109033, 10, 239, 'A Jar of Glowing Motes', '', '', '', 0.6, 0, 9109065, '', 'go_devourer_quest_object', 0),
+(9109034, 10, 239, 'A Saucer of Cream', '', '', '', 0.6, 0, 9109066, '', 'go_devourer_quest_object', 0),
+(9109035, 10, 216, 'Hagatha''s Cauldron (stir)', '', '', '', 0.5, 0, 0, '', 'go_devourer_quest_object', 0),
+(9109036, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109080, '', 'go_devourer_quest_object', 0),
+(9109037, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109081, '', 'go_devourer_quest_object', 0),
+(9109038, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109082, '', 'go_devourer_quest_object', 0),
+(9109039, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109083, '', 'go_devourer_quest_object', 0),
+(9109040, 10, 4152, 'Hagatha''s Candle', '', '', '', 0.8, 0, 9109084, '', 'go_devourer_quest_object', 0),
+(9109041, 10, 5671, 'A Lighthouse Lamp', '', '', '', 0.7, 0, 0, '', 'go_devourer_quest_object', 0),
+(9109042, 10, 6396, 'The End of the Pier', '', '', '', 0.8, 0, 9109101, '', 'go_devourer_quest_object', 0),
+(9109043, 10, 6396, 'The End of the Pier, Again', '', '', '', 0.8, 0, 9109102, '', 'go_devourer_quest_object', 0),
+(9109044, 10, 4052, 'The Bell of Frosthold', '', '', '', 1.0, 0, 9109110, '', 'go_devourer_quest_object', 0),
+(9109045, 10, 4052, 'The Bell of Dun Niffelem', '', '', '', 1.0, 0, 9109111, '', 'go_devourer_quest_object', 0),
+(9109046, 10, 4052, 'The Bell of Thunderfall', '', '', '', 1.0, 0, 9109112, '', 'go_devourer_quest_object', 0),
+(9109047, 10, 4052, 'The Bell of The Terrace Of The Makers', '', '', '', 1.0, 0, 9109113, '', 'go_devourer_quest_object', 0),
+(9109048, 10, 4052, 'The Four Bells, Again', '', '', '', 1.0, 0, 9109114, '', 'go_devourer_quest_object', 0),
+(9109049, 10, 210, 'A Torn Page (1 of 7)', '', '', '', 0.6, 0, 9109140, '', 'go_devourer_quest_object', 0),
+(9109050, 10, 210, 'A Torn Page (2 of 7)', '', '', '', 0.6, 0, 9109141, '', 'go_devourer_quest_object', 0),
+(9109051, 10, 210, 'A Torn Page (3 of 7)', '', '', '', 0.6, 0, 9109142, '', 'go_devourer_quest_object', 0),
+(9109052, 10, 210, 'A Torn Page (4 of 7)', '', '', '', 0.6, 0, 9109143, '', 'go_devourer_quest_object', 0),
+(9109053, 10, 210, 'A Torn Page (5 of 7)', '', '', '', 0.6, 0, 9109144, '', 'go_devourer_quest_object', 0),
+(9109054, 10, 210, 'A Torn Page (6 of 7)', '', '', '', 0.6, 0, 9109145, '', 'go_devourer_quest_object', 0),
+(9109055, 10, 210, 'A Torn Page (7 of 7)', '', '', '', 0.6, 0, 9109146, '', 'go_devourer_quest_object', 0),
+(9109056, 10, 7736, 'A Knight''s Armour Piece', '', '', '', 0.8, 0, 9109160, '', 'go_devourer_quest_object', 0),
+(9109057, 10, 7736, 'The Chapel''s Threshold', '', '', '', 0.6, 0, 9109161, '', 'go_devourer_quest_object', 0),
+(9109058, 10, 49, 'A Grave With No Stone', '', '', '', 1.0, 0, 9109170, '', 'go_devourer_quest_object', 0),
+(9109059, 10, 3551, 'An Old Stall', '', '', '', 0.8, 0, 9109171, '', 'go_devourer_quest_object', 0),
+(9109060, 10, 239, 'Tam''s Lantern', '', '', '', 0.5, 0, 9109171, '', 'go_devourer_quest_object', 0),
+(9109061, 10, 216, 'Hagatha''s Cauldron (purge)', '', '', '', 0.5, 0, 0, '', 'go_devourer_quest_object', 0),
+(9109062, 10, 63, 'Wren''s Flowerpot', '', '', '', 0.8, 0, 0, '', 'go_devourer_quest_object', 0),
+(9109063, 10, 5254, 'A Chimney', '', '', '', 0.7, 0, 9109200, '', 'go_devourer_quest_object', 0),
+(9109064, 10, 239, 'A Cook''s Ingredient', '', '', '', 0.6, 0, 9109201, '', 'go_devourer_quest_object', 0),
+(9109065, 10, 1407, 'Giant Egg Tracks', '', '', '', 1.5, 0, 9109210, '', 'go_devourer_quest_object', 0),
+(9109066, 10, 1407, 'A Dead End', '', '', '', 2.0, 0, 9109211, '', 'go_devourer_quest_object', 0),
+(9109067, 10, 6401, 'A Dusty Corner', '', '', '', 0.8, 0, 9109220, '', 'go_devourer_quest_object', 0),
+(9109068, 10, 63, 'Spring Petals', '', '', '', 0.8, 0, 9109230, '', 'go_devourer_quest_object', 0),
+(9109069, 10, 63, 'Summer Petals', '', '', '', 0.8, 0, 9109231, '', 'go_devourer_quest_object', 0),
+(9109070, 10, 63, 'Autumn Petals', '', '', '', 0.8, 0, 9109232, '', 'go_devourer_quest_object', 0),
+(9109071, 10, 63, 'Winter Petals', '', '', '', 0.8, 0, 9109233, '', 'go_devourer_quest_object', 0),
+(9109072, 10, 2470, 'A Glowing Ember', '', '', '', 0.6, 0, 9109235, '', 'go_devourer_quest_object', 0);
 
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `Comment`) VALUES
 (9921000, 9109000, 35, 1, 1, -93.0, 121.5, -40.1, 1.57, 0, 0, 0.706825, 0.707388, 300, 255, 1, 'mod-devourer: Wren''s WANTED Board, Wren''s WANTED board, by the trophy wall'),
@@ -77,136 +95,109 @@ INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `positi
 (9921007, 9109016, 571, 1, 1, 6560.0, 4500.0, -50.2, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Warm Egg'),
 (9921008, 9109017, 571, 1, 1, 6560.0, 4500.0, -50.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Egg, Cracking'),
 (9921009, 9109018, 35, 1, 1, -92.0, 128.0, -40.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Look Up'),
-(9921010, 9109019, 1, 1, 1, 2650.0, -1430.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921011, 9109019, 1, 1, 1, 3247.0, -3724.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921012, 9109019, 1, 1, 1, 1818.0, -2786.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921013, 9109019, 1, 1, 1, 2094.0, -1172.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921014, 9109019, 1, 1, 1, 3261.0, 166.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921015, 9109020, 1, 1, 1, -4562.0, 889.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921016, 9109020, 1, 1, 1, -5185.0, 1624.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921017, 9109020, 1, 1, 1, -4428.0, 3198.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921018, 9109020, 1, 1, 1, -5640.0, 1590.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921019, 9109020, 1, 1, 1, -4740.0, 600.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921020, 9109021, 571, 1, 1, 4162.0, -4135.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921021, 9109021, 571, 1, 1, 4718.0, -3855.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921022, 9109021, 571, 1, 1, 3897.0, -5163.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921023, 9109021, 571, 1, 1, 4156.0, -2964.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921024, 9109021, 571, 1, 1, 3800.0, -3600.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921025, 9109022, 530, 1, 1, -781.0, 6944.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921026, 9109022, 530, 1, 1, -2048.0, 6352.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921027, 9109022, 530, 1, 1, -1199.0, 7148.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921028, 9109022, 530, 1, 1, -2533.0, 7693.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921029, 9109022, 530, 1, 1, -2200.0, 6700.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921030, 9109023, 1, 1, 1, 7460.0, -3123.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921031, 9109023, 1, 1, 1, 7538.0, -3029.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921032, 9109023, 1, 1, 1, 7924.0, -2638.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921033, 9109023, 1, 1, 1, 7700.0, -2900.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921034, 9109023, 1, 1, 1, 7300.0, -3200.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
-(9921035, 9109024, 0, 1, 1, -6690.0, -3130.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Buried Bones'),
-(9921036, 9109024, 0, 1, 1, -6400.0, -2830.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Buried Bones'),
-(9921037, 9109024, 0, 1, 1, -6950.0, -2680.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Buried Bones'),
-(9921038, 9109024, 1, 1, 1, -1640.0, 1680.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Buried Bones'),
-(9921039, 9109024, 1, 1, 1, -1300.0, 2060.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Buried Bones'),
-(9921040, 9109025, 1, 1, 1, -7187.0, -3839.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Torn Map Piece'),
-(9921041, 9109025, 1, 1, 1, -6224.0, -3861.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Torn Map Piece'),
-(9921042, 9109025, 0, 1, 1, -14354.0, 414.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Torn Map Piece'),
-(9921043, 9109025, 0, 1, 1, -959.0, -3739.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Torn Map Piece'),
-(9921044, 9109025, 1, 1, 1, 1109.0, -3104.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Torn Map Piece'),
-(9921045, 9109026, 0, 1, 1, -6273.0, -2940.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lost Explorer''s Diary'),
-(9921046, 9109027, 1, 1, 1, -6590.0, 255.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Scorpid Nest'),
-(9921047, 9109028, 0, 1, 1, -9620.0, -560.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921048, 9109028, 0, 1, 1, -5620.0, -1100.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921049, 9109028, 1, 1, 1, 9810.0, 840.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921050, 9109028, 530, 1, 1, -4050.0, -12000.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921051, 9109028, 1, 1, 1, 300.0, -4500.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921052, 9109028, 1, 1, 1, -2100.0, -900.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921053, 9109028, 0, 1, 1, 2500.0, 600.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921054, 9109028, 530, 1, 1, 8900.0, -6600.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921055, 9109028, 0, 1, 1, -10800.0, 1100.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921056, 9109028, 0, 1, 1, -5600.0, -3200.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921057, 9109028, 1, 1, 1, 6300.0, 150.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921058, 9109028, 530, 1, 1, -2300.0, -11900.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921059, 9109028, 1, 1, 1, -780.0, -2680.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921060, 9109028, 0, 1, 1, 500.0, 1200.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921061, 9109028, 530, 1, 1, 7400.0, -6900.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921062, 9109028, 0, 1, 1, -10450.0, 100.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921063, 9109028, 0, 1, 1, -3300.0, -2400.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921064, 9109028, 1, 1, 1, 2400.0, -1000.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921065, 9109028, 0, 1, 1, -200.0, -1100.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921066, 9109028, 1, 1, 1, 1700.0, 650.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921067, 9109028, 1, 1, 1, -5000.0, -1800.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921068, 9109028, 0, 1, 1, -11700.0, -450.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921069, 9109028, 1, 1, 1, -2900.0, -3300.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921070, 9109028, 0, 1, 1, 500.0, -650.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921071, 9109028, 1, 1, 1, -7400.0, -3400.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921072, 9109029, 1, 1, 1, -4600.0, 700.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921073, 9109029, 0, 1, 1, 150.0, -2900.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921074, 9109029, 1, 1, 1, -6800.0, -1850.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921075, 9109029, 1, 1, 1, 6500.0, -3500.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921076, 9109029, 0, 1, 1, -8100.0, -1800.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921077, 9109029, 530, 1, 1, -2500.0, 4000.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921078, 9109029, 530, 1, 1, -2200.0, 6700.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921079, 9109029, 530, 1, 1, 3000.0, 3400.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921080, 9109029, 571, 1, 1, 600.0, -4600.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921081, 9109029, 571, 1, 1, 3000.0, 5300.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921082, 9109029, 571, 1, 1, 3800.0, -3600.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921083, 9109029, 571, 1, 1, 5300.0, 5200.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921084, 9109029, 571, 1, 1, 6300.0, -1050.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921085, 9109029, 0, 1, 1, -11905.0, -3207.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921086, 9109029, 0, 1, 1, -14281.0, 552.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921087, 9109029, 530, 1, 1, -781.0, 6944.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921088, 9109029, 571, 1, 1, 3546.0, 287.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921089, 9109029, 0, 1, 1, 2300.0, -5300.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921090, 9109029, 1, 1, 1, -1270.0, 45.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921091, 9109029, 0, 1, 1, -4824.0, -1233.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921092, 9109029, 1, 1, 1, 1878.0, -4505.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921093, 9109029, 0, 1, 1, -8753.0, 1107.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921094, 9109029, 0, 1, 1, -3697.0, -817.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921095, 9109029, 1, 1, 1, -3664.0, -4751.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921096, 9109029, 1, 1, 1, 7460.0, -3123.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: One of Wren''s Buttons'),
-(9921097, 9109030, 0, 1, 1, -6690.0, -3130.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921098, 9109030, 1, 1, 1, -1640.0, 1680.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921099, 9109030, 1, 1, 1, -7560.0, -3900.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921100, 9109030, 0, 1, 1, 2300.0, -5300.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921101, 9109030, 571, 1, 1, 7260.0, 1177.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921102, 9109030, 0, 1, 1, -11700.0, -450.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921103, 9109030, 1, 1, 1, -6800.0, -1850.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Worldforged Relic'),
-(9921104, 9109031, 530, 1, 1, 3089.0, 3650.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Greater Map Piece'),
-(9921105, 9109031, 1, 1, 1, 6720.0, -4660.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Greater Map Piece'),
-(9921106, 9109031, 1, 1, 1, -7187.0, -3839.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Greater Map Piece'),
-(9921107, 9109031, 0, 1, 1, -14281.0, 552.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Greater Map Piece'),
-(9921108, 9109031, 1, 1, 1, 1878.0, -4505.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Greater Map Piece'),
-(9921109, 9109032, 0, 1, 1, 2300.0, -5300.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Soul-Lantern'),
-(9921110, 9109032, 0, 1, 1, 1870.0, -3210.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Soul-Lantern'),
-(9921111, 9109032, 0, 1, 1, 2692.0, -4029.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Soul-Lantern'),
-(9921112, 9109033, 571, 1, 1, 7260.0, 1177.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Great Soul-Lantern'),
-(9921113, 9109034, 1, 1, 1, -4223.0, -3257.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Fly Jar'),
-(9921114, 9109035, 0, 1, 1, -10614.0, -3663.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Fly Jar'),
-(9921115, 9109036, 530, 1, 1, -275.0, 5409.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Fly Jar'),
-(9921116, 9109037, 0, 1, 1, 2296.0, 296.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Bowl of Bruised Fruit'),
-(9921117, 9109038, 530, 1, 1, -2784.0, 5455.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Dish of Shiny Things'),
-(9921118, 9109039, 530, 1, 1, -2723.0, 3279.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Jar of Glowing Motes'),
-(9921119, 9109040, 1, 1, 1, -4736.0, 604.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Saucer of Cream'),
-(9921120, 9109041, 35, 1, 1, -98.0, 158.6, -40.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Cauldron (stir)'),
-(9921121, 9109042, 0, 1, 1, -10500.0, 165.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
-(9921122, 9109043, 530, 1, 1, -1220.0, -11810.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
-(9921123, 9109044, 0, 1, 1, 430.0, 205.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
-(9921124, 9109045, 1, 1, 1, -7160.0, -1140.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
-(9921125, 9109046, 530, 1, 1, 903.0, 2317.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
-(9921126, 9109047, 0, 1, 1, -11060.0, 1580.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
-(9921127, 9109047, 0, 1, 1, -3697.0, -817.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
-(9921128, 9109047, 1, 1, 1, -3664.0, -4751.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
-(9921129, 9109047, 0, 1, 1, -14450.0, 470.0, 0.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
-(9921130, 9109048, 0, 1, 1, -14281.0, 552.0, -24.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The End of the Pier'),
-(9921131, 9109049, 0, 1, 1, -14281.0, 552.0, -24.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The End of the Pier, Again'),
-(9921132, 9109050, 571, 1, 1, 6665.0, -252.0, 962.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of Frosthold'),
-(9921133, 9109051, 571, 1, 1, 7353.0, -2974.0, 939.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of Dun Niffelem'),
-(9921134, 9109052, 571, 1, 1, 7706.0, -3346.0, 890.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of Thunderfall'),
-(9921135, 9109053, 571, 1, 1, 7854.0, -1408.0, 1534.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of The Terrace Of The Makers'),
-(9921136, 9109054, 571, 1, 1, 6665.0, -252.0, 962.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
-(9921137, 9109054, 571, 1, 1, 7353.0, -2974.0, 939.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
-(9921138, 9109054, 571, 1, 1, 7706.0, -3346.0, 890.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
-(9921139, 9109054, 571, 1, 1, 7854.0, -1408.0, 1534.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again');
+(9921010, 9109019, 1, 1, 1, 2650.0, -1430.0, 185.19, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921011, 9109019, 1, 1, 1, 3247.0, -3724.0, 149.7, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921012, 9109019, 1, 1, 1, 1818.0, -2786.0, 81.6, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921013, 9109019, 1, 1, 1, 2094.0, -1172.0, 101.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921014, 9109019, 1, 1, 1, 3261.0, 166.0, 9.32, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921015, 9109020, 1, 1, 1, -4562.0, 889.0, 59.55, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921016, 9109020, 1, 1, 1, -5185.0, 1624.0, 76.82, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921017, 9109020, 1, 1, 1, -4428.0, 3198.0, 13.11, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921018, 9109020, 1, 1, 1, -5640.0, 1590.0, 70.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921019, 9109020, 1, 1, 1, -4740.0, 600.0, 39.97, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921020, 9109021, 571, 1, 1, 4162.0, -4135.0, 199.31, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921021, 9109021, 571, 1, 1, 4718.0, -3855.0, 329.62, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921022, 9109021, 571, 1, 1, 3897.0, -5163.0, 72.78, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921023, 9109021, 571, 1, 1, 4156.0, -2964.0, 283.8, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921024, 9109021, 571, 1, 1, 3800.0, -3600.0, 231.46, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921025, 9109022, 530, 1, 1, -781.0, 6944.0, 33.33, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921026, 9109022, 530, 1, 1, -2048.0, 6352.0, 44.64, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921027, 9109022, 530, 1, 1, -1199.0, 7148.0, 57.27, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921028, 9109022, 530, 1, 1, -2533.0, 7693.0, -22.49, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921029, 9109022, 530, 1, 1, -2200.0, 6700.0, -2.24, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921030, 9109023, 1, 1, 1, 7460.0, -3123.0, 438.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921031, 9109023, 1, 1, 1, 7538.0, -3029.0, 462.28, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921032, 9109023, 1, 1, 1, 7924.0, -2638.0, 492.8, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921033, 9109023, 1, 1, 1, 7700.0, -2900.0, 464.33, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921034, 9109023, 1, 1, 1, 7574.5, -2215.4, 474.09, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Dream Shard'),
+(9921035, 9109024, 0, 1, 1, -6273.0, -2940.0, 222.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lost Explorer''s Diary'),
+(9921036, 9109025, 1, 1, 1, -6590.0, 255.0, 3.7, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Scorpid Nest'),
+(9921037, 9109026, 0, 1, 1, 2300.0, -5300.0, 81.99, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Soul-Lantern'),
+(9921038, 9109026, 0, 1, 1, 1870.0, -3210.0, 126.01, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Soul-Lantern'),
+(9921039, 9109026, 0, 1, 1, 2692.0, -4029.0, 92.94, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Soul-Lantern'),
+(9921040, 9109027, 571, 1, 1, 7260.0, 1177.0, 316.75, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Great Soul-Lantern'),
+(9921041, 9109028, 1, 1, 1, -4231.0, -3265.0, 30.02, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Fly Jar'),
+(9921042, 9109029, 0, 1, 1, -10622.0, -3671.0, 23.57, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Fly Jar'),
+(9921043, 9109030, 530, 1, 1, -283.0, 5401.0, 17.55, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Fly Jar'),
+(9921044, 9109031, 0, 1, 1, 2288.0, 288.0, 81.5, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Bowl of Bruised Fruit'),
+(9921045, 9109032, 530, 1, 1, -2792.0, 5447.0, 0.81, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Dish of Shiny Things'),
+(9921046, 9109033, 530, 1, 1, -2731.0, 3271.0, -0.49, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Jar of Glowing Motes'),
+(9921047, 9109034, 1, 1, 1, -4744.0, 596.0, 40.16, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Saucer of Cream'),
+(9921048, 9109035, 35, 1, 1, -98.0, 158.6, -40.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Cauldron (stir)'),
+(9921049, 9109036, 0, 1, 1, -10500.0, 165.0, 34.12, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
+(9921050, 9109037, 530, 1, 1, -1220.0, -11810.0, 4.91, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
+(9921051, 9109038, 0, 1, 1, 430.0, 205.0, 41.91, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
+(9921052, 9109039, 1, 1, 1, -7160.0, -1140.0, -268.24, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
+(9921053, 9109040, 530, 1, 1, 903.0, 2317.0, 306.41, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Candle'),
+(9921054, 9109041, 0, 1, 1, -11060.0, 1580.0, 50.77, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
+(9921055, 9109041, 0, 1, 1, -3697.0, -817.0, 9.89, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
+(9921056, 9109041, 1, 1, 1, -3664.0, -4751.0, 1.45, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
+(9921057, 9109041, 0, 1, 1, -14430.2, 411.0, 15.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Lighthouse Lamp'),
+(9921058, 9109042, 0, 1, 1, -14281.0, 552.0, 8.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The End of the Pier'),
+(9921059, 9109043, 0, 1, 1, -14281.0, 552.0, 8.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The End of the Pier, Again'),
+(9921060, 9109044, 571, 1, 1, 6665.0, -252.0, 962.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of Frosthold'),
+(9921061, 9109045, 571, 1, 1, 7267.0, -2753.8, 870.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of Dun Niffelem'),
+(9921062, 9109046, 571, 1, 1, 7706.0, -3346.0, 890.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of Thunderfall'),
+(9921063, 9109047, 571, 1, 1, 7854.0, -1408.0, 1534.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Bell of The Terrace Of The Makers'),
+(9921064, 9109048, 571, 1, 1, 6665.0, -252.0, 962.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
+(9921065, 9109048, 571, 1, 1, 7267.0, -2753.8, 870.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
+(9921066, 9109048, 571, 1, 1, 7706.0, -3346.0, 890.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
+(9921067, 9109048, 571, 1, 1, 7854.0, -1408.0, 1534.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Four Bells, Again'),
+(9921068, 9109049, 0, 1, 1, 1250.0, -2560.0, 118.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (1 of 7)'),
+(9921069, 9109050, 0, 1, 1, -11100.0, -1990.0, 47.08, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (2 of 7)'),
+(9921070, 9109051, 571, 1, 1, 5802.0, 640.0, 659.6, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (3 of 7)'),
+(9921071, 9109052, 530, 1, 1, -2273.0, 5576.0, 80.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (4 of 7)'),
+(9921072, 9109053, 0, 1, 1, 2890.0, -820.0, 160.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (5 of 7)'),
+(9921073, 9109054, 0, 1, 1, -4635.0, -1306.0, 503.5, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (6 of 7)'),
+(9921074, 9109055, 0, 1, 1, 1630.0, 170.0, -62.2, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Torn Page (7 of 7)'),
+(9921075, 9109056, 0, 1, 1, 2300.0, -5300.0, 81.99, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Knight''s Armour Piece'),
+(9921076, 9109056, 0, 1, 1, 1870.0, -3210.0, 126.01, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Knight''s Armour Piece'),
+(9921077, 9109056, 0, 1, 1, 2692.0, -4029.0, 92.94, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Knight''s Armour Piece'),
+(9921078, 9109056, 0, 1, 1, 2281.1, -4738.0, 96.27, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Knight''s Armour Piece'),
+(9921079, 9109056, 0, 1, 1, 1996.8, -4491.4, 68.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Knight''s Armour Piece'),
+(9921080, 9109057, 0, 1, 1, 2296.0, -5295.0, 81.99, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: The Chapel''s Threshold'),
+(9921081, 9109058, 0, 1, 1, 2262.0, 340.0, 35.19, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Grave With No Stone'),
+(9921082, 9109059, 0, 1, 1, 2240.0, 318.0, 35.19, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: An Old Stall'),
+(9921083, 9109059, 0, 1, 1, 2248.0, 312.0, 35.19, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: An Old Stall'),
+(9921084, 9109059, 0, 1, 1, 2256.0, 306.0, 34.6, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: An Old Stall'),
+(9921085, 9109060, 0, 1, 1, 2252.0, 331.0, 35.19, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Tam''s Lantern'),
+(9921086, 9109061, 35, 1, 1, -97.0, 158.6, -40.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Hagatha''s Cauldron (purge)'),
+(9921087, 9109062, 35, 1, 1, -90.5, 139.5, -40.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Wren''s Flowerpot'),
+(9921088, 9109063, 0, 1, 1, -4913.0, -976.0, 501.5, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921089, 9109063, 0, 1, 1, -4840.7, -857.1, 502.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921090, 9109063, 0, 1, 1, -4821.1, -1152.4, 502.3, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921091, 9109063, 0, 1, 1, -4795.1, -1108.6, 498.9, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921092, 9109063, 0, 1, 1, -4667.0, -1266.0, 503.5, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921093, 9109063, 1, 1, 1, 1634.0, -4439.4, 15.8, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921094, 9109063, 1, 1, 1, 1772.9, -4279.9, 8.2, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921095, 9109063, 1, 1, 1, 1934.1, -4162.3, 41.2, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921096, 9109063, 1, 1, 1, 1837.3, -4469.6, 47.8, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921097, 9109063, 1, 1, 1, 1794.7, -4572.7, 23.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Chimney'),
+(9921098, 9109064, 0, 1, 1, -4840.7, -853.0, 502.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Cook''s Ingredient'),
+(9921099, 9109064, 1, 1, 1, 1640.8, -4450.0, 15.7, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Cook''s Ingredient'),
+(9921100, 9109064, 571, 1, 1, 5807.0, 683.0, 647.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Cook''s Ingredient'),
+(9921101, 9109064, 0, 1, 1, -8753.0, 1107.0, 59.46, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Cook''s Ingredient'),
+(9921102, 9109064, 0, 1, 1, 1635.4, 226.0, -43.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Cook''s Ingredient'),
+(9921103, 9109065, 0, 1, 1, -9100.0, 300.0, 95.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Giant Egg Tracks'),
+(9921104, 9109065, 530, 1, 1, -4180.0, -11900.0, -0.5, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Giant Egg Tracks'),
+(9921105, 9109065, 1, 1, 1, -2500.0, -500.0, -9.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Giant Egg Tracks'),
+(9921106, 9109066, 1, 1, 1, -2383.0, -410.0, -4.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Dead End'),
+(9921107, 9109067, 35, 1, 1, -123.0, 149.0, -40.1, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Dusty Corner'),
+(9921108, 9109068, 0, 1, 1, -9280.0, 460.0, 80.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Spring Petals'),
+(9921109, 9109069, 0, 1, 1, -11700.0, -450.0, 21.0, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Summer Petals'),
+(9921110, 9109070, 530, 1, 1, 9300.0, -6600.0, 33.4, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Autumn Petals'),
+(9921111, 9109071, 0, 1, 1, -5600.0, -500.0, 399.7, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: Winter Petals'),
+(9921112, 9109072, 1, 1, 1, -7160.0, -1140.0, -268.2, 0.0, 0, 0, 0.0, 1.0, 60, 255, 1, 'mod-devourer: A Glowing Ember');
 
 -- --- credits: one per objective the core cannot count by itself (never spawned) -----------------------
 DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
@@ -272,9 +263,9 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9109428, `name` = 'Dream shard touched as
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109429, `name` = 'Dreamed at the Thin Place as a Flutterer';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109430, `name` = 'Buried bones dug up with Sniff';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109430, `name` = 'Smelled the buried fragments among the dragon bones';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109431, `name` = 'Torn map piece found with Sniff';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109431, `name` = 'Sniffed out the first button at the Lion''s Pride';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109432, `name` = 'The explorer''s diary read';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
@@ -294,159 +285,289 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9109439, `name` = 'The hyenas'' tracks fo
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109440, `name` = 'The guide''s hyena out-laughed';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109441, `name` = 'One of Wren''s buttons found with Sniff';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109441, `name` = 'Soul-light delivered';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109442, `name` = 'One of Wren''s far buttons found with Sniff';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109442, `name` = 'Soul-light delivered';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109443, `name` = 'Worldforged relic dug up with Sniff';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109443, `name` = 'Soul-light delivered';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109444, `name` = 'One of Wren''s buttons found again';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109444, `name` = 'The great soul-light delivered';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109445, `name` = 'One of Wren''s far buttons found again';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109445, `name` = 'Stood still among the toads';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109446, `name` = 'Greater map piece found with Sniff';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109446, `name` = 'Hagatha''s Fly Jar put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109447, `name` = 'Soul-light delivered';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109447, `name` = 'Stood still among the huge toads';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109448, `name` = 'Soul-light delivered';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109448, `name` = 'Hagatha''s Fly Jar put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109449, `name` = 'Soul-light delivered';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109449, `name` = 'Stood still among the frogs';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109450, `name` = 'The great soul-light delivered';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109450, `name` = 'Hagatha''s Fly Jar put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109451, `name` = 'Stood still among the toads';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109451, `name` = 'Stood still among the belfry bats';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109452, `name` = 'Hagatha''s Fly Jar put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109452, `name` = 'A Bowl of Bruised Fruit put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109453, `name` = 'Stood still among the huge toads';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109453, `name` = 'Stood still among the spirit ravens';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109454, `name` = 'Hagatha''s Fly Jar put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109454, `name` = 'A Dish of Shiny Things put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109455, `name` = 'Stood still among the frogs';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109455, `name` = 'Stood still among the teromoths';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109456, `name` = 'Hagatha''s Fly Jar put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109456, `name` = 'A Jar of Glowing Motes put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109457, `name` = 'Stood still among the belfry bats';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109457, `name` = 'Stood still among the fox familiars';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109458, `name` = 'A Bowl of Bruised Fruit put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109458, `name` = 'A Saucer of Cream put down; the oldest came';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109459, `name` = 'Stood still among the spirit ravens';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109459, `name` = 'Un''Goro ooze devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109460, `name` = 'A Dish of Shiny Things put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109460, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109461, `name` = 'Stood still among the teromoths';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109461, `name` = 'Giant Wetlands Crocolisk devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109462, `name` = 'A Jar of Glowing Motes put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109462, `name` = 'Void Anomaly devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109463, `name` = 'Stood still among the fox familiars';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109463, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109464, `name` = 'A Saucer of Cream put down; the oldest came';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109464, `name` = 'Ember worg devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109465, `name` = 'Un''Goro ooze devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109465, `name` = 'Flamekin devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109466, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109467, `name` = 'Giant Wetlands Crocolisk devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109467, `name` = 'Craghide Basilisk devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109468, `name` = 'Void Anomaly devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109468, `name` = 'Sporebat devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109469, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109470, `name` = 'Ember worg devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109470, `name` = 'Felboar devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109471, `name` = 'Flamekin devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109471, `name` = 'Thunder lizard devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109472, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109473, `name` = 'Craghide Basilisk devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109473, `name` = 'Nether drake devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109474, `name` = 'Sporebat devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109474, `name` = 'Warp chaser devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109475, `name` = 'The cauldron stirred';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109475, `name` = 'Sporebat devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109476, `name` = 'Felboar devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109476, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109477, `name` = 'Thunder lizard devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109477, `name` = 'Un''Goro ooze devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109478, `name` = 'The cauldron stirred';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109478, `name` = 'Jade Ooze devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109479, `name` = 'Nether drake devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109479, `name` = 'Swamp ooze devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109480, `name` = 'Warp chaser devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109480, `name` = 'The cauldron stirred';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109481, `name` = 'Sporebat devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109481, `name` = 'The candle lit at Raven Hill Cemetery';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109482, `name` = 'The cauldron stirred';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109482, `name` = 'The watcher devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109483, `name` = 'Un''Goro ooze devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109483, `name` = 'The candle lit at the Warp Piston';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109484, `name` = 'Jade Ooze devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109484, `name` = 'The watcher devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109485, `name` = 'Swamp ooze devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109485, `name` = 'The candle lit at Dalaran Crater';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109486, `name` = 'The cauldron stirred';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109486, `name` = 'The watcher devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109487, `name` = 'The candle lit at Raven Hill Cemetery';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109487, `name` = 'The candle lit at Fire Plume Ridge';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109488, `name` = 'The watcher devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109489, `name` = 'The candle lit at the Warp Piston';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109489, `name` = 'The candle lit at the Throne of Kil''jaeden';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 UPDATE `devourer_tmp_ct` SET `entry` = 9109490, `name` = 'The watcher devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109491, `name` = 'The candle lit at Dalaran Crater';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109491, `name` = 'Stood at the Thin Place for what followed';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109492, `name` = 'The watcher devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109492, `name` = 'Something devoured at the Thin Place';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109493, `name` = 'The candle lit at Fire Plume Ridge';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109493, `name` = 'Thunder Bluff''s lifts, looked at';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109494, `name` = 'The watcher devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109494, `name` = 'The Dark Portal, looked at';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109495, `name` = 'The candle lit at the Throne of Kil''jaeden';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109495, `name` = 'The top of Wyrmrest, looked at';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109496, `name` = 'The watcher devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109496, `name` = 'Dalaran''s fountain, looked at';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109497, `name` = 'Stood at the Thin Place for what followed';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109497, `name` = 'Booty Bay at sunset, looked at';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109498, `name` = 'Something devoured at the Thin Place';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109498, `name` = 'The Throne of the Elements, looked at';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109499, `name` = 'Thunder Bluff''s lifts, looked at';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109499, `name` = 'Lighthouse lamp lit at night';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109500, `name` = 'The Dark Portal, looked at';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109500, `name` = 'Waited at the pier''s end at night';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109501, `name` = 'The top of Wyrmrest, looked at';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109501, `name` = 'The eel patted';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109502, `name` = 'Dalaran''s fountain, looked at';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109502, `name` = 'Lighthouse lamp lit again at night';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109503, `name` = 'Booty Bay at sunset, looked at';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109503, `name` = 'Waited at the pier''s end again';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109504, `name` = 'The Throne of the Elements, looked at';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109504, `name` = 'A deep thing patted';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109505, `name` = 'Lighthouse lamp lit at night';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109505, `name` = 'Waited on the Longtusk beach at night';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109506, `name` = 'Waited at the pier''s end at night';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109506, `name` = 'Fjord thing devoured';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109507, `name` = 'The eel patted';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109507, `name` = 'The bell of Frosthold rung on foot';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109508, `name` = 'Lighthouse lamp lit again at night';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109508, `name` = 'The bell of Dun Niffelem rung on foot';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109509, `name` = 'Waited at the pier''s end again';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109509, `name` = 'The bell of Thunderfall rung on foot';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109510, `name` = 'A deep thing patted';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109510, `name` = 'The bell of the Terrace of the Makers rung on foot';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109511, `name` = 'Waited on the Longtusk beach at night';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109511, `name` = 'A bell rung on foot within the hour';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109512, `name` = 'Fjord thing devoured';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109512, `name` = 'A fish caught with Otto watching';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109513, `name` = 'The bell of Frosthold rung on foot';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109513, `name` = 'A fish shared with Otto''s friends near';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109514, `name` = 'The bell of Dun Niffelem rung on foot';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109514, `name` = 'A fish shared with the war ottuk';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109515, `name` = 'The bell of Thunderfall rung on foot';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109515, `name` = 'Lost kitten found and patted';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109516, `name` = 'The bell of the Terrace of the Makers rung on foot';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109516, `name` = 'Sat with Jigglesworth Sr.';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
-UPDATE `devourer_tmp_ct` SET `entry` = 9109517, `name` = 'A bell rung on foot within the hour';
+UPDATE `devourer_tmp_ct` SET `entry` = 9109517, `name` = 'The page found at Caer Darrow';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109518, `name` = 'The page found at Karazhan''s gate';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109519, `name` = 'The page found at the Violet Citadel in Dalaran';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109520, `name` = 'The page found at the Scryers'' tier in Shattrath';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109521, `name` = 'The page found at the Scarlet Monastery''s library door';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109522, `name` = 'The page found at the Hall of Explorers in Ironforge';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109523, `name` = 'The page found at the Magic Quarter of Undercity';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109524, `name` = 'Broken machine taken apart';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109525, `name` = 'Big machine taken apart';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109526, `name` = 'The truth told to the knight';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109527, `name` = 'A piece of the knight''s armour found';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109528, `name` = 'Stood still at the chapel at dawn';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109529, `name` = 'The knight''s horse called out of the memory';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109530, `name` = 'Stood still in the Hall of Explorers at dawn';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109531, `name` = 'Dawn at Light''s Hope';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109532, `name` = 'Dawn at the Dark Portal';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109533, `name` = 'Dawn on the Booty Bay dock';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109534, `name` = 'Dawn at the top of Wyrmrest';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109535, `name` = 'Dawn at the Argent camp';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109536, `name` = 'Tam asked about the mare';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109537, `name` = 'The mare''s grave dug; her ghost rose';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109538, `name` = 'Tam''s lantern taken; he follows';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109539, `name` = 'A goodbye said at a stall';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109540, `name` = 'The charger''s riddle answered';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109541, `name` = 'Helboar bitten clean as a Wolf';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109542, `name` = 'The fel purged at the cauldron';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109543, `name` = 'Ravager bitten clean as a Saber';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109544, `name` = 'The fel purged at the cauldron';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109545, `name` = 'Felboar bitten clean as a Boar';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109546, `name` = 'The fel purged at the cauldron';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109547, `name` = 'A fel reaver talked down';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109548, `name` = 'Fel-touched beast devoured in Shadowmoon';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109549, `name` = 'The fel purged at the cauldron';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109550, `name` = 'Fel-touched beast devoured in Hellfire';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109551, `name` = 'A deathcycle talked into starting';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109552, `name` = 'The sapling taken from its pot';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109553, `name` = 'Rested by the water at Auberdine';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109554, `name` = 'The sapling taken from its pot again';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109555, `name` = 'Rested by the water at Emerald Sanctuary';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109556, `name` = 'The sapling taken for the last walk';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109557, `name` = 'Rested by the moonwell at Raynewood Retreat';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109558, `name` = 'Sat with the Ancient';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109559, `name` = 'Sat a little longer';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109560, `name` = 'A present dropped down a chimney';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109561, `name` = 'An ingredient from a cook';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109562, `name` = 'Wren shooed from the oven';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109563, `name` = 'Giant egg tracks found';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109564, `name` = 'The dead end reached; the egg cornered';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109565, `name` = 'Stared for a minute';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109566, `name` = 'The egg stared at';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109567, `name` = 'The dust bunnies woken';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109568, `name` = 'Dust bunny swept';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109569, `name` = 'Hovered still over the duck pond';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109570, `name` = 'Round the cauldron';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109571, `name` = 'Past Hagatha''s Gate';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109572, `name` = 'Through the Thin Place';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109573, `name` = 'Back to the board';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109574, `name` = 'Round the cauldron, watched';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109575, `name` = 'Past the gate, watched';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109576, `name` = 'Through the Thin Place, watched';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109577, `name` = 'Spring Petals picked';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109578, `name` = 'Summer Petals picked';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109579, `name` = 'Autumn Petals picked';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109580, `name` = 'Winter Petals picked';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109581, `name` = 'Sat with Mister Slow';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109582, `name` = 'An ember picked at Fire Plume Ridge';
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES
@@ -567,7 +688,72 @@ INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`,
 (9109514, 0, 11686, 1, 1, 0),
 (9109515, 0, 11686, 1, 1, 0),
 (9109516, 0, 11686, 1, 1, 0),
-(9109517, 0, 11686, 1, 1, 0);
+(9109517, 0, 11686, 1, 1, 0),
+(9109518, 0, 11686, 1, 1, 0),
+(9109519, 0, 11686, 1, 1, 0),
+(9109520, 0, 11686, 1, 1, 0),
+(9109521, 0, 11686, 1, 1, 0),
+(9109522, 0, 11686, 1, 1, 0),
+(9109523, 0, 11686, 1, 1, 0),
+(9109524, 0, 11686, 1, 1, 0),
+(9109525, 0, 11686, 1, 1, 0),
+(9109526, 0, 11686, 1, 1, 0),
+(9109527, 0, 11686, 1, 1, 0),
+(9109528, 0, 11686, 1, 1, 0),
+(9109529, 0, 11686, 1, 1, 0),
+(9109530, 0, 11686, 1, 1, 0),
+(9109531, 0, 11686, 1, 1, 0),
+(9109532, 0, 11686, 1, 1, 0),
+(9109533, 0, 11686, 1, 1, 0),
+(9109534, 0, 11686, 1, 1, 0),
+(9109535, 0, 11686, 1, 1, 0),
+(9109536, 0, 11686, 1, 1, 0),
+(9109537, 0, 11686, 1, 1, 0),
+(9109538, 0, 11686, 1, 1, 0),
+(9109539, 0, 11686, 1, 1, 0),
+(9109540, 0, 11686, 1, 1, 0),
+(9109541, 0, 11686, 1, 1, 0),
+(9109542, 0, 11686, 1, 1, 0),
+(9109543, 0, 11686, 1, 1, 0),
+(9109544, 0, 11686, 1, 1, 0),
+(9109545, 0, 11686, 1, 1, 0),
+(9109546, 0, 11686, 1, 1, 0),
+(9109547, 0, 11686, 1, 1, 0),
+(9109548, 0, 11686, 1, 1, 0),
+(9109549, 0, 11686, 1, 1, 0),
+(9109550, 0, 11686, 1, 1, 0),
+(9109551, 0, 11686, 1, 1, 0),
+(9109552, 0, 11686, 1, 1, 0),
+(9109553, 0, 11686, 1, 1, 0),
+(9109554, 0, 11686, 1, 1, 0),
+(9109555, 0, 11686, 1, 1, 0),
+(9109556, 0, 11686, 1, 1, 0),
+(9109557, 0, 11686, 1, 1, 0),
+(9109558, 0, 11686, 1, 1, 0),
+(9109559, 0, 11686, 1, 1, 0),
+(9109560, 0, 11686, 1, 1, 0),
+(9109561, 0, 11686, 1, 1, 0),
+(9109562, 0, 11686, 1, 1, 0),
+(9109563, 0, 11686, 1, 1, 0),
+(9109564, 0, 11686, 1, 1, 0),
+(9109565, 0, 11686, 1, 1, 0),
+(9109566, 0, 11686, 1, 1, 0),
+(9109567, 0, 11686, 1, 1, 0),
+(9109568, 0, 11686, 1, 1, 0),
+(9109569, 0, 11686, 1, 1, 0),
+(9109570, 0, 11686, 1, 1, 0),
+(9109571, 0, 11686, 1, 1, 0),
+(9109572, 0, 11686, 1, 1, 0),
+(9109573, 0, 11686, 1, 1, 0),
+(9109574, 0, 11686, 1, 1, 0),
+(9109575, 0, 11686, 1, 1, 0),
+(9109576, 0, 11686, 1, 1, 0),
+(9109577, 0, 11686, 1, 1, 0),
+(9109578, 0, 11686, 1, 1, 0),
+(9109579, 0, 11686, 1, 1, 0),
+(9109580, 0, 11686, 1, 1, 0),
+(9109581, 0, 11686, 1, 1, 0),
+(9109582, 0, 11686, 1, 1, 0);
 
 -- --- the quests' own creatures (copies of stock ones, with their own names) ----------------------------
 DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9109900 AND 9109979;
@@ -729,6 +915,143 @@ UPDATE `devourer_tmp_ct` SET `entry` = 9109925, `name` = 'One of The storm', `su
 INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
 DROP TEMPORARY TABLE `devourer_tmp_ct`;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109925, 0, 9302113, 1.0, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 6368;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109926, `name` = 'Otto', `subname` = 'Keeps the Big Ones', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 70, `maxlevel` = 70, `faction` = 31;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109926, 0, 9302285, 0.9, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 6368;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109927, `name` = 'The War Ottuk', `subname` = 'Will Not Be Sold', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 72, `maxlevel` = 72, `faction` = 31;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109927, 0, 9302286, 1.0, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 7386;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109928, `name` = 'A Lost Kitten', `subname` = 'Mews', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 1, `maxlevel` = 1, `faction` = 31;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109928, 0, `CreatureDisplayID`, `DisplayScale` * 1.0, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 7386 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 6368;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109929, `name` = 'Jigglesworth Sr.', `subname` = 'Very Proud, Very Fat', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 70, `maxlevel` = 70, `faction` = 35;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109929, 0, 9302043, 1.2, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 4260;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109930, `name` = 'A Broken Machine', `subname` = 'Three Bolts, One Wrong', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 30, `maxlevel` = 30, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109930, 0, `CreatureDisplayID`, `DisplayScale` * 0.8, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 4260 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 4260;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109931, `name` = 'A Big Broken Machine', `subname` = 'Three Bolts, Two Wrong', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 60, `maxlevel` = 60, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109931, 0, `CreatureDisplayID`, `DisplayScale` * 1.2, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 4260 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 16906;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109932, `name` = 'The Knight Without a Horse', `subname` = 'One More Ride', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 60, `maxlevel` = 60, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109932, 0, `CreatureDisplayID`, `DisplayScale` * 1.0, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 16906 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 385;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109933, `name` = 'The Knight''s Charger', `subname` = 'A Memory, Pulled Out', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 60, `maxlevel` = 60, `faction` = 35;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109933, 0, 9302009, 1.0, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 1518;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109934, `name` = 'Tam the Stable Boy', `subname` = 'Forsaken, Still Waiting', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 20, `maxlevel` = 20, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109934, 0, `CreatureDisplayID`, `DisplayScale` * 1.0, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 1518 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 385;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109935, `name` = 'The Ghost of a Mare', `subname` = 'Liked Apples', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 20, `maxlevel` = 20, `faction` = 31;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109935, 0, 9302138, 1.0, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 385;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109936, `name` = 'The Horseman''s Charger', `subname` = 'Lost Its Rider Again', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 70, `maxlevel` = 70, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109936, 0, 9302164, 1.0, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 21180;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109937, `name` = 'Vessa', `subname` = 'They Did Not Choose the Fel Either', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 68, `maxlevel` = 68, `faction` = 35;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109937, 0, `CreatureDisplayID`, `DisplayScale` * 1.0, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 21180 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 19400;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109938, `name` = 'A Fel Reaver, Still Running Orders', `subname` = 'Legion Orders, Unrevoked', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 70, `maxlevel` = 70, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109938, 0, `CreatureDisplayID`, `DisplayScale` * 0.6, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 19400 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 385;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109939, `name` = 'A Deathcycle That Will Not Start', `subname` = 'Sulking', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 70, `maxlevel` = 70, `faction` = 35, `npcflag` = 1, `ScriptName` = 'npc_devourer_quest_beast';
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109939, 0, 9302236, 1.0, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 3817;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109940, `name` = 'The Sapling', `subname` = 'Wants to Go Home', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 20, `maxlevel` = 20, `faction` = 31;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (9109940, 0, 9302008, 0.3, 1, 0);
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 721;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109941, `name` = 'The Giant Egg', `subname` = 'Moves When Nobody Looks', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 10, `maxlevel` = 10, `faction` = 31;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109941, 0, `CreatureDisplayID`, `DisplayScale` * 3.0, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 721 AND `Idx` = 0;
+DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;
+CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = 721;
+UPDATE `devourer_tmp_ct` SET `entry` = 9109942, `name` = 'A Dust Bunny', `subname` = 'Bites', `KillCredit1` = 0, `KillCredit2` = 0, `lootid` = 0, `pickpocketloot` = 0, `skinloot` = 0, `AIName` = '', `ScriptName` = '', `VerifiedBuild` = 0, `minlevel` = 20, `maxlevel` = 20, `faction` = 14;
+INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;
+DROP TEMPORARY TABLE `devourer_tmp_ct`;
+INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) SELECT 9109942, 0, `CreatureDisplayID`, `DisplayScale` * 0.6, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 721 AND `Idx` = 0;
+INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES
+(9922000, 9109926, 571, 1, 1, 2284.0, 5113.0, 0.3, 2.0, 120, 0, 0, 'mod-devourer: Otto'),
+(9922001, 9109927, 571, 1, 1, 722.0, -2842.0, 1.3, 4.0, 120, 0, 0, 'mod-devourer: The War Ottuk'),
+(9922002, 9109928, 571, 1, 1, 5765.0, 522.0, 654.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922003, 9109928, 571, 1, 1, 5843.0, 564.0, 653.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922004, 9109928, 571, 1, 1, 5619.0, 695.0, 652.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922005, 9109928, 571, 1, 1, 5758.0, 745.0, 654.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922006, 9109928, 571, 1, 1, 5837.0, 634.0, 657.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922007, 9109928, 571, 1, 1, 5664.0, 619.0, 648.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922008, 9109928, 571, 1, 1, 5807.0, 683.0, 647.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922009, 9109928, 571, 1, 1, 5879.0, 785.0, 642.0, 0.0, 120, 0, 0, 'mod-devourer: A Lost Kitten'),
+(9922010, 9109929, 571, 1, 1, 5750.0, 526.0, 653.0, 3.0, 120, 0, 0, 'mod-devourer: Jigglesworth Sr.'),
+(9922011, 9109930, 1, 1, 1, -6224.0, -3861.0, -58.75, 0.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922012, 9109930, 1, 1, 1, -6260.0, -3856.0, -58.75, 1.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922013, 9109930, 1, 1, 1, -6213.0, -3850.0, -58.75, 2.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922014, 9109930, 0, 1, 1, -14354.0, 414.0, 3.25, 0.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922015, 9109930, 0, 1, 1, -14330.0, 430.0, 6.6, 1.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922016, 9109930, 1, 1, 1, 1109.0, -3104.0, 82.32, 0.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922017, 9109930, 0, 1, 1, -11990.0, -526.0, 11.41, 0.0, 120, 0, 0, 'mod-devourer: A Broken Machine'),
+(9922018, 9109931, 1, 1, 1, -4062.0, -3628.0, 45.95, 0.0, 120, 0, 0, 'mod-devourer: A Big Broken Machine'),
+(9922019, 9109931, 530, 1, 1, 3089.0, 3650.0, 165.5, 0.0, 120, 0, 0, 'mod-devourer: A Big Broken Machine'),
+(9922020, 9109931, 571, 1, 1, 4156.0, -2964.0, 283.8, 0.0, 120, 0, 0, 'mod-devourer: A Big Broken Machine'),
+(9922021, 9109931, 1, 1, 1, 6720.0, -4660.0, 720.94, 0.0, 120, 0, 0, 'mod-devourer: A Big Broken Machine'),
+(9922022, 9109931, 1, 1, 1, -7187.0, -3839.0, 8.64, 0.0, 120, 0, 0, 'mod-devourer: A Big Broken Machine'),
+(9922023, 9109932, 0, 1, 1, 2296.0, -5290.0, 81.99, 4.5, 120, 0, 0, 'mod-devourer: The Knight Without a Horse'),
+(9922024, 9109934, 0, 1, 1, 2250.0, 329.0, 35.19, 1.0, 120, 0, 0, 'mod-devourer: Tam the Stable Boy'),
+(9922025, 9109936, 0, 1, 1, 2262.0, 352.0, 35.19, 3.0, 120, 0, 0, 'mod-devourer: The Horseman''s Charger'),
+(9922026, 9109937, 530, 1, 1, -763.0, 2463.0, 40.27, 2.0, 120, 0, 0, 'mod-devourer: Vessa'),
+(9922027, 9109938, 530, 1, 1, 745.0, 1715.0, 97.79, 0.0, 120, 0, 0, 'mod-devourer: A Fel Reaver, Still Running Orders'),
+(9922028, 9109938, 530, 1, 1, 845.0, 1841.0, 135.58, 1.0, 120, 0, 0, 'mod-devourer: A Fel Reaver, Still Running Orders'),
+(9922029, 9109938, 530, 1, 1, 4384.0, 3484.0, 182.37, 0.0, 120, 0, 0, 'mod-devourer: A Fel Reaver, Still Running Orders'),
+(9922030, 9109938, 530, 1, 1, -2634.0, 2668.0, 74.81, 2.0, 120, 0, 0, 'mod-devourer: A Fel Reaver, Still Running Orders'),
+(9922031, 9109938, 530, 1, 1, 4522.0, 3436.0, 166.72, 3.0, 120, 0, 0, 'mod-devourer: A Fel Reaver, Still Running Orders'),
+(9922032, 9109939, 530, 1, 1, -763.0, 2475.0, 42.42, 3.0, 120, 0, 0, 'mod-devourer: A Deathcycle That Will Not Start'),
+(9922033, 9109939, 530, 1, 1, -770.0, 2470.0, 39.56, 4.0, 120, 0, 0, 'mod-devourer: A Deathcycle That Will Not Start');
 
 -- --- the quests -------------------------------------------------------------------------------------
 INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardXPDifficulty`, `RewardMoney`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`, `AreaDescription`, `QuestCompletionLog`, `RequiredNpcOrGo1`, `RequiredNpcOrGoCount1`, `RequiredNpcOrGo2`, `RequiredNpcOrGoCount2`, `RequiredNpcOrGo3`, `RequiredNpcOrGoCount3`, `RequiredNpcOrGo4`, `RequiredNpcOrGoCount4`, `RequiredItemId1`, `RequiredItemCount1`, `RequiredItemId2`, `RequiredItemCount2`, `RequiredItemId3`, `RequiredItemCount3`, `RequiredItemId4`, `RequiredItemCount4`, `RewardItem1`, `RewardAmount1`, `RewardItem2`, `RewardAmount2`, `RewardItem3`, `RewardAmount3`, `RewardItem4`, `RewardAmount4`, `RewardChoiceItemID1`, `RewardChoiceItemQuantity1`, `RewardChoiceItemID2`, `RewardChoiceItemQuantity2`, `RewardChoiceItemID3`, `RewardChoiceItemQuantity3`, `RewardChoiceItemID4`, `RewardChoiceItemQuantity4`, `RewardChoiceItemID5`, `RewardChoiceItemQuantity5`, `RewardChoiceItemID6`, `RewardChoiceItemQuantity6`, `ObjectiveText1`, `ObjectiveText2`, `ObjectiveText3`, `ObjectiveText4`, `TimeAllowed`, `VerifiedBuild`) VALUES
@@ -747,52 +1070,96 @@ INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `Ques
 (9109023, 2, 60, 58, 0, 0, 6, 32400, 0, 0, 'WANTED: Nagrand Dreams', 'As a Royal Blue Flutterer, touch all five dream shards in Nagrand within eight hours of the first.', 'Wren, whispering:$B$BSnack, Nagrand is dreaming this week. Five dream shards fell into it, faint blue glimmers that only a royal blue flutterer can touch; anyone else''s hand goes straight through. Hagatha says once you touch the first, the dream knows you''re there and the other four start to fade: eight hours, and then they''re gone until the zone dreams again.$B$BWear your flutterer. Don''t run at them. Dreams are shy.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109427, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304160, 1, 9304201, 1, 9304342, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dream shard touched as a Flutterer', '', '', '', 28800, 0),
 (9109024, 2, 60, 58, 0, 0, 6, 32400, 0, 0, 'WANTED: Moonglade Dreams', 'As a Royal Blue Flutterer, touch all five dream shards in Moonglade within eight hours of the first.', 'Wren, whispering:$B$BSnack, Moonglade is dreaming this week. Five dream shards fell into it, faint blue glimmers that only a royal blue flutterer can touch; anyone else''s hand goes straight through. Hagatha says once you touch the first, the dream knows you''re there and the other four start to fade: eight hours, and then they''re gone until the zone dreams again.$B$BWear your flutterer. Don''t run at them. Dreams are shy.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109428, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304161, 1, 9304209, 1, 9304577, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dream shard touched as a Flutterer', '', '', '', 28800, 0),
 (9109025, 2, 62, 60, 0, 0, 7, 46128, 0, 0, 'Every Dream at Once', 'As a Royal Blue Flutterer, sit at the Thin Place in the In-Between and wait for the dreamweavers'' queen.', 'Hagatha, dry:$B$BYou have touched every dream shard in five lands. Wren is beside herself. There is one more dreamer, little horror, the one that dreams the other dreams: the dreamweavers'' queen, Nyxaroth. She does not fall into a zone. She comes to a flutterer that has carried all five dreams at once.$B$BWear your flutterer and come to the Thin Place in the In-Between. Sit. Dream. She will find you.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109429, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304162, 1, 9304163, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dreamed at the Thin Place as a Flutterer', '', '', '', 0, 0),
-(9109030, 2, 38, 35, 0, 0, 6, 12996, 0, 0, 'WANTED: Bones That Remember', 'With Sniff on, dig up 5 buried bones in the Badlands and Desolace.', 'Hagatha, in Wren''s wanted notice, crossed out and rewritten:$B$BBones remember how to run, little horror. They just need reminding. Five pieces of an old runner lie buried: three in the Badlands, near the dig sites and the dragon bones, and two in Desolace, by the kodo graveyard. No map marks them. Your nose does: turn on your Sniff and the disturbed earth will show itself.$B$BDig them up. Bring the memory of them here.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109430, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304604, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Buried bones dug up with Sniff', '', '', '', 0, 0),
-(9109031, 2, 40, 38, 0, 0, 6, 14400, 0, 0, 'WANTED: A Map in Five Pieces', 'With Sniff on, find the 5 torn map pieces in the goblins'' places.', 'Wren, excited:$B$BSnack! Goblins! They tore up a treasure map and hid the pieces in their favourite places: Gadgetzan, the race track on the Shimmering Flats, Booty Bay, Ratchet, and by the broken shredder in the Barrens. Goblins hide things badly. Sniff them out.$B$BPut the map together and it shows where they buried their digging machine. A MACHINE, Snack. For digging. I want it. You want it. We both want it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109431, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304283, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Torn map piece found with Sniff', '', '', '', 0, 0),
+(9109030, 2, 38, 35, 0, 0, 4, 6931, 0, 0, 'WANTED: Bones That Remember', 'With Sniff on, stand still among the dragon bones in the Badlands until you smell the buried fragments.', 'Hagatha, in Wren''s wanted notice, crossed out and rewritten:$B$BBones remember how to run, little horror. They just need reminding. Old runners lie buried all over the world, in pieces, and no map marks them. Your nose does. Go to the Badlands, where the dragon bones are, turn on your Sniff, and stand among them until you smell it: disturbed earth, everywhere, under everything.$B$BThen you will know what to look for. Every fossil fragment you dig up after that, Wren will take; she trades runners for them.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109430, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Smelled the buried fragments among the dragon bones', '', '', '', 0, 0),
+(9109031, 2, 20, 15, 0, 0, 3, 1440, 0, 0, 'WANTED: Wren''s Buttons', 'With Sniff on, find the glint of Wren''s first lost button by the Lion''s Pride Inn in Goldshire.', 'Wren, mortified:$B$BSnack. My good cloak. The one with the frogs on. The buttons came off. ALL of them. They fell off everywhere I''ve ever been, which is everywhere.$B$BThey''re tiny. You''ll never see them. Your nose will. Go to the Lion''s Pride in Goldshire, where I lost the first one, turn on your Sniff and find the glint. Then you''ll know what they smell like, and you can find the rest wherever you go.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109431, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Sniffed out the first button at the Lion''s Pride', '', '', '', 0, 0),
 (9109032, 2, 42, 40, 0, 0, 4, 8467, 0, 0, 'WANTED: The Lost Explorer', 'Read the lost explorer''s diary at the Badlands dig, then go where it sends you: Uldaman''s door, Gadgetzan, and the hives of Silithus.', 'Wren, worried:$B$BSnack, an explorer went missing in the desert and her diary turned up at the Badlands dig. Hagatha read it. She says the diary is LYING, on purpose, so nobody follows her. It sends you to Uldaman, then to Tanaris, then to Silithus, each page sillier than the last.$B$BRead it. Go where it says. Work out where she really went. Her camels know; they always go home.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109432, 1, 9109433, 1, 9109434, 1, 9109435, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The explorer''s diary read', 'Uldaman''s door, as the diary said', 'Gadgetzan, as the diary said', 'The hives of Silithus, as the diary said', 0, 0),
 (9109033, 2, 43, 41, 0, 0, 6, 16641, 0, 0, 'Under Control', 'Pull the explorer out of the scorpid nest in Silithus, eat 4 stonelash scorpids, then follow the camels'' tracks with Sniff.', 'Wren, firmly:$B$BShe''s in a scorpid nest in the north of Silithus. Pull her out. Eat the scorpids if they argue. She will tell you she had it under control. She did not.$B$BHer camels wandered off when the scorpids came; their tracks lead north from the nest. Follow them with Sniff. They come home with whoever finds them.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109436, 1, 9109437, 4, 9109438, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304070, 1, 9304074, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The explorer pulled out of the nest', 'Stonelash scorpid devoured', 'The camels'' tracks followed', '', 0, 0),
 (9109034, 2, 44, 42, 0, 0, 5, 11616, 0, 0, 'The Guide''s Hyenas', 'Follow the hyenas'' tracks south of Gadgetzan with Sniff, then /laugh at 3 of the guide''s hyenas.', 'Wren, reading the diary''s last page:$B$BShe had a guide. A vulpera, with hyenas. The hyenas ran when the scorpids came too, and they''re still out there, laughing at the desert. The guide says they come to anyone who can laugh louder than they can.$B$BSniff out their tracks south of Gadgetzan, find them, and laugh at them. Properly. Until they stop.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109439, 1, 9109440, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304703, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The hyenas'' tracks followed', 'The guide''s hyena out-laughed', '', '', 0, 0),
-(9109035, 2, 20, 15, 0, 0, 5, 2400, 0, 0, 'WANTED: Wren''s Buttons (the first twenty-five)', 'With Sniff on, find 25 of Wren''s buttons by Hagatha''s lanterns.', 'Wren, mortified:$B$BSnack. My good cloak. The one with the frogs on. The buttons came off. ALL of them. They fell off everywhere I''ve ever been, which is everywhere your lanterns are, because I was there first, checking.$B$BThey''re tiny. You''ll never see them. Your nose will: turn on your Sniff by each lantern and look for a tiny glint. Twenty-five of them, and I''ll give you the thing I won at the fair.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109441, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304686, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'One of Wren''s buttons found with Sniff', '', '', '', 0, 0),
-(9109036, 2, 60, 55, 0, 0, 6, 32400, 0, 0, 'Wren''s Buttons (the second twenty-five)', 'With Sniff on, find 25 more of Wren''s buttons in the far places.', 'Wren, hopeful:$B$BThere are more, Snack. The other half fell off in the far places: the later lanterns, the capitals, the famous spots. Twenty-five more and the cloak is whole again.$B$BI''ll give you the rooster for them. The magical one. It crows at the wrong time of day, but it''s very white.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109442, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304086, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'One of Wren''s far buttons found with Sniff', '', '', '', 0, 0),
-(9109037, 2, 70, 65, 0, 0, 7, 82320, 0, 0, 'WANTED: Relics That Hum', 'With Sniff on, dig up 7 worldforged relics where the old things died.', 'Hagatha:$B$BThe world forges things in its sleep, little horror, and buries them. Relics. They hum, if you know how to listen, and your nose knows how. Seven of them lie where the old things died: the Badlands'' dragon bones, the kodo graveyard, the Tanaris dunes, Light''s Hope, the Valley of Lost Hope in Icecrown, the jungle, the crater.$B$BDig them all. What they remember is yours: the bones of kings, their steeds, their storms.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109443, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304536, 1, 9304605, 1, 9304606, 1, 9304672, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Worldforged relic dug up with Sniff', '', '', '', 0, 0),
-(9109038, 2, 72, 68, 0, 0, 7, 87090, 0, 0, 'Bucky, the Cloud and the Kite', 'With Sniff on, find 50 more of Wren''s buttons, anywhere.', 'Wren, holding up a jar of buttons:$B$BSnack, I counted the buttons again and there are MORE. I think they breed. Fine. The deal stands: find me fifty more, anywhere you find them, and the last three fair prizes are yours: Bucky the squirrel (he bites), the rain cloud (it rains), and the kite (it''s a kite).', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109444, 25, 9109445, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304625, 1, 9304717, 1, 9304507, 1, 9304260, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'One of Wren''s buttons found again', 'One of Wren''s far buttons found again', '', '', 0, 0),
-(9109039, 2, 70, 65, 0, 0, 7, 82320, 0, 0, 'The Great Extractor', 'With Sniff on, find the 5 pieces of the greater treasure map in the rich goblins'' places.', 'Wren, with a bigger map:$B$BThe goblins had a BIGGER machine, Snack. The map for it is in five pieces too, in the places goblins go when they''re rich: Area 52, Everlook, Gadgetzan''s bank, the Undermine ferry in Booty Bay, and the zeppelin tower in Orgrimmar.$B$BSniff. Then bring me the map, and I''ll bring you the machine. It''s enormous. We''ll need a bigger larder.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109446, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304284, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Greater map piece found with Sniff', '', '', '', 0, 0),
-(9109050, 2, 60, 58, 0, 0, 7, 43200, 0, 0, 'WANTED: A Lantern for the Cauldron', 'Carry a soul-lantern from Light''s Hope Chapel to Hagatha''s cauldron in the In-Between before it goes out.', 'Hagatha:$B$BThe dead steeds in my cauldron want light, little horror, and not the kind a candle gives. Soul-light. It gathers in lanterns where many died: Light''s Hope, the Marris Stead, the Argent camp in the Plaguelands. Pick one up. It will weigh on you, and it dims as you walk; walk steadily and bring it to the cauldron before it goes out.$B$BIf it goes out, you start again. The dead are patient. I am not.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109447, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304620, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Soul-light delivered', '', '', '', 0, 0),
-(9109051, 2, 62, 60, 0, 0, 7, 46128, 0, 0, 'A Second Lantern', 'Carry the soul-lantern from the Marris Stead to Hagatha''s cauldron before it goes out.', 'Hagatha:$B$BOne lantern woke one. There are more steeds down there, and the next wants the light from the Marris Stead, where the Blightcaller keeps his hounds. Carry it the same way. The road is longer; the light is not.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109448, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304111, 1, 9304442, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Soul-light delivered', '', '', '', 0, 0),
-(9109052, 2, 64, 62, 0, 0, 7, 49152, 0, 0, 'The Argent Lantern', 'Carry the soul-lantern from the Argent Dawn''s camp to Hagatha''s cauldron before it goes out.', 'Hagatha:$B$BThe Argent camp''s lantern is the heaviest of the three; the light in it is the kind that fought back. Carry it. Your companions may carry one too, if you ask them (they walk slower as well; it is only fair).', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109449, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304128, 1, 9304145, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Soul-light delivered', '', '', '', 0, 0),
-(9109053, 2, 78, 76, 0, 0, 7, 102210, 0, 0, 'The Great Lantern of Icecrown', 'Carry the Great Soul-Lantern from the Valley of Lost Hope to Hagatha''s cauldron, feeding it at the braziers on the way, before it goes out.', 'Hagatha, very quietly:$B$BThe last lantern hangs in the Valley of Lost Hope in Icecrown, and it is great: five lanterns'' worth of light, and five lanterns'' weight. It dims fast. There are braziers on the road that will feed it; stop at them. Bring it to the cauldron, and the cauldron will open.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109450, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304131, 1, 9304233, 1, 9304440, 1, 9304621, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The great soul-light delivered', '', '', '', 0, 0),
-(9109060, 2, 22, 20, 0, 0, 6, 4356, 0, 0, 'WANTED: One of the Toads', 'As a Biletoad (or what it grew into), stand still among the toads of the Dragonmurk until they accept you, then put down Hagatha''s Fly Jar; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The toads of the dragonmurk are like that. Go there wearing your biletoad, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the flies I have left there (Hagatha''s Fly Jar, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109451, 1, 9109452, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304657, 1, 9304651, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the toads', 'Hagatha''s Fly Jar put down; the oldest came', '', '', 0, 0),
-(9109061, 2, 26, 24, 0, 0, 6, 6084, 0, 0, 'WANTED: One of the Huge Toads', 'As a Biletoad (or what it grew into), stand still among the huge toads of the swamp until they accept you, then put down Hagatha''s Fly Jar; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The huge toads of the swamp are like that. Go there wearing your biletoad, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the flies I have left there (Hagatha''s Fly Jar, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109453, 1, 9109454, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304660, 1, 9304656, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the huge toads', 'Hagatha''s Fly Jar put down; the oldest came', '', '', 0, 0),
-(9109062, 2, 62, 60, 0, 0, 6, 34596, 0, 0, 'WANTED: One of the Frogs', 'As a Biletoad (or what it grew into), stand still among the frogs of Cenarion Refuge until they accept you, then put down Hagatha''s Fly Jar; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The frogs of cenarion refuge are like that. Go there wearing your biletoad, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the flies I have left there (Hagatha''s Fly Jar, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109455, 1, 9109456, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304067, 1, 9304519, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the frogs', 'Hagatha''s Fly Jar put down; the oldest came', '', '', 0, 0),
-(9109063, 2, 24, 22, 0, 0, 6, 5184, 0, 0, 'WANTED: One of the Belfry Bats', 'As a Bat (or what it grew into), stand still among the belfry bats of Brill until they accept you, then put down A Bowl of Bruised Fruit; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The belfry bats of brill are like that. Go there wearing your bat, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the fruit I have left there (A Bowl of Bruised Fruit, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109457, 1, 9109458, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304215, 1, 9304049, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the belfry bats', 'A Bowl of Bruised Fruit put down; the oldest came', '', '', 0, 0),
-(9109064, 2, 66, 64, 0, 0, 6, 39204, 0, 0, 'WANTED: One of the Spirit Ravens', 'As a Owl (or what it grew into), stand still among the spirit ravens of the Bone Wastes until they accept you, then put down A Dish of Shiny Things; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The spirit ravens of the bone wastes are like that. Go there wearing your owl, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the shiny things I have left there (A Dish of Shiny Things, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109459, 1, 9109460, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304542, 1, 9304543, 1, 9304488, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the spirit ravens', 'A Dish of Shiny Things put down; the oldest came', '', '', 0, 0),
-(9109065, 2, 64, 62, 0, 0, 6, 36864, 0, 0, 'WANTED: One of the Teromoths', 'As a Moth (or what it grew into), stand still among the teromoths of the forest until they accept you, then put down A Jar of Glowing Motes; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The teromoths of the forest are like that. Go there wearing your moth, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the twenty glowing motes and a wish I have left there (A Jar of Glowing Motes, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109461, 1, 9109462, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304469, 1, 9304382, 1, 9304057, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the teromoths', 'A Jar of Glowing Motes put down; the oldest came', '', '', 0, 0),
-(9109066, 2, 44, 42, 0, 0, 6, 17424, 0, 0, 'WANTED: One of the Fox Familiars', 'As a Wolf (or what it grew into), stand still among the fox familiars of the Woodpaw Hills until they accept you, then put down A Saucer of Cream; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The fox familiars of the woodpaw hills are like that. Go there wearing your wolf, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the something the wolves do not eat I have left there (A Saucer of Cream, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109463, 1, 9109464, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304202, 1, 9304203, 1, 9304234, 1, 9304710, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the fox familiars', 'A Saucer of Cream put down; the oldest came', '', '', 0, 0),
-(9109070, 2, 52, 50, 0, 0, 6, 24336, 0, 0, 'WANTED: Three Oozes Make a Cat', 'Devour three oozes of Un''Goro, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants three oozes of Un''Goro. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109465, 3, 9109466, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304080, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Un''Goro ooze devoured', 'The cauldron stirred', '', '', 0, 0),
-(9109071, 2, 56, 54, 0, 0, 6, 28224, 0, 0, 'A Crocolisk and the Void', 'Devour a Wetlands crocolisk and a void anomaly, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a Wetlands crocolisk and a void anomaly. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109467, 2, 9109468, 2, 9109469, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304494, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Giant Wetlands Crocolisk devoured', 'Void Anomaly devoured', 'The cauldron stirred', '', 0, 0),
-(9109072, 2, 54, 52, 0, 0, 6, 26244, 0, 0, 'Bones and Fire', 'Devour ember worgs and a fire elemental, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants ember worgs and a fire elemental. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109470, 3, 9109471, 2, 9109472, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304088, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Ember worg devoured', 'Flamekin devoured', 'The cauldron stirred', '', 0, 0),
-(9109073, 2, 64, 62, 0, 0, 6, 36864, 0, 0, 'Scale and Spore', 'Devour a craghide basilisk and the sporebats of Zangarmarsh, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a craghide basilisk and the sporebats of Zangarmarsh. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109473, 2, 9109474, 3, 9109475, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304087, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Craghide Basilisk devoured', 'Sporebat devoured', 'The cauldron stirred', '', 0, 0),
-(9109074, 2, 66, 64, 0, 0, 6, 39204, 0, 0, 'Blood and Thunder', 'Devour a felboar and a thunder lizard, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a felboar and a thunder lizard. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109476, 2, 9109477, 2, 9109478, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304060, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Felboar devoured', 'Thunder lizard devoured', 'The cauldron stirred', '', 0, 0),
-(9109075, 2, 68, 66, 0, 0, 6, 41616, 0, 0, 'Everything At Once', 'Devour a nether drake, a warp chaser and a sporebat, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a nether drake, a warp chaser and a sporebat. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109479, 1, 9109480, 2, 9109481, 2, 9109482, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9304601, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Nether drake devoured', 'Warp chaser devoured', 'Sporebat devoured', 'The cauldron stirred', 0, 0),
-(9109076, 2, 70, 68, 0, 0, 6, 61740, 0, 0, 'All the Colours of Ooze', 'Devour nine oozes: Un''Goro''s, the Hinterlands'' jade, Dustwallow''s, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants nine oozes: Un''Goro''s, the Hinterlands'' jade, Dustwallow''s. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109483, 3, 9109484, 3, 9109485, 3, 9109486, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9304083, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Un''Goro ooze devoured', 'Jade Ooze devoured', 'Swamp ooze devoured', 'The cauldron stirred', 0, 0),
-(9109080, 2, 50, 48, 0, 0, 6, 22500, 0, 0, 'WANTED: A Candle at Raven Hill Cemetery', 'At night, light Hagatha''s candle at the graves of Raven Hill in Duskwood, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the graves of Raven Hill in Duskwood, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109487, 1, 9109488, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304700, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at Raven Hill Cemetery', 'The watcher devoured', '', '', 0, 0),
-(9109081, 2, 52, 50, 0, 0, 6, 24336, 0, 0, 'A Candle at the Warp Piston', 'At night, light Hagatha''s candle at the Warp Piston on Bloodmyst Isle, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the Warp Piston on Bloodmyst Isle, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109489, 1, 9109490, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304715, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at the Warp Piston', 'The watcher devoured', '', '', 0, 0),
-(9109082, 2, 54, 52, 0, 0, 6, 26244, 0, 0, 'A Candle at Dalaran Crater', 'At night, light Hagatha''s candle at the crater where Dalaran stood, in Alterac, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the crater where Dalaran stood, in Alterac, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109491, 1, 9109492, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304524, 1, 9304381, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at Dalaran Crater', 'The watcher devoured', '', '', 0, 0),
-(9109083, 2, 56, 54, 0, 0, 6, 28224, 0, 0, 'A Candle at Fire Plume Ridge', 'At night, light Hagatha''s candle at Fire Plume Ridge in Un''Goro, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at Fire Plume Ridge in Un''Goro, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109493, 1, 9109494, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304383, 1, 9304698, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at Fire Plume Ridge', 'The watcher devoured', '', '', 0, 0),
-(9109084, 2, 62, 60, 0, 0, 6, 34596, 0, 0, 'A Candle at the Throne of Kil''jaeden', 'At night, light Hagatha''s candle at the Throne of Kil''jaeden in Hellfire, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the Throne of Kil''jaeden in Hellfire, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109495, 1, 9109496, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304587, 1, 9304699, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at the Throne of Kil''jaeden', 'The watcher devoured', '', '', 0, 0),
-(9109085, 2, 64, 62, 0, 0, 7, 49152, 0, 0, 'The Fifth One Stays', 'Stand at the Thin Place in the In-Between and let what followed the candles come to you.', 'Hagatha:$B$BFive candles, five looks. The fifth one did not go back, little horror; it followed you through, and it is sitting at the Thin Place in the In-Between, waiting. Things that live between worlds follow candles. So do the sha-touched beasts and the voidwings; they have been drifting in behind you all week.$B$BGo and stand at the Thin Place. Let them come. They are yours.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109497, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304044, 1, 9304045, 1, 9304046, 1, 9304047, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood at the Thin Place for what followed', '', '', '', 0, 0),
-(9109086, 2, 66, 64, 0, 0, 6, 39204, 0, 0, 'What the Candles Called', 'Devour anything within sight of the Thin Place in the In-Between.', 'Hagatha:$B$BMore followed than I counted. A cloud serpent with the sha in it, and a spiritclaw, and a force of the void that has not decided what shape to be. They are out past the Thin Place, circling. Go and eat something there, anything, so they see what you are. Then they will settle.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109498, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304509, 1, 9304597, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Something devoured at the Thin Place', '', '', '', 0, 0),
-(9109090, 2, 42, 40, 0, 0, 5, 10584, 0, 0, 'WANTED: Six Postcards', 'Stand and look for a while at six famous places: Thunder Bluff''s lifts, the Dark Portal, Wyrmrest''s top, the Dalaran fountain, Booty Bay, the Throne of the Elements.', 'Hagatha, not looking up:$B$BI do not leave the cauldron, little horror. The cauldron does not leave me. But I would like to see the world, and you are my eyes. Go and stand at six places and LOOK at them, properly, for a while: the lifts of Thunder Bluff, the Dark Portal, the top of Wyrmrest, the fountain in Dalaran, Booty Bay at sunset, and the Throne of the Elements. I will see what you see.$B$BAsk your companions which one they liked. They will have opinions. They always do.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109499, 1, 9109500, 1, 9109501, 1, 9109502, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Thunder Bluff''s lifts, looked at', 'The Dark Portal, looked at', 'The top of Wyrmrest, looked at', 'Dalaran''s fountain, looked at', 0, 0),
-(9109091, 2, 44, 42, 0, 0, 6, 17424, 0, 0, 'Two More Postcards', 'Look for a while at Booty Bay from the pier at sunset, and at the Throne of the Elements in Nagrand.', 'Hagatha:$B$BTwo more, little horror. Booty Bay at sunset, from the pier. And the Throne of the Elements, where the four of them argue. Look properly.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109503, 1, 9109504, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304268, 1, 9304501, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Booty Bay at sunset, looked at', 'The Throne of the Elements, looked at', '', '', 0, 0),
-(9109100, 2, 32, 30, 0, 0, 5, 6144, 0, 0, 'WANTED: Four Lighthouses', 'At night, light the lamps of the lighthouses at Westfall, Menethil Harbour, Theramore and Booty Bay.', 'Wren, lighting a match:$B$BSnack, fish like lights. So do I. There are four lighthouses on the coasts, Westfall''s, Menethil''s, Theramore''s and Booty Bay''s, and nobody lights them any more. Light them. At night, because that''s when lighthouses mean anything. Each one needs a spark; you''re a spark, mostly, so just touch the lamp.$B$BWhen all four burn, go and stand on the Booty Bay pier and watch the water.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109505, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Lighthouse lamp lit at night', '', '', '', 0, 0),
-(9109101, 2, 36, 34, 0, 0, 6, 11664, 0, 0, 'What Followed the Light', 'At night, stand at the end of the Booty Bay pier and /pet what comes out of the water.', 'Wren, holding her breath:$B$BStand on the end of the Booty Bay pier at night. The lights are all burning. Something''s coming up the coast, following them. Don''t eat it. Pat it. It''s been in the dark a long time.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109506, 1, 9109507, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304189, 1, 9304421, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Waited at the pier''s end at night', 'The eel patted', '', '', 0, 0),
-(9109102, 2, 50, 46, 0, 0, 7, 30000, 0, 0, 'More From the Deep', 'At night, light the four lighthouses again and wait at the Booty Bay pier; /pet 3 of what comes.', 'Wren:$B$BKeep the lights lit, Snack: light all four again, at night, and go back to the pier. Hagatha says the deep has gliders and snapdragons and a salamanther and a shorestalker in it, and they all like lights. Pat the ones that come. Eat none. I mean it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109508, 4, 9109509, 1, 9109510, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304612, 1, 9304618, 1, 9304579, 1, 9304496, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Lighthouse lamp lit again at night', 'Waited at the pier''s end again', 'A deep thing patted', '', 0, 0),
-(9109103, 2, 58, 55, 0, 0, 6, 30276, 0, 0, 'The Glider and the Tuskarr', 'At night, stand a while on the Longtusk fishermen''s beach in the Howling Fjord and devour 3 of what the fire brings.', 'Hagatha:$B$BThe deep has one more thing in it that follows lights, little horror: a silent glider the tuskarr of the north talk about, and the tuskarr''s own shoreglider that goes with it. The Booty Bay light will not reach that far. Go to the Howling Fjord, to the Longtusk fishermen''s beach, and light a fire there at night. Then eat what it brings; gliders are not for patting.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109511, 1, 9109512, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304596, 1, 9304689, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Waited on the Longtusk beach at night', 'Fjord thing devoured', '', '', 0, 0),
-(9109110, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'WANTED: The Bell of Frosthold', 'Without a flying mount, climb to the bell at Frosthold and ring it; one of the bears follows you down.', 'Hagatha:$B$BA bell hangs at Frosthold, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the bears will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109513, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304053, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of Frosthold rung on foot', '', '', '', 0, 0),
-(9109111, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'The Bell of Dun Niffelem', 'Without a flying mount, climb to the bell at Dun Niffelem and ring it; one of the yaks follows you down.', 'Hagatha:$B$BA bell hangs at Dun Niffelem, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the yaks will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109514, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304554, 1, 9304737, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of Dun Niffelem rung on foot', '', '', '', 0, 0),
-(9109112, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'The Bell of Thunderfall', 'Without a flying mount, climb to the bell at Thunderfall and ring it; one of the mammoths follows you down.', 'Hagatha:$B$BA bell hangs at Thunderfall, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the mammoths will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109515, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304431, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of Thunderfall rung on foot', '', '', '', 0, 0),
-(9109113, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'The Bell of The Terrace Of The Makers', 'Without a flying mount, climb to the bell at the Terrace of the Makers and ring it; one of the storm follows you down.', 'Hagatha:$B$BA bell hangs at the Terrace of the Makers, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the storm will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109516, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304206, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of the Terrace of the Makers rung on foot', '', '', '', 0, 0),
-(9109114, 2, 79, 78, 0, 0, 8, 52424, 0, 0, 'The Storm Answers', 'Without a flying mount, ring all four bells of the Storm Peaks within one hour.', 'Hagatha, and thunder in the flame:$B$BFour bells, four herds. Now ring all four within one hour, on foot, and the storm itself gathers over the peaks and comes down to see what is making all that noise.$B$BIt is yours if you are standing there when it lands. Fall quietly.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109517, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304619, 1, 9304716, 1, 9304631, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A bell rung on foot within the hour', '', '', '', 3600, 0);
+(9109050, 2, 60, 58, 0, 0, 7, 43200, 0, 0, 'WANTED: A Lantern for the Cauldron', 'Carry a soul-lantern from Light''s Hope Chapel to Hagatha''s cauldron in the In-Between before it goes out.', 'Hagatha:$B$BThe dead steeds in my cauldron want light, little horror, and not the kind a candle gives. Soul-light. It gathers in lanterns where many died: Light''s Hope, the Marris Stead, the Argent camp in the Plaguelands. Pick one up. It will weigh on you, and it dims as you walk; walk steadily and bring it to the cauldron before it goes out.$B$BIf it goes out, you start again. The dead are patient. I am not.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109441, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304620, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Soul-light delivered', '', '', '', 0, 0),
+(9109051, 2, 62, 60, 0, 0, 7, 46128, 0, 0, 'A Second Lantern', 'Carry the soul-lantern from the Marris Stead to Hagatha''s cauldron before it goes out.', 'Hagatha:$B$BOne lantern woke one. There are more steeds down there, and the next wants the light from the Marris Stead, where the Blightcaller keeps his hounds. Carry it the same way. The road is longer; the light is not.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109442, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304111, 1, 9304442, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Soul-light delivered', '', '', '', 0, 0),
+(9109052, 2, 64, 62, 0, 0, 7, 49152, 0, 0, 'The Argent Lantern', 'Carry the soul-lantern from the Argent Dawn''s camp to Hagatha''s cauldron before it goes out.', 'Hagatha:$B$BThe Argent camp''s lantern is the heaviest of the three; the light in it is the kind that fought back. Carry it. Your companions may carry one too, if you ask them (they walk slower as well; it is only fair).', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109443, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304128, 1, 9304145, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Soul-light delivered', '', '', '', 0, 0),
+(9109053, 2, 78, 76, 0, 0, 7, 102210, 0, 0, 'The Great Lantern of Icecrown', 'Carry the Great Soul-Lantern from the Valley of Lost Hope to Hagatha''s cauldron, feeding it at the braziers on the way, before it goes out.', 'Hagatha, very quietly:$B$BThe last lantern hangs in the Valley of Lost Hope in Icecrown, and it is great: five lanterns'' worth of light, and five lanterns'' weight. It dims fast. There are braziers on the road that will feed it; stop at them. Bring it to the cauldron, and the cauldron will open.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109444, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304131, 1, 9304233, 1, 9304440, 1, 9304621, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The great soul-light delivered', '', '', '', 0, 0),
+(9109060, 2, 22, 20, 0, 0, 6, 4356, 0, 0, 'WANTED: One of the Toads', 'As a Biletoad (or what it grew into), stand still among the toads of the Dragonmurk until they accept you, then put down Hagatha''s Fly Jar; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The toads of the dragonmurk are like that. Go there wearing your biletoad, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the flies I have left there (Hagatha''s Fly Jar, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109445, 1, 9109446, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304657, 1, 9304651, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the toads', 'Hagatha''s Fly Jar put down; the oldest came', '', '', 0, 0),
+(9109061, 2, 26, 24, 0, 0, 6, 6084, 0, 0, 'WANTED: One of the Huge Toads', 'As a Biletoad (or what it grew into), stand still among the huge toads of the swamp until they accept you, then put down Hagatha''s Fly Jar; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The huge toads of the swamp are like that. Go there wearing your biletoad, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the flies I have left there (Hagatha''s Fly Jar, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109447, 1, 9109448, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304660, 1, 9304656, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the huge toads', 'Hagatha''s Fly Jar put down; the oldest came', '', '', 0, 0),
+(9109062, 2, 62, 60, 0, 0, 6, 34596, 0, 0, 'WANTED: One of the Frogs', 'As a Biletoad (or what it grew into), stand still among the frogs of Cenarion Refuge until they accept you, then put down Hagatha''s Fly Jar; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The frogs of cenarion refuge are like that. Go there wearing your biletoad, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the flies I have left there (Hagatha''s Fly Jar, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109449, 1, 9109450, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304067, 1, 9304519, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the frogs', 'Hagatha''s Fly Jar put down; the oldest came', '', '', 0, 0),
+(9109063, 2, 24, 22, 0, 0, 6, 5184, 0, 0, 'WANTED: One of the Belfry Bats', 'As a Bat (or what it grew into), stand still among the belfry bats of Brill until they accept you, then put down A Bowl of Bruised Fruit; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The belfry bats of brill are like that. Go there wearing your bat, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the fruit I have left there (A Bowl of Bruised Fruit, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109451, 1, 9109452, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304215, 1, 9304049, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the belfry bats', 'A Bowl of Bruised Fruit put down; the oldest came', '', '', 0, 0),
+(9109064, 2, 66, 64, 0, 0, 6, 39204, 0, 0, 'WANTED: One of the Spirit Ravens', 'As a Owl (or what it grew into), stand still among the spirit ravens of the Bone Wastes until they accept you, then put down A Dish of Shiny Things; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The spirit ravens of the bone wastes are like that. Go there wearing your owl, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the shiny things I have left there (A Dish of Shiny Things, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109453, 1, 9109454, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304542, 1, 9304543, 1, 9304488, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the spirit ravens', 'A Dish of Shiny Things put down; the oldest came', '', '', 0, 0),
+(9109065, 2, 64, 62, 0, 0, 6, 36864, 0, 0, 'WANTED: One of the Teromoths', 'As a Moth (or what it grew into), stand still among the teromoths of the forest until they accept you, then put down A Jar of Glowing Motes; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The teromoths of the forest are like that. Go there wearing your moth, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the twenty glowing motes and a wish I have left there (A Jar of Glowing Motes, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109455, 1, 9109456, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304469, 1, 9304382, 1, 9304057, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the teromoths', 'A Jar of Glowing Motes put down; the oldest came', '', '', 0, 0),
+(9109066, 2, 44, 42, 0, 0, 6, 17424, 0, 0, 'WANTED: One of the Fox Familiars', 'As a Wolf (or what it grew into), stand still among the fox familiars of the Woodpaw Hills until they accept you, then put down A Saucer of Cream; the oldest follows you home.', 'Hagatha:$B$BSome things only show themselves to their own kind, little horror. The fox familiars of the woodpaw hills are like that. Go there wearing your wolf, and stand among them. They will crowd round and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down the something the wolves do not eat I have left there (A Saucer of Cream, by the water), and the oldest one will follow you out.$B$BOf course they trust you. You look like dinner. Their dinner.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109457, 1, 9109458, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304202, 1, 9304203, 1, 9304234, 1, 9304710, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still among the fox familiars', 'A Saucer of Cream put down; the oldest came', '', '', 0, 0),
+(9109070, 2, 52, 50, 0, 0, 6, 24336, 0, 0, 'WANTED: Three Oozes Make a Cat', 'Devour three oozes of Un''Goro, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants three oozes of Un''Goro. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109459, 3, 9109460, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304080, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Un''Goro ooze devoured', 'The cauldron stirred', '', '', 0, 0),
+(9109071, 2, 56, 54, 0, 0, 6, 28224, 0, 0, 'A Crocolisk and the Void', 'Devour a Wetlands crocolisk and a void anomaly, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a Wetlands crocolisk and a void anomaly. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109461, 2, 9109462, 2, 9109463, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304494, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Giant Wetlands Crocolisk devoured', 'Void Anomaly devoured', 'The cauldron stirred', '', 0, 0),
+(9109072, 2, 54, 52, 0, 0, 6, 26244, 0, 0, 'Bones and Fire', 'Devour ember worgs and a fire elemental, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants ember worgs and a fire elemental. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109464, 3, 9109465, 2, 9109466, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304088, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Ember worg devoured', 'Flamekin devoured', 'The cauldron stirred', '', 0, 0),
+(9109073, 2, 64, 62, 0, 0, 6, 36864, 0, 0, 'Scale and Spore', 'Devour a craghide basilisk and the sporebats of Zangarmarsh, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a craghide basilisk and the sporebats of Zangarmarsh. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109467, 2, 9109468, 3, 9109469, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304087, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Craghide Basilisk devoured', 'Sporebat devoured', 'The cauldron stirred', '', 0, 0),
+(9109074, 2, 66, 64, 0, 0, 6, 39204, 0, 0, 'Blood and Thunder', 'Devour a felboar and a thunder lizard, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a felboar and a thunder lizard. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109470, 2, 9109471, 2, 9109472, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304060, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Felboar devoured', 'Thunder lizard devoured', 'The cauldron stirred', '', 0, 0),
+(9109075, 2, 68, 66, 0, 0, 6, 41616, 0, 0, 'Everything At Once', 'Devour a nether drake, a warp chaser and a sporebat, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants a nether drake, a warp chaser and a sporebat. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109473, 1, 9109474, 2, 9109475, 2, 9109476, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9304601, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Nether drake devoured', 'Warp chaser devoured', 'Sporebat devoured', 'The cauldron stirred', 0, 0),
+(9109076, 2, 70, 68, 0, 0, 6, 61740, 0, 0, 'All the Colours of Ooze', 'Devour nine oozes: Un''Goro''s, the Hinterlands'' jade, Dustwallow''s, then stir Hagatha''s cauldron in the In-Between.', 'Hagatha, stirring:$B$BA body, a skin, a spark, little horror. That is all a creature is, and you carry hundreds of each. This one wants nine oozes: Un''Goro''s, the Hinterlands'' jade, Dustwallow''s. Eat them; what you eat, you carry. Then come and stir the cauldron, and we will see what crawls out.$B$BWren wants to keep it. It is YOURS. That is the problem.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109477, 3, 9109478, 3, 9109479, 3, 9109480, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9304083, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Un''Goro ooze devoured', 'Jade Ooze devoured', 'Swamp ooze devoured', 'The cauldron stirred', 0, 0),
+(9109080, 2, 50, 48, 0, 0, 6, 22500, 0, 0, 'WANTED: A Candle at Raven Hill Cemetery', 'At night, light Hagatha''s candle at the graves of Raven Hill in Duskwood, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the graves of Raven Hill in Duskwood, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109481, 1, 9109482, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304700, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at Raven Hill Cemetery', 'The watcher devoured', '', '', 0, 0),
+(9109081, 2, 52, 50, 0, 0, 6, 24336, 0, 0, 'A Candle at the Warp Piston', 'At night, light Hagatha''s candle at the Warp Piston on Bloodmyst Isle, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the Warp Piston on Bloodmyst Isle, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109483, 1, 9109484, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304715, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at the Warp Piston', 'The watcher devoured', '', '', 0, 0),
+(9109082, 2, 54, 52, 0, 0, 6, 26244, 0, 0, 'A Candle at Dalaran Crater', 'At night, light Hagatha''s candle at the crater where Dalaran stood, in Alterac, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the crater where Dalaran stood, in Alterac, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109485, 1, 9109486, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304524, 1, 9304381, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at Dalaran Crater', 'The watcher devoured', '', '', 0, 0),
+(9109083, 2, 56, 54, 0, 0, 6, 28224, 0, 0, 'A Candle at Fire Plume Ridge', 'At night, light Hagatha''s candle at Fire Plume Ridge in Un''Goro, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at Fire Plume Ridge in Un''Goro, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109487, 1, 9109488, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304383, 1, 9304698, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at Fire Plume Ridge', 'The watcher devoured', '', '', 0, 0),
+(9109084, 2, 62, 60, 0, 0, 6, 34596, 0, 0, 'A Candle at the Throne of Kil''jaeden', 'At night, light Hagatha''s candle at the Throne of Kil''jaeden in Hellfire, and devour what looks through.', 'Hagatha, low:$B$BThe world is thin at the Throne of Kil''jaeden in Hellfire, little horror; worn through like cloth at the elbow. I have left a candle there. Light it at night, and for a moment the In-Between bleeds through. Something will look at you. Do not answer if it asks your name.$B$BEat it, if it stays. Things from between are the one meal you were made for.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109489, 1, 9109490, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304587, 1, 9304699, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The candle lit at the Throne of Kil''jaeden', 'The watcher devoured', '', '', 0, 0),
+(9109085, 2, 64, 62, 0, 0, 7, 49152, 0, 0, 'The Fifth One Stays', 'Stand at the Thin Place in the In-Between and let what followed the candles come to you.', 'Hagatha:$B$BFive candles, five looks. The fifth one did not go back, little horror; it followed you through, and it is sitting at the Thin Place in the In-Between, waiting. Things that live between worlds follow candles. So do the sha-touched beasts and the voidwings; they have been drifting in behind you all week.$B$BGo and stand at the Thin Place. Let them come. They are yours.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109491, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304044, 1, 9304045, 1, 9304046, 1, 9304047, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood at the Thin Place for what followed', '', '', '', 0, 0),
+(9109086, 2, 66, 64, 0, 0, 6, 39204, 0, 0, 'What the Candles Called', 'Devour anything within sight of the Thin Place in the In-Between.', 'Hagatha:$B$BMore followed than I counted. A cloud serpent with the sha in it, and a spiritclaw, and a force of the void that has not decided what shape to be. They are out past the Thin Place, circling. Go and eat something there, anything, so they see what you are. Then they will settle.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109492, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304509, 1, 9304597, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Something devoured at the Thin Place', '', '', '', 0, 0),
+(9109090, 2, 42, 40, 0, 0, 5, 10584, 0, 0, 'WANTED: Six Postcards', 'Stand and look for a while at six famous places: Thunder Bluff''s lifts, the Dark Portal, Wyrmrest''s top, the Dalaran fountain, Booty Bay, the Throne of the Elements.', 'Hagatha, not looking up:$B$BI do not leave the cauldron, little horror. The cauldron does not leave me. But I would like to see the world, and you are my eyes. Go and stand at six places and LOOK at them, properly, for a while: the lifts of Thunder Bluff, the Dark Portal, the top of Wyrmrest, the fountain in Dalaran, Booty Bay at sunset, and the Throne of the Elements. I will see what you see.$B$BAsk your companions which one they liked. They will have opinions. They always do.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109493, 1, 9109494, 1, 9109495, 1, 9109496, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Thunder Bluff''s lifts, looked at', 'The Dark Portal, looked at', 'The top of Wyrmrest, looked at', 'Dalaran''s fountain, looked at', 0, 0),
+(9109091, 2, 44, 42, 0, 0, 6, 17424, 0, 0, 'Two More Postcards', 'Look for a while at Booty Bay from the pier at sunset, and at the Throne of the Elements in Nagrand.', 'Hagatha:$B$BTwo more, little horror. Booty Bay at sunset, from the pier. And the Throne of the Elements, where the four of them argue. Look properly.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109497, 1, 9109498, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304268, 1, 9304501, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Booty Bay at sunset, looked at', 'The Throne of the Elements, looked at', '', '', 0, 0),
+(9109100, 2, 32, 30, 0, 0, 5, 6144, 0, 0, 'WANTED: Four Lighthouses', 'At night, light the lamps of the lighthouses at Westfall, Menethil Harbour, Theramore and Booty Bay.', 'Wren, lighting a match:$B$BSnack, fish like lights. So do I. There are four lighthouses on the coasts, Westfall''s, Menethil''s, Theramore''s and Booty Bay''s, and nobody lights them any more. Light them. At night, because that''s when lighthouses mean anything. Each one needs a spark; you''re a spark, mostly, so just touch the lamp.$B$BWhen all four burn, go and stand on the Booty Bay pier and watch the water.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109499, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Lighthouse lamp lit at night', '', '', '', 0, 0),
+(9109101, 2, 36, 34, 0, 0, 6, 11664, 0, 0, 'What Followed the Light', 'At night, stand at the end of the Booty Bay pier and /pet what comes out of the water.', 'Wren, holding her breath:$B$BStand on the end of the Booty Bay pier at night. The lights are all burning. Something''s coming up the coast, following them. Don''t eat it. Pat it. It''s been in the dark a long time.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109500, 1, 9109501, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304189, 1, 9304421, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Waited at the pier''s end at night', 'The eel patted', '', '', 0, 0),
+(9109102, 2, 50, 46, 0, 0, 7, 30000, 0, 0, 'More From the Deep', 'At night, light the four lighthouses again and wait at the Booty Bay pier; /pet 3 of what comes.', 'Wren:$B$BKeep the lights lit, Snack: light all four again, at night, and go back to the pier. Hagatha says the deep has gliders and snapdragons and a salamanther and a shorestalker in it, and they all like lights. Pat the ones that come. Eat none. I mean it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109502, 4, 9109503, 1, 9109504, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304612, 1, 9304618, 1, 9304579, 1, 9304496, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Lighthouse lamp lit again at night', 'Waited at the pier''s end again', 'A deep thing patted', '', 0, 0),
+(9109103, 2, 58, 55, 0, 0, 6, 30276, 0, 0, 'The Glider and the Tuskarr', 'At night, stand a while on the Longtusk fishermen''s beach in the Howling Fjord and devour 3 of what the fire brings.', 'Hagatha:$B$BThe deep has one more thing in it that follows lights, little horror: a silent glider the tuskarr of the north talk about, and the tuskarr''s own shoreglider that goes with it. The Booty Bay light will not reach that far. Go to the Howling Fjord, to the Longtusk fishermen''s beach, and light a fire there at night. Then eat what it brings; gliders are not for patting.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109505, 1, 9109506, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304596, 1, 9304689, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Waited on the Longtusk beach at night', 'Fjord thing devoured', '', '', 0, 0),
+(9109110, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'WANTED: The Bell of Frosthold', 'Without a flying mount, climb to the bell at Frosthold and ring it; one of the bears follows you down.', 'Hagatha:$B$BA bell hangs at Frosthold, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the bears will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109507, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304053, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of Frosthold rung on foot', '', '', '', 0, 0),
+(9109111, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'The Bell of Dun Niffelem', 'Without a flying mount, climb to the bell at Dun Niffelem and ring it; one of the yaks follows you down.', 'Hagatha:$B$BA bell hangs at Dun Niffelem, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the yaks will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109508, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304554, 1, 9304737, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of Dun Niffelem rung on foot', '', '', '', 0, 0),
+(9109112, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'The Bell of Thunderfall', 'Without a flying mount, climb to the bell at Thunderfall and ring it; one of the mammoths follows you down.', 'Hagatha:$B$BA bell hangs at Thunderfall, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the mammoths will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109509, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304431, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of Thunderfall rung on foot', '', '', '', 0, 0),
+(9109113, 2, 77, 76, 0, 0, 7, 99606, 0, 0, 'The Bell of The Terrace Of The Makers', 'Without a flying mount, climb to the bell at the Terrace of the Makers and ring it; one of the storm follows you down.', 'Hagatha:$B$BA bell hangs at the Terrace of the Makers, little horror, high in the Storm Peaks. Climb to it on your own feet, or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and the storm will come out to see who rang.$B$BOne of them will follow you down.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109510, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304206, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The bell of the Terrace of the Makers rung on foot', '', '', '', 0, 0),
+(9109114, 2, 79, 78, 0, 0, 8, 52424, 0, 0, 'The Storm Answers', 'Without a flying mount, ring all four bells of the Storm Peaks within one hour.', 'Hagatha, and thunder in the flame:$B$BFour bells, four herds. Now ring all four within one hour, on foot, and the storm itself gathers over the peaks and comes down to see what is making all that noise.$B$BIt is yours if you are standing there when it lands. Fall quietly.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109511, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304619, 1, 9304716, 1, 9304631, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A bell rung on foot within the hour', '', '', '', 3600, 0),
+(9109120, 2, 68, 66, 0, 0, 6, 41616, 0, 0, 'WANTED: A Fish for Otto', 'Fish on the beach below Valiance Keep with Otto the ottuk near you; 9 catches with him watching.', 'Wren, with a fishing pole drawn on the notice:$B$BSnack, there''s an ottuk on the beach below Valiance Keep in the Borean Tundra, and he''s called Otto, because of course he is. Ottuks only trust people who share their fish. So: fish there, with Otto watching, and every third fish is his. He''ll know. He''s keeping count. He''s keeping the big ones, too, which is smart.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109512, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304555, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A fish caught with Otto watching', '', '', '', 0, 0),
+(9109121, 2, 70, 68, 0, 0, 7, 82320, 0, 0, 'Otto''s Friends', 'Fish 9 more catches with Otto watching; his friends come to see.', 'Wren:$B$BOtto has FRIENDS, Snack. Crabs, mostly, and a plodder, and a riverbeast that lives up the coast. He says (he doesn''t say, he''s an ottuk, but I can tell) that if you share nine more fish, they''ll all come to see what the fuss is about.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109513, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304100, 1, 9304687, 1, 9304330, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A fish shared with Otto''s friends near', '', '', '', 0, 0),
+(9109122, 2, 72, 70, 0, 0, 7, 87090, 0, 0, 'The War Ottuk', 'Fish 9 catches at Kamagua in the Howling Fjord with the war ottuk watching.', 'Hagatha:$B$BThe tuskarr of the fjord ride ottuks into battle, little horror, big ones, in harness, and they will not sell. But an ottuk that has eaten your fish will fight for you. A war ottuk sits on the beach at Kamagua in the Howling Fjord, by the Longtusk fishermen. Go with Otto''s blessing (he gave it; he sniffed you), fish nine catches with it watching, and it will decide about you.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109514, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304559, 1, 9304563, 1, 9304690, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A fish shared with the war ottuk', '', '', '', 0, 0),
+(9109130, 2, 70, 68, 0, 0, 6, 61740, 0, 0, 'WANTED: Eight Lost Kittens', 'Find the 8 lost kittens in Dalaran by their mewing and /pet each one.', 'Hagatha, almost soft:$B$BFat cats are the best cats, little horror, and the fattest cat in Dalaran has lost his kittens. Eight of them, somewhere in the streets. No marks, no map. They mew when you are near; that is all. Look in the corners, under the stairs, behind the shops.$B$BFind each one and pat it, so it knows to go home. The father is by the fountain in the Eventide; he will know.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109515, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304079, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Lost kitten found and patted', '', '', '', 0, 0),
+(9109131, 2, 72, 70, 0, 0, 6, 65317, 0, 0, 'The Father''s Thanks', 'Sit with Jigglesworth Sr. in Dalaran for a while.', 'Hagatha:$B$BThe fat father has more thanks than fish, little horror. He keeps two cats of his own that are too big for his rooms: a furline, warmed by the sun, and a feline that bathes in the moon. Go and sit with him in Dalaran a while, by the fountain, and he will give them up.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109516, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304076, 1, 9304078, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Sat with Jigglesworth Sr.', '', '', '', 0, 0),
+(9109140, 2, 40, 38, 0, 0, 5, 9600, 0, 0, 'WANTED: The First Page', 'Find the torn page at Caer Darrow, where the dead keep school.', 'Wren, furious:$B$BPILFER. My crow. Hagatha''s spelltome. He tore it into seven pages and hid them in LIBRARIES, because he''s a crow and he thinks that''s funny, and he''s written a riddle on each one to the next, and he CHEATS.$B$BThe first page is at Caer Darrow, where the dead keep school. He left me that one. Go and get it before somebody reads it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109517, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at Caer Darrow', '', '', '', 0, 0),
+(9109141, 2, 45, 43, 0, 0, 5, 12150, 0, 0, 'The Second Page', 'Find the torn page at Karazhan''s gate.', 'Wren, reading the last page:$B$B''The next page lies where a wizard''s tower looks down on a pass the dead walk through, and nobody goes in.''$B$BHe''s sitting on it, I bet. He does that. Go to Karazhan''s gate and shoo him off it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109518, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at Karazhan''s gate', '', '', '', 0, 0),
+(9109142, 2, 50, 48, 0, 0, 5, 15000, 0, 0, 'The Third Page', 'Find the torn page at the Violet Citadel in Dalaran.', 'Wren, reading the last page:$B$B''The next page lies in a city that floats, in the hall where the violet books are kept.''$B$BHe''s sitting on it, I bet. He does that. Go to the Violet Citadel in Dalaran and shoo him off it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109519, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at the Violet Citadel in Dalaran', '', '', '', 0, 0),
+(9109143, 2, 55, 53, 0, 0, 5, 18150, 0, 0, 'The Fourth Page', 'Find the torn page at the Scryers'' tier in Shattrath.', 'Wren, reading the last page:$B$B''The next page lies on a tier of seers, in a city of light with a naaru at its heart.''$B$BHe''s sitting on it, I bet. He does that. Go to the Scryers'' tier in Shattrath and shoo him off it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109520, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at the Scryers'' tier in Shattrath', '', '', '', 0, 0),
+(9109144, 2, 60, 58, 0, 0, 5, 21600, 0, 0, 'The Fifth Page', 'Find the torn page at the Scarlet Monastery''s library door.', 'Wren, reading the last page:$B$B''The next page lies in a monastery that burns things, under the Scarlet eye.''$B$BHe''s sitting on it, I bet. He does that. Go to the Scarlet Monastery''s library door and shoo him off it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109521, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at the Scarlet Monastery''s library door', '', '', '', 0, 0),
+(9109145, 2, 65, 63, 0, 0, 5, 25350, 0, 0, 'The Sixth Page', 'Find the torn page at the Hall of Explorers in Ironforge.', 'Wren, reading the last page:$B$B''The next page lies under the mountain, with the explorers and their bones.''$B$BHe''s sitting on it, I bet. He does that. Go to the Hall of Explorers in Ironforge and shoo him off it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109522, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at the Hall of Explorers in Ironforge', '', '', '', 0, 0),
+(9109146, 2, 70, 68, 0, 0, 7, 82320, 0, 0, 'The Last Page', 'Find the torn page at the Magic Quarter of Undercity.', 'Wren, trembling:$B$B''The next page lies under the ruins, where the dead read in the dark.''$B$BThe last page. He hid it in UNDERCITY. In the dark. With the dead. Snack, I''m not going. You go. Get the page, and the book will be whole, and it flies, Hagatha says, when it''s whole.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109523, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304061, 1, 9304230, 1, 9304056, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The page found at the Magic Quarter of Undercity', '', '', '', 0, 0),
+(9109150, 2, 32, 30, 0, 0, 5, 6144, 0, 0, 'WANTED: Ten Broken Machines', 'Take apart 7 broken machines (turn the right bolts; the springy one bites).', 'Bramble''s handwriting, on Wren''s board:$B$BSeven broken machines. Three race wrecks on the Shimmering Flats, two in Booty Bay''s scrapyard, the shredder in the Barrens and the one in Stranglethorn. Three bolts each. One bolt is WRONG and it''s the springy one. Don''t turn the springy one. You''ll know if you did.$B$BBring me the parts. I''ll build something. It''ll be mostly safe.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109524, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304041, 1, 9304207, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Broken machine taken apart', '', '', '', 0, 0),
+(9109151, 2, 55, 50, 0, 0, 7, 36300, 0, 0, 'Parts for a Plane', 'Take apart the 5 big broken machines (one bolt in three is right).', 'Bramble, covered in oil:$B$BMore parts. The big machines this time: the wreck in Dustwallow, Area 52''s, the Grizzly Hills one, Everlook''s and Gadgetzan''s. Five of them, and they''re angrier. I''m building a PLANE. Eco-friendly. It runs on whatever you feed it, which is probably going to be me, so hurry.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109525, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304279, 1, 9304285, 1, 9304290, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Big machine taken apart', '', '', '', 0, 0),
+(9109160, 2, 56, 54, 0, 0, 6, 28224, 0, 0, 'WANTED: The Knight Without a Horse', 'Speak with the ghost knight at Light''s Hope and admit what you ate; find the 5 pieces of his armour in the Eastern Plaguelands.', 'Hagatha, slowly:$B$BA Devourer remembers what it eats, little horror, every meal, all the way down. Long ago, before Wren found you, you ate a warhorse. At Light''s Hope Chapel its knight is still waiting for it; he is dead, and does not mind, but he minds about the horse.$B$BGo and speak with him. Tell him the truth. Then find the five pieces of his armour, scattered across the Plaguelands where he fell: a knight does not ride in rags.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109526, 1, 9109527, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The truth told to the knight', 'A piece of the knight''s armour found', '', '', 0, 0),
+(9109161, 2, 58, 56, 0, 0, 7, 40368, 0, 0, 'At Dawn, in the Chapel', 'At dawn, stand still on the threshold of Light''s Hope Chapel, then touch the threshold to call the horse out.', 'Hagatha:$B$BAt dawn, in the chapel, I will draw the horse''s memory out of you. It hurts; your companions will worry. Stand on the threshold at first light and hold still. When the memory stands beside you, let the knight ride it, once. Then it stays with you; a memory cannot leave the one who holds it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109528, 1, 9109529, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304013, 1, 9304390, 1, 9304628, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still at the chapel at dawn', 'The knight''s horse called out of the memory', '', '', 0, 0),
+(9109162, 2, 62, 60, 0, 0, 6, 34596, 0, 0, 'The Dwarf Under the Mountain', 'At dawn, stand still in the Hall of Explorers in Ironforge for the ram''s memory.', 'Hagatha:$B$BYou ate a ram once, too, little horror, in the hills under Ironforge, and its rider is buried in the Hall of Explorers with the other dwarves who got lost. Same memory, louder rider. Go and stand at his tomb at dawn and I will pull the ram out of you. He will shout. Dwarves do.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109530, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304185, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Stood still in the Hall of Explorers at dawn', '', '', '', 0, 0),
+(9109163, 2, 70, 68, 0, 0, 7, 82320, 0, 0, 'Grander Memories', 'At dawn, stand still at Light''s Hope Chapel, at the Dark Portal, and on the Booty Bay dock.', 'Hagatha:$B$BThere are grander things in you than one knight''s horse, little horror. Couriers you ate, chargers, a seabiscuit from the docks, a felcrusher from the Dark Portal''s first days. Each needs a dawn and a threshold. Three dawns: Light''s Hope, the Dark Portal, Booty Bay''s dock. Stand still at each.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109531, 1, 9109532, 1, 9109533, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304024, 1, 9304340, 1, 9304406, 1, 9304502, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dawn at Light''s Hope', 'Dawn at the Dark Portal', 'Dawn on the Booty Bay dock', '', 0, 0),
+(9109164, 2, 80, 78, 0, 0, 8, 53760, 0, 0, 'The Last Memory', 'At dawn, stand still at the top of Wyrmrest Temple while Hagatha draws out the last memory.', 'Hagatha, very quietly:$B$BThere is one memory in you I did not expect, little horror. Something that was never a horse. Something with wings of light that let itself be eaten, long ago, so that it could be remembered. Stand at the top of Wyrmrest at dawn, where the sky is closest, and hold very still. I will try.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109534, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304691, 1, 9304692, 1, 9304693, 1, 9304343, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dawn at the top of Wyrmrest', '', '', '', 0, 0),
+(9109165, 2, 74, 72, 0, 0, 6, 68997, 0, 0, 'The Warden''s Charger', 'At dawn, stand still at the Argent Dawn''s camp in the Eastern Plaguelands.', 'Hagatha:$B$BOne more, smaller. A warden''s charger, and a priest''s lightsworn seeker, eaten in a war you do not remember. Dawn at the Argent camp in the Plaguelands; stand still.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109535, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304504, 1, 9304518, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Dawn at the Argent camp', '', '', '', 0, 0),
+(9109170, 2, 20, 18, 0, 0, 5, 2400, 0, 0, 'WANTED: A Horse for Tam', 'Speak with Tam the stable boy in Brill and find the mare''s grave by the old stable.', 'Hagatha, not meeting your eye:$B$BThere is a stable boy in Brill, little horror. Was. He is Forsaken now, and he wants the horse he had, and I... knew him, once. Do not ask how. Go and talk to him. Find where the mare is buried. Her ghost will come to whoever digs, and it will choose him.$B$BIt will not choose him. It will choose you. They always do. Be kind about it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109536, 1, 9109537, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304259, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Tam asked about the mare', 'The mare''s grave dug; her ghost rose', '', '', 0, 0),
+(9109171, 2, 22, 20, 0, 0, 6, 4356, 0, 0, 'Three Goodbyes', 'With Tam following, bring him to the three old stalls so he can say goodbye.', 'Hagatha:$B$BThe old stable still has three stalls, and three things still stand in them: the warhorse, the charger and the risen mare the Scourge left behind. They will come with you, but each one wants Tam to say goodbye first; he fed them. Take his lantern so he follows you, and walk him to each stall.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109538, 1, 9109539, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304505, 1, 9304506, 1, 9304694, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Tam''s lantern taken; he follows', 'A goodbye said at a stall', '', '', 0, 0),
+(9109172, 2, 24, 20, 0, 0, 6, 5184, 0, 0, 'The Horseman''s Riddle', 'During Hallow''s End, answer the riddle of the Horseman''s charger at the old stable in Brill.', 'Hagatha:$B$BAt Hallow''s End the Headless Horseman rides past the old stable in Brill, and this year he has lost his head again, and his charger came on without him. It has seen the ghost mare, and it wants her for company. It will offer a riddle for her. Answer it right and it stays with you instead.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109540, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304323, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The charger''s riddle answered', '', '', '', 0, 0),
+(9109180, 2, 60, 58, 0, 0, 6, 32400, 0, 0, 'WANTED: Eat the Fel Out', 'As a Wolf (or what it grew into), bite 5 helboars in Hellfire with Tear Throat and let them live; then purge at Hagatha''s cauldron.', 'Hagatha, reading a demon hunter''s letter off Wren''s board:$B$B''They did not choose the fel either.'' A demon hunter, Vessa, waits on Hellfire''s plain with the helboars. She says a Devourer can eat the fel out of a beast and leave the beast alive, if it bites and lets go. Bite five helboars as a wolf and let go; the fel comes with the bite.$B$BIt builds up in you. A green glow, fel breath. Too much, and you purge it at my cauldron.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109541, 5, 9109542, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304027, 1, 9304034, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Helboar bitten clean as a Wolf', 'The fel purged at the cauldron', '', '', 0, 0),
+(9109181, 2, 62, 60, 0, 0, 6, 34596, 0, 0, 'The Ravagers'' Grin', 'As a Saber (or what it grew into), bite 5 Hellfire ravagers clean with Anima Shred; purge at the cauldron.', 'Hagatha:$B$BThe ravagers of Hellfire are fel-touched too, the razorfangs and the thornfangs. Bite the fel out of five of them as a saber and let go. One of them grins at you when the fel is gone; Vessa says that is the one that remembers being a beast. Purge after.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109543, 5, 9109544, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304540, 1, 9304048, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Ravager bitten clean as a Saber', 'The fel purged at the cauldron', '', '', 0, 0),
+(9109182, 2, 66, 64, 0, 0, 7, 52272, 0, 0, 'Calm, Don''t Kill', 'As a Boar (or what it grew into), bite 5 Shadowmoon felboars clean with Gore and let them flee; purge at the cauldron.', 'Hagatha:$B$BThe felboars of Shadowmoon fight back when the fel leaves them; the last of it goes mad on the way out. Bite five as a boar, and when one turns on you, do not kill it: let it flee. Vessa will find it after. The hounds there are the same: the shadow fel hound, the felstalkers. Purge after, twice if you must.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109545, 5, 9109546, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304097, 1, 9304217, 1, 9304227, 1, 9304143, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Felboar bitten clean as a Boar', 'The fel purged at the cauldron', '', '', 0, 0),
+(9109183, 2, 68, 66, 0, 0, 8, 27744, 0, 0, 'Talk the Machines Down', 'Talk down 5 fel reavers (find the words that break their orders).', 'Hagatha:$B$BThe machines are harder, little horror. The fel reavers still run the Legion''s orders, and nobody ever told them the Legion lost. You cannot eat the fel out of a machine. You have to argue with it. Five of them, in Hellfire, Netherstorm and Shadowmoon. Your companions will help; they like arguing.$B$BEach one has its own stubborn logic. Find the sentence that breaks it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109547, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304221, 1, 9304222, 1, 9304223, 1, 9304472, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A fel reaver talked down', '', '', '', 0, 0),
+(9109184, 2, 70, 68, 0, 0, 8, 41160, 0, 0, 'What the Fel Left', 'Devour 10 fel-touched beasts in Shadowmoon Valley, then purge at the cauldron.', 'Hagatha:$B$BThe last of Vessa''s strays: a felfire hawk, a tauralus in fel armour, felchargers, a felfire steed, a felsteel spider and an infernal direwolf, and the other four deathcycles. They cannot be bitten and they cannot be argued with; they can only be shown. Eat ten fel beasts in Shadowmoon where they can see, in any shape, and purge after.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109548, 10, 9109549, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304229, 1, 9304261, 1, 9304344, 1, 9304396, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Fel-touched beast devoured in Shadowmoon', 'The fel purged at the cauldron', '', '', 0, 0),
+(9109185, 2, 70, 68, 0, 0, 7, 82320, 0, 0, 'The Last Strays', 'Devour 10 fel-touched beasts in Hellfire Peninsula.', 'Hagatha:$B$BThe spider, the direwolf, and the four remaining deathcycles. Same as before, little horror: eat ten more in Hellfire where they can see.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109550, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304403, 1, 9304725, 1, 9304473, 1, 9304474, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Fel-touched beast devoured in Hellfire', '', '', '', 0, 0),
+(9109186, 2, 70, 68, 0, 0, 6, 61740, 0, 0, 'The Deathcycles'' Keys', 'Talk the 2 sulking deathcycles at Vessa''s camp into starting.', 'Hagatha:$B$BTwo deathcycles by Vessa''s camp still will not start. They sulk; they were built for a war and the war is over. They want to be talked to, like the reavers. Give each one a reason that is not a war.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109551, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304475, 1, 9304476, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A deathcycle talked into starting', '', '', '', 0, 0),
+(9109190, 2, 22, 20, 0, 0, 4, 2323, 0, 0, 'WANTED: A Walk for a Sapling', 'Take the sapling from Wren''s flowerpot and walk it to the water at Auberdine in Darkshore; rest there.', 'Wren, proudly:$B$BSnack, remember the treant you ate in Ashenvale? You coughed up a seed. I planted it. It GREW. It''s a sapling Ancient now, in a pot by the duck pond, and it wants to go home.$B$BIt walks slowly. Take it from the pot and walk it to Darkshore first, to the water at Auberdine, and let it rest. Trees like water. Then we''ll see how big it got.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109552, 1, 9109553, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The sapling taken from its pot', 'Rested by the water at Auberdine', '', '', 0, 0),
+(9109191, 2, 40, 36, 0, 0, 6, 14400, 0, 0, 'Through Felwood', 'With the sapling following, rest by the water at Emerald Sanctuary in Felwood.', 'Wren:$B$BNext it wants to walk through Felwood, which is horrible, but it says the trees there need to see a healthy one. Rest it by the water at Emerald Sanctuary. A moose and its herd will join the walk, Hagatha says; moose like a parade.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109554, 1, 9109555, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304461, 1, 9304191, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The sapling taken from its pot again', 'Rested by the water at Emerald Sanctuary', '', '', 0, 0),
+(9109192, 2, 58, 55, 0, 0, 8, 20184, 0, 0, 'Home to Ashenvale', 'With the sapling following, rest by the moonwell at Raynewood Retreat in Ashenvale.', 'Wren, sniffling:$B$BThe last walk. Ashenvale, to the moonwell at Raynewood Retreat, where the treant you ate used to stand. Rest it there. It''s going to be big by then. Really big. Don''t cry. I''m not crying.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109556, 1, 9109557, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304012, 1, 9304015, 1, 9304019, 1, 9304310, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The sapling taken for the last walk', 'Rested by the moonwell at Raynewood Retreat', '', '', 0, 0),
+(9109193, 2, 60, 58, 0, 0, 7, 43200, 0, 0, 'The Forest''s Friends', 'Sit with the Ancient at Raynewood Retreat a while.', 'Wren:$B$BThe Ancient''s friends won''t all fit through the Thin Place at once. Go back to Raynewood and sit with the Ancient a while, and the rest will come: the elderhorns, the grove warden, the chloroceros, the carnivarus. It''s a lot of friends. It''s a very friendly tree.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109558, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304335, 1, 9304464, 1, 9304465, 1, 9304468, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Sat with the Ancient', '', '', '', 0, 0),
+(9109194, 2, 60, 58, 0, 0, 5, 21600, 0, 0, 'The Last Two Friends', 'Sit with the Ancient a little longer.', 'Wren:$B$BTwo more, Snack. The chloroceros and the carnivarus. They''re shy. Sit a little longer.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109559, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304549, 1, 9304255, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Sat a little longer', '', '', '', 0, 0),
+(9109200, 2, 20, 10, 0, 0, 5, 2400, 0, 0, 'WANTED: Ten Chimneys', 'During Winter Veil, drop a present down 10 chimneys in Ironforge and Orgrimmar.', 'Wren, in a paper hat:$B$BSnack! Winter Veil! Do witches get presents? Hagatha says no. So I''m GIVING them instead. Ten presents, ten chimneys, five in Ironforge and five in Orgrimmar. Drop one down each. Some of the houses have a grumpy grandma in. Drop it anyway.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109560, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304627, 1, 9304666, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'A present dropped down a chimney', '', '', '', 0, 0),
+(9109201, 2, 20, 10, 0, 0, 6, 3600, 0, 0, 'The Gingerbread Steed', 'During Winter Veil, gather 5 ingredients from the cooks, then /shoo Wren away from the oven.', 'Hagatha, in no paper hat:$B$BWren wants a gingerbread steed baked in my oven, little horror. Five ingredients from five cooks: Greatfather Winter''s helpers in Ironforge and Orgrimmar, the fountain cook in Dalaran, Stormwind''s, Undercity''s. Bring them. Then bake it, and keep Wren away from the oven. She is standing by it right now with a fork. Shoo her.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109561, 5, 9109562, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304250, 1, 9304493, 1, 9304512, 1, 9304773, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'An ingredient from a cook', 'Wren shooed from the oven', '', '', 0, 0),
+(9109210, 2, 12, 5, 0, 0, 4, 691, 0, 0, 'WANTED: The Giant Egg', 'During Noblegarden, find the giant egg''s tracks in Elwynn, Azuremyst and Mulgore.', 'Wren, with a magnifying glass:$B$BSnack, there''s a giant egg loose in the world and it MOVES whenever nobody''s looking at it. It''s a big rabbit. Or a small horse. Or an egg with legs. Its tracks start in Elwynn, then Azuremyst, then Mulgore; it crosses the whole festival.$B$BFollow the tracks. Don''t look away. Ask your companions to stare at it; it can''t move while somebody''s staring.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109563, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Giant egg tracks found', '', '', '', 0, 0),
+(9109211, 2, 12, 5, 0, 0, 6, 1296, 0, 0, 'Stare It Down', 'During Noblegarden, stand still at the dead end in Mulgore and /stare at the giant egg for a minute.', 'Wren:$B$BIt''s in the dead end by the Spring Gatherer in Mulgore. Stand still and stare at it, don''t look away, for a whole minute. Everyone stare. It''ll crack.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109564, 1, 9109565, 1, 9109566, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304533, 1, 9304534, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The dead end reached; the egg cornered', 'Stared for a minute', 'The egg stared at', '', 0, 0),
+(9109220, 2, 20, 18, 0, 0, 4, 1920, 0, 0, 'WANTED: Lesson One, Sweeping', 'Wake the dust bunnies at the dusty corner by the Thin Place and slay 8 of them.', 'Wren, holding a broom at arm''s length:$B$BSnack, broom lessons! Hagatha''s brooms are alive and they''re CROSS and they decide if they like you. Lesson one: sweeping. Dust bunnies crawl out of the Thin Place and bite. Take the broom to the dusty corner, wake them up, and sweep them. The broom watches how you sweep.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109567, 1, 9109568, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'The dust bunnies woken', 'Dust bunny swept', '', '', 0, 0),
+(9109221, 2, 22, 20, 0, 0, 4, 2323, 0, 0, 'Lesson Two, Hovering', 'Hover still over the duck pond in the In-Between for a minute.', 'Wren:$B$BLesson two: hovering. Hold the broom steady over the duck pond for a whole minute while it tries to dunk you. Don''t move. Don''t blink. The ducks will laugh. Let them.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109569, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Hovered still over the duck pond', '', '', '', 0, 0),
+(9109222, 2, 24, 22, 0, 0, 5, 3456, 0, 0, 'Lesson Three, Flying', 'Fly a loop round the In-Between: the cauldron, Hagatha''s Gate, the Thin Place, back to the board.', 'Wren, pointing:$B$BLesson three: a loop round the In-Between. Left! No, the other left! Round the cauldron, past the gate, through the Thin Place, back to the board. I''ll shout directions. They''ll be wrong.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109570, 1, 9109571, 1, 9109572, 1, 9109573, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9304063, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Round the cauldron', 'Past Hagatha''s Gate', 'Through the Thin Place', 'Back to the board', 0, 0),
+(9109223, 2, 60, 58, 0, 0, 6, 32400, 0, 0, 'Hagatha''s Sweepers', 'Fly the loop round the In-Between again with your own flying, under Hagatha''s eye.', 'Hagatha:$B$BThe Sweepers are my own brooms, little horror, and they only go to someone they have seen fly. Fly the loop again, properly this time, with your flying, and I will watch from the cauldron. If you clip the gate I will know.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109574, 1, 9109575, 1, 9109576, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304408, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Round the cauldron, watched', 'Past the gate, watched', 'Through the Thin Place, watched', '', 0, 0),
+(9109230, 2, 20, 18, 0, 0, 3, 1440, 0, 0, 'WANTED: Spring Petals', 'Pick a petal from the flowers by Mirror Lake in Elwynn for Mister Slow.', 'Wren, with a snail on her hand:$B$BThis is Mister Slow. He eats petals, and his shell goes the colour of the last thing he ate. One petal at a time, Snack, and let him finish, or he gets a tummy. Today''s is the flowers by Mirror Lake in Elwynn. Pick it and bring it; he''ll do the rest.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109577, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Spring Petals picked', '', '', '', 0, 0),
+(9109231, 2, 20, 18, 0, 0, 3, 1440, 0, 0, 'Summer Petals', 'Pick a petal from the jungle flowers by Nesingwary''s camp for Mister Slow.', 'Wren, with a snail on her hand:$B$BThis is Mister Slow. He eats petals, and his shell goes the colour of the last thing he ate. One petal at a time, Snack, and let him finish, or he gets a tummy. Today''s is the jungle flowers by Nesingwary''s camp. Pick it and bring it; he''ll do the rest.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109578, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Summer Petals picked', '', '', '', 0, 0),
+(9109232, 2, 20, 18, 0, 0, 3, 1440, 0, 0, 'Autumn Petals', 'Pick a petal from the golden flowers by the North Sanctum for Mister Slow.', 'Wren, with a snail on her hand:$B$BThis is Mister Slow. He eats petals, and his shell goes the colour of the last thing he ate. One petal at a time, Snack, and let him finish, or he gets a tummy. Today''s is the golden flowers by the North Sanctum. Pick it and bring it; he''ll do the rest.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109579, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Autumn Petals picked', '', '', '', 0, 0),
+(9109233, 2, 20, 18, 0, 0, 3, 1440, 0, 0, 'Winter Petals', 'Pick a petal from the snow flowers by Kharanos for Mister Slow.', 'Wren, with a snail on her hand:$B$BThis is Mister Slow. He eats petals, and his shell goes the colour of the last thing he ate. One petal at a time, Snack, and let him finish, or he gets a tummy. Today''s is the snow flowers by Kharanos. Pick it and bring it; he''ll do the rest.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109580, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Winter Petals picked', '', '', '', 0, 0),
+(9109234, 2, 24, 20, 0, 0, 5, 3456, 0, 0, 'Mister Slow, Grown', 'Sit with Mister Slow by the duck pond.', 'Wren:$B$BFour seasons, four petals, and Mister Slow is HUGE. You can sit on him. He''s the colour of the last petal you fed him, which was winter, so he''s white as a snow flower. Go on. Sit on him.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109581, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304251, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Sat with Mister Slow', '', '', '', 0, 0),
+(9109235, 2, 56, 52, 0, 0, 6, 28224, 0, 0, 'Petals From a Volcano', 'Pick an ember from Fire Plume Ridge for the magma snail.', 'Wren, nervously:$B$BMister Slow has a cousin, Hagatha says. In the lava, under Blackrock. It eats EMBERS and its shell goes the colour of fire. Bring it an ember from Fire Plume Ridge in Un''Goro, like the petals, and it''ll come up out of the lava to see who''s feeding it.', '', 'Return to Wren''s WANTED Board (Wren''s WANTED board, by the trophy wall, the In-Between).', 9109582, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9304397, 1, 9304401, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'An ember picked at Fire Plume Ridge', '', '', '', 0, 0);
 INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VALUES
 (9109010, 512, 0),
 (9109011, 512, 9109010),
@@ -810,15 +1177,10 @@ INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VAL
 (9109024, 512, 0),
 (9109025, 512, 9109020),
 (9109030, 512, 0),
-(9109031, 512, 9109030),
-(9109032, 512, 9109031),
+(9109031, 512, 0),
+(9109032, 512, 0),
 (9109033, 512, 9109032),
 (9109034, 512, 9109033),
-(9109035, 512, 0),
-(9109036, 512, 9109035),
-(9109037, 512, 9109030),
-(9109038, 512, 9109036),
-(9109039, 512, 9109031),
 (9109050, 512, 0),
 (9109051, 512, 9109050),
 (9109052, 512, 9109051),
@@ -854,7 +1216,56 @@ INSERT INTO `quest_template_addon` (`ID`, `AllowableClasses`, `PrevQuestID`) VAL
 (9109111, 512, 9109110),
 (9109112, 512, 9109111),
 (9109113, 512, 9109112),
-(9109114, 512, 9109113);
+(9109114, 512, 9109113),
+(9109120, 512, 0),
+(9109121, 512, 9109120),
+(9109122, 512, 9109121),
+(9109130, 512, 0),
+(9109131, 512, 9109130),
+(9109140, 512, 0),
+(9109141, 512, 9109140),
+(9109142, 512, 9109141),
+(9109143, 512, 9109142),
+(9109144, 512, 9109143),
+(9109145, 512, 9109144),
+(9109146, 512, 9109145),
+(9109150, 512, 0),
+(9109151, 512, 9109150),
+(9109160, 512, 0),
+(9109161, 512, 9109160),
+(9109162, 512, 9109161),
+(9109163, 512, 9109162),
+(9109164, 512, 9109163),
+(9109165, 512, 9109163),
+(9109170, 512, 0),
+(9109171, 512, 9109170),
+(9109172, 512, 9109171),
+(9109180, 512, 0),
+(9109181, 512, 9109180),
+(9109182, 512, 9109181),
+(9109183, 512, 9109182),
+(9109184, 512, 9109183),
+(9109185, 512, 9109184),
+(9109186, 512, 9109185),
+(9109190, 512, 0),
+(9109191, 512, 9109190),
+(9109192, 512, 9109191),
+(9109193, 512, 9109192),
+(9109194, 512, 9109193),
+(9109200, 512, 0),
+(9109201, 512, 9109200),
+(9109210, 512, 0),
+(9109211, 512, 9109210),
+(9109220, 512, 0),
+(9109221, 512, 9109220),
+(9109222, 512, 9109221),
+(9109223, 512, 9109222),
+(9109230, 512, 0),
+(9109231, 512, 9109230),
+(9109232, 512, 9109231),
+(9109233, 512, 9109232),
+(9109234, 512, 9109233),
+(9109235, 512, 9109234);
 INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`, `CompletionText`, `VerifiedBuild`) VALUES
 (9109010, 1, 1, 'Is it warm? Is it? Go and check!', 0),
 (9109011, 1, 1, 'Three fires, Snack, and then the nest. It''s getting cold!', 0),
@@ -871,16 +1282,11 @@ INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`,
 (9109023, 1, 1, 'Five shards, Snack, in eight hours, as a flutterer. Is it still dreaming?', 0),
 (9109024, 1, 1, 'Five shards, Snack, in eight hours, as a flutterer. Is it still dreaming?', 0),
 (9109025, 1, 1, 'Sit, little horror. Dreams come to the ones who stay still.', 0),
-(9109030, 1, 1, 'Five pieces. Bones do not walk to you, little horror. Sniff.', 0),
-(9109031, 1, 1, 'Five pieces, Snack. Goblins hide things badly, remember.', 0),
+(9109030, 1, 1, 'Sniff, little horror. Stand still and sniff.', 0),
+(9109031, 1, 1, 'The Lion''s Pride, Snack. Sniff. Tiny glint.', 0),
 (9109032, 1, 1, 'Three silly places, Snack. Then think.', 0),
 (9109033, 1, 1, 'Is she out? Are the camels home? Did she say ''under control''?', 0),
 (9109034, 1, 1, 'Laugh LOUDER, Snack.', 0),
-(9109035, 1, 1, 'Twenty-five, Snack. Tiny glints. By the lanterns.', 0),
-(9109036, 1, 1, 'Twenty-five more, Snack. The far ones.', 0),
-(9109037, 1, 1, 'Seven relics. Listen for the hum.', 0),
-(9109038, 1, 1, 'Fifty, Snack. They breed, I''m telling you.', 0),
-(9109039, 1, 1, 'Five more pieces, Snack. Rich goblins hide things worse than poor ones.', 0),
 (9109050, 1, 1, 'The lantern is dark? Then pick up another. Steadily, this time.', 0),
 (9109051, 1, 1, 'Dark again? The road is long. Walk it steadily.', 0),
 (9109052, 1, 1, 'The Argent light is stubborn. So are you.', 0),
@@ -916,7 +1322,56 @@ INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `EmoteOnIncomplete`,
 (9109111, 1, 1, 'The bell is not rung. Climb.', 0),
 (9109112, 1, 1, 'The bell is not rung. Climb.', 0),
 (9109113, 1, 1, 'The bell is not rung. Climb.', 0),
-(9109114, 1, 1, 'An hour, little horror. All four. On foot.', 0);
+(9109114, 1, 1, 'An hour, little horror. All four. On foot.', 0),
+(9109120, 1, 1, 'Nine fish, Snack, with Otto watching. He can tell when you hide one.', 0),
+(9109121, 1, 1, 'Nine more, Snack. His friends are shy.', 0),
+(9109122, 1, 1, 'Nine catches, on the fjord''s beach. The war ottuk is watching from the water.', 0),
+(9109130, 1, 1, 'Eight kittens. Listen. They are small, and Dalaran is loud.', 0),
+(9109131, 1, 1, 'Sit with him. He talks slowly. He is very fat.', 0),
+(9109140, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109141, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109142, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109143, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109144, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109145, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109146, 1, 1, 'Caw. (That means you''re slow.)', 0),
+(9109150, 1, 1, 'Seven machines, and the parts. Did you turn the springy one? You turned the springy one.', 0),
+(9109151, 1, 1, 'Five big ones, Snack. The plane''s just a chair with a propeller so far.', 0),
+(9109160, 1, 1, 'He is waiting. He has waited a long time.', 0),
+(9109161, 1, 1, 'Dawn, little horror. Not before, not after. Stand still.', 0),
+(9109162, 1, 1, 'Dawn, under the mountain. He is already shouting.', 0),
+(9109163, 1, 1, 'Three dawns. Patience is a thing you can eat too.', 0),
+(9109164, 1, 1, 'The top of Wyrmrest. Dawn. Still. This one will hurt.', 0),
+(9109165, 1, 1, 'Dawn at the Argent camp.', 0),
+(9109170, 1, 1, 'Have you found the grave? He will tell you, if you ask about the mare and not about me.', 0),
+(9109171, 1, 1, 'Three stalls, little horror. He walks slowly. So did he before.', 0),
+(9109172, 1, 1, 'It only comes at Hallow''s End. Wait for the pumpkins.', 0),
+(9109180, 1, 1, 'Five bites, and let go. Then the cauldron, before the glow gets into your eyes.', 0),
+(9109181, 1, 1, 'Five ravagers. One will grin.', 0),
+(9109182, 1, 1, 'Five felboars. Let them run. Then the cauldron.', 0),
+(9109183, 1, 1, 'Five reavers. Mind the feet.', 0),
+(9109184, 1, 1, 'Ten, where the strays can see. Then purge.', 0),
+(9109185, 1, 1, 'Ten more, in Hellfire.', 0),
+(9109186, 1, 1, 'Two cycles. Find the reason.', 0),
+(9109190, 1, 1, 'Walk slowly, Snack. It''s a tree.', 0),
+(9109191, 1, 1, 'Felwood is slow going. So is the sapling. They suit each other.', 0),
+(9109192, 1, 1, 'The last walk. Slowly.', 0),
+(9109193, 1, 1, 'Sit with it. Trees are slow about goodbyes.', 0),
+(9109194, 1, 1, 'A little longer.', 0),
+(9109200, 1, 1, 'Ten chimneys, Snack. Mind the grandmas.', 0),
+(9109201, 1, 1, 'Five ingredients, and then the shooing. She is at the oven again.', 0),
+(9109210, 1, 1, 'Three sets of tracks, Snack. Don''t blink.', 0),
+(9109211, 1, 1, 'Keep staring, Snack!', 0),
+(9109220, 1, 1, 'Sweep, Snack! They bite!', 0),
+(9109221, 1, 1, 'Still, Snack! It''s trying to dunk you!', 0),
+(9109222, 1, 1, 'Left! Other left!', 0),
+(9109223, 1, 1, 'I am watching. Fly it properly.', 0),
+(9109230, 1, 1, 'One petal, Snack. He''s waiting. Slowly.', 0),
+(9109231, 1, 1, 'One petal, Snack. He''s waiting. Slowly.', 0),
+(9109232, 1, 1, 'One petal, Snack. He''s waiting. Slowly.', 0),
+(9109233, 1, 1, 'One petal, Snack. He''s waiting. Slowly.', 0),
+(9109234, 1, 1, 'Sit on him, Snack. Slowly.', 0),
+(9109235, 1, 1, 'An ember, Snack. Mind your hands.', 0);
 INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`) VALUES
 (9109010, 1, 'WARM! I knew it. It''s alive in there. It''s going to need keeping warm, Snack, and you''re going to do it.', 0),
 (9109011, 1, 'It CRACKED! A chick! It looked at you first, Snack. That means you''re its mother. Don''t argue, it''s science.$B$BIt can''t fly. It''s going to follow you everywhere. It''ll write to you, Hagatha says; eggs that are kept warm by witches grow up literate.', 0),
@@ -933,16 +1388,11 @@ INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`)
 (9109023, 1, 'All five! The dream took shape, didn''t it? That''s the dreamers of the floating plains, come out of the dream to see who was touching its shards.$B$BHere. Hagatha says the other colours of this dream come from the Breeding Pen.', 0),
 (9109024, 1, 'All five! The dream took shape, didn''t it? That''s the fey dreamers, come out of the dream to see who was touching its shards.$B$BHere. Hagatha says the other colours of this dream come from the Breeding Pen.', 0),
 (9109025, 1, 'She came. Of course she came; you smelled of five dreams at once.$B$BTake the reins. Do not ride her into a wall.', 0),
-(9109030, 1, 'Five pieces, and they remember each other. Stand back.$B$BThere. It runs. It is yours; it will not run for anyone else, because you are the one who reminded it.', 0),
-(9109031, 1, 'The map says the machine is... in Hagatha''s larder. The goblins owed her money. She''s giving it to you so she doesn''t have to look at it.$B$BIt digs! It also beeps. Sorry about the beeping.', 0),
+(9109030, 1, 'You smelled it. Now you will smell it everywhere: buried fragments, buttons, map scraps, all over the world, wherever Sniff shows a glint.$B$BDig them up as you go. Wren keeps the tally and pays in runners.', 0),
+(9109031, 1, 'That''s it, that''s one of mine! Now you know the smell. Bring me the rest whenever you find them; I''ve got prizes from the fair for every handful, and a turkey for the first lot.', 0),
 (9109032, 1, 'Silithus. Of course. She went where the diary said NOT to go, three times over. Hagatha says the scorpids have her. Hagatha says it like it''s funny.', 0),
 (9109033, 1, '''Under control.'' She said it! Hagatha owes me a spoon.$B$BThe camels came home with you. One of them is yours now; the explorer says she can''t afford to feed three. Here''s its reins, and her dunetrekker''s, which she''s lending you forever.', 0),
 (9109034, 1, 'They stopped laughing. Then one of them came and sat on your foot. That''s a hyena saying yes.$B$BHere''s its reins. It still laughs in its sleep.', 0),
-(9109035, 1, 'Twenty-five buttons! Half a cloak! Here''s what I won at the fair. It''s a turkey. You can ride it. I don''t know why they had it either.', 0),
-(9109036, 1, 'The cloak is WHOLE. Frogs and all. Here''s the rooster. Don''t let it near the turkey; they have history.', 0),
-(9109037, 1, 'Seven, and every one of them remembers something that carried a king. Take what they remember, little horror. Kings do not need them any more.', 0),
-(9109038, 1, 'FIFTY. The jar is full. Bucky, the cloud and the kite are yours. Bucky bit me on the way out. He likes you better already.', 0),
-(9109039, 1, 'ENORMOUS. It barely fit through the Thin Place. It''s yours. It beeps twice as loud.', 0),
 (9109050, 1, 'Light. The cauldron drinks it. Something stirs at the bottom, little horror. It will need more.', 0),
 (9109051, 1, 'It climbed out. Did you see its eyes? It remembers the one it carried, and it has decided you will do.', 0),
 (9109052, 1, 'Three lights. Three steeds. The cauldron is nearly full; one more and it opens.', 0),
@@ -978,9 +1428,58 @@ INSERT INTO `quest_offer_reward` (`ID`, `Emote1`, `RewardText`, `VerifiedBuild`)
 (9109111, 1, 'Rung, and the yaks came. A grey riding yak and a wilderling followed you down, and it is yours.$B$BTake the reins.', 0),
 (9109112, 1, 'Rung, and the mammoths came. A plainswalker bearer followed you down, and it is yours.$B$BTake the reins.', 0),
 (9109113, 1, 'Rung, and the storm came. An alabaster thunderwing followed you down, and it is yours.$B$BTake the reins.', 0),
-(9109114, 1, 'The storm came down. A blizzard with a will, a tidestorm, and the Valarjar''s own stormwing, all three, to see who rang. They saw. They stayed.$B$BTake the reins. Ride the storm quietly.', 0);
-INSERT INTO `gameobject_queststarter` (`id`, `quest`) VALUES (9109000, 9109010), (9109000, 9109011), (9109000, 9109012), (9109000, 9109013), (9109000, 9109014), (9109000, 9109015), (9109000, 9109016), (9109000, 9109017), (9109000, 9109018), (9109000, 9109020), (9109000, 9109021), (9109000, 9109022), (9109000, 9109023), (9109000, 9109024), (9109000, 9109025), (9109000, 9109030), (9109000, 9109031), (9109000, 9109032), (9109000, 9109033), (9109000, 9109034), (9109000, 9109035), (9109000, 9109036), (9109000, 9109037), (9109000, 9109038), (9109000, 9109039), (9109000, 9109050), (9109000, 9109051), (9109000, 9109052), (9109000, 9109053), (9109000, 9109060), (9109000, 9109061), (9109000, 9109062), (9109000, 9109063), (9109000, 9109064), (9109000, 9109065), (9109000, 9109066), (9109000, 9109070), (9109000, 9109071), (9109000, 9109072), (9109000, 9109073), (9109000, 9109074), (9109000, 9109075), (9109000, 9109076), (9109000, 9109080), (9109000, 9109081), (9109000, 9109082), (9109000, 9109083), (9109000, 9109084), (9109000, 9109085), (9109000, 9109086), (9109000, 9109090), (9109000, 9109091), (9109000, 9109100), (9109000, 9109101), (9109000, 9109102), (9109000, 9109103), (9109000, 9109110), (9109000, 9109111), (9109000, 9109112), (9109000, 9109113), (9109000, 9109114);
-INSERT INTO `gameobject_questender` (`id`, `quest`) VALUES (9109000, 9109010), (9109000, 9109011), (9109000, 9109012), (9109000, 9109013), (9109000, 9109014), (9109000, 9109015), (9109000, 9109016), (9109000, 9109017), (9109000, 9109018), (9109000, 9109020), (9109000, 9109021), (9109000, 9109022), (9109000, 9109023), (9109000, 9109024), (9109000, 9109025), (9109000, 9109030), (9109000, 9109031), (9109000, 9109032), (9109000, 9109033), (9109000, 9109034), (9109000, 9109035), (9109000, 9109036), (9109000, 9109037), (9109000, 9109038), (9109000, 9109039), (9109000, 9109050), (9109000, 9109051), (9109000, 9109052), (9109000, 9109053), (9109000, 9109060), (9109000, 9109061), (9109000, 9109062), (9109000, 9109063), (9109000, 9109064), (9109000, 9109065), (9109000, 9109066), (9109000, 9109070), (9109000, 9109071), (9109000, 9109072), (9109000, 9109073), (9109000, 9109074), (9109000, 9109075), (9109000, 9109076), (9109000, 9109080), (9109000, 9109081), (9109000, 9109082), (9109000, 9109083), (9109000, 9109084), (9109000, 9109085), (9109000, 9109086), (9109000, 9109090), (9109000, 9109091), (9109000, 9109100), (9109000, 9109101), (9109000, 9109102), (9109000, 9109103), (9109000, 9109110), (9109000, 9109111), (9109000, 9109112), (9109000, 9109113), (9109000, 9109114);
+(9109114, 1, 'The storm came down. A blizzard with a will, a tidestorm, and the Valarjar''s own stormwing, all three, to see who rang. They saw. They stayed.$B$BTake the reins. Ride the storm quietly.', 0),
+(9109120, 1, 'Nine fish and Otto''s your friend for life. He followed you up the beach! Here''s his reins. Yes, you can ride an ottuk. He insists.', 0),
+(9109121, 1, 'They CAME. A crab the size of a cart, a plodder, a riverbeast, all sitting on the beach eating your fish. Here are all their reins. Otto arranged it. Otto''s very organised.', 0),
+(9109122, 1, 'It came, and ate, and knelt, which is how an ottuk says ''I will carry you''. The crest-horn and the thundertrotter came after it; they follow the war ottuk everywhere.$B$BTake the reins.', 0),
+(9109130, 1, 'Eight, patted, and every one of them went home ahead of you. The father is beside himself; he has eaten two whole fish in relief.$B$BHe says his brother will carry you, by way of thanks. His brother is as fat as he is. Take the reins.', 0),
+(9109131, 1, 'He talked for an hour about his kittens, and then he gave you the furline and the moon cat, and then he went to sleep.$B$BTake the reins. Visit him sometimes.', 0),
+(9109140, 1, 'Got it! And a riddle: ''The next page lies where a wizard''s tower looks down on a pass the dead walk through, and nobody goes in.''', 0),
+(9109141, 1, 'Got it! And a riddle: ''The next page lies in a city that floats, in the hall where the violet books are kept.''', 0),
+(9109142, 1, 'Got it! And a riddle: ''The next page lies on a tier of seers, in a city of light with a naaru at its heart.''', 0),
+(9109143, 1, 'Got it! And a riddle: ''The next page lies in a monastery that burns things, under the Scarlet eye.''', 0),
+(9109144, 1, 'Got it! And a riddle: ''The next page lies under the mountain, with the explorers and their bones.''', 0),
+(9109145, 1, 'Got it! And a riddle: ''The next page lies under the ruins, where the dead read in the dark.''', 0),
+(9109146, 1, 'The LAST PAGE. The book''s whole. It... it''s flapping. It flies! It flies badly! Hagatha''s furious and delighted at once.$B$BThe book is yours; Hagatha won''t touch it now that it''s been in Undercity. And Pilfer''s cousin, the flame-touched raven, has been following you since Karazhan. And the scribe''s bear that carried the book in the first place wants to carry it, and you, again.', 0),
+(9109150, 1, 'Parts! Gears and pipes and the springy things! Here, I built two already: a buzzsaw on wheels and a jungle hopper. The hopper hops. The buzzsaw... duck.', 0),
+(9109151, 1, 'It FLIES. The plane flies, the propulsor propels, and the reactor... hums. Keep the reactor away from the cauldron.$B$BHere are the keys to all three. Mostly safe.', 0),
+(9109160, 1, 'Five pieces, and the truth told. He is standing straighter already.$B$BNow for the horse.', 0),
+(9109161, 1, 'He rode. Once, around the chapel, and the light took him. The horse stayed; it is yours, as it was always going to be.$B$BThe squires'' mounts came out of the memory with it: a vorquin, a frostcharger. They follow the knight''s horse everywhere.', 0),
+(9109162, 1, 'He shouted, he rode, he shouted some more, and the mountain took him back. The Dawnforge ram is yours.', 0),
+(9109163, 1, 'Three memories, pulled out and standing. The chapel is getting crowded with your horses.$B$BTake the reins.', 0),
+(9109164, 1, 'It came out of you like a sunrise, and it did not go anywhere. It had been waiting to be remembered.$B$BTyrael''s charger, the seraph''s, the lord of steeds: they are yours. Nothing you have eaten will ever be grander than that.', 0),
+(9109165, 1, 'Two more memories, standing in the Argent camp, looking embarrassed. Take the reins.', 0),
+(9109170, 1, 'The mare''s ghost came up out of the dirt, looked at Tam, looked at you, and chose you. He cried. Forsaken can, it turns out.$B$BShe is yours. Visit him. And never ask me how I knew him.', 0),
+(9109171, 1, 'He said goodbye three times, and three times something came out of a stall and stood beside you. He is sitting on the fence now, looking almost happy.$B$BTake the reins.', 0),
+(9109172, 1, 'A pumpkin. It hates that one. The charger is yours; it chills everything it stands on, and it says the Horseman can walk.', 0),
+(9109180, 1, 'Five helboars, clean, and a Devourer glowing green at the knees. Purged. Vessa sent the first of them along: a gnasher with the fel gone out of it, and a felflame talbuk that followed it.$B$BTake the reins.', 0),
+(9109181, 1, 'One grinned. Vessa says it followed her home and will not stop grinning. It is yours now, grin and all.', 0),
+(9109182, 1, 'Five, calmed, fled, found. Vessa sent the hounds and a fel beast along with her thanks; the fel is out of them and they do not know what to do with themselves. Carry you, probably.', 0),
+(9109183, 1, 'Five machines, talked out of a war that ended years ago. They let you drive. The deathcycles came with them; they were never told either.$B$BTake the keys. All of them.', 0),
+(9109184, 1, 'They saw, and they came. Every stray Vessa ever fed. Take the reins and the keys; there are a great many of them, and none of them are glowing any more.', 0),
+(9109185, 1, 'The last of them. Vessa says the plain is quiet now. She says it like she misses the noise.', 0),
+(9109186, 1, 'Both cycles started. Loudly. Take the keys.', 0),
+(9109190, 1, 'It drank, and it GREW. Look at it. Twice the size. Still slow.', 0),
+(9109191, 1, 'It grew again, and a MOOSE joined you, with its whole herd. The sapling likes the moose. The moose likes the sapling. Here''s the moose''s reins; it says it''s yours now, as long as the sapling comes too.', 0),
+(9109192, 1, 'It''s HOME. It''s an Ancient now, a whole Ancient, and it put down roots where the old one stood, and then it pulled one root up again and offered you a branch.$B$BThe branch carries you. Its forest friends came to see: stags, elderhorns, a grove crawler, a chloroceros, a carnivarus. They''re all yours. The forest says so.', 0),
+(9109193, 1, 'They came, all of them. The forest is yours now, in instalments.$B$BTake the reins.', 0),
+(9109194, 1, 'The chloroceros and the carnivarus. The carnivarus bites. Only things you don''t like.', 0),
+(9109200, 1, 'Ten presents, delivered! One grandma threw a boot. Here''s your present: a reindeer with a thorn in its hoof, and a toy train. The train goes round. Only round.', 0),
+(9109201, 1, 'Baked. Mildly munched; she got to it once. It still runs, if a little lopsided. The blizzard bear and Grumpus''s minion came in with the cold, and the candy copter is Wren''s; she says you can have it if you forgive the hoof.', 0),
+(9109210, 1, 'Mulgore! It''s cornered itself by the Spring Gatherer''s dead end. Go and STARE.', 0),
+(9109211, 1, 'It CRACKED. A serpent climbed out, very offended, and a second one after it, even more offended. They''re yours; they''ve decided it''s your fault.', 0),
+(9109220, 1, 'The broom liked that. It''s still cross, but it liked it. Lesson two next.', 0),
+(9109221, 1, 'Not dunked! Mostly! The broom''s impressed. The ducks are not.', 0),
+(9109222, 1, 'You passed! The broom''s yours! It''s still cross but it''s YOUR cross broom now.', 0),
+(9109223, 1, 'Adequate. The Sweepers are yours. Do not let Wren teach them anything.', 0),
+(9109230, 1, 'He ate it! Look at the shell! It''s gone the colour of the season! He''s sleeping it off. Next season after.', 0),
+(9109231, 1, 'He ate it! Look at the shell! It''s gone the colour of the season! He''s sleeping it off. Next season after.', 0),
+(9109232, 1, 'He ate it! Look at the shell! It''s gone the colour of the season! He''s sleeping it off. Next season after.', 0),
+(9109233, 1, 'He ate it! Look at the shell! It''s gone the colour of the season! He''s sleeping it off. Next season after.', 0),
+(9109234, 1, 'He carried you! Slowly! Here''s his reins. If you want him another colour, feed him another season; the Breeding Pen knows how.', 0),
+(9109235, 1, 'It came up! A slug of magma, glowing, and a magmashell behind it, and they''re both yours. Don''t bring them near Mister Slow; he''s jealous.', 0);
+INSERT INTO `gameobject_queststarter` (`id`, `quest`) VALUES (9109000, 9109010), (9109000, 9109011), (9109000, 9109012), (9109000, 9109013), (9109000, 9109014), (9109000, 9109015), (9109000, 9109016), (9109000, 9109017), (9109000, 9109018), (9109000, 9109020), (9109000, 9109021), (9109000, 9109022), (9109000, 9109023), (9109000, 9109024), (9109000, 9109025), (9109000, 9109030), (9109000, 9109031), (9109000, 9109032), (9109000, 9109033), (9109000, 9109034), (9109000, 9109050), (9109000, 9109051), (9109000, 9109052), (9109000, 9109053), (9109000, 9109060), (9109000, 9109061), (9109000, 9109062), (9109000, 9109063), (9109000, 9109064), (9109000, 9109065), (9109000, 9109066), (9109000, 9109070), (9109000, 9109071), (9109000, 9109072), (9109000, 9109073), (9109000, 9109074), (9109000, 9109075), (9109000, 9109076), (9109000, 9109080), (9109000, 9109081), (9109000, 9109082), (9109000, 9109083), (9109000, 9109084), (9109000, 9109085), (9109000, 9109086), (9109000, 9109090), (9109000, 9109091), (9109000, 9109100), (9109000, 9109101), (9109000, 9109102), (9109000, 9109103), (9109000, 9109110), (9109000, 9109111), (9109000, 9109112), (9109000, 9109113), (9109000, 9109114), (9109000, 9109120), (9109000, 9109121), (9109000, 9109122), (9109000, 9109130), (9109000, 9109131), (9109000, 9109140), (9109000, 9109141), (9109000, 9109142), (9109000, 9109143), (9109000, 9109144), (9109000, 9109145), (9109000, 9109146), (9109000, 9109150), (9109000, 9109151), (9109000, 9109160), (9109000, 9109161), (9109000, 9109162), (9109000, 9109163), (9109000, 9109164), (9109000, 9109165), (9109000, 9109170), (9109000, 9109171), (9109000, 9109172), (9109000, 9109180), (9109000, 9109181), (9109000, 9109182), (9109000, 9109183), (9109000, 9109184), (9109000, 9109185), (9109000, 9109186), (9109000, 9109190), (9109000, 9109191), (9109000, 9109192), (9109000, 9109193), (9109000, 9109194), (9109000, 9109200), (9109000, 9109201), (9109000, 9109210), (9109000, 9109211), (9109000, 9109220), (9109000, 9109221), (9109000, 9109222), (9109000, 9109223), (9109000, 9109230), (9109000, 9109231), (9109000, 9109232), (9109000, 9109233), (9109000, 9109234), (9109000, 9109235);
+INSERT INTO `gameobject_questender` (`id`, `quest`) VALUES (9109000, 9109010), (9109000, 9109011), (9109000, 9109012), (9109000, 9109013), (9109000, 9109014), (9109000, 9109015), (9109000, 9109016), (9109000, 9109017), (9109000, 9109018), (9109000, 9109020), (9109000, 9109021), (9109000, 9109022), (9109000, 9109023), (9109000, 9109024), (9109000, 9109025), (9109000, 9109030), (9109000, 9109031), (9109000, 9109032), (9109000, 9109033), (9109000, 9109034), (9109000, 9109050), (9109000, 9109051), (9109000, 9109052), (9109000, 9109053), (9109000, 9109060), (9109000, 9109061), (9109000, 9109062), (9109000, 9109063), (9109000, 9109064), (9109000, 9109065), (9109000, 9109066), (9109000, 9109070), (9109000, 9109071), (9109000, 9109072), (9109000, 9109073), (9109000, 9109074), (9109000, 9109075), (9109000, 9109076), (9109000, 9109080), (9109000, 9109081), (9109000, 9109082), (9109000, 9109083), (9109000, 9109084), (9109000, 9109085), (9109000, 9109086), (9109000, 9109090), (9109000, 9109091), (9109000, 9109100), (9109000, 9109101), (9109000, 9109102), (9109000, 9109103), (9109000, 9109110), (9109000, 9109111), (9109000, 9109112), (9109000, 9109113), (9109000, 9109114), (9109000, 9109120), (9109000, 9109121), (9109000, 9109122), (9109000, 9109130), (9109000, 9109131), (9109000, 9109140), (9109000, 9109141), (9109000, 9109142), (9109000, 9109143), (9109000, 9109144), (9109000, 9109145), (9109000, 9109146), (9109000, 9109150), (9109000, 9109151), (9109000, 9109160), (9109000, 9109161), (9109000, 9109162), (9109000, 9109163), (9109000, 9109164), (9109000, 9109165), (9109000, 9109170), (9109000, 9109171), (9109000, 9109172), (9109000, 9109180), (9109000, 9109181), (9109000, 9109182), (9109000, 9109183), (9109000, 9109184), (9109000, 9109185), (9109000, 9109186), (9109000, 9109190), (9109000, 9109191), (9109000, 9109192), (9109000, 9109193), (9109000, 9109194), (9109000, 9109200), (9109000, 9109201), (9109000, 9109210), (9109000, 9109211), (9109000, 9109220), (9109000, 9109221), (9109000, 9109222), (9109000, 9109223), (9109000, 9109230), (9109000, 9109231), (9109000, 9109232), (9109000, 9109233), (9109000, 9109234), (9109000, 9109235);
 
 -- Quests for one shape (or its line): offered only to a Devourer that owns it (knows its form spell).
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
@@ -1007,4 +1506,15 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (19, 0, 9109065, 0, 0, 25, 0, 9100940, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: One of the Teromoths needs the Moth shape'),
 (19, 0, 9109065, 0, 1, 25, 0, 9102070, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: One of the Teromoths needs the Royal Blue Flutterer shape'),
 (19, 0, 9109066, 0, 0, 25, 0, 9100910, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: One of the Fox Familiars needs the Wolf shape'),
-(19, 0, 9109066, 0, 1, 25, 0, 9102010, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: One of the Fox Familiars needs the Bloodsnout Worg shape');
+(19, 0, 9109066, 0, 1, 25, 0, 9102010, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: One of the Fox Familiars needs the Bloodsnout Worg shape'),
+(19, 0, 9109172, 0, 0, 12, 0, 12, 0, 0, 0, 0, 0, '', 'mod-devourer: The Horseman''s Riddle only during game event 12'),
+(19, 0, 9109180, 0, 0, 25, 0, 9100910, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: Eat the Fel Out needs the Wolf shape'),
+(19, 0, 9109180, 0, 1, 25, 0, 9102010, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: Eat the Fel Out needs the Bloodsnout Worg shape'),
+(19, 0, 9109181, 0, 0, 25, 0, 9100930, 0, 0, 0, 0, 0, '', 'mod-devourer: The Ravagers'' Grin needs the Saber shape'),
+(19, 0, 9109181, 0, 1, 25, 0, 9102030, 0, 0, 0, 0, 0, '', 'mod-devourer: The Ravagers'' Grin needs the Shadowclaw shape'),
+(19, 0, 9109182, 0, 0, 25, 0, 9100950, 0, 0, 0, 0, 0, '', 'mod-devourer: Calm, Don''t Kill needs the Boar shape'),
+(19, 0, 9109182, 0, 1, 25, 0, 9102020, 0, 0, 0, 0, 0, '', 'mod-devourer: Calm, Don''t Kill needs the Armoredon shape'),
+(19, 0, 9109200, 0, 0, 12, 0, 2, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: Ten Chimneys only during game event 2'),
+(19, 0, 9109201, 0, 0, 12, 0, 2, 0, 0, 0, 0, 0, '', 'mod-devourer: The Gingerbread Steed only during game event 2'),
+(19, 0, 9109210, 0, 0, 12, 0, 8, 0, 0, 0, 0, 0, '', 'mod-devourer: WANTED: The Giant Egg only during game event 8'),
+(19, 0, 9109211, 0, 0, 12, 0, 8, 0, 0, 0, 0, 0, '', 'mod-devourer: Stare It Down only during game event 8');

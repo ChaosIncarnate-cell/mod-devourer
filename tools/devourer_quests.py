@@ -16,6 +16,37 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HDR_OUT = os.path.join(ROOT, "src", "DevourerQuestsIds.h")
+HEIGHTS = os.path.join(ROOT, "tools", "quest_heights.json")   # "map x y" -> ground z, for spawns written with z 0.0
+
+
+def _heights():
+    import json
+    try:
+        with open(HEIGHTS, encoding="utf-8") as f:
+            return json.load(f)
+    except OSError:
+        return {}
+
+
+def ground_z(map_id, x, y, z):
+    """The z to spawn at: the given one, or (z exactly 0.0) the ground height measured for that spot."""
+    if z != 0.0 or map_id == 35:
+        return z
+    key = f"{map_id} {x} {y}"
+    heights = _heights()
+    assert key in heights, f"no height for {key}: run the heights tool (docs/tasks/022-mount-quests.md)"
+    return heights[key]
+
+
+def zero_spots(books):
+    """Every spawn still written with z 0.0 (for the heights tool)."""
+    out = []
+    for book in books:
+        for thing in book.things:
+            out += [(m, x, y) for (m, x, y, z, o) in thing.spawns if z == 0.0 and m != 35]
+        for beast in book.beasts:
+            out += [(m, x, y) for (m, x, y, z, o) in beast.spawns if z == 0.0 and m != 35]
+    return out
 
 
 class Block:
@@ -688,6 +719,7 @@ def write_sql(book):
         if thing.lines:
             continue
         for (map_id, x, y, z, ori) in thing.spawns:
+            z = ground_z(map_id, x, y, z)
             rows.append(f"({guid}, {thing.entry}, {map_id}, 1, 1, {x}, {y}, {z}, {ori}, 0, 0,"
                         f" {round(math.sin(ori / 2), 6)}, {round(math.cos(ori / 2), 6)}, 60, 255, 1,"
                         f" {q('mod-devourer: ' + thing.name)})")
@@ -773,6 +805,7 @@ def write_sql(book):
                      " `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES")
             rows, guid = [], B.npc_guid_first
             for beast, (map_id, x, y, z, ori) in spawned:
+                z = ground_z(map_id, x, y, z)
                 rows.append(f"({guid}, {beast.entry}, {map_id}, 1, 1, {x}, {y}, {z}, {ori}, 120, 0, 0,"
                             f" {q('mod-devourer: ' + beast.name)})")
                 guid += 1

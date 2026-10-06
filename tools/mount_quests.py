@@ -208,7 +208,7 @@ def shards(book, board):
          reins(88, 107, 294), "the wintertide dreamers"),
         (9109023, "Nagrand", 530, [(-781.0, 6944.0), (-2048.0, 6352.0), (-1199.0, 7148.0), (-2533.0, 7693.0), (-2200.0, 6700.0)],
          reins(89, 108, 173), "the dreamers of the floating plains"),
-        (9109024, "Moonglade", 1, [(7460.0, -3123.0), (7538.0, -3029.0), (7924.0, -2638.0), (7700.0, -2900.0), (7300.0, -3200.0)],
+        (9109024, "Moonglade", 1, [(7460.0, -3123.0), (7538.0, -3029.0), (7924.0, -2638.0), (7700.0, -2900.0), (7574.5, -2215.4)],
          reins(90, 116, 295), "the fey dreamers"),
     )
     last = None
@@ -247,42 +247,39 @@ def shards(book, board):
 
 def finds(book, board):
     book.region("7. Finds of the World (any level)",
-                "Azeroth is full of hidden things: buried bones, lost saddles, Wren's buttons, worldforged relics. Sniff "
-                "shows you the spot. A lost explorer's diary sends you to silly places; her camels and hyenas are still "
+                "Azeroth is full of hidden things: buried bones, Wren's buttons, map scraps. Two rumours teach your nose "
+                "the smell; Wren trades runners for the finds. A lost explorer's diary sends you to silly places; her camels and hyenas are still "
                 "out there.")
     s = Z_INBETWEEN
-    # Bones: five pieces in the Badlands and Desolace make a fossil steed
-    bones = book.thing("find_bones", "Buried Bones", BONES,
-                       [(0, -6690.0, -3130.0, 0.0, 0.0), (0, -6400.0, -2830.0, 0.0, 0.0), (0, -6950.0, -2680.0, 0.0, 0.0),
-                        (1, -1640.0, 1680.0, 0.0, 0.0), (1, -1300.0, 2060.0, 0.0, 0.0)], size=1.0)
+    # The finds themselves (bones, buttons, map scraps) are the mounts thread's: 2,477 worldforged spots that only Sniff
+    # shows, turned in to Wren (quests 9308121-9308133). These two quests are only the rumours that send you to them.
     a = book.quest(
         9109030, "WANTED: Bones That Remember", 38, 35, board, board, "hagatha",
         "Hagatha, in Wren's wanted notice, crossed out and rewritten:$B$BBones remember how to run, little horror. "
-        "They just need reminding. Five pieces of an old runner lie buried: three in the Badlands, near the dig sites "
-        "and the dragon bones, and two in Desolace, by the kodo graveyard. No map marks them. Your nose does: turn on "
-        "your Sniff and the disturbed earth will show itself.$B$BDig them up. Bring the memory of them here.",
-        "With Sniff on, dig up 5 buried bones in the Badlands and Desolace.",
-        "Five pieces. Bones do not walk to you, little horror. Sniff.",
-        "Five pieces, and they remember each other. Stand back.$B$BThere. It runs. It is yours; it will not run for "
-        "anyone else, because you are the one who reminded it.",
-        objectives=[touch(bones, 5, "Buried bones dug up with Sniff", sniff=True)], sort=s, items=reins(312), xp=6,
-        story="With Sniff on, dig up five buried bones in the Badlands and Desolace; they remember how to run. Reward: Fossilized Raptor.")
-    # Treasure maps: five pieces make a goblin extractor
-    maps = book.thing("find_maps", "Torn Map Piece", SCROLL,
-                      [(1, -7187.0, -3839.0, 0.0, 0.0), (1, -6224.0, -3861.0, 0.0, 0.0), (0, -14354.0, 414.0, 0.0, 0.0),
-                       (0, -959.0, -3739.0, 0.0, 0.0), (1, 1109.0, -3104.0, 0.0, 0.0)], size=0.6)
+        "They just need reminding. Old runners lie buried all over the world, in pieces, and no map marks them. Your "
+        "nose does. Go to the Badlands, where the dragon bones are, turn on your Sniff, and stand among them until "
+        "you smell it: disturbed earth, everywhere, under everything.$B$BThen you will know what to look for. Every "
+        "fossil fragment you dig up after that, Wren will take; she trades runners for them.",
+        "With Sniff on, stand still among the dragon bones in the Badlands until you smell the buried fragments.",
+        "Sniff, little horror. Stand still and sniff.",
+        "You smelled it. Now you will smell it everywhere: buried fragments, buttons, map scraps, all over the world, "
+        "wherever Sniff shows a glint.$B$BDig them up as you go. Wren keeps the tally and pays in runners.",
+        objectives=[visit("Smelled the buried fragments among the dragon bones", 0, -6690.0, -3130.0, radius=60.0,
+                          sniff=True, stay=20, still=True)], sort=s, xp=4,
+        story="A rumour: sniff among the Badlands' dragon bones and learn to smell the world's buried finds (Wren's fossil, button and map-scrap trades).")
     b = book.quest(
-        9109031, "WANTED: A Map in Five Pieces", 40, 38, board, board, "wren",
-        "Wren, excited:$B$BSnack! Goblins! They tore up a treasure map and hid the pieces in their favourite places: "
-        "Gadgetzan, the race track on the Shimmering Flats, Booty Bay, Ratchet, and by the broken shredder in the "
-        "Barrens. Goblins hide things badly. Sniff them out.$B$BPut the map together and it shows where they buried "
-        "their digging machine. A MACHINE, Snack. For digging. I want it. You want it. We both want it.",
-        "With Sniff on, find the 5 torn map pieces in the goblins' places.",
-        "Five pieces, Snack. Goblins hide things badly, remember.",
-        "The map says the machine is... in Hagatha's larder. The goblins owed her money. She's giving it to you so she "
-        "doesn't have to look at it.$B$BIt digs! It also beeps. Sorry about the beeping.",
-        objectives=[touch(maps, 5, "Torn map piece found with Sniff", sniff=True)], prev=a.id, sort=s, items=reins(150), xp=6,
-        story="Sniff out five torn map pieces in the goblins' places; the map leads to a digging machine. Reward: Treasure-Extractor G-774.")
+        9109031, "WANTED: Wren's Buttons", 20, 15, board, board, "wren",
+        "Wren, mortified:$B$BSnack. My good cloak. The one with the frogs on. The buttons came off. ALL of them. They "
+        "fell off everywhere I've ever been, which is everywhere.$B$BThey're tiny. You'll never see them. Your nose "
+        "will. Go to the Lion's Pride in Goldshire, where I lost the first one, turn on your Sniff and find the glint. "
+        "Then you'll know what they smell like, and you can find the rest wherever you go.",
+        "With Sniff on, find the glint of Wren's first lost button by the Lion's Pride Inn in Goldshire.",
+        "The Lion's Pride, Snack. Sniff. Tiny glint.",
+        "That's it, that's one of mine! Now you know the smell. Bring me the rest whenever you find them; I've got "
+        "prizes from the fair for every handful, and a turkey for the first lot.",
+        objectives=[visit("Sniffed out the first button at the Lion's Pride", 0, -9462.0, 22.0, radius=20.0, sniff=True)],
+        sort=s, xp=3,
+        story="A rumour: sniff out Wren's first lost button in Goldshire and learn what the rest smell like (Wren's button trades).")
     # The explorer's diary: silly places, then the scorpid nest
     diary = book.thing("find_diary", "A Lost Explorer's Diary", BOOK, [(0, -6273.0, -2940.0, 0.0, 0.0)], size=0.8)
     c = book.quest(
@@ -300,7 +297,7 @@ def finds(book, board):
                     visit("Uldaman's door, as the diary said", 0, -6273.0, -2940.0, radius=60.0),
                     visit("Gadgetzan, as the diary said", 1, -7187.0, -3839.0, radius=60.0),
                     visit("The hives of Silithus, as the diary said", 1, -6814.0, 10.0, radius=80.0)],
-        prev=b.id, sort=s, xp=4,
+        sort=s, xp=4,
         story="The lost explorer's diary lies on purpose: follow it to three silly places and work out where she really went.")
     explorer = book.beast("explorer", "Dunetrekker Jo", 7057, level=42, faction=35, passive=True, scale=1.0,
                           subname="Had It Under Control")
@@ -340,96 +337,6 @@ def finds(book, board):
                     emote(1, "The guide's hyena out-laughed", EMOTE_LAUGH, entries=[book.beasts[-1].entry])],
         prev=d.id, sort=s, items=reins(361), xp=5,
         story="Sniff out the vulpera guide's hyenas and out-laugh them. Reward: Vulpin Hyena.")
-    # Wren's buttons: 25, 50, 75, 100, 200 across the world (Sniff)
-    buttons = book.thing("find_buttons", "One of Wren's Buttons", GEAR,
-                         [(0, -9620.0, -560.0, 0.0, 0.0), (0, -5620.0, -1100.0, 0.0, 0.0), (1, 9810.0, 840.0, 0.0, 0.0),
-                          (530, -4050.0, -12000.0, 0.0, 0.0), (1, 300.0, -4500.0, 0.0, 0.0), (1, -2100.0, -900.0, 0.0, 0.0),
-                          (0, 2500.0, 600.0, 0.0, 0.0), (530, 8900.0, -6600.0, 0.0, 0.0), (0, -10800.0, 1100.0, 0.0, 0.0),
-                          (0, -5600.0, -3200.0, 0.0, 0.0), (1, 6300.0, 150.0, 0.0, 0.0), (530, -2300.0, -11900.0, 0.0, 0.0),
-                          (1, -780.0, -2680.0, 0.0, 0.0), (0, 500.0, 1200.0, 0.0, 0.0), (530, 7400.0, -6900.0, 0.0, 0.0),
-                          (0, -10450.0, 100.0, 0.0, 0.0), (0, -3300.0, -2400.0, 0.0, 0.0), (1, 2400.0, -1000.0, 0.0, 0.0),
-                          (0, -200.0, -1100.0, 0.0, 0.0), (1, 1700.0, 650.0, 0.0, 0.0), (1, -5000.0, -1800.0, 0.0, 0.0),
-                          (0, -11700.0, -450.0, 0.0, 0.0), (1, -2900.0, -3300.0, 0.0, 0.0), (0, 500.0, -650.0, 0.0, 0.0),
-                          (1, -7400.0, -3400.0, 0.0, 0.0)], size=0.25, shared=True)
-    buttons2 = book.thing("find_buttons2", "One of Wren's Buttons", GEAR,
-                          [(1, -4600.0, 700.0, 0.0, 0.0), (0, 150.0, -2900.0, 0.0, 0.0), (1, -6800.0, -1850.0, 0.0, 0.0),
-                           (1, 6500.0, -3500.0, 0.0, 0.0), (0, -8100.0, -1800.0, 0.0, 0.0), (530, -2500.0, 4000.0, 0.0, 0.0),
-                           (530, -2200.0, 6700.0, 0.0, 0.0), (530, 3000.0, 3400.0, 0.0, 0.0), (571, 600.0, -4600.0, 0.0, 0.0),
-                           (571, 3000.0, 5300.0, 0.0, 0.0), (571, 3800.0, -3600.0, 0.0, 0.0), (571, 5300.0, 5200.0, 0.0, 0.0),
-                           (571, 6300.0, -1050.0, 0.0, 0.0), (0, -11905.0, -3207.0, 0.0, 0.0), (0, -14281.0, 552.0, 0.0, 0.0),
-                           (530, -781.0, 6944.0, 0.0, 0.0), (571, 3546.0, 287.0, 0.0, 0.0), (0, 2300.0, -5300.0, 0.0, 0.0),
-                           (1, -1270.0, 45.0, 0.0, 0.0), (0, -4824.0, -1233.0, 0.0, 0.0), (1, 1878.0, -4505.0, 0.0, 0.0),
-                           (0, -8753.0, 1107.0, 0.0, 0.0), (0, -3697.0, -817.0, 0.0, 0.0), (1, -3664.0, -4751.0, 0.0, 0.0),
-                           (1, 7460.0, -3123.0, 0.0, 0.0)], size=0.25, shared=True)
-    f = book.quest(
-        9109035, "WANTED: Wren's Buttons (the first twenty-five)", 20, 15, board, board, "wren",
-        "Wren, mortified:$B$BSnack. My good cloak. The one with the frogs on. The buttons came off. ALL of them. They "
-        "fell off everywhere I've ever been, which is everywhere your lanterns are, because I was there first, "
-        "checking.$B$BThey're tiny. You'll never see them. Your nose will: turn on your Sniff by each lantern and look "
-        "for a tiny glint. Twenty-five of them, and I'll give you the thing I won at the fair.",
-        "With Sniff on, find 25 of Wren's buttons by Hagatha's lanterns.",
-        "Twenty-five, Snack. Tiny glints. By the lanterns.",
-        "Twenty-five buttons! Half a cloak! Here's what I won at the fair. It's a turkey. You can ride it. I don't know "
-        "why they had it either.",
-        objectives=[touch(buttons, 25, "One of Wren's buttons found with Sniff", sniff=True)], sort=s, items=reins(347), xp=5,
-        story="Sniff out 25 of Wren's lost buttons by the lanterns. Reward: the Prized Turkey's Saddle.")
-    g = book.quest(
-        9109036, "Wren's Buttons (the second twenty-five)", 60, 55, board, board, "wren",
-        "Wren, hopeful:$B$BThere are more, Snack. The other half fell off in the far places: the later lanterns, the "
-        "capitals, the famous spots. Twenty-five more and the cloak is whole again.$B$BI'll give you the rooster for "
-        "them. The magical one. It crows at the wrong time of day, but it's very white.",
-        "With Sniff on, find 25 more of Wren's buttons in the far places.",
-        "Twenty-five more, Snack. The far ones.",
-        "The cloak is WHOLE. Frogs and all. Here's the rooster. Don't let it near the turkey; they have history.",
-        objectives=[touch(buttons2, 25, "One of Wren's far buttons found with Sniff", sniff=True)], prev=f.id, sort=s,
-        items=reins(48), xp=6,
-        story="Sniff out the other 25 buttons in the far places. Reward: the White Magical Rooster.")
-    # the relics: Bucky, the clouds, the kite, the ancient king's raptor, the deathcharger, the bonesteeds, the crocolisks
-    relics = book.thing("find_relics", "A Worldforged Relic", CHEST,
-                        [(0, -6690.0, -3130.0, 0.0, 0.0), (1, -1640.0, 1680.0, 0.0, 0.0), (1, -7560.0, -3900.0, 0.0, 0.0),
-                         (0, 2300.0, -5300.0, 0.0, 0.0), (571, 7260.0, 1177.0, 0.0, 0.0), (0, -11700.0, -450.0, 0.0, 0.0),
-                         (1, -6800.0, -1850.0, 0.0, 0.0)], size=0.8)
-    h = book.quest(
-        9109037, "WANTED: Relics That Hum", 70, 65, board, board, "hagatha",
-        "Hagatha:$B$BThe world forges things in its sleep, little horror, and buries them. Relics. They hum, if you "
-        "know how to listen, and your nose knows how. Seven of them lie where the old things died: the Badlands' "
-        "dragon bones, the kodo graveyard, the Tanaris dunes, Light's Hope, the Valley of Lost Hope in Icecrown, the "
-        "jungle, the crater.$B$BDig them all. What they remember is yours: the bones of kings, their steeds, their "
-        "storms.",
-        "With Sniff on, dig up 7 worldforged relics where the old things died.",
-        "Seven relics. Listen for the hum.",
-        "Seven, and every one of them remembers something that carried a king. Take what they remember, little "
-        "horror. Kings do not need them any more.",
-        objectives=[touch(relics, 7, "Worldforged relic dug up with Sniff", sniff=True)], prev=a.id, sort=s,
-        items=reins(269, 313, 314, 344), xp=7,
-        story="Sniff out seven worldforged relics where the old things died. Reward: the Ancient King's Raptor, the Scourgelord's Deathcharger, the Bonesteed and the Golden Crocolisk.")
-    i = book.quest(
-        9109038, "Bucky, the Cloud and the Kite", 72, 68, board, board, "wren",
-        "Wren, holding up a jar of buttons:$B$BSnack, I counted the buttons again and there are MORE. I think they "
-        "breed. Fine. The deal stands: find me fifty more, anywhere you find them, and the last three fair prizes are "
-        "yours: Bucky the squirrel (he bites), the rain cloud (it rains), and the kite (it's a kite).",
-        "With Sniff on, find 50 more of Wren's buttons, anywhere.",
-        "Fifty, Snack. They breed, I'm telling you.",
-        "FIFTY. The jar is full. Bucky, the cloud and the kite are yours. Bucky bit me on the way out. He likes you "
-        "better already.",
-        objectives=[touch(buttons, 25, "One of Wren's buttons found again", sniff=True),
-                    touch(buttons2, 25, "One of Wren's far buttons found again", sniff=True)], prev=g.id, sort=s,
-        items=reins(327, 369, 254, 139), xp=7,
-        story="Fifty more buttons for the last three fair prizes. Reward: Bucky, the Lightning Charged Cloud, the Pandaren Kite, the Ancient Spiritwalker.")
-    j = book.quest(
-        9109039, "The Great Extractor", 70, 65, board, board, "wren",
-        "Wren, with a bigger map:$B$BThe goblins had a BIGGER machine, Snack. The map for it is in five pieces too, "
-        "in the places goblins go when they're rich: Area 52, Everlook, Gadgetzan's bank, the Undermine ferry in "
-        "Booty Bay, and the zeppelin tower in Orgrimmar.$B$BSniff. Then bring me the map, and I'll bring you the "
-        "machine. It's enormous. We'll need a bigger larder.",
-        "With Sniff on, find the 5 pieces of the greater treasure map in the rich goblins' places.",
-        "Five more pieces, Snack. Rich goblins hide things worse than poor ones.",
-        "ENORMOUS. It barely fit through the Thin Place. It's yours. It beeps twice as loud.",
-        objectives=[touch(book.thing("find_maps2", "Greater Map Piece", SCROLL,
-                                     [(530, 3089.0, 3650.0, 0.0, 0.0), (1, 6720.0, -4660.0, 0.0, 0.0), (1, -7187.0, -3839.0, 0.0, 0.0),
-                                      (0, -14281.0, 552.0, 0.0, 0.0), (1, 1878.0, -4505.0, 0.0, 0.0)], size=0.6),
-                          5, "Greater map piece found with Sniff", sniff=True)], prev=b.id, sort=s, items=reins(151), xp=7,
-        story="Five more map pieces in the rich goblins' places. Reward: the Great Treasure-Extractor G-3000.")
 
 
 # --- 8. Carrying the Light ----------------------------------------------------------------------------------------------
@@ -522,7 +429,7 @@ def shapes(book, board):
         kind = who.split(" of ")[0][4:]           # "the toads of the Dragonmurk" -> "toads"
         elder = book.beast(f"{key}_elder", f"The Oldest of the {kind.title()}", clone, display=look, level=level,
                            faction=FACTION_SHY, passive=True, scale=1.0, subname="Only Shows Itself to Its Own")
-        feed = book.thing(f"{key}_food", food_name, BUCKET, [(map_id, x + 4.0, y + 4.0, 0.0, 0.0)], size=0.6,
+        feed = book.thing(f"{key}_food", food_name, BUCKET, [(map_id, x - 4.0, y - 4.0, 0.0, 0.0)], size=0.6,
                           summon=elder.entry, count=1, follow=True, shapes=shape_line)
         book.quest(
             qid, f"WANTED: One of the {kind.title()}", level, level - 2, board, board, "hagatha",
@@ -692,7 +599,7 @@ def lighthouses(book, board):
     s = Z_INBETWEEN
     lamps = book.thing("lighthouse_lamps", "A Lighthouse Lamp", LAMPPOST,
                        [(0, -11060.0, 1580.0, 0.0, 0.0), (0, -3697.0, -817.0, 0.0, 0.0), (1, -3664.0, -4751.0, 0.0, 0.0),
-                        (0, -14450.0, 470.0, 0.0, 0.0)], size=0.7, shared=True)
+                        (0, -14430.2, 411.0, 0.0, 0.0)], size=0.7, shared=True)
     a = book.quest(
         9109100, "WANTED: Four Lighthouses", 32, 30, board, board, "wren",
         "Wren, lighting a match:$B$BSnack, fish like lights. So do I. There are four lighthouses on the coasts, Westfall's, "
@@ -706,7 +613,7 @@ def lighthouses(book, board):
         story="Light the four lighthouses of the Eastern Kingdoms' coasts at night.")
     deep = book.beast("deep_eel", "Something From the Deep", 2173, display=mount_look(100), level=40, faction=FACTION_SHY,
                       passive=True, scale=1.0, subname="Followed the Light")
-    pier = book.thing("lighthouse_pier", "The End of the Pier", FISH_BOX, [(0, -14281.0, 552.0, -24.3, 0.0)], size=0.8,
+    pier = book.thing("lighthouse_pier", "The End of the Pier", FISH_BOX, [(0, -14281.0, 552.0, 8.9, 0.0)], size=0.8,
                       summon=deep.entry, count=1, follow=True)
     b = book.quest(
         9109101, "What Followed the Light", 36, 34, board, board, "wren",
@@ -722,7 +629,7 @@ def lighthouses(book, board):
         story="Wait at the Booty Bay pier at night; an electro eel follows the light; pat it. Reward: the Electro Eel and the Wavewhisker.")
     more = book.beast("deep_more", "A Snapdragon From the Deep", 2173, display=mount_look(319), level=50, faction=FACTION_SHY,
                       passive=True, scale=1.0, subname="Followed the Light")
-    pier2 = book.thing("lighthouse_pier2", "The End of the Pier, Again", FISH_BOX, [(0, -14281.0, 552.0, -24.3, 0.0)], size=0.8,
+    pier2 = book.thing("lighthouse_pier2", "The End of the Pier, Again", FISH_BOX, [(0, -14281.0, 552.0, 8.9, 0.0)], size=0.8,
                        summon=more.entry, count=3, follow=False)
     c = book.quest(
         9109102, "More From the Deep", 50, 46, board, board, "wren",
@@ -762,7 +669,7 @@ def peaks(book, board):
     s = Z_INBETWEEN
     bells = (
         (9109110, "Frosthold", 571, 6665.0, -252.0, 962.0, "the bears", 29562, 29, reins(29), "Arktos, the great bear"),
-        (9109111, "Dun Niffelem", 571, 7353.0, -2974.0, 939.0, "the yaks", 29562, 284, reins(284, 376), "a grey riding yak and a wilderling"),
+        (9109111, "Dun Niffelem", 571, 7267.0, -2753.8, 870.9, "the yaks", 29562, 284, reins(284, 376), "a grey riding yak and a wilderling"),
         (9109112, "Thunderfall", 571, 7706.0, -3346.0, 890.0, "the mammoths", 25487, 216, reins(216), "a plainswalker bearer"),
         (9109113, "the Terrace of the Makers", 571, 7854.0, -1408.0, 1534.0, "the storm", 29753, 113, reins(113), "an alabaster thunderwing"),
     )
@@ -784,7 +691,7 @@ def peaks(book, board):
             story=f"Climb to the bell at {name} without flying and ring it; {what} follows you down. Reward: {', '.join(n for _, n, _ in rewards)}.")
         prev = q.id
     allbells = book.thing("bell_all", "The Four Bells, Again", SHIP_BELL,
-                          [(571, 6665.0, -252.0, 962.0, 0.0), (571, 7353.0, -2974.0, 939.0, 0.0),
+                          [(571, 6665.0, -252.0, 962.0, 0.0), (571, 7267.0, -2753.8, 870.9, 0.0),
                            (571, 7706.0, -3346.0, 890.0, 0.0), (571, 7854.0, -1408.0, 1534.0, 0.0)], size=1.0)
     book.quest(
         9109114, "The Storm Answers", 79, 78, board, board, "hagatha",

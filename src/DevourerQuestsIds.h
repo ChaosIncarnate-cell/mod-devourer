@@ -434,41 +434,66 @@ namespace Devourer::Quests
         { 9109018, 9109422, EventMeal, FilterEntry, 25464, 0, 0, { 0, 0, 0, 0 }, "" },   // Lessons for a Chick: Bloodspore moth chased and eaten
         { 9109033, 9109437, EventMeal, FilterEntry, 11735, 0, 0, { 0, 0, 0, 0 }, "" },   // Under Control: Stonelash scorpid devoured
         { 9109034, 9109440, EventEmote, FilterEntry, 9109907, 60, 0, { 0, 0, 0, 0 }, "" },   // The Guide's Hyenas: The guide's hyena out-laughed
-        { 9109070, 9109465, EventMeal, FilterEntry, 6556, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Three Oozes Make a Cat: Un'Goro ooze devoured
-        { 9109070, 9109465, EventMeal, FilterEntry, 6557, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Three Oozes Make a Cat: Un'Goro ooze devoured
-        { 9109070, 9109465, EventMeal, FilterEntry, 6559, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Three Oozes Make a Cat: Un'Goro ooze devoured
-        { 9109071, 9109467, EventMeal, FilterEntry, 2089, 0, 0, { 0, 0, 0, 0 }, "" },   // A Crocolisk and the Void: Giant Wetlands Crocolisk devoured
-        { 9109071, 9109468, EventMeal, FilterEntry, 17550, 0, 0, { 0, 0, 0, 0 }, "" },   // A Crocolisk and the Void: Void Anomaly devoured
-        { 9109072, 9109470, EventMeal, FilterEntry, 9690, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Ember worg devoured
-        { 9109072, 9109470, EventMeal, FilterEntry, 9694, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Ember worg devoured
-        { 9109072, 9109470, EventMeal, FilterEntry, 9697, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Ember worg devoured
-        { 9109072, 9109471, EventMeal, FilterEntry, 9778, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Flamekin devoured
-        { 9109072, 9109471, EventMeal, FilterEntry, 9779, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Flamekin devoured
-        { 9109073, 9109473, EventMeal, FilterEntry, 20607, 0, 0, { 0, 0, 0, 0 }, "" },   // Scale and Spore: Craghide Basilisk devoured
-        { 9109073, 9109474, EventMeal, FilterFamily, 33, 0, 0, { 0, 0, 0, 0 }, "" },   // Scale and Spore: Sporebat devoured
-        { 9109074, 9109476, EventMeal, FilterEntry, 21878, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Felboar devoured
-        { 9109074, 9109476, EventMeal, FilterEntry, 21195, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Felboar devoured
-        { 9109074, 9109477, EventMeal, FilterEntry, 3240, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Thunder lizard devoured
-        { 9109074, 9109477, EventMeal, FilterEntry, 3239, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Thunder lizard devoured
-        { 9109074, 9109477, EventMeal, FilterEntry, 3238, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Thunder lizard devoured
-        { 9109075, 9109479, EventMeal, FilterEntry, 18877, 0, 0, { 0, 0, 0, 0 }, "" },   // Everything At Once: Nether drake devoured
-        { 9109075, 9109480, EventMeal, FilterEntry, 18884, 0, 0, { 0, 0, 0, 0 }, "" },   // Everything At Once: Warp chaser devoured
-        { 9109075, 9109481, EventMeal, FilterFamily, 33, 0, 0, { 0, 0, 0, 0 }, "" },   // Everything At Once: Sporebat devoured
-        { 9109076, 9109483, EventMeal, FilterEntry, 6556, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Un'Goro ooze devoured
-        { 9109076, 9109483, EventMeal, FilterEntry, 6557, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Un'Goro ooze devoured
-        { 9109076, 9109483, EventMeal, FilterEntry, 6559, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Un'Goro ooze devoured
-        { 9109076, 9109484, EventMeal, FilterEntry, 2656, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Jade Ooze devoured
-        { 9109076, 9109485, EventMeal, FilterEntry, 4393, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Swamp ooze devoured
-        { 9109076, 9109485, EventMeal, FilterEntry, 4394, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Swamp ooze devoured
-        { 9109080, 9109488, EventMeal, FilterEntry, 9109915, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: A Candle at Raven Hill Cemetery: The watcher devoured
-        { 9109081, 9109490, EventMeal, FilterEntry, 9109916, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at the Warp Piston: The watcher devoured
-        { 9109082, 9109492, EventMeal, FilterEntry, 9109917, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at Dalaran Crater: The watcher devoured
-        { 9109083, 9109494, EventMeal, FilterEntry, 9109918, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at Fire Plume Ridge: The watcher devoured
-        { 9109084, 9109496, EventMeal, FilterEntry, 9109919, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at the Throne of Kil'jaeden: The watcher devoured
-        { 9109086, 9109498, EventMeal, FilterAny, 0, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Candles Called: Something devoured at the Thin Place
-        { 9109101, 9109507, EventEmote, FilterEntry, 9109920, 410, 0, { 0, 0, 0, 0 }, "" },   // What Followed the Light: The eel patted
-        { 9109102, 9109510, EventEmote, FilterEntry, 9109921, 410, 0, { 0, 0, 0, 0 }, "" },   // More From the Deep: A deep thing patted
-        { 9109103, 9109512, EventMeal, FilterFamily, 38, 0, 0, { 0, 0, 0, 0 }, "" },   // The Glider and the Tuskarr: Fjord thing devoured
+        { 9109070, 9109459, EventMeal, FilterEntry, 6556, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Three Oozes Make a Cat: Un'Goro ooze devoured
+        { 9109070, 9109459, EventMeal, FilterEntry, 6557, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Three Oozes Make a Cat: Un'Goro ooze devoured
+        { 9109070, 9109459, EventMeal, FilterEntry, 6559, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Three Oozes Make a Cat: Un'Goro ooze devoured
+        { 9109071, 9109461, EventMeal, FilterEntry, 2089, 0, 0, { 0, 0, 0, 0 }, "" },   // A Crocolisk and the Void: Giant Wetlands Crocolisk devoured
+        { 9109071, 9109462, EventMeal, FilterEntry, 17550, 0, 0, { 0, 0, 0, 0 }, "" },   // A Crocolisk and the Void: Void Anomaly devoured
+        { 9109072, 9109464, EventMeal, FilterEntry, 9690, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Ember worg devoured
+        { 9109072, 9109464, EventMeal, FilterEntry, 9694, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Ember worg devoured
+        { 9109072, 9109464, EventMeal, FilterEntry, 9697, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Ember worg devoured
+        { 9109072, 9109465, EventMeal, FilterEntry, 9778, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Flamekin devoured
+        { 9109072, 9109465, EventMeal, FilterEntry, 9779, 0, 0, { 0, 0, 0, 0 }, "" },   // Bones and Fire: Flamekin devoured
+        { 9109073, 9109467, EventMeal, FilterEntry, 20607, 0, 0, { 0, 0, 0, 0 }, "" },   // Scale and Spore: Craghide Basilisk devoured
+        { 9109073, 9109468, EventMeal, FilterFamily, 33, 0, 0, { 0, 0, 0, 0 }, "" },   // Scale and Spore: Sporebat devoured
+        { 9109074, 9109470, EventMeal, FilterEntry, 21878, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Felboar devoured
+        { 9109074, 9109470, EventMeal, FilterEntry, 21195, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Felboar devoured
+        { 9109074, 9109471, EventMeal, FilterEntry, 3240, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Thunder lizard devoured
+        { 9109074, 9109471, EventMeal, FilterEntry, 3239, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Thunder lizard devoured
+        { 9109074, 9109471, EventMeal, FilterEntry, 3238, 0, 0, { 0, 0, 0, 0 }, "" },   // Blood and Thunder: Thunder lizard devoured
+        { 9109075, 9109473, EventMeal, FilterEntry, 18877, 0, 0, { 0, 0, 0, 0 }, "" },   // Everything At Once: Nether drake devoured
+        { 9109075, 9109474, EventMeal, FilterEntry, 18884, 0, 0, { 0, 0, 0, 0 }, "" },   // Everything At Once: Warp chaser devoured
+        { 9109075, 9109475, EventMeal, FilterFamily, 33, 0, 0, { 0, 0, 0, 0 }, "" },   // Everything At Once: Sporebat devoured
+        { 9109076, 9109477, EventMeal, FilterEntry, 6556, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Un'Goro ooze devoured
+        { 9109076, 9109477, EventMeal, FilterEntry, 6557, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Un'Goro ooze devoured
+        { 9109076, 9109477, EventMeal, FilterEntry, 6559, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Un'Goro ooze devoured
+        { 9109076, 9109478, EventMeal, FilterEntry, 2656, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Jade Ooze devoured
+        { 9109076, 9109479, EventMeal, FilterEntry, 4393, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Swamp ooze devoured
+        { 9109076, 9109479, EventMeal, FilterEntry, 4394, 0, 0, { 0, 0, 0, 0 }, "" },   // All the Colours of Ooze: Swamp ooze devoured
+        { 9109080, 9109482, EventMeal, FilterEntry, 9109915, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: A Candle at Raven Hill Cemetery: The watcher devoured
+        { 9109081, 9109484, EventMeal, FilterEntry, 9109916, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at the Warp Piston: The watcher devoured
+        { 9109082, 9109486, EventMeal, FilterEntry, 9109917, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at Dalaran Crater: The watcher devoured
+        { 9109083, 9109488, EventMeal, FilterEntry, 9109918, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at Fire Plume Ridge: The watcher devoured
+        { 9109084, 9109490, EventMeal, FilterEntry, 9109919, 0, 0, { 0, 0, 0, 0 }, "" },   // A Candle at the Throne of Kil'jaeden: The watcher devoured
+        { 9109086, 9109492, EventMeal, FilterAny, 0, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Candles Called: Something devoured at the Thin Place
+        { 9109101, 9109501, EventEmote, FilterEntry, 9109920, 410, 0, { 0, 0, 0, 0 }, "" },   // What Followed the Light: The eel patted
+        { 9109102, 9109504, EventEmote, FilterEntry, 9109921, 410, 0, { 0, 0, 0, 0 }, "" },   // More From the Deep: A deep thing patted
+        { 9109103, 9109506, EventMeal, FilterFamily, 38, 0, 0, { 0, 0, 0, 0 }, "" },   // The Glider and the Tuskarr: Fjord thing devoured
+        { 9109120, 9109512, EventLoot, FilterEntry, 9109926, 0, 0, { 0, 0, 0, 0 }, "sniffs the fish, nods, and keeps it." },   // WANTED: A Fish for Otto: A fish caught with Otto watching
+        { 9109121, 9109513, EventLoot, FilterEntry, 9109926, 0, 0, { 0, 0, 0, 0 }, "" },   // Otto's Friends: A fish shared with Otto's friends near
+        { 9109122, 9109514, EventLoot, FilterEntry, 9109927, 0, 0, { 0, 0, 0, 0 }, "snaps the fish out of the air." },   // The War Ottuk: A fish shared with the war ottuk
+        { 9109130, 9109515, EventEmote, FilterEntry, 9109928, 410, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Eight Lost Kittens: Lost kitten found and patted
+        { 9109180, 9109541, EventSpell, FilterEntry, 16863, 9100911, 0, { 5, 17, 0, 0 }, "" },   // WANTED: Eat the Fel Out: Helboar bitten clean as a Wolf
+        { 9109180, 9109541, EventSpell, FilterEntry, 16879, 9100911, 0, { 5, 17, 0, 0 }, "" },   // WANTED: Eat the Fel Out: Helboar bitten clean as a Wolf
+        { 9109180, 9109541, EventSpell, FilterEntry, 16880, 9100911, 0, { 5, 17, 0, 0 }, "" },   // WANTED: Eat the Fel Out: Helboar bitten clean as a Wolf
+        { 9109181, 9109543, EventSpell, FilterEntry, 16933, 9100931, 0, { 7, 19, 0, 0 }, "" },   // The Ravagers' Grin: Ravager bitten clean as a Saber
+        { 9109181, 9109543, EventSpell, FilterEntry, 16934, 9100931, 0, { 7, 19, 0, 0 }, "" },   // The Ravagers' Grin: Ravager bitten clean as a Saber
+        { 9109181, 9109543, EventSpell, FilterEntry, 19349, 9100931, 0, { 7, 19, 0, 0 }, "" },   // The Ravagers' Grin: Ravager bitten clean as a Saber
+        { 9109182, 9109545, EventSpell, FilterEntry, 21878, 9100951, 0, { 9, 18, 0, 0 }, "" },   // Calm, Don't Kill: Felboar bitten clean as a Boar
+        { 9109182, 9109545, EventSpell, FilterEntry, 21195, 9100951, 0, { 9, 18, 0, 0 }, "" },   // Calm, Don't Kill: Felboar bitten clean as a Boar
+        { 9109184, 9109548, EventMeal, FilterEntry, 21878, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Fel Left: Fel-touched beast devoured in Shadowmoon
+        { 9109184, 9109548, EventMeal, FilterEntry, 21195, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Fel Left: Fel-touched beast devoured in Shadowmoon
+        { 9109184, 9109548, EventMeal, FilterEntry, 23326, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Fel Left: Fel-touched beast devoured in Shadowmoon
+        { 9109185, 9109550, EventMeal, FilterEntry, 16863, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109185, 9109550, EventMeal, FilterEntry, 16879, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109185, 9109550, EventMeal, FilterEntry, 16880, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109185, 9109550, EventMeal, FilterEntry, 16933, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109185, 9109550, EventMeal, FilterEntry, 16934, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109185, 9109550, EventMeal, FilterEntry, 19349, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109185, 9109550, EventMeal, FilterEntry, 16950, 0, 0, { 0, 0, 0, 0 }, "" },   // The Last Strays: Fel-touched beast devoured in Hellfire
+        { 9109201, 9109562, EventEmote, FilterEntry, 9101301, 129, 0, { 0, 0, 0, 0 }, "" },   // The Gingerbread Steed: Wren shooed from the oven
+        { 9109211, 9109566, EventEmote, FilterEntry, 9109941, 29, 0, { 0, 0, 0, 0 }, "" },   // Stare It Down: The egg stared at
+        { 9109220, 9109568, EventKill, FilterEntry, 9109942, 0, 0, { 0, 0, 0, 0 }, "" },   // WANTED: Lesson One, Sweeping: Dust bunny swept
     };
 
     // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight;
@@ -516,24 +541,49 @@ namespace Devourer::Quests
         { 9109018, 9109421, 571, 6596.0f, 4486.0f, 40.0f, { 0, 0, 0, 0 }, 16, 0, 0 },   // Lessons for a Chick: Glided from the clutch's high rock
         { 9109018, 9109423, 571, 6300.0f, -1050.0f, 60.0f, { 0, 0, 0, 0 }, 0, 15, 0 },   // Lessons for a Chick: Stood in the storm
         { 9109025, 9109429, 35, -123.0f, 149.0f, 12.0f, { 23, 0, 0, 0 }, 128, 60, 0 },   // Every Dream at Once: Dreamed at the Thin Place as a Flutterer
+        { 9109030, 9109430, 0, -6690.0f, -3130.0f, 60.0f, { 0, 0, 0, 0 }, 160, 20, 0 },   // WANTED: Bones That Remember: Smelled the buried fragments among the dragon bones
+        { 9109031, 9109431, 0, -9462.0f, 22.0f, 20.0f, { 0, 0, 0, 0 }, 32, 0, 0 },   // WANTED: Wren's Buttons: Sniffed out the first button at the Lion's Pride
         { 9109032, 9109433, 0, -6273.0f, -2940.0f, 60.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // WANTED: The Lost Explorer: Uldaman's door, as the diary said
         { 9109032, 9109434, 1, -7187.0f, -3839.0f, 60.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // WANTED: The Lost Explorer: Gadgetzan, as the diary said
         { 9109032, 9109435, 1, -6814.0f, 10.0f, 80.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // WANTED: The Lost Explorer: The hives of Silithus, as the diary said
-        { 9109060, 9109451, 1, -4227.0f, -3261.0f, 20.0f, { 14, 15, 30, 0 }, 128, 20, 0 },   // WANTED: One of the Toads: Stood still among the toads
-        { 9109061, 9109453, 0, -10618.0f, -3667.0f, 20.0f, { 14, 15, 30, 0 }, 128, 20, 0 },   // WANTED: One of the Huge Toads: Stood still among the huge toads
-        { 9109062, 9109455, 530, -279.0f, 5405.0f, 20.0f, { 14, 15, 30, 0 }, 128, 20, 0 },   // WANTED: One of the Frogs: Stood still among the frogs
-        { 9109063, 9109457, 0, 2292.0f, 292.0f, 20.0f, { 11, 21, 0, 0 }, 128, 20, 0 },   // WANTED: One of the Belfry Bats: Stood still among the belfry bats
-        { 9109064, 9109459, 530, -2788.0f, 5451.0f, 20.0f, { 38, 39, 40, 0 }, 128, 20, 0 },   // WANTED: One of the Spirit Ravens: Stood still among the spirit ravens
-        { 9109065, 9109461, 530, -2727.0f, 3275.0f, 20.0f, { 8, 23, 0, 0 }, 128, 20, 0 },   // WANTED: One of the Teromoths: Stood still among the teromoths
-        { 9109066, 9109463, 1, -4740.0f, 600.0f, 20.0f, { 5, 17, 0, 0 }, 128, 20, 0 },   // WANTED: One of the Fox Familiars: Stood still among the fox familiars
-        { 9109085, 9109497, 35, -123.0f, 149.0f, 12.0f, { 0, 0, 0, 0 }, 0, 30, 0 },   // The Fifth One Stays: Stood at the Thin Place for what followed
-        { 9109090, 9109499, 1, -1270.0f, 45.0f, 40.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: Thunder Bluff's lifts, looked at
-        { 9109090, 9109500, 0, -11905.0f, -3207.0f, 60.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: The Dark Portal, looked at
-        { 9109090, 9109501, 571, 3546.0f, 287.0f, 40.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: The top of Wyrmrest, looked at
-        { 9109090, 9109502, 571, 5807.0f, 683.0f, 25.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: Dalaran's fountain, looked at
-        { 9109091, 9109503, 0, -14281.0f, 552.0f, 40.0f, { 0, 0, 0, 0 }, 2, 20, 0 },   // Two More Postcards: Booty Bay at sunset, looked at
-        { 9109091, 9109504, 530, -781.0f, 6944.0f, 40.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // Two More Postcards: The Throne of the Elements, looked at
-        { 9109103, 9109511, 571, 717.0f, -2838.0f, 40.0f, { 0, 0, 0, 0 }, 2, 20, 0 },   // The Glider and the Tuskarr: Waited on the Longtusk beach at night
+        { 9109060, 9109445, 1, -4227.0f, -3261.0f, 20.0f, { 14, 15, 30, 0 }, 128, 20, 0 },   // WANTED: One of the Toads: Stood still among the toads
+        { 9109061, 9109447, 0, -10618.0f, -3667.0f, 20.0f, { 14, 15, 30, 0 }, 128, 20, 0 },   // WANTED: One of the Huge Toads: Stood still among the huge toads
+        { 9109062, 9109449, 530, -279.0f, 5405.0f, 20.0f, { 14, 15, 30, 0 }, 128, 20, 0 },   // WANTED: One of the Frogs: Stood still among the frogs
+        { 9109063, 9109451, 0, 2292.0f, 292.0f, 20.0f, { 11, 21, 0, 0 }, 128, 20, 0 },   // WANTED: One of the Belfry Bats: Stood still among the belfry bats
+        { 9109064, 9109453, 530, -2788.0f, 5451.0f, 20.0f, { 38, 39, 40, 0 }, 128, 20, 0 },   // WANTED: One of the Spirit Ravens: Stood still among the spirit ravens
+        { 9109065, 9109455, 530, -2727.0f, 3275.0f, 20.0f, { 8, 23, 0, 0 }, 128, 20, 0 },   // WANTED: One of the Teromoths: Stood still among the teromoths
+        { 9109066, 9109457, 1, -4740.0f, 600.0f, 20.0f, { 5, 17, 0, 0 }, 128, 20, 0 },   // WANTED: One of the Fox Familiars: Stood still among the fox familiars
+        { 9109085, 9109491, 35, -123.0f, 149.0f, 12.0f, { 0, 0, 0, 0 }, 0, 30, 0 },   // The Fifth One Stays: Stood at the Thin Place for what followed
+        { 9109090, 9109493, 1, -1270.0f, 45.0f, 40.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: Thunder Bluff's lifts, looked at
+        { 9109090, 9109494, 0, -11905.0f, -3207.0f, 60.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: The Dark Portal, looked at
+        { 9109090, 9109495, 571, 3546.0f, 287.0f, 40.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: The top of Wyrmrest, looked at
+        { 9109090, 9109496, 571, 5807.0f, 683.0f, 25.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // WANTED: Six Postcards: Dalaran's fountain, looked at
+        { 9109091, 9109497, 0, -14281.0f, 552.0f, 40.0f, { 0, 0, 0, 0 }, 2, 20, 0 },   // Two More Postcards: Booty Bay at sunset, looked at
+        { 9109091, 9109498, 530, -781.0f, 6944.0f, 40.0f, { 0, 0, 0, 0 }, 0, 20, 0 },   // Two More Postcards: The Throne of the Elements, looked at
+        { 9109103, 9109505, 571, 717.0f, -2838.0f, 40.0f, { 0, 0, 0, 0 }, 2, 20, 0 },   // The Glider and the Tuskarr: Waited on the Longtusk beach at night
+        { 9109131, 9109516, 571, 5750.0f, 526.0f, 12.0f, { 0, 0, 0, 0 }, 0, 45, 0 },   // The Father's Thanks: Sat with Jigglesworth Sr.
+        { 9109161, 9109528, 0, 2296.0f, -5295.0f, 10.0f, { 0, 0, 0, 0 }, 132, 15, 0 },   // At Dawn, in the Chapel: Stood still at the chapel at dawn
+        { 9109162, 9109530, 0, -4635.0f, -1306.0f, 15.0f, { 0, 0, 0, 0 }, 132, 15, 0 },   // The Dwarf Under the Mountain: Stood still in the Hall of Explorers at dawn
+        { 9109163, 9109531, 0, 2296.0f, -5295.0f, 15.0f, { 0, 0, 0, 0 }, 132, 15, 0 },   // Grander Memories: Dawn at Light's Hope
+        { 9109163, 9109532, 0, -11905.0f, -3207.0f, 60.0f, { 0, 0, 0, 0 }, 132, 15, 0 },   // Grander Memories: Dawn at the Dark Portal
+        { 9109163, 9109533, 0, -14281.0f, 552.0f, 30.0f, { 0, 0, 0, 0 }, 132, 15, 0 },   // Grander Memories: Dawn on the Booty Bay dock
+        { 9109164, 9109534, 571, 3546.0f, 287.0f, 25.0f, { 0, 0, 0, 0 }, 132, 20, 0 },   // The Last Memory: Dawn at the top of Wyrmrest
+        { 9109165, 9109535, 0, 2692.0f, -4029.0f, 25.0f, { 0, 0, 0, 0 }, 132, 15, 0 },   // The Warden's Charger: Dawn at the Argent camp
+        { 9109190, 9109553, 1, 6410.0f, 466.0f, 30.0f, { 0, 0, 0, 0 }, 0, 30, 0 },   // WANTED: A Walk for a Sapling: Rested by the water at Auberdine
+        { 9109191, 9109555, 1, 3980.0f, -1300.0f, 40.0f, { 0, 0, 0, 0 }, 0, 30, 0 },   // Through Felwood: Rested by the water at Emerald Sanctuary
+        { 9109192, 9109557, 1, 2368.0f, -1720.0f, 30.0f, { 0, 0, 0, 0 }, 0, 30, 0 },   // Home to Ashenvale: Rested by the moonwell at Raynewood Retreat
+        { 9109193, 9109558, 1, 2368.0f, -1720.0f, 30.0f, { 0, 0, 0, 0 }, 0, 45, 0 },   // The Forest's Friends: Sat with the Ancient
+        { 9109194, 9109559, 1, 2368.0f, -1720.0f, 30.0f, { 0, 0, 0, 0 }, 0, 30, 0 },   // The Last Two Friends: Sat a little longer
+        { 9109211, 9109565, 1, -2383.0f, -410.0f, 15.0f, { 0, 0, 0, 0 }, 128, 60, 0 },   // Stare It Down: Stared for a minute
+        { 9109221, 9109569, 35, -90.5f, 138.5f, 6.0f, { 0, 0, 0, 0 }, 128, 60, 0 },   // Lesson Two, Hovering: Hovered still over the duck pond
+        { 9109222, 9109570, 35, -98.0f, 157.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Lesson Three, Flying: Round the cauldron
+        { 9109222, 9109571, 35, -33.0f, 150.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Lesson Three, Flying: Past Hagatha's Gate
+        { 9109222, 9109572, 35, -123.0f, 149.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Lesson Three, Flying: Through the Thin Place
+        { 9109222, 9109573, 35, -93.0f, 121.5f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Lesson Three, Flying: Back to the board
+        { 9109223, 9109574, 35, -98.0f, 157.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Hagatha's Sweepers: Round the cauldron, watched
+        { 9109223, 9109575, 35, -33.0f, 150.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Hagatha's Sweepers: Past the gate, watched
+        { 9109223, 9109576, 35, -123.0f, 149.0f, 8.0f, { 0, 0, 0, 0 }, 0, 0, 0 },   // Hagatha's Sweepers: Through the Thin Place, watched
+        { 9109234, 9109581, 35, -90.5f, 138.5f, 8.0f, { 0, 0, 0, 0 }, 0, 15, 0 },   // Mister Slow, Grown: Sat with Mister Slow
     };
 
     // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Count x Summon,
@@ -561,25 +611,38 @@ namespace Devourer::Quests
         { 9109021, 9109022, 9109426, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: The grizzly hills Dreams: Dream shard touched as a Flutterer
         { 9109022, 9109023, 9109427, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: Nagrand Dreams: Dream shard touched as a Flutterer
         { 9109023, 9109024, 9109428, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: Moonglade Dreams: Dream shard touched as a Flutterer
-        { 9109024, 9109030, 9109430, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Bones That Remember: Buried bones dug up with Sniff
-        { 9109025, 9109031, 9109431, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: A Map in Five Pieces: Torn map piece found with Sniff
-        { 9109026, 9109032, 9109432, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Lost Explorer: The explorer's diary read
-        { 9109028, 9109035, 9109441, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Wren's Buttons (the first twenty-five): One of Wren's buttons found with Sniff
-        { 9109029, 9109036, 9109442, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Wren's Buttons (the second twenty-five): One of Wren's far buttons found with Sniff
-        { 9109030, 9109037, 9109443, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Relics That Hum: Worldforged relic dug up with Sniff
-        { 9109028, 9109038, 9109444, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bucky, the Cloud and the Kite: One of Wren's buttons found again
-        { 9109029, 9109038, 9109445, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bucky, the Cloud and the Kite: One of Wren's far buttons found again
-        { 9109031, 9109039, 9109446, 0, 0, 64, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Great Extractor: Greater map piece found with Sniff
-        { 9109041, 9109070, 9109466, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Three Oozes Make a Cat: The cauldron stirred
-        { 9109041, 9109071, 9109469, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Crocolisk and the Void: The cauldron stirred
-        { 9109041, 9109072, 9109472, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bones and Fire: The cauldron stirred
-        { 9109041, 9109073, 9109475, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Scale and Spore: The cauldron stirred
-        { 9109041, 9109074, 9109478, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Blood and Thunder: The cauldron stirred
-        { 9109041, 9109075, 9109482, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Everything At Once: The cauldron stirred
-        { 9109041, 9109076, 9109486, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // All the Colours of Ooze: The cauldron stirred
-        { 9109047, 9109100, 9109505, 0, 0, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Four Lighthouses: Lighthouse lamp lit at night
-        { 9109047, 9109102, 9109508, 0, 0, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // More From the Deep: Lighthouse lamp lit again at night
-        { 9109054, 9109114, 9109517, 0, 0, 32, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Storm Answers: A bell rung on foot within the hour
+        { 9109024, 9109032, 9109432, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Lost Explorer: The explorer's diary read
+        { 9109035, 9109070, 9109460, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Three Oozes Make a Cat: The cauldron stirred
+        { 9109035, 9109071, 9109463, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Crocolisk and the Void: The cauldron stirred
+        { 9109035, 9109072, 9109466, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Bones and Fire: The cauldron stirred
+        { 9109035, 9109073, 9109469, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Scale and Spore: The cauldron stirred
+        { 9109035, 9109074, 9109472, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Blood and Thunder: The cauldron stirred
+        { 9109035, 9109075, 9109476, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Everything At Once: The cauldron stirred
+        { 9109035, 9109076, 9109480, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // All the Colours of Ooze: The cauldron stirred
+        { 9109041, 9109100, 9109499, 0, 0, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Four Lighthouses: Lighthouse lamp lit at night
+        { 9109041, 9109102, 9109502, 0, 0, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // More From the Deep: Lighthouse lamp lit again at night
+        { 9109048, 9109114, 9109511, 0, 0, 32, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Storm Answers: A bell rung on foot within the hour
+        { 9109049, 9109140, 9109517, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The First Page: The page found at Caer Darrow
+        { 9109050, 9109141, 9109518, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Second Page: The page found at Karazhan's gate
+        { 9109051, 9109142, 9109519, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Third Page: The page found at the Violet Citadel in Dalaran
+        { 9109052, 9109143, 9109520, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Fourth Page: The page found at the Scryers' tier in Shattrath
+        { 9109053, 9109144, 9109521, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Fifth Page: The page found at the Scarlet Monastery's library door
+        { 9109054, 9109145, 9109522, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Sixth Page: The page found at the Hall of Explorers in Ironforge
+        { 9109055, 9109146, 9109523, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Last Page: The page found at the Magic Quarter of Undercity
+        { 9109056, 9109160, 9109527, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Knight Without a Horse: A piece of the knight's armour found
+        { 9109059, 9109171, 9109539, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Three Goodbyes: A goodbye said at a stall
+        { 9109061, 9109180, 9109542, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Eat the Fel Out: The fel purged at the cauldron
+        { 9109061, 9109181, 9109544, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Ravagers' Grin: The fel purged at the cauldron
+        { 9109061, 9109182, 9109546, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Calm, Don't Kill: The fel purged at the cauldron
+        { 9109061, 9109184, 9109549, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // What the Fel Left: The fel purged at the cauldron
+        { 9109063, 9109200, 9109560, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Ten Chimneys: A present dropped down a chimney
+        { 9109064, 9109201, 9109561, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Gingerbread Steed: An ingredient from a cook
+        { 9109065, 9109210, 9109563, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Giant Egg: Giant egg tracks found
+        { 9109068, 9109230, 9109577, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Spring Petals: Spring Petals picked
+        { 9109069, 9109231, 9109578, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Summer Petals: Summer Petals picked
+        { 9109070, 9109232, 9109579, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Autumn Petals: Autumn Petals picked
+        { 9109071, 9109233, 9109580, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Winter Petals: Winter Petals picked
+        { 9109072, 9109235, 9109582, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Petals From a Volcano: An ember picked at Fire Plume Ridge
         { 0, 9105111, 9105451, 0, 0, 1, 8, TaleLines9105101, "Hagatha Hollowmoor", "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"", { 0, 0, 0, 0 } },   // The Boat-Eater: The tale of the Boat-Eater heard
         { 0, 9105131, 9105464, 0, 0, 1, 7, TaleLines9105102, "Hagatha Hollowmoor", "Bramble rubs her eyes. \"I'm keeping my dreams. All of them. Even the one with the soup.\"", { 0, 0, 0, 0 } },   // Other People's Dreams: The tale of the blue moths heard
         { 0, 9105171, 9105494, 0, 0, 1, 7, TaleLines9105103, "Hagatha Hollowmoor", "Bramble pulls her knees up. \"I'll be somewhere else. Somewhere with lamps.\"", { 0, 0, 0, 0 } },   // The Night That Stayed: The tale of the night that stayed heard
@@ -598,25 +661,33 @@ namespace Devourer::Quests
         { 9109011, 9109011, 9109404, 9109900, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Keep It Warm: The Egg, Cracking
         { 9109014, 9109014, 9109412, 9109902, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Keep It Warm: The Egg, Cracking
         { 9109017, 9109017, 9109420, 9109904, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Keep It Warm: The Egg, Cracking
-        { 9109027, 9109033, 9109436, 9109906, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Under Control: A Scorpid Nest
-        { 9109034, 9109060, 9109452, 9109908, 1, 8, 0, nullptr, "", "", { 14, 15, 30, 0 } },   // WANTED: One of the Toads: Hagatha's Fly Jar
-        { 9109035, 9109061, 9109454, 9109909, 1, 8, 0, nullptr, "", "", { 14, 15, 30, 0 } },   // WANTED: One of the Huge Toads: Hagatha's Fly Jar
-        { 9109036, 9109062, 9109456, 9109910, 1, 8, 0, nullptr, "", "", { 14, 15, 30, 0 } },   // WANTED: One of the Frogs: Hagatha's Fly Jar
-        { 9109037, 9109063, 9109458, 9109911, 1, 8, 0, nullptr, "", "", { 11, 21, 0, 0 } },   // WANTED: One of the Belfry Bats: A Bowl of Bruised Fruit
-        { 9109038, 9109064, 9109460, 9109912, 1, 8, 0, nullptr, "", "", { 38, 39, 40, 0 } },   // WANTED: One of the Spirit Ravens: A Dish of Shiny Things
-        { 9109039, 9109065, 9109462, 9109913, 1, 8, 0, nullptr, "", "", { 8, 23, 0, 0 } },   // WANTED: One of the Teromoths: A Jar of Glowing Motes
-        { 9109040, 9109066, 9109464, 9109914, 1, 8, 0, nullptr, "", "", { 5, 17, 0, 0 } },   // WANTED: One of the Fox Familiars: A Saucer of Cream
-        { 9109042, 9109080, 9109487, 9109915, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: A Candle at Raven Hill Cemetery: Hagatha's Candle
-        { 9109043, 9109081, 9109489, 9109916, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at the Warp Piston: Hagatha's Candle
-        { 9109044, 9109082, 9109491, 9109917, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at Dalaran Crater: Hagatha's Candle
-        { 9109045, 9109083, 9109493, 9109918, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at Fire Plume Ridge: Hagatha's Candle
-        { 9109046, 9109084, 9109495, 9109919, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at the Throne of Kil'jaeden: Hagatha's Candle
-        { 9109048, 9109101, 9109506, 9109920, 1, 24, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // What Followed the Light: The End of the Pier
-        { 9109049, 9109102, 9109509, 9109921, 3, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // More From the Deep: The End of the Pier, Again
-        { 9109050, 9109110, 9109513, 9109922, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Bell of Frosthold: The Bell of Frosthold
-        { 9109051, 9109111, 9109514, 9109923, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of Dun Niffelem: The Bell of Dun Niffelem
-        { 9109052, 9109112, 9109515, 9109924, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of Thunderfall: The Bell of Thunderfall
-        { 9109053, 9109113, 9109516, 9109925, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of The Terrace Of The Makers: The Bell of The Terrace Of The Makers
+        { 9109025, 9109033, 9109436, 9109906, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Under Control: A Scorpid Nest
+        { 9109028, 9109060, 9109446, 9109908, 1, 8, 0, nullptr, "", "", { 14, 15, 30, 0 } },   // WANTED: One of the Toads: Hagatha's Fly Jar
+        { 9109029, 9109061, 9109448, 9109909, 1, 8, 0, nullptr, "", "", { 14, 15, 30, 0 } },   // WANTED: One of the Huge Toads: Hagatha's Fly Jar
+        { 9109030, 9109062, 9109450, 9109910, 1, 8, 0, nullptr, "", "", { 14, 15, 30, 0 } },   // WANTED: One of the Frogs: Hagatha's Fly Jar
+        { 9109031, 9109063, 9109452, 9109911, 1, 8, 0, nullptr, "", "", { 11, 21, 0, 0 } },   // WANTED: One of the Belfry Bats: A Bowl of Bruised Fruit
+        { 9109032, 9109064, 9109454, 9109912, 1, 8, 0, nullptr, "", "", { 38, 39, 40, 0 } },   // WANTED: One of the Spirit Ravens: A Dish of Shiny Things
+        { 9109033, 9109065, 9109456, 9109913, 1, 8, 0, nullptr, "", "", { 8, 23, 0, 0 } },   // WANTED: One of the Teromoths: A Jar of Glowing Motes
+        { 9109034, 9109066, 9109458, 9109914, 1, 8, 0, nullptr, "", "", { 5, 17, 0, 0 } },   // WANTED: One of the Fox Familiars: A Saucer of Cream
+        { 9109036, 9109080, 9109481, 9109915, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: A Candle at Raven Hill Cemetery: Hagatha's Candle
+        { 9109037, 9109081, 9109483, 9109916, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at the Warp Piston: Hagatha's Candle
+        { 9109038, 9109082, 9109485, 9109917, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at Dalaran Crater: Hagatha's Candle
+        { 9109039, 9109083, 9109487, 9109918, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at Fire Plume Ridge: Hagatha's Candle
+        { 9109040, 9109084, 9109489, 9109919, 1, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // A Candle at the Throne of Kil'jaeden: Hagatha's Candle
+        { 9109042, 9109101, 9109500, 9109920, 1, 24, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // What Followed the Light: The End of the Pier
+        { 9109043, 9109102, 9109503, 9109921, 3, 16, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // More From the Deep: The End of the Pier, Again
+        { 9109044, 9109110, 9109507, 9109922, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Bell of Frosthold: The Bell of Frosthold
+        { 9109045, 9109111, 9109508, 9109923, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of Dun Niffelem: The Bell of Dun Niffelem
+        { 9109046, 9109112, 9109509, 9109924, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of Thunderfall: The Bell of Thunderfall
+        { 9109047, 9109113, 9109510, 9109925, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of The Terrace Of The Makers: The Bell of The Terrace Of The Makers
+        { 9109057, 9109161, 9109529, 9109933, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // At Dawn, in the Chapel: The Chapel's Threshold
+        { 9109058, 9109170, 9109537, 9109935, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: A Horse for Tam: A Grave With No Stone
+        { 9109060, 9109171, 9109538, 9109934, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Three Goodbyes: Tam's Lantern
+        { 9109062, 9109190, 9109552, 9109940, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: A Walk for a Sapling: Wren's Flowerpot
+        { 9109062, 9109191, 9109554, 9109940, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Through Felwood: Wren's Flowerpot
+        { 9109062, 9109192, 9109556, 9109940, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Home to Ashenvale: Wren's Flowerpot
+        { 9109066, 9109211, 9109564, 9109941, 1, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Stare It Down: A Dead End
+        { 9109067, 9109220, 9109567, 9109942, 8, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: Lesson One, Sweeping: A Dusty Corner
     };
 
     // A pack that takes the Devourer for one of its own: within Radius x 3 of X, Y, wearing one of the Shapes,
@@ -681,10 +752,10 @@ namespace Devourer::Quests
     struct CarryRule { uint32_t Quest; uint32_t Credit; uint32_t Pick; uint32_t Map; float X, Y, Radius; uint16_t Seconds; uint8_t RefreshCount; TrackPoint Refresh[4]; float RefreshRadius; uint8_t Slow; uint32_t Achievement; uint8_t Flags; char const* PickedUp; char const* Warning; char const* Refreshed; char const* Lost; char const* Delivered; };
     constexpr CarryRule CarryRules[] =
     {
-        { 9109050, 9109447, 9109032, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 25, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // WANTED: A Lantern for the Cauldron: Soul-light delivered
-        { 9109051, 9109448, 9109032, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 25, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // A Second Lantern: Soul-light delivered
-        { 9109052, 9109449, 9109032, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 35, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Argent Lantern: Soul-light delivered
-        { 9109053, 9109450, 9109033, 35, -98.0f, 157.0f, 10.0f, 1200, 2, { { 7190.0f, 1140.0f }, { 7000.0f, 1400.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 50, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Great Lantern of Icecrown: The great soul-light delivered
+        { 9109050, 9109441, 9109026, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 25, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // WANTED: A Lantern for the Cauldron: Soul-light delivered
+        { 9109051, 9109442, 9109026, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 25, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // A Second Lantern: Soul-light delivered
+        { 9109052, 9109443, 9109026, 35, -98.0f, 157.0f, 10.0f, 900, 0, { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 35, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Argent Lantern: Soul-light delivered
+        { 9109053, 9109444, 9109027, 35, -98.0f, 157.0f, 10.0f, 1200, 2, { { 7190.0f, 1140.0f }, { 7000.0f, 1400.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 50, 0, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Great Lantern of Icecrown: The great soul-light delivered
     };
 
     // A letter after a quest: server mail from Wren, Delay seconds later.
@@ -702,7 +773,13 @@ namespace Devourer::Quests
     struct GossipRule { uint32_t Entry; uint32_t Quest; uint32_t Credit; char const* Text; uint8_t OptionCount; GossipOption Options[4]; uint32_t WrongSpell; };
     constexpr GossipRule GossipRules[] =
     {
-        { 0, 0, 0, "", 0, { }, 0 },
+        { 9109930, 9109150, 9109524, "The machine ticks. Three bolts hold the good parts in. One of them holds the spring.", 3, { { "Turn the left bolt.", "The left bolt comes free. A gear, a pipe and something springy fall out.", true }, { "Turn the middle bolt.", "The middle bolt was the spring. It hits you on the nose. Try another machine.", false }, { "Turn the right bolt.", "The right bolt comes free. Parts! Bramble will be pleased.", true }, { "", "", false } }, 0 },   // A Broken Machine
+        { 9109931, 9109151, 9109525, "This one is bigger and it hums. Three bolts. Two of them are holding something angry in.", 3, { { "Turn the top bolt.", "Steam. Lots of steam. Nothing comes free.", false }, { "Turn the bolt with the scratch marks.", "It comes free, and a whole engine slides out. Somebody marked the right one!", true }, { "Turn the shiny bolt.", "The shiny bolt was the angry one. It shouts at you in goblin.", false }, { "", "", false } }, 0 },   // A Big Broken Machine
+        { 9109932, 9109160, 9109526, "The knight looks through you. 'You ate her. My horse. I can smell her on you, years deep. Give her back.'", 2, { { "I cannot give back what I ate.", "'No. But the witch can pull the memory out of you. At dawn. Find my armour first; a knight does not ride in rags.'", true }, { "I do not remember any horse.", "'You remember every meal. You are a Devourer. Do not lie to the dead.'", false }, { "", "", false }, { "", "", false } }, 0 },   // The Knight Without a Horse
+        { 9109934, 9109170, 9109536, "Tam looks up with what is left of his face. 'She sent you? Hagatha? She always liked apples. The mare, I mean. Hagatha liked... never mind what Hagatha liked.'", 2, { { "Where is the mare buried?", "'By the old stable. Under the dirt mound with no stone. I put her there myself, before... before.'", true }, { "How do you know Hagatha?", "'Ask her. Go on. Ask her. I'd like to see her face.'", false }, { "", "", false }, { "", "", false } }, 0 },   // Tam the Stable Boy
+        { 9109936, 9109172, 9109540, "The Headless Horseman's charger stands by the old stable without its rider; he has lost his head again. It looks at the ghost mare, then at you, and its voice comes out of the pumpkin on its saddle: 'A riddle, for the mare. I have a head but no body, a face but no eyes, and I ride every Hallow's End. What am I?'", 3, { { "A pumpkin.", "'...A pumpkin. Yes. Fine. Keep the mare. Take me too; he never feeds me.'", true }, { "Your rider.", "'He has a BODY. Mostly. Wrong. Come back and try again.'", false }, { "A coin.", "'A coin has no face that rides. Wrong.'", false }, { "", "", false } }, 0 },   // The Horseman's Charger
+        { 9109938, 9109183, 9109547, "'ORDERS: DESTROY THE ENEMIES OF THE LEGION. QUERY: ARE YOU AN ENEMY OF THE LEGION?'", 3, { { "The Legion is gone. Your orders are from nobody.", "'...QUERY: WHO GIVES ORDERS NOW? ...NOBODY. THEN I AM... FREE? RECALCULATING. YOU MAY DRIVE.'", true }, { "Yes. Come and get me.", "'COMPLYING.' The reaver's foot comes down very close to you.", false }, { "I am your commander now.", "'YOU ARE NOT ON THE LIST. ERROR.' A warning klaxon sounds.", false }, { "", "", false } }, 0 },   // A Fel Reaver, Still Running Orders
+        { 9109939, 9109186, 9109551, "The deathcycle's engine coughs. A little fel light blinks on the dial: 'NO RIDER. NO WAR. NO POINT.'", 3, { { "There is a point. Somewhere to go that is not a war.", "The engine turns over once, twice, and roars. It sounds almost pleased.", true }, { "The Legion is coming back. Start up.", "'LIAR.' The dial goes dark.", false }, { "Please?", "The dial blinks. 'NO.'", false }, { "", "", false } }, 0 },   // A Deathcycle That Will Not Start
     };
 }
 

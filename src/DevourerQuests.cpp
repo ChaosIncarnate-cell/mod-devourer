@@ -711,6 +711,10 @@ class npc_devourer_quest_beast : public CreatureScript
 public:
     npc_devourer_quest_beast() : CreatureScript("npc_devourer_quest_beast") { }
 
+    // (quest, creature spawn) pairs already answered right; forgotten for a quest whose count is back at 0 (taken
+    // again after abandoning it)
+    static inline std::unordered_map<ObjectGuid, std::set<std::pair<uint32, ObjectGuid::LowType>>> told;
+
     static GossipRule const* Rule(Player* player, Creature* creature)
     {
         for (GossipRule const& rule : GossipRules)
@@ -747,7 +751,13 @@ public:
             creature->Say(option.Reply, LANG_UNIVERSAL, player);
         if (option.Right)
         {
-            if (rule->Credit && Open(player, rule->Quest))
+            // each creature counts once per Devourer and quest (ten machines means ten machines, not one ten times)
+            auto& answered = told[player->GetGUID()];
+            if (rule->Credit && Open(player, rule->Quest) && !player->GetReqKillOrCastCurrentCount(rule->Quest, rule->Credit))
+                for (auto it = answered.begin(); it != answered.end();)
+                    it = it->first == rule->Quest ? answered.erase(it) : std::next(it);
+            if (rule->Credit && Open(player, rule->Quest)
+                && answered.insert({ rule->Quest, creature->GetSpawnId() }).second)
                 player->KilledMonsterCredit(rule->Credit);
         }
         else if (rule->WrongSpell)
