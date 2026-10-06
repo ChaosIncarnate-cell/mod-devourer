@@ -39,6 +39,10 @@
 #include "TemporarySummon.h"
 #include "WorldScript.h"
 #include "WorldSession.h"
+#if __has_include("ExtrasHooks.h")
+#include "ExtrasHooks.h"                       // mod-chromatica-extras: one campfire for everyone (task 021)
+#define DEVOURER_ONE_CAMPFIRE 1
+#endif
 #include <cmath>
 #include <set>
 #include <string>
@@ -76,6 +80,7 @@ namespace
     std::unordered_map<Key, uint32> tickTimers;
     std::unordered_map<Key, std::vector<ObjectGuid>> called;                    // what a Devourer's objects woke
     std::set<Key> telling;                                                     // a campfire tale is running
+    std::unordered_map<Key, uint32> fireside;                                  // fallback: ms sat by a fire with Bramble
     std::unordered_map<Key, std::set<ObjectGuid>> fooled;                      // pack members that take it for kin
 
     bool Open(Player* player, uint32 quest)
@@ -119,6 +124,17 @@ namespace
                 if (member != player && member->IsInMap(player) && member->IsAlive() &&
                     member->GetName() == companionName && member->IsWithinDist(player, CompanionRange))
                     return member;
+        return nullptr;
+    }
+
+    void TellTale(Player* player, UseRule const& rule);   // the fallback teller (defined with the objects below)
+
+    // The sisters' tale a Devourer carries right now (a campfire quest in its log), if any.
+    UseRule const* PendingTale(Player* player)
+    {
+        for (UseRule const& rule : UseRules)
+            if (rule.LineCount && Open(player, rule.Quest))
+                return &rule;
         return nullptr;
     }
 
@@ -377,6 +393,35 @@ public:
         Disguise(player);
         Visits(player);
         Trails(player);
+#ifndef DEVOURER_ONE_CAMPFIRE
+        Fireside(player);
+#endif
+    }
+
+    // Fallback without mod-chromatica-extras: sat by a cooking fire or in an inn with Bramble for 15 s, the lantern
+    // tells the pending tale itself. With the extras module the Fireside Tale does it (see devourer_quests_world).
+    void Fireside(Player* player)
+    {
+        Key const key = player->GetGUID().GetCounter();
+        UseRule const* rule = PendingTale(player);
+        if (!rule || telling.count(key))
+        {
+            fireside.erase(key);
+            return;
+        }
+        bool const byFire = player->IsSitState() && Companion(player) &&
+            (player->HasRestFlag(REST_FLAG_IN_TAVERN) || player->FindNearestGameObjectOfType(GAMEOBJECT_TYPE_SPELL_FOCUS, 10.0f));
+        if (!byFire)
+        {
+            fireside.erase(key);
+            return;
+        }
+        uint32& sat = fireside[key];
+        sat += TickEvery;
+        if (sat < 15000)
+            return;
+        fireside.erase(key);
+        TellTale(player, *rule);
     }
 
     void OnPlayerQuestAbandon(Player* player, uint32 questId) override
@@ -460,6 +505,27 @@ namespace
     }
 }
 
+namespace
+{
+    void TellTale(Player* player, UseRule const& rule) { go_devourer_quest_object::Tell(player, nullptr, rule); }
+
+    // The end of a tale: the quest counts, and Bramble says her piece.
+    void TaleTold(Player* listener, UseRule const& rule)
+    {
+        Player* friendNear = Companion(listener);
+        if ((rule.Flags & FlagCompanion) && !friendNear)
+        {
+            ChatHandler(listener->GetSession()).SendNotification("Your companion was not there for the end of it.");
+            return;
+        }
+        if (Open(listener, rule.Quest))
+            listener->KilledMonsterCredit(rule.Credit);
+        if (friendNear && rule.Reaction && *rule.Reaction)
+            friendNear->Say(rule.Reaction, LANG_UNIVERSAL);
+    }
+}
+
+// Without mod-chromatica-extras: the lantern's own teller, line by line, when the Devourer sits by a fire with Bramble.
 void go_devourer_quest_object::Tell(Player* player, GameObject* /*go*/, UseRule const& rule)
 {
     Key const key = player->GetGUID().GetCounter();
@@ -472,7 +538,6 @@ void go_devourer_quest_object::Tell(Player* player, GameObject* /*go*/, UseRule 
         return;
     }
     telling.insert(key);
-    player->HandleEmoteCommand(EMOTE_ONESHOT_KNEEL);
     ObjectGuid const guid = player->GetGUID();
     ObjectGuid const companionGuid = companion ? companion->GetGUID() : ObjectGuid::Empty;
     for (uint8 i = 0; i <= rule.LineCount; ++i)
@@ -491,15 +556,7 @@ void go_devourer_quest_object::Tell(Player* player, GameObject* /*go*/, UseRule 
                 return;
             }
             telling.erase(listener->GetGUID().GetCounter());
-            if ((rule.Flags & FlagCompanion) && (!friendNear || !friendNear->IsWithinDist(listener, CompanionRange)))
-            {
-                ChatHandler(listener->GetSession()).SendNotification("Your companion was not there for the end of it.");
-                return;
-            }
-            if (Open(listener, rule.Quest))
-                listener->KilledMonsterCredit(rule.Credit);
-            if (friendNear && rule.Reaction && *rule.Reaction)
-                friendNear->Say(rule.Reaction, LANG_UNIVERSAL);
+            TaleTold(listener, rule);
         }, Milliseconds(TaleLineEvery * (i + 1)));
     }
 }
@@ -530,6 +587,40 @@ public:
     {
         companionName = sConfigMgr->GetOption<std::string>("Devourer.WitchCompanion", "Bramble");
     }
+
+#ifdef DEVOURER_ONE_CAMPFIRE
+    // One campfire for everyone: a pending lantern tale is what the companions tell at the fireside, and the quest
+    // completes when the Fireside Tale buff lands.
+    void OnStartup() override
+    {
+        Extras::SetCampfireTaleProvider([](Player* player, Extras::CampfireTale& tale) -> bool
+        {
+            if (!sDevourer.IsDevourer(player))
+                return false;
+            UseRule const* rule = PendingTale(player);
+            if (!rule)
+                return false;
+            std::string prompt = std::string(rule->Speaker) + " told this tale to the Devourer, and asked that it be "
+                "told again at the fire, in your own words, to the Devourer and to everyone sitting here: ";
+            for (uint8 i = 0; i < rule->LineCount; ++i)
+            {
+                if (i)
+                    prompt += ' ';
+                prompt += rule->Lines[i];
+            }
+            tale.Prompt = prompt;
+            tale.Fallback = std::string("The companions tell ") + rule->Speaker + "'s tale: " + rule->Lines[0];
+            uint32 const quest = rule->Quest;
+            tale.OnTold = [quest](Player* listener)
+            {
+                for (UseRule const& r : UseRules)
+                    if (r.Quest == quest && r.LineCount)
+                        TaleTold(listener, r);
+            };
+            return true;
+        });
+    }
+#endif
 };
 
 void AddSC_devourer_quests()

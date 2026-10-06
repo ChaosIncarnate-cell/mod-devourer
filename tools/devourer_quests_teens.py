@@ -162,11 +162,11 @@ def lochmodan_quests(book, lantern):
         story="The lesson: six Stonesplinter troggs, for a trogg's hard back.")
     b = book.quest(
         9105111, "The Boat-Eater", 15, 13, lantern, lantern, "hagatha",
-        "Hagatha's voice, warm for once:$B$BI have lit a fire beside the lantern. Bring your little friend, the one "
-        "who follows you about and talks to her boots. Sit with her, and I will tell you both a tale about this "
-        "loch.$B$BThe tale is for her as much as for you. Listen to it together, or not at all.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. Bring her, and sit.",
+        "Hagatha's voice, warm for once:$B$BI have given your little friend a tale to carry, the one "
+        "who follows you about and talks to her boots. Sit with her by any fire, a cooking fire or an inn's hearth, "
+        "and let her tell you both a tale about this loch.$B$BThe tale is for her as much as for you. Listen to it together, or not at all.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Find a fire and sit with her. She knows the tale.",
         "You listened. She listened too; I watched her ears.$B$BNow you know where it comes up. Take this, and when "
         "you are ready, go and be worth the climb.",
         objectives=[tale(fire, "The tale of the Boat-Eater heard")], prev=a.id, sort=s, xp=4,
@@ -200,6 +200,18 @@ def lochmodan_quests(book, lantern):
           (44970, "Dun Morogh Cub", 1), s,
           "Mercy: Sniff out Bumble, a bear cub stuck on Grizzlepaw Ridge, and lead it down. It comes back grown "
           "(mounts idea 1). Reward: a bear cub companion.", prev=a.id)
+    book.quest(
+        9105115, "A Roar Too Big", 14, 12, lantern, lantern, "wren",
+        "Wren, delighted:$B$BSnack! You're a BEAR CUB. A tiny one! With a tiny roar! Except Hagatha says the roar is "
+        "far too big for you, and anything you roar at has to come and deal with you. Let's test it on the big bears "
+        "of the loch. Wear your cub. Roar at five of them. Then, um, deal with them.",
+        "As a Bear Cub, roar at 5 black bears in Loch Modan with Cub Roar.",
+        "Five big bears, Snack. Tiny roar.",
+        "Five big bears, called over by a cub! Hagatha says that's how all bears start.$B$BHere!",
+        objectives=[ability(5, "Bear roared at as a Bear Cub", 9102302, entries=[1186, 1188, 1189], shapes=(46,))],
+        prev=a.id, sort=s, needs=(46,),
+        choices=[(5629, "Hammerfist Gloves"), (24351, "Mace of the Hand"), (22998, "Ghostclaw Leggings")],
+        story="For a Devourer with the Bear Cub: Cub Roar at five of the loch's big black bears.")
     return d
 
 
@@ -287,11 +299,11 @@ def bloodmyst_quests(book, lantern):
         story="The lesson, Wren's way: the ravager hatchlings, eaten before they grow up.")
     b = book.quest(
         9105131, "Other People's Dreams", 14, 12, lantern, lantern, "hagatha",
-        "Hagatha's voice, low and kind:$B$BI have lit a fire beside the lantern. Fetch your little friend, the one "
-        "who keeps her dreams in her boots, and sit with her. I have a tale about the blue moths of this island, "
-        "and it is a tale for two.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. Bring her.",
+        "Hagatha's voice, low and kind:$B$BI have given your little friend a tale to carry, the one "
+        "who keeps her dreams in her boots. Sit with her by any fire and let her tell it. It is about the blue "
+        "moths of this island, and it is a tale for two.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Find a fire and sit with her. She knows the tale.",
         "Some of them are lovely, I said, and I meant it. The flutterers drift over the north of the island, along "
         "the Bloodwash. If your moth is ever hungry for a dream that is not yours, you know where they are.$B$BTake "
         "this.",
@@ -443,17 +455,43 @@ def barrens_quests(book, lantern):
     book.quest(
         9105146, "Quilboar Bacon", 15, 13, lantern, lantern, "wren",
         "Wren, scandalised:$B$BSnack, the quilboar of Thorn Hill are throwing rocks at the caravans AND they smell. "
-        "That's two crimes. And you're an agam'ar now, which is a boar that's been hit so often it stopped falling "
-        "over. The quilboar say a boar struck often enough forgets how to fall. Let's find out!$B$BWear your agam'ar "
-        "and charge six Razormane. Tremor Charge. The ground should shake.",
-        "As a Raging Agam'ar, charge 6 Razormane quilboar in the Barrens with Tremor Charge.",
+        "That's two crimes. And you're an ARMOREDON now, a rhino in plate, which is a boar that's been hit so often "
+        "it grew armour. The quilboar say a boar struck often enough forgets how to fall. Let's find out!$B$BWear your "
+        "armoredon and charge six Razormane. Tremor Charge. The ground should shake.",
+        "As an Armoredon, charge 6 Razormane quilboar in the Barrens with Tremor Charge.",
         "Six quilboar, Snack. They're still throwing rocks.",
-        "Justice! Smelly, shaking justice.$B$BHere's your reward for being a good agam'ar.",
-        objectives=[ability(6, "Razormane charged as an Agam'ar", 9102022, entries=[3267, 3268, 3265, 3266, 3269, 3271],
+        "Justice! Smelly, shaking justice.$B$BHere's your reward for being a good armoredon.",
+        objectives=[ability(6, "Razormane charged as an Armoredon", 9102022, entries=[3267, 3268, 3265, 3266, 3269, 3271],
                             shapes=(18,))],
         prev=a.id, sort=s, needs=(18,),
         choices=[(1310, "Smith's Trousers"), (5609, "Steadfast Cinch"), (24351, "Mace of the Hand")],
-        story="For a Devourer with the Raging Agam'ar: Tremor Charge six rock-throwing Razormane quilboar.")
+        story="For a Devourer with the Armoredon: Tremor Charge six rock-throwing Razormane quilboar.")
+    book.quest(
+        9105147, "Spit the Storm Back", 18, 16, lantern, lantern, "hagatha",
+        "Hagatha, and the flame crackles:$B$BYour warp stalker grew into a thunder lizard, little horror. The tauren "
+        "say the thunder lizards of the Barrens swallowed a storm once; now you have swallowed one of theirs. The "
+        "stormsnouts and thunderheads graze in the south.$B$BWear your thunder lizard and spit the storm back at six "
+        "of them. Let them see where their lightning went.",
+        "As a Thunder Lizard, hit 6 thunder lizards in the Barrens with Thunder Spit.",
+        "Six lizards, little horror, and your own lightning.",
+        "Their storm, spat back at them. They will swallow another; they always do.$B$BTake this.",
+        objectives=[ability(6, "Thunder lizard spat at as a Thunder Lizard", 9102081, entries=[3240, 3239, 3238],
+                            shapes=(24,))],
+        prev=a.id, sort=s, needs=(24,),
+        choices=[(3741, "Stomping Boots"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
+        story="For a Devourer with the Thunder Lizard: Thunder Spit at six of the Barrens' thunder lizards.")
+    book.quest(
+        9105148, "Silk for the Hive", 21, 19, lantern, lantern, "wren",
+        "Wren, fascinated:$B$BSnack, you're a GRUB. A fat little grub! Hagatha says the silithid in the Field of "
+        "Giants, in the south of the Barrens, would take you for one of their own, except you spit silk at things, "
+        "which is rude.$B$BBe rude. Wear your grub and spit silk at six of them. Slow ones are easy to eat later.",
+        "As a Grub, hit 6 silithid in the Field of Giants with Spit Silk.",
+        "Six bugs, Snack. Spit spit.",
+        "Six silithid, stuck in silk! You're the best grub in the Barrens. The only grub. Still the best.$B$BHere!",
+        objectives=[ability(6, "Silithid silked as a Grub", 9102332, entries=[3250, 3251, 3252], shapes=(49,))],
+        prev=a.id, sort=s, needs=(49,),
+        choices=[(1310, "Smith's Trousers"), (5609, "Steadfast Cinch"), (24351, "Mace of the Hand")],
+        story="For a Devourer with the Grub: Spit Silk at six silithid of the Field of Giants.")
     return d
 
 
@@ -569,14 +607,14 @@ def ghostlands_quests(book, lantern):
         story="Wren shuts her eyes and counts to 300; five spindleweb spiders must be gone when she opens them.")
     book.quest(
         9105165, "Swallow It Whole", 15, 13, lantern, lantern, "hagatha",
-        "Hagatha, amused again:$B$BYour wyrm grew into a wraith, little horror, and a wraith does not spit magic back. "
+        "Hagatha, amused again:$B$BYour wyrm grew into a greatwyrm, little horror, and a greatwyrm does not spit magic back. "
         "It swallows it in the air. The mana shifters at the Sanctum of the Moon cast and cast and never finish a "
-        "thought.$B$BWear your arcane wraith. When one of them starts a spell, swallow it. Five times.",
-        "As an Arcane Wraith, swallow 5 spells cast by Mana Shifters or Arcane Devourers with Swallow Spell.",
+        "thought.$B$BWear your greatwyrm. When one of them starts a spell, swallow it. Five times.",
+        "As a Greatwyrm, swallow 5 spells cast by Mana Shifters or Arcane Devourers with Swallow Spell.",
         "Five spells, little horror, swallowed before they land.",
         "Did they taste of anything? Surprise, mostly. That is the taste of a spell that never finished.$B$BTake this, and eat something.",
-        objectives=[ability(5, "Spell swallowed as an Arcane Wraith", 9102062, entries=[16310, 16304], shapes=(22,))],
+        objectives=[ability(5, "Spell swallowed as a Greatwyrm", 9102062, entries=[16310, 16304], shapes=(22,))],
         prev=a.id, sort=s, needs=(22,),
         choices=[(22998, "Ghostclaw Leggings"), (5351, "Bounty Hunter's Ring"), (24351, "Mace of the Hand")],
-        story="For a Devourer with the Arcane Wraith: Swallow Spell five of the Sanctum's casters mid-cast.")
+        story="For a Devourer with the Greatwyrm: Swallow Spell five of the Sanctum's casters mid-cast.")
     return d

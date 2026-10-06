@@ -76,11 +76,11 @@ def duskwood_quests(book, lantern):
         story="The lesson: the madness of Duskwood's starving dire wolves.")
     b = book.quest(
         9105171, "The Night That Stayed", 21, 20, lantern, lantern, "hagatha",
-        "Hagatha's voice turns careful:$B$BI have lit a fire at the edge of the cemetery, beside the lantern. Duskwood "
+        "Hagatha's voice turns careful:$B$BI have given your little friend a tale to carry. Duskwood "
         "has a tale, little horror, and it should be told to two at once, so that one of you can keep watch while "
-        "the other listens. Bring your little friend. Sit.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. Do not keep the night waiting.",
+        "the other listens. Sit with her by any fire, and let her tell it.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. Do not keep the night waiting.",
         "Now you know why it is dark here. Most people who live here never ask.$B$BTake this, for listening.",
         objectives=[tale(fire, "The tale of the night that stayed heard")], prev=a.id, sort=s, xp=4,
         choices=[(16659, "Deftkin Belt"), (6752, "Lancer Boots"), (6748, "Monkey Ring")],
@@ -100,6 +100,19 @@ def duskwood_quests(book, lantern):
                     devour(1, "Lupos devoured", entries=[521])], prev=b.id, sort=s, xp=6,
         choices=[(6745, "Swiftrunner Cape"), (3754, "Shepherd's Gloves"), (24118, "Signet of Argas")],
         story="Sniff out Lupos, the shining wolf that died and did not notice, and eat him.")
+    book.quest(
+        9105175, "Roots for the Restless", 22, 20, lantern, lantern, "hagatha",
+        "Hagatha, half asleep:$B$BYour bear cub grew into a dreambear, little horror: leaves where fur should be, and "
+        "roots in every paw. The dire wolves of this wood have not rested since the night came.$B$BWear your "
+        "dreambear and maul five of them so that roots grow where they stand. Rooted things are quieter. Then let "
+        "them be.",
+        "As a Dreambear, root 5 dire wolves in Duskwood with Overgrowth.",
+        "Five wolves, little horror, rooted.",
+        "Rooted, and quiet, for a while. That is more rest than the night has given them in years.$B$BTake this.",
+        objectives=[ability(5, "Dire wolf rooted as a Dreambear", 9102314, entries=[213, 565], shapes=(47,))],
+        prev=a.id, sort=s, needs=(47,),
+        choices=[(16659, "Deftkin Belt"), (6752, "Lancer Boots"), (6748, "Monkey Ring")],
+        story="For a Devourer with the Dreambear: Overgrowth on five of Duskwood's restless dire wolves.")
     return d
 
 
@@ -159,6 +172,19 @@ def wetlands_quests(book, lantern):
                     devour(1, "Giant Wetlands Crocolisk devoured", entries=[2089])], prev=c.id, sort=s, xp=6,
         choices=[(9699, "Garrison Cloak"), (10653, "Trailblazer Boots"), (6748, "Monkey Ring")],
         story="Wren and the spoon argument: sniff out a giant crocolisk as old as Hagatha, and eat it (Komodo line).")
+    book.quest(
+        9105186, "In Passing", 23, 21, lantern, lantern, "hagatha",
+        "Hagatha, quick and light:$B$BYour grub grew wings of glass, little horror. A glasswing does not stand and "
+        "fight; it bites in passing and is gone. The Dragonmaw orcs hold the hills north of here and expect "
+        "everything to come at them head on.$B$BWear your glasswing. Bite five of them in passing. Never stop.",
+        "As a Glasswing, bite 5 Dragonmaw orcs in the Wetlands with Needle Bite.",
+        "Five orcs, little horror, in passing.",
+        "Five bites, and they never caught the wing that gave them. That is the whole glasswing.$B$BTake this.",
+        objectives=[ability(5, "Dragonmaw bitten as a Glasswing", 9102351, entries=[2103, 2102, 1034, 1035, 1057],
+                            shapes=(51,))],
+        prev=a.id, sort=s, needs=(51,),
+        choices=[(7751, "Vorrel's Boots"), (6719, "Windborne Belt"), (6749, "Tiger Band")],
+        story="For a Devourer with the Glasswing: Needle Bite five Dragonmaw orcs in passing.")
     return d
 
 
@@ -186,11 +212,11 @@ def ashenvale_quests(book, lantern):
         story="The lesson: the soft walk of Ashenvale's ghostpaw wolves.")
     b = book.quest(
         9105191, "A Shape Is Not a Coat", 23, 21, lantern, lantern, "hagatha",
-        "Hagatha's voice is very serious:$B$BI have lit a fire beside the lantern. There is a tale I tell every "
-        "shapeshifter once, little horror, and Ashenvale is where I tell it. Bring your little friend. She should "
-        "hear it too; she has a shape of her own to keep.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. This one matters.",
+        "Hagatha's voice is very serious:$B$BThere is a tale I tell every shapeshifter once, little horror, and "
+        "Ashenvale is where I tell it. I have given it to your little friend to carry. Sit with her by any fire and "
+        "let her tell it; she should hear it too, she has a shape of her own to keep.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. This one matters.",
         "Now you know what the satyrs are. When you meet them in the east of the forest, you will taste the "
         "difference.$B$BTake this. I have no use for it.",
         objectives=[tale(fire, "The tale of the satyrs' bargain heard")], prev=a.id, sort=s, xp=4,
@@ -276,6 +302,19 @@ def hillsbrad_quests(book, lantern):
         prev=c.id, sort=s, needs=LINES["turtle"], xp=6,
         choices=[(4107, "Tiger Hunter Gloves"), (33249, "Boots of the Skirmisher"), (33267, "Fleshripper")],
         story="For a Devourer with the Snapjaw shape: lie in the sun among the old snapjaws and do nothing.")
+    book.quest(
+        9105205, "Over and Out", 23, 21, lantern, lantern, "wren",
+        "Wren, cackling:$B$BSnack, your grub grew a HORN. A rhino beetle! Hagatha says you can get the horn under "
+        "something and flip it clean over your back. The Syndicate thieves around Durnholde Keep, east of the lantern, "
+        "have never been flipped.$B$BWear your beetle. Flip five of them. Over and out.",
+        "As a Rhino Beetle, flip 5 Syndicate thieves in Hillsbrad Foothills with Horn Toss.",
+        "Five thieves, Snack. Over and OUT.",
+        "Five thieves, flipped! I'd pay to see that. I did see it. Through the lantern. Free.$B$BHere!",
+        objectives=[ability(5, "Syndicate flipped as a Rhino Beetle", 9102342, entries=[2261, 2244, 2260],
+                            shapes=(50,))],
+        prev=a.id, sort=s, needs=(50,),
+        choices=[(10653, "Trailblazer Boots"), (16659, "Deftkin Belt"), (6749, "Tiger Band")],
+        story="For a Devourer with the Rhino Beetle: Horn Toss five Syndicate thieves near Durnholde.")
     return c
 
 
@@ -373,7 +412,7 @@ def needles_quests(book, lantern):
         "is to be both at once.",
         "Devour a cloud serpent, go to the canyon its last memory shows you, then devour 4 more.",
         "Did you see the canyon? Go and stand in it.",
-        "Did you taste the storm? It is still in you. Your Baby Wind Serpent will feel it.$B$BHere. Wren picked it; I checked it.",
+        "Did you taste the storm? It is still in you. Your wind serpent will feel it.$B$BHere. Wren picked it; I checked it.",
         objectives=[devour(1, "Cloud serpent devoured (you see a canyon)", entries=[4117, 4118, 4119]),
                     visit("Windbreak Canyon, where it nested", 1, -5470.0, -2900.0, radius=45.0),
                     devour(4, "Cloud serpent devoured", entries=[4117, 4118, 4119])], prev=a.id, sort=s,

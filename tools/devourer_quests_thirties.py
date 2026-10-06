@@ -166,11 +166,11 @@ def dustwallow_quests(book, lantern, tanaris, feralas):
         story="For a Devourer with a toad shape: devour the frogspawn-stealing Mirefin murlocs, as a toad.")
     e = book.quest(
         9105245, "Eaten Without Choosing", 38, 36, lantern, lantern, "hagatha",
-        "Hagatha's voice, low:$B$BI have lit a fire beside the lantern. There is a worm in this marsh you will meet "
-        "soon, little horror, and before you meet it you should hear what it was. Bring your little friend. This tale "
-        "is a warning, and warnings are best heard by two.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. Sit.",
+        "Hagatha's voice, low:$B$BThere is a worm in this marsh you will meet soon, little horror, and "
+        "before you meet it you should hear what it was. I have given the tale to your little friend. Sit with her "
+        "by any fire and let her tell it; it is a warning, and warnings are best heard by two.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. Sit with her.",
         "You heard. Good. Now go and meet it, and remember: you choose.$B$BTake this, and eat something.",
         objectives=[tale(fire, "The tale of the Oozeworm heard")], prev=b.id, sort=s, xp=4,
         choices=[(9632, "Jangdor's Handcrafted Gloves"), (17778, "Sagebrush Girdle"), (10703, "Fiendish Skiv")],
@@ -424,6 +424,20 @@ def feralas_quests(book, lantern):
         objectives=[devour(4, "Groddoc ape devoured", entries=[5260, 5262])], prev=b.id, sort=s, xp=6, timed=300,
         choices=[(9652, "Gryphon Rider's Leggings"), (19992, "Devilsaur Tooth"), (19159, "Woven Ivy Necklace")],
         story="Hagatha's thundering groddoc apes: four against Wren's sand (5 minutes).")
+    book.quest(
+        9105275, "Stuck in Amber", 46, 44, lantern, lantern, "hagatha",
+        "Hagatha, and the flame goes gold:$B$BYour beetle grew into a kunchong, little horror, a siege engine with "
+        "legs, and amber runs in it where blood should. The Gordunni ogres hold the ruins north of here and think "
+        "nothing in Feralas is bigger than they are.$B$BWear your kunchong. Spit amber at five of them and leave them "
+        "standing where they were, stuck fast.",
+        "As a Kunchong, hit 5 Gordunni ogres in Feralas with Amber Spit.",
+        "Five ogres, little horror, in amber.",
+        "Five ogres, stuck. The ones that come after will find them, and think.$B$BTake this.",
+        objectives=[ability(5, "Gordunni stuck as a Kunchong", 9102362,
+                            entries=[5229, 5237, 5232, 5234, 5240, 5236, 5238, 5239], shapes=(52,))],
+        prev=a.id, sort=s, needs=(52,),
+        choices=[(17776, "Sprightring Helm"), (9657, "Vinehedge Cinch"), (11120, "Belgrom's Hammer")],
+        story="For a Devourer with the Kunchong: Amber Spit five Gordunni ogres.")
     return e
 
 
@@ -450,11 +464,11 @@ def hinterlands_quests(book, lantern, stv, alterac):
         story="The lesson: the silver-maned wolves of the Hinterlands.")
     b = book.quest(
         9105281, "The Ones That Forgot the Moon", 44, 42, lantern, lantern, "hagatha",
-        "Hagatha's voice goes silver:$B$BI have lit a fire beside the lantern, under the big moon. There is a tale "
-        "about the owlbeasts of these hills, little horror, and it is really a tale about you. Bring your little "
-        "friend; she has a part in it.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit, and the moon is up. Sit.",
+        "Hagatha's voice goes silver:$B$BThere is a tale about the owlbeasts of these hills, little horror, and "
+        "it is really a tale about you. I have given it to your little friend to carry. Sit with her by any fire, "
+        "under the big moon, and let her tell it; she has a part in it.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do, and the moon is up. Sit with her.",
         "Remember one thing you were. Every night.$B$BTake this. You walked far for it.",
         objectives=[tale(fire, "The tale of the owlbeasts heard")], prev=a.id, sort=s, xp=4,
         choices=[(19042, "Jangdor's Handcrafted Tunic"), (9647, "Failed Flying Experiment"), (11120, "Belgrom's Hammer")],
@@ -491,4 +505,17 @@ def hinterlands_quests(book, lantern, stv, alterac):
                                                      "owlbeasts forget the moon.")
     onward(book, 9105259, 41, alterac, lantern, 9105252, "East of the mountains the Hinterlands grow wild and the "
                                                          "owlbeasts forget the moon.")
+    book.quest(
+        9105285, "Sting and Twist", 46, 44, lantern, lantern, "wren",
+        "Wren, buzzing:$B$BSnack, your glasswing grew a STINGER. A stingwing! Venom and everything! The Vilebranch "
+        "trolls at Jintha'Alor, south of the lantern, drink blood and eat souls and I think they deserve a sting.$B$B"
+        "Wear your stingwing. Sting five of them. Twist, Hagatha says. Sting and twist.",
+        "As a Stingwing, sting 5 Vilebranch trolls in the Hinterlands with Venom Sting.",
+        "Five trolls, Snack. Sting and TWIST.",
+        "Five trolls, stung and twisted! Buzz buzz. I'm not going near you for an hour.$B$BHere!",
+        objectives=[ability(5, "Vilebranch stung as a Stingwing", 9102371,
+                            entries=[4465, 4467, 4466, 2643, 2645, 2644, 2646, 2647], shapes=(53,))],
+        prev=a.id, sort=s, needs=(53,),
+        choices=[(15822, "Shadowskin Spaulders"), (10745, "Kaylari Shoulders"), (15703, "Chemist's Smock")],
+        story="For a Devourer with the Stingwing: Venom Sting five Vilebranch trolls.")
     return e

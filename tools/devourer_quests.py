@@ -49,24 +49,27 @@ SHAPES = {
     5: ("Wolf", 9100910), 6: ("Trogg", 9100920), 7: ("Saber", 9100930), 8: ("Moth", 9100940), 9: ("Boar", 9100950),
     10: ("Plainstrider", 9100960), 11: ("Bat", 9100970), 12: ("Mana Wyrm", 9100980), 13: ("Warp Stalker", 9101000),
     14: ("Biletoad", 9101010), 15: ("Giant Marsh Frog", 9101020), 16: ("Greater Plainstrider", 9102000),
-    17: ("Bloodsnout Worg", 9102010), 18: ("Raging Agam'ar", 9102020), 19: ("Shadowclaw", 9102030),
-    20: ("Rockjaw Backbreaker", 9102040), 21: ("Vampiric Duskbat", 9102050), 22: ("Arcane Wraith", 9102060),
-    23: ("Royal Blue Flutterer", 9102070), 24: ("Void Terror", 9102080), 25: ("Viper", 9102090),
-    26: ("Baby Wind Serpent", 9102100), 27: ("Baby Eagle", 9102110), 28: ("Baby Komodo", 9102120),
+    17: ("Bloodsnout Worg", 9102010), 18: ("Armoredon", 9102020), 19: ("Shadowclaw", 9102030),
+    20: ("Rockjaw Backbreaker", 9102040), 21: ("Vampiric Duskbat", 9102050), 22: ("Greatwyrm", 9102060),
+    23: ("Royal Blue Flutterer", 9102070), 24: ("Thunder Lizard", 9102080), 25: ("Viper", 9102090),
+    26: ("Wind Serpent", 9102100), 27: ("Baby Eagle", 9102110), 28: ("Baby Komodo", 9102120),
     29: ("Komodo Dragon", 9102130), 30: ("Water Salamander", 9102140), 31: ("Snapjaw", 9102150),
     32: ("Spikeshell", 9102160), 33: ("Borer", 9102170), 34: ("Deep Borer", 9102180), 35: ("Whelp", 9102190),
     36: ("Proto-Drake", 9102200), 37: ("Storm Dragon", 9102210), 38: ("Owl", 9102220), 39: ("Moonkin", 9102230),
     40: ("Moontouched Owlbeast", 9102240), 41: ("Voidling", 9102250), 42: ("Voidcreeper", 9102260),
     43: ("Voidcreeper Broodmother", 9102270), 44: ("Earthen Proto-Drake", 9102280), 45: ("Primal Tallstrider", 9102290),
+    46: ("Bear Cub", 9102300), 47: ("Dreambear", 9102310), 48: ("Runebear", 9102320), 49: ("Grub", 9102330),
+    50: ("Rhino Beetle", 9102340), 51: ("Glasswing", 9102350), 52: ("Kunchong", 9102360), 53: ("Stingwing", 9102370),
 }
 
 # Lines of shapes (a form and what it grows into): "as a wolf" also counts as its worg.
 LINES = {
     "wolf": (5, 17), "trogg": (6, 20), "saber": (7, 19), "moth": (8, 23), "boar": (9, 18),
-    "plainstrider": (10, 16, 45), "bat": (11, 21), "manawyrm": (12, 22), "warpstalker": (13, 24),
+    "plainstrider": (10, 16, 45), "bat": (11, 21), "manawyrm": (12, 22), "warpstalker": (13, 24), "komodo_storm": (28, 24),
     "toad": (14, 15, 30), "viper": (25, 26, 1, 3), "eagle": (27, 26), "komodo": (28, 29), "turtle": (31, 32),
     "borer": (33, 34), "whelp": (35, 36, 37, 44), "owl": (38, 39, 40), "void": (41, 42, 43),
     "berserker": (4, 2),
+    "bear": (46, 47, 48), "grub": (49, 50, 51, 52, 53), "beetle": (50, 52), "glasswing": (51, 53),
 }
 
 
@@ -423,7 +426,7 @@ def write_header(book):
                    f"   // {quest.title}: {obj.text}")
     for quest, obj in tales:
         thing = obj.kw["thing"]
-        out.append(f"        {{ {thing.entry}, {quest.id}, {obj.credit}, 0, 0, {FLAG_COMPANION if thing.companion else 0},"
+        out.append(f"        {{ 0, {quest.id}, {obj.credit}, 0, 0, {FLAG_COMPANION if thing.companion else 0},"
                    f" {len(thing.lines)}, TaleLines{thing.entry}, {cstr(thing.speaker)}, {cstr(thing.reaction)} }},"
                    f"   // {quest.title}: {obj.text}")
     lures = [(quest, thing) for quest in sorted(book.quests, key=lambda x: x.id) for thing in quest.lures]
@@ -511,6 +514,8 @@ def write_sql(book):
                     f" 1.4, 0, 0, '', '', 0)")
     for thing in book.things:
         assert thing.quest, thing.key
+        if thing.lines:                          # a tale is told at any fire (mod-chromatica-extras), not at an object
+            continue
         rows.append(f"({thing.entry}, 10, {thing.display}, {q(thing.name)}, '', '', '', {thing.size}, 0,"
                     f" {thing.quest}, '', 'go_devourer_quest_object', 0)")
     o.append(",\n".join(rows) + ";")
@@ -525,6 +530,8 @@ def write_sql(book):
                     f" 300, 255, 1, {q('mod-devourer: Hagatha' + chr(39) + 's Lantern, ' + lantern.where)})")
         guid += 1
     for thing in book.things:
+        if thing.lines:
+            continue
         for (map_id, x, y, z, ori) in thing.spawns:
             rows.append(f"({guid}, {thing.entry}, {map_id}, 1, 1, {x}, {y}, {z}, {ori}, 0, 0,"
                         f" {round(math.sin(ori / 2), 6)}, {round(math.cos(ori / 2), 6)}, 60, 255, 1,"

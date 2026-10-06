@@ -116,279 +116,318 @@ namespace Devourer::Quests
         { 9105113, 9105453, EventMeal, FilterEntry, 2476, 0, 0, { 0, 0, 0, 0 }, "" },   // Worth the Climb: Large Loch Crocolisk devoured
         { 9105114, 9105455, EventEmote, FilterEntry, 9105904, 410, 8, { 0, 0, 0, 0 }, "" },   // Bumble: Bumble spared
         { 9105114, 0, EventKill, FilterEntry, 9105904, 0, 4, { 0, 0, 0, 0 }, "" },   // Bumble: Bumble eaten
-        { 9105120, 9105456, EventMeal, FilterEntry, 2070, 0, 0, { 0, 0, 0, 0 }, "" },   // Moonstalkers: Moonstalker devoured
-        { 9105120, 9105456, EventMeal, FilterEntry, 2069, 0, 0, { 0, 0, 0, 0 }, "" },   // Moonstalkers: Moonstalker devoured
-        { 9105122, 9105458, EventStruck, FilterEntry, 10157, 0, 0, { 0, 0, 0, 0 }, "" },   // The Oracle's Moon: The oracle's moon felt
-        { 9105122, 9105459, EventMeal, FilterEntry, 10157, 0, 0, { 0, 0, 0, 0 }, "" },   // The Oracle's Moon: Moonkin Oracle devoured
-        { 9105123, 9105461, EventMeal, FilterEntry, 2175, 0, 0, { 0, 0, 0, 0 }, "" },   // Shadowclaw: Shadowclaw devoured
-        { 9105130, 9105462, EventMeal, FilterEntry, 17525, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravager Hatchlings: Bloodmyst Hatchling devoured
-        { 9105132, 9105465, EventMeal, FilterEntry, 17550, 0, 0, { 0, 0, 0, 0 }, "" },   // Where the World Is Thin: Void Anomaly devoured
-        { 9105133, 9105466, EventMeal, FilterEntry, 17588, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured (you see great bones)
-        { 9105133, 9105466, EventMeal, FilterEntry, 17589, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured (you see great bones)
-        { 9105133, 9105468, EventMeal, FilterEntry, 17588, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured
-        { 9105133, 9105468, EventMeal, FilterEntry, 17589, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured
-        { 9105135, 9105469, EventSpell, FilterEntry, 17345, 9102072, 0, { 23, 0, 0, 0 }, "" },   // Sweet Dreams, Bears: Bear put to sleep as a Flutterer
-        { 9105135, 9105469, EventSpell, FilterEntry, 17347, 9102072, 0, { 23, 0, 0, 0 }, "" },   // Sweet Dreams, Bears: Bear put to sleep as a Flutterer
-        { 9105135, 9105469, EventSpell, FilterEntry, 17348, 9102072, 0, { 23, 0, 0, 0 }, "" },   // Sweet Dreams, Bears: Bear put to sleep as a Flutterer
-        { 9105136, 9105470, EventSpell, FilterEntry, 17550, 9102254, 0, { 41, 0, 0, 0 }, "" },   // Spit at the Dark: Anomaly spat at as a Voidling
-        { 9105140, 9105471, EventMeal, FilterEntry, 3244, 0, 0, { 0, 0, 0, 0 }, "" },   // Fleeting Legs: Barrens plainstrider devoured
-        { 9105140, 9105471, EventMeal, FilterEntry, 3246, 0, 0, { 0, 0, 0, 0 }, "" },   // Fleeting Legs: Barrens plainstrider devoured
-        { 9105140, 9105471, EventMeal, FilterEntry, 3245, 0, 0, { 0, 0, 0, 0 }, "" },   // Fleeting Legs: Barrens plainstrider devoured
-        { 9105141, 9105472, EventEmote, FilterEntry, 4127, 60, 2, { 0, 0, 0, 0 }, "" },   // The Last Laugh: Hecklefang laughed off
-        { 9105141, 9105472, EventEmote, FilterEntry, 4129, 60, 2, { 0, 0, 0, 0 }, "" },   // The Last Laugh: Hecklefang laughed off
-        { 9105142, 9105473, EventMeal, FilterEntry, 3240, 0, 1, { 0, 0, 0, 0 }, "My hair's standing up! Is that supposed to happen? Do it again!" },   // Thunder in a Small Lizard: Thunder lizard devoured, Bramble watching
-        { 9105142, 9105473, EventMeal, FilterEntry, 3239, 0, 1, { 0, 0, 0, 0 }, "My hair's standing up! Is that supposed to happen? Do it again!" },   // Thunder in a Small Lizard: Thunder lizard devoured, Bramble watching
-        { 9105143, 9105475, EventMeal, FilterEntry, 3247, 0, 0, { 0, 0, 0, 0 }, "" },   // The Thunderhawk Nests: Thunderhawk Hatchling devoured
-        { 9105145, 9105477, EventEmote, FilterEntry, 9105905, 410, 8, { 0, 0, 0, 0 }, "" },   // Little Thunder: Little Thunder spared
+        { 9105115, 9105456, EventSpell, FilterEntry, 1186, 9102302, 0, { 46, 0, 0, 0 }, "" },   // A Roar Too Big: Bear roared at as a Bear Cub
+        { 9105115, 9105456, EventSpell, FilterEntry, 1188, 9102302, 0, { 46, 0, 0, 0 }, "" },   // A Roar Too Big: Bear roared at as a Bear Cub
+        { 9105115, 9105456, EventSpell, FilterEntry, 1189, 9102302, 0, { 46, 0, 0, 0 }, "" },   // A Roar Too Big: Bear roared at as a Bear Cub
+        { 9105120, 9105457, EventMeal, FilterEntry, 2070, 0, 0, { 0, 0, 0, 0 }, "" },   // Moonstalkers: Moonstalker devoured
+        { 9105120, 9105457, EventMeal, FilterEntry, 2069, 0, 0, { 0, 0, 0, 0 }, "" },   // Moonstalkers: Moonstalker devoured
+        { 9105122, 9105459, EventStruck, FilterEntry, 10157, 0, 0, { 0, 0, 0, 0 }, "" },   // The Oracle's Moon: The oracle's moon felt
+        { 9105122, 9105460, EventMeal, FilterEntry, 10157, 0, 0, { 0, 0, 0, 0 }, "" },   // The Oracle's Moon: Moonkin Oracle devoured
+        { 9105123, 9105462, EventMeal, FilterEntry, 2175, 0, 0, { 0, 0, 0, 0 }, "" },   // Shadowclaw: Shadowclaw devoured
+        { 9105130, 9105463, EventMeal, FilterEntry, 17525, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravager Hatchlings: Bloodmyst Hatchling devoured
+        { 9105132, 9105466, EventMeal, FilterEntry, 17550, 0, 0, { 0, 0, 0, 0 }, "" },   // Where the World Is Thin: Void Anomaly devoured
+        { 9105133, 9105467, EventMeal, FilterEntry, 17588, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured (you see great bones)
+        { 9105133, 9105467, EventMeal, FilterEntry, 17589, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured (you see great bones)
+        { 9105133, 9105469, EventMeal, FilterEntry, 17588, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured
+        { 9105133, 9105469, EventMeal, FilterEntry, 17589, 0, 0, { 0, 0, 0, 0 }, "" },   // Wyrmscar: Veridian whelp devoured
+        { 9105135, 9105470, EventSpell, FilterEntry, 17345, 9102072, 0, { 23, 0, 0, 0 }, "" },   // Sweet Dreams, Bears: Bear put to sleep as a Flutterer
+        { 9105135, 9105470, EventSpell, FilterEntry, 17347, 9102072, 0, { 23, 0, 0, 0 }, "" },   // Sweet Dreams, Bears: Bear put to sleep as a Flutterer
+        { 9105135, 9105470, EventSpell, FilterEntry, 17348, 9102072, 0, { 23, 0, 0, 0 }, "" },   // Sweet Dreams, Bears: Bear put to sleep as a Flutterer
+        { 9105136, 9105471, EventSpell, FilterEntry, 17550, 9102254, 0, { 41, 0, 0, 0 }, "" },   // Spit at the Dark: Anomaly spat at as a Voidling
+        { 9105140, 9105472, EventMeal, FilterEntry, 3244, 0, 0, { 0, 0, 0, 0 }, "" },   // Fleeting Legs: Barrens plainstrider devoured
+        { 9105140, 9105472, EventMeal, FilterEntry, 3246, 0, 0, { 0, 0, 0, 0 }, "" },   // Fleeting Legs: Barrens plainstrider devoured
+        { 9105140, 9105472, EventMeal, FilterEntry, 3245, 0, 0, { 0, 0, 0, 0 }, "" },   // Fleeting Legs: Barrens plainstrider devoured
+        { 9105141, 9105473, EventEmote, FilterEntry, 4127, 60, 2, { 0, 0, 0, 0 }, "" },   // The Last Laugh: Hecklefang laughed off
+        { 9105141, 9105473, EventEmote, FilterEntry, 4129, 60, 2, { 0, 0, 0, 0 }, "" },   // The Last Laugh: Hecklefang laughed off
+        { 9105142, 9105474, EventMeal, FilterEntry, 3240, 0, 1, { 0, 0, 0, 0 }, "My hair's standing up! Is that supposed to happen? Do it again!" },   // Thunder in a Small Lizard: Thunder lizard devoured, Bramble watching
+        { 9105142, 9105474, EventMeal, FilterEntry, 3239, 0, 1, { 0, 0, 0, 0 }, "My hair's standing up! Is that supposed to happen? Do it again!" },   // Thunder in a Small Lizard: Thunder lizard devoured, Bramble watching
+        { 9105143, 9105476, EventMeal, FilterEntry, 3247, 0, 0, { 0, 0, 0, 0 }, "" },   // The Thunderhawk Nests: Thunderhawk Hatchling devoured
+        { 9105145, 9105478, EventEmote, FilterEntry, 9105905, 410, 8, { 0, 0, 0, 0 }, "" },   // Little Thunder: Little Thunder spared
         { 9105145, 0, EventKill, FilterEntry, 9105905, 0, 4, { 0, 0, 0, 0 }, "" },   // Little Thunder: Little Thunder eaten
-        { 9105146, 9105478, EventSpell, FilterEntry, 3267, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Agam'ar
-        { 9105146, 9105478, EventSpell, FilterEntry, 3268, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Agam'ar
-        { 9105146, 9105478, EventSpell, FilterEntry, 3265, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Agam'ar
-        { 9105146, 9105478, EventSpell, FilterEntry, 3266, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Agam'ar
-        { 9105146, 9105478, EventSpell, FilterEntry, 3269, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Agam'ar
-        { 9105146, 9105478, EventSpell, FilterEntry, 3271, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Agam'ar
-        { 9105150, 9105479, EventMeal, FilterEntry, 1765, 0, 0, { 0, 0, 0, 0 }, "" },   // Worg Meat: Worg devoured
-        { 9105150, 9105479, EventMeal, FilterEntry, 1766, 0, 0, { 0, 0, 0, 0 }, "" },   // Worg Meat: Worg devoured
-        { 9105151, 9105480, EventEmote, FilterEntry, 1769, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
-        { 9105151, 9105480, EventEmote, FilterEntry, 1770, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
-        { 9105151, 9105480, EventEmote, FilterEntry, 1779, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
-        { 9105151, 9105480, EventEmote, FilterEntry, 1782, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
-        { 9105151, 9105480, EventEmote, FilterEntry, 1924, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
-        { 9105153, 9105482, EventStruck, FilterEntry, 1939, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
-        { 9105153, 9105482, EventStruck, FilterEntry, 1940, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
-        { 9105153, 9105482, EventStruck, FilterEntry, 1942, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
-        { 9105153, 9105482, EventStruck, FilterEntry, 1943, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
-        { 9105153, 9105483, EventMeal, FilterEntry, 1939, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
-        { 9105153, 9105483, EventMeal, FilterEntry, 1940, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
-        { 9105153, 9105483, EventMeal, FilterEntry, 1942, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
-        { 9105153, 9105483, EventMeal, FilterEntry, 1943, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
-        { 9105155, 9105484, EventSpell, FilterEntry, 1939, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
-        { 9105155, 9105484, EventSpell, FilterEntry, 1940, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
-        { 9105155, 9105484, EventSpell, FilterEntry, 1942, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
-        { 9105155, 9105484, EventSpell, FilterEntry, 1943, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
-        { 9105160, 9105485, EventMeal, FilterEntry, 16347, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostclaw: Ghostclaw lynx devoured
-        { 9105160, 9105485, EventMeal, FilterEntry, 16348, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostclaw: Ghostclaw lynx devoured
-        { 9105160, 9105485, EventMeal, FilterEntry, 16349, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostclaw: Ghostclaw lynx devoured
-        { 9105162, 9105487, EventMeal, FilterEntry, 16304, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Word Means: Arcane Devourer devoured
-        { 9105163, 9105488, EventMeal, FilterEntry, 16350, 0, 0, { 0, 0, 0, 0 }, "" },   // Eyes Shut, Counting: Spindleweb spider devoured
-        { 9105163, 9105488, EventMeal, FilterEntry, 16351, 0, 0, { 0, 0, 0, 0 }, "" },   // Eyes Shut, Counting: Spindleweb spider devoured
-        { 9105163, 9105488, EventMeal, FilterEntry, 16352, 0, 0, { 0, 0, 0, 0 }, "" },   // Eyes Shut, Counting: Spindleweb spider devoured
-        { 9105165, 9105489, EventSpell, FilterEntry, 16310, 9102062, 0, { 22, 0, 0, 0 }, "" },   // Swallow It Whole: Spell swallowed as an Arcane Wraith
-        { 9105165, 9105489, EventSpell, FilterEntry, 16304, 9102062, 0, { 22, 0, 0, 0 }, "" },   // Swallow It Whole: Spell swallowed as an Arcane Wraith
-        { 9105170, 9105490, EventMeal, FilterEntry, 213, 0, 0, { 0, 0, 0, 0 }, "" },   // Dire Wolves: Dire wolf devoured
-        { 9105170, 9105490, EventMeal, FilterEntry, 565, 0, 0, { 0, 0, 0, 0 }, "" },   // Dire Wolves: Dire wolf devoured
-        { 9105173, 9105493, EventMeal, FilterEntry, 521, 0, 0, { 0, 0, 0, 0 }, "" },   // Lupos: Lupos devoured
-        { 9105180, 9105494, EventMeal, FilterEntry, 1417, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Crocolisks: Young Wetlands Crocolisk devoured
-        { 9105182, 9105496, EventMeal, FilterEntry, 1044, 0, 1, { 0, 0, 0, 0 }, "It SNORTED. Fire! Out of its NOSE. I take it all back." },   // Flamesnorting: Flamesnorting Whelp devoured, Bramble watching
-        { 9105183, 9105498, EventMeal, FilterEntry, 2089, 0, 0, { 0, 0, 0, 0 }, "" },   // As Old as Hagatha: Giant Wetlands Crocolisk devoured
-        { 9105190, 9105499, EventMeal, FilterEntry, 3823, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostpaw: Ghostpaw devoured
-        { 9105190, 9105499, EventMeal, FilterEntry, 3824, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostpaw: Ghostpaw devoured
-        { 9105192, 9105501, EventKill, FilterEntry, 3758, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3763, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3762, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3759, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3765, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3770, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3767, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105192, 9105501, EventKill, FilterEntry, 3771, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
-        { 9105193, 9105503, EventMeal, FilterEntry, 2337, 0, 0, { 0, 0, 0, 0 }, "" },   // The Voidcallers of Althalaxx: Dark Strand Voidcaller devoured
-        { 9105195, 9105504, EventSpell, FilterEntry, 2336, 9102261, 0, { 42, 0, 0, 0 }, "" },   // Fangs From Below: Fanatic bitten as a Voidcreeper
-        { 9105195, 9105504, EventSpell, FilterEntry, 2337, 9102261, 0, { 42, 0, 0, 0 }, "" },   // Fangs From Below: Fanatic bitten as a Voidcreeper
-        { 9105200, 9105505, EventMeal, FilterEntry, 2351, 0, 0, { 0, 0, 0, 0 }, "" },   // Gray Bears: Gray bear devoured
-        { 9105200, 9105505, EventMeal, FilterEntry, 2354, 0, 0, { 0, 0, 0, 0 }, "" },   // Gray Bears: Gray bear devoured
-        { 9105200, 9105505, EventMeal, FilterEntry, 2356, 0, 0, { 0, 0, 0, 0 }, "" },   // Gray Bears: Gray bear devoured
-        { 9105202, 9105506, EventMeal, FilterEntry, 2384, 0, 0, { 0, 0, 0, 0 }, "" },   // Honest Claws: Mountain lion devoured
-        { 9105202, 9105506, EventMeal, FilterEntry, 2385, 0, 0, { 0, 0, 0, 0 }, "" },   // Honest Claws: Mountain lion devoured
-        { 9105210, 9105508, EventMeal, FilterEntry, 4007, 0, 0, { 0, 0, 0, 0 }, "" },   // Deepmoss: Deepmoss spider devoured
-        { 9105210, 9105508, EventMeal, FilterEntry, 4006, 0, 0, { 0, 0, 0, 0 }, "" },   // Deepmoss: Deepmoss spider devoured
-        { 9105211, 9105509, EventMeal, FilterEntry, 4012, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
-        { 9105211, 9105509, EventMeal, FilterEntry, 4014, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
-        { 9105211, 9105509, EventMeal, FilterEntry, 4013, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
-        { 9105211, 9105509, EventMeal, FilterEntry, 4011, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
-        { 9105212, 9105510, EventMeal, FilterEntry, 4044, 0, 1, { 0, 0, 0, 0 }, "Crispy all the way through. Eight out of ten. It looked at me funny." },   // Crispy All the Way Through: Basilisk eaten, Bramble's verdict heard
-        { 9105212, 9105510, EventMeal, FilterEntry, 4042, 0, 1, { 0, 0, 0, 0 }, "Crispy all the way through. Eight out of ten. It looked at me funny." },   // Crispy All the Way Through: Basilisk eaten, Bramble's verdict heard
-        { 9105212, 9105510, EventMeal, FilterEntry, 4041, 0, 1, { 0, 0, 0, 0 }, "Crispy all the way through. Eight out of ten. It looked at me funny." },   // Crispy All the Way Through: Basilisk eaten, Bramble's verdict heard
-        { 9105213, 9105512, EventMeal, FilterEntry, 4066, 0, 0, { 0, 0, 0, 0 }, "" },   // Nal'taszar: Nal'taszar devoured
-        { 9105215, 9105513, EventSpell, FilterEntry, 3989, 9102291, 0, { 45, 0, 0, 0 }, "" },   // Long Legs, Loud Boots: Venture Co. kicked as a Tallstrider
-        { 9105215, 9105513, EventSpell, FilterEntry, 3988, 9102291, 0, { 45, 0, 0, 0 }, "" },   // Long Legs, Loud Boots: Venture Co. kicked as a Tallstrider
-        { 9105215, 9105513, EventSpell, FilterEntry, 3991, 9102291, 0, { 45, 0, 0, 0 }, "" },   // Long Legs, Loud Boots: Venture Co. kicked as a Tallstrider
-        { 9105220, 9105514, EventMeal, FilterEntry, 4248, 0, 0, { 0, 0, 0, 0 }, "" },   // Pesterhide: Pesterhide hyena devoured
-        { 9105220, 9105514, EventMeal, FilterEntry, 4249, 0, 0, { 0, 0, 0, 0 }, "" },   // Pesterhide: Pesterhide hyena devoured
-        { 9105221, 9105515, EventMeal, FilterEntry, 4117, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured (you see a canyon)
-        { 9105221, 9105515, EventMeal, FilterEntry, 4118, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured (you see a canyon)
-        { 9105221, 9105515, EventMeal, FilterEntry, 4119, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured (you see a canyon)
-        { 9105221, 9105517, EventMeal, FilterEntry, 4117, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured
-        { 9105221, 9105517, EventMeal, FilterEntry, 4118, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured
-        { 9105221, 9105517, EventMeal, FilterEntry, 4119, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured
-        { 9105223, 9105518, EventStruck, FilterEntry, 4150, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: The salt stare felt
-        { 9105223, 9105519, EventMeal, FilterEntry, 4147, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Saltstone basilisk devoured
-        { 9105223, 9105519, EventMeal, FilterEntry, 4151, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Saltstone basilisk devoured
-        { 9105223, 9105519, EventMeal, FilterEntry, 4150, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Saltstone basilisk devoured
-        { 9105223, 9105520, EventMeal, FilterEntry, 4140, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Shimmering Flats scorpid devoured
-        { 9105223, 9105520, EventMeal, FilterEntry, 4139, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Shimmering Flats scorpid devoured
-        { 9105224, 9105522, EventEmote, FilterEntry, 9105906, 410, 8, { 0, 0, 0, 0 }, "" },   // Giggles: Giggles spared
+        { 9105146, 9105479, EventSpell, FilterEntry, 3267, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Armoredon
+        { 9105146, 9105479, EventSpell, FilterEntry, 3268, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Armoredon
+        { 9105146, 9105479, EventSpell, FilterEntry, 3265, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Armoredon
+        { 9105146, 9105479, EventSpell, FilterEntry, 3266, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Armoredon
+        { 9105146, 9105479, EventSpell, FilterEntry, 3269, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Armoredon
+        { 9105146, 9105479, EventSpell, FilterEntry, 3271, 9102022, 0, { 18, 0, 0, 0 }, "" },   // Quilboar Bacon: Razormane charged as an Armoredon
+        { 9105147, 9105480, EventSpell, FilterEntry, 3240, 9102081, 0, { 24, 0, 0, 0 }, "" },   // Spit the Storm Back: Thunder lizard spat at as a Thunder Lizard
+        { 9105147, 9105480, EventSpell, FilterEntry, 3239, 9102081, 0, { 24, 0, 0, 0 }, "" },   // Spit the Storm Back: Thunder lizard spat at as a Thunder Lizard
+        { 9105147, 9105480, EventSpell, FilterEntry, 3238, 9102081, 0, { 24, 0, 0, 0 }, "" },   // Spit the Storm Back: Thunder lizard spat at as a Thunder Lizard
+        { 9105148, 9105481, EventSpell, FilterEntry, 3250, 9102332, 0, { 49, 0, 0, 0 }, "" },   // Silk for the Hive: Silithid silked as a Grub
+        { 9105148, 9105481, EventSpell, FilterEntry, 3251, 9102332, 0, { 49, 0, 0, 0 }, "" },   // Silk for the Hive: Silithid silked as a Grub
+        { 9105148, 9105481, EventSpell, FilterEntry, 3252, 9102332, 0, { 49, 0, 0, 0 }, "" },   // Silk for the Hive: Silithid silked as a Grub
+        { 9105150, 9105482, EventMeal, FilterEntry, 1765, 0, 0, { 0, 0, 0, 0 }, "" },   // Worg Meat: Worg devoured
+        { 9105150, 9105482, EventMeal, FilterEntry, 1766, 0, 0, { 0, 0, 0, 0 }, "" },   // Worg Meat: Worg devoured
+        { 9105151, 9105483, EventEmote, FilterEntry, 1769, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
+        { 9105151, 9105483, EventEmote, FilterEntry, 1770, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
+        { 9105151, 9105483, EventEmote, FilterEntry, 1779, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
+        { 9105151, 9105483, EventEmote, FilterEntry, 1782, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
+        { 9105151, 9105483, EventEmote, FilterEntry, 1924, 129, 2, { 0, 0, 0, 0 }, "" },   // Shoo!: Moonrage gnoll shooed
+        { 9105153, 9105485, EventStruck, FilterEntry, 1939, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
+        { 9105153, 9105485, EventStruck, FilterEntry, 1940, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
+        { 9105153, 9105485, EventStruck, FilterEntry, 1942, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
+        { 9105153, 9105485, EventStruck, FilterEntry, 1943, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: The Curse of Thule felt
+        { 9105153, 9105486, EventMeal, FilterEntry, 1939, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
+        { 9105153, 9105486, EventMeal, FilterEntry, 1940, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
+        { 9105153, 9105486, EventMeal, FilterEntry, 1942, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
+        { 9105153, 9105486, EventMeal, FilterEntry, 1943, 0, 0, { 0, 0, 0, 0 }, "" },   // Fenris Isle: Rot Hide devoured
+        { 9105155, 9105487, EventSpell, FilterEntry, 1939, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
+        { 9105155, 9105487, EventSpell, FilterEntry, 1940, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
+        { 9105155, 9105487, EventSpell, FilterEntry, 1942, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
+        { 9105155, 9105487, EventSpell, FilterEntry, 1943, 9102051, 0, { 21, 0, 0, 0 }, "" },   // Open a Vein: Rot Hide opened as a Vampiric Duskbat
+        { 9105160, 9105488, EventMeal, FilterEntry, 16347, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostclaw: Ghostclaw lynx devoured
+        { 9105160, 9105488, EventMeal, FilterEntry, 16348, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostclaw: Ghostclaw lynx devoured
+        { 9105160, 9105488, EventMeal, FilterEntry, 16349, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostclaw: Ghostclaw lynx devoured
+        { 9105162, 9105490, EventMeal, FilterEntry, 16304, 0, 0, { 0, 0, 0, 0 }, "" },   // What the Word Means: Arcane Devourer devoured
+        { 9105163, 9105491, EventMeal, FilterEntry, 16350, 0, 0, { 0, 0, 0, 0 }, "" },   // Eyes Shut, Counting: Spindleweb spider devoured
+        { 9105163, 9105491, EventMeal, FilterEntry, 16351, 0, 0, { 0, 0, 0, 0 }, "" },   // Eyes Shut, Counting: Spindleweb spider devoured
+        { 9105163, 9105491, EventMeal, FilterEntry, 16352, 0, 0, { 0, 0, 0, 0 }, "" },   // Eyes Shut, Counting: Spindleweb spider devoured
+        { 9105165, 9105492, EventSpell, FilterEntry, 16310, 9102062, 0, { 22, 0, 0, 0 }, "" },   // Swallow It Whole: Spell swallowed as a Greatwyrm
+        { 9105165, 9105492, EventSpell, FilterEntry, 16304, 9102062, 0, { 22, 0, 0, 0 }, "" },   // Swallow It Whole: Spell swallowed as a Greatwyrm
+        { 9105170, 9105493, EventMeal, FilterEntry, 213, 0, 0, { 0, 0, 0, 0 }, "" },   // Dire Wolves: Dire wolf devoured
+        { 9105170, 9105493, EventMeal, FilterEntry, 565, 0, 0, { 0, 0, 0, 0 }, "" },   // Dire Wolves: Dire wolf devoured
+        { 9105173, 9105496, EventMeal, FilterEntry, 521, 0, 0, { 0, 0, 0, 0 }, "" },   // Lupos: Lupos devoured
+        { 9105175, 9105497, EventSpell, FilterEntry, 213, 9102314, 0, { 47, 0, 0, 0 }, "" },   // Roots for the Restless: Dire wolf rooted as a Dreambear
+        { 9105175, 9105497, EventSpell, FilterEntry, 565, 9102314, 0, { 47, 0, 0, 0 }, "" },   // Roots for the Restless: Dire wolf rooted as a Dreambear
+        { 9105180, 9105498, EventMeal, FilterEntry, 1417, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Crocolisks: Young Wetlands Crocolisk devoured
+        { 9105182, 9105500, EventMeal, FilterEntry, 1044, 0, 1, { 0, 0, 0, 0 }, "It SNORTED. Fire! Out of its NOSE. I take it all back." },   // Flamesnorting: Flamesnorting Whelp devoured, Bramble watching
+        { 9105183, 9105502, EventMeal, FilterEntry, 2089, 0, 0, { 0, 0, 0, 0 }, "" },   // As Old as Hagatha: Giant Wetlands Crocolisk devoured
+        { 9105186, 9105503, EventSpell, FilterEntry, 2103, 9102351, 0, { 51, 0, 0, 0 }, "" },   // In Passing: Dragonmaw bitten as a Glasswing
+        { 9105186, 9105503, EventSpell, FilterEntry, 2102, 9102351, 0, { 51, 0, 0, 0 }, "" },   // In Passing: Dragonmaw bitten as a Glasswing
+        { 9105186, 9105503, EventSpell, FilterEntry, 1034, 9102351, 0, { 51, 0, 0, 0 }, "" },   // In Passing: Dragonmaw bitten as a Glasswing
+        { 9105186, 9105503, EventSpell, FilterEntry, 1035, 9102351, 0, { 51, 0, 0, 0 }, "" },   // In Passing: Dragonmaw bitten as a Glasswing
+        { 9105186, 9105503, EventSpell, FilterEntry, 1057, 9102351, 0, { 51, 0, 0, 0 }, "" },   // In Passing: Dragonmaw bitten as a Glasswing
+        { 9105190, 9105504, EventMeal, FilterEntry, 3823, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostpaw: Ghostpaw devoured
+        { 9105190, 9105504, EventMeal, FilterEntry, 3824, 0, 0, { 0, 0, 0, 0 }, "" },   // Ghostpaw: Ghostpaw devoured
+        { 9105192, 9105506, EventKill, FilterEntry, 3758, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3763, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3762, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3759, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3765, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3770, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3767, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105192, 9105506, EventKill, FilterEntry, 3771, 0, 0, { 7, 19, 0, 0 }, "" },   // Bought Cheap: Satyr slain as a saber
+        { 9105193, 9105508, EventMeal, FilterEntry, 2337, 0, 0, { 0, 0, 0, 0 }, "" },   // The Voidcallers of Althalaxx: Dark Strand Voidcaller devoured
+        { 9105195, 9105509, EventSpell, FilterEntry, 2336, 9102261, 0, { 42, 0, 0, 0 }, "" },   // Fangs From Below: Fanatic bitten as a Voidcreeper
+        { 9105195, 9105509, EventSpell, FilterEntry, 2337, 9102261, 0, { 42, 0, 0, 0 }, "" },   // Fangs From Below: Fanatic bitten as a Voidcreeper
+        { 9105200, 9105510, EventMeal, FilterEntry, 2351, 0, 0, { 0, 0, 0, 0 }, "" },   // Gray Bears: Gray bear devoured
+        { 9105200, 9105510, EventMeal, FilterEntry, 2354, 0, 0, { 0, 0, 0, 0 }, "" },   // Gray Bears: Gray bear devoured
+        { 9105200, 9105510, EventMeal, FilterEntry, 2356, 0, 0, { 0, 0, 0, 0 }, "" },   // Gray Bears: Gray bear devoured
+        { 9105202, 9105511, EventMeal, FilterEntry, 2384, 0, 0, { 0, 0, 0, 0 }, "" },   // Honest Claws: Mountain lion devoured
+        { 9105202, 9105511, EventMeal, FilterEntry, 2385, 0, 0, { 0, 0, 0, 0 }, "" },   // Honest Claws: Mountain lion devoured
+        { 9105205, 9105513, EventSpell, FilterEntry, 2261, 9102342, 0, { 50, 0, 0, 0 }, "" },   // Over and Out: Syndicate flipped as a Rhino Beetle
+        { 9105205, 9105513, EventSpell, FilterEntry, 2244, 9102342, 0, { 50, 0, 0, 0 }, "" },   // Over and Out: Syndicate flipped as a Rhino Beetle
+        { 9105205, 9105513, EventSpell, FilterEntry, 2260, 9102342, 0, { 50, 0, 0, 0 }, "" },   // Over and Out: Syndicate flipped as a Rhino Beetle
+        { 9105210, 9105514, EventMeal, FilterEntry, 4007, 0, 0, { 0, 0, 0, 0 }, "" },   // Deepmoss: Deepmoss spider devoured
+        { 9105210, 9105514, EventMeal, FilterEntry, 4006, 0, 0, { 0, 0, 0, 0 }, "" },   // Deepmoss: Deepmoss spider devoured
+        { 9105211, 9105515, EventMeal, FilterEntry, 4012, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
+        { 9105211, 9105515, EventMeal, FilterEntry, 4014, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
+        { 9105211, 9105515, EventMeal, FilterEntry, 4013, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
+        { 9105211, 9105515, EventMeal, FilterEntry, 4011, 0, 1, { 0, 0, 0, 0 }, "Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?" },   // Three Things at Once: Pridewing devoured, Bramble counting
+        { 9105212, 9105516, EventMeal, FilterEntry, 4044, 0, 1, { 0, 0, 0, 0 }, "Crispy all the way through. Eight out of ten. It looked at me funny." },   // Crispy All the Way Through: Basilisk eaten, Bramble's verdict heard
+        { 9105212, 9105516, EventMeal, FilterEntry, 4042, 0, 1, { 0, 0, 0, 0 }, "Crispy all the way through. Eight out of ten. It looked at me funny." },   // Crispy All the Way Through: Basilisk eaten, Bramble's verdict heard
+        { 9105212, 9105516, EventMeal, FilterEntry, 4041, 0, 1, { 0, 0, 0, 0 }, "Crispy all the way through. Eight out of ten. It looked at me funny." },   // Crispy All the Way Through: Basilisk eaten, Bramble's verdict heard
+        { 9105213, 9105518, EventMeal, FilterEntry, 4066, 0, 0, { 0, 0, 0, 0 }, "" },   // Nal'taszar: Nal'taszar devoured
+        { 9105215, 9105519, EventSpell, FilterEntry, 3989, 9102291, 0, { 45, 0, 0, 0 }, "" },   // Long Legs, Loud Boots: Venture Co. kicked as a Tallstrider
+        { 9105215, 9105519, EventSpell, FilterEntry, 3988, 9102291, 0, { 45, 0, 0, 0 }, "" },   // Long Legs, Loud Boots: Venture Co. kicked as a Tallstrider
+        { 9105215, 9105519, EventSpell, FilterEntry, 3991, 9102291, 0, { 45, 0, 0, 0 }, "" },   // Long Legs, Loud Boots: Venture Co. kicked as a Tallstrider
+        { 9105220, 9105520, EventMeal, FilterEntry, 4248, 0, 0, { 0, 0, 0, 0 }, "" },   // Pesterhide: Pesterhide hyena devoured
+        { 9105220, 9105520, EventMeal, FilterEntry, 4249, 0, 0, { 0, 0, 0, 0 }, "" },   // Pesterhide: Pesterhide hyena devoured
+        { 9105221, 9105521, EventMeal, FilterEntry, 4117, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured (you see a canyon)
+        { 9105221, 9105521, EventMeal, FilterEntry, 4118, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured (you see a canyon)
+        { 9105221, 9105521, EventMeal, FilterEntry, 4119, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured (you see a canyon)
+        { 9105221, 9105523, EventMeal, FilterEntry, 4117, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured
+        { 9105221, 9105523, EventMeal, FilterEntry, 4118, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured
+        { 9105221, 9105523, EventMeal, FilterEntry, 4119, 0, 0, { 0, 0, 0, 0 }, "" },   // Cloud Serpents: Cloud serpent devoured
+        { 9105223, 9105524, EventStruck, FilterEntry, 4150, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: The salt stare felt
+        { 9105223, 9105525, EventMeal, FilterEntry, 4147, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Saltstone basilisk devoured
+        { 9105223, 9105525, EventMeal, FilterEntry, 4151, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Saltstone basilisk devoured
+        { 9105223, 9105525, EventMeal, FilterEntry, 4150, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Saltstone basilisk devoured
+        { 9105223, 9105526, EventMeal, FilterEntry, 4140, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Shimmering Flats scorpid devoured
+        { 9105223, 9105526, EventMeal, FilterEntry, 4139, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stare of the Salt: Shimmering Flats scorpid devoured
+        { 9105224, 9105528, EventEmote, FilterEntry, 9105906, 410, 8, { 0, 0, 0, 0 }, "" },   // Giggles: Giggles spared
         { 9105224, 0, EventKill, FilterEntry, 9105906, 0, 4, { 0, 0, 0, 0 }, "" },   // Giggles: Giggles eaten
-        { 9105225, 9105523, EventSpell, FilterEntry, 4096, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
-        { 9105225, 9105523, EventSpell, FilterEntry, 4094, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
-        { 9105225, 9105523, EventSpell, FilterEntry, 4093, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
-        { 9105225, 9105523, EventSpell, FilterEntry, 4099, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
-        { 9105225, 9105523, EventSpell, FilterEntry, 4097, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
-        { 9105225, 9105523, EventSpell, FilterEntry, 4095, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
-        { 9105230, 9105524, EventMeal, FilterEntry, 683, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
-        { 9105230, 9105524, EventMeal, FilterEntry, 681, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
-        { 9105230, 9105524, EventMeal, FilterEntry, 682, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
-        { 9105230, 9105524, EventMeal, FilterEntry, 736, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
-        { 9105232, 9105525, EventEmote, FilterEntry, 1108, 41, 2, { 0, 0, 0, 0 }, "" },   // Who Flexes First: Gorilla out-flexed
-        { 9105232, 9105525, EventEmote, FilterEntry, 1114, 41, 2, { 0, 0, 0, 0 }, "" },   // Who Flexes First: Gorilla out-flexed
-        { 9105233, 9105526, EventKill, FilterEntry, 1150, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
-        { 9105233, 9105526, EventKill, FilterEntry, 1152, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
-        { 9105233, 9105526, EventKill, FilterEntry, 1151, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
-        { 9105233, 9105526, EventKill, FilterEntry, 905, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
-        { 9105233, 9105526, EventKill, FilterEntry, 691, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
-        { 9105234, 9105528, EventMeal, FilterEntry, 684, 0, 0, { 0, 0, 0, 0 }, "" },   // The Night's Mouth: Shadowmaw Panther devoured
-        { 9105240, 9105529, EventMeal, FilterEntry, 4341, 0, 0, { 0, 0, 0, 0 }, "" },   // Drywallow: Drywallow crocolisk devoured
-        { 9105240, 9105529, EventMeal, FilterEntry, 4343, 0, 0, { 0, 0, 0, 0 }, "" },   // Drywallow: Drywallow crocolisk devoured
-        { 9105240, 9105529, EventMeal, FilterEntry, 4344, 0, 0, { 0, 0, 0, 0 }, "" },   // Drywallow: Drywallow crocolisk devoured
-        { 9105241, 9105530, EventStruck, FilterEntry, 4397, 0, 0, { 0, 0, 0, 0 }, "" },   // Bitten Too Often: The spikeshell's barbs felt
-        { 9105241, 9105531, EventMeal, FilterEntry, 4397, 0, 0, { 0, 0, 0, 0 }, "" },   // Bitten Too Often: Mudrock Spikeshell devoured
-        { 9105243, 9105532, EventMeal, FilterEntry, 4359, 0, 0, { 14, 15, 30, 0 }, "" },   // The Gulper's Grin: Mirefin murloc devoured as a toad
-        { 9105246, 9105535, EventMeal, FilterEntry, 14237, 0, 0, { 0, 0, 0, 0 }, "" },   // The Oozeworm: Oozeworm devoured
-        { 9105250, 9105536, EventMeal, FilterEntry, 2406, 0, 0, { 0, 0, 0, 0 }, "" },   // Mountain Lions of Alterac: Alterac mountain lion devoured
-        { 9105250, 9105536, EventMeal, FilterEntry, 2407, 0, 0, { 0, 0, 0, 0 }, "" },   // Mountain Lions of Alterac: Alterac mountain lion devoured
-        { 9105251, 9105537, EventMeal, FilterEntry, 2359, 0, 1, { 0, 0, 0, 0 }, "They looked relieved. Like when you take off boots that are too tight." },   // Rubble and Mercy: Elemental Slave freed
-        { 9105252, 9105539, EventStruck, FilterEntry, 2258, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stone Fury: The mountain's anger felt
-        { 9105252, 9105540, EventMeal, FilterEntry, 2258, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stone Fury: Stone Fury devoured
-        { 9105253, 9105542, EventStruck, FilterEntry, 2447, 0, 0, { 0, 0, 0, 0 }, "" },   // Narillasanz: Narillasanz's fire felt
-        { 9105253, 9105543, EventMeal, FilterEntry, 2447, 0, 0, { 0, 0, 0, 0 }, "" },   // Narillasanz: Narillasanz devoured
-        { 9105254, 9105545, EventEmote, FilterEntry, 9105907, 410, 8, { 0, 0, 0, 0 }, "" },   // Nubbin: Nubbin spared
+        { 9105225, 9105529, EventSpell, FilterEntry, 4096, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
+        { 9105225, 9105529, EventSpell, FilterEntry, 4094, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
+        { 9105225, 9105529, EventSpell, FilterEntry, 4093, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
+        { 9105225, 9105529, EventSpell, FilterEntry, 4099, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
+        { 9105225, 9105529, EventSpell, FilterEntry, 4097, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
+        { 9105225, 9105529, EventSpell, FilterEntry, 4095, 9102092, 0, { 25, 0, 0, 0 }, "" },   // Up From Behind: Galak slithered up on as a Viper
+        { 9105230, 9105530, EventMeal, FilterEntry, 683, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
+        { 9105230, 9105530, EventMeal, FilterEntry, 681, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
+        { 9105230, 9105530, EventMeal, FilterEntry, 682, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
+        { 9105230, 9105530, EventMeal, FilterEntry, 736, 0, 0, { 0, 0, 0, 0 }, "" },   // Young Hunters of the Vale: Young jungle cat devoured
+        { 9105232, 9105531, EventEmote, FilterEntry, 1108, 41, 2, { 0, 0, 0, 0 }, "" },   // Who Flexes First: Gorilla out-flexed
+        { 9105232, 9105531, EventEmote, FilterEntry, 1114, 41, 2, { 0, 0, 0, 0 }, "" },   // Who Flexes First: Gorilla out-flexed
+        { 9105233, 9105532, EventKill, FilterEntry, 1150, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
+        { 9105233, 9105532, EventKill, FilterEntry, 1152, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
+        { 9105233, 9105532, EventKill, FilterEntry, 1151, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
+        { 9105233, 9105532, EventKill, FilterEntry, 905, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
+        { 9105233, 9105532, EventKill, FilterEntry, 691, 0, 0, { 14, 15, 30, 0 }, "" },   // The Scariest Thing in the Water: Water creature slain as a toad
+        { 9105234, 9105534, EventMeal, FilterEntry, 684, 0, 0, { 0, 0, 0, 0 }, "" },   // The Night's Mouth: Shadowmaw Panther devoured
+        { 9105240, 9105535, EventMeal, FilterEntry, 4341, 0, 0, { 0, 0, 0, 0 }, "" },   // Drywallow: Drywallow crocolisk devoured
+        { 9105240, 9105535, EventMeal, FilterEntry, 4343, 0, 0, { 0, 0, 0, 0 }, "" },   // Drywallow: Drywallow crocolisk devoured
+        { 9105240, 9105535, EventMeal, FilterEntry, 4344, 0, 0, { 0, 0, 0, 0 }, "" },   // Drywallow: Drywallow crocolisk devoured
+        { 9105241, 9105536, EventStruck, FilterEntry, 4397, 0, 0, { 0, 0, 0, 0 }, "" },   // Bitten Too Often: The spikeshell's barbs felt
+        { 9105241, 9105537, EventMeal, FilterEntry, 4397, 0, 0, { 0, 0, 0, 0 }, "" },   // Bitten Too Often: Mudrock Spikeshell devoured
+        { 9105243, 9105538, EventMeal, FilterEntry, 4359, 0, 0, { 14, 15, 30, 0 }, "" },   // The Gulper's Grin: Mirefin murloc devoured as a toad
+        { 9105246, 9105541, EventMeal, FilterEntry, 14237, 0, 0, { 0, 0, 0, 0 }, "" },   // The Oozeworm: Oozeworm devoured
+        { 9105250, 9105542, EventMeal, FilterEntry, 2406, 0, 0, { 0, 0, 0, 0 }, "" },   // Mountain Lions of Alterac: Alterac mountain lion devoured
+        { 9105250, 9105542, EventMeal, FilterEntry, 2407, 0, 0, { 0, 0, 0, 0 }, "" },   // Mountain Lions of Alterac: Alterac mountain lion devoured
+        { 9105251, 9105543, EventMeal, FilterEntry, 2359, 0, 1, { 0, 0, 0, 0 }, "They looked relieved. Like when you take off boots that are too tight." },   // Rubble and Mercy: Elemental Slave freed
+        { 9105252, 9105545, EventStruck, FilterEntry, 2258, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stone Fury: The mountain's anger felt
+        { 9105252, 9105546, EventMeal, FilterEntry, 2258, 0, 0, { 0, 0, 0, 0 }, "" },   // The Stone Fury: Stone Fury devoured
+        { 9105253, 9105548, EventStruck, FilterEntry, 2447, 0, 0, { 0, 0, 0, 0 }, "" },   // Narillasanz: Narillasanz's fire felt
+        { 9105253, 9105549, EventMeal, FilterEntry, 2447, 0, 0, { 0, 0, 0, 0 }, "" },   // Narillasanz: Narillasanz devoured
+        { 9105254, 9105551, EventEmote, FilterEntry, 9105907, 410, 8, { 0, 0, 0, 0 }, "" },   // Nubbin: Nubbin spared
         { 9105254, 0, EventKill, FilterEntry, 9105907, 0, 4, { 0, 0, 0, 0 }, "" },   // Nubbin: Nubbin eaten
-        { 9105255, 9105546, EventSpell, FilterEntry, 2252, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
-        { 9105255, 9105546, EventSpell, FilterEntry, 2253, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
-        { 9105255, 9105546, EventSpell, FilterEntry, 2254, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
-        { 9105255, 9105546, EventSpell, FilterEntry, 2255, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
-        { 9105255, 9105546, EventSpell, FilterEntry, 2256, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
-        { 9105255, 9105546, EventSpell, FilterEntry, 2287, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
-        { 9105260, 9105547, EventMeal, FilterEntry, 5425, 0, 0, { 0, 0, 0, 0 }, "" },   // Blisterpaw: Blisterpaw hyena devoured
-        { 9105260, 9105547, EventMeal, FilterEntry, 5426, 0, 0, { 0, 0, 0, 0 }, "" },   // Blisterpaw: Blisterpaw hyena devoured
-        { 9105261, 9105548, EventMeal, FilterEntry, 5419, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide devoured (you see a beach)
-        { 9105261, 9105548, EventMeal, FilterEntry, 5420, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide devoured (you see a beach)
-        { 9105261, 9105550, EventMeal, FilterEntry, 5419, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide basilisk devoured
-        { 9105261, 9105550, EventMeal, FilterEntry, 5420, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide basilisk devoured
-        { 9105262, 9105551, EventKill, FilterEntry, 5645, 0, 0, { 25, 26, 1, 3 }, "" },   // The Sandfury: Sandfury troll slain as a serpent
-        { 9105262, 9105551, EventKill, FilterEntry, 5646, 0, 0, { 25, 26, 1, 3 }, "" },   // The Sandfury: Sandfury troll slain as a serpent
-        { 9105262, 9105551, EventKill, FilterEntry, 5647, 0, 0, { 25, 26, 1, 3 }, "" },   // The Sandfury: Sandfury troll slain as a serpent
-        { 9105264, 9105552, EventMeal, FilterEntry, 5428, 0, 1, { 0, 0, 0, 0 }, "That's not a bird. That's a HOUSE with a beak. I want to go home." },   // Rocs: Roc devoured, Bramble watching
-        { 9105264, 9105552, EventMeal, FilterEntry, 5429, 0, 1, { 0, 0, 0, 0 }, "That's not a bird. That's a HOUSE with a beak. I want to go home." },   // Rocs: Roc devoured, Bramble watching
-        { 9105264, 9105552, EventMeal, FilterEntry, 5430, 0, 1, { 0, 0, 0, 0 }, "That's not a bird. That's a HOUSE with a beak. I want to go home." },   // Rocs: Roc devoured, Bramble watching
-        { 9105265, 9105554, EventEmote, FilterEntry, 9105908, 410, 8, { 0, 0, 0, 0 }, "" },   // Prickles: Prickles spared
+        { 9105255, 9105552, EventSpell, FilterEntry, 2252, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
+        { 9105255, 9105552, EventSpell, FilterEntry, 2253, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
+        { 9105255, 9105552, EventSpell, FilterEntry, 2254, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
+        { 9105255, 9105552, EventSpell, FilterEntry, 2255, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
+        { 9105255, 9105552, EventSpell, FilterEntry, 2256, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
+        { 9105255, 9105552, EventSpell, FilterEntry, 2287, 9102281, 0, { 44, 0, 0, 0 }, "" },   // Jaws of Stone: Ogre bitten as an Earthen Proto-Drake
+        { 9105260, 9105553, EventMeal, FilterEntry, 5425, 0, 0, { 0, 0, 0, 0 }, "" },   // Blisterpaw: Blisterpaw hyena devoured
+        { 9105260, 9105553, EventMeal, FilterEntry, 5426, 0, 0, { 0, 0, 0, 0 }, "" },   // Blisterpaw: Blisterpaw hyena devoured
+        { 9105261, 9105554, EventMeal, FilterEntry, 5419, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide devoured (you see a beach)
+        { 9105261, 9105554, EventMeal, FilterEntry, 5420, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide devoured (you see a beach)
+        { 9105261, 9105556, EventMeal, FilterEntry, 5419, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide basilisk devoured
+        { 9105261, 9105556, EventMeal, FilterEntry, 5420, 0, 0, { 0, 0, 0, 0 }, "" },   // Glasshide: Glasshide basilisk devoured
+        { 9105262, 9105557, EventKill, FilterEntry, 5645, 0, 0, { 25, 26, 1, 3 }, "" },   // The Sandfury: Sandfury troll slain as a serpent
+        { 9105262, 9105557, EventKill, FilterEntry, 5646, 0, 0, { 25, 26, 1, 3 }, "" },   // The Sandfury: Sandfury troll slain as a serpent
+        { 9105262, 9105557, EventKill, FilterEntry, 5647, 0, 0, { 25, 26, 1, 3 }, "" },   // The Sandfury: Sandfury troll slain as a serpent
+        { 9105264, 9105558, EventMeal, FilterEntry, 5428, 0, 1, { 0, 0, 0, 0 }, "That's not a bird. That's a HOUSE with a beak. I want to go home." },   // Rocs: Roc devoured, Bramble watching
+        { 9105264, 9105558, EventMeal, FilterEntry, 5429, 0, 1, { 0, 0, 0, 0 }, "That's not a bird. That's a HOUSE with a beak. I want to go home." },   // Rocs: Roc devoured, Bramble watching
+        { 9105264, 9105558, EventMeal, FilterEntry, 5430, 0, 1, { 0, 0, 0, 0 }, "That's not a bird. That's a HOUSE with a beak. I want to go home." },   // Rocs: Roc devoured, Bramble watching
+        { 9105265, 9105560, EventEmote, FilterEntry, 9105908, 410, 8, { 0, 0, 0, 0 }, "" },   // Prickles: Prickles spared
         { 9105265, 0, EventKill, FilterEntry, 9105908, 0, 4, { 0, 0, 0, 0 }, "" },   // Prickles: Prickles eaten
-        { 9105270, 9105556, EventMeal, FilterEntry, 5286, 0, 0, { 0, 0, 0, 0 }, "" },   // Longtooth: Longtooth wolf devoured
-        { 9105270, 9105556, EventMeal, FilterEntry, 5287, 0, 0, { 0, 0, 0, 0 }, "" },   // Longtooth: Longtooth wolf devoured
-        { 9105271, 9105557, EventMeal, FilterEntry, 5268, 0, 1, { 0, 0, 0, 0 }, "That's not iron. That's mud. Very hard mud. Fine, it's iron." },   // Ironfur: Ironfur bear devoured, Bramble judging
-        { 9105271, 9105557, EventMeal, FilterEntry, 5272, 0, 1, { 0, 0, 0, 0 }, "That's not iron. That's mud. Very hard mud. Fine, it's iron." },   // Ironfur: Ironfur bear devoured, Bramble judging
-        { 9105274, 9105559, EventMeal, FilterEntry, 5260, 0, 0, { 0, 0, 0, 0 }, "" },   // Groddoc: Groddoc ape devoured
-        { 9105274, 9105559, EventMeal, FilterEntry, 5262, 0, 0, { 0, 0, 0, 0 }, "" },   // Groddoc: Groddoc ape devoured
-        { 9105280, 9105560, EventMeal, FilterEntry, 2923, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
-        { 9105280, 9105560, EventMeal, FilterEntry, 2924, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
-        { 9105280, 9105560, EventMeal, FilterEntry, 2925, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
-        { 9105280, 9105560, EventMeal, FilterEntry, 2926, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
-        { 9105282, 9105562, EventEmote, FilterEntry, 2927, 75, 2, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Owlbeast roared at
-        { 9105282, 9105562, EventEmote, FilterEntry, 2928, 75, 2, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Owlbeast roared at
-        { 9105282, 9105562, EventEmote, FilterEntry, 2929, 75, 2, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Owlbeast roared at
-        { 9105282, 9105563, EventMeal, FilterEntry, 2927, 0, 0, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Hinterlands owlbeast devoured
-        { 9105282, 9105563, EventMeal, FilterEntry, 2928, 0, 0, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Hinterlands owlbeast devoured
-        { 9105282, 9105563, EventMeal, FilterEntry, 2929, 0, 0, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Hinterlands owlbeast devoured
-        { 9105284, 9105565, EventMeal, FilterEntry, 7977, 0, 0, { 0, 0, 0, 0 }, "" },   // Gammerita: Gammerita devoured
-        { 9105290, 9105566, EventMeal, FilterEntry, 6505, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
-        { 9105290, 9105566, EventMeal, FilterEntry, 6506, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
-        { 9105290, 9105566, EventMeal, FilterEntry, 6507, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
-        { 9105290, 9105566, EventMeal, FilterEntry, 6508, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
-        { 9105291, 9105567, EventMeal, FilterEntry, 9165, 0, 1, { 0, 0, 0, 0 }, "DUCK! It's coming back! Why do they have TEETH on their WINGS?" },   // Leather Wings: Pterrordax devoured, Bramble ducking
-        { 9105291, 9105567, EventMeal, FilterEntry, 9166, 0, 1, { 0, 0, 0, 0 }, "DUCK! It's coming back! Why do they have TEETH on their WINGS?" },   // Leather Wings: Pterrordax devoured, Bramble ducking
-        { 9105291, 9105567, EventMeal, FilterEntry, 9167, 0, 1, { 0, 0, 0, 0 }, "DUCK! It's coming back! Why do they have TEETH on their WINGS?" },   // Leather Wings: Pterrordax devoured, Bramble ducking
-        { 9105294, 9105569, EventKill, FilterEntry, 6551, 0, 0, { 14, 15, 30, 0 }, "" },   // Snap!: Gorishi slain as a toad
-        { 9105294, 9105569, EventKill, FilterEntry, 6552, 0, 0, { 14, 15, 30, 0 }, "" },   // Snap!: Gorishi slain as a toad
-        { 9105294, 9105569, EventKill, FilterEntry, 6553, 0, 0, { 14, 15, 30, 0 }, "" },   // Snap!: Gorishi slain as a toad
-        { 9105296, 9105571, EventStruck, FilterEntry, 6498, 0, 0, { 0, 0, 0, 0 }, "" },   // You Hear It First: The devilsaur's blow felt
-        { 9105296, 9105572, EventMeal, FilterEntry, 6498, 0, 0, { 0, 0, 0, 0 }, "" },   // You Hear It First: Devilsaur devoured
-        { 9105300, 9105573, EventMeal, FilterEntry, 7444, 0, 0, { 0, 0, 0, 0 }, "" },   // Shardtooth: Shardtooth bear devoured
-        { 9105300, 9105573, EventMeal, FilterEntry, 7443, 0, 0, { 0, 0, 0, 0 }, "" },   // Shardtooth: Shardtooth bear devoured
-        { 9105300, 9105573, EventMeal, FilterEntry, 7445, 0, 0, { 0, 0, 0, 0 }, "" },   // Shardtooth: Shardtooth bear devoured
-        { 9105303, 9105575, EventMeal, FilterEntry, 7447, 0, 1, { 0, 0, 0, 0 }, "Two! Four! Six! Eight heads! I'm never going to sleep again." },   // Twice the Hats: Chimaera devoured, Bramble counting heads
-        { 9105303, 9105575, EventMeal, FilterEntry, 7448, 0, 1, { 0, 0, 0, 0 }, "Two! Four! Six! Eight heads! I'm never going to sleep again." },   // Twice the Hats: Chimaera devoured, Bramble counting heads
-        { 9105303, 9105575, EventMeal, FilterEntry, 7449, 0, 1, { 0, 0, 0, 0 }, "Two! Four! Six! Eight heads! I'm never going to sleep again." },   // Twice the Hats: Chimaera devoured, Bramble counting heads
-        { 9105305, 9105577, EventStruck, FilterEntry, 7453, 0, 0, { 0, 0, 0, 0 }, "" },   // The Moon-Touched: The moon felt
-        { 9105305, 9105578, EventMeal, FilterEntry, 7453, 0, 0, { 0, 0, 0, 0 }, "" },   // The Moon-Touched: Moontouched Owlbeast devoured
-        { 9105310, 9105579, EventMeal, FilterEntry, 9690, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
-        { 9105310, 9105579, EventMeal, FilterEntry, 9694, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
-        { 9105310, 9105579, EventMeal, FilterEntry, 9697, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
-        { 9105310, 9105579, EventMeal, FilterEntry, 7055, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7047, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7040, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7048, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7049, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7041, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7042, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105311, 9105581, EventMeal, FilterEntry, 7043, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
-        { 9105313, 9105582, EventMeal, FilterEntry, 7044, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Drake devoured (you see a high path)
-        { 9105313, 9105582, EventMeal, FilterEntry, 7045, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Drake devoured (you see a high path)
-        { 9105313, 9105582, EventMeal, FilterEntry, 7046, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Drake devoured (you see a high path)
-        { 9105313, 9105584, EventMeal, FilterEntry, 7044, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Black drake devoured
-        { 9105313, 9105584, EventMeal, FilterEntry, 7045, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Black drake devoured
-        { 9105313, 9105584, EventMeal, FilterEntry, 7046, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Black drake devoured
-        { 9105314, 9105585, EventMeal, FilterType, 2, 0, 0, { 36, 44, 0, 0 }, "" },   // The Storm Gathers: Dragonkin devoured as a drake
-        { 9105320, 9105586, EventMeal, FilterEntry, 18476, 0, 0, { 0, 0, 0, 0 }, "" },   // Timber Worgs: Timber worg devoured
-        { 9105320, 9105586, EventMeal, FilterEntry, 18477, 0, 0, { 0, 0, 0, 0 }, "" },   // Timber Worgs: Timber worg devoured
-        { 9105324, 9105589, EventMeal, FilterEntry, 18470, 0, 1, { 0, 0, 0, 0 }, "Can I keep the beak? For science. Bone science." },   // The Bone Wastes: Bonelasher devoured, Bramble watching
-        { 9105324, 9105590, EventMeal, FilterEntry, 22100, 0, 0, { 0, 0, 0, 0 }, "" },   // The Bone Wastes: Scorpid Bonecrawler devoured
-        { 9105330, 9105591, EventMeal, FilterEntry, 17130, 0, 0, { 0, 0, 0, 0 }, "" },   // Talbuk: Talbuk devoured
-        { 9105330, 9105591, EventMeal, FilterEntry, 17131, 0, 0, { 0, 0, 0, 0 }, "" },   // Talbuk: Talbuk devoured
-        { 9105331, 9105592, EventMeal, FilterEntry, 17128, 0, 0, { 0, 0, 0, 0 }, "" },   // Windrocs: Windroc devoured
-        { 9105331, 9105592, EventMeal, FilterEntry, 18220, 0, 0, { 0, 0, 0, 0 }, "" },   // Windrocs: Windroc devoured
-        { 9105331, 9105592, EventMeal, FilterEntry, 17129, 0, 0, { 0, 0, 0, 0 }, "" },   // Windrocs: Windroc devoured
-        { 9105333, 9105593, EventKill, FilterEntry, 17981, 0, 0, { 41, 42, 43, 0 }, "" },   // Voidspawn: Voidspawn slain as a voidling
-        { 9105340, 9105594, EventMeal, FilterEntry, 18884, 0, 0, { 0, 0, 0, 0 }, "" },   // Warp Chasers: Warp chaser devoured
-        { 9105341, 9105595, EventMeal, FilterEntry, 18879, 0, 1, { 0, 0, 0, 0 }, "Where did it GO? It was right there. Now it's in you. I need to sit down." },   // Phase Hunters: Phase hunter devoured, Bramble watching
-        { 9105343, 9105597, EventMeal, FilterEntry, 20611, 0, 0, { 0, 0, 0, 0 }, "" },   // Walk In Like You Belong: Shimmerwing Moth devoured
-        { 9105344, 9105598, EventStruck, FilterEntry, 18877, 0, 0, { 0, 0, 0, 0 }, "" },   // Nether Drakes: The nether presence felt
-        { 9105344, 9105599, EventMeal, FilterEntry, 18877, 0, 0, { 0, 0, 0, 0 }, "" },   // Nether Drakes: Nether drake devoured
-        { 9105345, 9105600, EventSpell, FilterEntry, 18884, 9102271, 0, { 43, 0, 0, 0 }, "" },   // Mother of What Answers: Warp Chaser torn as a Broodmother
-        { 9105350, 9105601, EventMeal, FilterEntry, 23690, 0, 0, { 0, 0, 0, 0 }, "" },   // Shoveltusk: Shoveltusk devoured
-        { 9105350, 9105601, EventMeal, FilterEntry, 23691, 0, 0, { 0, 0, 0, 0 }, "" },   // Shoveltusk: Shoveltusk devoured
-        { 9105350, 9105601, EventMeal, FilterEntry, 29479, 0, 0, { 0, 0, 0, 0 }, "" },   // Shoveltusk: Shoveltusk devoured
-        { 9105353, 9105604, EventStruck, FilterEntry, 23689, 0, 0, { 0, 0, 0, 0 }, "" },   // Proto-Drakes: Wild fire felt
-        { 9105353, 9105605, EventMeal, FilterEntry, 23689, 0, 0, { 0, 0, 0, 0 }, "" },   // Proto-Drakes: Proto-Drake devoured
-        { 9105360, 9105606, EventMeal, FilterEntry, 25487, 0, 0, { 0, 0, 0, 0 }, "" },   // Wooly Rhinos: Wooly rhino devoured
-        { 9105360, 9105606, EventMeal, FilterEntry, 25489, 0, 0, { 0, 0, 0, 0 }, "" },   // Wooly Rhinos: Wooly rhino devoured
-        { 9105361, 9105607, EventMeal, FilterEntry, 25464, 0, 1, { 0, 0, 0, 0 }, "Ah... ah... ACHOO. Sorry. ACHOO. Keep going, I'm fine. ACHOO." },   // Bloodspore Moths: Bloodspore Moth devoured, Bramble sneezing
-        { 9105363, 9105608, EventKill, FilterEntry, 25728, 0, 0, { 35, 36, 37, 44 }, "" },   // Coldarra: Coldarra dragonkin slain as a drake
-        { 9105363, 9105608, EventKill, FilterEntry, 25722, 0, 0, { 35, 36, 37, 44 }, "" },   // Coldarra: Coldarra dragonkin slain as a drake
-        { 9105363, 9105608, EventKill, FilterEntry, 25717, 0, 0, { 35, 36, 37, 44 }, "" },   // Coldarra: Coldarra dragonkin slain as a drake
-        { 9105370, 9105609, EventMeal, FilterEntry, 27408, 0, 0, { 0, 0, 0, 0 }, "" },   // Duskhowl: Grizzly Hills wolf devoured
-        { 9105370, 9105609, EventMeal, FilterEntry, 26592, 0, 0, { 0, 0, 0, 0 }, "" },   // Duskhowl: Grizzly Hills wolf devoured
-        { 9105371, 9105610, EventEmote, FilterEntry, 26369, 78, 0, { 0, 0, 0, 0 }, "" },   // Imperial Eagles: Imperial Eagle saluted
-        { 9105371, 9105611, EventMeal, FilterEntry, 26369, 0, 0, { 0, 0, 0, 0 }, "" },   // Imperial Eagles: Imperial Eagle devoured
-        { 9105374, 9105614, EventMeal, FilterEntry, 26644, 0, 0, { 0, 0, 0, 0 }, "" },   // Ursoc's Children: Grizzly Hills bear devoured
-        { 9105374, 9105614, EventMeal, FilterEntry, 26706, 0, 0, { 0, 0, 0, 0 }, "" },   // Ursoc's Children: Grizzly Hills bear devoured
-        { 9105381, 9105615, EventMeal, FilterEntry, 28002, 0, 0, { 0, 0, 0, 0 }, "" },   // Mangal Crocolisks: Mangal Crocolisk devoured
-        { 9105382, 9105616, EventKill, FilterEntry, 28001, 0, 0, { 7, 19, 0, 0 }, "" },   // Dreadsabers: Dreadsaber slain as a saber
-        { 9105383, 9105617, EventMeal, FilterEntry, 28098, 0, 0, { 0, 0, 0, 0 }, "" },   // Spoon Hardknuckle: Hardknuckle devoured
-        { 9105383, 9105617, EventMeal, FilterEntry, 28096, 0, 0, { 0, 0, 0, 0 }, "" },   // Spoon Hardknuckle: Hardknuckle devoured
-        { 9105385, 9105619, EventMeal, FilterEntry, 28378, 0, 0, { 0, 0, 0, 0 }, "" },   // The First Dragons: Primordial Drake devoured
-        { 9105390, 9105620, EventMeal, FilterEntry, 29411, 0, 0, { 0, 0, 0, 0 }, "" },   // Crystalweb: Crystalweb spider devoured
-        { 9105390, 9105620, EventMeal, FilterEntry, 29412, 0, 0, { 0, 0, 0, 0 }, "" },   // Crystalweb: Crystalweb spider devoured
-        { 9105391, 9105621, EventKill, FilterEntry, 29605, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
-        { 9105391, 9105621, EventKill, FilterEntry, 30291, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
-        { 9105391, 9105621, EventKill, FilterEntry, 30422, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
-        { 9105391, 9105621, EventKill, FilterEntry, 29390, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
-        { 9105391, 9105621, EventKill, FilterEntry, 30148, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
-        { 9105392, 9105623, EventEmote, FilterEntry, 9105909, 410, 8, { 0, 0, 0, 0 }, "" },   // Snowdrift: Snowdrift spared
+        { 9105270, 9105562, EventMeal, FilterEntry, 5286, 0, 0, { 0, 0, 0, 0 }, "" },   // Longtooth: Longtooth wolf devoured
+        { 9105270, 9105562, EventMeal, FilterEntry, 5287, 0, 0, { 0, 0, 0, 0 }, "" },   // Longtooth: Longtooth wolf devoured
+        { 9105271, 9105563, EventMeal, FilterEntry, 5268, 0, 1, { 0, 0, 0, 0 }, "That's not iron. That's mud. Very hard mud. Fine, it's iron." },   // Ironfur: Ironfur bear devoured, Bramble judging
+        { 9105271, 9105563, EventMeal, FilterEntry, 5272, 0, 1, { 0, 0, 0, 0 }, "That's not iron. That's mud. Very hard mud. Fine, it's iron." },   // Ironfur: Ironfur bear devoured, Bramble judging
+        { 9105274, 9105565, EventMeal, FilterEntry, 5260, 0, 0, { 0, 0, 0, 0 }, "" },   // Groddoc: Groddoc ape devoured
+        { 9105274, 9105565, EventMeal, FilterEntry, 5262, 0, 0, { 0, 0, 0, 0 }, "" },   // Groddoc: Groddoc ape devoured
+        { 9105275, 9105566, EventSpell, FilterEntry, 5229, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5237, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5232, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5234, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5240, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5236, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5238, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105275, 9105566, EventSpell, FilterEntry, 5239, 9102362, 0, { 52, 0, 0, 0 }, "" },   // Stuck in Amber: Gordunni stuck as a Kunchong
+        { 9105280, 9105567, EventMeal, FilterEntry, 2923, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
+        { 9105280, 9105567, EventMeal, FilterEntry, 2924, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
+        { 9105280, 9105567, EventMeal, FilterEntry, 2925, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
+        { 9105280, 9105567, EventMeal, FilterEntry, 2926, 0, 0, { 0, 0, 0, 0 }, "" },   // Silvermane: Silvermane wolf devoured
+        { 9105282, 9105569, EventEmote, FilterEntry, 2927, 75, 2, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Owlbeast roared at
+        { 9105282, 9105569, EventEmote, FilterEntry, 2928, 75, 2, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Owlbeast roared at
+        { 9105282, 9105569, EventEmote, FilterEntry, 2929, 75, 2, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Owlbeast roared at
+        { 9105282, 9105570, EventMeal, FilterEntry, 2927, 0, 0, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Hinterlands owlbeast devoured
+        { 9105282, 9105570, EventMeal, FilterEntry, 2928, 0, 0, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Hinterlands owlbeast devoured
+        { 9105282, 9105570, EventMeal, FilterEntry, 2929, 0, 0, { 0, 0, 0, 0 }, "" },   // Fatal Bites: Hinterlands owlbeast devoured
+        { 9105284, 9105572, EventMeal, FilterEntry, 7977, 0, 0, { 0, 0, 0, 0 }, "" },   // Gammerita: Gammerita devoured
+        { 9105285, 9105573, EventSpell, FilterEntry, 4465, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 4467, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 4466, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 2643, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 2645, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 2644, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 2646, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105285, 9105573, EventSpell, FilterEntry, 2647, 9102371, 0, { 53, 0, 0, 0 }, "" },   // Sting and Twist: Vilebranch stung as a Stingwing
+        { 9105290, 9105574, EventMeal, FilterEntry, 6505, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
+        { 9105290, 9105574, EventMeal, FilterEntry, 6506, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
+        { 9105290, 9105574, EventMeal, FilterEntry, 6507, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
+        { 9105290, 9105574, EventMeal, FilterEntry, 6508, 0, 0, { 0, 0, 0, 0 }, "" },   // Ravasaurs: Ravasaur devoured
+        { 9105291, 9105575, EventMeal, FilterEntry, 9165, 0, 1, { 0, 0, 0, 0 }, "DUCK! It's coming back! Why do they have TEETH on their WINGS?" },   // Leather Wings: Pterrordax devoured, Bramble ducking
+        { 9105291, 9105575, EventMeal, FilterEntry, 9166, 0, 1, { 0, 0, 0, 0 }, "DUCK! It's coming back! Why do they have TEETH on their WINGS?" },   // Leather Wings: Pterrordax devoured, Bramble ducking
+        { 9105291, 9105575, EventMeal, FilterEntry, 9167, 0, 1, { 0, 0, 0, 0 }, "DUCK! It's coming back! Why do they have TEETH on their WINGS?" },   // Leather Wings: Pterrordax devoured, Bramble ducking
+        { 9105294, 9105577, EventKill, FilterEntry, 6551, 0, 0, { 14, 15, 30, 0 }, "" },   // Snap!: Gorishi slain as a toad
+        { 9105294, 9105577, EventKill, FilterEntry, 6552, 0, 0, { 14, 15, 30, 0 }, "" },   // Snap!: Gorishi slain as a toad
+        { 9105294, 9105577, EventKill, FilterEntry, 6553, 0, 0, { 14, 15, 30, 0 }, "" },   // Snap!: Gorishi slain as a toad
+        { 9105296, 9105579, EventStruck, FilterEntry, 6498, 0, 0, { 0, 0, 0, 0 }, "" },   // You Hear It First: The devilsaur's blow felt
+        { 9105296, 9105580, EventMeal, FilterEntry, 6498, 0, 0, { 0, 0, 0, 0 }, "" },   // You Hear It First: Devilsaur devoured
+        { 9105300, 9105581, EventMeal, FilterEntry, 7444, 0, 0, { 0, 0, 0, 0 }, "" },   // Shardtooth: Shardtooth bear devoured
+        { 9105300, 9105581, EventMeal, FilterEntry, 7443, 0, 0, { 0, 0, 0, 0 }, "" },   // Shardtooth: Shardtooth bear devoured
+        { 9105300, 9105581, EventMeal, FilterEntry, 7445, 0, 0, { 0, 0, 0, 0 }, "" },   // Shardtooth: Shardtooth bear devoured
+        { 9105303, 9105583, EventMeal, FilterEntry, 7447, 0, 1, { 0, 0, 0, 0 }, "Two! Four! Six! Eight heads! I'm never going to sleep again." },   // Twice the Hats: Chimaera devoured, Bramble counting heads
+        { 9105303, 9105583, EventMeal, FilterEntry, 7448, 0, 1, { 0, 0, 0, 0 }, "Two! Four! Six! Eight heads! I'm never going to sleep again." },   // Twice the Hats: Chimaera devoured, Bramble counting heads
+        { 9105303, 9105583, EventMeal, FilterEntry, 7449, 0, 1, { 0, 0, 0, 0 }, "Two! Four! Six! Eight heads! I'm never going to sleep again." },   // Twice the Hats: Chimaera devoured, Bramble counting heads
+        { 9105305, 9105585, EventStruck, FilterEntry, 7453, 0, 0, { 0, 0, 0, 0 }, "" },   // The Moon-Touched: The moon felt
+        { 9105305, 9105586, EventMeal, FilterEntry, 7453, 0, 0, { 0, 0, 0, 0 }, "" },   // The Moon-Touched: Moontouched Owlbeast devoured
+        { 9105306, 9105587, EventSpell, FilterEntry, 7442, 9102321, 0, { 48, 0, 0, 0 }, "" },   // Old Words on Old Hide: Winterfall struck as a Runebear
+        { 9105306, 9105587, EventSpell, FilterEntry, 7440, 9102321, 0, { 48, 0, 0, 0 }, "" },   // Old Words on Old Hide: Winterfall struck as a Runebear
+        { 9105306, 9105587, EventSpell, FilterEntry, 7439, 9102321, 0, { 48, 0, 0, 0 }, "" },   // Old Words on Old Hide: Winterfall struck as a Runebear
+        { 9105306, 9105587, EventSpell, FilterEntry, 7438, 9102321, 0, { 48, 0, 0, 0 }, "" },   // Old Words on Old Hide: Winterfall struck as a Runebear
+        { 9105310, 9105588, EventMeal, FilterEntry, 9690, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
+        { 9105310, 9105588, EventMeal, FilterEntry, 9694, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
+        { 9105310, 9105588, EventMeal, FilterEntry, 9697, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
+        { 9105310, 9105588, EventMeal, FilterEntry, 7055, 0, 0, { 0, 0, 0, 0 }, "" },   // Ember Worgs: Ember worg devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7047, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7040, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7048, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7049, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7041, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7042, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105311, 9105590, EventMeal, FilterEntry, 7043, 0, 0, { 0, 0, 0, 0 }, "" },   // Black Broodlings: Black dragonkin devoured
+        { 9105313, 9105591, EventMeal, FilterEntry, 7044, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Drake devoured (you see a high path)
+        { 9105313, 9105591, EventMeal, FilterEntry, 7045, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Drake devoured (you see a high path)
+        { 9105313, 9105591, EventMeal, FilterEntry, 7046, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Drake devoured (you see a high path)
+        { 9105313, 9105593, EventMeal, FilterEntry, 7044, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Black drake devoured
+        { 9105313, 9105593, EventMeal, FilterEntry, 7045, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Black drake devoured
+        { 9105313, 9105593, EventMeal, FilterEntry, 7046, 0, 0, { 0, 0, 0, 0 }, "" },   // Drakes of the Steppes: Black drake devoured
+        { 9105314, 9105594, EventMeal, FilterType, 2, 0, 0, { 36, 44, 0, 0 }, "" },   // The Storm Gathers: Dragonkin devoured as a drake
+        { 9105320, 9105595, EventMeal, FilterEntry, 18476, 0, 0, { 0, 0, 0, 0 }, "" },   // Timber Worgs: Timber worg devoured
+        { 9105320, 9105595, EventMeal, FilterEntry, 18477, 0, 0, { 0, 0, 0, 0 }, "" },   // Timber Worgs: Timber worg devoured
+        { 9105324, 9105598, EventMeal, FilterEntry, 18470, 0, 1, { 0, 0, 0, 0 }, "Can I keep the beak? For science. Bone science." },   // The Bone Wastes: Bonelasher devoured, Bramble watching
+        { 9105324, 9105599, EventMeal, FilterEntry, 22100, 0, 0, { 0, 0, 0, 0 }, "" },   // The Bone Wastes: Scorpid Bonecrawler devoured
+        { 9105330, 9105600, EventMeal, FilterEntry, 17130, 0, 0, { 0, 0, 0, 0 }, "" },   // Talbuk: Talbuk devoured
+        { 9105330, 9105600, EventMeal, FilterEntry, 17131, 0, 0, { 0, 0, 0, 0 }, "" },   // Talbuk: Talbuk devoured
+        { 9105331, 9105601, EventMeal, FilterEntry, 17128, 0, 0, { 0, 0, 0, 0 }, "" },   // Windrocs: Windroc devoured
+        { 9105331, 9105601, EventMeal, FilterEntry, 18220, 0, 0, { 0, 0, 0, 0 }, "" },   // Windrocs: Windroc devoured
+        { 9105331, 9105601, EventMeal, FilterEntry, 17129, 0, 0, { 0, 0, 0, 0 }, "" },   // Windrocs: Windroc devoured
+        { 9105333, 9105602, EventKill, FilterEntry, 17981, 0, 0, { 41, 42, 43, 0 }, "" },   // Voidspawn: Voidspawn slain as a voidling
+        { 9105340, 9105603, EventMeal, FilterEntry, 18884, 0, 0, { 0, 0, 0, 0 }, "" },   // Warp Chasers: Warp chaser devoured
+        { 9105341, 9105604, EventMeal, FilterEntry, 18879, 0, 1, { 0, 0, 0, 0 }, "Where did it GO? It was right there. Now it's in you. I need to sit down." },   // Phase Hunters: Phase hunter devoured, Bramble watching
+        { 9105343, 9105606, EventMeal, FilterEntry, 20611, 0, 0, { 0, 0, 0, 0 }, "" },   // Walk In Like You Belong: Shimmerwing Moth devoured
+        { 9105344, 9105607, EventStruck, FilterEntry, 18877, 0, 0, { 0, 0, 0, 0 }, "" },   // Nether Drakes: The nether presence felt
+        { 9105344, 9105608, EventMeal, FilterEntry, 18877, 0, 0, { 0, 0, 0, 0 }, "" },   // Nether Drakes: Nether drake devoured
+        { 9105345, 9105609, EventSpell, FilterEntry, 18884, 9102271, 0, { 43, 0, 0, 0 }, "" },   // Mother of What Answers: Warp Chaser torn as a Broodmother
+        { 9105350, 9105610, EventMeal, FilterEntry, 23690, 0, 0, { 0, 0, 0, 0 }, "" },   // Shoveltusk: Shoveltusk devoured
+        { 9105350, 9105610, EventMeal, FilterEntry, 23691, 0, 0, { 0, 0, 0, 0 }, "" },   // Shoveltusk: Shoveltusk devoured
+        { 9105350, 9105610, EventMeal, FilterEntry, 29479, 0, 0, { 0, 0, 0, 0 }, "" },   // Shoveltusk: Shoveltusk devoured
+        { 9105353, 9105613, EventStruck, FilterEntry, 23689, 0, 0, { 0, 0, 0, 0 }, "" },   // Proto-Drakes: Wild fire felt
+        { 9105353, 9105614, EventMeal, FilterEntry, 23689, 0, 0, { 0, 0, 0, 0 }, "" },   // Proto-Drakes: Proto-Drake devoured
+        { 9105360, 9105615, EventMeal, FilterEntry, 25487, 0, 0, { 0, 0, 0, 0 }, "" },   // Wooly Rhinos: Wooly rhino devoured
+        { 9105360, 9105615, EventMeal, FilterEntry, 25489, 0, 0, { 0, 0, 0, 0 }, "" },   // Wooly Rhinos: Wooly rhino devoured
+        { 9105361, 9105616, EventMeal, FilterEntry, 25464, 0, 1, { 0, 0, 0, 0 }, "Ah... ah... ACHOO. Sorry. ACHOO. Keep going, I'm fine. ACHOO." },   // Bloodspore Moths: Bloodspore Moth devoured, Bramble sneezing
+        { 9105363, 9105617, EventKill, FilterEntry, 25728, 0, 0, { 35, 36, 37, 44 }, "" },   // Coldarra: Coldarra dragonkin slain as a drake
+        { 9105363, 9105617, EventKill, FilterEntry, 25722, 0, 0, { 35, 36, 37, 44 }, "" },   // Coldarra: Coldarra dragonkin slain as a drake
+        { 9105363, 9105617, EventKill, FilterEntry, 25717, 0, 0, { 35, 36, 37, 44 }, "" },   // Coldarra: Coldarra dragonkin slain as a drake
+        { 9105370, 9105618, EventMeal, FilterEntry, 27408, 0, 0, { 0, 0, 0, 0 }, "" },   // Duskhowl: Grizzly Hills wolf devoured
+        { 9105370, 9105618, EventMeal, FilterEntry, 26592, 0, 0, { 0, 0, 0, 0 }, "" },   // Duskhowl: Grizzly Hills wolf devoured
+        { 9105371, 9105619, EventEmote, FilterEntry, 26369, 78, 0, { 0, 0, 0, 0 }, "" },   // Imperial Eagles: Imperial Eagle saluted
+        { 9105371, 9105620, EventMeal, FilterEntry, 26369, 0, 0, { 0, 0, 0, 0 }, "" },   // Imperial Eagles: Imperial Eagle devoured
+        { 9105374, 9105623, EventMeal, FilterEntry, 26644, 0, 0, { 0, 0, 0, 0 }, "" },   // Ursoc's Children: Grizzly Hills bear devoured
+        { 9105374, 9105623, EventMeal, FilterEntry, 26706, 0, 0, { 0, 0, 0, 0 }, "" },   // Ursoc's Children: Grizzly Hills bear devoured
+        { 9105381, 9105624, EventMeal, FilterEntry, 28002, 0, 0, { 0, 0, 0, 0 }, "" },   // Mangal Crocolisks: Mangal Crocolisk devoured
+        { 9105382, 9105625, EventKill, FilterEntry, 28001, 0, 0, { 7, 19, 0, 0 }, "" },   // Dreadsabers: Dreadsaber slain as a saber
+        { 9105383, 9105626, EventMeal, FilterEntry, 28098, 0, 0, { 0, 0, 0, 0 }, "" },   // Spoon Hardknuckle: Hardknuckle devoured
+        { 9105383, 9105626, EventMeal, FilterEntry, 28096, 0, 0, { 0, 0, 0, 0 }, "" },   // Spoon Hardknuckle: Hardknuckle devoured
+        { 9105385, 9105628, EventMeal, FilterEntry, 28378, 0, 0, { 0, 0, 0, 0 }, "" },   // The First Dragons: Primordial Drake devoured
+        { 9105390, 9105629, EventMeal, FilterEntry, 29411, 0, 0, { 0, 0, 0, 0 }, "" },   // Crystalweb: Crystalweb spider devoured
+        { 9105390, 9105629, EventMeal, FilterEntry, 29412, 0, 0, { 0, 0, 0, 0 }, "" },   // Crystalweb: Crystalweb spider devoured
+        { 9105391, 9105630, EventKill, FilterEntry, 29605, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
+        { 9105391, 9105630, EventKill, FilterEntry, 30291, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
+        { 9105391, 9105630, EventKill, FilterEntry, 30422, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
+        { 9105391, 9105630, EventKill, FilterEntry, 29390, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
+        { 9105391, 9105630, EventKill, FilterEntry, 30148, 0, 0, { 33, 34, 0, 0 }, "" },   // Jormungar: Jormungar slain as a borer
+        { 9105392, 9105632, EventEmote, FilterEntry, 9105909, 410, 8, { 0, 0, 0, 0 }, "" },   // Snowdrift: Snowdrift spared
         { 9105392, 0, EventKill, FilterEntry, 9105909, 0, 4, { 0, 0, 0, 0 }, "" },   // Snowdrift: Snowdrift eaten
-        { 9105393, 9105624, EventStruck, FilterEntry, 29753, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: The storm's blow felt
-        { 9105393, 9105624, EventStruck, FilterEntry, 29755, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: The storm's blow felt
-        { 9105393, 9105625, EventMeal, FilterEntry, 29753, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: Stormpeak wyrm devoured
-        { 9105393, 9105625, EventMeal, FilterEntry, 29755, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: Stormpeak wyrm devoured
-        { 9105394, 9105626, EventKill, FilterType, 2, 0, 0, { 37, 0, 0, 0 }, "" },   // The Storm Answers: Dragonkin slain as a Storm Dragon
+        { 9105393, 9105633, EventStruck, FilterEntry, 29753, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: The storm's blow felt
+        { 9105393, 9105633, EventStruck, FilterEntry, 29755, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: The storm's blow felt
+        { 9105393, 9105634, EventMeal, FilterEntry, 29753, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: Stormpeak wyrm devoured
+        { 9105393, 9105634, EventMeal, FilterEntry, 29755, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: Stormpeak wyrm devoured
+        { 9105394, 9105635, EventKill, FilterType, 2, 0, 0, { 37, 0, 0, 0 }, "" },   // The Storm Answers: Dragonkin slain as a Storm Dragon
     };
 
     // Being there: within Radius yards of X, Y on Map (in one of the Shapes, if any; VisitQuiet: not in a fight).
@@ -399,25 +438,25 @@ namespace Devourer::Quests
         { 9105031, 9105410, 1, 9397.0f, 859.0f, 15.0f, { 7, 19, 0, 0 }, 1 },   // Among the Stalkers: Lay down among the stalkers
         { 9105032, 9105412, 1, 10110.0f, 1170.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // What the Owl Swallowed: The cave the owl saw
         { 9105101, 9105445, 0, -9686.0f, 930.0f, 25.0f, { 5, 17, 0, 0 }, 1 },   // Running with the Coyotes: Ran with the coyotes
-        { 9105121, 9105457, 1, 6297.0f, 95.0f, 20.0f, { 38, 39, 40, 0 }, 1 },   // A Moonkin Among Moonkin: Stood among the young moonkin
-        { 9105132, 9105464, 530, -1220.0f, -11810.0f, 30.0f, { 0, 0, 0, 0 }, 0 },   // Where the World Is Thin: Stood where the world is thin
-        { 9105133, 9105467, 530, -1350.0f, -12350.0f, 40.0f, { 0, 0, 0, 0 }, 0 },   // Wyrmscar: The dragon's bones
-        { 9105152, 9105481, 0, -574.0f, 1549.0f, 25.0f, { 5, 17, 0, 0 }, 1 },   // Behind the Pack: Ran behind the bloodsnouts
-        { 9105162, 9105486, 530, 7478.0f, -6406.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // What the Word Means: Walked into the Sanctum of the Moon
-        { 9105181, 9105495, 0, -3500.0f, -3100.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // A Whelp Among Whelps: Sat among the lost whelps
-        { 9105193, 9105502, 1, 7197.0f, -732.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // The Voidcallers of Althalaxx: Walked into the Tower of Althalaxx
-        { 9105203, 9105507, 0, -283.0f, -1102.0f, 25.0f, { 31, 32, 0, 0 }, 1 },   // Sunning with the Snapjaws: Sunned with the snapjaws
-        { 9105221, 9105516, 1, -5470.0f, -2900.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // Cloud Serpents: Windbreak Canyon, where it nested
-        { 9105261, 9105549, 1, -10100.0f, -4200.0f, 60.0f, { 0, 0, 0, 0 }, 0 },   // Glasshide: Land's End Beach, which it ate
-        { 9105266, 9105555, 1, -7048.0f, -2818.0f, 20.0f, { 1, 0, 0, 0 }, 1 },   // One of the Sand People: Walked among the Sandfury as a sethrak
-        { 9105272, 9105558, 1, -5640.0f, 1590.0f, 25.0f, { 27, 26, 0, 0 }, 1 },   // Frayfeather: Preened with the frayfeathers
-        { 9105302, 9105574, 1, 7720.0f, -4336.0f, 25.0f, { 7, 19, 0, 0 }, 1 },   // Moonlight Cats: Walked among the frostsabers
-        { 9105311, 9105580, 0, -7759.0f, -2958.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // Black Broodlings: Walked among the black brood
-        { 9105313, 9105583, 0, -7759.0f, -2958.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // Drakes of the Steppes: The Terror Wing Path, where they nest
-        { 9105322, 9105587, 530, -2794.0f, 4495.0f, 25.0f, { 13, 24, 0, 0 }, 1 },   // Blinking: Blinked among the warp hunters
-        { 9105343, 9105596, 530, 3529.0f, 3100.0f, 40.0f, { 0, 0, 0, 0 }, 1 },   // Walk In Like You Belong: Walked into the dome
-        { 9105352, 9105603, 571, 953.0f, -3678.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // A Sibling in the Clutch: Lay in the clutch
-        { 9105374, 9105613, 571, 4718.0f, -3855.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // Ursoc's Children: Came quietly to Ursoc's Den
+        { 9105121, 9105458, 1, 6297.0f, 95.0f, 20.0f, { 38, 39, 40, 0 }, 1 },   // A Moonkin Among Moonkin: Stood among the young moonkin
+        { 9105132, 9105465, 530, -1220.0f, -11810.0f, 30.0f, { 0, 0, 0, 0 }, 0 },   // Where the World Is Thin: Stood where the world is thin
+        { 9105133, 9105468, 530, -1350.0f, -12350.0f, 40.0f, { 0, 0, 0, 0 }, 0 },   // Wyrmscar: The dragon's bones
+        { 9105152, 9105484, 0, -574.0f, 1549.0f, 25.0f, { 5, 17, 0, 0 }, 1 },   // Behind the Pack: Ran behind the bloodsnouts
+        { 9105162, 9105489, 530, 7478.0f, -6406.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // What the Word Means: Walked into the Sanctum of the Moon
+        { 9105181, 9105499, 0, -3500.0f, -3100.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // A Whelp Among Whelps: Sat among the lost whelps
+        { 9105193, 9105507, 1, 7197.0f, -732.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // The Voidcallers of Althalaxx: Walked into the Tower of Althalaxx
+        { 9105203, 9105512, 0, -283.0f, -1102.0f, 25.0f, { 31, 32, 0, 0 }, 1 },   // Sunning with the Snapjaws: Sunned with the snapjaws
+        { 9105221, 9105522, 1, -5470.0f, -2900.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // Cloud Serpents: Windbreak Canyon, where it nested
+        { 9105261, 9105555, 1, -10100.0f, -4200.0f, 60.0f, { 0, 0, 0, 0 }, 0 },   // Glasshide: Land's End Beach, which it ate
+        { 9105266, 9105561, 1, -7048.0f, -2818.0f, 20.0f, { 1, 0, 0, 0 }, 1 },   // One of the Sand People: Walked among the Sandfury as a sethrak
+        { 9105272, 9105564, 1, -5640.0f, 1590.0f, 25.0f, { 27, 26, 0, 0 }, 1 },   // Frayfeather: Preened with the frayfeathers
+        { 9105302, 9105582, 1, 7720.0f, -4336.0f, 25.0f, { 7, 19, 0, 0 }, 1 },   // Moonlight Cats: Walked among the frostsabers
+        { 9105311, 9105589, 0, -7759.0f, -2958.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // Black Broodlings: Walked among the black brood
+        { 9105313, 9105592, 0, -7759.0f, -2958.0f, 45.0f, { 0, 0, 0, 0 }, 0 },   // Drakes of the Steppes: The Terror Wing Path, where they nest
+        { 9105322, 9105596, 530, -2794.0f, 4495.0f, 25.0f, { 13, 24, 0, 0 }, 1 },   // Blinking: Blinked among the warp hunters
+        { 9105343, 9105605, 530, 3529.0f, 3100.0f, 40.0f, { 0, 0, 0, 0 }, 1 },   // Walk In Like You Belong: Walked into the dome
+        { 9105352, 9105612, 571, 953.0f, -3678.0f, 25.0f, { 35, 36, 37, 44 }, 1 },   // A Sibling in the Clutch: Lay in the clutch
+        { 9105374, 9105622, 571, 4718.0f, -3855.0f, 35.0f, { 0, 0, 0, 0 }, 1 },   // Ursoc's Children: Came quietly to Ursoc's Den
     };
 
     // A witch's object (gameobject entry): a token gives the credit of its quest, a lure calls Count x Summon,
@@ -436,17 +475,17 @@ namespace Devourer::Quests
     constexpr char const* TaleLines9105111[] = { "Come in, come in. Both of you. Wren, stop poking the fire.", "[Wren] I'm not poking it, I'm encouraging it.", "This is the last lantern, little horror. I hung it at the top of the world on purpose.", "[Wren] I wanted it in a bakery. I was outvoted.", "When Wren found you, you were a shadow in a ritual circle with nothing inside it but hunger.", "[Wren] You ate my sandwich. First thing you ever did. I was so proud.", "Since then you have eaten wolves and whelps and storms, and you have spared what deserved sparing.", "[Wren] And you patted a SPIDER.", "You are not a shadow any more. You are a Devourer. Our Devourer. That is all a witch can hope to make.", "[Wren] Come home for soup sometimes, Snack. Bring Bramble." };
     constexpr UseRule UseRules[] =
     {
-        { 9105101, 9105111, 9105451, 0, 0, 1, 8, TaleLines9105101, "Hagatha Hollowmoor", "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"" },   // The Boat-Eater: The tale of the Boat-Eater heard
-        { 9105102, 9105131, 9105463, 0, 0, 1, 7, TaleLines9105102, "Hagatha Hollowmoor", "Bramble rubs her eyes. \"I'm keeping my dreams. All of them. Even the one with the soup.\"" },   // Other People's Dreams: The tale of the blue moths heard
-        { 9105103, 9105171, 9105491, 0, 0, 1, 7, TaleLines9105103, "Hagatha Hollowmoor", "Bramble pulls her knees up. \"I'll be somewhere else. Somewhere with lamps.\"" },   // The Night That Stayed: The tale of the night that stayed heard
-        { 9105104, 9105191, 9105500, 0, 0, 1, 7, TaleLines9105104, "Hagatha Hollowmoor", "Bramble looks at her own hands for a long moment. \"I like my shape. I'm keeping it.\"" },   // A Shape Is Not a Coat: The tale of the satyrs' bargain heard
-        { 9105105, 9105245, 9105533, 0, 0, 1, 8, TaleLines9105105, "Hagatha Hollowmoor", "Bramble wrinkles her nose. \"I'm only eating things I choose. Mostly biscuits.\"" },   // Eaten Without Choosing: The tale of the Oozeworm heard
-        { 9105106, 9105281, 9105561, 0, 0, 1, 7, TaleLines9105106, "Hagatha Hollowmoor", "Bramble grins. \"I remember when you were a frog and fell in the cauldron.\"" },   // The Ones That Forgot the Moon: The tale of the owlbeasts heard
-        { 9105107, 9105293, 9105568, 0, 0, 1, 7, TaleLines9105107, "Hagatha Hollowmoor", "Bramble stirs the fire with a stick. \"So we're all soup. I knew it. I always felt like soup.\"" },   // The First Hunger: The tale of the first hunger heard
-        { 9105108, 9105323, 9105588, 0, 0, 1, 7, TaleLines9105108, "Hagatha Hollowmoor", "Bramble shivers and pulls her cloak tight. \"I'm not going south. I'm staying right here, by the soup.\"" },   // The Theft of Souls: The tale of the city of the dead heard
-        { 9105109, 9105351, 9105602, 0, 0, 1, 7, TaleLines9105109, "Hagatha Hollowmoor", "Bramble grins into the fire. \"Wild. I like wild. Wild and with biscuits.\"" },   // Untidied: The tale of the untidied dragons heard
-        { 9105110, 9105372, 9105612, 0, 0, 1, 7, TaleLines9105110, "Hagatha Hollowmoor", "Bramble is very quiet, then: \"I'll remember him. I'll remember all the bears.\"" },   // The Sleeping Bear: The tale of the sleeping bear heard
-        { 9105111, 9105395, 9105627, 0, 0, 1, 10, TaleLines9105111, "Hagatha Hollowmoor", "Bramble wipes her eyes on her sleeve. \"I'm not crying. The fire's smoky. Can we have the soup now?\"" },   // The Last Lantern: The sisters' last tale heard
+        { 0, 9105111, 9105451, 0, 0, 1, 8, TaleLines9105101, "Hagatha Hollowmoor", "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"" },   // The Boat-Eater: The tale of the Boat-Eater heard
+        { 0, 9105131, 9105464, 0, 0, 1, 7, TaleLines9105102, "Hagatha Hollowmoor", "Bramble rubs her eyes. \"I'm keeping my dreams. All of them. Even the one with the soup.\"" },   // Other People's Dreams: The tale of the blue moths heard
+        { 0, 9105171, 9105494, 0, 0, 1, 7, TaleLines9105103, "Hagatha Hollowmoor", "Bramble pulls her knees up. \"I'll be somewhere else. Somewhere with lamps.\"" },   // The Night That Stayed: The tale of the night that stayed heard
+        { 0, 9105191, 9105505, 0, 0, 1, 7, TaleLines9105104, "Hagatha Hollowmoor", "Bramble looks at her own hands for a long moment. \"I like my shape. I'm keeping it.\"" },   // A Shape Is Not a Coat: The tale of the satyrs' bargain heard
+        { 0, 9105245, 9105539, 0, 0, 1, 8, TaleLines9105105, "Hagatha Hollowmoor", "Bramble wrinkles her nose. \"I'm only eating things I choose. Mostly biscuits.\"" },   // Eaten Without Choosing: The tale of the Oozeworm heard
+        { 0, 9105281, 9105568, 0, 0, 1, 7, TaleLines9105106, "Hagatha Hollowmoor", "Bramble grins. \"I remember when you were a frog and fell in the cauldron.\"" },   // The Ones That Forgot the Moon: The tale of the owlbeasts heard
+        { 0, 9105293, 9105576, 0, 0, 1, 7, TaleLines9105107, "Hagatha Hollowmoor", "Bramble stirs the fire with a stick. \"So we're all soup. I knew it. I always felt like soup.\"" },   // The First Hunger: The tale of the first hunger heard
+        { 0, 9105323, 9105597, 0, 0, 1, 7, TaleLines9105108, "Hagatha Hollowmoor", "Bramble shivers and pulls her cloak tight. \"I'm not going south. I'm staying right here, by the soup.\"" },   // The Theft of Souls: The tale of the city of the dead heard
+        { 0, 9105351, 9105611, 0, 0, 1, 7, TaleLines9105109, "Hagatha Hollowmoor", "Bramble grins into the fire. \"Wild. I like wild. Wild and with biscuits.\"" },   // Untidied: The tale of the untidied dragons heard
+        { 0, 9105372, 9105621, 0, 0, 1, 7, TaleLines9105110, "Hagatha Hollowmoor", "Bramble is very quiet, then: \"I'll remember him. I'll remember all the bears.\"" },   // The Sleeping Bear: The tale of the sleeping bear heard
+        { 0, 9105395, 9105636, 0, 0, 1, 10, TaleLines9105111, "Hagatha Hollowmoor", "Bramble wipes her eyes on her sleeve. \"I'm not crying. The fire's smoky. Can we have the soup now?\"" },   // The Last Lantern: The sisters' last tale heard
         { 9105100, 9105081, 0, 15647, 4, 0, 0, nullptr, "", "" },   // The Overflow: Overflowing Mana Crystal
     };
 
@@ -484,24 +523,24 @@ namespace Devourer::Quests
         { 9105103, 9105446, 0, 5, { { -10870.0f, 1266.0f }, { -11041.0f, 1349.0f }, { -11144.0f, 1494.0f }, { -11200.0f, 1671.0f }, { -11330.0f, 1790.0f }, { 0.0f, 0.0f } }, 20.0f, 391, "Old Murk-Eye" },   // Old Murk-Eye
         { 9105113, 9105452, 0, 4, { { -5745.0f, -3405.0f }, { -5595.0f, -3600.0f }, { -5415.0f, -3735.0f }, { -5220.0f, -3645.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 2476, "the Boat-Eater" },   // Worth the Climb
         { 9105114, 9105454, 0, 3, { { -5655.0f, -3150.0f }, { -5700.0f, -3105.0f }, { -5745.0f, -3090.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105904, "Bumble" },   // Bumble
-        { 9105123, 9105460, 1, 3, { { 6400.0f, 177.0f }, { 6461.0f, 272.0f }, { 6560.0f, 300.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 2175, "Shadowclaw" },   // Shadowclaw
-        { 9105143, 9105474, 1, 5, { { -990.0f, -2520.0f }, { -1200.0f, -2310.0f }, { -1395.0f, -2190.0f }, { -1605.0f, -2145.0f }, { -1800.0f, -2145.0f }, { 0.0f, 0.0f } }, 20.0f, 3247, "a Thunderhawk Hatchling" },   // The Thunderhawk Nests
-        { 9105145, 9105476, 1, 3, { { -702.0f, -2629.0f }, { -677.0f, -2532.0f }, { -600.0f, -2480.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105905, "Little Thunder" },   // Little Thunder
-        { 9105173, 9105492, 0, 3, { { -10365.0f, 60.0f }, { -10260.0f, 0.0f }, { -10185.0f, -45.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 521, "Lupos" },   // Lupos
-        { 9105183, 9105497, 0, 5, { { -3195.0f, -2160.0f }, { -3120.0f, -1905.0f }, { -3015.0f, -1665.0f }, { -2925.0f, -1410.0f }, { -2805.0f, -1185.0f }, { 0.0f, 0.0f } }, 20.0f, 2089, "a Giant Wetlands Crocolisk" },   // As Old as Hagatha
-        { 9105213, 9105511, 1, 6, { { 1890.0f, 825.0f }, { 2070.0f, 1050.0f }, { 2400.0f, 1155.0f }, { 2400.0f, 1470.0f }, { 2445.0f, 1770.0f }, { 2535.0f, 1980.0f } }, 20.0f, 4066, "Nal'taszar" },   // Nal'taszar
-        { 9105224, 9105521, 1, 3, { { -5070.0f, -1755.0f }, { -5130.0f, -1755.0f }, { -5190.0f, -1695.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105906, "Giggles" },   // Giggles
-        { 9105234, 9105527, 0, 5, { { -11820.0f, -510.0f }, { -11940.0f, -525.0f }, { -12060.0f, -585.0f }, { -12180.0f, -660.0f }, { -12285.0f, -720.0f }, { 0.0f, 0.0f } }, 20.0f, 684, "a Shadowmaw Panther" },   // The Night's Mouth
-        { 9105246, 9105534, 1, 6, { { -3120.0f, -3225.0f }, { -3330.0f, -3225.0f }, { -3555.0f, -3135.0f }, { -3780.0f, -3015.0f }, { -3990.0f, -2910.0f }, { -4200.0f, -2895.0f } }, 20.0f, 14237, "the Oozeworm" },   // The Oozeworm
-        { 9105252, 9105538, 0, 4, { { 555.0f, -750.0f }, { 615.0f, -855.0f }, { 660.0f, -945.0f }, { 660.0f, -1035.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 2258, "the Stone Fury" },   // The Stone Fury
-        { 9105253, 9105541, 0, 5, { { 465.0f, -780.0f }, { 345.0f, -900.0f }, { 255.0f, -1035.0f }, { 240.0f, -1155.0f }, { 285.0f, -1275.0f }, { 0.0f, 0.0f } }, 20.0f, 2447, "Narillasanz" },   // Narillasanz
-        { 9105254, 9105544, 0, 3, { { 555.0f, -585.0f }, { 615.0f, -510.0f }, { 615.0f, -465.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105907, "Nubbin" },   // Nubbin
-        { 9105265, 9105553, 1, 3, { { -7320.0f, -3405.0f }, { -7245.0f, -3405.0f }, { -7185.0f, -3405.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105908, "Prickles" },   // Prickles
-        { 9105284, 9105564, 0, 6, { { 120.0f, -3195.0f }, { 120.0f, -3495.0f }, { 90.0f, -3795.0f }, { -60.0f, -4095.0f }, { -225.0f, -4395.0f }, { -30.0f, -4665.0f } }, 20.0f, 7977, "Gammerita" },   // Gammerita
-        { 9105296, 9105570, 1, 4, { { -6780.0f, -1935.0f }, { -6780.0f, -2040.0f }, { -6780.0f, -2145.0f }, { -6780.0f, -2220.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 6498, "a Devilsaur" },   // You Hear It First
-        { 9105305, 9105576, 1, 6, { { 6675.0f, -3690.0f }, { 6810.0f, -3945.0f }, { 6975.0f, -4200.0f }, { 7245.0f, -4455.0f }, { 7500.0f, -4725.0f }, { 7695.0f, -4920.0f } }, 20.0f, 7453, "a Moontouched Owlbeast" },   // The Moon-Touched
-        { 9105385, 9105618, 571, 6, { { 5445.0f, 5010.0f }, { 5640.0f, 5010.0f }, { 5850.0f, 5025.0f }, { 6045.0f, 4905.0f }, { 6240.0f, 4905.0f }, { 6420.0f, 4800.0f } }, 20.0f, 28378, "a Primordial Drake" },   // The First Dragons
-        { 9105392, 9105622, 571, 3, { { 6300.0f, -975.0f }, { 6300.0f, -885.0f }, { 6300.0f, -825.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105909, "Snowdrift" },   // Snowdrift
+        { 9105123, 9105461, 1, 3, { { 6400.0f, 177.0f }, { 6461.0f, 272.0f }, { 6560.0f, 300.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 2175, "Shadowclaw" },   // Shadowclaw
+        { 9105143, 9105475, 1, 5, { { -990.0f, -2520.0f }, { -1200.0f, -2310.0f }, { -1395.0f, -2190.0f }, { -1605.0f, -2145.0f }, { -1800.0f, -2145.0f }, { 0.0f, 0.0f } }, 20.0f, 3247, "a Thunderhawk Hatchling" },   // The Thunderhawk Nests
+        { 9105145, 9105477, 1, 3, { { -702.0f, -2629.0f }, { -677.0f, -2532.0f }, { -600.0f, -2480.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105905, "Little Thunder" },   // Little Thunder
+        { 9105173, 9105495, 0, 3, { { -10365.0f, 60.0f }, { -10260.0f, 0.0f }, { -10185.0f, -45.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 521, "Lupos" },   // Lupos
+        { 9105183, 9105501, 0, 5, { { -3195.0f, -2160.0f }, { -3120.0f, -1905.0f }, { -3015.0f, -1665.0f }, { -2925.0f, -1410.0f }, { -2805.0f, -1185.0f }, { 0.0f, 0.0f } }, 20.0f, 2089, "a Giant Wetlands Crocolisk" },   // As Old as Hagatha
+        { 9105213, 9105517, 1, 6, { { 1890.0f, 825.0f }, { 2070.0f, 1050.0f }, { 2400.0f, 1155.0f }, { 2400.0f, 1470.0f }, { 2445.0f, 1770.0f }, { 2535.0f, 1980.0f } }, 20.0f, 4066, "Nal'taszar" },   // Nal'taszar
+        { 9105224, 9105527, 1, 3, { { -5070.0f, -1755.0f }, { -5130.0f, -1755.0f }, { -5190.0f, -1695.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105906, "Giggles" },   // Giggles
+        { 9105234, 9105533, 0, 5, { { -11820.0f, -510.0f }, { -11940.0f, -525.0f }, { -12060.0f, -585.0f }, { -12180.0f, -660.0f }, { -12285.0f, -720.0f }, { 0.0f, 0.0f } }, 20.0f, 684, "a Shadowmaw Panther" },   // The Night's Mouth
+        { 9105246, 9105540, 1, 6, { { -3120.0f, -3225.0f }, { -3330.0f, -3225.0f }, { -3555.0f, -3135.0f }, { -3780.0f, -3015.0f }, { -3990.0f, -2910.0f }, { -4200.0f, -2895.0f } }, 20.0f, 14237, "the Oozeworm" },   // The Oozeworm
+        { 9105252, 9105544, 0, 4, { { 555.0f, -750.0f }, { 615.0f, -855.0f }, { 660.0f, -945.0f }, { 660.0f, -1035.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 2258, "the Stone Fury" },   // The Stone Fury
+        { 9105253, 9105547, 0, 5, { { 465.0f, -780.0f }, { 345.0f, -900.0f }, { 255.0f, -1035.0f }, { 240.0f, -1155.0f }, { 285.0f, -1275.0f }, { 0.0f, 0.0f } }, 20.0f, 2447, "Narillasanz" },   // Narillasanz
+        { 9105254, 9105550, 0, 3, { { 555.0f, -585.0f }, { 615.0f, -510.0f }, { 615.0f, -465.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105907, "Nubbin" },   // Nubbin
+        { 9105265, 9105559, 1, 3, { { -7320.0f, -3405.0f }, { -7245.0f, -3405.0f }, { -7185.0f, -3405.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105908, "Prickles" },   // Prickles
+        { 9105284, 9105571, 0, 6, { { 120.0f, -3195.0f }, { 120.0f, -3495.0f }, { 90.0f, -3795.0f }, { -60.0f, -4095.0f }, { -225.0f, -4395.0f }, { -30.0f, -4665.0f } }, 20.0f, 7977, "Gammerita" },   // Gammerita
+        { 9105296, 9105578, 1, 4, { { -6780.0f, -1935.0f }, { -6780.0f, -2040.0f }, { -6780.0f, -2145.0f }, { -6780.0f, -2220.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 20.0f, 6498, "a Devilsaur" },   // You Hear It First
+        { 9105305, 9105584, 1, 6, { { 6675.0f, -3690.0f }, { 6810.0f, -3945.0f }, { 6975.0f, -4200.0f }, { 7245.0f, -4455.0f }, { 7500.0f, -4725.0f }, { 7695.0f, -4920.0f } }, 20.0f, 7453, "a Moontouched Owlbeast" },   // The Moon-Touched
+        { 9105385, 9105627, 571, 6, { { 5445.0f, 5010.0f }, { 5640.0f, 5010.0f }, { 5850.0f, 5025.0f }, { 6045.0f, 4905.0f }, { 6240.0f, 4905.0f }, { 6420.0f, 4800.0f } }, 20.0f, 28378, "a Primordial Drake" },   // The First Dragons
+        { 9105392, 9105631, 571, 3, { { 6300.0f, -975.0f }, { 6300.0f, -885.0f }, { 6300.0f, -825.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 18.0f, 9105909, "Snowdrift" },   // Snowdrift
     };
 }
 

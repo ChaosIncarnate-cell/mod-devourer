@@ -126,11 +126,11 @@ def ungoro_quests(book, lantern):
         story="Wren ducks the pterrordax: Bramble ducks while you eat five.")
     d = book.quest(
         9105293, "The First Hunger", 52, 50, lantern, lantern, "hagatha",
-        "Hagatha speaks, curious despite herself:$B$BI have lit a fire beside the lantern; the ground is warm enough "
-        "that it hardly needs one. This crater is where hunger began, little horror. Fetch your little friend, sit, "
-        "and I will tell you both where everything comes from.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. Sit.",
+        "Hagatha speaks, curious despite herself:$B$BThe ground here is warm enough that any fire will do. This crater is where "
+        "hunger began, little horror, and I have given your little friend the tale of it. Sit with her by a fire "
+        "and let her tell you both where everything comes from.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. Sit with her.",
         "Soup, she says. She is not wrong.$B$BHere. It fits a shape like yours.",
         objectives=[tale(fire, "The tale of the first hunger heard")], prev=a.id, sort=s, xp=4,
         choices=[(15825, "Traphook Jerkin"), (21319, "Gloves of the Pathfinder"), (12066, "Shaleskin Cape")],
@@ -227,6 +227,20 @@ def winterspring_quests(book, lantern):
                     devour(1, "Moontouched Owlbeast devoured", entries=[7453])], prev=b.id, sort=s, xp=7,
         choices=[(18420, "Bonecrusher"), (21187, "Earthweave Cloak"), (22002, "Darkmantle Belt")],
         story="Sniff out a moon-touched owlbeast at the Hidden Grove, feel its moon, and eat it (Moontouched Owlbeast).")
+    book.quest(
+        9105306, "Old Words on Old Hide", 56, 54, lantern, lantern, "hagatha",
+        "Hagatha, slow and reverent:$B$BYour dreambear woke up a runebear, little horror, with old words carved into "
+        "its hide. The Winterfall furbolgs here were a bear people once, before the firewater took them. They will "
+        "know the runes when they see them.$B$BWear your runebear. Read five runes off your hide and throw them at the "
+        "Winterfall. Let them remember.",
+        "As a Runebear, hit 5 Winterfall furbolgs in Winterspring with Rune Bolt.",
+        "Five furbolgs, little horror, and five runes.",
+        "Did they remember? For a moment. That is all a rune is for.$B$BTake this.",
+        objectives=[ability(5, "Winterfall struck as a Runebear", 9102321, entries=[7442, 7440, 7439, 7438],
+                            shapes=(48,))],
+        prev=a.id, sort=s, needs=(48,),
+        choices=[(15861, "Swiftfoot Treads"), (11874, "Clouddrift Mantle"), (12114, "Nightfall Gloves")],
+        story="For a Devourer with the Runebear: Rune Bolt five Winterfall furbolgs, so they remember.")
     return f
 
 
@@ -324,14 +338,14 @@ def terokkar_quests(book, lantern):
                           LINES["warpstalker"], radius=25.0)],
         prev=a.id, sort=s, needs=LINES["warpstalker"],
         choices=[(27724, "Wild Shoulderpads"), (25487, "Wind Dancer's Pendant"), (25986, "Dreadtusk's Fury")],
-        story="For a Devourer with the Warp Stalker shape: blink among the warp hunters as one of them (Void Terror).")
+        story="For a Devourer with the Warp Stalker shape: blink among the warp hunters as one of them (the Thunder Lizard road).")
     c = book.quest(
         9105323, "The Theft of Souls", 64, 62, lantern, lantern, "hagatha",
-        "Hagatha's voice, thin as thread:$B$BI have lit a fire beside the lantern, as well as I can from here. There "
-        "is a city of the dead south of this forest, and you should know why, before you go near it. Bring your "
-        "little friend. I want her to hear this too.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. The thread is thin; do not make me wait.",
+        "Hagatha's voice, thin as thread:$B$BI have whispered a tale to your little friend, as well as I can from here. "
+        "There is a city of the dead south of this forest, and you should know why, before you go near it. Sit with "
+        "her by any fire and let her tell it. I want her to hear it too.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. The thread is thin; do not make me wait.",
         "A Devourer, not a thief. Good.$B$BTake this.",
         objectives=[tale(fire, "The tale of the city of the dead heard")], prev=a.id, sort=s, xp=4,
         choices=[(27731, "Vindicator's Cloak"), (25932, "Cenarion Thicket Jerkin"), (27733, "Warden's Ring of Precision")],
@@ -404,7 +418,7 @@ def netherstorm_quests(book, lantern):
         "Forgotten. Good.$B$BTake this. I have no use for it.",
         objectives=[devour(6, "Warp chaser devoured", entries=[18884])], sort=s,
         choices=[(30401, "Farahlite Studded Boots"), (31527, "Leafbeard Ring"), (31703, "Nether-Stalker's Blade")],
-        story="The lesson: the warp chasers at the edge of the world (the Void Terror line).")
+        story="The lesson: the warp chasers at the edge of the world (the Thunder Lizard road).")
     b = book.quest(
         9105341, "Phase Hunters", 68, 66, lantern, lantern, "hagatha",
         "Hagatha, after a long breath:$B$BThe phase hunters slip between this world and the next as easily as you slip between "
@@ -483,10 +497,10 @@ def fjord_quests(book, lantern):
         story="The lesson: Hagatha warms the Devourer with the shoveltusk of the fjord.")
     b = book.quest(
         9105351, "Untidied", 69, 68, lantern, lantern, "hagatha",
-        "Hagatha, warm as a hearth:$B$BI have lit a fire beside the lantern. Fetch your little friend. Before you go "
-        "to the Ember Clutch, there is a tale about the wild dragons I want you both to hear.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. Sit.",
+        "Hagatha, warm as a hearth:$B$BI have given your little friend a tale to carry. Before you go to the Ember "
+        "Clutch, sit with her by any fire and let her tell it: it is about the wild dragons, and it is for you both.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. Sit with her.",
         "Stay wild. Now go and meet the ones who did.$B$BThis came to me a long time ago. Take it.",
         objectives=[tale(fire, "The tale of the untidied dragons heard")], prev=a.id, sort=s, xp=4,
         choices=[(37391, "Rhinohide Mask"), (37383, "Seared Scale Cape"), (37029, "Fin Carver")],
@@ -594,11 +608,11 @@ def grizzly_quests(book, lantern):
         story="Wren's imperial eagles that think they own the sky: salute them first, then eat five (the eagle line).")
     c = book.quest(
         9105372, "The Sleeping Bear", 73, 71, lantern, lantern, "hagatha",
-        "Hagatha tells it, with respect:$B$BI have lit a fire beside the lantern. The bears of these hills have a tale, "
-        "and it should be told before you meet them. Bring your little friend. She will want to hear about the great "
-        "bear.",
-        "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
-        "The fire is lit. The hills are breathing. Sit.",
+        "Hagatha tells it, with respect:$B$BThe bears of these hills have a tale, and it should be told before you meet "
+        "them. I have given it to your little friend. Sit with her by any fire and let her tell it; she will want to "
+        "hear about the great bear.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear Hagatha's tale to its end.",
+        "Any fire will do. The hills are breathing. Sit with her.",
         "Quickly. Without anger. Remember him.$B$BHere. Wren picked it; I checked it.",
         objectives=[tale(fire, "The tale of the sleeping bear heard")], prev=a.id, sort=s, xp=4,
         choices=[(39019, "Iron-Shatter Leggings"), (39029, "Waistguard of Expedient Procurement"), (39109, "Branch of the Roaming Spirit")],
@@ -727,11 +741,11 @@ def stormpeaks_quests(book, lantern):
         story="Hagatha's storm wyrms at the top of the world: take a blow, then eat four (the Storm Dragon line).")
     f = book.quest(
         9105395, "The Last Lantern", 80, 78, lantern, lantern, "hagatha",
-        "Both sisters' voices at once, then Hagatha's alone:$B$BWe have lit a fire beside the last lantern, little "
-        "horror. Both of us are here, as much as we can be. Bring your little friend. This is the last tale, and it "
-        "is about you.",
-        "Sit at the Sisters' Campfire by the last lantern with Bramble, and hear the sisters' last tale to its end.",
-        "The fire is lit. We are waiting. Bring her.",
+        "Both sisters' voices at once, then Hagatha's alone:$B$BWe have given your little friend our last tale, little "
+        "horror, and we will be at the fire too, as much as we can be. Sit with her by any fire and let her tell it. "
+        "It is about you.",
+        "Sit by any campfire or inn fire with Bramble for a while, and hear the sisters' last tale to its end.",
+        "Any fire will do. We are waiting. Sit with her.",
         "That is all, little horror. That is the whole tale, so far.$B$B[Wren] SO FAR. There'll be more. Here, this "
         "is from both of us.",
         objectives=[tale(fire, "The sisters' last tale heard")], prev=d.id, sort=s, xp=7,
