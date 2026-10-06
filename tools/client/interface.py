@@ -88,7 +88,10 @@ def add_race_buttons(text: str) -> str:
         return text
     m = re.search(r'<CheckButton\s[^>]*name="CharacterCreateRaceButton11"[^>]*?(/>|>.*?</CheckButton>)', live, re.S)
     if not m:
-        return text                                      # no stock race buttons (a test stand-in): nothing to add
+        if "CharacterCreateRaceButton" in live:
+            raise PatchError("CharacterCreate.xml: race buttons without CharacterCreateRaceButton11 (a replaced "
+                             "character creation screen?): the new races would have no buttons")
+        return text                                      # no race buttons at all (a test stand-in): nothing to add
     inherits = re.search(r'inherits="([^"]+)"', m.group(0).split(">", 1)[0]).group(1)
     line_start = text.rfind("\n", 0, m.start()) + 1
     indent = re.match(r"[ \t]*", text[line_start:m.start()]).group(0)
@@ -202,7 +205,17 @@ end
 
 local function NewRaces_Layout(...)
 	local gender = (GetSelectedSex() == SEX_MALE) and "MALE" or "FEMALE";
-	local lastAlliance, lastHorde = CharacterCreateRaceButton5, CharacterCreateRaceButton11;
+	-- the last stock button of each faction: whatever button ends each column in the stock layout
+	local lastAlliance, lastHorde;
+	for i = 1, 11 do
+		local b = _G["CharacterCreateRaceButton"..i];
+		if ( b and b:IsShown() ) then
+			local _, side = GetFactionForRace(i);
+			if ( side == "Horde" ) then lastHorde = b; else lastAlliance = b; end
+		end
+	end
+	lastAlliance = lastAlliance or CharacterCreateRaceButton5;
+	lastHorde = lastHorde or CharacterCreateRaceButton11;
 	local index = 1;
 	for i = 1, select("#", ...), 3 do
 		local token = strupper(select(i + 1, ...) or "");
@@ -228,7 +241,8 @@ local function NewRaces_Layout(...)
 				pushed:SetTexCoord(coords[1], coords[2], coords[3], coords[4]);
 			end
 			if ( index > 11 ) then
-				local horde = GetFactionForRace and GetFactionForRace(index) == "Horde";
+				local _, side = GetFactionForRace(index);       -- the second value is not localized
+				local horde = (side == "Horde");
 				local above = horde and lastHorde or lastAlliance;
 				button:ClearAllPoints();
 				button:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -20);

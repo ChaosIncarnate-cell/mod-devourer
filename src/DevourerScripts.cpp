@@ -739,6 +739,7 @@ public:
             return;
         sDevourer.TeachBasics(player);
         sDevourer.Restore(player);
+        sDevourer.CheckWholeLine(player);        // owners of a whole line from before the achievement existed
     }
 
     // The character is saved between these two: the worn shape's buttons come off first, so the core does not
