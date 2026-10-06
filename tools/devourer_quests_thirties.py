@@ -66,7 +66,7 @@ def stv_quests(book, lantern):
         "to be hunted while it hunts.",
         "Devour 6 young tigers or panthers in Stranglethorn Vale.",
         "Six young cats. They are everywhere; so is the heat.",
-        "Fast, and foolish, and gone. Your saber is neither now.$B$BTake this.",
+        "Fast, and foolish, and gone. Your saber is neither now.$B$BTake this; it has waited for you.",
         objectives=[devour(6, "Young jungle cat devoured", entries=[683, 681, 682, 736])], sort=s,
         choices=[(33237, "Brogg's Battle Harness"), (4108, "Panther Hunter Leggings"), (33263, "Raptor Eye Ring")],
         story="The lesson: the jungle's young cats, hunted while they hunt.")
@@ -93,7 +93,7 @@ def stv_quests(book, lantern):
         "Make them run.",
         "Flex (/flex) at 4 Mistvale gorillas and send them running.",
         "Still puffing up, Snack. Flex HARDER.",
-        "They RAN! From a flex! You're the strongest-looking thing in Stranglethorn. Hagatha left the room.$B$BHere!",
+        "They RAN! From a flex! You're the strongest-looking thing in Stranglethorn. Hagatha left the room.$B$BHere. I picked it myself. Hagatha un-picked two others.",
         objectives=[emote(4, "Gorilla out-flexed", EMOTE_FLEX, entries=[1108, 1114], flee=True)], prev=a.id, sort=s,
         choices=[(10748, "Wanderlust Boots"), (4114, "Darktide Cape"), (9520, "Silent Hunter")],
         story="Wren's contest with the gorillas of Mistvale: flex at them until they back down.")
@@ -106,7 +106,7 @@ def stv_quests(book, lantern):
         "A saber that has eaten the night's mouth hunts in it.",
         "Follow the shadowmaw's scent with Sniff south-east of the lantern, then devour 3 Shadowmaw Panthers.",
         "The shadowmaws are still in the dark.",
-        "Dark, and quiet, and yours.$B$BTake this.",
+        "Dark, and quiet, and yours.$B$BThis came to me a long time ago. Take it.",
         objectives=[trail("The shadowmaw's scent followed", "a Shadowmaw Panther", 0,
                           [(-11820, -510), (-11940, -525), (-12060, -585), (-12180, -660), (-12285, -720)],
                           summon=684),
@@ -135,7 +135,7 @@ def dustwallow_quests(book, lantern, tanaris, feralas):
         "proud of its own mud.",
         "Devour 6 Drywallow crocolisks in Dustwallow Marsh.",
         "Six drywallows. They lie in the driest mud.",
-        "Proud, and now humble, inside you.$B$BTake this.",
+        "Proud, and now humble, inside you.$B$BTake this, and do not thank me.",
         objectives=[devour(6, "Drywallow crocolisk devoured", entries=[4341, 4343, 4344])], sort=s,
         choices=[(4108, "Panther Hunter Leggings"), (4109, "Excelsior Boots"), (9680, "Tok'kar's Murloc Shanker")],
         story="The lesson: the proud drywallow crocolisks.")
@@ -147,7 +147,7 @@ def dustwallow_quests(book, lantern, tanaris, feralas):
         "Then eat three. Your snapjaw is waiting to grow its spikes.",
         "Let a Mudrock Spikeshell stick you with its barbs, then devour 3 of them on the Dreadmurk Shore.",
         "Three spikeshells, and their barbs. Mind your mouth.",
-        "Prickly, wasn't it? That is what being bitten too often tastes like.$B$BTake this.",
+        "Prickly, wasn't it? That is what being bitten too often tastes like.$B$BTake this, and do not thank me.",
         objectives=[struck(1, "The spikeshell's barbs felt", entries=[4397]),
                     devour(3, "Mudrock Spikeshell devoured", entries=[4397])], prev=a.id, sort=s,
         choices=[(33237, "Brogg's Battle Harness"), (4430, "Ethereal Talisman"), (4511, "Black Water Hammer")],
@@ -171,7 +171,7 @@ def dustwallow_quests(book, lantern, tanaris, feralas):
         "is a warning, and warnings are best heard by two.",
         "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
         "The fire is lit. Sit.",
-        "You heard. Good. Now go and meet it, and remember: you choose.$B$BTake this.",
+        "You heard. Good. Now go and meet it, and remember: you choose.$B$BTake this, and eat something.",
         objectives=[tale(fire, "The tale of the Oozeworm heard")], prev=b.id, sort=s, xp=4,
         choices=[(9632, "Jangdor's Handcrafted Gloves"), (17778, "Sagebrush Girdle"), (10703, "Fiendish Skiv")],
         story="A campfire tale for the Devourer and Bramble: the worm that ate without ever choosing what.")
@@ -183,7 +183,7 @@ def dustwallow_quests(book, lantern, tanaris, feralas):
         "the Oozeworm will dig deeper than any worm has dug.",
         "Follow the Oozeworm's stench with Sniff through the Quagmire to the Dragonmurk, then devour the Oozeworm.",
         "The worm is still under the mud. Follow the stench.",
-        "Swollen, and slow, and now inside something that chooses. Your borer will dig.$B$BTake this.",
+        "Swollen, and slow, and now inside something that chooses. Your borer will dig.$B$BThis came to me a long time ago. Take it.",
         objectives=[trail("The Oozeworm's stench followed", "the Oozeworm", 1,
                           [(-3120, -3225), (-3330, -3225), (-3555, -3135), (-3780, -3015), (-3990, -2910),
                            (-4200, -2895)], summon=14237),
@@ -203,12 +203,12 @@ def alterac_quests(book, lantern):
                         subname="Mountain Kid")
     a = book.quest(
         9105250, "Mountain Lions of Alterac", 33, 31, lantern, lantern, "hagatha",
-        "Hagatha speaks:$B$BThe lions of Alterac are bigger than their cousins in the foothills; the ogres eat "
+        "Hagatha, low and even:$B$BThe lions of Alterac are bigger than their cousins in the foothills; the ogres eat "
         "everything smaller. The hulking ones especially. Eat five of them, little horror, and taste a cat that has "
         "learned to be big.",
         "Devour 5 mountain lions in the Alterac Mountains.",
         "Five lions. The big ones, mostly.",
-        "Big, and now bigger for being in you.$B$BTake this.",
+        "Big, and now bigger for being in you.$B$BTake this, and eat something.",
         objectives=[devour(5, "Alterac mountain lion devoured", entries=[2406, 2407])], sort=s,
         choices=[(33243, "Skirmisher's Cover"), (33250, "Archer's Wristguard"), (33268, "Bone Dirk")],
         story="The lesson: the big cats of Alterac.")
@@ -236,7 +236,7 @@ def alterac_quests(book, lantern):
         "mountain's anger. Then eat it. A whelp that has eaten stone grows into an earthen drake.",
         "Follow the Stone Fury's scent with Sniff through Strahnbrad, let it shake the ground at you, then devour it.",
         "The fury is still in the mountain. Follow the flint.",
-        "A mountain's anger, and now yours. Your whelp may grow scales of stone.$B$BTake this.",
+        "A mountain's anger, and now yours. Your whelp may grow scales of stone.$B$BThis came to me a long time ago. Take it.",
         objectives=[trail("The Stone Fury's scent followed", "the Stone Fury", 0,
                           [(555, -750), (615, -855), (660, -945), (660, -1035)], summon=2258),
                     struck(1, "The mountain's anger felt", entries=[2258]),
@@ -253,7 +253,7 @@ def alterac_quests(book, lantern):
         "Follow Narillasanz's scent with Sniff to Chillwind Point, let it breathe fire on you, then devour it.",
         "The drake still sits on its point. Are you strong enough yet?",
         "You were. I knew you would be.$B$BThat was a dragon, little horror. A real one. Your drake has eaten its "
-        "elder; the storm is waiting for it.$B$BTake this.",
+        "elder; the storm is waiting for it.$B$BThis came to me a long time ago. Take it.",
         objectives=[trail("Narillasanz's scent followed", "Narillasanz", 0,
                           [(465, -780), (345, -900), (255, -1035), (240, -1155), (285, -1275)], summon=2447),
                     struck(1, "Narillasanz's fire felt", entries=[2447]),
@@ -282,7 +282,7 @@ def alterac_quests(book, lantern):
         "they will not get away.",
         "As an Earthen Proto-Drake, bite 5 Crushridge ogres in the Ruins of Alterac with Stone Bite.",
         "Five ogres, little horror, with the stone jaws.",
-        "Stone against stone, and yours was harder.$B$BTake this.",
+        "Stone against stone, and yours was harder.$B$BHave this, for the road.",
         objectives=[ability(5, "Ogre bitten as an Earthen Proto-Drake", 9102281,
                             entries=[2252, 2253, 2254, 2255, 2256, 2287], shapes=(44,))],
         prev=c.id, sort=s, needs=(44,),
@@ -301,7 +301,7 @@ def tanaris_quests(book, lantern):
         "things. Well, they're also horrible. Eat six. They'll be glad to get off the sand.",
         "Devour 6 Blisterpaw hyenas in Tanaris.",
         "Six blisterpaws, Snack. Their paws still hurt.",
-        "No more sore paws! Well. No more paws. Same thing.$B$BHere!",
+        "No more sore paws! Well. No more paws. Same thing.$B$BPrize! Prize prize prize!",
         objectives=[devour(6, "Blisterpaw hyena devoured", entries=[5425, 5426])], sort=s,
         choices=[(9630, "Pratt's Handcrafted Boots"), (17778, "Sagebrush Girdle"), (11856, "Ceremonial Elven Blade")],
         story="The lesson, Wren's way: the blistered hyenas of the desert.")
@@ -312,7 +312,7 @@ def tanaris_quests(book, lantern):
         "the bottom of the world. Go and stand on it. Then eat four more. A meal that was once a beach.",
         "Devour a glasshide basilisk, go to the beach its last memory shows you, then devour 4 more.",
         "Did you see the beach? Go and stand on it.",
-        "Crunchy. Like a beach. Your teeth will forgive you.$B$BTake this.",
+        "Crunchy. Like a beach. Your teeth will forgive you.$B$BHere. Wren picked it; I checked it.",
         objectives=[devour(1, "Glasshide devoured (you see a beach)", entries=[5419, 5420]),
                     visit("Land's End Beach, which it ate", 1, -10100.0, -4200.0, radius=60.0),
                     devour(4, "Glasshide basilisk devoured", entries=[5419, 5420])], prev=a.id, sort=s,
@@ -327,7 +327,7 @@ def tanaris_quests(book, lantern):
         "shape. Let them see what their prayers were about.",
         "As a Viper (or what it grew into), slay 6 Sandfury trolls at Sandsorrow Watch in Tanaris.",
         "Six Sandfury, in your serpent's shape. They are still praying.",
-        "Prayer and sand. Your serpent is closer to standing up.$B$BTake this.",
+        "Prayer and sand. Your serpent is closer to standing up.$B$BTake this; it has waited for you.",
         objectives=[slay(6, "Sandfury troll slain as a serpent", entries=[5645, 5646, 5647],
                          shapes=LINES["viper"])], prev=a.id, sort=s, needs=LINES["viper"],
         choices=[(10745, "Kaylari Shoulders"), (9657, "Vinehedge Cinch"), (11120, "Belgrom's Hammer")],
@@ -339,7 +339,7 @@ def tanaris_quests(book, lantern):
         "exist yet.$B$BTake Bramble. She doesn't believe in birds as big as houses. Eat four where she can see.",
         "With Bramble watching, devour 4 rocs in Tanaris.",
         "Four rocs, Snack, and Bramble has to see.",
-        "You ate four houses! Bird houses! House birds! I'm too excited.$B$BHere!",
+        "You ate four houses! Bird houses! House birds! I'm too excited.$B$BHere, Snack. Best one in the pile.",
         objectives=[devour(4, "Roc devoured, Bramble watching", entries=[5428, 5429, 5430],
                            companion="That's not a bird. That's a HOUSE with a beak. I want to go home.")], prev=b.id, sort=s, xp=6,
         choices=[(15822, "Shadowskin Spaulders"), (19127, "Charred Leather Tunic"), (15703, "Chemist's Smock")],
@@ -378,11 +378,11 @@ def feralas_quests(book, lantern):
     s = Z_FERALAS
     a = book.quest(
         9105270, "Longtooth", 41, 40, lantern, lantern, "hagatha",
-        "Hagatha speaks:$B$BIn Feralas the wolves have teeth too long for their mouths. Longtooth, the hunters call "
+        "Hagatha's voice, from somewhere behind the flame:$B$BIn Feralas the wolves have teeth too long for their mouths. Longtooth, the hunters call "
         "them. A wolf that eats its longtooth cousins learns to bite deeper. Eat six.",
         "Devour 6 Longtooth wolves in Feralas.",
         "Six longtooths. Mind their teeth.",
-        "Long teeth, short lives. Yours are long enough now.$B$BTake this.",
+        "Long teeth, short lives. Yours are long enough now.$B$BTake this; it has waited for you.",
         objectives=[devour(6, "Longtooth wolf devoured", entries=[5286, 5287])], sort=s,
         choices=[(9633, "Jangdor's Handcrafted Boots"), (9631, "Pratt's Handcrafted Gloves"), (10703, "Fiendish Skiv")],
         story="The lesson: the deep bite of Feralas's longtooth wolves.")
@@ -393,7 +393,7 @@ def feralas_quests(book, lantern):
         "see, and we'll find out who's right.",
         "With Bramble watching, devour 5 Ironfur bears in Feralas.",
         "Five ironfurs, Snack, and Bramble has to see.",
-        "Iron fur in your tummy! You're basically armoured now.$B$BHere!",
+        "Iron fur in your tummy! You're basically armoured now.$B$BPrize time! Here!",
         objectives=[devour(5, "Ironfur bear devoured, Bramble judging", entries=[5268, 5272],
                            companion="That's not iron. That's mud. Very hard mud. Fine, it's iron.")], prev=a.id, sort=s,
         choices=[(19042, "Jangdor's Handcrafted Tunic"), (9647, "Failed Flying Experiment"), (4549, "Seafire Band")],
@@ -406,7 +406,7 @@ def feralas_quests(book, lantern):
         "feathers. An eagle that knows how far a feather lasts knows how far it can fly.",
         "Wearing your Eagle (or what it grew into), walk among the Frayfeather hippogryphs without starting a fight.",
         "They are preening, little horror. Go and preen with them.",
-        "Frayed and tired and kind to strangers. Remember that; the sky is not always cruel.$B$BTake this.",
+        "Frayed and tired and kind to strangers. Remember that; the sky is not always cruel.$B$BTake this, little horror.",
         objectives=[among("Preened with the frayfeathers", 1, -5640.0, 1590.0, [5300, 5304, 5305, 5306],
                           LINES["eagle"], radius=25.0)],
         prev=b.id, sort=s, needs=LINES["eagle"],
@@ -414,13 +414,13 @@ def feralas_quests(book, lantern):
         story="For a Devourer with the Eagle shape: preen among the frayfeather hippogryphs as a strange young cousin.")
     e = book.quest(
         9105274, "Groddoc", 47, 45, lantern, lantern, "hagatha",
-        "Hagatha speaks:$B$BThe great apes of Feralas, the groddoc, beat the ground until it shakes. Thunderers, the "
+        "Hagatha's voice, from somewhere behind the flame:$B$BThe great apes of Feralas, the groddoc, beat the ground until it shakes. Thunderers, the "
         "elves call the biggest, and they do not stop until they are eaten. Wren wants to know "
         "how long the forest can shake: eat four before her sand runs out. There is strength in them the forest "
         "itself respects.",
         "Devour 4 Groddoc apes in Feralas before Wren's sand runs out (5 minutes).",
         "The sand ran out. Wren has turned it over. Four groddoc.",
-        "The forest shook when they fell. It will not shake when you walk now; it will be still.$B$BTake this.",
+        "The forest shook when they fell. It will not shake when you walk now; it will be still.$B$BHere. It fits a shape like yours.",
         objectives=[devour(4, "Groddoc ape devoured", entries=[5260, 5262])], prev=b.id, sort=s, xp=6, timed=300,
         choices=[(9652, "Gryphon Rider's Leggings"), (19992, "Devilsaur Tooth"), (19159, "Woven Ivy Necklace")],
         story="Hagatha's thundering groddoc apes: four against Wren's sand (5 minutes).")
@@ -444,7 +444,7 @@ def hinterlands_quests(book, lantern, stv, alterac):
         "cloaks of them. Eat six, little horror. A wolf that has eaten silver shines a little, even in the dark.",
         "Devour 6 Silvermane wolves in the Hinterlands.",
         "Six silvermanes. They shine; you will find them.",
-        "Silver in your belly. Shine a little.$B$BTake this.",
+        "Silver in your belly. Shine a little.$B$BTake this, little horror.",
         objectives=[devour(6, "Silvermane wolf devoured", entries=[2923, 2924, 2925, 2926])], sort=s,
         choices=[(9632, "Jangdor's Handcrafted Gloves"), (17778, "Sagebrush Girdle"), (11856, "Ceremonial Elven Blade")],
         story="The lesson: the silver-maned wolves of the Hinterlands.")
@@ -455,7 +455,7 @@ def hinterlands_quests(book, lantern, stv, alterac):
         "friend; she has a part in it.",
         "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
         "The fire is lit, and the moon is up. Sit.",
-        "Remember one thing you were. Every night.$B$BTake this.",
+        "Remember one thing you were. Every night.$B$BTake this. You walked far for it.",
         objectives=[tale(fire, "The tale of the owlbeasts heard")], prev=a.id, sort=s, xp=4,
         choices=[(19042, "Jangdor's Handcrafted Tunic"), (9647, "Failed Flying Experiment"), (11120, "Belgrom's Hammer")],
         story="A campfire tale for the Devourer and Bramble: the owlbeasts that ate so much they forgot the moon.")
@@ -466,7 +466,7 @@ def hinterlands_quests(book, lantern, stv, alterac):
         "fear. Then eat five.$B$BYour moonkin should know what it could forget.",
         "Roar (/roar) at 5 Hinterlands owlbeasts, then devour 5 owlbeasts in the Hinterlands.",
         "Five owlbeasts. They have forgotten the moon; do not let them forget you.",
-        "Wild, and moonless. Your moonkin will remember the moon for both of you.$B$BTake this.",
+        "Wild, and moonless. Your moonkin will remember the moon for both of you.$B$BTake this. I have no use for it.",
         objectives=[emote(5, "Owlbeast roared at", EMOTE_ROAR, entries=[2927, 2928, 2929], flee=True),
                     devour(5, "Hinterlands owlbeast devoured", entries=[2927, 2928, 2929])], prev=b.id, sort=s,
         choices=[(15822, "Shadowskin Spaulders"), (10745, "Kaylari Shoulders"), (15703, "Chemist's Smock")],
@@ -480,7 +480,7 @@ def hinterlands_quests(book, lantern, stv, alterac):
         "Gammerita will outlive you, probably. That is the best thing a shell can do.",
         "Follow Gammerita's scent with Sniff east to the Overlook Cliffs, then devour Gammerita.",
         "Gammerita is still cross on her cliffs. Follow the grudges.",
-        "Old and cross and gone at last. The dwarves will tell it for a hundred years.$B$BTake this.",
+        "Old and cross and gone at last. The dwarves will tell it for a hundred years.$B$BTake this, and do not thank me.",
         objectives=[trail("Gammerita's scent followed", "Gammerita", 0,
                           [(120, -3195), (120, -3495), (90, -3795), (-60, -4095), (-225, -4395), (-30, -4665)],
                           summon=7977),

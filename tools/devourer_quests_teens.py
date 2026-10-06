@@ -94,7 +94,7 @@ def westfall_quests(book, lantern):
         "for a cousin from the forest. Do not eat any. Just learn how they wait.",
         "Wearing your Wolf (or what it grew into), walk among the coyotes at the Jansen Stead without starting a fight.",
         "They are waiting, little horror. Go and wait with them.",
-        "Thin, and patient, and hungry. You have more in common with them than with the farmers.$B$BTake this.",
+        "Thin, and patient, and hungry. You have more in common with them than with the farmers.$B$BTake this; it has waited for you.",
         objectives=[among("Ran with the coyotes", 0, -9686.0, 930.0, [834, 833], LINES["wolf"], radius=25.0)],
         prev=a.id, sort=s, needs=LINES["wolf"],
         choices=[(5299, "Gloves of the Moon"), (1306, "Wolfmane Wristguards"), (2908, "Thornblade")],
@@ -150,12 +150,12 @@ def lochmodan_quests(book, lantern):
         "Bramble shivers. \"I'm never rowing anywhere again. Not that I was going to.\"")
     a = book.quest(
         9105110, "Stonesplinter Bones", 13, 12, lantern, lantern, "hagatha",
-        "Hagatha speaks:$B$BThe Stonesplinter troggs of the valley south-east of here dig because digging is all they "
+        "Hagatha, and the flame leans in:$B$BThe Stonesplinter troggs of the valley south-east of here dig because digging is all they "
         "remember. Their bones are half stone already. A trogg that eats them grows harder in the back, where the "
         "blows land.$B$BEat six of them in Stonesplinter Valley.",
         "Devour 6 Stonesplinter troggs in Loch Modan.",
         "Six troggs. They are still digging.",
-        "Hard to chew? Good. Something hard to chew is something hard to kill.$B$BTake this.",
+        "Hard to chew? Good. Something hard to chew is something hard to kill.$B$BThis came to me a long time ago. Take it.",
         objectives=[devour(6, "Stonesplinter trogg devoured", entries=[1161, 1162, 1166, 1163, 1197, 1164])],
         sort=s,
         choices=[(5629, "Hammerfist Gloves"), (24351, "Mace of the Hand"), (22998, "Ghostclaw Leggings")],
@@ -225,7 +225,7 @@ def darkshore_quests(book, lantern):
         "Wearing your Owl (or what it grew into), walk among the young moonkin around the lantern without starting a "
         "fight.",
         "They are hooting for you, little horror.",
-        "What do they hoot about? The moon, mostly. And you, now. They think you are a late bloomer.$B$BTake this.",
+        "What do they hoot about? The moon, mostly. And you, now. They think you are a late bloomer.$B$BHere. It fits a shape like yours.",
         objectives=[among("Stood among the young moonkin", 1, 6297.0, 95.0, [10159, 10158, 10160], LINES["owl"],
                           radius=20.0)],
         prev=a.id, sort=s, needs=LINES["owl"],
@@ -239,7 +239,7 @@ def darkshore_quests(book, lantern):
         "to stand up, and it needs to know what standing up costs.",
         "Let a Moonkin Oracle cast its Moonfire on you, then devour a Moonkin Oracle in Darkshore.",
         "The oracles still call the moon. Go and be called.",
-        "Moonlight and madness. A heavy meal. Your owl will carry it.$B$BTake this.",
+        "Moonlight and madness. A heavy meal. Your owl will carry it.$B$BHere. Something from my shelf.",
         objectives=[struck(1, "The oracle's moon felt", entries=[10157]),
                     devour(1, "Moonkin Oracle devoured", entries=[10157])], prev=b.id, sort=s,
         choices=[(26023, "Ravager Hide Gloves"), (3585, "Camouflaged Tunic"), (2908, "Thornblade")],
@@ -281,7 +281,7 @@ def bloodmyst_quests(book, lantern):
         "job.$B$BEat six of the hatchlings before they grow up and get ideas.",
         "Devour 6 Bloodmyst Hatchlings on Bloodmyst Isle.",
         "Six hatchlings, Snack. They're getting ideas.",
-        "Crunchy babies. That sounds bad when I say it out loud.$B$BHere!",
+        "Crunchy babies. That sounds bad when I say it out loud.$B$BHere! You earned it!",
         objectives=[devour(6, "Bloodmyst Hatchling devoured", entries=[17525])], sort=s,
         choices=[(26023, "Ravager Hide Gloves"), (23408, "Farstrider's Bracers"), (2908, "Thornblade")],
         story="The lesson, Wren's way: the ravager hatchlings, eaten before they grow up.")
@@ -336,7 +336,7 @@ def bloodmyst_quests(book, lantern):
         "As a Royal Blue Flutterer, put 5 Bloodmyst bears to sleep with Sleep Spores.",
         "Five sleepy bears, Snack. Shh.",
         "Five bears, snoring. I could hear it through the lantern. Did you give them good dreams? I think you "
-        "did.$B$BHere!",
+        "did.$B$BHere you go, Snack!",
         objectives=[ability(5, "Bear put to sleep as a Flutterer", 9102072, entries=[17345, 17347, 17348],
                             shapes=(23,))],
         prev=a.id, sort=s, needs=(23,),
@@ -349,7 +349,7 @@ def bloodmyst_quests(book, lantern):
         "it. Spit at five of them. Let the dark see what came out of it and learned to spit.",
         "As a Voidling, hit 5 Void Anomalies at the Warp Piston with Void Spit.",
         "Five anomalies, little horror, spat at properly.",
-        "The dark saw. It will remember you, and that is no bad thing.$B$BTake this.",
+        "The dark saw. It will remember you, and that is no bad thing.$B$BTake this, little horror.",
         objectives=[ability(5, "Anomaly spat at as a Voidling", 9102254, entries=[17550], shapes=(41,))],
         prev=a.id, sort=s, needs=(41,),
         choices=[(3585, "Camouflaged Tunic"), (1306, "Wolfmane Wristguards"), (24351, "Mace of the Hand")],
@@ -369,7 +369,7 @@ def barrens_quests(book, lantern):
         "running in it than it knows.",
         "Devour 6 plainstriders in the Barrens.",
         "Six striders. They will not stand still for you.",
-        "Did you feel the wind? That was the chase. One day you will be the one it is chasing.$B$BTake this.",
+        "Did you feel the wind? That was the chase. One day you will be the one it is chasing.$B$BHere. Wren picked it; I checked it.",
         objectives=[devour(6, "Barrens plainstrider devoured", entries=[3244, 3246, 3245])], sort=s,
         choices=[(1306, "Wolfmane Wristguards"), (5299, "Gloves of the Moon"), (5279, "Harpy Skinner")],
         story="The lesson: Hagatha's tale of the chick the wind chases, and six Barrens plainstriders.")
@@ -395,7 +395,7 @@ def barrens_quests(book, lantern):
         "can see. A thing that eats lightning learns that the sky is only another kind of meal.",
         "With Bramble watching, devour 3 thunder lizards in the Barrens.",
         "Three lizards, and Bramble has to see.",
-        "Your hair is standing up. Do you have hair? Something is standing up.$B$BTake this.",
+        "Your hair is standing up. Do you have hair? Something is standing up.$B$BThis is yours now.",
         objectives=[devour(3, "Thunder lizard devoured, Bramble watching", entries=[3240, 3239],
                            companion="My hair's standing up! Is that supposed to happen? Do it again!")], prev=b.id, sort=s,
         choices=[(3741, "Stomping Boots"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
@@ -466,7 +466,7 @@ def silverpine_quests(book, lantern):
         "wolf that has eaten worg starts to remember too.",
         "Devour 6 worgs in Silverpine Forest.",
         "Six worgs. They watch you from the pines.",
-        "Clever eyes, and now clever in your belly. Your wolf is listening.$B$BTake this.",
+        "Clever eyes, and now clever in your belly. Your wolf is listening.$B$BTake this. I have no use for it.",
         objectives=[devour(6, "Worg devoured", entries=[1765, 1766])], sort=s,
         choices=[(1306, "Wolfmane Wristguards"), (5299, "Gloves of the Moon"), (2908, "Thornblade")],
         story="The lesson: six worgs of Silverpine, the wolves that remember something older.")
@@ -493,7 +493,7 @@ def silverpine_quests(book, lantern):
         "Wearing your Wolf (or what it grew into), walk among the Bloodsnout Worgs at the Greymane Wall without "
         "starting a fight.",
         "They are waiting at the wall, little horror. Run behind them.",
-        "Did they let you? Of course they did. That is what your wolf will be.$B$BTake this.",
+        "Did they let you? Of course they did. That is what your wolf will be.$B$BHere. It fits a shape like yours.",
         objectives=[among("Ran behind the bloodsnouts", 0, -574.0, 1549.0, [1923], LINES["wolf"], radius=25.0)],
         prev=b.id, sort=s, needs=LINES["wolf"],
         choices=[(3585, "Camouflaged Tunic"), (26023, "Ravager Hide Gloves"), (5757, "Hardwood Cudgel")],
@@ -518,7 +518,7 @@ def silverpine_quests(book, lantern):
         "dug up, and nobody will miss it.$B$BWear your duskbat. Open five of them, and drink.",
         "As a Vampiric Duskbat, open 5 Rot Hide gnolls on Fenris Isle with Exsanguinate.",
         "Five Rot Hides, little horror, opened properly.",
-        "Old blood, but blood. Your duskbat knows what it is for now.$B$BTake this.",
+        "Old blood, but blood. Your duskbat knows what it is for now.$B$BHere. Something from my shelf.",
         objectives=[ability(5, "Rot Hide opened as a Vampiric Duskbat", 9102051, entries=[1939, 1940, 1942, 1943],
                             shapes=(21,))],
         prev=a.id, sort=s, needs=(21,),
@@ -536,7 +536,7 @@ def ghostlands_quests(book, lantern):
         "starving ones and the ghostclaws.",
         "Devour 6 Ghostclaw lynxes in the Ghostlands.",
         "Six cats. They are thin; you will have to be quick.",
-        "Honest hunger. Remember the taste; you will meet the other kind soon enough.$B$BTake this.",
+        "Honest hunger. Remember the taste; you will meet the other kind soon enough.$B$BHere. Something from my shelf.",
         objectives=[devour(6, "Ghostclaw lynx devoured", entries=[16347, 16348, 16349])], sort=s,
         choices=[(22998, "Ghostclaw Leggings"), (5299, "Gloves of the Moon"), (5279, "Harpy Skinner")],
         story="The lesson: six Ghostclaw lynxes, and honest hunger.")
@@ -574,7 +574,7 @@ def ghostlands_quests(book, lantern):
         "thought.$B$BWear your arcane wraith. When one of them starts a spell, swallow it. Five times.",
         "As an Arcane Wraith, swallow 5 spells cast by Mana Shifters or Arcane Devourers with Swallow Spell.",
         "Five spells, little horror, swallowed before they land.",
-        "Did they taste of anything? Surprise, mostly. That is the taste of a spell that never finished.$B$BTake this.",
+        "Did they taste of anything? Surprise, mostly. That is the taste of a spell that never finished.$B$BTake this, and eat something.",
         objectives=[ability(5, "Spell swallowed as an Arcane Wraith", 9102062, entries=[16310, 16304], shapes=(22,))],
         prev=a.id, sort=s, needs=(22,),
         choices=[(22998, "Ghostclaw Leggings"), (5351, "Bounty Hunter's Ring"), (24351, "Mace of the Hand")],

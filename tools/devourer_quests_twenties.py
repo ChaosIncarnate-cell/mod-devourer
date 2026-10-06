@@ -70,7 +70,7 @@ def duskwood_quests(book, lantern):
         "to use it.",
         "Devour 6 dire wolves in Duskwood.",
         "Six wolves. They are easy to find; they want to find you.",
-        "Mad, and hungry, and now part of you. Use it, do not let it use you.$B$BTake this.",
+        "Mad, and hungry, and now part of you. Use it, do not let it use you.$B$BTake this. It was going to waste.",
         objectives=[devour(6, "Dire wolf devoured", entries=[213, 565])], sort=s,
         choices=[(17005, "Boorguard Tunic"), (5355, "Beastmaster's Girdle"), (15464, "Brute Hammer")],
         story="The lesson: the madness of Duskwood's starving dire wolves.")
@@ -112,7 +112,7 @@ def wetlands_quests(book, lantern):
         "patience and no teeth yet.",
         "Devour 6 Young Wetlands Crocolisks.",
         "The shallows are still crowded.",
-        "Patient little things. Now your komodo is patient too.$B$BTake this.",
+        "Patient little things. Now your komodo is patient too.$B$BThis is yours now.",
         objectives=[devour(6, "Young Wetlands Crocolisk devoured", entries=[1417])], sort=s,
         choices=[(17005, "Boorguard Tunic"), (2033, "Ambassador's Boots"), (5322, "Demolition Hammer")],
         story="The lesson: the crocolisk nursery of the Wetlands.")
@@ -126,7 +126,7 @@ def wetlands_quests(book, lantern):
         "fight.",
         "They are waiting for one more lost one.",
         "Did they curl up around you? Whelps do that, when they are cold. Now you know what it is to have a "
-        "flight.$B$BTake this.",
+        "flight.$B$BHere. It fits a shape like yours.",
         objectives=[among("Sat among the lost whelps", 0, -3500.0, -3100.0, [1042, 1043, 1069, 1044],
                           LINES["whelp"], radius=25.0)],
         prev=a.id, sort=s, needs=LINES["whelp"],
@@ -139,7 +139,7 @@ def wetlands_quests(book, lantern):
         "and watch her face. Snort snort.",
         "With Bramble watching, devour 4 flamesnorting whelps in the Wetlands.",
         "Four whelps, Snack, and Bramble has to see them snort.",
-        "Snort! I'm doing the whelp noise. Snort snort. Bramble believes in them now. She's a little singed.$B$BHere!",
+        "Snort! I'm doing the whelp noise. Snort snort. Bramble believes in them now. She's a little singed.$B$BHere! You earned it!",
         objectives=[devour(4, "Flamesnorting Whelp devoured, Bramble watching", entries=[1044],
                            companion="It SNORTED. Fire! Out of its NOSE. I take it all back.")], prev=a.id, sort=s,
         choices=[(7751, "Vorrel's Boots"), (6719, "Windborne Belt"), (6749, "Tiger Band")],
@@ -180,7 +180,7 @@ def ashenvale_quests(book, lantern):
         "quiet. Eat six of them and learn the difference.",
         "Devour 6 Ghostpaw wolves in Ashenvale.",
         "Six ghostpaws. Quiet things; be quieter.",
-        "Not spirits. Meat. Remember that when the night elves tell you stories.$B$BTake this.",
+        "Not spirits. Meat. Remember that when the night elves tell you stories.$B$BTake this, little horror.",
         objectives=[devour(6, "Ghostpaw devoured", entries=[3823, 3824])], sort=s,
         choices=[(6670, "Panther Armor"), (15462, "Loamflake Bracers"), (1264, "Headbasher")],
         story="The lesson: the soft walk of Ashenvale's ghostpaw wolves.")
@@ -192,7 +192,7 @@ def ashenvale_quests(book, lantern):
         "Sit at the Sisters' Campfire by the lantern with Bramble, and hear Hagatha's tale to its end.",
         "The fire is lit. This one matters.",
         "Now you know what the satyrs are. When you meet them in the east of the forest, you will taste the "
-        "difference.$B$BTake this.",
+        "difference.$B$BTake this. I have no use for it.",
         objectives=[tale(fire, "The tale of the satyrs' bargain heard")], prev=a.id, sort=s, xp=4,
         choices=[(7751, "Vorrel's Boots"), (5355, "Beastmaster's Girdle"), (6749, "Tiger Band")],
         story="A campfire tale for the Devourer and Bramble: the night elves who sold their shape and became satyrs.")
@@ -203,7 +203,7 @@ def ashenvale_quests(book, lantern):
         "they sold. A cat that kills satyrs learns to hunt in silence, the way they never could.",
         "As a Saber (or what it grew into), slay 5 Felmusk or Bleakheart satyrs in Ashenvale.",
         "Five satyrs. They are loud; follow the noise.",
-        "Bitter, wasn't it? That is the taste of a shape bought cheap.$B$BTake this.",
+        "Bitter, wasn't it? That is the taste of a shape bought cheap.$B$BThis is yours now.",
         objectives=[slay(5, "Satyr slain as a saber", entries=[3758, 3763, 3762, 3759, 3765, 3770, 3767, 3771],
                          shapes=LINES["saber"])],
         prev=b.id, sort=s, needs=LINES["saber"],
@@ -218,7 +218,7 @@ def ashenvale_quests(book, lantern):
         "the ones who call the void becomes the mother of what answers.",
         "Walk into the Tower of Althalaxx without being in a fight, then devour 3 Dark Strand Voidcallers there.",
         "They are still knocking on the door.",
-        "Quiet now, the tower. Your voidcreeper heard every knock.$B$BTake this.",
+        "Quiet now, the tower. Your voidcreeper heard every knock.$B$BHere. It fits a shape like yours.",
         objectives=[visit("Walked into the Tower of Althalaxx", 1, 7197.0, -732.0, radius=35.0, quiet=True),
                     devour(3, "Dark Strand Voidcaller devoured", entries=[2337])], prev=c.id, sort=s, xp=6,
         choices=[(6745, "Swiftrunner Cape"), (9687, "Grappler's Belt"), (6748, "Monkey Ring")],
@@ -231,7 +231,7 @@ def ashenvale_quests(book, lantern):
         "into five of them.",
         "As a Voidcreeper, sink Creeper Fangs into 5 Dark Strand fanatics in Darkshore.",
         "Five fanatics, little horror. Fangs first.",
-        "Did they scream? They always scream when they meet what they pray to.$B$BTake this.",
+        "Did they scream? They always scream when they meet what they pray to.$B$BTake this. I have no use for it.",
         objectives=[ability(5, "Fanatic bitten as a Voidcreeper", 9102261, entries=[2336, 2337], shapes=(42,))],
         prev=a.id, sort=s, needs=(42,),
         choices=[(6745, "Swiftrunner Cape"), (9687, "Grappler's Belt"), (6748, "Monkey Ring")],
@@ -247,13 +247,13 @@ def hillsbrad_quests(book, lantern):
         "horror. Not every lesson is about speed.",
         "Devour 6 gray bears in Hillsbrad Foothills.",
         "Six bears. They are slow; do not make me wait longer than they do.",
-        "Heavy, warm, patient. A good meal for a cold night.$B$BTake this.",
+        "Heavy, warm, patient. A good meal for a cold night.$B$BTake this. It was going to waste.",
         objectives=[devour(6, "Gray bear devoured", entries=[2351, 2354, 2356])], sort=s,
         choices=[(17005, "Boorguard Tunic"), (6668, "Draftsman Boots"), (5322, "Demolition Hammer")],
         story="The lesson: the slow strength of Hillsbrad's old gray bears.")
     c = book.quest(
         9105202, "Honest Claws", 26, 24, lantern, lantern, "hagatha",
-        "Hagatha speaks:$B$BThe mountain lions came down from Alterac when the ogres took the mountains. They are "
+        "Hagatha, after a long breath:$B$BThe mountain lions came down from Alterac when the ogres took the mountains. They are "
         "starving, little horror, and starving cats are honest hunters. Wren wants to time you against them; she says a starving cat is the only fair race. Five of them, "
         "the starving ones and the feral ones in the south, before her candle burns down.",
         "Devour 5 mountain lions in Hillsbrad Foothills before Wren's candle burns down (5 minutes).",
@@ -271,7 +271,7 @@ def hillsbrad_quests(book, lantern):
         "Wearing your Snapjaw (or what it grew into), lie down among the snapjaws by the river without starting a "
         "fight.",
         "They are sunning. Go and do nothing with them.",
-        "Warm? Good. Now, when the world bites you, you will bite back from inside your shell, slowly.$B$BTake this.",
+        "Warm? Good. Now, when the world bites you, you will bite back from inside your shell, slowly.$B$BTake this. You walked far for it.",
         objectives=[among("Sunned with the snapjaws", 0, -283.0, -1102.0, [2408], LINES["turtle"], radius=25.0)],
         prev=c.id, sort=s, needs=LINES["turtle"], xp=6,
         choices=[(4107, "Tiger Hunter Gloves"), (33249, "Boots of the Skirmisher"), (33267, "Fleshripper")],
@@ -293,13 +293,13 @@ def stonetalon_quests(book, lantern):
         story="The lesson, Wren's way: she hides under a blanket from the spitting Deepmoss spiders.")
     b = book.quest(
         9105211, "Three Things at Once", 23, 21, lantern, lantern, "hagatha",
-        "Hagatha speaks:$B$BThe pridewings of Stonetalon are wyverns, little horror: lion, bat and scorpion, stitched "
+        "Hagatha, low and even:$B$BThe pridewings of Stonetalon are wyverns, little horror: lion, bat and scorpion, stitched "
         "together by a world that could not make up its mind. They nest around Mirkfallon Lake.$B$BTake your little "
         "friend and let her count the three things while you eat five. A thing that is three things at once is a "
         "good lesson for a thing like you.",
         "With Bramble watching, devour 5 pridewings in Stonetalon Mountains.",
         "Five pridewings. They fly, but they come down to feed.",
-        "Three things at once. You are a hundred. Never forget which one you are wearing.$B$BTake this.",
+        "Three things at once. You are a hundred. Never forget which one you are wearing.$B$BTake this; it has waited for you.",
         objectives=[devour(5, "Pridewing devoured, Bramble counting", entries=[4012, 4014, 4013, 4011],
                            companion="Lion. Bat. Scorpion. That's three. Wait, does the tail count twice?")], prev=a.id, sort=s,
         choices=[(6752, "Lancer Boots"), (6719, "Windborne Belt"), (24119, "Band of Argas")],
@@ -327,7 +327,7 @@ def stonetalon_quests(book, lantern):
         "a wild drake remembers what dragons were before anyone tamed them.",
         "Follow Nal'taszar's scent with Sniff up Stonetalon Peak, then devour Nal'taszar.",
         "The drake is still on its peak. Climb.",
-        "Wild and proud, and now yours. Your whelp has tasted the proto-drake it will become.$B$BTake this.",
+        "Wild and proud, and now yours. Your whelp has tasted the proto-drake it will become.$B$BHere. Something from my shelf.",
         objectives=[trail("Nal'taszar's scent followed", "Nal'taszar", 1,
                           [(1890, 825), (2070, 1050), (2400, 1155), (2400, 1470), (2445, 1770), (2535, 1980)],
                           summon=4066),
@@ -360,7 +360,7 @@ def needles_quests(book, lantern):
         "do! They follow travellers and nip at their heels. Eat six. Nobody nips at my Snack.",
         "Devour 6 Pesterhide hyenas in Thousand Needles.",
         "Six hyenas. They're still nipping, Snack.",
-        "No more nipping! Except me. I nip biscuits.$B$BHere!",
+        "No more nipping! Except me. I nip biscuits.$B$BHere! You earned it!",
         objectives=[devour(6, "Pesterhide hyena devoured", entries=[4248, 4249])], sort=s,
         choices=[(9699, "Garrison Cloak"), (6752, "Lancer Boots"), (6093, "Orc Crusher")],
         story="The lesson, Wren's way: nobody nips at her Snack, so the Pesterhide hyenas get eaten.")
@@ -373,7 +373,7 @@ def needles_quests(book, lantern):
         "is to be both at once.",
         "Devour a cloud serpent, go to the canyon its last memory shows you, then devour 4 more.",
         "Did you see the canyon? Go and stand in it.",
-        "Did you taste the storm? It is still in you. Your Baby Wind Serpent will feel it.$B$BTake this.",
+        "Did you taste the storm? It is still in you. Your Baby Wind Serpent will feel it.$B$BHere. Wren picked it; I checked it.",
         objectives=[devour(1, "Cloud serpent devoured (you see a canyon)", entries=[4117, 4118, 4119]),
                     visit("Windbreak Canyon, where it nested", 1, -5470.0, -2900.0, radius=45.0),
                     devour(4, "Cloud serpent devoured", entries=[4117, 4118, 4119])], prev=a.id, sort=s,
@@ -415,7 +415,7 @@ def needles_quests(book, lantern):
         "what vipers do.",
         "As a Viper, come up behind 5 Galak centaur in Thousand Needles with Sand Slither.",
         "Five centaur, little horror, from behind.",
-        "They never saw you. They never do. That is the viper's whole gift.$B$BTake this.",
+        "They never saw you. They never do. That is the viper's whole gift.$B$BHere. Wren picked it; I checked it.",
         objectives=[ability(5, "Galak slithered up on as a Viper", 9102092,
                             entries=[4096, 4094, 4093, 4099, 4097, 4095], shapes=(25,))],
         prev=a.id, sort=s, needs=(25,),
