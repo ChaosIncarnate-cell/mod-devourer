@@ -148,9 +148,9 @@ def wetlands_quests(book, lantern):
         9105183, "As Old as Hagatha", 27, 25, lantern, lantern, "wren",
         "Wren, whispering so her sister can't hear:$B$BSnack, Hagatha says the giant crocolisks of Sundown Marsh are "
         "as old as she is. I said that's impossible, nothing is as old as she is, and she threw a spoon at me.$B$B"
-        "Settle it. Turn on your Sniff and follow the old-croc smell north into Sundown Marsh, find the biggest one, "
+        "Settle it. Turn on your Sniff and follow the old-croc smell north-west into Sundown Marsh, find the biggest one, "
         "and eat it. If it tastes like spoons, she was right.",
-        "Follow the old-croc smell with Sniff north into Sundown Marsh, then devour a Giant Wetlands Crocolisk.",
+        "Follow the old-croc smell with Sniff north-west into Sundown Marsh, then devour a Giant Wetlands Crocolisk.",
         "No croc yet, Snack. The spoon is waiting.",
         "Well? Spoons? ...Just old? Then she's older. HA. I'm telling her.$B$BHere, from me. Not from the spoon.",
         objectives=[trail("The old-croc smell followed", "a Giant Wetlands Crocolisk", 0,
@@ -368,7 +368,7 @@ def needles_quests(book, lantern):
         9105221, "Cloud Serpents", 27, 26, lantern, lantern, "hagatha",
         "Hagatha, and somewhere in the flame the wind howls:$B$BA snake that swallows enough storms grows wings to "
         "carry them. The cloud serpents of the Needles are what that looks like, little horror. They coil around the "
-        "spires.$B$BEat one, and you will see the last thing it saw: the canyon it nested in, in the east. Go and "
+        "spires.$B$BEat one, and you will see the last thing it saw: the canyon it nested in, in the south-east. Go and "
         "stand there, where the wind breaks. Then eat four more. Your snake, or your eagle, will learn what it "
         "is to be both at once.",
         "Devour a cloud serpent, go to the canyon its last memory shows you, then devour 4 more.",

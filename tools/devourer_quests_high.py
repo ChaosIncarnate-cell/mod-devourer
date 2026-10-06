@@ -59,7 +59,7 @@ def high(book, thirties):
     for key, qid in (("ungoro", 9105299), ("winterspring", 9105309), ("burning", 9105319)):
         lantern, finale = found[key]
         onward(book, qid, 60, lantern, terokkar, finale.id,
-               "There is nothing left in this world that can teach you, little horror. Go through the Dark Portal. "
+               "There is nothing left in this world that can teach you. Go through the Dark Portal. "
                "On the other side the world is broken, and broken worlds are very thin.")
 
     found["terokkar"] = (terokkar, terokkar_quests(book, terokkar))
@@ -151,10 +151,10 @@ def ungoro_quests(book, lantern):
         9105296, "You Hear It First", 55, 53, lantern, lantern, "hagatha",
         "Hagatha tells it, and the ground in the flame shakes:$B$BThe devilsaur is the biggest hunger in the crater, "
         "little horror. It does not hide; it does not need to. You hear it before you see it, and you smell it before "
-        "you hear it: hot breath and old bones.$B$BTurn on your Sniff by the lantern and follow it south. Let it hit "
+        "you hear it: hot breath and old bones.$B$BTurn on your Sniff by the lantern and follow it east. Let it hit "
         "you, once, so you know what the biggest hunger feels like. Then eat it, and show the crater who is hungriest "
         "now.",
-        "Follow the devilsaur's breath with Sniff south of the lantern, let it strike you, then devour a Devilsaur.",
+        "Follow the devilsaur's breath with Sniff east of the lantern, let it strike you, then devour a Devilsaur.",
         "The devilsaur still walks. Listen for it. Smell it first.",
         "The biggest hunger in the crater, inside the hungriest thing in the world. I am proud of you, little horror. "
         "Do not tell Wren I said so.$B$BTake this.",
@@ -212,7 +212,7 @@ def winterspring_quests(book, lantern):
         "Hagatha tells it, and the flame goes white as the moon:$B$BAn owl that eats moonlight becomes a moonkin. A "
         "moonkin that eats the wild becomes an owlbeast. But here, in the snow, the owlbeasts ate so much of the moon "
         "that it touched them back. Moontouched, the furbolgs say, and bow their heads.$B$BThey smell of snow under "
-        "moonlight, if you can imagine that. Turn on your Sniff and follow it east, all the way to the Hidden Grove. "
+        "moonlight, if you can imagine that. Turn on your Sniff and follow it north-east, all the way to the Hidden Grove. "
         "Let one call the moon down on you, little horror. Then eat it. Your moonkin has been waiting for this since "
         "the first owl you swallowed.",
         "Follow the moontouched scent with Sniff to the Hidden Grove, let a Moontouched Owlbeast cast Moonfire on you, "
@@ -313,7 +313,7 @@ def terokkar_quests(book, lantern):
         9105322, "Blinking", 64, 62, lantern, lantern, "hagatha",
         "Hagatha tells it, and the thread hums:$B$BOut where the world thins, little horror, the warp stalkers blink "
         "in and out of the forest like candle flames. You were born in the dark between. So were they, nearly.$B$B"
-        "Wear your warp stalker and walk among the warp hunters in the south of the forest. They will blink at you, "
+        "Wear your warp stalker and walk among the warp hunters in the south-west of the forest. They will blink at you, "
         "and you will blink back, and they will think you are one of them. Learn how they forget which side of the "
         "dark they belong to.",
         "Wearing your Warp Stalker (or what it grew into), walk among the warp hunters of Terokkar without starting a "
@@ -408,7 +408,7 @@ def netherstorm_quests(book, lantern):
     b = book.quest(
         9105341, "Phase Hunters", 68, 66, lantern, lantern, "hagatha",
         "Hagatha speaks:$B$BThe phase hunters slip between this world and the next as easily as you slip between "
-        "shapes, little horror, Take your little friend; she has never seen anything slip between worlds, and she should, once. "
+        "shapes, little horror. Take your little friend; she has never seen anything slip between worlds, and she should, once. "
         "Eat five where she can see. Learn how they slip.",
         "With Bramble watching, devour 5 phase hunters in Netherstorm.",
         "Five phase hunters, and Bramble has to see.",
@@ -493,7 +493,7 @@ def fjord_quests(book, lantern):
         story="A campfire tale for the Devourer and Bramble: the dragons that hid from the Titans' tidying.")
     book.quest(
         9105352, "A Sibling in the Clutch", 70, 68, lantern, lantern, "hagatha",
-        "Hagatha, proud:$B$BIn the Ember Clutch, in the north of the fjord, the proto-whelps hatch in the warm rocks. "
+        "Hagatha, proud:$B$BIn the Ember Clutch, north-west of here, the proto-whelps hatch in the warm rocks. "
         "Wear your whelp, or your drake, little horror, and walk into the clutch. They will take you for one more "
         "sibling, hatched a little late and a little strange. Lie in the warm rocks with them. You will fit right "
         "in.",
@@ -656,12 +656,12 @@ def sholazar_quests(book, lantern):
         story="Wren names her spoon after the hardknuckle gorillas: four of them before three hundred bangs (5 minutes).")
     e = book.quest(
         9105385, "The First Dragons", 77, 75, lantern, lantern, "hagatha",
-        "Hagatha tells it, and the flame burns very old:$B$BIn the Savage Thicket, in the east of the basin, there are "
+        "Hagatha tells it, and the flame burns very old:$B$BIn the Savage Thicket, north-east of here, there are "
         "drakes from before anyone was keeping count. Primordial, the Oracles call them. They smell of the beginning "
-        "of the world: green fire and old stone.$B$BTurn on your Sniff by the lantern and follow it east. Eat two, little horror. Your drake has eaten the young and the wild and the broken; let "
+        "of the world: green fire and old stone.$B$BTurn on your Sniff by the lantern and follow it north-east. Eat two, little horror. Your drake has eaten the young and the wild and the broken; let "
         "it eat the first.",
         "Follow the primordial scent with Sniff to the Savage Thicket, then devour 2 Primordial Drakes.",
-        "The first dragons still nest in the east. Follow the green fire.",
+        "The first dragons still nest in the north-east. Follow the green fire.",
         "The first dragons, nearly. Your drake has eaten its whole history now.$B$BTake this, and go to the peaks.",
         objectives=[trail("The primordial scent followed", "a Primordial Drake", 571,
                           [(5445, 5010), (5640, 5010), (5850, 5025), (6045, 4905), (6240, 4905), (6420, 4800)],
@@ -702,7 +702,7 @@ def stormpeaks_quests(book, lantern):
         9105391, "Jormungar", 79, 77, lantern, lantern, "hagatha",
         "Hagatha speaks, and the ground in the flame trembles:$B$BBelow the deepest mine there are tunnels no pick "
         "ever cut. The deep borers made them, looking for the heart of the world. Here, the jormungar dig through the "
-        "ice the same way, as big as ships, Wear your borer, little horror, and kill four of them in its shape. It "
+        "ice the same way, as big as ships. Wear your borer, little horror, and kill four of them in its shape. It "
         "will learn to dig through anything.",
         "As a Borer (or what it grew into), slay 4 jormungar in the Storm Peaks.",
         "Four jormungar, as a borer. Listen for the ice breaking.",

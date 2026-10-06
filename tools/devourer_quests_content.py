@@ -282,7 +282,7 @@ def teldrassil_quests(book, lantern):
         story="Hagatha's tale of Lady Sathrah, the spider who thinks herself a queen.")
     mercy(book, 9105034, "Moonpaw", 7, lantern, moonpaw,
           [(9844, 671), (9974, 598), (10020, 470)],
-          "Wren, softly:$B$BSnack, there's a nightsaber cub east of the lantern whose mother didn't come back. I think "
+          "Wren, softly:$B$BSnack, there's a nightsaber cub north-east of the lantern whose mother didn't come back. I think "
           "something ate her. Not you. Probably not you. It smells of moss and milk and moonlight. Sniff it out and pat "
           "it, so it knows not everything with teeth is bad.",
           "Moss and milk and moonlight, Snack. Follow it.",
@@ -413,7 +413,7 @@ def durotar_quests(book, lantern):
     book.quest(
         9105054, "Head Down, Legs Going", 9, 8, lantern, lantern, "hagatha",
         "Hagatha, dry:$B$BYou wear the boar now, little horror. A boar is not clever, I told you; it does not need to "
-        "be. It puts its head down and its legs go. The Razormane quilboar at the Valley of Trials' edge, south of "
+        "be. It puts its head down and its legs go. The Razormane quilboar at the Razormane Grounds, south-west of "
         "here, think they are the only boars that matter.$B$BWear your boar and charge six of them. Head down. Legs "
         "going.",
         "As a Boar, charge 6 Razormane quilboar in Durotar with Primal Charge.",

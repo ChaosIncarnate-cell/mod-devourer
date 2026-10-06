@@ -102,9 +102,9 @@ def stv_quests(book, lantern):
         "Hagatha tells it, and the flame goes black at its heart:$B$BIn the south of the vale, where the trolls built "
         "their temples, there are panthers so dark the trolls named them for the mouth of the night: shadowmaw. They "
         "leave no shadow, little horror, because they are made of it. But they leave a smell: wet stone and old "
-        "blood.$B$BTurn on your Sniff by the lantern and follow it south. Eat the one at the end of it, and two more. "
+        "blood.$B$BTurn on your Sniff by the lantern and follow it south-east. Eat the one at the end of it, and two more. "
         "A saber that has eaten the night's mouth hunts in it.",
-        "Follow the shadowmaw's scent with Sniff south of the lantern, then devour 3 Shadowmaw Panthers.",
+        "Follow the shadowmaw's scent with Sniff south-east of the lantern, then devour 3 Shadowmaw Panthers.",
         "The shadowmaws are still in the dark.",
         "Dark, and quiet, and yours.$B$BTake this.",
         objectives=[trail("The shadowmaw's scent followed", "a Shadowmaw Panther", 0,
@@ -177,7 +177,7 @@ def dustwallow_quests(book, lantern, tanaris, feralas):
         story="A campfire tale for the Devourer and Bramble: the worm that ate without ever choosing what.")
     f = book.quest(
         9105246, "The Oozeworm", 40, 38, lantern, lantern, "hagatha",
-        "Hagatha tells it, and the flame shrinks:$B$BThe Oozeworm lives in the Dragonmurk, south-west of here, past "
+        "Hagatha tells it, and the flame shrinks:$B$BThe Oozeworm lives in the Dragonmurk, south of here, past "
         "the Quagmire. You can smell it from the lantern if you try: rot and black fire and too much.$B$BTurn on your "
         "Sniff and follow it. It will rise when it smells you. Eat it, little horror. Choose to. A borer that has eaten "
         "the Oozeworm will dig deeper than any worm has dug.",
@@ -232,7 +232,7 @@ def alterac_quests(book, lantern):
         "Hagatha tells it, and the flame grinds like rock:$B$BWhen the Syndicate took Strahnbrad, a spirit of the "
         "mountain rose against them and never lay back down. The Stone Fury, the villagers called it. It wanders, "
         "angry at everything, and is gone again for days.$B$BAn angry mountain smells of flint and lightning. Turn on "
-        "your Sniff by the lantern and follow it east, through Strahnbrad. Let it stamp the ground under you; feel the "
+        "your Sniff by the lantern and follow it north-east, through Strahnbrad. Let it stamp the ground under you; feel the "
         "mountain's anger. Then eat it. A whelp that has eaten stone grows into an earthen drake.",
         "Follow the Stone Fury's scent with Sniff through Strahnbrad, let it shake the ground at you, then devour it.",
         "The fury is still in the mountain. Follow the flint.",
@@ -245,7 +245,7 @@ def alterac_quests(book, lantern):
         story="Sniff out the Stone Fury of Strahnbrad, feel it shake the ground, and eat it (Earthen Proto-Drake).")
     book.quest(
         9105253, "Narillasanz", 45, 43, lantern, lantern, "hagatha",
-        "Hagatha's voice, very quiet, the way she speaks of dangerous things:$B$BOn Chillwind Point, south-east of "
+        "Hagatha's voice, very quiet, the way she speaks of dangerous things:$B$BOn Chillwind Point, east of "
         "here above the lake, a red drake has made its home. Narillasanz. Old enough to remember the orcs who rode its "
         "kin, strong enough that the ogres leave it alone. Come back to me when you are strong enough too.$B$BThen "
         "follow its smell down the mountain: hot stone and old fire. Let it breathe on you, once. Eat it, little "
@@ -263,7 +263,7 @@ def alterac_quests(book, lantern):
               "(a Storm Dragon task).")
     mercy(book, 9105254, "Nubbin", 33, lantern, nubbin,
           [(555, -585), (615, -510), (615, -465)],
-          "Wren, bouncing:$B$BSnack, there's a mountain kid north of the lantern, near the old ruins, that got "
+          "Wren, bouncing:$B$BSnack, there's a mountain kid north-west of the lantern, near the old ruins, that got "
           "separated from its flock when the ogres came through. It's standing on a rock being very brave at nothing. "
           "It smells of wool and snow and being brave at nothing.$B$BSniff it out before the ogres do. Pat it. Goats "
           "are very huggable, I've heard.",
@@ -321,7 +321,7 @@ def tanaris_quests(book, lantern):
     c = book.quest(
         9105262, "The Sandfury", 44, 42, lantern, lantern, "hagatha",
         "Hagatha tells it, and sand hisses in the flame:$B$BThe Sandfury trolls of Zul'Farrak keep a watch at "
-        "Sandsorrow, just north of here, and pray to a great hydra in their city. Every serpent that sheds long "
+        "Sandsorrow, north-west of here, and pray to a great hydra in their city. Every serpent that sheds long "
         "enough stands up one day and starts to pray, little horror. The sand people began like you.$B$BWear "
         "your serpent, little horror, or the sethrak it grows into, and go and kill six of the Sandfury in that "
         "shape. Let them see what their prayers were about.",
@@ -415,7 +415,7 @@ def feralas_quests(book, lantern):
     e = book.quest(
         9105274, "Groddoc", 47, 45, lantern, lantern, "hagatha",
         "Hagatha speaks:$B$BThe great apes of Feralas, the groddoc, beat the ground until it shakes. Thunderers, the "
-        "elves call the biggest. They beat the ground until it shakes, and they do not stop until they are eaten. Wren wants to know "
+        "elves call the biggest, and they do not stop until they are eaten. Wren wants to know "
         "how long the forest can shake: eat four before her sand runs out. There is strength in them the forest "
         "itself respects.",
         "Devour 4 Groddoc apes in Feralas before Wren's sand runs out (5 minutes).",
@@ -462,8 +462,8 @@ def hinterlands_quests(book, lantern, stv, alterac):
     c = book.quest(
         9105282, "Fatal Bites", 45, 43, lantern, lantern, "hagatha",
         "Hagatha, quiet:$B$BNow go and meet them. The owlbeasts of the Hinterlands are vicious, primitive, savage, "
-        "and their bite goes to the bone. Roar at them, little horror. The ones that remember the moon will run from a "
-        "roar like yours; the ones that have forgotten will not. Eat five of the ones that stay.$B$BYour moonkin should know what it could forget.",
+        "and their bite goes to the bone. Roar at five of them, little horror, and watch them run; they have forgotten the moon, but not "
+        "fear. Then eat five.$B$BYour moonkin should know what it could forget.",
         "Roar (/roar) at 5 Hinterlands owlbeasts, then devour 5 owlbeasts in the Hinterlands.",
         "Five owlbeasts. They have forgotten the moon; do not let them forget you.",
         "Wild, and moonless. Your moonkin will remember the moon for both of you.$B$BTake this.",
@@ -473,12 +473,12 @@ def hinterlands_quests(book, lantern, stv, alterac):
         story="After the tale, the owlbeasts themselves: roar at them, eat the ones that stay (the owl line).")
     e = book.quest(
         9105284, "Gammerita", 48, 46, lantern, lantern, "hagatha",
-        "Hagatha tells it, slow and fond:$B$BOn the Overlook Cliffs, far to the south, there lives a turtle the dwarves "
+        "Hagatha tells it, slow and fond:$B$BOn the Overlook Cliffs, far to the east, there lives a turtle the dwarves "
         "named Gammerita, after an aunt who was also very old and very cross. She has been bitten by everything that "
         "lives on that coast, and she has outlived all of it.$B$BShe smells of salt and grudges. Turn on your Sniff by "
-        "the lantern and follow it south, all the way to the sea. Eat her, little horror. A spikeshell that has eaten "
+        "the lantern and follow it east, all the way to the sea. Eat her, little horror. A spikeshell that has eaten "
         "Gammerita will outlive you, probably. That is the best thing a shell can do.",
-        "Follow Gammerita's scent with Sniff south to the Overlook Cliffs, then devour Gammerita.",
+        "Follow Gammerita's scent with Sniff east to the Overlook Cliffs, then devour Gammerita.",
         "Gammerita is still cross on her cliffs. Follow the grudges.",
         "Old and cross and gone at last. The dwarves will tell it for a hundred years.$B$BTake this.",
         objectives=[trail("Gammerita's scent followed", "Gammerita", 0,

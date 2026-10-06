@@ -104,7 +104,7 @@ def westfall_quests(book, lantern):
         "Hagatha tells it low, like a secret:$B$BAt the far south of the Longshore there is a murloc so old that his "
         "eye has gone milky, and the other murlocs bring him fish so he will not eat them instead. Old Murk-Eye, the "
         "sailors call him. Whatever he has, he gives you: a wound that will not close.$B$BTurn on your Sniff by the "
-        "lantern and follow the stink of old fish south, over the Dagger Hills, to the coast. Let him give you his "
+        "lantern and follow the stink of old fish south-west, over the Dagger Hills, to the coast. Let him give you his "
         "wound, little horror. Then eat him. Toads stay in the swamp; the salamander is the one that crawled out and "
         "liked it.",
         "Follow Old Murk-Eye's stink with Sniff to the Longshore, let him infect you, then devour him.",
@@ -175,7 +175,7 @@ def lochmodan_quests(book, lantern):
     d = book.quest(
         9105113, "Worth the Climb", 22, 20, lantern, lantern, "hagatha",
         "Hagatha, pleased with herself:$B$BYou heard the tale. Now taste it. Turn on your Sniff by the lantern and "
-        "follow the crocolisk smell south and around the shore of the loch, past the excavation, to the eastern "
+        "follow the crocolisk smell around the shore of the loch, south-east past the excavation, then north to the eastern "
         "shore. When you get there, it will smell you, and it will decide you are worth the climb.$B$BIt will be "
         "wrong. Eat it. A komodo that has eaten the Boat-Eater is ready to become a dragon.",
         "Follow the Boat-Eater's scent with Sniff around the loch, then devour the Large Loch Crocolisk.",
@@ -189,7 +189,7 @@ def lochmodan_quests(book, lantern):
         story="Follow the Boat-Eater's scent around the loch, and eat the Large Loch Crocolisk (a Komodo Dragon task).")
     mercy(book, 9105114, "Bumble", 13, lantern, bumble,
           [(-5655, -3150), (-5700, -3105), (-5745, -3090)],
-          "Wren, worried:$B$BSnack, there's a bear cub up on Grizzlepaw Ridge, west of the lantern, and it's stuck. "
+          "Wren, worried:$B$BSnack, there's a bear cub up on Grizzlepaw Ridge, south-west of the lantern, and it's stuck. "
           "It climbed up after honey and now it's crying because it can't climb down. It smells of honey and bark "
           "and silly decisions.$B$BSniff it out. Pat it. Show it the way down.",
           "Honey and bark, Snack. And silly decisions.",
@@ -234,7 +234,7 @@ def darkshore_quests(book, lantern):
     c = book.quest(
         9105122, "The Oracle's Moon", 15, 13, lantern, lantern, "hagatha",
         "Hagatha's tale comes silver and sharp:$B$BThe moonkin oracles of Darkshore went mad when the coast went dark. "
-        "They wander the woods south of the lantern, calling the moon down on anything that moves.$B$BLet one call "
+        "They wander the woods south-east of the lantern, calling the moon down on anything that moves.$B$BLet one call "
         "it down on you, little horror. Feel what the moon does to the mad. Then eat the oracle. Your owl is waiting "
         "to stand up, and it needs to know what standing up costs.",
         "Let a Moonkin Oracle cast its Moonfire on you, then devour a Moonkin Oracle in Darkshore.",
@@ -247,11 +247,11 @@ def darkshore_quests(book, lantern):
     d = book.quest(
         9105123, "Shadowclaw", 16, 14, lantern, lantern, "hagatha",
         "Hagatha's voice drops to almost nothing:$B$BOn Darkshore they say a black cat once swallowed a scream, and it "
-        "has hunted in silence ever since. Shadowclaw. It walks the woods north of here and comes when it pleases, "
+        "has hunted in silence ever since. Shadowclaw. It walks the woods north-west of here and comes when it pleases, "
         "which is rarely.$B$BIt leaves no tracks. It leaves a smell, though: cold ash and old fear. Turn on your Sniff "
         "by the lantern and follow it. When the trail ends, the cat will be there. It will curse you, little horror; "
         "a cursed meal tastes no worse. Eat it.",
-        "Follow Shadowclaw's scent with Sniff north of the lantern, then devour Shadowclaw.",
+        "Follow Shadowclaw's scent with Sniff north-west of the lantern, then devour Shadowclaw.",
         "The cat still hunts in silence. Follow the ash.",
         "Did it scream when it died? No. It had nothing left to scream with.$B$BTake this, and when your saber is "
         "ready, you will hunt as quietly as that.",
@@ -315,7 +315,7 @@ def bloodmyst_quests(book, lantern):
         story="Stand where the world is thin at the Warp Piston and eat what comes through (a Void line task).")
     d = book.quest(
         9105133, "Wyrmscar", 17, 15, lantern, lantern, "wren",
-        "Wren, whispering for once:$B$BSnack, on Wyrmscar Island in the south-west there are dragons. Well, little "
+        "Wren, whispering for once:$B$BSnack, on Wyrmscar Island in the north-east there are dragons. Well, little "
         "ones. Bony veridian whelps, still flapping around the bones of the dragon they came from. Hagatha says if "
         "you eat one, you'll see what it saw last: its mother's bones. Eat one, then go and stand where it "
         "showed you.$B$BThen eat four more. Bones are good for your teeth!",
@@ -429,7 +429,7 @@ def barrens_quests(book, lantern):
         story="Wren calls the Devourer to the Derby's starting line (Wren's Derby, task 020).")
     mercy(book, 9105145, "Little Thunder", 13, lantern, littlethunder,
           [(-702, -2629), (-677, -2532), (-600, -2480)],
-          "Wren, softly:$B$BSnack, a kodo calf got left behind when its herd ran from the hyenas. It's north of the "
+          "Wren, softly:$B$BSnack, a kodo calf got left behind when its herd ran from the hyenas. It's north-west of the "
           "lantern, all knees and worry, and every time it takes a step the ground goes thump. It smells of dust and "
           "milk and being frightened.$B$BSniff it out. Pat it. It'll find its herd; kodos always do, once they stop "
           "being scared.",
@@ -542,7 +542,7 @@ def ghostlands_quests(book, lantern):
         story="The lesson: six Ghostclaw lynxes, and honest hunger.")
     b = book.quest(
         9105162, "What the Word Means", 13, 12, lantern, lantern, "hagatha",
-        "Hagatha, amused:$B$BNorth-east of the lantern, by the Sanctum of the Moon, there are things the elves call "
+        "Hagatha, amused:$B$BWest of the lantern, by the Sanctum of the Moon, there are things the elves call "
         "arcane devourers. Devourers! As if a little ball of spilled magic knew what the word means.$B$BWalk into the "
         "sanctum quietly, little horror, without a fight at the door, so they get a good look at what is coming. "
         "Then eat four of them, and show them what the word means.",
