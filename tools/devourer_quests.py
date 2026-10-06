@@ -220,16 +220,17 @@ def ability(count, text, spell, entries=(), family=0, ctype=0, shapes=()):
 
 
 def visit(text, map_id, x, y, radius=25.0, shapes=(), quiet=False, night=False, dawn=False, walking=False,
-          noflying=False, sniff=None, stay=0, still=False, achievement=0):
+          noflying=False, sniff=None, stay=0, still=False, achievement=0, above=-100000):
     """Be at a place (maybe in a certain shape; quiet: without being in a fight, i.e. walked in unnoticed; night /
     dawn: at that time of day; walking: not running, not mounted; noflying: not on a flying mount; sniff True/False:
-    with Sniff on / off; stay: for that many seconds (still: without moving); achievement: a criteria asset given)."""
+    with Sniff on / off; stay: for that many seconds (still: without moving); achievement: a criteria asset given;
+    above: standing at least that high (z), for tops and ledges)."""
     flags = ((VISIT_QUIET if quiet else 0) | (VISIT_NIGHT if night else 0) | (VISIT_DAWN if dawn else 0)
              | (VISIT_WALKING if walking else 0) | (VISIT_NOFLYING if noflying else 0)
              | (VISIT_SNIFF if sniff is True else 0) | (VISIT_NOSNIFF if sniff is False else 0)
              | (VISIT_STILL if still else 0))
     return Obj("visit", 1, text, map=map_id, x=x, y=y, radius=radius, shapes=tuple(shapes), quiet=quiet, flags=flags,
-               stay=stay, achievement=achievement)
+               stay=stay, achievement=achievement, above=above)
 
 
 def among(text, map_id, x, y, entries, shapes, radius=15.0):
@@ -501,7 +502,8 @@ def write_header(books):
         "    // the other flags: at night / at dawn / walking / not flying / with Sniff on or off / standing still), for",
         "    // Seconds if any; Achievement: a criteria asset (ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET) given with it.",
         "    struct VisitRule { uint32_t Quest; uint32_t Credit; uint32_t Map; float X, Y, Radius; uint32_t Shapes[4];"
-        " uint8_t Flags; uint16_t Seconds; uint32_t Achievement; };",
+        " uint8_t Flags; uint16_t Seconds; uint32_t Achievement; float Above; };",
+        "    // Above: the Devourer has to stand at least that high (the top of a temple, a ledge); -100000 = anywhere.",
         "    constexpr VisitRule VisitRules[] =",
         "    {",
     ]
@@ -512,10 +514,11 @@ def write_header(books):
         shapes += [0] * (4 - len(shapes))
         flags = kw.get("flags", VISIT_QUIET if kw.get("quiet") else 0)
         out.append(f"        {{ {quest.id}, {obj.credit}, {kw['map']}, {float(kw['x'])}f, {float(kw['y'])}f, {float(kw['radius'])}f,"
-                   f" {{ {', '.join(map(str, shapes))} }}, {flags}, {kw.get('stay', 0)}, {kw.get('achievement', 0)} }},"
+                   f" {{ {', '.join(map(str, shapes))} }}, {flags}, {kw.get('stay', 0)}, {kw.get('achievement', 0)},"
+                   f" {float(kw.get('above', -100000))}f }},"
                    f"   // {quest.title}: {obj.text}")
     if not visits:
-        out.append("        { 0, 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, 0, 0, 0 },")
+        out.append("        { 0, 0, 0, 0.0f, 0.0f, 0.0f, { 0, 0, 0, 0 }, 0, 0, 0, -100000.0f },")
     out += [
         "    };",
         "",

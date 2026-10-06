@@ -126,6 +126,24 @@ DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9105000 AND 9105399;
 DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9105000 AND 9105399;
 DELETE FROM `quest_template` WHERE `ID` BETWEEN 9105000 AND 9105399;
 
+-- --- task 022: the mount quests on Wren's WANTED board (quests 9109000-9109399, the board and objects 9109000-9109199,
+-- credits 9109400-9109899, the quests' own creatures 9109900-9109979, spawns 9921000-9922999) --------------------
+DELETE FROM `gameobject` WHERE `guid` BETWEEN 9921000 AND 9921999;
+DELETE FROM `creature` WHERE `guid` BETWEEN 9922000 AND 9922999;
+DELETE FROM `gameobject_queststarter` WHERE `quest` BETWEEN 9109000 AND 9109399;
+DELETE FROM `gameobject_questender` WHERE `quest` BETWEEN 9109000 AND 9109399;
+DELETE FROM `creature_queststarter` WHERE `quest` BETWEEN 9109000 AND 9109399;
+DELETE FROM `creature_questender` WHERE `quest` BETWEEN 9109000 AND 9109399;
+DELETE FROM `gameobject_template` WHERE `entry` BETWEEN 9109000 AND 9109199;
+DELETE FROM `creature_text` WHERE `CreatureID` BETWEEN 9109900 AND 9109979;
+DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN 9109400 AND 9109979;
+DELETE FROM `creature_template` WHERE `entry` BETWEEN 9109400 AND 9109979;
+DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (19, 20) AND `SourceEntry` BETWEEN 9109000 AND 9109399;
+DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN 9109000 AND 9109399;
+DELETE FROM `quest_request_items` WHERE `ID` BETWEEN 9109000 AND 9109399;
+DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN 9109000 AND 9109399;
+DELETE FROM `quest_template` WHERE `ID` BETWEEN 9109000 AND 9109399;
+
 -- --- the module's own tables, last -------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `devourer_evolution_task`, `devourer_evolution`, `devourer_diet`, `devourer_skin`,
     `devourer_shape_source`, `devourer_shape`, `devourer_backup_gt`, `devourer_client_rows`,
@@ -139,4 +157,4 @@ DELETE FROM `updates` WHERE `name` IN ('2026_09_30_00_devourer_tables.sql', '202
     '2026_09_30_09_devourer_spellbook.sql', '2026_10_01_00_devourer_witch_sisters.sql',
     '2026_10_02_00_devourer_frogs.sql', '2026_10_03_00_devourer_tier2.sql', '2026_10_03_20_devourer_derby.sql',
     '2026_10_03_21_devourer_derby_items.sql', '2026_10_05_00_devourer_rising_serpent.sql',
-    '2026_10_05_10_devourer_quests.sql');
+    '2026_10_05_10_devourer_quests.sql', '2026_10_06_20_devourer_mount_quests.sql');

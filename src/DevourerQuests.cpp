@@ -261,6 +261,8 @@ namespace
                 continue;
             if (!Wears(player, rule.Shapes) || player->GetExactDist2d(rule.X, rule.Y) > rule.Radius)
                 continue;
+            if (player->GetPositionZ() < rule.Above)
+                continue;                         // the top, not the foot of it
             if ((rule.Flags & VisitQuiet) && player->IsInCombat())
                 continue;                         // it has to walk in unnoticed
             if (!Conditions(player, rule.Flags, VisitNight, VisitDawn, VisitWalking, VisitNoFlying, VisitSniff, VisitNoSniff))

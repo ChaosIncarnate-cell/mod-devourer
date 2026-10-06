@@ -326,7 +326,7 @@ def knight(book, board):
         "It came out of you like a sunrise, and it did not go anywhere. It had been waiting to be remembered.$B$B"
         "Tyrael's charger, the seraph's, the lord of steeds: they are yours. Nothing you have eaten will ever be "
         "grander than that.",
-        objectives=[visit("Dawn at the top of Wyrmrest", 571, 3546.0, 287.0, radius=25.0, dawn=True, stay=20, still=True)],
+        objectives=[visit("Dawn at the top of Wyrmrest", 571, 3546.0, 287.0, radius=25.0, dawn=True, stay=20, still=True, above=200.0)],
         prev=d.id, sort=s, items=reins(351, 352, 353, 174), xp=8,
         story="The last memory, at dawn atop Wyrmrest. Reward: Tyrael's Charger, the Seraph's Charger, Tzar, the Lightcharger.")
     book.quest(

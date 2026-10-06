@@ -23,7 +23,8 @@ FISH_BOX, BRAZIER, RUNE_BLUE, ALTAR, LAMPPOST, MACHINE, MACHINE_BROKEN, GEAR, AN
                                                                                       7073, 451, 166)
 SHIP_BELL, ARMOR_STAND, HELM, CAGE, PUMPKIN, SNOWPILE, FEATHER, CRATE, KEG = 4052, 7736, 8221, 3551, 60, 9037, 2630, 275, 32
 EMOTE_SIT, EMOTE_SLEEP, EMOTE_WHISTLE, EMOTE_SALUTE, EMOTE_SHOO, EMOTE_LAUGH, EMOTE_NO, EMOTE_FLEX, EMOTE_STARE = (
-    102, 103, 132, 78, 129, 60, 70, 41, 29)   # TEXT_EMOTE_* (SharedDefines.h)
+    86, 87, 104, 78, 129, 60, 66, 41, 90)     # TEXT_EMOTE_* (SharedDefines.h)
+EMOTE_KNEEL, EMOTE_GROVEL, EMOTE_SNIFF = 59, 51, 132
 EMOTE_SING = 433
 
 # Zones (AreaTable), for the quest log
@@ -431,7 +432,7 @@ def shapes(book, board):
                            faction=FACTION_SHY, passive=True, scale=1.0, subname="Only Shows Itself to Its Own")
         feed = book.thing(f"{key}_food", food_name, BUCKET, [(map_id, x - 4.0, y - 4.0, 0.0, 0.0)], size=0.6,
                           summon=elder.entry, count=1, follow=True, shapes=shape_line)
-        book.quest(
+        q = book.quest(
             qid, f"WANTED: One of the {kind.title()}", level, level - 2, board, board, "hagatha",
             f"Hagatha:$B$BSome things only show themselves to their own kind, little horror. {who.capitalize()} are like "
             f"that. Go there wearing your {shape_name.split(' (')[0].lower()}, and stand among them. They will crowd round "
@@ -447,6 +448,9 @@ def shapes(book, board):
                         wake(feed, f"{food_name} put down; the oldest came")],
             sort=s, needs=shape_line, items=rewards, xp=6,
             story=f"As a {shape_name.split(' (')[0]}: stand still among {who} until they accept you, feed them, and the oldest follows you out. Reward: {', '.join(n for _, n, _ in rewards)}.")
+        if key == "foxes":                         # a fifth fox, the black familiar, as the quest's one choice
+            q.choices = [(e, n) for e, n, _ in reins(362)]
+            q.story = q.story[:-1] + ", and the black Vulpine Familiar."
 
 
 # --- 10. Hagatha's Patchwork Familiar -----------------------------------------------------------------------------------
@@ -572,7 +576,7 @@ def postcards(book, board):
         "followed the smell.",
         objectives=[visit("Thunder Bluff's lifts, looked at", 1, -1270.0, 45.0, radius=40.0, stay=20),
                     visit("The Dark Portal, looked at", 0, -11905.0, -3207.0, radius=60.0, stay=20),
-                    visit("The top of Wyrmrest, looked at", 571, 3546.0, 287.0, radius=40.0, stay=20),
+                    visit("The top of Wyrmrest, looked at", 571, 3546.0, 287.0, radius=40.0, stay=20, above=200.0),
                     visit("Dalaran's fountain, looked at", 571, 5807.0, 683.0, radius=25.0, stay=20)],
         sort=s, xp=5,
         story="Stand and look at six famous places for Hagatha, who never leaves the cauldron (first four).")
