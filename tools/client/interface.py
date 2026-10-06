@@ -24,6 +24,10 @@ from pathlib import Path
 TOKEN = "DEVOURER"
 COLOR = (0.72, 0.47, 0.18)                 # the bronze of the CoA emblem
 ICON_PATH = "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Devourer"
+# The playable-races thread's four races (ChrRaces 22-26): their creation icons, one 64x64 cell each, male on top.
+RACE_ICON_PATH = "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-NewRaces"
+RACE_ICON_SOURCE = Path(__file__).resolve().parent / "lua" / "UI-CharacterCreate-NewRaces.png"
+NEW_RACE_BUTTONS = 5                       # 22 Worgen, 23 Vulpera, 24 Dracthyr, 25 Sethrak, 26 Dracthyr (Horde)
 # A cell of Blizzard's 4x4 class icon sheets that no class uses: the Devourer shows an empty icon there
 # (in-game frames) instead of breaking the frame. Its own icon art is only on the creation screen for now.
 FREE_CELL = (0.5, 0.7421875, 0.5, 0.75)
@@ -55,7 +59,7 @@ def _lua_str(text: str) -> str:
 # --- GlueXML ----------------------------------------------------------------------------------------------
 def character_create_xml(text: str) -> tuple[str, str]:
     if re.search(r'name="CharacterCreateClassButton11"', text):
-        return text, "already has an 11th class button (kept as it is)"
+        return add_race_buttons(text), "already has an 11th class button (kept as it is), race buttons 12-16"
     m = re.search(r'<CheckButton\s[^>]*name="CharacterCreateClassButton10"[^>]*?(/>|>.*?</CheckButton>)', text, re.S)
     if not m:
         raise PatchError("CharacterCreate.xml: CharacterCreateClassButton10 not found (a replaced character "
@@ -73,7 +77,25 @@ def character_create_xml(text: str) -> tuple[str, str]:
               f'\n{inner}\t<Anchor point="LEFT" relativeTo="CharacterCreateClassButton10" relativePoint="RIGHT" x="6" y="0"/>'
               f'\n{inner}</Anchors>'
               f'\n{indent}</CheckButton>')
-    return text[:m.end()] + button + text[m.end():], f"button 11 added after button 10 ({inherits.group(1)})"
+    text = text[:m.end()] + button + text[m.end():]
+    return add_race_buttons(text), f"button 11 added after button 10 ({inherits.group(1)}), race buttons 12-16"
+
+
+def add_race_buttons(text: str) -> str:
+    """CharacterCreateRaceButton12-16 for the new races, right after button 11 (RACES_LUA places them)."""
+    live = re.sub(r"<!--.*?-->", lambda c: " " * len(c.group(0)), text, flags=re.S)   # commented-out buttons don't count
+    if 'name="CharacterCreateRaceButton12"' in live:
+        return text
+    m = re.search(r'<CheckButton\s[^>]*name="CharacterCreateRaceButton11"[^>]*?(/>|>.*?</CheckButton>)', live, re.S)
+    if not m:
+        return text                                      # no stock race buttons (a test stand-in): nothing to add
+    inherits = re.search(r'inherits="([^"]+)"', m.group(0).split(">", 1)[0]).group(1)
+    line_start = text.rfind("\n", 0, m.start()) + 1
+    indent = re.match(r"[ \t]*", text[line_start:m.start()]).group(0)
+    nl = "\r\n" if "\r\n" in text else "\n"
+    buttons = "".join(f'{nl}{indent}<CheckButton name="CharacterCreateRaceButton{i}" inherits="{inherits}" id="{i}" '
+                      f'hidden="true"/>' for i in range(12, 12 + NEW_RACE_BUTTONS))
+    return text[:m.end()] + f"{nl}{indent}<!-- mod-devourer: the new races (ChrRaces 22-26) -->" + buttons + text[m.end():]
 
 
 GLUE_LUA = MARK + r"""
@@ -159,12 +181,82 @@ end
 """
 
 
+RACES_LUA = MARK + r"""
+-- The four new races (ChrRaces 22-26, the playable-races thread): five more race buttons (CharacterCreate.xml) with
+-- their own icon sheet. Buttons past the stock eleven are laid out under the last button of their faction.
+if ( (MAX_RACES or 0) < 16 ) then
+	MAX_RACES = 16;
+end
+local NEW_RACE_ICONS = "@RACEICON@";
+local NEW_RACE_TCOORDS = {
+	["WORGEN_MALE"]		= {0, 0.25, 0, 0.5},	["WORGEN_FEMALE"]	= {0, 0.25, 0.5, 1},
+	["VULPERA_MALE"]	= {0.25, 0.5, 0, 0.5},	["VULPERA_FEMALE"]	= {0.25, 0.5, 0.5, 1},
+	["DRACTHYR_MALE"]	= {0.5, 0.75, 0, 0.5},	["DRACTHYR_FEMALE"]	= {0.5, 0.75, 0.5, 1},
+	["SETHRAK_MALE"]	= {0.75, 1, 0, 0.5},	["SETHRAK_FEMALE"]	= {0.75, 1, 0.5, 1},
+};
+if ( RACE_ICON_TCOORDS ) then
+	for key, coords in pairs(NEW_RACE_TCOORDS) do
+		RACE_ICON_TCOORDS[key] = coords;
+	end
+end
+
+local function NewRaces_Layout(...)
+	local gender = (GetSelectedSex() == SEX_MALE) and "MALE" or "FEMALE";
+	local lastAlliance, lastHorde = CharacterCreateRaceButton5, CharacterCreateRaceButton11;
+	local index = 1;
+	for i = 1, select("#", ...), 3 do
+		local token = strupper(select(i + 1, ...) or "");
+		local button = _G["CharacterCreateRaceButton"..index];
+		if ( button ) then
+			local normal = _G["CharacterCreateRaceButton"..index.."NormalTexture"];
+			local pushed = _G["CharacterCreateRaceButton"..index.."PushedTexture"];
+			local coords = NEW_RACE_TCOORDS[token.."_"..gender];
+			if ( not normal.newRacesDefault ) then
+				normal.newRacesDefault = normal:GetTexture();
+				pushed.newRacesDefault = pushed:GetTexture();
+			end
+			if ( coords ) then
+				normal:SetTexture(NEW_RACE_ICONS);
+				pushed:SetTexture(NEW_RACE_ICONS);
+			else
+				normal:SetTexture(normal.newRacesDefault);
+				pushed:SetTexture(pushed.newRacesDefault);
+				coords = RACE_ICON_TCOORDS[token.."_"..gender];
+			end
+			if ( coords ) then
+				normal:SetTexCoord(coords[1], coords[2], coords[3], coords[4]);
+				pushed:SetTexCoord(coords[1], coords[2], coords[3], coords[4]);
+			end
+			if ( index > 11 ) then
+				local horde = GetFactionForRace and GetFactionForRace(index) == "Horde";
+				local above = horde and lastHorde or lastAlliance;
+				button:ClearAllPoints();
+				button:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -20);
+				button:Show();
+				if ( horde ) then lastHorde = button; else lastAlliance = button; end
+			end
+		end
+		index = index + 1;
+	end
+end
+
+if ( CharacterCreateEnumerateRaces ) then
+	local stock = CharacterCreateEnumerateRaces;
+	CharacterCreateEnumerateRaces = function(...)
+		stock(...);
+		NewRaces_Layout(...);
+	end
+end
+"""
+
+
 def character_create_lua(text: str) -> tuple[str, str]:
     for name in ("CharacterCreateEnumerateClasses", "SetCharacterClass", "MAX_CLASSES_PER_RACE"):
         if name not in text:
             raise PatchError(f"CharacterCreate.lua: {name} not found (a replaced character creation screen?)")
     block = GLUE_LUA.replace("@ICON@", ICON_PATH.replace("\\", "\\\\"))
-    return text.rstrip() + "\n\n" + block, "11 classes, the Devourer's icon"
+    races = RACES_LUA.replace("@RACEICON@", RACE_ICON_PATH.replace("\\", "\\\\"))
+    return text.rstrip() + "\n\n" + block + "\n" + races, "11 classes, the Devourer's icon, 5 new race buttons"
 
 
 def glue_strings(text: str) -> tuple[str, str]:

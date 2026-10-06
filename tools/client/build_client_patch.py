@@ -534,6 +534,9 @@ class Builder:
             data = blp.to_blp(img, size=64)
         self.files[interface.ICON_PATH + ".blp"] = data
         r.info(f"  {interface.ICON_PATH}.blp: {'from ' + str(icon) if icon else 'placeholder icon'}")
+        Image, _, _ = blp._pil()
+        self.files[interface.RACE_ICON_PATH + ".blp"] = blp.to_blp(Image.open(interface.RACE_ICON_SOURCE))
+        r.info(f"  {interface.RACE_ICON_PATH}.blp: the new races' icons (ours)")
 
     def check_lua(self):
         luac = next((shutil.which(n) for n in ("luac5.1", "luac51", "luac") if shutil.which(n)), None)
