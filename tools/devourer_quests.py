@@ -15,18 +15,32 @@ import os
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SQL_OUT = os.path.join(ROOT, "data", "sql", "db-world", "2026_10_05_10_devourer_quests.sql")
 HDR_OUT = os.path.join(ROOT, "src", "DevourerQuestsIds.h")
-DOC_OUT = os.path.join(ROOT, "docs", "quests.md")
 
-Q_FIRST, Q_LAST = 9105000, 9105399            # quests
-CREDIT_FIRST, CREDIT_LAST = 9105400, 9105899  # credit creatures (never spawned)
-BEAST_FIRST, BEAST_LAST = 9105900, 9105979    # creature_template: the quests' own creatures (spared ones, ...)
-SPEAKER = 9105990                             # creature_template: the lantern's voice (for the LLM companions)
-SPEAKER_GUID_FIRST, SPEAKER_GUID_LAST = 9920500, 9920599   # creature spawns: one speaker at each lantern
-LANTERN_FIRST, LANTERN_LAST = 9105000, 9105099  # gameobject_template: one lantern per region
-THING_FIRST, THING_LAST = 9105100, 9105199    # gameobject_template: what the witches leave to be touched
-GUID_FIRST, GUID_LAST = 9920000, 9920999      # gameobject spawns
+
+class Block:
+    """One id block and output set: the lantern quests (task 021) and the mount quests (task 022) each have one."""
+    def __init__(self, name, task, quests, credits, beasts, givers, things, go_guids, npc_guids, sql, doc,
+                 speaker=0, speaker_guids=(0, 0)):
+        self.name, self.task = name, task
+        self.q_first, self.q_last = quests
+        self.credit_first, self.credit_last = credits
+        self.beast_first, self.beast_last = beasts
+        self.giver_first, self.giver_last = givers      # gameobject_template: lanterns / the WANTED board
+        self.thing_first, self.thing_last = things      # gameobject_template: what the witches leave to be touched
+        self.guid_first, self.guid_last = go_guids      # gameobject spawns
+        self.npc_guid_first, self.npc_guid_last = npc_guids   # creature spawns (the quests' own creatures)
+        self.speaker, (self.speaker_guid_first, self.speaker_guid_last) = speaker, speaker_guids
+        self.sql_out = os.path.join(ROOT, "data", "sql", "db-world", sql)
+        self.doc_out = os.path.join(ROOT, "docs", doc)
+
+
+LANTERNS = Block("lanterns", "021", (9105000, 9105399), (9105400, 9105899), (9105900, 9105979), (9105000, 9105099),
+                 (9105100, 9105199), (9920000, 9920499), (9920600, 9920999), "2026_10_05_10_devourer_quests.sql",
+                 "quests.md", speaker=9105990, speaker_guids=(9920500, 9920599))
+MOUNTS = Block("mounts", "022", (9109000, 9109399), (9109400, 9109899), (9109900, 9109979), (9109000, 9109009),
+               (9109010, 9109199), (9921000, 9921999), (9922000, 9922999), "2026_10_06_20_devourer_mount_quests.sql",
+               "mount-quests.md")
 
 EXTERNAL_QUESTS = {9101305: "Wren's Apprentice", 9101360: "Wren's Derby", 9101362: "The Last Lap"}
 CLASS_DEVOURER = 512                          # AllowableClasses: class 10
@@ -74,9 +88,11 @@ LINES = {
 
 
 class Lantern:
-    def __init__(self, key, region, map_id, x, y, z, o, where):
+    """A gameobject questgiver: Hagatha's lantern in a region, or Wren's WANTED board in the In-Between."""
+    def __init__(self, key, region, map_id, x, y, z, o, where, name="Hagatha's Lantern", display=None, size=1.4):
         self.key, self.region, self.map, self.x, self.y, self.z, self.o, self.where = (
             key, region, map_id, x, y, z, o, where)
+        self.name, self.display, self.size = name, display or LANTERN_DISPLAY, size
         self.entry = None
 
     @property
@@ -101,9 +117,10 @@ class Thing:
 class Beast:
     """A creature of the quests' own (a creature_template copy of a stock one, with its own name and maybe look)."""
     def __init__(self, key, name, clone_of, display=0, scale=1.0, level=None, faction=None, subname="",
-                 passive=False):
+                 passive=False, spawns=(), npcflag=0, gossip=(), sound=0):
         self.key, self.name, self.clone_of, self.display, self.scale = key, name, clone_of, display, scale
         self.level, self.faction, self.subname, self.passive = level, faction, subname, passive
+        self.spawns, self.npcflag, self.gossip, self.sound = list(spawns), npcflag, list(gossip), sound
         self.entry = None
 
 
@@ -198,7 +215,7 @@ def item(entry, count, name):
 class Quest:
     def __init__(self, qid, title, level, minlevel, giver, ender, voice, text, log, done, reward_text,
                  objectives=(), prev=None, races=0, needs=(), choices=(), items=(), xp=5, money=None, sort=0,
-                 story="", lures=(), timed=0):
+                 story="", lures=(), timed=0, event=0, mail=None):
         self.id, self.title, self.level, self.minlevel = qid, title, level, minlevel
         self.giver, self.ender, self.voice = giver, ender, voice
         self.text, self.log, self.done, self.reward_text = text, log, done, reward_text
@@ -208,6 +225,8 @@ class Quest:
         self.xp, self.sort, self.story = xp, sort, story
         self.lures = list(lures)
         self.timed = timed                        # seconds to finish it in (quest_template.TimeAllowed), 0 = none
+        self.event = event                        # game_event id the quest is only offered during (holidays)
+        self.mail = mail                          # (subject, body, delay seconds): a letter sent when it completes
         self.money = money if money is not None else default_money(level, xp)
 
 
@@ -220,28 +239,29 @@ def default_money(level, xp):
 
 
 class Book:
-    def __init__(self):
+    def __init__(self, block=None):
+        self.block = block or LANTERNS
         self.lanterns, self.things, self.quests, self.beasts = [], [], [], []
         self.regions = []                         # (title, intro, [quests]) for the doc
 
-    def lantern(self, *args):
-        lantern = Lantern(*args)
-        lantern.entry = LANTERN_FIRST + len(self.lanterns)
-        assert lantern.entry <= LANTERN_LAST
+    def lantern(self, *args, **kw):
+        lantern = Lantern(*args, **kw)
+        lantern.entry = self.block.giver_first + len(self.lanterns)
+        assert lantern.entry <= self.block.giver_last
         self.lanterns.append(lantern)
         return lantern
 
     def beast(self, *args, **kw):
         beast = Beast(*args, **kw)
-        beast.entry = BEAST_FIRST + len(self.beasts)
-        assert beast.entry <= BEAST_LAST
+        beast.entry = self.block.beast_first + len(self.beasts)
+        assert beast.entry <= self.block.beast_last
         self.beasts.append(beast)
         return beast
 
     def thing(self, *args, **kw):
         thing = Thing(*args, **kw)
-        thing.entry = THING_FIRST + len(self.things)
-        assert thing.entry <= THING_LAST
+        thing.entry = self.block.thing_first + len(self.things)
+        assert thing.entry <= self.block.thing_last
         self.things.append(thing)
         return thing
 
@@ -250,7 +270,7 @@ class Book:
 
     def quest(self, *args, **kw):
         quest = Quest(*args, **kw)
-        assert Q_FIRST <= quest.id <= Q_LAST, quest.id
+        assert self.block.q_first <= quest.id <= self.block.q_last, quest.id
         assert all(q.id != quest.id for q in self.quests), quest.id
         self.quests.append(quest)
         self.regions[-1][2].append(quest)
@@ -272,19 +292,19 @@ def giver_ref(who):
 
 def place(who):
     if isinstance(who, Lantern):
-        return f"Hagatha's Lantern ({who.where}, {who.region})"
+        return f"{who.name} ({who.where}, {who.region})"
     return {HAGATHA: "Hagatha Hollowmoor in the In-Between", WREN: "Wren Hollowmoor in the In-Between",
             9101360: "Wren Hollowmoor at the Derby's starting line, west of the Crossroads"}[who]
 
 
 def assign_credits(book):
-    nxt = CREDIT_FIRST
+    nxt = book.block.credit_first
     for quest in sorted(book.quests, key=lambda x: x.id):
         for obj in quest.objectives:
             if obj.kind in ("devour", "slay", "visit", "touch", "emote", "ability", "trail", "struck", "tale"):
                 obj.credit = nxt
                 nxt += 1
-                assert nxt <= CREDIT_LAST + 1
+                assert nxt <= book.block.credit_last + 1
             if obj.kind in ("touch", "tale"):
                 assert obj.kw["thing"].quest in (None, quest.id), "one quest per thing"
                 assert not obj.kw["thing"].summon, "a lure is not an objective"
@@ -353,8 +373,9 @@ def cstr(text):
     return '"' + str(text).replace('\\', '\\\\').replace('"', '\\"') + '"'
 
 
-def write_header(book):
-    rules = credit_rules(book)
+def write_header(books):
+    rules = [r for book in books for r in credit_rules(book)]
+    quests_all = sorted((q for book in books for q in book.quests), key=lambda x: x.id)
     out = [
         "// Generated by tools/devourer_quests.py (task 021) -- change the tool and run it again.",
         "#ifndef DEVOURER_QUESTS_IDS_H",
@@ -390,8 +411,7 @@ def write_header(book):
         "    constexpr VisitRule VisitRules[] =",
         "    {",
     ]
-    visits = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
-              if obj.kind == "visit"]
+    visits = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "visit"]
     for quest, obj in visits:
         kw = obj.kw
         shapes = list(kw.get("shapes", ()))[:4]
@@ -412,10 +432,8 @@ def write_header(book):
         "    constexpr UseRule UseRules[] =",
         "    {",
     ]
-    touches = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
-               if obj.kind == "touch"]
-    tales = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
-             if obj.kind == "tale"]
+    touches = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "touch"]
+    tales = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "tale"]
     lines_decl = []
     for quest, obj in tales:
         thing = obj.kw["thing"]
@@ -429,7 +447,7 @@ def write_header(book):
         out.append(f"        {{ 0, {quest.id}, {obj.credit}, 0, 0, {FLAG_COMPANION if thing.companion else 0},"
                    f" {len(thing.lines)}, TaleLines{thing.entry}, {cstr(thing.speaker)}, {cstr(thing.reaction)} }},"
                    f"   // {quest.title}: {obj.text}")
-    lures = [(quest, thing) for quest in sorted(book.quests, key=lambda x: x.id) for thing in quest.lures]
+    lures = [(quest, thing) for quest in quests_all for thing in quest.lures]
     for quest, thing in lures:
         out.append(f"        {{ {thing.entry}, {quest.id}, 0, {thing.summon}, {thing.count}, 0, 0, nullptr, \"\", \"\" }},"
                    f"   // {quest.title}: {thing.name}")
@@ -445,8 +463,7 @@ def write_header(book):
         "    constexpr DisguiseRule DisguiseRules[] =",
         "    {",
     ]
-    packs = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
-             if obj.kind == "visit" and obj.kw.get("among")]
+    packs = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "visit" and obj.kw.get("among")]
     for quest, obj in packs:
         kw = obj.kw
         shapes = list(kw["shapes"])[:4] + [0] * (4 - len(kw["shapes"][:4]))
@@ -466,8 +483,7 @@ def write_header(book):
         "    constexpr TrackRule TrackRules[] =",
         "    {",
     ]
-    trails = [(quest, obj) for quest in sorted(book.quests, key=lambda x: x.id) for obj in quest.objectives
-              if obj.kind == "trail"]
+    trails = [(quest, obj) for quest in quests_all for obj in quest.objectives if obj.kind == "trail"]
     for quest, obj in trails:
         kw = obj.kw
         pts = list(kw["points"]) + [(0.0, 0.0)] * (6 - len(kw["points"]))
@@ -484,25 +500,28 @@ def write_header(book):
 
 def write_sql(book):
     quests = sorted(book.quests, key=lambda x: x.id)
+    B = book.block
     o = []
     o += [
-        "-- mod-devourer task 021: the Devourer's quests in the world (Hagatha's lanterns). src/DevourerQuests.cpp.",
+        f"-- mod-devourer task {B.task}: the Devourer's quests in the world ({B.name}). src/DevourerQuests.cpp.",
         "-- Generated by tools/devourer_quests.py -- change the tool and run it again. Safe to run again.",
-        f"-- Ids {Q_FIRST}-{CREDIT_LAST} (quests, credits, lanterns, objects), gameobject guids {GUID_FIRST}-{GUID_LAST}.",
+        f"-- Ids {B.q_first}-{B.credit_last} (quests, credits, givers, objects), gameobject guids {B.guid_first}-{B.guid_last},"
+        f" creature guids {B.npc_guid_first}-{B.npc_guid_last}.",
         "",
-        f"DELETE FROM `gameobject` WHERE `guid` BETWEEN {GUID_FIRST} AND {GUID_LAST};",
-        f"DELETE FROM `gameobject_queststarter` WHERE `quest` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `gameobject_questender` WHERE `quest` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `creature_queststarter` WHERE `quest` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `creature_questender` WHERE `quest` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {LANTERN_FIRST} AND {THING_LAST};",
-        f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {CREDIT_FIRST} AND {CREDIT_LAST};",
-        f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {CREDIT_FIRST} AND {CREDIT_LAST};",
-        f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 19 AND `SourceEntry` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
-        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {Q_FIRST} AND {Q_LAST};",
+        f"DELETE FROM `gameobject` WHERE `guid` BETWEEN {B.guid_first} AND {B.guid_last};",
+        f"DELETE FROM `creature` WHERE `guid` BETWEEN {B.npc_guid_first} AND {B.npc_guid_last};",
+        f"DELETE FROM `gameobject_queststarter` WHERE `quest` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `gameobject_questender` WHERE `quest` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `creature_queststarter` WHERE `quest` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `creature_questender` WHERE `quest` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `gameobject_template` WHERE `entry` BETWEEN {B.giver_first} AND {B.thing_last};",
+        f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {B.credit_first} AND {B.credit_last};",
+        f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {B.credit_first} AND {B.credit_last};",
+        f"DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` IN (19, 20) AND `SourceEntry` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `quest_offer_reward` WHERE `ID` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `quest_request_items` WHERE `ID` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `quest_template_addon` WHERE `ID` BETWEEN {B.q_first} AND {B.q_last};",
+        f"DELETE FROM `quest_template` WHERE `ID` BETWEEN {B.q_first} AND {B.q_last};",
         "",
         "-- --- Hagatha's lanterns (questgivers, one per region) and the witches' objects (goobers, one quest each) ---",
         "INSERT INTO `gameobject_template` (`entry`, `type`, `displayId`, `name`, `IconName`, `castBarCaption`, `unk1`,"
@@ -510,8 +529,8 @@ def write_sql(book):
     ]
     rows = []
     for lantern in book.lanterns:
-        rows.append(f"({lantern.entry}, 2, {LANTERN_DISPLAY}, {q(chr(39).join(['Hagatha', 's Lantern']))}, '', '', '',"
-                    f" 1.4, 0, 0, '', '', 0)")
+        rows.append(f"({lantern.entry}, 2, {lantern.display}, {q(lantern.name)}, '', '', '',"
+                    f" {lantern.size}, 0, 0, '', '', 0)")
     for thing in book.things:
         assert thing.quest, thing.key
         if thing.lines:                          # a tale is told at any fire (mod-chromatica-extras), not at an object
@@ -522,12 +541,12 @@ def write_sql(book):
     o += ["", "INSERT INTO `gameobject` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`,"
               " `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`,"
               " `animprogress`, `state`, `Comment`) VALUES"]
-    rows, guid = [], GUID_FIRST
+    rows, guid = [], B.guid_first
     import math
     for lantern in book.lanterns:
         rows.append(f"({guid}, {lantern.entry}, {lantern.map}, 1, 1, {lantern.x}, {lantern.y}, {lantern.z},"
                     f" {lantern.o}, 0, 0, {round(math.sin(lantern.o / 2), 6)}, {round(math.cos(lantern.o / 2), 6)},"
-                    f" 300, 255, 1, {q('mod-devourer: Hagatha' + chr(39) + 's Lantern, ' + lantern.where)})")
+                    f" 300, 255, 1, {q('mod-devourer: ' + lantern.name + ', ' + lantern.where)})")
         guid += 1
     for thing in book.things:
         if thing.lines:
@@ -537,31 +556,32 @@ def write_sql(book):
                         f" {round(math.sin(ori / 2), 6)}, {round(math.cos(ori / 2), 6)}, 60, 255, 1,"
                         f" {q('mod-devourer: ' + thing.name)})")
             guid += 1
-    assert guid <= GUID_LAST + 1
+    assert guid <= B.guid_last + 1
     o.append(",\n".join(rows) + ";")
 
-    o += ["", "-- --- the lantern's voice: an invisible creature at every lantern, for the LLM companions to speak through ---",
-          f"DELETE FROM `creature` WHERE `guid` BETWEEN {SPEAKER_GUID_FIRST} AND {SPEAKER_GUID_LAST};",
-          f"DELETE FROM `creature_template_model` WHERE `CreatureID` = {SPEAKER};",
-          f"DELETE FROM `creature_template` WHERE `entry` = {SPEAKER};",
+    if B.speaker:
+      o += ["", "-- --- the lantern's voice: an invisible creature at every lantern, for the LLM companions to speak through ---",
+          f"DELETE FROM `creature` WHERE `guid` BETWEEN {B.speaker_guid_first} AND {B.speaker_guid_last};",
+          f"DELETE FROM `creature_template_model` WHERE `CreatureID` = {B.speaker};",
+          f"DELETE FROM `creature_template` WHERE `entry` = {B.speaker};",
           "DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;",
           f"CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = {TRIGGER_TEMPLATE};",
-          f"UPDATE `devourer_tmp_ct` SET `entry` = {SPEAKER}, `name` = {q('Hagatha' + chr(39) + 's Lantern')},"
+          f"UPDATE `devourer_tmp_ct` SET `entry` = {B.speaker}, `name` = {q('Hagatha' + chr(39) + 's Lantern')},"
           " `subname` = NULL, `faction` = 35, `npcflag` = 0, `unit_flags` = 33554434, `flags_extra` = 0, `AIName` = '',"
           " `ScriptName` = '', `VerifiedBuild` = 0;",
           "INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;",
           "DROP TEMPORARY TABLE `devourer_tmp_ct`;",
           "INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`,"
-          f" `VerifiedBuild`) VALUES ({SPEAKER}, 0, {INVISIBLE_MODEL}, 1, 1, 0);",
+          f" `VerifiedBuild`) VALUES ({B.speaker}, 0, {INVISIBLE_MODEL}, 1, 1, 0);",
           "INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`,"
           " `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES"]
-    speakers = []
-    for i, lantern in enumerate(book.lanterns):
-        guid = SPEAKER_GUID_FIRST + i
-        assert guid <= SPEAKER_GUID_LAST
-        speakers.append(f"({guid}, {SPEAKER}, {lantern.map}, 1, 1, {lantern.x}, {lantern.y}, {round(lantern.z + 1.0, 2)},"
+      speakers = []
+      for i, lantern in enumerate(book.lanterns):
+        guid = B.speaker_guid_first + i
+        assert guid <= B.speaker_guid_last
+        speakers.append(f"({guid}, {B.speaker}, {lantern.map}, 1, 1, {lantern.x}, {lantern.y}, {round(lantern.z + 1.0, 2)},"
                         f" {lantern.o}, 300, 0, 0, {q('mod-devourer: the voice of Hagatha' + chr(39) + 's Lantern, ' + lantern.where)})")
-    o.append(",\n".join(speakers) + ";")
+      o.append(",\n".join(speakers) + ";")
 
     credits = [(obj.credit, obj.text) for quest in quests for obj in quest.objectives if obj.credit]
     o += ["", "-- --- credits: one per objective the core cannot count by itself (never spawned) -----------------------",
@@ -579,8 +599,9 @@ def write_sql(book):
 
     if book.beasts:
         o += ["", "-- --- the quests' own creatures (copies of stock ones, with their own names) ----------------------------",
-              f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {BEAST_FIRST} AND {BEAST_LAST};",
-              f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {BEAST_FIRST} AND {BEAST_LAST};"]
+              f"DELETE FROM `creature_template_model` WHERE `CreatureID` BETWEEN {B.beast_first} AND {B.beast_last};",
+              f"DELETE FROM `creature_template` WHERE `entry` BETWEEN {B.beast_first} AND {B.beast_last};",
+              f"DELETE FROM `creature_text` WHERE `CreatureID` BETWEEN {B.beast_first} AND {B.beast_last};"]
         for beast in book.beasts:
             o.append("DROP TEMPORARY TABLE IF EXISTS `devourer_tmp_ct`;")
             o.append(f"CREATE TEMPORARY TABLE `devourer_tmp_ct` SELECT * FROM `creature_template` WHERE `entry` = {beast.clone_of};")
@@ -591,6 +612,10 @@ def write_sql(book):
                 sets += [f"`minlevel` = {beast.level}", f"`maxlevel` = {beast.level}"]
             if beast.faction:
                 sets.append(f"`faction` = {beast.faction}")
+            if beast.npcflag or beast.gossip:
+                sets.append(f"`npcflag` = {beast.npcflag | (1 if beast.gossip else 0)}")
+            if beast.gossip:
+                sets.append("`ScriptName` = 'npc_devourer_quest_beast'")
             o.append("UPDATE `devourer_tmp_ct` SET " + ", ".join(sets) + ";")
             o.append("INSERT INTO `creature_template` SELECT * FROM `devourer_tmp_ct`;")
             o.append("DROP TEMPORARY TABLE `devourer_tmp_ct`;")
@@ -602,6 +627,21 @@ def write_sql(book):
                          " `Probability`, `VerifiedBuild`) SELECT " + str(beast.entry) + ", 0, `CreatureDisplayID`,"
                          f" `DisplayScale` * {beast.scale}, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = "
                          f"{beast.clone_of} AND `Idx` = 0;")
+            if beast.sound:
+                o.append("INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`,"
+                         f" `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`) VALUES"
+                         f" ({beast.entry}, 0, 0, '', 16, 0, 100, 0, 0, {beast.sound}, 0, 0, {q('mod-devourer: ' + beast.name)});")
+        spawned = [(beast, sp) for beast in book.beasts for sp in beast.spawns]
+        if spawned:
+            o.append("INSERT INTO `creature` (`guid`, `id`, `map`, `spawnMask`, `phaseMask`, `position_x`, `position_y`,"
+                     " `position_z`, `orientation`, `spawntimesecs`, `wander_distance`, `MovementType`, `Comment`) VALUES")
+            rows, guid = [], B.npc_guid_first
+            for beast, (map_id, x, y, z, ori) in spawned:
+                rows.append(f"({guid}, {beast.entry}, {map_id}, 1, 1, {x}, {y}, {z}, {ori}, 120, 0, 0,"
+                            f" {q('mod-devourer: ' + beast.name)})")
+                guid += 1
+            assert guid <= B.npc_guid_last + 1
+            o.append(",\n".join(rows) + ";")
     o += ["", "-- --- the quests -------------------------------------------------------------------------------------"]
     cols = ("`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `QuestSortID`, `QuestInfoID`, `RewardXPDifficulty`,"
             " `RewardMoney`, `Flags`, `AllowableRaces`, `LogTitle`, `LogDescription`, `QuestDescription`,"
@@ -666,6 +706,9 @@ def write_sql(book):
         for group, shape in enumerate(quest.needs):
             conds.append(f"(19, 0, {quest.id}, 0, {group}, 25, 0, {SHAPES[shape][1]}, 0, 0, 0, 0, 0, '',"
                          f" {q('mod-devourer: ' + quest.title + ' needs the ' + SHAPES[shape][0] + ' shape')})")
+        if quest.event:
+            conds.append(f"(19, 0, {quest.id}, 0, 0, 12, 0, {quest.event}, 0, 0, 0, 0, 0, '',"
+                         f" {q('mod-devourer: ' + quest.title + ' only during game event ' + str(quest.event))})")
     if conds:
         o += ["", "-- Quests for one shape (or its line): offered only to a Devourer that owns it (knows its form spell).",
               "INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`,"
@@ -673,7 +716,7 @@ def write_sql(book):
               " `ConditionValue3`, `NegativeCondition`, `ErrorType`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES",
               ",\n".join(conds) + ";"]
     o.append("")
-    with open(SQL_OUT, "w", encoding="utf-8", newline="\n") as f:
+    with open(B.sql_out, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(o))
 
 
@@ -684,10 +727,9 @@ def money_text(copper):
 
 
 def write_doc(book):
-    out = ["# The Devourer's quests (task 021)", "",
-           "Generated by `tools/devourer_quests.py` -- edit the tool, not this file. Hagatha's lanterns burn where the",
-           "world is thin; the sisters speak through them. Every quest is for the Devourer only (class 10). Rewards are",
-           "stock 3.3.5a items (pick one where there is a choice), money and experience.", ""]
+    out = [f"# The Devourer's quests (task {book.block.task}: {book.block.name})", "",
+           "Generated by `tools/devourer_quests.py` -- edit the tool, not this file. Every quest is for the Devourer only",
+           "(class 10). Rewards are items (pick one where there is a choice), money and experience.", ""]
     total = 0
     for title, intro, quests in book.regions:
         out += [f"## {title}", "", intro, "",
@@ -707,22 +749,27 @@ def write_doc(book):
         out.append("")
     out.insert(5, f"{total} quests in {len(book.regions)} regions, {len(book.lanterns)} lanterns.")
     out.insert(6, "")
-    with open(DOC_OUT, "w", encoding="utf-8", newline="\n") as f:
+    with open(book.block.doc_out, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(out))
 
 
 def main():
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import devourer_quests_content
-    book = Book()
-    devourer_quests_content.build(book)
-    check(book)
-    assign_credits(book)
-    write_sql(book)
-    write_header(book)
-    write_doc(book)
-    print(f"{len(book.quests)} quests, {len(book.lanterns)} lanterns, {len(book.things)} objects ->",
-          os.path.relpath(SQL_OUT, ROOT), os.path.relpath(HDR_OUT, ROOT), os.path.relpath(DOC_OUT, ROOT))
+    import mount_quests
+    books = []
+    for block, module in ((LANTERNS, devourer_quests_content), (MOUNTS, mount_quests)):
+        book = Book(block)
+        module.build(book)
+        check(book)
+        assign_credits(book)
+        write_sql(book)
+        write_doc(book)
+        books.append(book)
+        print(f"{block.name}: {len(book.quests)} quests, {len(book.lanterns)} givers, {len(book.things)} objects,"
+              f" {len(book.beasts)} creatures -> {os.path.relpath(block.sql_out, ROOT)}, {os.path.relpath(block.doc_out, ROOT)}")
+    write_header(books)
+    print("->", os.path.relpath(HDR_OUT, ROOT))
 
 
 if __name__ == "__main__":
