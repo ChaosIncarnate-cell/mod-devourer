@@ -189,7 +189,7 @@ def crow(book, board):
              "that carried the book in the first place wants to carry it, and you, again."),
             objectives=[touch(page, 1, f"The page found at {where.split(',')[0]}")], prev=prev, sort=s, xp=5 if not last else 7,
             items=reins(35, 128, 32) if last else [],
-            story=f"The {i + 1}. page of Hagatha's spelltome, at {where}" + (". Reward: the Soaring Spelltome, the Flametouched Raven, the Scribe's Trailbear." if last else "."))
+            story=f"The {['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'last'][i]} page of Hagatha's spelltome, at {where}" + (". Reward: the Soaring Spelltome, the Flametouched Raven, the Scribe's Trailbear." if last else "."))
         riddle_prev = riddle
         prev = q.id
 
@@ -221,7 +221,7 @@ def jets(book, board):
                               ("Turn the shiny bolt.", "The shiny bolt was the angry one. It shouts at you in goblin.", False)],
                              0))
     a = book.quest(
-        9109150, "WANTED: Ten Broken Machines", 32, 30, board, board, "wren",
+        9109150, "WANTED: Seven Broken Machines", 32, 30, board, board, "wren",
         "Bramble's handwriting, on Wren's board:$B$BSeven broken machines. Three race wrecks on the Shimmering Flats, "
         "two in Booty Bay's scrapyard, the shredder in the Barrens and the one in Stranglethorn. Three bolts each. One bolt is WRONG and it's the springy one. Don't turn the springy one. "
         "You'll know if you did.$B$BBring me the parts. I'll build something. It'll be mostly safe.",

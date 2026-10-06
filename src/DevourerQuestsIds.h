@@ -430,7 +430,7 @@ namespace Devourer::Quests
         { 9105393, 9105634, EventMeal, FilterEntry, 29755, 0, 0, { 0, 0, 0, 0 }, "" },   // Stormpeak Wyrms: Stormpeak wyrm devoured
         { 9105394, 9105635, EventKill, FilterType, 2, 0, 0, { 37, 0, 0, 0 }, "" },   // The Storm Answers: Dragonkin slain as a Storm Dragon
         { 9109012, 9109406, EventMeal, FilterEntry, 9165, 0, 0, { 0, 0, 0, 0 }, "" },   // Lessons for a Chick: Pterrordax chased and eaten
-        { 9109015, 9109414, EventMeal, FilterEntry, 27421, 0, 0, { 0, 0, 0, 0 }, "" },   // Lessons for a Chick: Fern feeder moth chased and eaten
+        { 9109015, 9109414, EventMeal, FilterEntry, 2924, 0, 0, { 0, 0, 0, 0 }, "" },   // Lessons for a Chick: Silvermane wolf chased and eaten
         { 9109018, 9109422, EventMeal, FilterEntry, 25464, 0, 0, { 0, 0, 0, 0 }, "" },   // Lessons for a Chick: Bloodspore moth chased and eaten
         { 9109033, 9109437, EventMeal, FilterEntry, 11735, 0, 0, { 0, 0, 0, 0 }, "" },   // Under Control: Stonelash scorpid devoured
         { 9109034, 9109440, EventEmote, FilterEntry, 9109907, 60, 0, { 0, 0, 0, 0 }, "" },   // The Guide's Hyenas: The guide's hyena out-laughed
@@ -523,9 +523,9 @@ namespace Devourer::Quests
         { 9109321, 9109688, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Auberdine: Bowed to the reflection
         { 9109321, 9109689, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Auberdine: Danced with the reflection
         { 9109321, 9109690, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Auberdine: Knelt to the reflection
-        { 9109322, 9109692, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Moonwell: Bowed to the reflection
-        { 9109322, 9109693, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Moonwell: Danced with the reflection
-        { 9109322, 9109694, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Moonwell: Knelt to the reflection
+        { 9109322, 9109692, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Raynewood Retreat: Bowed to the reflection
+        { 9109322, 9109693, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Raynewood Retreat: Danced with the reflection
+        { 9109322, 9109694, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Raynewood Retreat: Knelt to the reflection
         { 9109323, 9109696, EventEmote, FilterEntry, 9109957, 17, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Thalanaar: Bowed to the reflection
         { 9109323, 9109697, EventEmote, FilterEntry, 9109957, 34, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Thalanaar: Danced with the reflection
         { 9109323, 9109698, EventEmote, FilterEntry, 9109957, 59, 0, { 0, 0, 0, 0 }, "" },   // The Reflection at Thalanaar: Knelt to the reflection
@@ -575,12 +575,12 @@ namespace Devourer::Quests
         { 9109011, 9109402, 1, -7020.0f, -1700.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the second fire
         { 9109011, 9109403, 1, -6900.0f, -2100.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the third fire
         { 9109012, 9109405, 1, -7160.0f, -1140.0f, 40.0f, { 0, 0, 0, 0 }, 16, 0, 0, -100000.0f },   // Lessons for a Chick: Glided from the clutch's high rock
-        { 9109012, 9109407, 571, 6300.0f, -1050.0f, 60.0f, { 0, 0, 0, 0 }, 0, 15, 0, -100000.0f },   // Lessons for a Chick: Stood in the storm
+        { 9109012, 9109407, 1, -5328.3f, -3056.8f, 60.0f, { 0, 0, 0, 0 }, 0, 15, 0, -100000.0f },   // Lessons for a Chick: Stood in the storm
         { 9109014, 9109409, 0, 221.0f, -2606.0f, 20.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the first fire
         { 9109014, 9109410, 0, -28.0f, -2806.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the second fire
-        { 9109014, 9109411, 0, 39.0f, -4642.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the third fire
+        { 9109014, 9109411, 0, 311.8f, -2954.5f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the third fire
         { 9109015, 9109413, 0, 221.0f, -2606.0f, 40.0f, { 0, 0, 0, 0 }, 16, 0, 0, -100000.0f },   // Lessons for a Chick: Glided from the clutch's high rock
-        { 9109015, 9109415, 571, 6300.0f, -1050.0f, 60.0f, { 0, 0, 0, 0 }, 0, 15, 0, -100000.0f },   // Lessons for a Chick: Stood in the storm
+        { 9109015, 9109415, 0, 101.9f, -2265.8f, 60.0f, { 0, 0, 0, 0 }, 0, 15, 0, -100000.0f },   // Lessons for a Chick: Stood in the storm
         { 9109017, 9109417, 571, 6596.0f, 4486.0f, 20.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the first fire
         { 9109017, 9109418, 571, 5300.0f, 5200.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the second fire
         { 9109017, 9109419, 571, 6300.0f, -1050.0f, 25.0f, { 0, 0, 0, 0 }, 0, 10, 0, -100000.0f },   // Keep It Warm: Warmed at the third fire
@@ -681,7 +681,7 @@ namespace Devourer::Quests
         { 9109312, 9109682, 1, -7448.4f, 1404.4f, 20.0f, { 0, 0, 0, 0 }, 128, 45, 0, -100000.0f },   // Why Is It Singing?: Stood still until the worms answered
         { 9109320, 9109683, 1, 10709.6f, 762.3f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // WANTED: The Reflection at Shadowglen: At Shadowglen's moonwell at night
         { 9109321, 9109687, 1, 6410.9f, 467.4f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Auberdine: At Auberdine's moonwell at night
-        { 9109322, 9109691, 1, 1870.4f, -1771.6f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Moonwell: At the Ashenvale moonwell's moonwell at night
+        { 9109322, 9109691, 1, 2368.1f, -1720.3f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Raynewood Retreat: At Raynewood Retreat's moonwell at night
         { 9109323, 9109695, 1, -4512.5f, -782.2f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Thalanaar: At Thalanaar's moonwell at night
         { 9109324, 9109699, 1, 7793.5f, -2446.9f, 12.0f, { 0, 0, 0, 0 }, 2, 5, 0, -100000.0f },   // The Reflection at Nighthaven: At Nighthaven's moonwell at night
         { 9109325, 9109703, 1, 6915.4f, -4129.6f, 25.0f, { 0, 0, 0, 0 }, 130, 30, 0, -100000.0f },   // Frostsabers Come Down: Stood still at Frostsaber Rock at night
@@ -718,7 +718,7 @@ namespace Devourer::Quests
         { 9109016, 9109016, 9109416, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: a Roc Chick's Egg: The warm egg found
         { 9109019, 9109020, 9109424, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: Ashenvale Dreams: Dream shard touched as a Flutterer
         { 9109020, 9109021, 9109425, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: Feralas Dreams: Dream shard touched as a Flutterer
-        { 9109021, 9109022, 9109426, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: The grizzly hills Dreams: Dream shard touched as a Flutterer
+        { 9109021, 9109022, 9109426, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: The Grizzly Hills Dreams: Dream shard touched as a Flutterer
         { 9109022, 9109023, 9109427, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: Nagrand Dreams: Dream shard touched as a Flutterer
         { 9109023, 9109024, 9109428, 0, 0, 0, 0, nullptr, "", "", { 23, 0, 0, 0 } },   // WANTED: Moonglade Dreams: Dream shard touched as a Flutterer
         { 9109024, 9109032, 9109432, 0, 0, 0, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Lost Explorer: The explorer's diary read
@@ -819,7 +819,7 @@ namespace Devourer::Quests
         { 9109044, 9109110, 9109507, 9109922, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: The Bell of Frosthold: The Bell of Frosthold
         { 9109045, 9109111, 9109508, 9109923, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of Dun Niffelem: The Bell of Dun Niffelem
         { 9109046, 9109112, 9109509, 9109924, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of Thunderfall: The Bell of Thunderfall
-        { 9109047, 9109113, 9109510, 9109925, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of The Terrace Of The Makers: The Bell of The Terrace Of The Makers
+        { 9109047, 9109113, 9109510, 9109925, 1, 40, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // The Bell of The Terrace of the Makers: The Bell of The Terrace of the Makers
         { 9109057, 9109161, 9109529, 9109933, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // At Dawn, in the Chapel: The Chapel's Threshold
         { 9109058, 9109170, 9109537, 9109935, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // WANTED: A Horse for Tam: A Grave With No Stone
         { 9109060, 9109171, 9109538, 9109934, 1, 8, 0, nullptr, "", "", { 0, 0, 0, 0 } },   // Three Goodbyes: Tam's Lantern

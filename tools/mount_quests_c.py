@@ -811,7 +811,7 @@ def moonwells(book, board):
     wells = (
         (9109320, "Shadowglen", "Teldrassil", 1, 10709.6, 762.3, reins(239)),
         (9109321, "Auberdine", "Darkshore", 1, 6410.9, 467.4, reins(293)),
-        (9109322, "the Ashenvale moonwell", "Ashenvale", 1, 1870.4, -1771.6, reins(300)),
+        (9109322, "Raynewood Retreat", "Ashenvale", 1, 2368.1, -1720.3, reins(300)),
         (9109323, "Thalanaar", "Feralas", 1, -4512.5, -782.2, reins(71)),
         (9109324, "Nighthaven", "Moonglade", 1, 7793.5, -2446.9, reins(387)),
     )
@@ -821,7 +821,7 @@ def moonwells(book, board):
     prev = None
     for i, (qid, name, zone, m, x, y, rewards) in enumerate(wells):
         q = book.quest(
-            qid, ("WANTED: " if not prev else "") + f"The Reflection at {name.split(' ')[-1].title() if name.startswith('the') else name}",
+            qid, ("WANTED: " if not prev else "") + f"The Reflection at {name}",
             44 + i * 5, 40 + i * 5, board, board, "hagatha",
             ("Hagatha, unimpressed:$B$BElves and their glowing water, little horror. At night the moonwells show a "
              "saber's reflection, and the reflection moves, and if you copy it, it remembers you. Bow, dance, kneel: "

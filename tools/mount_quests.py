@@ -118,8 +118,14 @@ def build(book):
 
 # --- 5. A Letter From the Egg ------------------------------------------------------------------------------------------
 
+# where each chick feels its first storm: high, windy, and somewhere its level can reach
+STORMS = {"ravasaur": ("the cloud-serpent mesas of the Thousand Needles", (1, -5328.3, -3056.8)),
+          "gryphon": ("the razorbeak cliffs above Aerie Peak", (0, 101.9, -2265.8)),
+          "roc": ("the top of the Storm Peaks", (571, 6300.0, -1050.0))}
+
+
 def egg(book, board):
-    book.region("5. A Letter From the Egg (levels 48-62)",
+    book.region("5. A Letter From the Egg (levels 44-76)",
                 "You find a warm egg. It hatches into a chick that cannot fly, and it writes to you. Three eggs, three "
                 "families: a ravasaur in Un'Goro, a gryphon in the Hinterlands, a roc in Sholazar. Each chick follows "
                 "you through its lessons and lands beside you grown.")
@@ -130,13 +136,14 @@ def egg(book, board):
          (1, -6900.0, -2100.0), 9165, "pterrordax", "Un'Goro's pterrordax", reins(16), mount_look(16), 48),
         ("gryphon", 9109013, 44, "the Hinterlands", 0, (120.0, -3300.0, 117.3), EGG, 2927, "a Gryphon Chick",
          "the hills below Aerie Peak", (0, 221.0, -2606.0), "Shindigger's Camp", (0, -28.0, -2806.0),
-         (0, 39.0, -4642.0), 27421, "fern feeder moth", "the moths of the Grizzly Hills", reins(97, 102), mount_look(97), 44),
+         (0, 311.8, -2954.5), 2924, "silvermane wolf", "the silvermane wolves by Quel'Danil Lodge", reins(97, 102), mount_look(97), 44),
         ("roc", 9109016, 75, "Sholazar Basin", 571, (6560.0, 4500.0, -50.2), EGG_BLACK, 28004, "a Roc Chick",
          "the Bonefields in the east of the basin", (571, 6596.0, 4486.0), "the Bonefields", (571, 5300.0, 5200.0),
          (571, 6300.0, -1050.0), 25464, "bloodspore moth", "the Bloodspore Plains' moths", reins(117, 336, 338), mount_look(117), 75),
     )
     for (key, qid, level, region, map_id, (ex, ey, ez), egg_look, clone, chick_name, where, fire1, fire1_name, fire2, fire3,
          moth, moth_name, moth_where, rewards, grown_look, lvl) in chains:
+        storm_name, storm = STORMS[key]
         nest = book.thing(f"{key}_egg", "A Warm Egg", egg_look, [(map_id, ex, ey, ez, 0.0)], size=1.2)
         chick = book.beast(f"{key}_chick", chick_name.split(" ", 1)[1], clone, level=level, faction=FACTION_SHY, passive=True,
                            scale=0.35, subname="Cannot Fly Yet")
@@ -176,21 +183,22 @@ def egg(book, board):
             qid + 2, "Lessons for a Chick", level + 1, level - 1, board, board, "wren",
             "Wren, reading a letter aloud:$B$B'I tried to fly today. I hit a tree.' Snack, it WROTE to you. We have to "
             "teach it. Three lessons, Hagatha says. One: glide. Take it to a high place and jump off together; it will "
-            "copy you. Two: chase. Let it chase ten moths with you, because moths are what chicks eat and also because "
-            f"it's funny. Three: a storm. Take it to the top of the world and let it feel one.$B$BThen look up.",
+            f"copy you. Two: chase. Let it chase ten of {moth_where} with you, because that is what chicks of its kind "
+            f"eat, and also because it's funny. Three: a storm. Take it up to {storm_name}, where the wind is wild, and "
+            "let it feel one.$B$BThen look up.",
             f"With the chick following, glide from a height, eat 10 of {moth_where} as it chases them, and stand in the "
-            "Storm Peaks' wind. Then look up.",
+            f"wind on {storm_name}. Then look up.",
             "Three lessons, Snack. It's writing to me as well now. The letters are getting longer.",
             "It LANDED. Next to you. Grown! Feathers and everything, or scales, I don't know, I can't see from here. "
             "Its last letter just said 'Look up.' You looked up.$B$BIt wants to carry you now. That's what grown-up "
             "chicks do for their mothers. Don't argue. Science.",
             objectives=[visit("Glided from the clutch's high rock", map_id, fire1[1], fire1[2], radius=40.0, noflying=True),
                         devour(10, f"{moth_name.capitalize()} chased and eaten", entries=[moth]),
-                        visit("Stood in the storm", 571, 6300.0, -1050.0, radius=60.0, stay=15)],
+                        visit("Stood in the storm", storm[0], storm[1], storm[2], radius=60.0, stay=15)],
             prev=b.id, sort=s, xp=6, items=rewards,
             lures=[book.thing(f"{key}_landing", "Look Up", FEATHER, [(IN_BETWEEN, -92.0, 128.0, Z_HALL, 0.0)], size=0.8,
                               summon=grown.entry, count=1)],
-            story=f"Three lessons for the chick (glide, chase moths, a storm); it lands beside you grown. Reward: {', '.join(n for _, n, _ in rewards)}.")
+            story=f"Three lessons for the chick (glide, a chase, a storm); it lands beside you grown. Reward: {', '.join(n for _, n, _ in rewards)}.")
 
 
 # --- 6. Five Shards in Eight Hours ---------------------------------------------------------------------------------------
@@ -216,7 +224,7 @@ def shards(book, board):
     for qid, region, map_id, points, rewards, dreamer in zones:
         shards_ = book.thing(f"shard_{qid}", "Dream Shard", CRYSTAL, [(map_id, x, y, 0.0, 0.0) for x, y in points], size=0.4)
         q = book.quest(
-            qid, f"WANTED: {region.capitalize() if region[0].islower() else region} Dreams", 60, 58, board, board, "wren",
+            qid, f"WANTED: {region[0].upper() + region[1:]} Dreams", 60, 58, board, board, "wren",
             f"Wren, whispering:$B$BSnack, {region} is dreaming this week. Five dream shards fell into it, faint blue "
             "glimmers that only a royal blue flutterer can touch; anyone else's hand goes straight through. Hagatha "
             "says once you touch the first, the dream knows you're there and the other four start to fade: eight hours, "
@@ -284,7 +292,7 @@ def finds(book, board):
     # The explorer's diary: silly places, then the scorpid nest
     diary = book.thing("find_diary", "A Lost Explorer's Diary", BOOK, [(0, -6273.0, -2940.0, 0.0, 0.0)], size=0.8)
     c = book.quest(
-        9109032, "WANTED: The Lost Explorer", 42, 40, board, board, "wren",
+        9109032, "WANTED: The Lost Explorer", 52, 50, board, board, "wren",
         "Wren, worried:$B$BSnack, an explorer went missing in the desert and her diary turned up at the Badlands dig. "
         "Hagatha read it. She says the diary is LYING, on purpose, so nobody follows her. It sends you to Uldaman, "
         "then to Tanaris, then to Silithus, each page sillier than the last.$B$BRead it. Go where it says. Work out "
@@ -305,7 +313,7 @@ def finds(book, board):
     nest = book.thing("find_nest", "A Scorpid Nest", GRAVE, [(1, -6590.0, 255.0, 0.0, 0.0)], size=1.0,
                       summon=explorer.entry, count=1, follow=True)
     d = book.quest(
-        9109033, "Under Control", 43, 41, board, board, "wren",
+        9109033, "Under Control", 55, 52, board, board, "wren",
         "Wren, firmly:$B$BShe's in a scorpid nest in the north of Silithus. Pull her out. Eat the scorpids if they "
         "argue. She will tell you she had it under control. She did not.$B$BHer camels wandered off when the scorpids "
         "came; their tracks lead north from the nest. Follow them with Sniff. They come home with whoever finds them.",
@@ -322,12 +330,12 @@ def finds(book, board):
         prev=c.id, sort=s, items=reins(39, 40), xp=6,
         story="Pull the explorer out of a scorpid nest and follow her camels' tracks home. Reward: the Tan Riding Camel and the Explorer's Dunetrekker.")
     e = book.quest(
-        9109034, "The Guide's Hyenas", 44, 42, board, board, "wren",
+        9109034, "The Guide's Hyenas", 56, 53, board, board, "wren",
         "Wren, reading the diary's last page:$B$BShe had a guide. A vulpera, with hyenas. The hyenas ran when the "
         "scorpids came too, and they're still out there, laughing at the desert. The guide says they come to anyone "
-        "who can laugh louder than they can.$B$BSniff out their tracks south of Gadgetzan, find them, and laugh at "
-        "them. Properly. Until they stop.",
-        "Follow the hyenas' tracks south of Gadgetzan with Sniff, then /laugh at 3 of the guide's hyenas.",
+        "who can laugh louder than they can.$B$BSniff out their tracks south of Gadgetzan, find the pack leader, and "
+        "laugh at it. Properly. Until it stops.",
+        "Follow the hyenas' tracks south of Gadgetzan with Sniff, then /laugh at the guide's hyena when you find it.",
         "Laugh LOUDER, Snack.",
         "They stopped laughing. Then one of them came and sat on your foot. That's a hyena saying yes.$B$BHere's its "
         "reins. It still laughs in its sleep.",
@@ -439,7 +447,7 @@ def shapes(book, board):
             "and sniff you; hold the shape and keep still, or they scatter. When they have decided you belong, put down "
             f"the {food} I have left there ({food_name}, by the water), and the oldest one will follow you out.$B$B"
             "Of course they trust you. You look like dinner. Their dinner.",
-            f"As a {shape_name}, stand still among {who} until they accept you, then put down {food_name}; the oldest "
+            f"As {'an' if shape_name[0] in 'AEIOU' else 'a'} {shape_name}, stand still among {who} until they accept you, then put down {food_name}; the oldest "
             "follows you home.",
             "Hold the shape. Keep still. Let them sniff.",
             "The oldest of them followed you out, and it is still following. It thinks you are its young. Let it.$B$B"
@@ -447,7 +455,7 @@ def shapes(book, board):
             objectives=[visit(f"Stood still among the {kind}", map_id, x, y, radius=20.0, shapes=shape_line, stay=20, still=True),
                         wake(feed, f"{food_name} put down; the oldest came")],
             sort=s, needs=shape_line, items=rewards, xp=6,
-            story=f"As a {shape_name.split(' (')[0]}: stand still among {who} until they accept you, feed them, and the oldest follows you out. Reward: {', '.join(n for _, n, _ in rewards)}.")
+            story=f"As {'an' if shape_name[0] in 'AEIOU' else 'a'} {shape_name.split(' (')[0]}: stand still among {who} until they accept you, feed them, and the oldest follows you out. Reward: {', '.join(n for _, n, _ in rewards)}.")
         if key == "foxes":                         # a fifth fox, the black familiar, as the quest's one choice
             q.choices = [(e, n) for e, n, _ in reins(362)]
             q.story = q.story[:-1] + ", and the black Vulpine Familiar."
@@ -681,10 +689,10 @@ def peaks(book, board):
     for qid, name, map_id, x, y, z, herd, clone, look, rewards, what in bells:
         beast = book.beast(f"bell_{qid}", f"One of {herd.capitalize()}", clone, display=mount_look(look),
                            level=78, faction=FACTION_SHY, passive=True, scale=1.0, subname="Came to See Who Rang")
-        bell = book.thing(f"bell_thing_{qid}", f"The Bell of {name.title() if name[0].islower() else name}", SHIP_BELL, [(map_id, x, y, z, 0.0)], size=1.0,
+        bell = book.thing(f"bell_thing_{qid}", f"The Bell of {name[0].upper() + name[1:]}", SHIP_BELL, [(map_id, x, y, z, 0.0)], size=1.0,
                           summon=beast.entry, count=1, follow=True)
         q = book.quest(
-            qid, ("WANTED: " if not prev else "") + f"The Bell of {name.title() if name[0].islower() else name}", 77, 76, board, board, "hagatha",
+            qid, ("WANTED: " if not prev else "") + f"The Bell of {name[0].upper() + name[1:]}", 77, 76, board, board, "hagatha",
             f"Hagatha:$B$BA bell hangs at {name}, little horror, high in the Storm Peaks. Climb to it on your own feet, "
             "or on four, or six; no flying mount. If you fall, fall quietly. Ring it, and "
             f"{herd} will come out to see who rang.$B$BOne of them will follow you down.",
