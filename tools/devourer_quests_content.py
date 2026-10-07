@@ -57,6 +57,30 @@ def mercy(book, qid, title, level, lantern, beast, points, intro, found, kept, r
         prev=prev, sort=sort, items=[reward], xp=4, story=story)
 
 
+# Zack 2026-10-06: every quest gives the Devourer something. The lantern quests without a gear choice (the
+# breadcrumbs, the homecomings, the spared babies) give a base form that fits the place; the engine falls back to
+# another colouring of it when the Devourer has the first. Base forms only, so no quest skips a growth step.
+LANTERN_FORMS = {
+    9105001: 5, 9105002: 6, 9105003: 7, 9105004: 8, 9105005: 9, 9105006: 10, 9105007: 11, 9105008: 12,
+    9105034: 38, 9105043: 10, 9105053: 25, 9105063: 5,
+    9105019: 5, 9105029: 9, 9105039: 8, 9105049: 13, 9105059: 10, 9105069: 27, 9105079: 11, 9105089: 12,
+    9105114: 46, 9105145: 10, 9105144: 27, 9105149: 28, 9105109: 11, 9105119: 14, 9105129: 8, 9105139: 7,
+    9105159: 5, 9105169: 11, 9105224: 5, 9105219: 38, 9105179: 7, 9105209: 27, 9105189: 35, 9105199: 8,
+    9105254: 6, 9105229: 27, 9105248: 35, 9105249: 14, 9105239: 25, 9105259: 38, 9105265: 33, 9105269: 28,
+    9105289: 35, 9105279: 38, 9105299: 13, 9105309: 8, 9105319: 41, 9105329: 27, 9105339: 41, 9105348: 5,
+    9105349: 31, 9105359: 46, 9105369: 35, 9105379: 27, 9105389: 5, 9105392: 46,
+}
+
+
+def give_forms(book):
+    from devourer_quests import SHAPES
+    for quest in book.quests:
+        shape = LANTERN_FORMS.get(quest.id)
+        if shape:
+            quest.form = (shape, None)
+            quest.story += f" Reward: the {SHAPES[shape][0]} form (or a colouring of it)."
+
+
 def build(book):
     import devourer_quests_teens
     import devourer_quests_twenties
@@ -67,6 +91,7 @@ def build(book):
     twenties = devourer_quests_twenties.twenties(book, teens)
     thirties = devourer_quests_thirties.thirties(book, twenties)
     devourer_quests_high.high(book, thirties)
+    give_forms(book)
 
 
 # --- Homecoming: a lantern in every home region (levels 6-11) --------------------------------------------------------

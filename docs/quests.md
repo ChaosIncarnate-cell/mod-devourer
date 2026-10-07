@@ -11,14 +11,14 @@ After Wren's Apprentice, Hagatha sends the Devourer home: her lantern burns in t
 
 | Lvl | Quest | Story | Objectives | Rewards |
 |---|---|---|---|---|
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Elwynn Forest. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Dun Morogh. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Teldrassil. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Azuremyst Isle. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Durotar. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Mulgore. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Tirisfal Glades. | - | 86c |
-| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Eversong Woods. | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Elwynn Forest. Reward: the Wolf form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Dun Morogh. Reward: the Trogg form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Teldrassil. Reward: the Saber form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Azuremyst Isle. Reward: the Moth form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Durotar. Reward: the Boar form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Mulgore. Reward: the Plainstrider form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Tirisfal Glades. Reward: the Bat form (or a colouring of it). | - | 86c |
+| 6 | A Lantern at Home | Hagatha sends the Devourer home, to her lantern in Eversong Woods. Reward: the Mana Wyrm form (or a colouring of it). | - | 86c |
 | 6 | The Wolves of Elwynn | The lesson: Hagatha has the Devourer eat six of Elwynn's wolves, to know the wolf it wears. | Elwynn wolf devoured x6 | one of: Cloak of the People's Militia, Padded Running Shoes, Craftsman's Dagger; 2s 16c |
 | 8 | Wren's Eating Contest | Wren's first eating contest: six Crystal Lake murlocs against her spoon-timer (5 minutes). | Crystal Lake murloc devoured x6 | one of: Footman Tunic, Vagabond Leggings, Bonecracker; 3s 84c |
 | 10 | Hogger's Last Supper | Hagatha's tale of Hogger, who ate the edge of the forest. Let him show his tricks, then eat him. | Hogger's trick felt; Hogger devoured | one of: Frontier Britches, Black Whelp Gloves, Serrated Knife; 9s |
@@ -30,20 +30,20 @@ After Wren's Apprentice, Hagatha sends the Devourer home: her lantern burns in t
 | 8 | Among the Stalkers *(Saber/Shadowclaw only)* | For a Devourer with the Saber shape: lie down among the nightsaber stalkers as one of them. | Lay down among the stalkers | one of: Balanced Fighting Stick, Padded Running Shoes, Cloak of the People's Militia; 3s 84c |
 | 8 | What the Owl Swallowed | Eat an owl and see its last memory: a cave mouth. Go there (the Fel Rock). | Strigid owl devoured (you see a cave mouth); The cave the owl saw | one of: Vagabond Leggings, Shard-Covered Leggings, Craftsman's Dagger; 3s 84c |
 | 11 | The Queen of Webs | Hagatha's tale of Lady Sathrah, the spider who thinks herself a queen. | Lady Sathrah devoured | one of: Black Whelp Gloves, Greasy Tinker's Pants, Serrated Knife; 10s 89c |
-| 7 | Moonpaw | Mercy: Sniff out Moonpaw, an orphaned nightsaber cub, and pat it instead of eating it. It comes back grown (mounts idea 1). Reward: a tiger cub companion. | Moonpaw found; Moonpaw spared | White Tiger Cub; 2s 35c |
+| 7 | Moonpaw | Mercy: Sniff out Moonpaw, an orphaned nightsaber cub, and pat it instead of eating it. It comes back grown (mounts idea 1). Reward: a tiger cub companion. Reward: the Owl form (or a colouring of it). | Moonpaw found; Moonpaw spared | White Tiger Cub; 2s 35c |
 | 6 | Long Legs on the Isle | The lesson: six timberstriders, cousins of the plainstrider. | Timberstrider devoured x6 | one of: Elekk Handler's Leathers, Savage Leggings, Compact Fighting Knife; 2s 16c |
 | 8 | Bullies of Bristlelimb | Wren hates bullies: roar at the furbolgs of Bristlelimb Village until they run. | Bristlelimb furbolg sent running x5 | one of: Vindicator's Leather Moccasins, Shard-Covered Leggings, The Thumper; 3s 84c |
 | 10 | The Moonwing Owlbeasts | Hagatha's tale of the crystal-maddened owlbeasts: feel their Moonfire, then eat three. | Moonfire felt; Owlbeast devoured x3 | one of: Vindicator's Leather Chaps, Undertaker's Gloves, Vindicator's Smasher; 9s |
-| 7 | Stiltz | Mercy: Sniff out Stiltz, a timberstrider chick with legs too long for it, and pat it. It comes back grown (mounts idea 1). Reward: a plainstrider hatchling companion. | Stiltz found; Stiltz spared | Mulgore Hatchling; 2s 35c |
+| 7 | Stiltz | Mercy: Sniff out Stiltz, a timberstrider chick with legs too long for it, and pat it. It comes back grown (mounts idea 1). Reward: a plainstrider hatchling companion. Reward: the Plainstrider form (or a colouring of it). | Stiltz found; Stiltz spared | Mulgore Hatchling; 2s 35c |
 | 6 | Tusk and Gristle | The lesson: six mottled boars, and how little a boar needs to think. | Mottled boar devoured x6 | one of: Savage Leggings, 2 Stone Sledgehammer, Jagged Dagger; 2s 16c |
 | 8 | The Scorpid Feast | Wren's eating contest: eight scorpids before she runs out of breath (5 minutes). | Scorpid devoured x8 | one of: Vagabond Leggings, Padded Running Shoes, Craftsman's Dagger; 3s 84c |
 | 10 | The Dreadmaw | Hagatha's tale of the patient Dreadmaw crocolisks: feel their bite, then eat two. | Dreadmaw jaws felt; Dreadmaw Crocolisk devoured x2 | one of: Frontier Britches, Undertaker's Gloves, Bonegrinding Pestle; 9s |
-| 7 | Clutchless | Mercy: Sniff out Clutchless, a motherless raptor hatchling, and pat it. It comes back grown (mounts idea 1). Reward: a raptor hatchling companion. | Clutchless found; Clutchless spared | Leaping Hatchling; 2s 35c |
+| 7 | Clutchless | Mercy: Sniff out Clutchless, a motherless raptor hatchling, and pat it. It comes back grown (mounts idea 1). Reward: a raptor hatchling companion. Reward: the Viper form (or a colouring of it). | Clutchless found; Clutchless spared | Leaping Hatchling; 2s 35c |
 | 9 | Head Down, Legs Going *(Boar only)* | For a Devourer with the Boar: Primal Charge six Razormane quilboar, head down, legs going. | Quilboar charged as a Boar x6 | one of: Padded Running Shoes, Frontier Britches, Bonegrinding Pestle; 4s 86c |
 | 6 | Legs of the Plains | The lesson: six grown plainstriders. | Plainstrider devoured x6 | one of: Savage Leggings, Elekk Handler's Leathers, Stinging Mace; 2s 16c |
 | 8 | The Venture Co. Problem | Wren wants the Venture Co. off the plains: roar at the goblins until they run. | Venture Co. goblin sent running x5 | one of: Vagabond Leggings, Padded Running Shoes, Craftsman's Dagger; 3s 84c |
 | 10 | Mazzranache | Follow Mazzranache's scent with Sniff across the plains, and eat the nameless beast. | Mazzranache's trail followed; Mazzranache devoured | one of: Vindicator's Leather Chaps, Frontier Britches, Vindicator's Smasher; 9s |
-| 7 | Dusty | Mercy: Sniff out Dusty, the prairie pup who can only sneeze, and pat him. He comes back grown (mounts idea 1). Reward: a worg pup companion. | Dusty found; Dusty spared | Worg Carrier; 2s 35c |
+| 7 | Dusty | Mercy: Sniff out Dusty, the prairie pup who can only sneeze, and pat him. He comes back grown (mounts idea 1). Reward: a worg pup companion. Reward: the Wolf form (or a colouring of it). | Dusty found; Dusty spared | Worg Carrier; 2s 35c |
 | 6 | Wings in the Gloom | The lesson: six of Tirisfal's duskbats, to hear like a bat. | Duskbat devoured x6 | one of: Shard-Covered Leggings, Compact Fighting Knife, Farstrider's Tunic; 2s 16c |
 | 8 | Supper at Cold Hearth | Wren's candle-timed contest: five of the walking dead of Cold Hearth Manor (5 minutes). | Walking dead devoured x5 | one of: Vagabond Leggings, Balanced Fighting Stick, Padded Running Shoes; 3s 84c |
 | 10 | The Scarlet Table | Hagatha's tale of the Scarlet's burning faith: feel a missionary's fire, then eat five crusaders. | Scarlet fire felt; Scarlet crusader devoured x5 | one of: Black Whelp Gloves, Greasy Tinker's Pants, Serrated Knife; 9s |
@@ -58,14 +58,14 @@ Each home lantern points to one of seven lanterns abroad. Their quests lead into
 
 | Lvl | Quest | Story | Objectives | Rewards |
 |---|---|---|---|---|
-| 11 | A Lantern in Westfall | Hagatha sends the Devourer on to her lantern in Westfall. | - | 2s 90c |
-| 11 | A Lantern in Loch Modan | Hagatha sends the Devourer on to her lantern in Loch Modan. | - | 2s 90c |
-| 11 | A Lantern in Darkshore | Hagatha sends the Devourer on to her lantern in Darkshore. | - | 2s 90c |
-| 11 | A Lantern in Bloodmyst Isle | Hagatha sends the Devourer on to her lantern in Bloodmyst Isle. | - | 2s 90c |
-| 11 | A Lantern in the Barrens | Hagatha sends the Devourer on to her lantern in the Barrens. | - | 2s 90c |
-| 11 | A Lantern in the Barrens | Hagatha sends the Devourer on to her lantern in the Barrens. | - | 2s 90c |
-| 11 | A Lantern in Silverpine Forest | Hagatha sends the Devourer on to her lantern in Silverpine Forest. | - | 2s 90c |
-| 11 | A Lantern in the Ghostlands | Hagatha sends the Devourer on to her lantern in the Ghostlands. | - | 2s 90c |
+| 11 | A Lantern in Westfall | Hagatha sends the Devourer on to her lantern in Westfall. Reward: the Wolf form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in Loch Modan | Hagatha sends the Devourer on to her lantern in Loch Modan. Reward: the Boar form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in Darkshore | Hagatha sends the Devourer on to her lantern in Darkshore. Reward: the Moth form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in Bloodmyst Isle | Hagatha sends the Devourer on to her lantern in Bloodmyst Isle. Reward: the Warp Stalker form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in the Barrens | Hagatha sends the Devourer on to her lantern in the Barrens. Reward: the Plainstrider form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in the Barrens | Hagatha sends the Devourer on to her lantern in the Barrens. Reward: the Baby Eagle form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in Silverpine Forest | Hagatha sends the Devourer on to her lantern in Silverpine Forest. Reward: the Bat form (or a colouring of it). | - | 2s 90c |
+| 11 | A Lantern in the Ghostlands | Hagatha sends the Devourer on to her lantern in the Ghostlands. Reward: the Mana Wyrm form (or a colouring of it). | - | 2s 90c |
 | 12 | Goretusk Stew | The lesson, Wren's way: six goretusks for an imaginary stew. | Goretusk devoured x6 | one of: Smith's Trousers, Steadfast Cinch, Hardwood Cudgel; 8s 64c |
 | 13 | Running with the Coyotes *(Wolf/Bloodsnout Worg only)* | For a Devourer with the Wolf shape: run with Westfall's coyotes as a cousin from the forest. | Ran with the coyotes | one of: Gloves of the Moon, Wolfmane Wristguards, Thornblade; 10s 14c |
 | 18 | Old Murk-Eye | Sniff out Old Murk-Eye along the coast, catch his infection, and eat him (a Water Salamander task). | Old Murk-Eye's stink followed; Volatile Infection felt; Old Murk-Eye devoured | one of: Bone-studded Leather, Band of the Fist, Headbasher; 29s 16c |
@@ -73,7 +73,7 @@ Each home lantern points to one of seven lanterns abroad. Their quests lead into
 | 13 | Stonesplinter Bones | The lesson: six Stonesplinter troggs, for a trogg's hard back. | Stonesplinter trogg devoured x6 | one of: Hammerfist Gloves, Mace of the Hand, Ghostclaw Leggings; 10s 14c |
 | 15 | The Boat-Eater | A campfire tale for the Devourer and Bramble: the crocolisk that grew to fit the loch. | The tale of the Boat-Eater heard | one of: Smith's Trousers, Bounty Hunter's Ring, Thornblade; 10s 80c |
 | 22 | Worth the Climb | Follow the Boat-Eater's scent around the loch, and eat the Large Loch Crocolisk (a Komodo Dragon task). | The Boat-Eater's scent followed; Large Loch Crocolisk devoured | one of: Panther Armor, Deftkin Belt, Orc Crusher; 43s 56c |
-| 13 | Bumble | Mercy: Sniff out Bumble, a bear cub stuck on Grizzlepaw Ridge, and lead it down. It comes back grown (mounts idea 1). Reward: a bear cub companion. | Bumble found; Bumble spared | Dun Morogh Cub; 8s 11c |
+| 13 | Bumble | Mercy: Sniff out Bumble, a bear cub stuck on Grizzlepaw Ridge, and lead it down. It comes back grown (mounts idea 1). Reward: a bear cub companion. Reward: the Bear Cub form (or a colouring of it). | Bumble found; Bumble spared | Dun Morogh Cub; 8s 11c |
 | 14 | A Roar Too Big *(Bear Cub only)* | For a Devourer with the Bear Cub: Cub Roar at five of the loch's big black bears. | Bear roared at as a Bear Cub x5 | one of: Hammerfist Gloves, Mace of the Hand, Ghostclaw Leggings; 11s 76c |
 | 12 | Moonstalkers | The lesson: six moonstalkers, the dark the saber hunts in. | Moonstalker devoured x6 | one of: Gloves of the Moon, Ghostclaw Leggings, Harpy Skinner; 8s 64c |
 | 13 | A Moonkin Among Moonkin *(Owl/Moonkin/Moontouched Owlbeast only)* | For a Devourer with the Owl shape: stand among the young moonkin as one who has not stood up yet. | Stood among the young moonkin | one of: Wolfmane Wristguards, Smith's Trousers, Mace of the Hand; 10s 14c |
@@ -89,8 +89,8 @@ Each home lantern points to one of seven lanterns abroad. Their quests lead into
 | 15 | The Last Laugh | Wren hates being laughed at: laugh at the hecklefang hyenas until they run. | Hecklefang laughed off x5 | one of: Smith's Trousers, Steadfast Cinch, Mace of the Hand; 13s 50c |
 | 17 | Thunder in a Small Lizard | Hagatha's tale of the lizards that swallowed a storm: eat three while Bramble watches the lightning. | Thunder lizard devoured, Bramble watching x3 | one of: Stomping Boots, Ravager Hide Gloves, Hardwood Cudgel; 17s 34c |
 | 19 | The Thunderhawk Nests | Sniff the smell of rain to a thunderhawk nest and eat the hatchling (a Greater Plainstrider task). | The smell of rain followed; Thunderhawk Hatchling devoured | one of: Panther Armor, Band of the Fist, Orc Crusher; 32s 49c |
-| 20 | Wren's Starting Line | Wren calls the Devourer to the Derby's starting line (Wren's Derby, task 020). | - | 9s 60c |
-| 13 | Little Thunder | Mercy: Sniff out Little Thunder, a kodo calf left behind by its herd, and pat it. It comes back grown (mounts idea 1). | Little Thunder found; Little Thunder spared | Steadfast Cinch; 8s 11c |
+| 20 | Wren's Starting Line | Wren calls the Devourer to the Derby's starting line (Wren's Derby, task 020). Reward: the Baby Eagle form (or a colouring of it). | - | 9s 60c |
+| 13 | Little Thunder | Mercy: Sniff out Little Thunder, a kodo calf left behind by its herd, and pat it. It comes back grown (mounts idea 1). Reward: the Plainstrider form (or a colouring of it). | Little Thunder found; Little Thunder spared | Steadfast Cinch; 8s 11c |
 | 15 | Quilboar Bacon *(Armoredon only)* | For a Devourer with the Armoredon: Tremor Charge six rock-throwing Razormane quilboar. | Razormane charged as an Armoredon x6 | one of: Smith's Trousers, Steadfast Cinch, Mace of the Hand; 13s 50c |
 | 18 | Spit the Storm Back *(Thunder Lizard only)* | For a Devourer with the Thunder Lizard: Thunder Spit at six of the Barrens' thunder lizards. | Thunder lizard spat at as a Thunder Lizard x6 | one of: Stomping Boots, Ravager Hide Gloves, Hardwood Cudgel; 19s 44c |
 | 21 | Silk for the Hive *(Grub only)* | For a Devourer with the Grub: Spit Silk at six silithid of the Field of Giants. | Silithid silked as a Grub x6 | one of: Smith's Trousers, Steadfast Cinch, Mace of the Hand; 26s 46c |
@@ -110,13 +110,13 @@ Six lanterns between the first molts and the long roads: the whelp and the turtl
 
 | Lvl | Quest | Story | Objectives | Rewards |
 |---|---|---|---|---|
-| 20 | A Lantern in Duskwood | Hagatha sends the Devourer on to her lantern in Duskwood. | - | 9s 60c |
-| 20 | A Lantern in the Wetlands | Hagatha sends the Devourer on to her lantern in the Wetlands. | - | 9s 60c |
-| 20 | A Lantern in Ashenvale | Hagatha sends the Devourer on to her lantern in Ashenvale. | - | 9s 60c |
-| 20 | A Lantern in Ashenvale | Hagatha sends the Devourer on to her lantern in Ashenvale. | - | 9s 60c |
-| 20 | A Lantern in Stonetalon Mountains | Hagatha sends the Devourer on to her lantern in Stonetalon Mountains. | - | 9s 60c |
-| 20 | A Lantern in Hillsbrad Foothills | Hagatha sends the Devourer on to her lantern in Hillsbrad Foothills. | - | 9s 60c |
-| 20 | A Lantern in Hillsbrad Foothills | Hagatha sends the Devourer on to her lantern in Hillsbrad Foothills. | - | 9s 60c |
+| 20 | A Lantern in Duskwood | Hagatha sends the Devourer on to her lantern in Duskwood. Reward: the Bat form (or a colouring of it). | - | 9s 60c |
+| 20 | A Lantern in the Wetlands | Hagatha sends the Devourer on to her lantern in the Wetlands. Reward: the Biletoad form (or a colouring of it). | - | 9s 60c |
+| 20 | A Lantern in Ashenvale | Hagatha sends the Devourer on to her lantern in Ashenvale. Reward: the Moth form (or a colouring of it). | - | 9s 60c |
+| 20 | A Lantern in Ashenvale | Hagatha sends the Devourer on to her lantern in Ashenvale. Reward: the Saber form (or a colouring of it). | - | 9s 60c |
+| 20 | A Lantern in Stonetalon Mountains | Hagatha sends the Devourer on to her lantern in Stonetalon Mountains. Reward: the Baby Komodo form (or a colouring of it). | - | 9s 60c |
+| 20 | A Lantern in Hillsbrad Foothills | Hagatha sends the Devourer on to her lantern in Hillsbrad Foothills. Reward: the Wolf form (or a colouring of it). | - | 9s 60c |
+| 20 | A Lantern in Hillsbrad Foothills | Hagatha sends the Devourer on to her lantern in Hillsbrad Foothills. Reward: the Bat form (or a colouring of it). | - | 9s 60c |
 | 20 | Dire Wolves | The lesson: the madness of Duskwood's starving dire wolves. | Dire wolf devoured x6 | one of: Boorguard Tunic, Beastmaster's Girdle, Brute Hammer; 24s |
 | 21 | The Night That Stayed | A campfire tale for the Devourer and Bramble: why the night came to Duskwood and never left. | The tale of the night that stayed heard | one of: Deftkin Belt, Lancer Boots, Monkey Ring; 21s 16c |
 | 25 | Lupos | Sniff out Lupos, the shining wolf that died and did not notice, and eat him. | Lupos's scent followed; Lupos devoured | one of: Swiftrunner Cape, Shepherd's Gloves, Signet of Argas; 56s 25c |
@@ -143,7 +143,7 @@ Six lanterns between the first molts and the long roads: the whelp and the turtl
 | 26 | Pesterhide | The lesson, Wren's way: nobody nips at her Snack, so the Pesterhide hyenas get eaten. | Pesterhide hyena devoured x6 | one of: Garrison Cloak, Lancer Boots, Orc Crusher; 40s 56c |
 | 27 | Cloud Serpents | Hagatha's tale of the snake that swallowed storms: eat one, see the canyon it nested in, go there, eat more. | Cloud serpent devoured (you see a canyon); Windbreak Canyon, where it nested; Cloud serpent devoured x4 | one of: Shepherd's Gloves, Grappler's Belt, Band of Argas; 43s 74c |
 | 33 | The Stare of the Salt | The salt flats: let a basilisk's stare crystallise you, then eat the basilisks and the great scorpids. | The salt stare felt; Saltstone basilisk devoured x3; Shimmering Flats scorpid devoured x4 | one of: Skirmisher's Cover, Panther Hunter Leggings, Destroyer's Cloak; 98s 1c |
-| 27 | Giggles | Mercy: Sniff out Giggles, a hyena pup that can only hiccup, and pat it. It comes back grown (mounts idea 1). | Giggles found; Giggles spared | Windborne Belt; 34s 99c |
+| 27 | Giggles | Mercy: Sniff out Giggles, a hyena pup that can only hiccup, and pat it. It comes back grown (mounts idea 1). Reward: the Wolf form (or a colouring of it). | Giggles found; Giggles spared | Windborne Belt; 34s 99c |
 | 28 | Up From Behind *(Viper only)* | For a Devourer with the Viper: Sand Slither up behind five Galak centaur. | Galak slithered up on as a Viper x5 | one of: Shepherd's Gloves, Grappler's Belt, Band of Argas; 47s 4c |
 
 ## The lanterns of the thirties and forties (levels 30-50)
@@ -152,12 +152,12 @@ Six lanterns along the long roads: crocolisks, turtles and owlbeasts on their wa
 
 | Lvl | Quest | Story | Objectives | Rewards |
 |---|---|---|---|---|
-| 30 | A Lantern in Stranglethorn Vale | Hagatha sends the Devourer on to her lantern in Stranglethorn Vale. | - | 21s 60c |
-| 33 | A Lantern in Dustwallow Marsh | Hagatha sends the Devourer on to her lantern in Dustwallow Marsh. | - | 26s 13c |
-| 33 | A Lantern in Dustwallow Marsh | Hagatha sends the Devourer on to her lantern in Dustwallow Marsh. | - | 26s 13c |
-| 31 | A Lantern in the Alterac Mountains | Hagatha sends the Devourer on to her lantern in the Alterac Mountains. | - | 23s 6c |
-| 28 | A Lantern in Thousand Needles | Hagatha sends the Devourer on to her lantern in Thousand Needles. | - | 18s 81c |
-| 35 | A Lantern in Dustwallow Marsh | Hagatha sends the Devourer on to her lantern in Dustwallow Marsh. | - | 29s 40c |
+| 30 | A Lantern in Stranglethorn Vale | Hagatha sends the Devourer on to her lantern in Stranglethorn Vale. Reward: the Saber form (or a colouring of it). | - | 21s 60c |
+| 33 | A Lantern in Dustwallow Marsh | Hagatha sends the Devourer on to her lantern in Dustwallow Marsh. Reward: the Whelp form (or a colouring of it). | - | 26s 13c |
+| 33 | A Lantern in Dustwallow Marsh | Hagatha sends the Devourer on to her lantern in Dustwallow Marsh. Reward: the Moth form (or a colouring of it). | - | 26s 13c |
+| 31 | A Lantern in the Alterac Mountains | Hagatha sends the Devourer on to her lantern in the Alterac Mountains. Reward: the Baby Eagle form (or a colouring of it). | - | 23s 6c |
+| 28 | A Lantern in Thousand Needles | Hagatha sends the Devourer on to her lantern in Thousand Needles. Reward: the Owl form (or a colouring of it). | - | 18s 81c |
+| 35 | A Lantern in Dustwallow Marsh | Hagatha sends the Devourer on to her lantern in Dustwallow Marsh. Reward: the Baby Eagle form (or a colouring of it). | - | 29s 40c |
 | 31 | Young Hunters of the Vale | The lesson: the jungle's young cats, hunted while they hunt. | Young jungle cat devoured x6 | one of: Brogg's Battle Harness, Panther Hunter Leggings, Raptor Eye Ring; 57s 66c |
 | 35 | The Scariest Thing in the Water *(Biletoad/Giant Marsh Frog/Water Salamander only)* | For a Devourer with a toad shape: be the scariest thing in the vale's rivers, as a toad. | Water creature slain as a toad x8 | one of: Oiled Leather Leggings, Razzeric's Racing Grips, Black Water Hammer; 73s 50c |
 | 34 | Who Flexes First | Wren's contest with the gorillas of Mistvale: flex at them until they back down. | Gorilla out-flexed x4 | one of: Wanderlust Boots, Darktide Cape, Silent Hunter; 69s 36c |
@@ -167,19 +167,19 @@ Six lanterns along the long roads: crocolisks, turtles and owlbeasts on their wa
 | 37 | The Gulper's Grin *(Biletoad/Giant Marsh Frog/Water Salamander only)* | For a Devourer with a toad shape: devour the frogspawn-stealing Mirefin murlocs, as a toad. | Mirefin murloc devoured as a toad x6 | one of: Wanderlust Boots, Razzeric's Racing Grips, Raptor Eye Ring; 82s 14c |
 | 38 | Eaten Without Choosing | A campfire tale for the Devourer and Bramble: the worm that ate without ever choosing what. | The tale of the Oozeworm heard | one of: Jangdor's Handcrafted Gloves, Sagebrush Girdle, Fiendish Skiv; 69s 31c |
 | 40 | The Oozeworm | Follow the Oozeworm's stench through the Quagmire and eat it, by choice (a Deep Borer task). | The Oozeworm's stench followed; Oozeworm devoured | one of: Sprightring Helm, Failed Flying Experiment, Seafire Band; 1g 44s |
-| 41 | A Lantern in Tanaris | Hagatha sends the Devourer on to her lantern in Tanaris. | - | 40s 34c |
-| 41 | A Lantern in Feralas | Hagatha sends the Devourer on to her lantern in Feralas. | - | 40s 34c |
+| 41 | A Lantern in Tanaris | Hagatha sends the Devourer on to her lantern in Tanaris. Reward: the Whelp form (or a colouring of it). | - | 40s 34c |
+| 41 | A Lantern in Feralas | Hagatha sends the Devourer on to her lantern in Feralas. Reward: the Biletoad form (or a colouring of it). | - | 40s 34c |
 | 33 | Mountain Lions of Alterac | The lesson: the big cats of Alterac. | Alterac mountain lion devoured x5 | one of: Skirmisher's Cover, Archer's Wristguard, Bone Dirk; 65s 34c |
 | 34 | Rubble and Mercy | Wren's very Hagatha kindness: free the elementals bound in the Dalaran Crater, with Bramble watching. | Elemental Slave freed x4 | one of: Lightstep Leggings, Destroyer's Cloak, Ryedol's Hammer; 69s 36c |
 | 37 | The Stone Fury | Sniff out the Stone Fury of Strahnbrad, feel it shake the ground, and eat it (Earthen Proto-Drake). | The Stone Fury's scent followed; The mountain's anger felt; Stone Fury devoured | one of: Enormous Ogre Boots, Tharg's Shoelace, Silent Hunter; 1g 23s |
 | 45 | Narillasanz | Come back strong enough: sniff out Narillasanz on Chillwind Point, take its fire, and eat it (a Storm Dragon task). | Narillasanz's scent followed; Narillasanz's fire felt; Narillasanz devoured | one of: Charred Leather Tunic, Shadowskin Spaulders, White Bone Shredder; 2g 43s |
-| 33 | Nubbin | Mercy: Sniff out Nubbin, a mountain kid separated from its flock, and pat it. It comes back grown (mounts idea 1). | Nubbin found; Nubbin spared | Lightstep Leggings; 52s 27c |
+| 33 | Nubbin | Mercy: Sniff out Nubbin, a mountain kid separated from its flock, and pat it. It comes back grown (mounts idea 1). Reward: the Trogg form (or a colouring of it). | Nubbin found; Nubbin spared | Lightstep Leggings; 52s 27c |
 | 40 | Jaws of Stone *(Earthen Proto-Drake only)* | For a Devourer with the Earthen Proto-Drake: Stone Bite five Crushridge ogres. | Ogre bitten as an Earthen Proto-Drake x5 | one of: Enormous Ogre Boots, Tharg's Shoelace, Silent Hunter; 96s |
 | 42 | Blisterpaw | The lesson, Wren's way: the blistered hyenas of the desert. | Blisterpaw hyena devoured x6 | one of: Pratt's Handcrafted Boots, Sagebrush Girdle, Ceremonial Elven Blade; 1g 5s |
 | 44 | Glasshide | Hagatha's glass-hided basilisks of the Abyssal Sands: eat one, see the beach it ate, stand on it, eat more. | Glasshide devoured (you see a beach); Land's End Beach, which it ate; Glasshide basilisk devoured x4 | one of: Pratt's Handcrafted Tunic, Sprightring Helm, White Bone Shredder; 1g 16s |
 | 44 | The Sandfury *(Viper/Wind Serpent/Sethrak/Vashnik only)* | Hagatha's tale of the serpent that stands up and prays: slay six as a serpent (a Sethrak task). | Sandfury troll slain as a serpent x6 | one of: Kaylari Shoulders, Vinehedge Cinch, Belgrom's Hammer; 1g 16s |
 | 46 | Rocs | Wren is frightened of eagles that ate rocs: Bramble doesn't believe in birds as big as houses; eat four where she can see. | Roc devoured, Bramble watching x4 | one of: Shadowskin Spaulders, Charred Leather Tunic, Chemist's Smock; 1g 90s |
-| 43 | Prickles | Mercy: Sniff out Prickles, a scorpid hatchling at war with its own shadow, and pat it. It comes back grown (mounts idea 1). Reward: a scorpion companion. | Prickles found; Prickles spared | Durotar Scorpion; 88s 75c |
+| 43 | Prickles | Mercy: Sniff out Prickles, a scorpid hatchling at war with its own shadow, and pat it. It comes back grown (mounts idea 1). Reward: a scorpion companion. Reward: the Borer form (or a colouring of it). | Prickles found; Prickles spared | Durotar Scorpion; 88s 75c |
 | 46 | One of the Sand People *(Sethrak only)* | For a Devourer with the Sethrak: walk into Sandsorrow Watch as one of the old sand people. | Walked among the Sandfury as a sethrak | one of: Pratt's Handcrafted Tunic, Sprightring Helm, Belgrom's Hammer; 1g 26s |
 | 41 | Longtooth | The lesson: the deep bite of Feralas's longtooth wolves. | Longtooth wolf devoured x6 | one of: Jangdor's Handcrafted Boots, Pratt's Handcrafted Gloves, Fiendish Skiv; 1g |
 | 43 | Ironfur | Wren marvels at the iron fur of Feralas's bears: Bramble says it's just dirty; eat five where she can see. | Ironfur bear devoured, Bramble judging x5 | one of: Jangdor's Handcrafted Tunic, Failed Flying Experiment, Seafire Band; 1g 10s |
@@ -190,8 +190,8 @@ Six lanterns along the long roads: crocolisks, turtles and owlbeasts on their wa
 | 44 | The Ones That Forgot the Moon | A campfire tale for the Devourer and Bramble: the owlbeasts that ate so much they forgot the moon. | The tale of the owlbeasts heard | one of: Jangdor's Handcrafted Tunic, Failed Flying Experiment, Belgrom's Hammer; 92s 92c |
 | 45 | Fatal Bites | After the tale, the owlbeasts themselves: roar at them, eat the ones that stay (the owl line). | Owlbeast roared at x5; Hinterlands owlbeast devoured x5 | one of: Shadowskin Spaulders, Kaylari Shoulders, Chemist's Smock; 1g 21s |
 | 48 | Gammerita | Sniff out Gammerita, the cross old turtle of the cliffs, all the way to the sea, and eat her (Spikeshell). | Gammerita's scent followed; Gammerita devoured | one of: Grizzled Pelt, Gryphon Rider's Leggings, Devilsaur Tooth; 2g 7s |
-| 41 | A Lantern in the Hinterlands | Hagatha sends the Devourer on to her lantern in the Hinterlands. | - | 40s 34c |
-| 41 | A Lantern in the Hinterlands | Hagatha sends the Devourer on to her lantern in the Hinterlands. | - | 40s 34c |
+| 41 | A Lantern in the Hinterlands | Hagatha sends the Devourer on to her lantern in the Hinterlands. Reward: the Viper form (or a colouring of it). | - | 40s 34c |
+| 41 | A Lantern in the Hinterlands | Hagatha sends the Devourer on to her lantern in the Hinterlands. Reward: the Owl form (or a colouring of it). | - | 40s 34c |
 | 46 | Sting and Twist *(Stingwing only)* | For a Devourer with the Stingwing: Venom Sting five Vilebranch trolls. | Vilebranch stung as a Stingwing x5 | one of: Shadowskin Spaulders, Kaylari Shoulders, Chemist's Smock; 1g 26s |
 
 ## The lanterns of the fifties, Outland and Northrend (levels 49-80)
@@ -200,9 +200,9 @@ Eleven lanterns for the last forms: the devilsaur and the moon-touched owlbeasts
 
 | Lvl | Quest | Story | Objectives | Rewards |
 |---|---|---|---|---|
-| 49 | A Lantern in Un'Goro Crater | Hagatha sends the Devourer on to her lantern in Un'Goro Crater. | - | 57s 62c |
-| 53 | A Lantern in Winterspring | Hagatha sends the Devourer on to her lantern in Winterspring. | - | 67s 41c |
-| 51 | A Lantern in the Burning Steppes | Hagatha sends the Devourer on to her lantern in the Burning Steppes. | - | 62s 42c |
+| 49 | A Lantern in Un'Goro Crater | Hagatha sends the Devourer on to her lantern in Un'Goro Crater. Reward: the Baby Komodo form (or a colouring of it). | - | 57s 62c |
+| 53 | A Lantern in Winterspring | Hagatha sends the Devourer on to her lantern in Winterspring. Reward: the Owl form (or a colouring of it). | - | 67s 41c |
+| 51 | A Lantern in the Burning Steppes | Hagatha sends the Devourer on to her lantern in the Burning Steppes. Reward: the Whelp form (or a colouring of it). | - | 62s 42c |
 | 49 | Ravasaurs | The lesson: the young world's old hunger, six ravasaurs. | Ravasaur devoured x6 | one of: Deep River Cloak, Nightfall Gloves, Belgrom's Hammer; 1g 44s |
 | 51 | Leather Wings | Wren ducks the pterrordax: Bramble ducks while you eat five. | Pterrordax devoured, Bramble ducking x5 | one of: Clouddrift Mantle, Spry Boots, Ring of Living Stone; 1g 56s |
 | 52 | The First Hunger | A campfire tale for the Devourer and Bramble: the warm pool where the first hunger began. | The tale of the first hunger heard | one of: Traphook Jerkin, Gloves of the Pathfinder, Shaleskin Cape; 1g 29s |
@@ -217,25 +217,25 @@ Eleven lanterns for the last forms: the devilsaur and the moon-touched owlbeasts
 | 53 | Black Broodlings *(Whelp/Proto-Drake/Storm Dragon/Earthen Proto-Drake only)* | Hagatha sends the Devourer among the black brood: walk among the broodlings as a cousin, then eat six (towards the storm). | Walked among the black brood; Black dragonkin devoured x6 | one of: Blazewind Breastplate, Spry Boots, Ring of Living Stone; 1g 68s |
 | 56 | Drakes of the Steppes | Hagatha's proud black drakes: eat one, see the path it nested on, stand there, eat another. | Drake devoured (you see a high path); The Terror Wing Path, where they nest; Black drake devoured | one of: Swiftfoot Treads, Duskwing Mantle, Sunprism Pendant; 2g 82s |
 | 56 | The Storm Gathers *(Proto-Drake/Earthen Proto-Drake only)* | For a Devourer with a drake shape: eat dragonkin in drake shape and gather the storm (towards the Storm Dragon). | Dragonkin devoured as a drake x10 | one of: Bonecrusher, The Thunderwood Poker, Darkmantle Bracers; 2g 82s |
-| 60 | A Lantern in Terokkar Forest | Hagatha sends the Devourer on to her lantern in Terokkar Forest. | - | 86s 40c |
-| 60 | A Lantern in Terokkar Forest | Hagatha sends the Devourer on to her lantern in Terokkar Forest. | - | 86s 40c |
-| 60 | A Lantern in Terokkar Forest | Hagatha sends the Devourer on to her lantern in Terokkar Forest. | - | 86s 40c |
+| 60 | A Lantern in Terokkar Forest | Hagatha sends the Devourer on to her lantern in Terokkar Forest. Reward: the Warp Stalker form (or a colouring of it). | - | 86s 40c |
+| 60 | A Lantern in Terokkar Forest | Hagatha sends the Devourer on to her lantern in Terokkar Forest. Reward: the Moth form (or a colouring of it). | - | 86s 40c |
+| 60 | A Lantern in Terokkar Forest | Hagatha sends the Devourer on to her lantern in Terokkar Forest. Reward: the Voidling form (or a colouring of it). | - | 86s 40c |
 | 62 | Timber Worgs | The lesson, down a thread: Terokkar's timber worgs. | Timber worg devoured x6 | one of: Blacksting Gloves, Pilgrim's Belt, Felblood Band; 2g 30s |
 | 64 | Blinking *(Warp Stalker/Thunder Lizard only)* | For a Devourer with the Warp Stalker shape: blink among the warp hunters as one of them (the Thunder Lizard road). | Blinked among the warp hunters | one of: Wild Shoulderpads, Wind Dancer's Pendant, Dreadtusk's Fury; 2g 45s |
 | 64 | The Theft of Souls | A campfire tale for the Devourer and Bramble: the city of the dead, and why a Devourer is not a thief. | The tale of the city of the dead heard | one of: Vindicator's Cloak, Cenarion Thicket Jerkin, Warden's Ring of Precision; 1g 96s |
 | 65 | The Bone Wastes | Wren's bone-eating birds and bone-dwelling scorpids: eat them while Bramble collects bones for science. | Bonelasher devoured, Bramble watching x4; Scorpid Bonecrawler devoured x3 | one of: Heirloom Signet of Valor, T'chali's Kilt, Heavy Elven Dirk; 3g 80s |
-| 64 | A Lantern in Nagrand | Hagatha sends the Devourer on to her lantern in Nagrand. | - | 98s 30c |
+| 64 | A Lantern in Nagrand | Hagatha sends the Devourer on to her lantern in Nagrand. Reward: the Baby Eagle form (or a colouring of it). | - | 98s 30c |
 | 65 | Talbuk | The lesson: the taste of innocence, the grazing talbuk of Nagrand. | Talbuk devoured x6 | one of: Bear-Strength Harness, Dire Wolf Handler Gloves, Consortium Cloak of the Quick; 2g 53s |
 | 65 | Windrocs | Wren's cart-sized windrocs: five before Wren loses her hat (5 minutes). | Windroc devoured x5 | one of: Living Grove Shoulderpads, Feralfen Skulker's Belt, Nexus-Stalker's Band; 2g 53s |
 | 66 | Voidspawn *(Voidling/Voidcreeper/Voidcreeper Broodmother only)* | Hagatha sends the voidling home: slay five in the void's own shape (the void line). | Voidspawn slain as a voidling x5 | one of: Blessed Signet Ring, Tim's Trusty Helmet, Staff of the Wild; 3g 92s |
-| 67 | A Lantern in Netherstorm | Hagatha sends the Devourer on to her lantern in Netherstorm. | - | 1g 7s |
+| 67 | A Lantern in Netherstorm | Hagatha sends the Devourer on to her lantern in Netherstorm. Reward: the Voidling form (or a colouring of it). | - | 1g 7s |
 | 67 | Warp Chasers | The lesson: the warp chasers at the edge of the world (the Thunder Lizard road). | Warp chaser devoured x6 | one of: Farahlite Studded Boots, Leafbeard Ring, Nether-Stalker's Blade; 2g 69s |
 | 68 | Phase Hunters | Hagatha's phase hunters, who slip between worlds: Bramble watches one slip, then five are eaten. | Phase hunter devoured, Bramble watching x5 | one of: Energized Helm, Brightdawn Bracers, Wild Wood Staff; 2g 77s |
 | 68 | Walk In Like You Belong | Wren's shimmering moths in the eco-dome: walk in like you belong, then eat four. | Walked into the dome; Shimmerwing Moth devoured x4 | one of: Supple Leather Boots, Expedition Pendant, Ripfang Paw; 2g 77s |
 | 69 | Nether Drakes | Hagatha's nether drakes of the Celestial Ridge: feel their presence, then eat three (the whelp line). | The nether presence felt; Nether drake devoured x3 | one of: Illidari Lord's Tunic, Drake Tamer's Gloves, Protectorate Assassin's Ring; 4g 28s |
 | 69 | Mother of What Answers *(Voidcreeper Broodmother only)* | For a Devourer with the Voidcreeper Broodmother: Rending Mandibles on six Warp Chasers. | Warp Chaser torn as a Broodmother x6 | one of: Energized Helm, Brightdawn Bracers, Wild Wood Staff; 2g 85s |
-| 68 | A Lantern in the Howling Fjord | Hagatha sends the Devourer on to her lantern in the Howling Fjord. | - | 1g 10s |
-| 68 | A Lantern in the Borean Tundra | Hagatha sends the Devourer on to her lantern in the Borean Tundra. | - | 1g 10s |
+| 68 | A Lantern in the Howling Fjord | Hagatha sends the Devourer on to her lantern in the Howling Fjord. Reward: the Wolf form (or a colouring of it). | - | 1g 10s |
+| 68 | A Lantern in the Borean Tundra | Hagatha sends the Devourer on to her lantern in the Borean Tundra. Reward: the Snapjaw form (or a colouring of it). | - | 1g 10s |
 | 69 | Shoveltusk | The lesson: Hagatha warms the Devourer with the shoveltusk of the fjord. | Shoveltusk devoured x6 | one of: Reinforced Caribou-Hide Chestguard, Charred Treads, Soldier's Spiked Mace; 2g 85s |
 | 69 | Untidied | A campfire tale for the Devourer and Bramble: the dragons that hid from the Titans' tidying. | The tale of the untidied dragons heard | one of: Rhinohide Mask, Seared Scale Cape, Fin Carver; 2g 28s |
 | 70 | A Sibling in the Clutch *(Whelp/Proto-Drake/Storm Dragon/Earthen Proto-Drake only)* | For a Devourer with the Whelp shape: lie among the proto-whelps of the Ember Clutch as a late sibling. | Lay in the clutch | one of: Proto-Drake Tooth Spaulders, Coldstone-Inlaid Waistguard, Worg-Fang Talisman; 4g 11s |
@@ -243,8 +243,8 @@ Eleven lanterns for the last forms: the devilsaur and the moon-touched owlbeasts
 | 69 | Wooly Rhinos | The lesson: the wooly rhinos of the tundra. | Wooly rhino devoured x5 | one of: Rhinohide Wristwraps, Reinforced Caribou-Hide Boots, Worn Vrykul Smasher; 2g 85s |
 | 69 | Bloodspore Moths | Wren's sneezy spore-covered moths: Bramble sneezes while you eat five (the moth line). | Bloodspore Moth devoured, Bramble sneezing x5 | one of: Marshwalker Chestpiece, Marshwalker Waistguard, Fullered Coldsteel Dagger; 2g 85s |
 | 72 | Coldarra *(Whelp/Proto-Drake/Storm Dragon/Earthen Proto-Drake only)* | The blue dragonflight's servants on Coldarra: slay four in your drake's own shape. | Coldarra dragonkin slain as a drake x4 | one of: Wax-Coated Chestguard, Discoverer's Mitts, Jagged Troll Render; 6g 53s |
-| 72 | A Lantern in the Grizzly Hills | Hagatha sends the Devourer on to her lantern in the Grizzly Hills. | - | 1g 74s |
-| 75 | A Lantern in Sholazar Basin | Hagatha sends the Devourer on to her lantern in Sholazar Basin. | - | 1g 89s |
+| 72 | A Lantern in the Grizzly Hills | Hagatha sends the Devourer on to her lantern in the Grizzly Hills. Reward: the Bear Cub form (or a colouring of it). | - | 1g 74s |
+| 75 | A Lantern in Sholazar Basin | Hagatha sends the Devourer on to her lantern in Sholazar Basin. Reward: the Whelp form (or a colouring of it). | - | 1g 89s |
 | 72 | Duskhowl | The lesson: the singing wolves of the Grizzly Hills. | Grizzly Hills wolf devoured x6 | one of: Discarded Miner's Jerkin, Seal of the Slumbering Wolf, Belt of Keen Hearing; 4g 35s |
 | 73 | Imperial Eagles | Wren's imperial eagles that think they own the sky: salute them first, then eat five (the eagle line). | Imperial Eagle saluted x5; Imperial Eagle devoured x5 | one of: Boots of Safe Travel, Ectoplasm Stained Wristguards, Crackpot Spaulders; 4g 47s |
 | 73 | The Sleeping Bear | A campfire tale for the Devourer and Bramble: Ursoc, the great bear who sleeps beneath the hills. | The tale of the sleeping bear heard | one of: Iron-Shatter Leggings, Waistguard of Expedient Procurement, Branch of the Roaming Spirit; 3g 58s |
@@ -253,11 +253,11 @@ Eleven lanterns for the last forms: the devilsaur and the moon-touched owlbeasts
 | 76 | Dreadsabers *(Saber/Shadowclaw only)* | Hagatha's dreadsabers that hunt the hunters: hunt five as a saber (the saber line). | Dreadsaber slain as a saber x5 | one of: Hulking Abomination Hide Cloak, The "D" Ring, Hyldnir Painbringer; 4g 85s |
 | 76 | Spoon Hardknuckle | Wren names her spoon after the hardknuckle gorillas: four of them before three hundred bangs (5 minutes). | Hardknuckle devoured x4 | one of: Hulking Horror Tunic, Glacier-walker's Mukluks, Interrogator's Flaming Knuckles; 4g 85s |
 | 77 | The First Dragons | Sniff out the primordial drakes in the Savage Thicket, and eat two (the whelp line). | The primordial scent followed; Primordial Drake devoured x2 | one of: Illskar's Greatcloak, Wooly Stompers, Vile's Uglystick; 7g 47s |
-| 77 | A Lantern in the Storm Peaks | Hagatha sends the Devourer on to her lantern in the Storm Peaks. | - | 1g 99s |
-| 77 | A Lantern in the Storm Peaks | Hagatha sends the Devourer on to her lantern in the Storm Peaks. | - | 1g 99s |
+| 77 | A Lantern in the Storm Peaks | Hagatha sends the Devourer on to her lantern in the Storm Peaks. Reward: the Baby Eagle form (or a colouring of it). | - | 1g 99s |
+| 77 | A Lantern in the Storm Peaks | Hagatha sends the Devourer on to her lantern in the Storm Peaks. Reward: the Wolf form (or a colouring of it). | - | 1g 99s |
 | 77 | Crystalweb | The lesson, Wren's way: the crystal-webbed spiders of the peaks. | Crystalweb spider devoured x5 | one of: Vile's Poker, Frozen Mood Ring, Corrupter's Shanker; 4g 98s |
 | 79 | Jormungar *(Borer/Deep Borer only)* | Hagatha's tale of the deep borers: slay four as a borer (the borer line). | Jormungar slain as a borer x4 | one of: Signet of Baron Sliver, Curved Assassin's Dagger, Hulking Horror Tunic; 5g 24s |
 | 80 | Stormpeak Wyrms | Hagatha's storm wyrms at the top of the world: take a blow, then eat four (the Storm Dragon line). | The storm's blow felt; Stormpeak wyrm devoured x4 | one of: Hardened Tongue Tunic, Handwraps of Preserved History, Thorim's Crusher; 8g 6s |
 | 80 | The Last Lantern | The end of the lanterns: Hagatha and Wren tell the Devourer and Bramble the tale of the Devourer itself. | The sisters' last tale heard | one of: Headguard of Retaliation, Exotic Leather Tunic, Thorim's Crusher; 10g 75s |
 | 80 | The Storm Answers *(Storm Dragon only)* | For a Devourer with the Storm Dragon: show the peaks what it became. | Dragonkin slain as a Storm Dragon x10 | one of: Headguard of Retaliation, Exotic Leather Tunic, Hardened Tongue Tunic; 10g 75s |
-| 78 | Snowdrift | Mercy: Sniff out Snowdrift, an icemaw cub that ran from the vrykul war-bear pens, and pat it. It comes back grown (mounts idea 1). Reward: a polar bear cub companion. | Snowdrift found; Snowdrift spared | Polar Bear Collar; 4g 8s |
+| 78 | Snowdrift | Mercy: Sniff out Snowdrift, an icemaw cub that ran from the vrykul war-bear pens, and pat it. It comes back grown (mounts idea 1). Reward: a polar bear cub companion. Reward: the Bear Cub form (or a colouring of it). | Snowdrift found; Snowdrift spared | Polar Bear Collar; 4g 8s |

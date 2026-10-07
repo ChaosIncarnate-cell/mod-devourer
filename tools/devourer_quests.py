@@ -329,10 +329,22 @@ def skins():
     return out
 
 
-def form_display(form):
+def form_displays(form):
+    """What a form reward can give, in order: the named colouring (if any), then the shape's colourings that have to
+    be earned, then the free ones, then the bare shape (0). The engine gives the first one the Devourer lacks."""
     shape, name = form
-    display, free = skins()[(shape, name)]
-    return display
+    table = skins()
+    order = []
+    if name:
+        order.append(table[(shape, name)][0])
+    order += [d for (s, n), (d, free) in sorted(table.items()) if s == shape and not free]
+    order += [d for (s, n), (d, free) in sorted(table.items()) if s == shape and free]
+    order.append(0)
+    out = []
+    for d in order:
+        if d not in out:
+            out.append(d)
+    return out[:8]
 
 
 def default_money(level, xp):
@@ -452,10 +464,13 @@ def check(book):
             assert len(text) < 2000, quest.title
         if quest.form:
             assert quest.form[0] in SHAPES, quest.title
-            found = skins().get(tuple(quest.form))
-            assert found and not found[1], (quest.title, quest.form, "not a colouring that has to be earned")
+            if quest.form[1]:
+                found = skins().get(tuple(quest.form))
+                assert found and not found[1], (quest.title, quest.form, "not a colouring that has to be earned")
         if book.block is MOUNTS:
             assert quest.items or quest.choices or quest.form, (quest.id, quest.title, "gives no mount and no form")
+        else:   # Zack 2026-10-06: every quest gives the Devourer something; gear choices count for now
+            assert quest.choices or quest.form, (quest.id, quest.title, "gives the Devourer nothing")
 
 
 def credit_rules(book):
@@ -660,8 +675,9 @@ def write_header(books):
     out += [
         "    };",
         "",
-        "    // A form at turn-in: the shape (if new) and the colouring, as if eaten (Mgr::Unlock).",
-        "    struct FormRule { uint32_t Quest; uint32_t Shape; uint32_t Display; };",
+        "    // A form at turn-in, as if eaten (Mgr::Unlock): the first of Displays the Devourer lacks (0 = the bare",
+        "    // shape), so a Devourer who already has the named colouring gets another one of the same shape.",
+        "    struct FormRule { uint32_t Quest; uint32_t Shape; uint8_t Count; uint32_t Displays[8]; };",
         "    constexpr FormRule FormRules[] =",
         "    {",
         "@@FORMS@@",
@@ -703,8 +719,12 @@ def write_header(books):
     if not talkers:
         out.append('        { 0, 0, 0, "", 0, { }, 0 },')
     out += ["    };", "}", "", "#endif", ""]
-    form_rows = [f"        {{ {quest.id}, {quest.form[0]}, {form_display(quest.form)} }},   // {quest.title}: {SHAPES[quest.form[0]][0]},"
-                 f" {quest.form[1]}" for quest in quests_all if quest.form] or ["        { 0, 0, 0 },"]
+    def form_row(quest):
+        shown = form_displays(quest.form)
+        cells = ", ".join(str(d) for d in shown + [0] * (8 - len(shown)))
+        return (f"        {{ {quest.id}, {quest.form[0]}, {len(shown)}, {{ {cells} }} }},   // {quest.title}:"
+                f" {SHAPES[quest.form[0]][0]}" + (f", {quest.form[1]}" if quest.form[1] else ""))
+    form_rows = [form_row(quest) for quest in quests_all if quest.form] or ["        { 0, 0, 0, { } },"]
     text = "\n".join(out).replace("@@TALE_LINES@@", "\n".join(lines_decl)).replace("@@FORMS@@", "\n".join(form_rows))
     with open(HDR_OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
@@ -938,8 +958,11 @@ def reward_text(quest):
     if not quest.form:
         return quest.reward_text
     shape, name = quest.form
-    return (quest.reward_text + f"$B$B|cffb87830A new form: {SHAPES[shape][0]}, the {name} colouring. "
-            f"Wear it with /devour skin {name}.|r")
+    if not name:
+        return (quest.reward_text + f"$B$B|cffb87830A new form: the {SHAPES[shape][0]}, or a colouring of it you do "
+                "not have yet.|r")
+    return (quest.reward_text + f"$B$B|cffb87830A new form: {SHAPES[shape][0]}, the {name} colouring (or another "
+            f"colouring of it, if you have that one). Wear it with /devour skin {name}.|r")
 
 
 def money_text(copper):

@@ -759,36 +759,95 @@ namespace Devourer::Quests
         { 9109053, 9109444, 9109027, 35, -98.0f, 157.0f, 10.0f, 1200, 2, { { 7190.0f, 1140.0f }, { 7000.0f, 1400.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } }, 8.0f, 50, 9308496, 0, "The soul-lantern is yours to carry. It is heavier than it looks, and it is already dimming.", "The soul-lantern dims.", "The brazier feeds the lantern. It burns brighter.", "The soul-lantern has gone out. Pick up another.", "The cauldron drinks the light." },   // The Great Lantern of Icecrown: The great soul-light delivered
     };
 
-    // A form at turn-in: the shape (if new) and the colouring, as if eaten (Mgr::Unlock).
-    struct FormRule { uint32_t Quest; uint32_t Shape; uint32_t Display; };
+    // A form at turn-in, as if eaten (Mgr::Unlock): the first of Displays the Devourer lacks (0 = the bare
+    // shape), so a Devourer who already has the named colouring gets another one of the same shape.
+    struct FormRule { uint32_t Quest; uint32_t Shape; uint8_t Count; uint32_t Displays[8]; };
     constexpr FormRule FormRules[] =
     {
-        { 9109010, 35, 994152 },   // WANTED: a Ravasaur Chick's Egg: Whelp, Proto-Whelp Yellow
-        { 9109011, 35, 994139 },   // Keep It Warm: Whelp, Red Whelp
-        { 9109013, 38, 6299 },   // WANTED: a Gryphon Chick's Egg: Owl, Hawk Owl
-        { 9109014, 38, 4877 },   // Keep It Warm: Owl, Ironbeak Owl
-        { 9109016, 35, 994146 },   // WANTED: a Roc Chick's Egg: Whelp, Chromatic Whelp
-        { 9109017, 35, 994147 },   // Keep It Warm: Whelp, Armored Whelp
-        { 9109030, 6, 606 },   // WANTED: Bones That Remember: Trogg, Rockjaw
-        { 9109031, 5, 31048 },   // WANTED: Wren's Buttons: Wolf, Timber
-        { 9109032, 5, 447 },   // WANTED: The Lost Explorer: Wolf, Scavenger
-        { 9109090, 38, 10832 },   // WANTED: Six Postcards: Owl, Strigid Owl
-        { 9109100, 32, 994131 },   // WANTED: Four Lighthouses: Spikeshell, Dragon Turtle
-        { 9109140, 21, 8808 },   // WANTED: The First Page: Vampiric Duskbat, Vampiric
-        { 9109141, 35, 994149 },   // The Second Page: Whelp, Nightmare Whelp
-        { 9109142, 35, 994145 },   // The Third Page: Whelp, Ley Whelp
-        { 9109143, 13, 20025 },   // The Fourth Page: Warp Stalker, Warp Stalker
-        { 9109144, 38, 10831 },   // The Fifth Page: Owl, Shadowwing Owl
-        { 9109145, 35, 994142 },   // The Sixth Page: Whelp, Bronze Whelp
-        { 9109160, 38, 20293 },   // WANTED: The Knight Without a Horse: Owl, Skethyl Owl
-        { 9109190, 7, 15506 },   // WANTED: A Walk for a Sapling: Saber, Lynx
-        { 9109210, 10, 1220 },   // WANTED: The Giant Egg: Plainstrider, Tallstrider
-        { 9109220, 41, 994176 },   // WANTED: Lesson One, Sweeping: Voidling, Voidling
-        { 9109221, 35, 994141 },   // Lesson Two, Hovering: Whelp, Blue Whelp
-        { 9109230, 9, 8869 },   // WANTED: Spring Petals: Boar, Thistle
-        { 9109231, 35, 994140 },   // Summer Petals: Whelp, Green Whelp
-        { 9109232, 7, 15507 },   // Autumn Petals: Saber, Springpaw
-        { 9109233, 5, 31049 },   // Winter Petals: Wolf, Grey
+        { 9105001, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // A Lantern at Home: Wolf
+        { 9105002, 6, 2, { 606, 0, 0, 0, 0, 0, 0, 0 } },   // A Lantern at Home: Trogg
+        { 9105003, 7, 8, { 15506, 15507, 994036, 994037, 994191, 994192, 994193, 994194 } },   // A Lantern at Home: Saber
+        { 9105004, 8, 8, { 994001, 994002, 994003, 994004, 994005, 994006, 994007, 17574 } },   // A Lantern at Home: Moth
+        { 9105005, 9, 3, { 503, 8869, 0, 0, 0, 0, 0, 0 } },   // A Lantern at Home: Boar
+        { 9105006, 10, 8, { 1220, 994180, 994181, 994182, 994183, 994184, 994185, 1219 } },   // A Lantern at Home: Plainstrider
+        { 9105007, 11, 6, { 4732, 994024, 994025, 994026, 994027, 0, 0, 0 } },   // A Lantern at Home: Bat
+        { 9105008, 12, 8, { 16217, 994018, 994019, 994020, 994021, 994022, 994023, 0 } },   // A Lantern at Home: Mana Wyrm
+        { 9105019, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // A Lantern in Westfall: Wolf
+        { 9105029, 9, 3, { 503, 8869, 0, 0, 0, 0, 0, 0 } },   // A Lantern in Loch Modan: Boar
+        { 9105034, 38, 7, { 6299, 4877, 10831, 20293, 10832, 6212, 0, 0 } },   // Moonpaw: Owl
+        { 9105039, 8, 8, { 994001, 994002, 994003, 994004, 994005, 994006, 994007, 17574 } },   // A Lantern in Darkshore: Moth
+        { 9105043, 10, 8, { 1220, 994180, 994181, 994182, 994183, 994184, 994185, 1219 } },   // Stiltz: Plainstrider
+        { 9105049, 13, 2, { 20025, 0, 0, 0, 0, 0, 0, 0 } },   // A Lantern in Bloodmyst Isle: Warp Stalker
+        { 9105053, 25, 8, { 994186, 994187, 994188, 994189, 994052, 994051, 994053, 994054 } },   // Clutchless: Viper
+        { 9105059, 10, 8, { 1220, 994180, 994181, 994182, 994183, 994184, 994185, 1219 } },   // A Lantern in the Barrens: Plainstrider
+        { 9105063, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // Dusty: Wolf
+        { 9105069, 27, 7, { 994060, 994061, 994062, 994063, 994064, 994065, 0, 0 } },   // A Lantern in the Barrens: Baby Eagle
+        { 9105079, 11, 6, { 4732, 994024, 994025, 994026, 994027, 0, 0, 0 } },   // A Lantern in Silverpine Forest: Bat
+        { 9105089, 12, 8, { 16217, 994018, 994019, 994020, 994021, 994022, 994023, 0 } },   // A Lantern in the Ghostlands: Mana Wyrm
+        { 9105109, 11, 6, { 4732, 994024, 994025, 994026, 994027, 0, 0, 0 } },   // A Lantern in Duskwood: Bat
+        { 9105114, 46, 1, { 0, 0, 0, 0, 0, 0, 0, 0 } },   // Bumble: Bear Cub
+        { 9105119, 14, 8, { 1924, 994097, 994098, 994099, 994100, 994101, 994102, 994103 } },   // A Lantern in the Wetlands: Biletoad
+        { 9105129, 8, 8, { 994001, 994002, 994003, 994004, 994005, 994006, 994007, 17574 } },   // A Lantern in Ashenvale: Moth
+        { 9105139, 7, 8, { 15506, 15507, 994036, 994037, 994191, 994192, 994193, 994194 } },   // A Lantern in Ashenvale: Saber
+        { 9105144, 27, 7, { 994060, 994061, 994062, 994063, 994064, 994065, 0, 0 } },   // Wren's Starting Line: Baby Eagle
+        { 9105145, 10, 8, { 1220, 994180, 994181, 994182, 994183, 994184, 994185, 1219 } },   // Little Thunder: Plainstrider
+        { 9105149, 28, 8, { 994066, 994067, 994074, 994068, 994069, 994071, 994072, 994070 } },   // A Lantern in Stonetalon Mountains: Baby Komodo
+        { 9105159, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // A Lantern in Hillsbrad Foothills: Wolf
+        { 9105169, 11, 6, { 4732, 994024, 994025, 994026, 994027, 0, 0, 0 } },   // A Lantern in Hillsbrad Foothills: Bat
+        { 9105179, 7, 8, { 15506, 15507, 994036, 994037, 994191, 994192, 994193, 994194 } },   // A Lantern in Stranglethorn Vale: Saber
+        { 9105189, 35, 8, { 994147, 994141, 994142, 994146, 994148, 994140, 994145, 994143 } },   // A Lantern in Dustwallow Marsh: Whelp
+        { 9105199, 8, 8, { 994001, 994002, 994003, 994004, 994005, 994006, 994007, 17574 } },   // A Lantern in Dustwallow Marsh: Moth
+        { 9105209, 27, 7, { 994060, 994061, 994062, 994063, 994064, 994065, 0, 0 } },   // A Lantern in the Alterac Mountains: Baby Eagle
+        { 9105219, 38, 7, { 6299, 4877, 10831, 20293, 10832, 6212, 0, 0 } },   // A Lantern in Thousand Needles: Owl
+        { 9105224, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // Giggles: Wolf
+        { 9105229, 27, 7, { 994060, 994061, 994062, 994063, 994064, 994065, 0, 0 } },   // A Lantern in Dustwallow Marsh: Baby Eagle
+        { 9105239, 25, 8, { 994186, 994187, 994188, 994189, 994052, 994051, 994053, 994054 } },   // A Lantern in the Hinterlands: Viper
+        { 9105248, 35, 8, { 994147, 994141, 994142, 994146, 994148, 994140, 994145, 994143 } },   // A Lantern in Tanaris: Whelp
+        { 9105249, 14, 8, { 1924, 994097, 994098, 994099, 994100, 994101, 994102, 994103 } },   // A Lantern in Feralas: Biletoad
+        { 9105254, 6, 2, { 606, 0, 0, 0, 0, 0, 0, 0 } },   // Nubbin: Trogg
+        { 9105259, 38, 7, { 6299, 4877, 10831, 20293, 10832, 6212, 0, 0 } },   // A Lantern in the Hinterlands: Owl
+        { 9105265, 33, 4, { 994133, 994132, 994134, 0, 0, 0, 0, 0 } },   // Prickles: Borer
+        { 9105269, 28, 8, { 994066, 994067, 994074, 994068, 994069, 994071, 994072, 994070 } },   // A Lantern in Un'Goro Crater: Baby Komodo
+        { 9105279, 38, 7, { 6299, 4877, 10831, 20293, 10832, 6212, 0, 0 } },   // A Lantern in Winterspring: Owl
+        { 9105289, 35, 8, { 994147, 994141, 994142, 994146, 994148, 994140, 994145, 994143 } },   // A Lantern in the Burning Steppes: Whelp
+        { 9105299, 13, 2, { 20025, 0, 0, 0, 0, 0, 0, 0 } },   // A Lantern in Terokkar Forest: Warp Stalker
+        { 9105309, 8, 8, { 994001, 994002, 994003, 994004, 994005, 994006, 994007, 17574 } },   // A Lantern in Terokkar Forest: Moth
+        { 9105319, 41, 2, { 994176, 0, 0, 0, 0, 0, 0, 0 } },   // A Lantern in Terokkar Forest: Voidling
+        { 9105329, 27, 7, { 994060, 994061, 994062, 994063, 994064, 994065, 0, 0 } },   // A Lantern in Nagrand: Baby Eagle
+        { 9105339, 41, 2, { 994176, 0, 0, 0, 0, 0, 0, 0 } },   // A Lantern in Netherstorm: Voidling
+        { 9105348, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // A Lantern in the Howling Fjord: Wolf
+        { 9105349, 31, 6, { 994126, 994127, 994128, 994129, 994130, 0, 0, 0 } },   // A Lantern in the Borean Tundra: Snapjaw
+        { 9105359, 46, 1, { 0, 0, 0, 0, 0, 0, 0, 0 } },   // A Lantern in the Grizzly Hills: Bear Cub
+        { 9105369, 35, 8, { 994147, 994141, 994142, 994146, 994148, 994140, 994145, 994143 } },   // A Lantern in Sholazar Basin: Whelp
+        { 9105379, 27, 7, { 994060, 994061, 994062, 994063, 994064, 994065, 0, 0 } },   // A Lantern in the Storm Peaks: Baby Eagle
+        { 9105389, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // A Lantern in the Storm Peaks: Wolf
+        { 9105392, 46, 1, { 0, 0, 0, 0, 0, 0, 0, 0 } },   // Snowdrift: Bear Cub
+        { 9109010, 35, 8, { 994152, 994147, 994141, 994142, 994146, 994148, 994140, 994145 } },   // WANTED: a Ravasaur Chick's Egg: Whelp, Proto-Whelp Yellow
+        { 9109011, 35, 8, { 994139, 994147, 994141, 994142, 994146, 994148, 994140, 994145 } },   // Keep It Warm: Whelp, Red Whelp
+        { 9109013, 38, 7, { 6299, 4877, 10831, 20293, 10832, 6212, 0, 0 } },   // WANTED: a Gryphon Chick's Egg: Owl, Hawk Owl
+        { 9109014, 38, 7, { 4877, 6299, 10831, 20293, 10832, 6212, 0, 0 } },   // Keep It Warm: Owl, Ironbeak Owl
+        { 9109016, 35, 8, { 994146, 994147, 994141, 994142, 994148, 994140, 994145, 994143 } },   // WANTED: a Roc Chick's Egg: Whelp, Chromatic Whelp
+        { 9109017, 35, 8, { 994147, 994141, 994142, 994146, 994148, 994140, 994145, 994143 } },   // Keep It Warm: Whelp, Armored Whelp
+        { 9109030, 6, 2, { 606, 0, 0, 0, 0, 0, 0, 0 } },   // WANTED: Bones That Remember: Trogg, Rockjaw
+        { 9109031, 5, 4, { 31048, 31049, 447, 0, 0, 0, 0, 0 } },   // WANTED: Wren's Buttons: Wolf, Timber
+        { 9109032, 5, 4, { 447, 31049, 31048, 0, 0, 0, 0, 0 } },   // WANTED: The Lost Explorer: Wolf, Scavenger
+        { 9109090, 38, 7, { 10832, 6299, 4877, 10831, 20293, 6212, 0, 0 } },   // WANTED: Six Postcards: Owl, Strigid Owl
+        { 9109100, 32, 2, { 994131, 0, 0, 0, 0, 0, 0, 0 } },   // WANTED: Four Lighthouses: Spikeshell, Dragon Turtle
+        { 9109140, 21, 2, { 8808, 0, 0, 0, 0, 0, 0, 0 } },   // WANTED: The First Page: Vampiric Duskbat, Vampiric
+        { 9109141, 35, 8, { 994149, 994147, 994141, 994142, 994146, 994148, 994140, 994145 } },   // The Second Page: Whelp, Nightmare Whelp
+        { 9109142, 35, 8, { 994145, 994147, 994141, 994142, 994146, 994148, 994140, 994143 } },   // The Third Page: Whelp, Ley Whelp
+        { 9109143, 13, 2, { 20025, 0, 0, 0, 0, 0, 0, 0 } },   // The Fourth Page: Warp Stalker, Warp Stalker
+        { 9109144, 38, 7, { 10831, 6299, 4877, 20293, 10832, 6212, 0, 0 } },   // The Fifth Page: Owl, Shadowwing Owl
+        { 9109145, 35, 8, { 994142, 994147, 994141, 994146, 994148, 994140, 994145, 994143 } },   // The Sixth Page: Whelp, Bronze Whelp
+        { 9109160, 38, 7, { 20293, 6299, 4877, 10831, 10832, 6212, 0, 0 } },   // WANTED: The Knight Without a Horse: Owl, Skethyl Owl
+        { 9109190, 7, 8, { 15506, 15507, 994036, 994037, 994191, 994192, 994193, 994194 } },   // WANTED: A Walk for a Sapling: Saber, Lynx
+        { 9109210, 10, 8, { 1220, 994180, 994181, 994182, 994183, 994184, 994185, 1219 } },   // WANTED: The Giant Egg: Plainstrider, Tallstrider
+        { 9109220, 41, 2, { 994176, 0, 0, 0, 0, 0, 0, 0 } },   // WANTED: Lesson One, Sweeping: Voidling, Voidling
+        { 9109221, 35, 8, { 994141, 994147, 994142, 994146, 994148, 994140, 994145, 994143 } },   // Lesson Two, Hovering: Whelp, Blue Whelp
+        { 9109230, 9, 3, { 8869, 503, 0, 0, 0, 0, 0, 0 } },   // WANTED: Spring Petals: Boar, Thistle
+        { 9109231, 35, 8, { 994140, 994147, 994141, 994142, 994146, 994148, 994145, 994143 } },   // Summer Petals: Whelp, Green Whelp
+        { 9109232, 7, 8, { 15507, 15506, 994036, 994037, 994191, 994192, 994193, 994194 } },   // Autumn Petals: Saber, Springpaw
+        { 9109233, 5, 4, { 31049, 447, 31048, 0, 0, 0, 0, 0 } },   // Winter Petals: Wolf, Grey
     };
 
     // A letter after a quest: server mail from Wren, Delay seconds later.

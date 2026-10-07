@@ -640,6 +640,27 @@ public:
     }
 
     // A letter after a quest (the chick writes, Bramble sends a crash note): server mail from Wren, after a while.
+    // The first of the rule's colourings the Devourer lacks (a new shape counts with any of them).
+    static void GiveForm(Player* player, FormRule const& rule)
+    {
+        Shape const* shape = sDevourer.FindShape(rule.Shape);
+        if (!shape)
+            return;
+        State& state = sDevourer.Get(player);
+        auto owned = state.Shapes.find(rule.Shape);
+        for (uint8 i = 0; i < rule.Count && i < 8; ++i)
+        {
+            uint32 const display = rule.Displays[i];
+            bool const have = owned != state.Shapes.end() &&
+                (!display || display == shape->Display || owned->second.Skins.count(display));
+            if (have)
+                continue;
+            sDevourer.Unlock(player, rule.Shape, display, false, false);
+            return;
+        }
+        ChatHandler(player->GetSession()).PSendSysMessage("You already wear every colouring of the {} shape.", shape->Name);
+    }
+
     void OnPlayerCompleteQuest(Player* player, Quest const* quest) override
     {
         if (!quest || !sDevourer.IsDevourer(player))
@@ -647,7 +668,7 @@ public:
         // Zack 2026-10-06: every quest gives the Devourer a mount or a form; the forms come here, at turn-in
         for (FormRule const& rule : FormRules)
             if (rule.Quest == quest->GetQuestId())
-                sDevourer.Unlock(player, rule.Shape, rule.Display, false, false);
+                GiveForm(player, rule);
         for (MailRule const& rule : MailRules)
         {
             if (rule.Quest != quest->GetQuestId())
